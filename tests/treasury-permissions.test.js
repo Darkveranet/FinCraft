@@ -43,7 +43,6 @@ export async function runTests({ assert: a = assert } = {}) {
   // each of the mapped routes should be a real page. (Skips silently if the
   // router can't be imported without a DOM — module-integrity covers that path.)
   try {
-    // router.js pulls in the DOM-heavy page graph; only assert if it loads.
     const mod = await import('../js/router.js').catch(() => null);
     if (mod && mod.PAGE_REGISTRY) {
       const known = new Set(Object.keys(mod.PAGE_REGISTRY));

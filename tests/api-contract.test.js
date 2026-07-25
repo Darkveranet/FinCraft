@@ -37,8 +37,6 @@ import assert from 'assert';
 
 const VERBS = new Set(['GET', 'POST', 'PUT', 'DELETE']);
 
-// Methods whose accessor (_g/_p/_u/_d) maps 1:1 to an HTTP verb, plus the
-// verb-carrying helpers. Used only to sanity-check recorded verbs.
 export async function runTests({ assert: a = assert } = {}) {
   const { FineractAPI } = await import('../js/api/core.js');
   const { FineractAPIFull, api, configureAPI } = await import('../js/api/index.js');

@@ -35,8 +35,14 @@ export async function runTests({ assert: a = assert } = {}) {
 
   const { store } = await import('../js/store.js');
 
-  // restore() at import should have applied the (default) theme to the DOM.
-  a.strictEqual(themeSink['data-theme'], 'dark', 'restore() must set data-theme from default state');
+  // restore() applies the current theme to the DOM. We call it explicitly here
+  // rather than relying on the import-time side effect: store.js is a singleton
+  // and may already have been imported (and restored) by an earlier DOM suite,
+  // so the cached module won't re-run restore() on this import.
+  store.set('theme', 'dark');
+  themeSink['data-theme'] = undefined;   // clear the sink so we observe this restore()
+  store.restore();                        // empty localStorage → keeps 'dark', applies to our stub DOM
+  a.strictEqual(themeSink['data-theme'], 'dark', 'restore() must apply the current theme to the DOM');
 
   // --- get/set + subscribe ----------------------------------------------
   a.strictEqual(store.get('theme'), 'dark');
