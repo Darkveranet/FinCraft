@@ -1,6 +1,3 @@
-/* FinCraft · pages/notifications/shared.js — time-ago formatting and the notification-polling loop.
-   Auto-split from the original monolithic pages/notifications.js for maintainability. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { toast } from '../../ui.js';
@@ -66,15 +63,12 @@ export function startPolling(c) {
 
       const newestId = list[0].id;
       if (_lastSeenNotifId !== null && newestId > _lastSeenNotifId) {
-        // New notification(s) arrived
         const newOnes = list.filter(n => n.id > _lastSeenNotifId);
         newOnes.slice(0, 3).forEach(n => {
           toast('info', 'New notification', n.content || n.message || n.objectType || '');
         });
-        // Refresh current tab content if user is on Notifications
         const activeTab = c.querySelector('.tab-btn.active');
         if (activeTab?.dataset.tab === 'nt-0') loadNotifications(c);
-        // Update bell badge
         const dot = document.getElementById('notifBadgeDot');
         if (dot) dot.hidden = false;
       }

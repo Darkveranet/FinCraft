@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/actions/transactions.js — transaction, adjust, and statement export.
-   Auto-split from the original monolithic pages/deposits/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';

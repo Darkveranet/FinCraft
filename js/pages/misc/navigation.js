@@ -1,6 +1,3 @@
-/* FinCraft · pages/misc/navigation.js — the Navigation preferences view.
-   Auto-split from the original monolithic pages/misc.js for maintainability. */
-
 import { api } from '../../api.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -63,7 +60,6 @@ export async function navigation(c) {
       `;
     }).join('');
 
-    // Toggle office expand
     tree.querySelectorAll('[data-toggle-office]').forEach(header =>
       header.addEventListener('click', () => {
         const id = header.dataset.toggleOffice;
@@ -75,7 +71,6 @@ export async function navigation(c) {
       })
     );
 
-    // Click staff to view their clients
     tree.querySelectorAll('[data-view-staff]').forEach(row =>
       row.addEventListener('click', () => {
         const staffId = row.dataset.viewStaff;

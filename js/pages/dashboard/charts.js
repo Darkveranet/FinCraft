@@ -1,6 +1,3 @@
-/* FinCraft · pages/dashboard/charts.js — Chart.js loader and all renderXChart() functions
-   for the dashboard's chart bank. Split out of the former single dashboard.js (see
-   js/pages/dashboard.js barrel + FRONTEND.md). */
 import { fmtDate } from '../../utils.js';
 import { PALETTE, isoDay } from './shared.js';
 

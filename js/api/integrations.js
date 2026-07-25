@@ -1,17 +1,3 @@
-/* FinCraft · api/integrations.js — Notifications, webhooks, external services/events, and SMS campaigns.
-   Auto-split from the original monolithic api.js for maintainability. */
-
-// FIXLOG #2: NotificationApiResource (per fineract_api_raw.json, confirmed against the
-// original PR that introduced the class) exposes exactly two routes: GET /notifications
-// (list) and PUT /notifications (bulk mark-all-read via { isRead: true }). There is no
-// per-notification GET or PUT sub-path. `get(id)` and `markRead(id)` previously called
-// `/notifications/${id}`, which Fineract has no route for — markRead(id) was live-wired
-// from the notification feed's per-row "mark as read" button, so that button has never
-// actually worked. Removed both methods rather than leave dead calls to a route that
-// doesn't exist; the feed's per-row button was removed to match (see feed.js) since
-// Fineract genuinely has no supported way to mark a single notification read — only
-// list + mark-all-read. Flagging this as a real capability gap, not a coding bug: if
-// per-notification read state is wanted, it would need a Fineract-side change first.
 export function makeNotificationsAPI(self) {
   return {
     list:        (params) => self._g('/notifications', params),
@@ -40,14 +26,6 @@ export function makeExternalServicesAPI(self) {
   };
 }
 
-// FIXLOG #3: only `/v1/externalevents/configuration` (ExternalEventConfigurationApiResource)
-// is a real, tenant-facing route. `list(params)`/`get(id)` previously called GET
-// `/externalevents` and `/externalevents/{id}`, which don't exist as public routes —
-// the only other resource under this name is `/v1/internal/externalevents`
-// (InternalExternalEventsApiResource), which is an internal/system endpoint, not part
-// of the public tenant API this app talks to. Removed both dead methods; the "Recent
-// Events" list on the External Events settings page (which called `list()`) has been
-// removed to match — see js/pages/system/loaders/integrations.js.
 export function makeExternalEventsAPI(self) {
   return {
     configurations: ()       => self._g('/externalevents/configuration'),
@@ -70,8 +48,6 @@ export function makeSmsCampaignsAPI(self) {
   };
 }
 
-// SmsApiResource — individual SMS messages (distinct from SmsCampaignApiResource,
-// which manages the recurring/triggered campaigns that generate these messages).
 export function makeSmsAPI(self) {
   return {
     list:            (params) => self._g('/sms', params),
@@ -83,7 +59,6 @@ export function makeSmsAPI(self) {
   };
 }
 
-// EmailApiResource — individual email messages.
 export function makeEmailAPI(self) {
   return {
     list:          (params) => self._g('/email', params),
@@ -98,7 +73,6 @@ export function makeEmailAPI(self) {
   };
 }
 
-// EmailCampaignApiResource — recurring/triggered email campaigns.
 export function makeEmailCampaignsAPI(self) {
   return {
     list:            ()          => self._g('/email/campaign'),
@@ -108,8 +82,6 @@ export function makeEmailCampaignsAPI(self) {
     create:          (body)      => self._p('/email/campaign', body),
     update:          (id, body)  => self._u(`/email/campaign/${id}`, body),
     delete:          (id)        => self._d(`/email/campaign/${id}`),
-    // "Activate, close, or reactivate" is a single dispatch endpoint per the doc —
-    // caller supplies { command: 'activate' | 'close' | 'reactivate' } via body/params.
     operate:         (id, command, body) => self._p(`/email/campaign/${id}?command=${command}`, body || {}),
     activate:        (id) => self._p(`/email/campaign/${id}?command=activate`, {}),
     close:           (id) => self._p(`/email/campaign/${id}?command=close`, {}),
@@ -118,8 +90,6 @@ export function makeEmailCampaignsAPI(self) {
   };
 }
 
-// EmailConfigurationApiResource — SMTP-style email server config, distinct from
-// the generic /externalservice/SMTP config already exposed via ExternalServicesAPI.
 export function makeEmailConfigurationAPI(self) {
   return {
     list:   () => self._g('/email/configuration'),

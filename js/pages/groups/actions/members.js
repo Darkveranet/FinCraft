@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/actions/members.js — add/transfer member modals.
-   Auto-split from the original monolithic pages/groups/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, ini } from '../../../utils.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/actions/offices-staff.js — office/staff/cashier modals.
-   Auto-split from the original monolithic pages/organization/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/finance.js — currencies, payment types, and funds tab loaders.
-   Auto-split (2nd pass) from pages/organization/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml } from '../../../utils.js';

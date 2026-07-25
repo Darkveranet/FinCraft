@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/loaders/rules.js — accounting rules and opening balances tab loaders.
-   Auto-split from the original monolithic pages/accounting/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { today } from '../../../config.js';
 import { confirm as modalConfirm, toast } from '../../../ui.js';

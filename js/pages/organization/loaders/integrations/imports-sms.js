@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/integrations/imports-sms.js — bulk imports and SMS campaigns tab loaders.
-   Auto-split from the original monolithic pages/organization/loaders/integrations.js for maintainability. */
-
 import { api } from '../../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../../config.js';
 import { confirm as modalConfirm, toast } from '../../../../ui.js';
@@ -13,12 +10,8 @@ import { extractFineractError } from '../../../../ui/dom-helpers.js';
 export async function loadBulkImports(c) {
   const el = c.querySelector('#og-13');
   try {
-    // See js/bulk-import-entities.js for why these specific entity/path values are used
-    // (nested resource paths, glaccounts vs "chartofaccounts", shareaccounts omission, etc.)
-    // — this used to be a second, independently-drifting copy of that same list.
     const entityTypes = BULK_IMPORT_ENTITIES;
 
-    // Fetch import history (may not exist on all Fineract versions)
     let history = [];
     try {
       const r = await api.bulkImports.list({ limit: 50 });
@@ -69,11 +62,6 @@ export async function loadBulkImports(c) {
             <th></th>
           </tr></thead>
           <tbody>${history.map(h => {
-            // FINERACT-2121 (see js/api/misc.js for the full citation) confirms downloadOutputTemplate
-            // DOES take a per-import id (`importDocumentId`), used to fetch that job's processed/annotated
-            // workbook — this is the actual "export" half of bulk import/export. `id` is the standard
-            // Fineract primary-key field name; importDocumentId/documentId are kept as defensive fallbacks
-            // in case this particular resource's JSON serializes it under a different key.
             const importId = h.id ?? h.importDocumentId ?? h.documentId;
             return `
             <tr>
@@ -92,7 +80,6 @@ export async function loadBulkImports(c) {
           }).join('')}</tbody>
         </table>` : '<div class="empty-state-row">No imports in history yet. Upload a template above to start.</div>'}`;
 
-    // Populate office filter
     api.offices.list().then(offices => {
       const sel = el.querySelector('#imp-office');
       (Array.isArray(offices) ? offices : []).forEach(o => {
@@ -102,21 +89,15 @@ export async function loadBulkImports(c) {
       });
     }).catch(() => {});
 
-    // Download template
     el.querySelector('#btn-imp-download')?.addEventListener('click', async () => {
       const entity = el.querySelector('#imp-entity').value;
       const officeId = el.querySelector('#imp-office').value;
       if (!entity) { toast('warn', 'Select an entity first', ''); return; }
       try {
-        // api.bulkImports.template() now returns the raw fetch Response (see js/api/misc.js) —
-        // this endpoint streams a binary .xlsx, so it must go through res.blob(), never res.json()/text().
-        // officeId was previously collected in the UI (#imp-office) but never actually forwarded here.
         const res = await api.bulkImports.template(entity, officeId ? { officeId } : undefined);
         const blob = await res.blob();
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        // entity may contain '/' for nested resources (e.g. 'loans/repayments') — replace before
-        // using it as a filename so the browser doesn't treat it as a path separator.
         a.download = `${entity.replace(/\//g, '-')}_import_template.xlsx`;
         a.click();
         URL.revokeObjectURL(a.href);
@@ -124,7 +105,6 @@ export async function loadBulkImports(c) {
       } catch (e) { toast('error', 'Template download failed', extractFineractError(e)); }
     });
 
-    // Download per-import output/error report (see the FINERACT-2121 note above the table markup)
     el.querySelectorAll('[data-dl-import-report]').forEach(btn => btn.addEventListener('click', async () => {
       const importId = btn.dataset.dlImportReport;
       btn.disabled = true;
@@ -142,7 +122,6 @@ export async function loadBulkImports(c) {
       } finally { btn.disabled = false; }
     }));
 
-    // Upload filled template
     el.querySelector('#btn-imp-upload')?.addEventListener('click', () => {
       const entity = el.querySelector('#imp-entity').value;
       if (!entity) { toast('warn', 'Select an entity first', ''); return; }
@@ -165,7 +144,6 @@ export async function loadBulkImports(c) {
         toast('info', 'Uploading…', file.name);
         await api.bulkImports.upload(entity, fd);
         toast('success', 'Import queued', `${entity} · ${file.name}`);
-        // Refresh history after a short delay so the server has time to register the import
         setTimeout(() => loadBulkImports(c), 2000);
       } catch (e) { toast('error', 'Upload failed', extractFineractError(e)); }
       finally { ev.target.value = ''; }

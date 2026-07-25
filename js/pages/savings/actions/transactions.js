@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/actions/transactions.js — deposit/withdraw/hold/adjust transaction modals.
-   Auto-split from the original monolithic pages/savings/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';

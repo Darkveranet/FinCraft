@@ -1,15 +1,9 @@
-/* FinCraft · pages/clients/detail/identity.js — identifiers, family members, addresses, and photo tab loaders.
-   Auto-split from the original monolithic pages/clients/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, fmtDate, sb } from '../../../utils.js';
 import { can } from '../shared.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
-/* Surfaces the first family member on file as "Next of Kin" for the Overview tab.
-   Fineract doesn't have a dedicated next-of-kin concept — family members are the closest
-   real, storable analogue, so we show the first entry rather than inventing a new field. */
 export async function loadClientNextOfKin(c, id) {
   const wrap = c.querySelector('#cl-next-of-kin'); if (!wrap) return;
   try {
@@ -152,5 +146,5 @@ export async function loadClientPhoto(c, id) {
     if (!res.ok) throw new Error('No photo');
     const blob = await res.blob();
     wrap.innerHTML = `<img src="${URL.createObjectURL(blob)}" alt="Client photo" class="client-photo"/>`;
-  } catch { /* leave placeholder */ }
+  } catch { }
 }

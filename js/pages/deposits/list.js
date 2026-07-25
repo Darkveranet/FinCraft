@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/list.js — the list/table view for this entity.
-   Auto-split from the original monolithic pages/deposits.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { api } from '../../api.js';
 import { escapeHtml, fmt, fmtDate, num, sb } from '../../utils.js';
@@ -78,7 +75,6 @@ export async function renderList(c) {
       </div>
     </div>`;
 
-  // Tab switching
   c.querySelectorAll('[data-deptype]').forEach(tab => tab.addEventListener('click', () => {
     c.querySelectorAll('[data-deptype]').forEach(t => t.classList.toggle('active', t === tab));
     c.querySelectorAll('[data-deppanel]').forEach(p => p.hidden = p.dataset.deppanel !== tab.dataset.deptype);

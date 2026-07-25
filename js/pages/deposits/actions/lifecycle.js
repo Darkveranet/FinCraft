@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/actions/lifecycle.js — edit, premature close, and other command modals.
-   Auto-split from the original monolithic pages/deposits/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -28,7 +25,6 @@ export function openDepositSimpleCmd({ apiObj, id, command, label, dateField, da
   el.querySelector('#dcmd-save').addEventListener('click', async () => {
     const date = el.querySelector('#dcmd-date').value;
     if (!date) { toast('warn', 'Select a date', ''); return; }
-    // Build payload without computed key syntax (defensive)
     const payload = {};
     payload[dateField] = date;
     payload.dateFormat = DATE_FORMAT;
@@ -36,7 +32,6 @@ export function openDepositSimpleCmd({ apiObj, id, command, label, dateField, da
     const note = el.querySelector('#dcmd-note').value.trim();
     if (note) payload.note = note;
     try {
-      // Map our command name to the apiObj method
       const methodMap = {
         approve: 'approve', activate: 'activate', reject: 'reject',
         withdrawApplication: 'withdrawApplication', close: 'close'

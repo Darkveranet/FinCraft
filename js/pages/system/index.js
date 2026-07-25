@@ -1,9 +1,3 @@
-/* FinCraft · pages/system/index.js — render() entry point.
-   Converted from a 15-tab bar (which overflowed on any reasonable screen width)
-   to a card-grid hub — see js/ui/section-hub.js for the rationale.
-   panelId values (sy-0..sy-14) match the IDs each loader function already expects
-   via c.querySelector('#sy-N') — kept as-is so none of the loaders needed changes. */
-
 import { loadAccountNumberPrefs, loadAuditTrails, loadCOB, loadCodes, loadConfigurations, loadEntityMappings, loadExternalEvents, loadExternalServices, loadHooks, loadJobs, loadMakerCheckerConfig, loadMigrationLinks, loadRoles, loadSurveys, loadSystemInfo, loadTenantOidc } from './loaders.js';
 import { renderSectionHub } from '../../ui/section-hub.js';
 

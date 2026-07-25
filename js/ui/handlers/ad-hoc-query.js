@@ -1,6 +1,3 @@
-/* FinCraft · ui/handlers/ad-hoc-query.js — AD-HOC QUERY form-submit handlers.
-   Auto-split from ui.js's monolithic handleAction() switch for maintainability. */
-
 import { api } from '../../api.js';
 import { toast } from '../core.js';
 import { extractFineractError, setSubmitting } from '../dom-helpers.js';

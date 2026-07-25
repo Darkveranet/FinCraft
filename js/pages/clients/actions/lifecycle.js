@@ -1,6 +1,3 @@
-/* FinCraft · pages/clients/actions/lifecycle.js — edit, close, reject, transfer, and assign-staff modals.
-   Auto-split from the original monolithic pages/clients/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm, toast } from '../../../ui.js';
@@ -60,7 +57,6 @@ export async function openEditClientModal(cl, onSuccess) {
 export async function openCloseClientModal(id) {
   let reasons = [];
   try {
-    // Fineract uses ClientClosureReason CodeValues
     const tpl = await api.clients.template();
     reasons = tpl?.clientClosureReasons || tpl?.closureReasons || [];
   } catch {}
@@ -152,12 +148,6 @@ export async function openRejectClientModal(id) {
   });
 }
 
-// AUDIT FIX (Clients F2): the withdraw command requires a mandatory withdrawalReasonId
-// (spec: "Mandatory Fields: withdrawalDate, withdrawalReasonId"). The old inline handler
-// sent only withdrawalDate, so Fineract rejected it with a 400. This modal mirrors
-// openRejectClientModal and collects the reason. NOTE: Fineract's generated template
-// schema does not expose the reason list, so we fall back across the plausible code keys
-// (verify the exact key against your target server if the dropdown is ever empty).
 export async function openWithdrawClientModal(id) {
   let reasons = [];
   try {

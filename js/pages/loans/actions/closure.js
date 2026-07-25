@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/actions/closure.js — charge-off, foreclose, close, and other terminal-status modals.
-   Auto-split (2nd pass) from pages/loans/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';
@@ -52,18 +49,11 @@ export function openSimpleLoanCmdModal({ id, command, label, dateField = 'transa
     const note = el.querySelector('#cmd-note').value.trim();
     if (note) payload.note = note;
     try {
-      // AUDIT FIX (Loans LU-1, UI-contract sweep): map UI command tokens to their corrected
-      // API-layer methods so the terminal-status buttons do NOT bypass the audited routing/
-      // token via the generic escape hatch. Previously chargeOff/foreclosure/close fell
-      // through to api.loans.command() -> POST /loans/{id}?command=..., re-introducing the
-      // L-01/L-04/L-05 bugs (wrong resource + 'chargeOff' token) at the UI layer and silently
-      // undoing the API-method fixes. Now they route through the fixed methods, which target
-      // /loans/{id}/transactions with the correct tokens (charge-off, foreclosure, close).
       const apiMethodMap = {
         recoverypayment: 'recoverPayment',
-        chargeOff:       'chargeOff',   // -> /loans/{id}/transactions?command=charge-off
-        foreclosure:     'foreclose',   // -> /loans/{id}/transactions?command=foreclosure
-        close:           'close',       // -> /loans/{id}/transactions?command=close
+        chargeOff:       'chargeOff',
+        foreclosure:     'foreclose',
+        close:           'close',
       };
       const methodName = apiMethodMap[command];
       if (methodName && typeof api.loans[methodName] === 'function') {

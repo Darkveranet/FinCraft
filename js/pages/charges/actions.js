@@ -1,6 +1,3 @@
-/* FinCraft · pages/charges/actions.js — the charge create/edit modal.
-   Auto-split from the original monolithic pages/charges.js for maintainability. */
-
 import { api } from '../../api.js';
 import { LOCALE } from '../../config.js';
 import { toast } from '../../ui.js';
@@ -9,7 +6,6 @@ import { APPLIES_TO_OPTIONS } from './shared.js';
 
 import { extractFineractError } from '../../ui/dom-helpers.js';
 export async function openChargeFormModal(existing, onSuccess) {
-  // Fetch template for dropdowns
   let tpl = {};
   try { tpl = await api.charges.template(); } catch {}
 
@@ -117,7 +113,6 @@ export async function openChargeFormModal(existing, onSuccess) {
     payload.penalty = el.querySelector('#cf-penalty').checked;
     payload.active  = el.querySelector('#cf-active').checked;
 
-    // Validation
     if (!payload.name) { toast('warn', 'Enter a name', ''); return; }
     if (!isEdit && !payload.chargeAppliesTo) { toast('warn', 'Select Applies-To', ''); return; }
     if (!payload.currencyCode) { toast('warn', 'Select a currency', ''); return; }

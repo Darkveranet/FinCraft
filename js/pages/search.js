@@ -1,7 +1,4 @@
 import { LOCALE } from '../config.js';
-/* FinCraft · search.js — Global search results page
-   Enhanced: shared recent searches with palette, deep-link bookmarkable URL,
-   tabbed by resource type, copy-to-link */
 
 import { api } from '../api.js';
 import { store } from '../store.js';
@@ -22,9 +19,6 @@ const RESOURCES = [
 const RECENT_KEY = 'fincraft.recentSearches';
 const MAX_RECENT = 10;
 
-// ════════════════════════════════════════════════════════════
-// MAIN RENDER
-// ════════════════════════════════════════════════════════════
 export async function render(c, params = {}) {
   const initialQuery = params.q || params.query || '';
   const initialResource = params.resource || '';
@@ -84,13 +78,11 @@ export async function render(c, params = {}) {
 
   if (initialQuery.length >= 2) runSearch(initialQuery, initialResource);
 
-  // Search button
   c.querySelector('#srch-go').addEventListener('click', () => {
     const q = inputEl.value.trim();
     runSearch(q, resourceEl.value);
   });
 
-  // Enter key
   inputEl.addEventListener('keypress', e => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -98,7 +90,6 @@ export async function render(c, params = {}) {
     }
   });
 
-  // Live search on type (debounced)
   let debounceTimer;
   inputEl.addEventListener('input', () => {
     clearTimeout(debounceTimer);
@@ -110,13 +101,11 @@ export async function render(c, params = {}) {
     debounceTimer = setTimeout(() => runSearch(q, resourceEl.value), 350);
   });
 
-  // Resource filter change
   resourceEl.addEventListener('change', () => {
     const q = inputEl.value.trim();
     if (q.length >= 2) runSearch(q, resourceEl.value);
   });
 
-  // Copy link
   c.querySelector('#srch-copy').addEventListener('click', () => {
     const url = window.location.href;
     if (navigator.clipboard) {
@@ -128,9 +117,6 @@ export async function render(c, params = {}) {
     }
   });
 
-  // ────────────────────────────────────────────────────────
-  // RUN SEARCH
-  // ────────────────────────────────────────────────────────
   async function runSearch(query, resource) {
     if (!query || query.length < 2) {
       resultsEl.innerHTML = '<div class="empty-state"><i class="fa-solid fa-magnifying-glass empty-state-icon"></i><h3>Type at least 2 characters</h3></div>';
@@ -138,7 +124,6 @@ export async function render(c, params = {}) {
     }
     resultsEl.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-notch fa-spin empty-state-icon"></i><h3>Searching…</h3></div>';
 
-    // Update URL so page is bookmarkable
     const urlParams = new URLSearchParams();
     urlParams.set('q', query);
     if (resource) urlParams.set('resource', resource);
@@ -162,9 +147,6 @@ export async function render(c, params = {}) {
   }
 }
 
-// ════════════════════════════════════════════════════════════
-// RESULTS RENDERER
-// ════════════════════════════════════════════════════════════
 function drawResults(el, items, query) {
   if (!items.length) {
     el.innerHTML = `
@@ -176,7 +158,6 @@ function drawResults(el, items, query) {
     return;
   }
 
-  // Group by entity type
   const grouped = {};
   items.forEach(item => {
     const type = (item.entityType || 'Other').toUpperCase();
@@ -232,7 +213,6 @@ function drawResults(el, items, query) {
     `).join('')}
   `;
 
-  // Wire row clicks
   el.querySelectorAll('[data-go-route]').forEach(row =>
     row.addEventListener('click', () => {
       const route = row.dataset.goRoute;
@@ -263,9 +243,6 @@ function getResourceRoute(type, id) {
   return '#/';
 }
 
-// ════════════════════════════════════════════════════════════
-// RECENT SEARCHES (shared with palette via localStorage)
-// ════════════════════════════════════════════════════════════
 function saveRecentSearch(query, resource) {
   try {
     const recent = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');

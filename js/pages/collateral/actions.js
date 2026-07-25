@@ -1,6 +1,3 @@
-/* FinCraft · pages/collateral/actions.js — the collateral type create/edit modal.
-   Auto-split from the original monolithic pages/collateral.js for maintainability. */
-
 import { api } from '../../api.js';
 import { LOCALE } from '../../config.js';
 import { toast } from '../../ui.js';

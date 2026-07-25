@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/detail/transactions.js — transactions, charges, and disbursement tab loaders.
-   Auto-split (2nd pass) from pages/loans/detail.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
@@ -83,7 +80,6 @@ export async function loadLoanTransactions(c, loanId) {
           }).join('')}</tbody>
         </table>`;
 
-      // Per-row handlers
       tableWrap.querySelectorAll('[data-reverse-tx]').forEach(b => b.addEventListener('click', async () => {
         if (!await confirm({
           title: `Reverse transaction #${b.dataset.reverseTx}?`,
@@ -209,9 +205,6 @@ export async function loadLoanDisbursements(c, loanId) {
 
   const listEl = wrap.querySelector('#ln-disb-list');
   try {
-    // LoanDisbursementDetailApiResource has no GET on the bare /loans/{id}/disbursements collection path per
-    // Fineract source (only per-id GET/PUT and the editDisbursements PUT exist) — go straight to the real source
-    // of this data: disbursementDetails embedded in the loan account via the associations query param.
     const l = await api.loans.get(loanId, 'disbursementDetails');
     const list = l.disbursementDetails || [];
     listEl.innerHTML = list.length ? `

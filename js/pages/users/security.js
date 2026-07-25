@@ -1,6 +1,3 @@
-/* FinCraft · pages/users/security.js — password policy and two-factor auth config tab loaders.
-   Auto-split from the original monolithic pages/users.js for maintainability. */
-
 import { api } from '../../api.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -10,11 +7,6 @@ import { extractFineractError } from '../../ui/dom-helpers.js';
 export async function loadPasswordPolicy(c) {
   const el = c.querySelector('#usr-2');
   try {
-    // GET /passwordpreferences/template returns an array of every policy, each with its own
-    // `active` flag already on it — confirmed against Apache_Fineract_API_Documentation.html's
-    // worked example. GET /passwordpreferences (no /template) returns a single flat object for
-    // the currently-active policy only and has no `policies`/`activePasswordValidationPolicy`
-    // field, which is why this always rendered "No password policies available" before.
     const allPolicies = await api.password.preferencesTemplate();
     const activeId = allPolicies.find(p => p.active)?.id;
 
@@ -64,7 +56,6 @@ export async function loadTwoFactorConfig(c) {
   const el = c.querySelector('#usr-3');
   try {
     const config = await api.twoFactor.config.get();
-    // Fineract returns an array of config entries [{name, value}] or an object
     const entries = Array.isArray(config) ? config : Object.entries(config || {}).map(([name, value]) => ({ name, value }));
 
     el.innerHTML = `
@@ -121,7 +112,6 @@ export async function loadTwoFactorConfig(c) {
       const payload = {};
       el.querySelectorAll('[data-name]').forEach(input => {
         let val = input.value.trim();
-        // Coerce booleans and numbers back
         if (val === 'true') val = true;
         else if (val === 'false') val = false;
         else if (!isNaN(parseFloat(val)) && isFinite(val) && val !== '') val = parseFloat(val);

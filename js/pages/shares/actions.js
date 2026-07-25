@@ -1,6 +1,3 @@
-/* FinCraft · pages/shares/actions.js — modal openers for share account actions.
-   Auto-split from the original monolithic pages/shares.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { toast } from '../../ui.js';
@@ -176,10 +173,6 @@ export function openCloseShareModal(id) {
   });
 }
 
-// openApplyShareChargeModal / openPayShareChargeModal removed — Fineract has
-// no /accounts/share/{id}/charges sub-resource, so these always 404'd. Share
-// charges can only be set via the account create/update payload.
-
 export function openShareSimpleCmd({ id, command, label, dateField }) {
   const mid = 'sh-cmd-' + Date.now();
   const isApprove = command === 'approve';
@@ -203,7 +196,6 @@ export function openShareSimpleCmd({ id, command, label, dateField }) {
   el.querySelector('#shc-save').addEventListener('click', async () => {
     const date = el.querySelector('#shc-date').value;
     if (!date) { toast('warn', 'Select a date', ''); return; }
-    // Build payload without computed key syntax (defensive)
     const payload = {};
     payload[dateField] = date;
     payload.dateFormat = DATE_FORMAT;

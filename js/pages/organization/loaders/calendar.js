@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/calendar.js — holidays and working days tab loaders.
-   Auto-split (2nd pass) from pages/organization/loaders.js for maintainability. */
-
 import { LOCALE } from '../../../config.js';
 import { api } from '../../../api.js';
 import { can } from '../shared.js';

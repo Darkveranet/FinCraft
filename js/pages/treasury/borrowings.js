@@ -1,15 +1,3 @@
-/* FinCraft · pages/treasury/borrowings.js — the Borrowings view.
-   Fourth WRITE screen in Phase 11 — a create form plus a per-borrowing action list, wrapping
-   Phase 8's js/treasury/borrowings.js (orchestration) and borrowing-schedule.js (schedule math).
-   Each borrowing's row shows its status/outstanding, exposes the one action valid for that status
-   (PENDING -> Drawdown; ACTIVE -> expandable schedule with per-installment Accrue / Pay Interest /
-   Repay Principal; CLOSED -> read-only), and reuses the same expandable-detail-row drill-down
-   pattern as teller-console.js/expenses.js rather than introducing a modal.
-
-   Accounting legs are all posted inside the Phase 8 service (Dr/Cr per the integration brief) —
-   this screen only collects inputs and reports success/failure, keeping the exact same
-   TreasuryReconciliationGapError "action required" treatment as every other treasury write screen. */
-
 import { api } from '../../api.js';
 import { toast, confirm } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -94,10 +82,6 @@ async function toggleSchedule(c, officeId, borrowingId) {
   await renderScheduleInto(c, officeId, borrowingId);
 }
 
-/** Fetches this borrowing's schedule installments and (re)renders them into the already-open
- *  detail cell, wiring up each installment's accrue/pay/repay action. Kept separate from
- *  toggleSchedule so a post-action refresh can re-render the schedule in place, without the
- *  collapse-then-reopen flicker a double-toggle would cause. */
 async function renderScheduleInto(c, officeId, borrowingId) {
   const cell = detailCell(c, borrowingId);
   cell.innerHTML = '<div class="empty-state-row">Loading schedule…</div>';
@@ -149,9 +133,6 @@ async function renderScheduleInto(c, officeId, borrowingId) {
     try {
       const r = await repayBorrowingPrincipal(officeId, borrowingId, scheduleId, { transactionDate: today() });
       toast('success', 'Principal repaid', `Repaid ${fmtMoney(r.amountPaid)}. Outstanding: ${fmtMoney(r.outstandingPrincipal)} (Fineract transaction ${r.fineractTransactionId})`);
-      // A repayment changes the parent borrowing's outstanding/status (and can auto-close it once
-      // it hits zero), so refresh the whole list — this collapses the schedule back to the list
-      // view, showing the updated outstanding figure and any PENDING->ACTIVE->CLOSED transition.
       await reloadList(c, officeId);
     } catch (err) { reportActionError(err, 'Principal repayment failed'); btn.disabled = false; }
   }));

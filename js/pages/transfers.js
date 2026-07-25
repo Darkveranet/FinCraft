@@ -1,4 +1,3 @@
-/* FinCraft · transfers.js — Live API */
 import { api } from '../api.js';
 import { fmt, sb, escapeHtml, fmtDate } from '../utils.js';
 import { toast } from '../ui.js';
@@ -78,27 +77,12 @@ export async function render(c) {
   });
 }
 
-/* UI-CONTRACT FIX (UC-03): the old modal collected two free-text "account no" strings and posted
-   `fromAccountNumber`/`toAccountNumber` + `validTo`. NONE of those are fields Fineract's
-   StandingInstructionCreationRequest accepts — the real contract needs numeric account IDS plus
-   their office/client/type context:
-     name, amount, transferType, instructionType, priority, status,
-     fromOfficeId, fromClientId, fromAccountId, fromAccountType,
-     toOfficeId,  toClientId,  toAccountId,  toAccountType,
-     recurrenceType, recurrenceFrequency, recurrenceInterval, validFrom, validTill.
-   So the previous form could NEVER create a valid standing instruction — the server had no way to
-   resolve a bare account number to the (account, type, client, office) tuple it requires.
-   This rewrite is a proper cascading picker: Office → Client → Account for each side, mapping each
-   chosen account to its Fineract PortfolioAccountType (savings = 2, loan = 1) and carrying the
-   client/office ids. Dropdown option sets (transfer/recurrence/frequency types) come from
-   GET /standinginstructions/template. Subsumes UC-02 (validTo → validTill). */
 async function openStandingInstructionModal(onSuccess) {
   const { api } = await import('../api.js');
   const { toast } = await import('../ui.js');
   const { LOCALE, DATE_FORMAT } = await import('../config.js');
   const { escapeHtml } = await import('../utils.js');
 
-  // Fineract PortfolioAccountType ids.
   const ACCT_TYPE = { savings: 2, loan: 1 };
 
   const [tpl, officesRaw] = await Promise.all([
@@ -161,7 +145,6 @@ async function openStandingInstructionModal(onSuccess) {
   document.getElementById('modalRoot').appendChild(m);
   m.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => m.remove()));
 
-  // ---- Cascading loaders -------------------------------------------------------------------
   async function loadClients(officeId, clientSel, acctSel) {
     clientSel.disabled = true; acctSel.disabled = true;
     clientSel.innerHTML = '<option value="">Loading clients…</option>';
@@ -204,7 +187,6 @@ async function openStandingInstructionModal(onSuccess) {
   fromClient.addEventListener('change', e => e.target.value && loadAccounts(e.target.value, fromAcct));
   toClient.addEventListener('change',   e => e.target.value && loadAccounts(e.target.value, toAcct));
 
-  // ---- Save --------------------------------------------------------------------------------
   m.querySelector('#si-save').addEventListener('click', async () => {
     const name = m.querySelector('#si-name').value.trim();
     const amount = parseFloat(m.querySelector('#si-amount').value);
@@ -222,7 +204,6 @@ async function openStandingInstructionModal(onSuccess) {
     const payload = {
       name,
       amount,
-      // context ids Fineract needs to resolve each side
       fromOfficeId:  parseInt(fromOffice.value),
       fromClientId:  parseInt(fromClient.value),
       fromAccountId: parseInt(fromAcct.value),
@@ -232,14 +213,13 @@ async function openStandingInstructionModal(onSuccess) {
       toAccountId: parseInt(toAcct.value),
       toAccountType: parseInt(toAcctOpt?.dataset.acctType) || ACCT_TYPE.savings,
       transferType: parseInt(m.querySelector('#si-transfer-type').value) || 1,
-      instructionType: 1,   // 1 = Fixed amount (vs. dues); the amount above drives the transfer
-      priority: 3,          // 3 = Medium (sensible default; not exposed in this basic form)
-      status: 1,            // 1 = Active
+      instructionType: 1,
+      priority: 3,
+      status: 1,
       recurrenceType: parseInt(m.querySelector('#si-rec-type').value) || 1,
       recurrenceFrequency: parseInt(m.querySelector('#si-rec-freq').value),
       recurrenceInterval: parseInt(m.querySelector('#si-rec-interval').value) || 1,
       validFrom,
-      // UC-02: Fineract's field is `validTill`, NOT `validTo` (the old key was silently dropped).
       validTill: m.querySelector('#si-valid-till').value || undefined,
       locale: LOCALE,
       dateFormat: DATE_FORMAT,

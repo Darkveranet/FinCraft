@@ -1,6 +1,3 @@
-/* FinCraft · pages/tasks/checker-inbox.js — maker-checker inbox: row wiring, bulk approve/reject, task detail modal.
-   Auto-split from the original monolithic pages/tasks.js for maintainability. */
-
 import { api } from '../../api.js';
 import { today } from '../../config.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
@@ -15,7 +12,6 @@ export async function loadCheckerInbox(c) {
     const res = await api.makerchecker.list({ limit: 200 });
     const list = Array.isArray(res) ? res : (res?.pageItems || []);
 
-    // KPIs computation
     const actionGroups = {};
     const entityGroups = {};
     let todayCount = 0;
@@ -35,10 +31,6 @@ export async function loadCheckerInbox(c) {
     const topAction = Object.entries(actionGroups).sort((a, b) => b[1] - a[1])[0];
     const topEntity = Object.entries(entityGroups).sort((a, b) => b[1] - a[1])[0];
 
-    // No generic CHECKER_APPROVE/CHECKER_REJECT/CHECKER_DELETE permission exists in Fineract — real maker-checker
-    // approval is granted per originating action (e.g. approving a pending "create loan" task requires the specific
-    // CREATE_LOAN_CHECKER permission, not a blanket checker-approve code). CHECKER_SUPER_USER is the only real
-    // permission that bypasses all of them, so it's the only gate applied here (matches the router.js page gate).
     const canApprove = can('CHECKER_SUPER_USER');
     const canReject  = can('CHECKER_SUPER_USER');
     const canDelete  = can('CHECKER_SUPER_USER');
@@ -162,18 +154,13 @@ export async function loadCheckerInbox(c) {
 }
 
 function wireRowActions(c, el) {
-  // Row checkbox listeners
   el.querySelectorAll('.ck-row-chk').forEach(cb =>
     cb.addEventListener('change', () => updateSelectedCount(el))
   );
 
-  // Detail viewer
   el.querySelectorAll('[data-view-task]').forEach(b => b.addEventListener('click', async () => {
     const taskId = b.dataset.viewTask;
     try {
-      // UI-CONTRACT FIX (UC-07): MakerCheckerApiResource has NO per-id GET and its list endpoint
-      // has NO `makerCheckerId` filter (the param was silently ignored). Fetch a bounded page and
-      // locate the entry client-side — the only supported way to view a single maker-checker task.
       const res = await api.makerchecker.list({ limit: 200 });
       const list = Array.isArray(res) ? res : (res?.pageItems || []);
       const task = list.find(t => String(t.id) === String(taskId)) || list[0];
@@ -184,7 +171,6 @@ function wireRowActions(c, el) {
     }
   }));
 
-  // Individual approve
   el.querySelectorAll('[data-approve]').forEach(b => b.addEventListener('click', async () => {
     try {
       await api.makerchecker.approve(b.dataset.approve);
@@ -195,7 +181,6 @@ function wireRowActions(c, el) {
     }
   }));
 
-  // Individual reject
   el.querySelectorAll('[data-reject]').forEach(b => b.addEventListener('click', async () => {
     if (!await modalConfirm({
       title: 'Reject task?',
@@ -212,7 +197,6 @@ function wireRowActions(c, el) {
     }
   }));
 
-  // Individual cancel/delete
   el.querySelectorAll('[data-cancel]').forEach(b => b.addEventListener('click', async () => {
     if (!await modalConfirm({
       title: 'Cancel task?',
@@ -297,7 +281,6 @@ function openTaskDetailModal(task) {
   modalEl.setAttribute('role', 'dialog');
   modalEl.setAttribute('aria-modal', 'true');
 
-  // Pretty-print JSON of pending change
   let jsonPreview = '—';
   try {
     if (task.commandAsJson) {

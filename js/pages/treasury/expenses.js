@@ -1,15 +1,3 @@
-/* FinCraft · pages/treasury/expenses.js — the Expense Management view.
-   Third WRITE screen in Phase 11 — the first genuine multi-step lifecycle UI (request -> approve
-   /reject -> pay), wrapping Phase 7's js/treasury/expenses.js. Structurally closer to Daily
-   Reconciliation than to the single-form Cash Allocation/Loan Disbursement screens, so it pairs a
-   "New Request" form with a per-office expenses list whose action buttons change with each row's
-   status. Approve/Reject/Pay all use the same expandable-detail-row pattern as teller-console.js's
-   events drill-down rather than a modal, so no new UI plumbing is introduced.
-
-   PENDING  -> Approve (inline confirm) | Reject (inline reason)
-   APPROVED -> Pay (inline TELLER_CASH/BANK form)
-   PAID / REJECTED -> read-only. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { toast, confirm } from '../../ui.js';
@@ -26,10 +14,6 @@ import {
 function today() { return new Date().toISOString().slice(0, 10); }
 function currentUser() { return (store.get('auth') || {}).username || 'unknown'; }
 
-/** Surfaces a TreasuryReconciliationGapError with the distinct "action required" framing errors.js
- *  documents (real money already moved in Fineract), and everything else as an ordinary failure —
- *  same treatment as cash-allocation.js/loan-disbursement.js, so all three write screens behave
- *  identically when a partial failure happens. */
 function reportActionError(err, ordinaryTitle) {
   if (err instanceof TreasuryReconciliationGapError) {
     toast('error', 'Reconciliation gap — action required', err.message);
@@ -42,7 +26,7 @@ function expenseRowsHtml(expenses) {
   if (!expenses.length) return '<tr><td colspan="6" class="text-muted text-center">No expense requests recorded for this office yet</td></tr>';
   return expenses
     .slice()
-    .sort((a, b) => (b.id || 0) - (a.id || 0)) // newest first
+    .sort((a, b) => (b.id || 0) - (a.id || 0))
     .map(e => {
       const actions = [];
       if (e.status === EXPENSE_STATUS.PENDING) {

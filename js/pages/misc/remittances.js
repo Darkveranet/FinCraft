@@ -1,6 +1,3 @@
-/* FinCraft · pages/misc/remittances.js — the Remittances view.
-   Auto-split from the original monolithic pages/misc.js for maintainability. */
-
 import { api } from '../../api.js';
 import { escapeHtml, fmt, fmtDate, sb } from '../../utils.js';
 

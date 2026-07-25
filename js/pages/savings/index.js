@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/index.js — render() entry point — orchestrates the pieces above.
-   Auto-split from the original monolithic pages/savings.js for maintainability. */
-
 import { renderDetail } from './detail.js';
 import { renderList } from './list.js';
 

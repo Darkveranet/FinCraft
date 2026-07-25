@@ -1,6 +1,3 @@
-/* FinCraft · cmd.js — Command palette (Ctrl+K) + global entity search
-   Enhanced: recent searches, keyboard nav, grouped results, palette ↔ search-page bridge */
-
 import { navigate, PAGE_REGISTRY } from './router.js';
 import { openModal, theme, toast } from './ui.js';
 import { escapeHtml } from './utils.js';
@@ -17,9 +14,6 @@ let visibleCmds = [];
 let selectedIdx = 0;
 let lastQuery = '';
 
-// ════════════════════════════════════════════════════════════
-// COMMAND REGISTRY BUILDER
-// ════════════════════════════════════════════════════════════
 function buildCommands() {
   const nav = Object.entries(PAGE_REGISTRY)
     .filter(([k]) => !['forbidden', 'not-found'].includes(k))
@@ -70,9 +64,6 @@ function buildCommands() {
   return [...nav, ...create, ...actions, ...settings];
 }
 
-// ════════════════════════════════════════════════════════════
-// RECENT COMMAND HISTORY (localStorage)
-// ════════════════════════════════════════════════════════════
 function loadRecent() {
   try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
   catch { return []; }
@@ -95,9 +86,6 @@ function getRecentCommands() {
   return ids.map(id => CMDS.find(c => c.id === id)).filter(Boolean);
 }
 
-// ════════════════════════════════════════════════════════════
-// RENDER
-// ════════════════════════════════════════════════════════════
 function render(items, label) {
   visibleCmds = items;
 
@@ -134,7 +122,6 @@ function render(items, label) {
   });
   results().innerHTML = html;
 
-  // Wire row clicks
   results().querySelectorAll('.cmd-item').forEach(r => {
     r.addEventListener('click', () => run(parseInt(r.dataset.idx, 10)));
     r.addEventListener('mouseenter', () => {
@@ -143,7 +130,6 @@ function render(items, label) {
     });
   });
 
-  // Wire clear-recent
   results().querySelector('[data-cmd-clear-recent]')?.addEventListener('click', e => {
     e.stopPropagation();
     clearRecent();
@@ -155,7 +141,6 @@ function updateSelection() {
   results().querySelectorAll('.cmd-item').forEach((r, i) =>
     r.classList.toggle('focused', i === selectedIdx)
   );
-  // Scroll focused into view
   const focused = results().querySelector('.cmd-item.focused');
   if (focused) focused.scrollIntoView({ block: 'nearest' });
 }
@@ -167,15 +152,11 @@ function showInitialState() {
     render(recent, 'Recent');
   } else {
     selectedIdx = 0;
-    // Show only top categories on empty query
     const top = CMDS.filter(c => ['Create', 'Action'].includes(c.cat));
     render(top, null);
   }
 }
 
-// ════════════════════════════════════════════════════════════
-// EXECUTE
-// ════════════════════════════════════════════════════════════
 function run(idx) {
   const c = visibleCmds[idx];
   if (!c) return;
@@ -184,9 +165,6 @@ function run(idx) {
   try { c.run(); } catch (e) { console.error('[cmd-run]', e); toast('error', 'Command failed', e.message || ''); }
 }
 
-// ════════════════════════════════════════════════════════════
-// FILTER (cmds + live entity search)
-// ════════════════════════════════════════════════════════════
 function filter(q) {
   q = (q || '').toLowerCase().trim();
   lastQuery = q;
@@ -202,7 +180,6 @@ function filter(q) {
   selectedIdx = 0;
   render(cmdMatches);
 
-  // Append live entity results after debounce
   debouncedEntitySearch(q, cmdMatches);
 }
 
@@ -213,16 +190,13 @@ function debouncedEntitySearch(q, cmdMatches) {
   const mySeq = ++searchSeq;
   searchTimer = setTimeout(async () => {
     const entityResults = await gsSearch(q);
-    if (mySeq !== searchSeq) return;        // newer keystroke superseded
+    if (mySeq !== searchSeq) return;
     if (input()?.value.toLowerCase().trim() !== q) return;
     selectedIdx = 0;
     render([...entityResults, ...cmdMatches]);
   }, 250);
 }
 
-// ════════════════════════════════════════════════════════════
-// LIVE ENTITY SEARCH (calls /search)
-// ════════════════════════════════════════════════════════════
 export async function gsSearch(q) {
   try {
     const { api } = await import('./api.js');
@@ -263,9 +237,6 @@ export async function gsSearch(q) {
   }
 }
 
-// ════════════════════════════════════════════════════════════
-// PUBLIC API — open / close
-// ════════════════════════════════════════════════════════════
 export function openCmd() {
   if (!CMDS.length) CMDS = buildCommands();
   if (!palette()) return;
@@ -283,9 +254,6 @@ export function closeCmd() {
   palette().classList.remove('open');
 }
 
-// ════════════════════════════════════════════════════════════
-// KEYBOARD NAV + CLOSE ON BACKDROP
-// ════════════════════════════════════════════════════════════
 document.addEventListener('input', e => {
   if (e.target.id === 'cmdInput') filter(e.target.value);
 });
@@ -309,7 +277,6 @@ document.addEventListener('keydown', e => {
   }
   if (e.key === 'Tab') {
     e.preventDefault();
-    // Open search page with current query
     const q = input()?.value?.trim();
     if (q && q.length >= 2) {
       closeCmd();
@@ -318,7 +285,6 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Backdrop click closes palette
 document.addEventListener('click', e => {
   if (e.target === palette()) closeCmd();
 });

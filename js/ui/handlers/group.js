@@ -1,6 +1,3 @@
-/* FinCraft · ui/handlers/group.js — GROUP form-submit handlers.
-   Auto-split from ui.js's monolithic handleAction() switch for maintainability. */
-
 import { api } from '../../api.js';
 import { closeModal, toast } from '../core.js';
 import { extractFineractError, formData, setSubmitting } from '../dom-helpers.js';
@@ -28,10 +25,6 @@ export const GroupHandlers = {
         const id = r.groupId || r.resourceId;
         let statusMsg = 'Group created';
 
-        // Group creation is required to be attached to a center — the Groups
-        // endpoint itself has no centerId create field (confirmed against the
-        // API docs), so attaching happens via the Center's associateGroups
-        // command right after create.
         if (id) {
           try {
             await api.centers.associateGroups(f.centerId, { groupMembers: [String(id)] });

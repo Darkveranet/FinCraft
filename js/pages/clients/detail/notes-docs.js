@@ -1,8 +1,3 @@
-/* FinCraft · pages/clients/detail/notes-docs.js — documents and notes tab loaders.
-   Auto-split from the original monolithic pages/clients/detail.js for maintainability.
-   Documents now render as a card grid; a new loadClientHistory loader powers the
-   audit-trail half of the redesigned "Notes & History" tab. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmtDate } from '../../../utils.js';
@@ -73,9 +68,6 @@ export async function loadClientNotes(c, id) {
   } catch { listEl.innerHTML = `<div class="text-error">Could not load notes</div>`; }
 }
 
-/* Powers the "History" half of the Notes & History tab — a read-only feed of maker-checker
-   audit entries for this client, sourced from the same /audits search Admin > Audit Trail uses.
-   Silently no-ops (and hides the section) for users without READ_AUDIT rather than erroring. */
 export async function loadClientHistory(c, id) {
   const listEl = c.querySelector('#cl-history-list'); if (!listEl) return;
   const section = c.querySelector('#cl-history-section');

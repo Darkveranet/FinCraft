@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/list.js — the list/table view for this entity.
-   Auto-split from the original monolithic pages/groups.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { api } from '../../api.js';
 import { escapeHtml, num, sb } from '../../utils.js';
@@ -71,7 +68,6 @@ export async function renderList(c) {
       const res = await api.groups.list(params);
       let list = Array.isArray(res) ? res : (res?.pageItems || []);
       totalRecords = res?.totalFilteredRecords ?? list.length;
-      // Status is client-side filterable since Fineract GET /groups doesn't accept status directly
       if (status) list = list.filter(g => (g.status?.value || '').toLowerCase() === status);
       allGroups = list;
       currentOffset = offset;

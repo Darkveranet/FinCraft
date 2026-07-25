@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/loaders/audit.js — audit trail and scheduled jobs tab loaders.
-   Auto-split (2nd pass) from pages/system/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, fmtDate, num, sb } from '../../../utils.js';

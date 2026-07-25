@@ -1,6 +1,3 @@
-/* FinCraft · pages/clients/actions/identity.js — add identifier/family member/address modals.
-   Auto-split from the original monolithic pages/clients/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -11,7 +8,6 @@ export async function openAddIdentifierModal(clientId, onSuccess) {
   let docTypes = [];
   try {
     const tpl = await api.clients.template();
-    // Real Fineract field is clientIdentifierTypeOptions
     docTypes = tpl?.clientIdentifierTypeOptions || tpl?.documentTypeOptions || [];
   } catch {}
   const mid = `cl-id-modal-${Date.now()}`;
@@ -57,11 +53,9 @@ export async function openAddClientCollateralModal(clientId, onSuccess) {
   let options = [];
   try {
     const tpl = await api.clients.collateralTemplate(clientId);
-    // Field name per Fineract ClientCollateralManagementApiResource template response.
     options = tpl?.clientCollateralOptions || tpl?.collateralOptions || [];
   } catch {}
   if (!options.length) {
-    // Fallback to the organisation-wide collateral catalogue if the client template came back empty.
     try {
       const r = await api.collateralManagement.list();
       options = Array.isArray(r) ? r : (r?.pageItems || []);
@@ -257,8 +251,6 @@ export async function openAddAddressModal(clientId, onSuccess) {
     try {
       await api.clients.createAddress(clientId, {
         addressTypeId: parseInt(addressTypeId),
-        // UI-CONTRACT FIX (UC-01): Fineract's address command reads `addressLine1`, not `street` —
-        // the typed street was silently dropped on every save. Label stays "Street" for the user.
         addressLine1: el.querySelector('#addr-street').value.trim() || undefined,
         city: el.querySelector('#addr-city').value.trim() || undefined,
         postalCode: el.querySelector('#addr-postal').value.trim() || undefined,
@@ -271,11 +263,6 @@ export async function openAddAddressModal(clientId, onSuccess) {
   });
 }
 
-/* Fineract stores at most one address per addressType per client, and
-   ClientAddressApiResource's PUT shares the exact same path as POST (no {addressId}
-   segment) — the addressTypeId in the body is what identifies which address gets
-   updated. That also means the address type itself isn't editable here (changing it
-   would just create/target a different address record), so it's shown read-only. */
 export async function openEditAddressModal(clientId, address, onSuccess) {
   const addressTypeId = address.addressTypeId ?? address.addressType?.id;
   if (!addressTypeId) {
@@ -321,7 +308,6 @@ export async function openEditAddressModal(clientId, address, onSuccess) {
     try {
       await api.clients.updateAddress(clientId, {
         addressTypeId: parseInt(addressTypeId),
-        // UI-CONTRACT FIX (UC-01): `addressLine1`, not `street` — see createAddress note.
         addressLine1: el.querySelector('#addr-edit-street').value.trim() || undefined,
         city: el.querySelector('#addr-edit-city').value.trim() || undefined,
         postalCode: el.querySelector('#addr-edit-postal').value.trim() || undefined,

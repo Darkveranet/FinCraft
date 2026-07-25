@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/detail/index.js — renderDetail — tab shell, orchestrates the loaders below.
-   Auto-split (2nd pass) from pages/loans/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { confirm, openModal, toast } from '../../../ui.js';
@@ -22,7 +19,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const l = await api.loans.get(id, 'all');
     const status = l.status?.value || '';
 
-    // Status-aware command availability
     const canApprove        = status === 'Submitted and pending approval' && can('APPROVE_LOAN');
     const canUndoApproval   = status === 'Approved' && can('APPROVALUNDO_LOAN');
     const canReject         = status === 'Submitted and pending approval' && can('REJECT_LOAN');
@@ -43,10 +39,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const canAssignOfficer  = can('UPDATELOANOFFICER_LOAN');
     const canMarkFraud      = can('UPDATE_LOAN');
     const canRecoverGuar    = status === 'Active' && can('RECOVERGUARANTEES_LOAN');
-    // No dedicated permission code for these two actions is documented anywhere
-    // I have access to (they're newer Fineract additions) — gated on UPDATE_LOAN,
-    // a permission already confirmed to exist and used elsewhere on this page,
-    // rather than inventing an unverified permission constant.
     const canModifyApprovedAmount = (status === 'Approved' || status === 'Active') && can('UPDATE_LOAN');
     const canModifyAvailableDisbursement = status === 'Active' && can('UPDATE_LOAN');
 
@@ -179,13 +171,10 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         <div class="tab-panel" data-lnpanel="documents"     hidden><div id="ln-docs-wrap"><div class="empty-state-row">Loading…</div></div></div>
       </div>`;
 
-    // -------- Tab switching with deep-link --------
     enhanceScrollableTabs(c.querySelector('#ln-tabs'));
     const tabs = c.querySelectorAll('[data-lntab]');
     const panels = c.querySelectorAll('[data-lnpanel]');
     const lazyLoaded = {};
-    // Lazy loaders — populated by installments 2 & 3.
-    // Empty stubs here keep tab switching safe before the rest is appended.
     const lazyLoaders = {
       schedule:     () => loadSchedule(c, id),
       original:     () => loadOriginalSchedule(c, id),
@@ -217,12 +206,10 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.lntab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Back --------
     c.querySelector('#back-to-loans').addEventListener('click', () => {
       import('../../../router.js').then(r => r.navigate('loans'));
     });
 
-    // -------- Toolbar handlers --------
     c.querySelector('#btn-approve')?.addEventListener('click', () => openApproveModal(id));
     c.querySelector('#btn-undo-approval')?.addEventListener('click', async () => {
       if (!await confirm({ title: 'Undo approval?', message: 'Return this loan to pending state.', confirmText: 'Undo Approval' })) return;

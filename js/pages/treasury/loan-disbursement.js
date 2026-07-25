@@ -1,11 +1,3 @@
-/* FinCraft · pages/treasury/loan-disbursement.js — the Loan Disbursement Through Teller view.
-   Second WRITE screen in Phase 11 — structurally the same shape as Cash Allocation (office picker
-   -> teller/cashier picker -> amount/date/note -> submit wrapping one already-tested Phase 6
-   service function), plus one new concern cash-allocation.js didn't need: a loan picker. Loans are
-   scoped to "Approved" status for the selected office — Fineract's own loan-status semantics
-   already mean "approved" == "awaiting disbursal", so this reuses api.loans.list({status, officeId})
-   exactly as pages/loans/list.js does rather than inventing a new filter. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { toast } from '../../ui.js';
@@ -21,9 +13,6 @@ function loanOptionsHtml(loans) {
   return loans.map(l => `<option value="${l.id}">${escapeHtml(l.accountNo || `#${l.id}`)} — ${escapeHtml(l.clientName || l.clientDisplayName || 'Unknown client')} (${fmtMoney(l.principal, l.currencyCode)})</option>`).join('');
 }
 
-/** Loans awaiting disbursal at `officeId`, normalized to just what this screen needs. Fineract's
- *  /loans list doesn't accept associations, so principal/currency come straight off the list
- *  response (same fields pages/loans/list.js already relies on) — no per-loan detail round trip. */
 async function loadApprovedLoans(officeId) {
   const res = await api.loans.list({ officeId, status: 'approved', limit: 200 });
   const raw = Array.isArray(res) ? res : (res?.pageItems || []);
@@ -76,8 +65,6 @@ async function loadFormForOffice(c, officeId) {
       </button>
     </div>`;
 
-  // Prefill the amount from the selected loan's principal — operator can still override it
-  // (Fineract's own disburse API allows a transactionAmount override too, e.g. tranche disbursal).
   const loanSelect = c.querySelector('#tld-loan');
   const amountInput = c.querySelector('#tld-amount');
   const prefillAmount = () => {
@@ -112,11 +99,9 @@ async function loadFormForOffice(c, officeId) {
       });
       toast('success', 'Loan disbursed', `Disbursed ${fmtMoney(amount, loan?.currencyCode)} for loan ${loan?.accountNo || loanId} (Fineract resource ${result.fineractResourceId}).`);
       c.querySelector('#tld-note').value = '';
-      await loadFormForOffice(c, officeId); // refresh loan list so the just-disbursed loan drops off
+      await loadFormForOffice(c, officeId);
     } catch (err) {
       if (err instanceof TreasuryReconciliationGapError) {
-        // Fineract already disbursed the loan even though this failed — not an ordinary
-        // validation error, so it must not look like one (see js/treasury/errors.js).
         toast('error', 'Reconciliation gap — action required', err.message);
       } else {
         toast('error', 'Disbursement failed', err?.message || String(err));

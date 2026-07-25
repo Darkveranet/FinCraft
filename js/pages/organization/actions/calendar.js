@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/actions/calendar.js — holiday modal.
-   Auto-split from the original monolithic pages/organization/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -50,11 +47,6 @@ export async function openHolidayModal(officeList, onSuccess) {
     const toDate = modalEl.querySelector('#hol-to').value;
     const offices = [...modalEl.querySelectorAll('.hol-off-chk:checked')].map(ch => ({ officeId: parseInt(ch.value) }));
     const reschedulingType = parseInt(modalEl.querySelector('#hol-resched').value) || 2;
-    // AUDIT FIX (Org ORG-01/ORG-02): collect description + repaymentsRescheduledTo, both documented
-    // mandatory on POST /holidays. description is sent when provided (Fineract tolerates its absence,
-    // but the spec lists it mandatory); repaymentsRescheduledTo is sent when provided and is required
-    // by the server for specific-date rescheduling types (previously impossible to supply -> 400).
-    // NOTE: verify the reschedulingType enum values/labels against GET /holidays/template on target.
     const description = modalEl.querySelector('#hol-desc').value.trim();
     const repaymentsRescheduledTo = modalEl.querySelector('#hol-resched-date').value;
     if (!name || !fromDate || !toDate || !offices.length) {

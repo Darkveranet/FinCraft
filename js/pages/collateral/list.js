@@ -1,6 +1,3 @@
-/* FinCraft · pages/collateral/list.js — renderList — the collateral types list view.
-   Auto-split from the original monolithic pages/collateral.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm, toast } from '../../ui.js';
 import { escapeHtml, fmt, num } from '../../utils.js';
@@ -73,7 +70,6 @@ export async function renderList(c) {
 
       allCollaterals = list;
 
-      // Populate currency filter once
       const currSel = c.querySelector('#col-currency');
       if (currSel.options.length === 1) {
         const currencies = [...new Set(list.map(col => col.currency?.code).filter(Boolean))];

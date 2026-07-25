@@ -1,6 +1,3 @@
-/* FinCraft · pages/shares/list.js — renderList — the share accounts list view.
-   Auto-split from the original monolithic pages/shares.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { toast } from '../../ui.js';
@@ -57,7 +54,6 @@ export async function renderList(c) {
       <div id="sh-pagination" class="pagination-bar"></div>
     </div>`;
 
-  // Product filter
   api.shareProducts.list().then(p => {
     const sel = c.querySelector('#sh-product');
     (Array.isArray(p) ? p : []).forEach(prod => {

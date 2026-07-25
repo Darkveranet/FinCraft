@@ -1,27 +1,17 @@
-/* FinCraft · ui/shell.js — nav structure, app shell bootstrap, global search, notif badge.
-   Auto-split from the original monolithic ui.js for maintainability. */
-
 import { store } from '../store.js';
 import { navigate, PAGE_REGISTRY, isAllowed } from '../router.js';
 import { escapeHtml } from '../utils.js';
 import { api } from '../api.js';
 import { sidebar } from './core.js';
 
-// ════════════════════════════════════════════════════════════
-// NAV STRUCTURE — mirrors FinCraft.html reference exactly
-// ════════════════════════════════════════════════════════════
 const NAV_GROUPS = [
   { title: 'Overview',           items: ['dashboard','analytics','tasks','navigation','search'] },
   { title: 'Clients & Accounts', items: ['clients','groups','centers','loans','savings','deposits','shares','collaterals','collections','transfers','remittances'] },
-  { title: 'Finance',            items: ['accounting','reports','surveys'] },
-  { title: 'Treasury',           items: ['treasury-dashboard','teller-console','cash-allocation','loan-disbursement','treasury-expenses','treasury-borrowings','treasury-reconciliation','treasury'] },
-  { title: 'Admin',              items: ['products','charges','organization','system','datatables','users','templates','self-service','notifications'] }
+  { title: 'Finance',            items: ['accounting','reports','report-mailing','mix-xbrl','interest-rate-charts','surveys'] },
+  { title: 'Treasury',           items: ['treasury-dashboard','teller-console','cash-allocation','loan-disbursement','treasury-expenses','treasury-borrowings','treasury-reconciliation','office-transactions','treasury'] },
+  { title: 'Admin',              items: ['products','charges','organization','system','scheduler','datatables','users','templates','credit-bureau','interoperation','self-service','notifications'] }
 ];
 
-/** Permission-aware nav visibility.
- *  If perms array is empty (server didn't return any), show everything so the
- *  authenticated user isn't left with a blank sidebar. Per-action permission
- *  checks inside each page still apply. */
 function _isNavVisible(pageKey) {
   const def = PAGE_REGISTRY[pageKey];
   if (!def) return false;
@@ -31,9 +21,6 @@ function _isNavVisible(pageKey) {
   return isAllowed(def);
 }
 
-// ════════════════════════════════════════════════════════════
-// APP SHELL — full rebuild matching FinCraft.html design
-// ════════════════════════════════════════════════════════════
 export function mountAppShell() {
   const shell = document.getElementById('appShell');
   if (!shell) return;
@@ -48,7 +35,6 @@ export function mountAppShell() {
   const tenant = auth.tenantId || 'default';
   const office = auth.officeName ? escapeHtml(auth.officeName) : '';
 
-  // ---------- Sidebar HTML ----------
   const navHtml = NAV_GROUPS.map(g => {
     const items = g.items
       .filter(key => PAGE_REGISTRY[key])
@@ -76,7 +62,6 @@ export function mountAppShell() {
       </div>`;
   }).join('');
 
-  // ---------- Full shell HTML ----------
   shell.innerHTML = `
     <a href="#contentArea" class="skip-link">Skip to main content</a>
     <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
@@ -157,7 +142,6 @@ export function mountAppShell() {
     <div class="nav-scrim" id="navScrim"></div>
   `;
 
-  // Toast container outside the grid so it overlays freely
   if (!document.getElementById('toastContainer')) {
     const tc = document.createElement('div');
     tc.id = 'toastContainer';
@@ -166,7 +150,6 @@ export function mountAppShell() {
     document.body.appendChild(tc);
   }
 
-  // Command palette container (used by cmd.js)
   if (!document.getElementById('cmdPalette')) {
     const cp = document.createElement('div');
     cp.id = 'cmdPalette';
@@ -189,20 +172,13 @@ export function mountAppShell() {
     document.body.appendChild(cp);
   }
 
-  // Apply persisted sidebar state on desktop
   if (window.innerWidth > 720 && store.get('sidebar') === 'collapsed') {
     document.getElementById('sidebar')?.classList.add('collapsed');
   }
   document.documentElement.setAttribute('data-theme', store.get('theme') || 'dark');
 
-  // Mobile scrim closes the drawer
   document.getElementById('navScrim')?.addEventListener('click', () => sidebar.close());
 
-  // Load modal HTML once. views/modals.html used to be a single 1,345-line file; it's
-  // now split into views/modals/<domain>.html partials (one per js/api/<domain>.js
-  // domain, same idea as api/index.js assembling FineractAPIFull from domain modules).
-  // All partials are fetched in parallel and concatenated in a fixed order so modal
-  // markup always ends up in the same relative position in #modalRoot as before.
   const MODAL_PARTIALS = [
     'clients', 'loans', 'savings-deposits', 'shares', 'groups-centers',
     'accounting', 'organization', 'admin', 'products', 'integrations', 'system'
@@ -226,7 +202,6 @@ export function mountAppShell() {
   _wireGlobalSearch();
   _refreshNotifBadge();
 
-  // Re-render nav whenever perms change
   store.subscribe('perms', () => { _gateNavByPerms(); _refreshNotifBadge(); });
 }
 
@@ -237,9 +212,6 @@ function _gateNavByPerms() {
   });
 }
 
-// ════════════════════════════════════════════════════════════
-// GLOBAL SEARCH (debounced /search call)
-// ════════════════════════════════════════════════════════════
 function _wireGlobalSearch() {
   const input = document.getElementById('globalSearch');
   const box   = document.getElementById('globalSearchResults');
@@ -302,4 +274,3 @@ async function _refreshNotifBadge() {
     dot.hidden = !(count > 0);
   } catch {}
 }
-

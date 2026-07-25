@@ -1,6 +1,3 @@
-/* FinCraft · pages/templates/list.js — renderList — the document templates list view.
-   Auto-split from the original monolithic pages/templates.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, num } from '../../utils.js';
@@ -63,7 +60,6 @@ export async function renderList(c) {
       const res = await api.templates.list();
       allTemplates = Array.isArray(res) ? res : [];
 
-      // KPIs
       c.querySelector('#tpl-total').textContent = num(allTemplates.length);
       c.querySelector('#tpl-email').textContent = num(allTemplates.filter(t => (t.type?.id ?? t.typeId) === 1).length);
       c.querySelector('#tpl-sms').textContent   = num(allTemplates.filter(t => (t.type?.id ?? t.typeId) === 2).length);

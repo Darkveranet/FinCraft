@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/list.js — the list/table view for this entity.
-   Auto-split from the original monolithic pages/loans.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { api } from '../../api.js';
 import { escapeHtml, fmt, fmtDate, num, sb } from '../../utils.js';
@@ -56,7 +53,6 @@ export async function renderList(c) {
       <div id="lf-pagination" class="pagination-bar"></div>
     </div>`;
 
-  // Product filter
   api.loanProducts.list().then(products => {
     const sel = c.querySelector('#lf-product');
     (Array.isArray(products) ? products : []).forEach(p => {
@@ -68,9 +64,6 @@ export async function renderList(c) {
 
   let allLoans = [], totalRecords = 0, currentOffset = 0, pageSize = DEFAULT_PAGE_SIZE;
 
-  // Portfolio-wide KPI counts — independent of the current page/search, so they stay accurate
-  // no matter how many pages the portfolio spans. Uses limit:1 requests purely to read
-  // totalFilteredRecords (cheap — no record bodies are fetched), same technique as analytics.js.
   async function loadKpis() {
     const results = await Promise.allSettled([
       api.loans.list({ limit: 1, status: 'active' }),

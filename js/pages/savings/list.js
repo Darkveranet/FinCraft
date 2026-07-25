@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/list.js — the list/table view for this entity.
-   Auto-split from the original monolithic pages/savings.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { api } from '../../api.js';
 import { escapeHtml, fmt, num, sb } from '../../utils.js';
@@ -65,9 +62,6 @@ export async function renderList(c) {
 
   let allAccounts = [], totalRecords = 0, currentOffset = 0, pageSize = DEFAULT_PAGE_SIZE;
 
-  // Portfolio-wide KPIs — Total Accounts / Total Balance / Avg Balance must reflect the whole
-  // filtered portfolio, not just the current 50-row page. Fetched as one large, unpaginated
-  // request (same status/product filters as the table) purely to compute these aggregates.
   async function loadKpis() {
     try {
       const status = c.querySelector('#sv-status')?.value;

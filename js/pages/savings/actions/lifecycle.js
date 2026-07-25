@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/actions/lifecycle.js — approve, close, edit, and assign-staff modals.
-   Auto-split from the original monolithic pages/savings/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -8,7 +5,6 @@ import { escapeHtml } from '../../../utils.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
 export function openSavingsSimpleCmd({ id, command, label, dateField }) {
-  // Default the date field name based on the command
   if (!dateField) {
     if (command === 'reject') dateField = 'rejectedOnDate';
     else if (command === 'withdrawnByApplicant') dateField = 'withdrawnOnDate';
@@ -35,7 +31,6 @@ export function openSavingsSimpleCmd({ id, command, label, dateField }) {
   el.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => el.remove()));
 
   el.querySelector('#svc-save').addEventListener('click', async () => {
-    // Build the payload without computed properties — works around the chat bracket issue
     const payload = {};
     payload[dateField] = el.querySelector('#svc-date').value;
     payload.dateFormat = DATE_FORMAT;
@@ -195,8 +190,6 @@ export function openApproveSavingsModal(id) {
           await api.savings.activate(id, { activatedOnDate: approvedOnDate, dateFormat: DATE_FORMAT, locale: LOCALE });
           activated = true;
         } catch (actErr) {
-          // Approval already succeeded — surface the activation failure separately so the
-          // account isn't silently left in "Approved" state without explanation.
           toast('warn', 'Approved, but activation failed', extractFineractError(actErr));
         }
       }

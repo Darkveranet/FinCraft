@@ -1,14 +1,11 @@
-/* FinCraft · api/products.js — Product configuration: loan, savings, share, fixed/recurring deposit products, product mix, floating rates.
-   Auto-split from the original monolithic api.js for maintainability. */
-
 export function makeLoanProductsAPI(self) {
   return {
       list:     ()       => self._g('/loanproducts'),
+      basicDetails: () => self._g('/loanproducts/basic-details'),
       get:      (id)     => self._g(`/loanproducts/${id}`),
       template: (params) => self._g('/loanproducts/template', params),
       create:   (b)      => self._p('/loanproducts', b),
       update:   (id, b)  => self._u(`/loanproducts/${id}`, b)
-      // No delete() — LoanProductsApiResource exposes POST/GET/PUT only, no DELETE, per Fineract source.
     };
 }
 
@@ -29,10 +26,9 @@ export function makeShareProductsAPI(self) {
     get:      (id)     => self._g(`/products/share/${id}`),
     template: (params) => self._g('/products/share/template', params),
     create:   (b)      => self._p('/products/share', b),
-    update:   (id, b)  => self._u(`/products/share/${id}`, b)
-    // AUDIT FIX (Products PR-01): no delete() — Fineract's ShareProductApiResource
-    // (/products/{type}/{productId}) exposes GET/POST/PUT only, no DELETE. The previous
-    // delete() hit a non-existent endpoint (405). Removed to match the loanProducts pattern.
+    update:   (id, b)  => self._u(`/products/share/${id}`, b),
+    command:  (productId, cmd, body, type = 'share') =>
+      self._p(`/products/${encodeURIComponent(type)}/${productId}?command=${encodeURIComponent(cmd)}`, body || {})
   };
 }
 
@@ -60,11 +56,8 @@ export function makeRdProductsAPI(self) {
 
 export function makeProductMixAPI(self) {
   return {
-      list:     ()       => self._g('/loanproducts'),  // products with productMixes association
+      list:     ()       => self._g('/loanproducts'),
       get:      (id)     => self._g(`/loanproducts/${id}/productmix`),
-      // No separate /template sub-path exists on ProductMixApiResource — GET/POST/PUT/DELETE all share the same
-      // bare path. This is currently unused (openProductMixModal uses loanProducts.list() + productMix.get()
-      // instead) but aliased to the real endpoint rather than left pointing at a 404.
       template: (id)     => self._g(`/loanproducts/${id}/productmix`),
       create:   (id, b)  => self._p(`/loanproducts/${id}/productmix`, b),
       update:   (id, b)  => self._u(`/loanproducts/${id}/productmix`, b),
@@ -78,7 +71,6 @@ export function makeFloatingRatesAPI(self) {
       get:    (id)      => self._g(`/floatingrates/${id}`),
       create: (b)       => self._p('/floatingrates', b),
       update: (id, b)   => self._u(`/floatingrates/${id}`, b)
-      // No delete() — FloatingRatesApiResource exposes POST/GET/PUT only, no DELETE, per Fineract source.
     };
 }
 
@@ -88,8 +80,5 @@ export function makeRatesAPI(self) {
       get:    (id)      => self._g(`/rates/${id}`),
       create: (b)       => self._p('/rates', b),
       update: (id, b)   => self._u(`/rates/${id}`, b)
-      // No delete() — RateApiResource exposes POST/GET/PUT only, no DELETE, and there's no
-      // DELETE_RATE permission in fineract_permissions_raw.json either — same situation as
-      // Floating Rate above.
     };
 }

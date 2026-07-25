@@ -1,11 +1,3 @@
-/* FinCraft · pages/organization/loaders/group-hierarchy.js
-   Wires the previously-unused api.groupLevels namespace (audit item 7) into a small
-   read-only reference panel showing this tenant's configured group/center hierarchy
-   (e.g. "0. Center" -> "1. Group" -> "2. Client"). Fineract's /grouplevels endpoint is
-   metadata-only (no create/update in the platform API), so a reference table — rather
-   than a settings form — is the correct fit; the app doesn't need to write this data,
-   just help admins confirm how their groups/centers nest before creating new groups. */
-
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';
 
@@ -14,8 +6,6 @@ export async function loadGroupHierarchy(c) {
   try {
     const res = await api.groupLevels.list();
     const list = Array.isArray(res) ? res : [];
-    // Fineract levels typically ordered deepest-first (highest level number = closest to client);
-    // sort ascending by level so the panel reads top-down (Center -> Group -> Client).
     list.sort((a, b) => (a.parentLevel ?? a.level ?? 0) - (b.parentLevel ?? b.level ?? 0));
 
     el.innerHTML = `

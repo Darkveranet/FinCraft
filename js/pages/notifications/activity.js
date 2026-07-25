@@ -1,6 +1,3 @@
-/* FinCraft · pages/notifications/activity.js — my-activity tab loader.
-   Auto-split from the original monolithic pages/notifications.js for maintainability. */
-
 import { api } from '../../api.js';
 import { today } from '../../config.js';
 import { store } from '../../store.js';
@@ -22,13 +19,9 @@ export async function loadMyActivity(c) {
   }
 
   try {
-    // UI-CONTRACT FIX (UC-06): AuditApiResource filters by integer `makerId`, not `makerUsername`
-    // (the latter is ignored → "My Activity" showed EVERY user's entries). auth.userId is set at
-    // login; if absent, makerId is undefined and core.js drops it (falls back to unfiltered).
     const res = await api.audits.list({ limit: 100, makerId: auth.userId });
     const list = Array.isArray(res) ? res : (res?.pageItems || []);
 
-    // KPIs
     const todayStr = today();
     const todayCount = list.filter(a => String(a.madeOnDate || '').startsWith(todayStr)).length;
 

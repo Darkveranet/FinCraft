@@ -1,9 +1,3 @@
-/* FinCraft · pages/accounting/index.js — render() entry point.
-   Converted from a 9-tab bar (which previously eagerly loaded all 9 sections on
-   every visit) to a card-grid hub — see js/ui/section-hub.js for the rationale.
-   panelId values (acc-0..acc-8) match the IDs each loader function already expects
-   via c.querySelector('#acc-N') — kept as-is so none of the loaders needed changes. */
-
 import { loadAccountingRules, loadChartOfAccounts, loadFinancialActivities, loadFrequentPostings, loadGLClosure, loadJournalEntries, loadOpeningBalances, loadProvisioning, loadRunAccruals } from './loaders.js';
 import { resetGlCache } from './shared.js';
 import { renderSectionHub } from '../../ui/section-hub.js';

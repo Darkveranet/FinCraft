@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/detail/si.js — standing instructions tab loader.
-   Auto-split from the original monolithic pages/savings/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { escapeHtml, fmt, sb } from '../../../utils.js';
 import { can } from '../shared.js';
@@ -19,7 +16,6 @@ export async function loadSavingsSI(c, id, savings) {
 
   const listEl = wrap.querySelector('#sv-si-list');
   try {
-    // Fineract doesn't filter SI by savings account directly — pull all for the client and filter
     const clientId = savings.clientId;
     if (!clientId) {
       listEl.innerHTML = '<div class="empty-state-row">Standing instructions only available on client-owned accounts</div>';

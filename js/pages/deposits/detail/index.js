@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/detail/index.js — renderDetail — tab shell.
-   Auto-split from the original monolithic pages/deposits/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, fmtDate, num, sb } from '../../../utils.js';
@@ -137,7 +134,6 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
         <div class="tab-panel" data-deppanel="documents"    hidden><div id="dep-docs-wrap"><div class="empty-state-row">Loading…</div></div></div>
       </div>`;
 
-    // -------- Tab switching with deep-link --------
     enhanceScrollableTabs(c.querySelector('#dep-tabs'));
     const tabs = c.querySelectorAll('[data-deptab]');
     const panels = c.querySelectorAll('[data-deppanel]');
@@ -165,12 +161,10 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.deptab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Back --------
     c.querySelector('#back-to-deposits').addEventListener('click', () => {
       import('../../../router.js').then(r => r.navigate('deposits'));
     });
 
-    // -------- Toolbar handlers --------
     c.querySelector('#btn-dep-edit')?.addEventListener('click', () =>
       (typeof openEditDepositModal === 'function') && openEditDepositModal(apiObj, d, label));
 
@@ -192,11 +186,9 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
       apiObj, id, command: 'activate', label: 'Activate ' + label, dateField: 'activatedOnDate'
     }));
 
-    // Money in/out (RD primarily)
     c.querySelector('#btn-dep-deposit')?.addEventListener('click', () => openDepositTxModal(apiObj, id, 'deposit', 'Make Deposit'));
     c.querySelector('#btn-dep-withdraw')?.addEventListener('click', () => openDepositTxModal(apiObj, id, 'withdrawal', 'Withdraw'));
 
-    // Interest
     c.querySelector('#btn-dep-calc')?.addEventListener('click', async () => {
       try { await apiObj.calculateInterest(id); toast('success', 'Interest calculated', ''); document.dispatchEvent(new CustomEvent('fc:reload')); }
       catch (e) { toast('error', 'Failed', extractFineractError(e)); }
@@ -207,7 +199,6 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
       catch (e) { toast('error', 'Failed', extractFineractError(e)); }
     });
 
-    // Closures
     c.querySelector('#btn-dep-premature')?.addEventListener('click', () =>
       (typeof openPrematureCloseModal === 'function') && openPrematureCloseModal(apiObj, id, label));
     c.querySelector('#btn-dep-close')?.addEventListener('click', () => openDepositSimpleCmd({
@@ -217,7 +208,6 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
       apiObj, id, command: 'close', label: 'Close RD (before maturity)', dateField: 'closedOnDate', danger: true
     }));
 
-    // Delete
     c.querySelector('#btn-dep-delete')?.addEventListener('click', async () => {
       if (!await confirm({
         title: 'Delete ' + label + ' #' + (d.accountNo || id) + '?',
@@ -231,7 +221,6 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
       } catch (e) { toast('error', 'Delete failed', extractFineractError(e)); }
     });
 
-    // Export statement
     c.querySelector('#btn-dep-export')?.addEventListener('click', () => exportDepositStatement(d, isFD, id, apiObj));
 
   } catch (e) {

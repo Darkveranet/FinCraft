@@ -1,8 +1,3 @@
-/* FinCraft · remit.js — Remittance stepper (4 steps)
-   Wires up to Fineract /accounttransfers endpoint with full client search,
-   destination resolution, and remittance-specific metadata.
-   The remittanceModal stepper UI lives in views/modals/integrations.html. */
-
 import { toast, closeModal, openModal } from './ui.js';
 import { api } from './api.js';
 import { LOCALE, DATE_FORMAT, today } from './config.js';
@@ -17,9 +12,6 @@ export const Remit = {
     transfer:    { amount: 0, sourceCurrency: 'USD', destCurrency: 'USD', purpose: '', date: '', description: '' }
   },
 
-  // ──────────────────────────────────────────────────────
-  // Lifecycle
-  // ──────────────────────────────────────────────────────
   reset() {
     this.step = 1;
     this.data = {
@@ -49,9 +41,6 @@ export const Remit = {
     }
   },
 
-  // ──────────────────────────────────────────────────────
-  // Submit — POST to Fineract /accounttransfers
-  // ──────────────────────────────────────────────────────
   async submit() {
     const root = document.getElementById('remittanceModal');
     const btn = root?.querySelector('[data-action="remit-next"]');
@@ -75,7 +64,6 @@ export const Remit = {
         locale:              LOCALE
       };
 
-      // Defensive: ensure all required fields are present
       const missing = ['fromClientId', 'fromAccountId', 'toClientId', 'toAccountId', 'transferAmount']
         .filter(k => !payload[k]);
       if (missing.length) {
@@ -96,18 +84,12 @@ export const Remit = {
     }
   },
 
-  // ──────────────────────────────────────────────────────
-  // Open modal (called by command palette or button)
-  // ──────────────────────────────────────────────────────
   open() {
     this.reset();
     openModal('remittanceModal');
     setTimeout(() => this._wirePanes(), 100);
   },
 
-  // ──────────────────────────────────────────────────────
-  // Per-step validation
-  // ──────────────────────────────────────────────────────
   _validateCurrentStep() {
     const { sender, beneficiary, transfer } = this.data;
     if (this.step === 1) {
@@ -135,9 +117,6 @@ export const Remit = {
     return true;
   },
 
-  // ──────────────────────────────────────────────────────
-  // Capture form values from the active pane
-  // ──────────────────────────────────────────────────────
   _capturePane(stepNo) {
     const root = document.getElementById('remittanceModal');
     if (!root) return;
@@ -145,7 +124,6 @@ export const Remit = {
     if (!pane) return;
 
     if (stepNo === 1) {
-      // Sender values are captured as user picks a client (live in this.data already)
     }
     if (stepNo === 2) {
       this.data.beneficiary.country = pane.querySelector('select.beneficiary-country')?.value || '';
@@ -161,14 +139,10 @@ export const Remit = {
     }
   },
 
-  // ──────────────────────────────────────────────────────
-  // Wire client-search inputs and account dropdowns
-  // ──────────────────────────────────────────────────────
   _wirePanes() {
     const root = document.getElementById('remittanceModal');
     if (!root) return;
 
-    // Sender + Beneficiary share the same wiring pattern
     [
       { role: 'sender',      pane: 1 },
       { role: 'beneficiary', pane: 2 }
@@ -206,7 +180,6 @@ export const Remit = {
                 searchInput.value = picked.name;
                 results.style.display = 'none';
 
-                // Load the client's savings accounts (transfers are typically savings → savings)
                 try {
                   const acc = await api.clients.accounts(picked.id);
                   const savings = (acc?.savingsAccounts || []).filter(s => s.status?.value === 'Active');
@@ -236,25 +209,19 @@ export const Remit = {
         this.data[role].accountType = opt?.dataset?.type ? parseInt(opt.dataset.type) : 2;
       });
 
-      // Click-away closes search results
       document.addEventListener('click', e => {
         if (!searchInput.contains(e.target) && !results.contains(e.target)) results.style.display = 'none';
       });
     });
 
-    // Step 3 — set today's date as default
     const dateInput = root.querySelector('[data-remit-pane="3"] input.transfer-date');
     if (dateInput && !dateInput.value) dateInput.value = today();
   },
 
-  // ──────────────────────────────────────────────────────
-  // Render — switch panes and update step indicators
-  // ──────────────────────────────────────────────────────
   _render() {
     const root = document.getElementById('remittanceModal');
     if (!root) return;
 
-    // Step circles + lines
     root.querySelectorAll('.step-item').forEach((s, i) => {
       const stepNo = i + 1;
       const circle = s.querySelector('.step-circle');
@@ -272,12 +239,10 @@ export const Remit = {
       l.classList.toggle('done', (i + 1) < this.step);
     });
 
-    // Panes
     root.querySelectorAll('[data-remit-pane]').forEach(p => {
       p.style.display = (+p.dataset.remitPane === this.step ? 'block' : 'none');
     });
 
-    // Buttons
     const nextBtn = root.querySelector('[data-action="remit-next"]');
     const backBtn = root.querySelector('[data-action="remit-back"]');
     if (nextBtn) {
@@ -287,13 +252,9 @@ export const Remit = {
     }
     if (backBtn) backBtn.style.display = this.step > 1 ? '' : 'none';
 
-    // Step 4 — render review summary
     if (this.step === 4) this._renderReview();
   },
 
-  // ──────────────────────────────────────────────────────
-  // Final review pane
-  // ──────────────────────────────────────────────────────
   _renderReview() {
     const root = document.getElementById('remittanceModal');
     if (!root) return;
@@ -327,8 +288,5 @@ export const Remit = {
   }
 };
 
-// Auto-wire when modals are loaded
 document.addEventListener('fc:modals-loaded', () => {
-  // The modal HTML in views/modals/integrations.html uses [data-remit-pane] and the buttons fire
-  // remit-next / remit-back via data-action — already handled in ui.js handleAction.
 });

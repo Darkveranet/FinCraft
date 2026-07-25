@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/actions/si.js — standing instruction modal.
-   Auto-split from the original monolithic pages/organization/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';

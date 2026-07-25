@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/detail/meetings-charges.js — meetings, charges, and standing instructions tab loaders.
-   Auto-split from the original monolithic pages/groups/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, fmtDate, sb } from '../../../utils.js';
@@ -41,9 +38,8 @@ export async function loadMeetings(c, id) {
     calWrap.querySelector('[data-edit-cal]')?.addEventListener('click', () =>
       openScheduleMeetingModal(id, () => loadMeetings(c, id), activeCal));
 
-    // Meeting instances
     if (activeCal) {
-      const ms = await api.meetings.list('groups', id, { calendarId: activeCal.id });
+      const ms = await api.meetings.list('groups', id);
       const list = Array.isArray(ms) ? ms : [];
       listWrap.innerHTML = list.length ? `
         <table class="table">
@@ -76,11 +72,6 @@ export async function loadMeetings(c, id) {
 
 export async function loadCharges(c, id) {
   const wrap = c.querySelector('#grp-charges-list');
-  // NOTE: Fineract's GroupsApiResource has no /charges sub-path at all (only
-  // template, {groupId}, command/unassign_staff, accounts, downloadtemplate,
-  // uploadtemplate, glimaccounts, gsimaccounts). Unlike clients, there is no
-  // GroupChargesApiResource. This tab always 404'd — show a clear notice
-  // instead of a silently-broken table.
   wrap.innerHTML = `
     <div class="msg-banner b-warning">
       <i class="fa-solid fa-triangle-exclamation"></i>
@@ -94,11 +85,9 @@ export async function loadStandingInstructions(c, id, group) {
   const wrap = c.querySelector('#grp-si-list');
   wrap.innerHTML = '<div class="empty-state-row">Loading…</div>';
   try {
-    // Fineract doesn't support groupId on /standinginstructions; show all instructions for member clients.
     const memberIds = (group.clientMembers || []).map(m => m.id);
     if (!memberIds.length) { wrap.innerHTML = '<div class="empty-state-row">Group has no members</div>'; return; }
 
-    // Pull all; client-side filter.
     const res = await api.standingInstructions.list({ limit: 500 });
     const all = Array.isArray(res) ? res : (res?.pageItems || []);
     const list = all.filter(si => memberIds.includes(si.fromClient?.id));

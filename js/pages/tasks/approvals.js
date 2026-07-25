@@ -1,6 +1,3 @@
-/* FinCraft · pages/tasks/approvals.js — loan, client, and reschedule-request approval queue tab loaders.
-   Auto-split from the original monolithic pages/tasks.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { toast } from '../../ui.js';

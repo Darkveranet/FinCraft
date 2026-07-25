@@ -1,6 +1,3 @@
-/* FinCraft · pages/notifications/audit.js — audit trail tab loader and audit detail modal.
-   Auto-split from the original monolithic pages/notifications.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../config.js';
 import { toast } from '../../ui.js';
@@ -179,7 +176,6 @@ export async function loadAuditTrails(c) {
       </div>`;
   });
 
-  // Enter key on text fields triggers search
   ['#aud-from', '#aud-to'].forEach(sel =>
     el.querySelector(sel)?.addEventListener('keypress', e => {
       if (e.key === 'Enter') runAuditSearch();

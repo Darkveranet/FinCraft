@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/actions/data-mgmt.js — account number prefs, entity mapping, and survey modals.
-   Auto-split from the original monolithic pages/system/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -22,8 +19,6 @@ export async function openAccountNumberPrefModal(prefId, onSuccess) {
     return;
   }
 
-  // AUDIT FIX (Admin AD-01): the template response key is `accountTypeOptions`
-  // (GetAccountNumberFormatsResponseTemplate); use it as the primary source.
   const entityOptions = tpl.accountTypeOptions || tpl.accountNumberTypeOptions || [
     { id: 1, value: 'Clients' },
     { id: 2, value: 'Loans' },
@@ -39,8 +34,6 @@ export async function openAccountNumberPrefModal(prefId, onSuccess) {
     { id: 'NONE',                   value: 'No prefix (sequential only)' }
   ];
 
-  // AUDIT FIX (Admin AD-01): the response field is `accountType` (GetAccountNumberFormatsIdResponse),
-  // not `accountNumberType`. Aligned so the (disabled) entity dropdown pre-selects correctly on edit.
   const currentEntityId = existing.accountType?.id || existing.accountTypeId;
   const currentPrefixType = existing.prefixType?.id || existing.prefixType;
 
@@ -94,10 +87,6 @@ export async function openAccountNumberPrefModal(prefId, onSuccess) {
     if (!entityId) { toast('warn', 'Select an entity', ''); return; }
 
     const payload = {};
-    // AUDIT FIX (Admin AD-01): the create body field is `accountType` (spec:
-    // PostAccountNumberFormatsRequest — mandatory), NOT `accountNumberType`. The old field name
-    // meant the mandatory accountType was never sent, so every account-number-format creation
-    // failed. (PUT correctly accepts only prefixType — the entity type can't be changed on edit.)
     if (!isEdit) payload.accountType = entityId;
     if (prefixType) payload.prefixType = prefixType;
 
@@ -176,7 +165,6 @@ export async function openSurveyFormModal(surveyId, onSuccess) {
     catch (e) { toast('error', 'Could not load survey', extractFineractError(e)); return; }
   }
 
-  // Question builder rows — flexible structure matching Fineract survey schema
   const existingQuestions = existing.questionDatas || existing.questions || [];
   const initialQuestionRows = existingQuestions.length
     ? existingQuestions.map((q, i) => questionRow(i, q)).join('')

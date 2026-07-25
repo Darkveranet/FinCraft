@@ -1,15 +1,3 @@
-/* FinCraft · treasury/teller-events.js — Phase 3: Teller Operational Events.
-   Business-logic layer above `api.treasury` (js/api/treasury.js), persisting to the
-   `dt_teller_operational_events` datatable. This is NOT a Fineract REST wrapper (that's `js/api/`)
-   and NOT a route-bound page (that's `js/pages/`) — it's the cross-cutting treasury business
-   logic the brief's Phase 3-10 services need, so it lives in a new sibling top-level folder,
-   `js/treasury/`, alongside the existing `js/api/`, `js/pages/`, `js/ui/` — matching the "extend,
-   don't invent a new architecture" instruction as closely as this new concern allows.
-
-   Every FinCraft-owned event lives only as a datatable row — there is no other persistence layer
-   (see FINCRAFT_Fineract_Treasury_Integration_Log.md §2-3). Each row is scoped to `officeId`
-   (the datatable entity id) and carries `tellerId`/`cashierId` as plain columns for filtering. */
-
 import { api } from '../api.js';
 
 export const DATATABLE = 'dt_teller_operational_events';
@@ -28,27 +16,6 @@ function assertRequired(payload, fields) {
   if (missing.length) throw new Error(`recordTellerEvent: missing required field(s): ${missing.join(', ')}`);
 }
 
-/**
- * Records one teller cash-movement event. `direction` is derived from `transactionType`
- * automatically (see CASH_IN_TYPES/CASH_OUT_TYPES above) unless explicitly overridden — callers
- * should not normally pass `direction`.
- *
- * @param {object} payload
- * @param {number} payload.officeId
- * @param {number} payload.tellerId
- * @param {number} payload.cashierId
- * @param {number} [payload.staffId]
- * @param {string} payload.transactionType  one of CASH_IN_TYPES/CASH_OUT_TYPES
- * @param {number} payload.amount           must be > 0 (direction, not sign, encodes in/out)
- * @param {string} payload.currencyCode
- * @param {string} payload.transactionDate  'YYYY-MM-DD' or Fineract-locale date string
- * @param {string} [payload.fineractEntityType]   e.g. 'LOAN', 'SAVINGS'
- * @param {number} [payload.fineractEntityId]
- * @param {string} [payload.fineractTransactionId]
- * @param {string} [payload.narration]
- * @param {string} [payload.createdBy]
- * @returns {Promise<{officeId:number, eventId:number|string, direction:string}>}
- */
 export async function recordTellerEvent(payload) {
   assertRequired(payload, ['officeId', 'tellerId', 'cashierId', 'transactionType', 'amount', 'currencyCode', 'transactionDate']);
   const amount = Number(payload.amount);
@@ -80,16 +47,6 @@ export async function recordTellerEvent(payload) {
   return { officeId: payload.officeId, eventId: result?.resourceId ?? result?.subResourceId ?? result?.id, direction };
 }
 
-/**
- * Reverses a previously-recorded event: marks the original row `reversed=true`, and records a
- * brand-new event in the *opposite* direction (transaction type REVERSAL_CASH_IN/REVERSAL_CASH_OUT)
- * for the same amount, so the running total self-corrects without ever mutating/deleting history.
- *
- * @param {number} officeId
- * @param {number|string} eventId  the original event's datatable row id
- * @param {string} reason
- * @param {string} [reversedBy]
- */
 export async function reverseTellerEvent(officeId, eventId, reason, reversedBy) {
   const original = await api.treasury.getRow(DATATABLE, officeId, eventId);
   if (!original) throw new Error(`reverseTellerEvent: event ${eventId} not found for office ${officeId}`);
@@ -121,8 +78,6 @@ export async function reverseTellerEvent(officeId, eventId, reason, reversedBy) 
   return { originalEventId: eventId, reversalEventId: reversal.eventId };
 }
 
-/** In-range filter shared by the getX Events helpers below. `dateRange` is optional:
- *  { from?: 'YYYY-MM-DD', to?: 'YYYY-MM-DD' } — omit for all history. */
 function inRange(row, dateRange) {
   if (!dateRange) return true;
   const d = row.transaction_date;
@@ -131,21 +86,16 @@ function inRange(row, dateRange) {
   return true;
 }
 
-/** All events for one cashier at one office (client-side filtered — Fineract's datatable query
- *  is entity(office)-scoped only, it has no column-level filtering, see js/api/reports.js). */
 export async function getCashierEvents(officeId, cashierId, dateRange) {
   const rows = await api.treasury.queryRows(DATATABLE, officeId);
   return (Array.isArray(rows) ? rows : []).filter(r => r.cashier_id === cashierId && inRange(r, dateRange));
 }
 
-/** All events for one teller (all of its cashiers) at one office. */
 export async function getTellerEvents(officeId, tellerId, dateRange) {
   const rows = await api.treasury.queryRows(DATATABLE, officeId);
   return (Array.isArray(rows) ? rows : []).filter(r => r.teller_id === tellerId && inRange(r, dateRange));
 }
 
-/** All events for every teller/cashier at one office — the raw feed the dashboard/reconciliation
- *  screens aggregate over. */
 export async function getOfficeTellerEvents(officeId, dateRange) {
   const rows = await api.treasury.queryRows(DATATABLE, officeId);
   return (Array.isArray(rows) ? rows : []).filter(r => inRange(r, dateRange));

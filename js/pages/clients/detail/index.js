@@ -1,9 +1,3 @@
-/* FinCraft · pages/clients/detail/index.js — renderDetail — tab shell.
-   Auto-split from the original monolithic pages/clients/detail.js for maintainability.
-   Redesigned around the cv-* (clients-view.css) component set: a compact profile bar,
-   a slimmer top-level tab list (Charges/Family/Address/Collateral folded into related tabs
-   rather than removed), and card-grid Overview/Documents panels. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm, openModal, toast } from '../../../ui.js';
@@ -25,7 +19,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const status = cl.status?.value || '';
     const type = cvClientType(cl);
 
-    // Status-aware command availability
     const canActivate   = status === 'Pending'   && can('ACTIVATE_CLIENT');
     const canClose      = status === 'Active'    && can('CLOSE_CLIENT');
     const canReactivate = status === 'Closed'    && can('REACTIVATE_CLIENT');
@@ -34,15 +27,9 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const canTransfer   = status === 'Active'    && can('PROPOSETRANSFER_CLIENT');
     const canUndoTransfer = (cl.transferToOfficeId || status === 'Transfer in progress') && can('WITHDRAWTRANSFER_CLIENT');
     const canEdit       = can('UPDATE_CLIENT');
-    // NOTE: was previously OR'd with UPDATESAVINGSACCOUNT_CLIENT, an unrelated permission
-    // (governs changing a client's default savings account, not staff assignment) — a user
-    // holding only that permission would have seen this button and had the call 403 at the
-    // backend. Gated on the two permissions the modal's assign/unassign calls actually need.
     const canAssign     = can('ASSIGNSTAFF_CLIENT') || can('UNASSIGNSTAFF_CLIENT');
     const canNewLoan    = status === 'Active' && can('CREATE_LOAN');
 
-    // Any lifecycle action besides Activate/Reactivate tucks into a "More" kebab menu so the
-    // header stays down to Back / Edit / New Loan the way the approved mockup shows it.
     const kebabItems = [
       canClose      ? `<button class="dropdown-item" id="btn-close-client"><i class="fa-solid fa-circle-xmark"></i> Close client</button>` : '',
       canReject     ? `<button class="dropdown-item" id="btn-reject-client"><i class="fa-solid fa-ban"></i> Reject application</button>` : '',
@@ -252,7 +239,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       </div>
     </div>`;
 
-    // -------- Tab switching --------
     enhanceScrollableTabs(c.querySelector('#cl-tabs'));
     const tabs   = c.querySelectorAll('[data-cltab]');
     const panels = c.querySelectorAll('[data-clpanel]');
@@ -273,7 +259,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       tabs.forEach(t => t.classList.toggle('active', t.dataset.cltab === name));
       panels.forEach(p => p.hidden = p.dataset.clpanel !== name);
       if (lazyLoaders[name] && !lazyLoaded[name]) { lazyLoaded[name] = true; lazyLoaders[name](); }
-      // Deep-link
       const hashParts = (location.hash || '').split('?');
       const params = new URLSearchParams(hashParts[1] || '');
       params.set('id', id); params.set('tab', name);
@@ -282,18 +267,15 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.cltab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Back --------
     c.querySelector('#back-to-clients').addEventListener('click', () => {
       import('../../../router.js').then(r => r.navigate('clients'));
     });
 
-    // -------- Kebab menu --------
     c.querySelector('#cl-kebab-btn')?.addEventListener('click', (e) => {
       e.stopPropagation();
       c.querySelector('#cl-kebab').classList.toggle('open');
     });
 
-    // -------- New Loan quick action (prefills the existing New Loan modal) --------
     function openNewLoanForClient() {
       openModal('newLoanModal');
       const searchInp = document.getElementById('loanClientSearch');
@@ -304,7 +286,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     c.querySelector('#btn-new-loan')?.addEventListener('click', openNewLoanForClient);
     c.querySelector('#btn-new-loan-tab')?.addEventListener('click', openNewLoanForClient);
 
-    // -------- Lifecycle / toolbar actions --------
     c.querySelector('#btn-edit-client')?.addEventListener('click', () => openEditClientModal(cl, () => {
       import('../../../router.js').then(r => r.navigate('client-detail', { id }));
     }));
@@ -331,8 +312,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
 
     c.querySelector('#btn-reject-client')?.addEventListener('click', () => openRejectClientModal(id));
 
-    // AUDIT FIX (Clients F2): withdraw now opens a modal that collects the mandatory
-    // withdrawalReasonId (previously only withdrawalDate was sent, which Fineract 400s).
     c.querySelector('#btn-withdraw-client')?.addEventListener('click', () => openWithdrawClientModal(id));
 
     c.querySelector('#btn-transfer-client')?.addEventListener('click', () => openTransferModal(id, cl.displayName));
@@ -348,7 +327,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
 
     c.querySelector('#btn-assign-staff')?.addEventListener('click', () => openAssignStaffModal(id, cl));
 
-    // -------- Photo upload --------
     loadClientPhoto(c, id);
     c.querySelector('#cl-photo-input')?.addEventListener('change', async (e) => {
       const file = e.target.files[0]; if (!file) return;
@@ -360,14 +338,12 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       } catch (err) { toast('error', 'Upload failed', err.message || String(err)); }
     });
 
-    // -------- Tab-specific button wiring --------
     c.querySelector('#btn-add-charge')?.addEventListener('click', () => openApplyChargeModal(id, () => loadClientCharges(c, id)));
     c.querySelector('#btn-add-identifier')?.addEventListener('click', () => openAddIdentifierModal(id, () => loadClientIdentifiers(c, id)));
     c.querySelector('#btn-add-family')?.addEventListener('click', () => openAddFamilyModal(id, () => loadClientFamilyMembers(c, id)));
     c.querySelector('#btn-add-address')?.addEventListener('click', () => openAddAddressModal(id, () => loadClientAddresses(c, id)));
     c.querySelector('#btn-add-collateral')?.addEventListener('click', () => openAddClientCollateralModal(id, () => loadClientCollateral(c, id)));
 
-    // -------- Document upload --------
     c.querySelector('#cl-doc-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target; const fd = new FormData(form);
@@ -383,7 +359,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       finally { btn.disabled = false; }
     });
 
-    // -------- Notes --------
     c.querySelector('#cl-note-save')?.addEventListener('click', async () => {
       const inp = c.querySelector('#cl-note-input');
       const note = inp.value.trim(); if (!note) return;

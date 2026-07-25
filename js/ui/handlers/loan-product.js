@@ -1,6 +1,3 @@
-/* FinCraft · ui/handlers/loan-product.js — LOAN PRODUCT form-submit handlers.
-   Auto-split from ui.js's monolithic handleAction() switch for maintainability. */
-
 import { api } from '../../api.js';
 import { closeModal, toast } from '../core.js';
 import { extractFineractError, formData, setSubmitting } from '../dom-helpers.js';

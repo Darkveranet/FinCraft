@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/detail/index.js — renderDetail — tab shell.
-   Auto-split from the original monolithic pages/groups/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm, toast } from '../../../ui.js';
@@ -150,7 +147,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         </div>
       </div>`;
 
-    // -------- Tab switching with deep-link --------
     enhanceScrollableTabs(c.querySelector('#grp-tabs'));
     const tabs = c.querySelectorAll('[data-grptab]');
     const panels = c.querySelectorAll('[data-grppanel]');
@@ -179,7 +175,6 @@ function switchTab(name) {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.grptab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Toolbar handlers --------
     c.querySelector('#grp-back').addEventListener('click', () => {
       import('../../../router.js').then(r => r.navigate('groups'));
     });
@@ -215,7 +210,6 @@ function switchTab(name) {
     c.querySelector('#grp-assign-role')?.addEventListener('click', () => openAssignRoleModal(id, g, () => loadRoles(c, id)));
     c.querySelector('#grp-add-meeting')?.addEventListener('click', () => openScheduleMeetingModal(id, () => loadMeetings(c, id)));
 
-    // -------- Notes --------
     c.querySelector('#grp-note-save')?.addEventListener('click', async () => {
       const inp = c.querySelector('#grp-note-input');
       const note = inp.value.trim(); if (!note) return;
@@ -227,7 +221,6 @@ function switchTab(name) {
       } catch (e) { toast('error', 'Failed', extractFineractError(e)); }
     });
 
-    // -------- Documents --------
     c.querySelector('#grp-doc-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target; const fd = new FormData(form);

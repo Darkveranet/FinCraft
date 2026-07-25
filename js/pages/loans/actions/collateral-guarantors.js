@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/actions/collateral-guarantors.js — collateral, guarantor, originator, and EAO transfer modals.
-   Auto-split (2nd pass) from pages/loans/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml, fmt, ini } from '../../../utils.js';
@@ -8,7 +5,6 @@ import { toast } from '../../../ui.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
 export async function openAddLoanCollateralModal(loanId, clientId, onSuccess) {
-  // Try to fetch client's pre-registered collateral pool
   let clientCollaterals = [];
   if (clientId) {
     try {
@@ -119,7 +115,6 @@ export async function openEditLoanCollateralModal(loanId, collateralId, onSucces
 }
 
 export async function openAddGuarantorModal(loanId, onSuccess) {
-  // Pull guarantor type options + on-hold savings template if available
   let tpl = {};
   try { tpl = await api.loans.guarantorTemplate(loanId); } catch {}
   const guarantorTypeOptions = tpl?.guarantorTypeOptions || [
@@ -168,14 +163,12 @@ export async function openAddGuarantorModal(loanId, onSuccess) {
   const el = document.getElementById(mid);
   el.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => el.remove()));
 
-  // Toggle client vs external on guarantor type change
   el.querySelector('#gar-type').addEventListener('change', (e) => {
     const isExternal = parseInt(e.target.value) === 3;
     el.querySelector('#gar-client-wrap').style.display = isExternal ? 'none' : '';
     el.querySelector('#gar-external-wrap').style.display = isExternal ? '' : 'none';
   });
 
-  // Client search autocomplete
   const searchEl = el.querySelector('#gar-client-search');
   const resultsEl = el.querySelector('#gar-client-results');
   const clientIdEl = el.querySelector('#gar-client-id');

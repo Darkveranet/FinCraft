@@ -1,6 +1,3 @@
-/* FinCraft · pages/self-service/index.js — render() entry point — builds the tab shell.
-   Auto-split from the original monolithic pages/self-service.js for maintainability. */
-
 import { loadBeneficiaries } from './beneficiaries.js';
 import { loadPortalUsers } from './portal-users.js';
 import { TABS } from './shared.js';

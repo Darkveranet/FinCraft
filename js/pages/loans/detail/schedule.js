@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/detail/schedule.js — repayment schedule + original schedule tab loaders.
-   Auto-split (2nd pass) from pages/loans/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';
 import { renderScheduleTable } from '../actions.js';

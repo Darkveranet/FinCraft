@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/detail/lifecycle.js — delinquency, reschedule, and buy-down tab loaders.
-   Auto-split (2nd pass) from pages/loans/detail.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
@@ -31,7 +28,6 @@ export async function loadLoanDelinquency(c, loanId) {
   wrap.querySelector('#ln-add-delq')?.addEventListener('click', () =>
     openDelinquencyActionModal(loanId, () => loadLoanDelinquency(c, loanId)));
 
-  // Current delinquency snapshot (from loan detail)
   const cur = wrap.querySelector('#ln-delq-current');
   try {
     const l = await api.loans.get(loanId, 'delinquent');
@@ -46,7 +42,6 @@ export async function loadLoanDelinquency(c, loanId) {
       </dl>`;
   } catch (e) { cur.innerHTML = `<div class="text-error">${escapeHtml(e.message)}</div>`; }
 
-  // Delinquency actions (pause/resume)
   const actEl = wrap.querySelector('#ln-delq-actions');
   try {
     const res = await api.loans.delinquency(loanId);
@@ -63,7 +58,6 @@ export async function loadLoanDelinquency(c, loanId) {
       </table>` : '<div class="empty-state-row">No delinquency actions</div>';
   } catch (e) { actEl.innerHTML = `<div class="text-error">${escapeHtml(e.message)}</div>`; }
 
-  // Tag history
   const tagsEl = wrap.querySelector('#ln-delq-tags');
   try {
     const tags = await api.loans.delinquencyTags(loanId);
@@ -173,7 +167,6 @@ export async function loadLoanBuyDown(c, loanId) {
     <h3 class="mt-4">Deferred Income</h3>
     <div id="ln-di-list"><div class="empty-state-row">Loading…</div></div>`;
 
-  // Buy-down fees
   const bdEl = wrap.querySelector('#ln-bd-list');
   try {
     const r = await api.loans.buyDownFees(loanId);
@@ -197,7 +190,6 @@ export async function loadLoanBuyDown(c, loanId) {
     bdEl.innerHTML = '<div class="empty-state-row text-muted">Buy-down fees not enabled for this loan product</div>';
   }
 
-  // Capitalized income
   const ciEl = wrap.querySelector('#ln-ci-list');
   try {
     const r = await api.loans.capitalizedIncomes(loanId);
@@ -221,7 +213,6 @@ export async function loadLoanBuyDown(c, loanId) {
     ciEl.innerHTML = '<div class="empty-state-row text-muted">Capitalized income not enabled for this loan product</div>';
   }
 
-  // Deferred income
   const diEl = wrap.querySelector('#ln-di-list');
   try {
     const r = await api.loans.deferredIncome(loanId);

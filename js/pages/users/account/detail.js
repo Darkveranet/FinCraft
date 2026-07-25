@@ -1,6 +1,3 @@
-/* FinCraft · pages/users/account/detail.js — user detail view plus its form/reset-password modals.
-   Auto-split from the original monolithic pages/users/account.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { toast } from '../../../ui.js';
 import { escapeHtml, fmtDate, ini } from '../../../utils.js';
@@ -13,7 +10,6 @@ export async function renderUserDetail(c, userId) {
     const user = await api.users.get(userId);
     const userRoles = user.selectedRoles || [];
 
-    // Compute inherited permissions from selected roles
     let inheritedPerms = new Set();
     for (const r of userRoles) {
       try {
@@ -279,11 +275,6 @@ function openResetPasswordModal(userId, username) {
     if (modalEl.querySelector('#rpw-must-change').checked) payload.shouldRenewPassword = true;
 
     try {
-      // Fineract exposes a dedicated POST /users/{userId}/pwd for password
-      // changes (UsersApiResource#changePassword, gated by CHANGEPWD_USER).
-      // The generic PUT /users/{userId} update endpoint is a different
-      // resource and isn't guaranteed to validate/accept a password change
-      // the same way — see js/api/auth-account.js:makePasswordAPI().
       await api.password.change(userId, payload);
       modalEl.remove();
       toast('success', 'Password reset', 'User notified to log in with new password');

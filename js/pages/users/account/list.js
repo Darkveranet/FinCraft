@@ -1,6 +1,3 @@
-/* FinCraft · pages/users/account/list.js — user list tab loader.
-   Auto-split from the original monolithic pages/users/account.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm as modalConfirm, toast } from '../../../ui.js';
 import { escapeHtml, ini, num, sb } from '../../../utils.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/templates/actions.js — template create/edit/preview modals and the mustache renderer.
-   Auto-split from the original monolithic pages/templates.js for maintainability. */
-
 import { api } from '../../api.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -205,7 +202,6 @@ export async function openPreviewModal(templateId) {
 
   modalEl.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => modalEl.remove()));
 
-  // Local render — simple Mustache-like substitution
   modalEl.querySelector('#prev-render').addEventListener('click', () => {
     const out = modalEl.querySelector('#prev-output');
     let data;
@@ -218,7 +214,6 @@ export async function openPreviewModal(templateId) {
     out.textContent = rendered;
   });
 
-  // Server-side render via /templates/{id} POST
   modalEl.querySelector('#prev-server').addEventListener('click', async () => {
     const out = modalEl.querySelector('#prev-output');
     let data;
@@ -243,7 +238,7 @@ function renderMustache(template, data) {
     let val = data;
     for (const p of parts) {
       if (val && typeof val === 'object' && p in val) val = val[p];
-      else return match; // leave placeholder if not found
+      else return match;
     }
     return String(val ?? '');
   });

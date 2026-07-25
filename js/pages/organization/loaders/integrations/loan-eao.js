@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/integrations/loan-eao.js — loan originators and external asset owners tab loaders.
-   Auto-split from the original monolithic pages/organization/loaders/integrations.js for maintainability. */
-
 import { api } from '../../../../api.js';
 import { confirm as modalConfirm, toast } from '../../../../ui.js';
 import { escapeHtml, num, sb } from '../../../../utils.js';

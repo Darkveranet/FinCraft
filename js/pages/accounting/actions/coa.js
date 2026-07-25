@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/actions/coa.js — GL account and accounting rule modals.
-   Auto-split from the original monolithic pages/accounting/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm as modalConfirm, toast } from '../../../ui.js';
 import { escapeHtml } from '../../../utils.js';
@@ -100,9 +97,6 @@ export async function openAccountingRuleModal(ruleId, onSuccess) {
   const isEdit = !!ruleId;
   let tpl = null;
   try { tpl = await api.accountingRules.template(); } catch {}
-  // Field names for this template aren't documented beyond the endpoint path,
-  // so we only use it if it actually contains recognizable option arrays —
-  // otherwise fall back to the generic offices/GL-accounts lists already used here.
   const tplOffices = tpl?.allowedOffices;
   const tplGl = tpl?.allowedAccounts || tpl?.glAccountOptions;
   const [officesRes, glAccounts] = await Promise.all([

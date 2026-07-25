@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/detail/transactions.js — transactions, charges, and on-hold funds tab loaders.
-   Auto-split from the original monolithic pages/savings/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, fmtDate, sb } from '../../../utils.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/centers/actions.js — modal openers for center actions.
-   Auto-split from the original monolithic pages/centers.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { confirm, toast } from '../../ui.js';
@@ -68,7 +65,6 @@ export async function openAddGroupsModal(centerId, center, onSuccess) {
           name: q, officeId: center.officeId, limit: 20, paged: true
         });
         const list = Array.isArray(res) ? res : (res?.pageItems || []);
-        // Skip groups already associated to this center
         const existingIds = new Set((center.groupMembers || []).map(g => g.id));
         const available = list.filter(g => !existingIds.has(g.id));
         el.querySelector('#ag-results').innerHTML = available.length ? available.map(g => `
@@ -135,7 +131,7 @@ export async function openScheduleMeetingModal(centerId, onSuccess, existingCal)
       startDate: el.querySelector('#m-start').value,
       frequency: parseInt(el.querySelector('#m-freq').value),
       interval: parseInt(el.querySelector('#m-int').value) || 1,
-      typeId: 1, // 1 = COLLECTION
+      typeId: 1,
       description: el.querySelector('#m-desc').value.trim() || undefined,
       repeating: true,
       dateFormat: DATE_FORMAT, locale: LOCALE

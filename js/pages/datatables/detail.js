@@ -1,6 +1,3 @@
-/* FinCraft · pages/datatables/detail.js — renderDetail — datatable column/registration detail.
-   Auto-split from the original monolithic pages/datatables.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, sb } from '../../utils.js';
@@ -137,10 +134,6 @@ export async function renderDetail(c, name) {
       } catch (e) { toast('error', 'Drop column failed', extractFineractError(e)); }
     }));
 
-    // ---- Entries (rows) management ----
-    // Fineract doesn't document, in the reference available here, whether a
-    // given datatable is one-to-one or one-to-many — handled defensively by
-    // checking whether the response is a single object or an array.
     const entriesList = c.querySelector('#dt-entries-list');
     const addBtn = c.querySelector('#dt-entity-add');
     let currentEntityId = null;

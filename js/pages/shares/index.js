@@ -1,6 +1,3 @@
-/* FinCraft · pages/shares/index.js — render() entry point.
-   Auto-split from the original monolithic pages/shares.js for maintainability. */
-
 import { renderDetail } from './detail.js';
 import { renderList } from './list.js';
 

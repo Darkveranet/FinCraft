@@ -1,6 +1,3 @@
-/* FinCraft · pages/products/actions/config.js — tax, delinquency bucket, and product mix modals.
-   Auto-split (2nd pass) from pages/products/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';
@@ -12,7 +9,6 @@ export async function openTaxModal(forceType, taxId, onSuccess) {
   const isEdit = !!taxId;
   const glOpts = await glOptions();
 
-  // On edit, fetch the right entity based on forceType
   let existing = {};
   if (isEdit) {
     try {
@@ -68,7 +64,6 @@ export async function openTaxModal(forceType, taxId, onSuccess) {
     el.querySelector('#tax-group-wrap').style.display = e.target.value === 'group' ? '' : 'none';
   });
 
-  // Pre-fill component-specific GL fields on edit
   if (isEdit && initialType === 'component') {
     if (existing.creditAccount?.id) el.querySelector('#gl-tc-credit').value = String(existing.creditAccount.id);
     if (existing.debitAccount?.id)  el.querySelector('#gl-tc-debit').value  = String(existing.debitAccount.id);
@@ -189,11 +184,9 @@ export async function openDelinquencyModal(bucketId, onSuccess) {
       let workingBucketId;
 
       if (isEdit) {
-        // Update bucket name
         await api.delinquencyBuckets.update(bucketId, { name });
         workingBucketId = parseInt(bucketId);
 
-        // Reconcile ranges: delete removed, update existing, create new
         const formExistingIds = new Set(rangesInForm.filter(r => r._existingId).map(r => r._existingId));
         const removedRanges = existingRanges.filter(er => !formExistingIds.has(er.id));
 
@@ -214,7 +207,6 @@ export async function openDelinquencyModal(bucketId, onSuccess) {
           }
         }
       } else {
-        // Create bucket then create ranges
         const created = await api.delinquencyBuckets.create({ name });
         workingBucketId = created.resourceId || created.id;
         await Promise.all(rangesInForm.map(r =>
@@ -239,7 +231,6 @@ export async function openDelinquencyModal(bucketId, onSuccess) {
 export async function openProductMixModal(loanProductId, onSuccess) {
   const isEdit = !!loanProductId;
 
-  // Fetch all loan products to populate pickers
   let allProducts = [];
   try {
     const r = await api.loanProducts.list();
@@ -258,7 +249,6 @@ export async function openProductMixModal(loanProductId, onSuccess) {
     } catch {}
   }
 
-  // Build select options (exclude primary product from restricted list)
   const restrictableOptions = allProducts
     .filter(p => !primaryProduct || p.id !== primaryProduct.id)
     .map(p => `
@@ -297,7 +287,6 @@ export async function openProductMixModal(loanProductId, onSuccess) {
     const checked = [...el.querySelectorAll('.mix-restrict:checked')].map(cb => parseInt(cb.value));
 
     try {
-      // Fineract product-mix payload uses `restrictedProducts: [id, id, ...]`
       const payload = { restrictedProducts: checked };
       if (isEdit) await api.productMix.update(primaryId, payload);
       else        await api.productMix.create(primaryId, payload);

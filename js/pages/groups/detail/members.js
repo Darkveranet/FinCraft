@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/detail/members.js — members and accounts tab loaders.
-   Auto-split from the original monolithic pages/groups/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, ini, sb } from '../../../utils.js';
@@ -62,11 +59,6 @@ export async function loadRoles(c, id) {
   wrap.innerHTML = '<div class="empty-state-row">Loading…</div>';
   try {
     const fresh = await api.groups.get(id, { associations: 'groupRoles' });
-    // groupRoles' exact response shape isn't shown in the API reference beyond the
-    // write-side (assignRole/updateRole/unassignRole) examples, so this is rendered
-    // defensively against the field names those examples do confirm (clientId, role,
-    // roleId as the resourceId of the assignment) — same approach already used for
-    // glimaccounts/gsimaccounts above.
     const list = fresh.groupRoles || [];
     wrap.innerHTML = list.length ? `
       <table class="table">
@@ -115,9 +107,6 @@ export async function loadAccounts(c, id) {
     const savings = acc?.savingsAccounts || [];
     const memberLoans   = acc?.memberLoanAccounts || [];
     const memberSavings = acc?.memberSavingsAccounts || [];
-    // Response shape for glimaccounts/gsimaccounts isn't documented in the API
-    // reference beyond the path — rendered defensively against several
-    // plausible field names rather than assumed as one fixed schema.
     const glimList = Array.isArray(glimRes) ? glimRes : (glimRes?.pageItems || glimRes?.glimAccounts || []);
     const gsimList = Array.isArray(gsimRes) ? gsimRes : (gsimRes?.pageItems || gsimRes?.gsimAccounts || []);
 

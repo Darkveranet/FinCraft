@@ -1,6 +1,3 @@
-/* FinCraft · pages/centers/detail.js — renderDetail, group/meeting/notes/documents tab loaders, and the collection sheet.
-   Auto-split from the original monolithic pages/centers.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { confirm, toast } from '../../ui.js';
@@ -131,7 +128,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         </div>
       </div>`;
 
-    // -------- Tab switching with deep-link --------
     enhanceScrollableTabs(c.querySelector('#ctr-tabs'));
     const tabs = c.querySelectorAll('[data-ctrtab]');
     const panels = c.querySelectorAll('[data-ctrpanel]');
@@ -158,7 +154,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.ctrtab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Toolbar --------
     c.querySelector('#ctr-back').addEventListener('click', () => {
       import('../../router.js').then(r => r.navigate('centers'));
     });
@@ -190,7 +185,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     c.querySelector('#ctr-remove-groups')?.addEventListener('click', () => disassociateSelectedGroups(c, id));
     c.querySelector('#ctr-add-meeting')?.addEventListener('click', () => openScheduleMeetingModal(id, () => loadMeetings(c, id)));
 
-    // -------- Notes --------
     c.querySelector('#ctr-note-save')?.addEventListener('click', async () => {
       const inp = c.querySelector('#ctr-note-input');
       const note = inp.value.trim(); if (!note) return;
@@ -202,7 +196,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       } catch (e) { toast('error', 'Failed', extractFineractError(e)); }
     });
 
-    // -------- Documents --------
     c.querySelector('#ctr-doc-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target; const fd = new FormData(form);
@@ -294,7 +287,7 @@ async function loadMeetings(c, id) {
       openScheduleMeetingModal(id, () => loadMeetings(c, id), activeCal));
 
     if (activeCal) {
-      const ms = await api.meetings.list('centers', id, { calendarId: activeCal.id });
+      const ms = await api.meetings.list('centers', id);
       const list = Array.isArray(ms) ? ms : [];
       listWrap.innerHTML = list.length ? `
         <table class="table">
@@ -322,7 +315,6 @@ async function loadMeetings(c, id) {
 }
 
 function initCollectionSheet(c, id) {
-  // The button handlers must be wired AFTER the panel is shown (lazy-load).
   const dateEl = c.querySelector('#ctr-cs-date');
   const genBtn = c.querySelector('#ctr-cs-generate');
   const saveBtn = c.querySelector('#ctr-cs-save');
@@ -348,7 +340,6 @@ function initCollectionSheet(c, id) {
   saveBtn?.addEventListener('click', async () => {
     if (!latestSheet) { toast('warn', 'Generate first', ''); return; }
     const meetingDate = dateEl.value;
-    // Collect inputs the user may have edited inline
     const transactions = [];
     wrap.querySelectorAll('[data-cs-row]').forEach(row => {
       const loanId = row.dataset.csRow;

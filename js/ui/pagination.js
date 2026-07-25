@@ -1,21 +1,8 @@
-/* FinCraft · ui/pagination.js — shared pagination control.
-   Renders page-number buttons (first/prev/[…]/1 2 [3] 4 5/…/next/last) plus a
-   rows-per-page selector, and calls back with the new offset/pageSize. Used by every
-   paginated list view (loans, savings, deposits, shares, clients, groups, centers). */
 import { num } from '../utils.js';
 
 export const PAGE_SIZE_OPTIONS = [25, 50, 100, 200];
 export const DEFAULT_PAGE_SIZE = 50;
 
-/**
- * @param {HTMLElement} container - element to render into (e.g. a <div class="pagination-bar">)
- * @param {Object} opts
- * @param {number} opts.total - total filtered record count
- * @param {number} opts.offset - current offset (0-based)
- * @param {number} opts.pageSize - current page size
- * @param {(offset:number, pageSize:number) => void} opts.onChange - called with the new
- *   offset/pageSize whenever the user picks a page or changes the page size.
- */
 export function renderPagination(container, { total, offset, pageSize, onChange }) {
   if (!container) return;
   if (!total) { container.innerHTML = ''; return; }
@@ -63,13 +50,11 @@ export function renderPagination(container, { total, offset, pageSize, onChange 
 
   container.querySelector(`#${container.id}-size`)?.addEventListener('change', (e) => {
     const newSize = parseInt(e.target.value, 10);
-    // Try to keep viewing roughly the same record when the page size changes.
     const newOffset = Math.floor(offset / newSize) * newSize;
     onChange(newOffset, newSize);
   });
 }
 
-/** Compact page-number list with ellipses, e.g. 1 … 4 5 [6] 7 8 … 20 */
 function buildPageList(current, total) {
   const delta = 1;
   const range = [];

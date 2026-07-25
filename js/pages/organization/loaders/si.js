@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/si.js — standing instructions tab loader.
-   Auto-split (2nd pass) from pages/organization/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, fmt, sb } from '../../../utils.js';

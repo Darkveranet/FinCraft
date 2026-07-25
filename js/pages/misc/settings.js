@@ -1,6 +1,3 @@
-/* FinCraft · pages/misc/settings.js — the Settings view.
-   Auto-split from the original monolithic pages/misc.js for maintainability. */
-
 import { configureAPI } from '../../api.js';
 import { FINERACT_DEMO } from '../../config.js';
 import { store } from '../../store.js';

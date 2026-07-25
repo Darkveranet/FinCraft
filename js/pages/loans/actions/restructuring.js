@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/actions/restructuring.js — reage, reamortize, tranche edit, and delinquency action modals.
-   Auto-split (2nd pass) from pages/loans/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { toast } from '../../../ui.js';
@@ -140,8 +137,6 @@ export async function openTrancheEditorModal(loanId, existing, onSuccess) {
 export async function openBulkTrancheEditorModal(loanId, onSuccess) {
   let list = [];
   try {
-    // No bare GET /loans/{id}/disbursements collection endpoint exists per Fineract source — read the real
-    // source of this data: disbursementDetails embedded in the loan account via the associations query param.
     const l = await api.loans.get(loanId, 'disbursementDetails');
     list = (l.disbursementDetails || []).filter(d => !d.actualDisbursementDate);
   } catch (e) {

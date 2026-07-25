@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/shared.js — small shared constants/helpers used across this page module.
-   Auto-split from the original monolithic pages/accounting.js for maintainability. */
-
 import { api } from '../../api.js';
 import { escapeHtml } from '../../utils.js';
 import { store } from '../../store.js';
@@ -36,7 +33,6 @@ export async function populateJEFilters(container) {
   const glSel  = container.querySelector('#je-f-glacct');
   if (!offSel && !glSel) return;
 
-  // Loading state
   if (offSel) offSel.innerHTML = '<option value="">Loading offices…</option>';
   if (glSel)  glSel.innerHTML  = '<option value="">Loading GL accounts…</option>';
 
@@ -53,7 +49,6 @@ export async function populateJEFilters(container) {
     }
 
     if (glSel) {
-      // Group GL accounts by type for usability
       const byType = {};
       glAccounts.forEach(g => {
         const type = g.type?.value || g.type || 'OTHER';

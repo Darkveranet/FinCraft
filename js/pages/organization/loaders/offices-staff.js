@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/offices-staff.js — offices, staff, and tellers tab loaders.
-   Auto-split (2nd pass) from pages/organization/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, fmtDate, sb } from '../../../utils.js';

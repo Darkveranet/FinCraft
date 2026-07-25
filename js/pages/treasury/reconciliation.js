@@ -1,14 +1,3 @@
-/* FinCraft · pages/treasury/reconciliation.js — the Daily Reconciliation view.
-   Fifth (and final) WRITE screen in Phase 11 — the most complex remaining flow, wrapping Phase
-   10's js/treasury/reconciliation.js. A "Start Reconciliation" form (office/teller/cashier/date)
-   opens a reconciliation and shows FinCraft's computed expected cash; the per-office list then
-   surfaces the one action valid for each row's status (OPEN -> submit physical count; SUBMITTED
-   with a non-zero variance -> approve, which posts the shortage/overage JE and self-corrects the
-   teller's operational balance; APPROVED -> read-only). A zero-variance count auto-approves inside
-   the service, so it lands straight in APPROVED with no manual step — the UI reflects that rather
-   than showing a pointless "approve" button. Same expandable-detail-row + TreasuryReconciliation-
-   GapError "action required" conventions as every other treasury write screen. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { toast, confirm } from '../../ui.js';
@@ -33,7 +22,6 @@ function reportActionError(err, ordinaryTitle) {
   }
 }
 
-/** variance is stored physical − expected: negative == shortage, positive == overage. */
 function varianceLabel(variance) {
   if (variance === null || variance === undefined) return '<span class="text-muted">—</span>';
   const v = Number(variance);

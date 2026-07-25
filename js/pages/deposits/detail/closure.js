@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/detail/closure.js — premature closure calculator tab loader.
-   Auto-split from the original monolithic pages/deposits/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { today } from '../../../config.js';
 import { escapeHtml, fmt, num } from '../../../utils.js';
@@ -32,7 +29,6 @@ export async function loadClosureCalculator(c, apiGroup, id, d) {
     result.innerHTML = '<div class="empty-state-row">Calculating…</div>';
     try {
       const tpl = await apiObj.prematureTemplate(id);
-      // Fineract returns a "preMatureClosureTemplate" embedded in the response with computed amounts
       const closure = tpl.preMatureClosureTemplate || tpl;
       const maturityAmount = closure.maturityAmount ?? closure.totalPayable ?? 0;
       const interestRate   = closure.preClosurePenalApplicable

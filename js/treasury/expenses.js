@@ -1,11 +1,3 @@
-/* FinCraft · treasury/expenses.js — Phase 7: Expense Management Through Teller Or Bank.
-   No separate petty-cash module (per the brief) — the teller/cashier already modeled in Fineract
-   is the cash custodian for TELLER_CASH-sourced expenses, exactly as it is for Phase 6's loan
-   disbursements. Lifecycle: PENDING -> APPROVED -> PAID, or PENDING -> REJECTED. REVERSED/
-   CANCELLED are explicitly out of scope for this phase (see log §9, Deferred Work) — paying an
-   expense is currently a one-way door, same as it is in most real cash-handling processes
-   (a mispayment gets corrected by a manual adjusting entry, not an automated "undo"). */
-
 import { api } from '../api.js';
 import { requireThresholds } from './thresholds.js';
 import { validateCashierCanPay } from './teller-balance.js';
@@ -30,17 +22,6 @@ function assertStatus(expense, expected, action) {
   }
 }
 
-/**
- * @param {object} payload
- * @param {number} payload.officeId
- * @param {string} payload.expenseCategory
- * @param {number} payload.expenseGlAccountId
- * @param {number} payload.amount
- * @param {string} payload.currencyCode
- * @param {string} payload.requestedBy
- * @param {string} [payload.narration]
- * @param {string} [payload.receiptUrl]
- */
 export async function createExpenseRequest(payload) {
   const required = ['officeId', 'expenseCategory', 'expenseGlAccountId', 'amount', 'currencyCode', 'requestedBy'];
   const missing = required.filter(f => payload[f] === undefined || payload[f] === null || payload[f] === '');
@@ -90,17 +71,6 @@ export async function rejectExpense(officeId, expenseId, approver, reason) {
   return { officeId, expenseId, status: STATUS.REJECTED };
 }
 
-/**
- * @param {number} officeId
- * @param {number} expenseId
- * @param {object} paymentPayload
- * @param {'TELLER_CASH'|'BANK'} paymentPayload.paymentSource
- * @param {string} paymentPayload.transactionDate  'YYYY-MM-DD'
- * @param {number} [paymentPayload.tellerId]        required if paymentSource === TELLER_CASH
- * @param {number} [paymentPayload.cashierId]        required if paymentSource === TELLER_CASH
- * @param {number} [paymentPayload.bankGlAccountId]  optional override of dt_treasury_thresholds' bank_gl_account_id
- * @param {string} [paymentPayload.performedBy]
- */
 export async function payExpense(officeId, expenseId, paymentPayload) {
   const expense = await getExpense(officeId, expenseId);
   assertStatus(expense, STATUS.APPROVED, 'pay');
@@ -119,10 +89,9 @@ export async function payExpense(officeId, expenseId, paymentPayload) {
 async function payFromTeller(officeId, expense, { tellerId, cashierId, transactionDate, performedBy }) {
   if (!tellerId || !cashierId) throw new Error('payExpense (TELLER_CASH): tellerId and cashierId are both required');
 
-  const t = await requireThresholds(officeId); // for cash_at_tellers_gl_account_id
-  await validateCashierCanPay(officeId, tellerId, cashierId, expense.amount); // Phase 4 guard, exact error message
+  const t = await requireThresholds(officeId);
+  await validateCashierCanPay(officeId, tellerId, cashierId, expense.amount);
 
-  // Dr Expense GL / Cr Cash At Tellers GL
   const je = await api.journalEntries.create({
     officeId, transactionDate,
     currencyCode: expense.currency_code,
@@ -162,7 +131,6 @@ async function payFromTeller(officeId, expense, { tellerId, cashierId, transacti
 async function payFromBank(officeId, expense, { transactionDate, bankGlAccountId }) {
   const glAccountId = bankGlAccountId ?? (await requireThresholds(officeId)).bankGlAccountId;
 
-  // Dr Expense GL / Cr Bank GL. No teller event — this path never touches a cashier's cash.
   const je = await api.journalEntries.create({
     officeId, transactionDate,
     currencyCode: expense.currency_code,

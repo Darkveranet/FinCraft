@@ -1,6 +1,3 @@
-/* FinCraft · api/organization.js — Offices, staff, tellers, holidays, working days, funds, codes, currencies, and payment types.
-   Auto-split from the original monolithic api.js for maintainability. */
-
 export function makeOfficesAPI(self) {
   return {
     list:   (params) => self._g('/offices', params),
@@ -23,6 +20,7 @@ export function makeStaffAPI(self) {
 export function makeTellersAPI(self) {
   return {
     list:    (params) => self._g('/tellers', params),
+    allCashiers: (params) => self._g('/cashiers', params),
     get:     (id)     => self._g(`/tellers/${id}`),
     create:  (body)   => self._p('/tellers', body),
     update:  (id, b)  => self._u(`/tellers/${id}`, b),
@@ -44,8 +42,6 @@ export function makeTellersAPI(self) {
   };
 }
 
-// TellerJournalApiResource — distinct top-level resource, base path /v1/cashiersjournal
-// (NOT nested under /tellers/{id}; per Fineract_Backend_API_Reference.md section 3.2).
 export function makeTellerJournalAPI(self) {
   return {
     list: (params) => self._g('/cashiersjournal', params)
@@ -90,8 +86,6 @@ export function makeCodesAPI(self) {
     createValue: (id,body)=> self._p(`/codes/${id}/codevalues`, body),
     updateValue: (id,vid,body) => self._u(`/codes/${id}/codevalues/${vid}`, body),
     deleteValue: (id,vid) => self._d(`/codes/${id}/codevalues/${vid}`),
-    // By-name variants of the same code-value CRUD (Fineract offers both
-    // numeric-id and code-name addressing for this sub-resource).
     valuesByName:      (name)       => self._g(`/codes/name/${name}/codevalues`),
     getValueByName:    (name, vid)  => self._g(`/codes/name/${name}/codevalues/${vid}`),
     createValueByName: (name, body) => self._p(`/codes/name/${name}/codevalues`, body),

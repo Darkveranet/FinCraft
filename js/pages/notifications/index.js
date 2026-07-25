@@ -1,6 +1,3 @@
-/* FinCraft · pages/notifications/index.js — render() entry point — builds the tab shell and starts polling.
-   Auto-split from the original monolithic pages/notifications.js for maintainability. */
-
 import { store } from '../../store.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -13,9 +10,6 @@ let _unsubCurrentPage = null;
 
 export async function render(c) {
   stopPolling();
-  // Undo the previous render()'s store.subscribe() before creating a new one — otherwise
-  // every visit to this page adds another closure that never gets cleaned up, and they all
-  // fire (redundantly) on every future navigation for the rest of the session.
   if (_unsubCurrentPage) { _unsubCurrentPage(); _unsubCurrentPage = null; }
   c.innerHTML = `
     <div class="page-header">
@@ -58,7 +52,6 @@ export async function render(c) {
     })
   );
 
-  // Auto-refresh toggle
   c.querySelector('#nt-auto-poll').addEventListener('change', e => {
     setAutoRefresh(e.target.checked);
     if (_autoRefresh) {
@@ -70,11 +63,9 @@ export async function render(c) {
     }
   });
 
-  // Load tab 0 immediately
   loaded[0] = true;
   await loadNotifications(c);
 
-  // Clean up polling when user navigates away
   _unsubCurrentPage = store.subscribe('currentPage', page => {
     if (page !== 'notifications') stopPolling();
   });
