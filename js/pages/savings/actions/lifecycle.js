@@ -210,7 +210,7 @@ export function openApproveSavingsModal(id) {
 export async function openSavingsAssignStaffModal(id, s) {
   let staffList = [];
   try {
-    const r = await api.staff.list({ officeId: s.officeId || s.clientOfficeId, isLoanOfficer: true });
+    const r = await api.staff.list({ officeId: s.officeId || s.clientOfficeId, loanOfficersOnly: true });
     staffList = Array.isArray(r) ? r : (r?.pageItems || []);
   } catch {}
 

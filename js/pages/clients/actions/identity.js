@@ -257,7 +257,9 @@ export async function openAddAddressModal(clientId, onSuccess) {
     try {
       await api.clients.createAddress(clientId, {
         addressTypeId: parseInt(addressTypeId),
-        street: el.querySelector('#addr-street').value.trim() || undefined,
+        // UI-CONTRACT FIX (UC-01): Fineract's address command reads `addressLine1`, not `street` —
+        // the typed street was silently dropped on every save. Label stays "Street" for the user.
+        addressLine1: el.querySelector('#addr-street').value.trim() || undefined,
         city: el.querySelector('#addr-city').value.trim() || undefined,
         postalCode: el.querySelector('#addr-postal').value.trim() || undefined,
         stateProvinceId: el.querySelector('#addr-state').value.trim() || undefined,
@@ -319,7 +321,8 @@ export async function openEditAddressModal(clientId, address, onSuccess) {
     try {
       await api.clients.updateAddress(clientId, {
         addressTypeId: parseInt(addressTypeId),
-        street: el.querySelector('#addr-edit-street').value.trim() || undefined,
+        // UI-CONTRACT FIX (UC-01): `addressLine1`, not `street` — see createAddress note.
+        addressLine1: el.querySelector('#addr-edit-street').value.trim() || undefined,
         city: el.querySelector('#addr-edit-city').value.trim() || undefined,
         postalCode: el.querySelector('#addr-edit-postal').value.trim() || undefined,
         stateProvinceId: el.querySelector('#addr-edit-state').value.trim() || undefined,

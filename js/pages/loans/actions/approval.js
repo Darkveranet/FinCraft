@@ -109,7 +109,7 @@ export async function openApprovedAmountHistoryModal(loanId) {
 export async function openAssignOfficerModal(loanId, currentOfficer) {
   let staffList = [];
   try {
-    const r = await api.staff.list({ isLoanOfficer: true });
+    const r = await api.staff.list({ loanOfficersOnly: true });
     staffList = Array.isArray(r) ? r : (r?.pageItems || []);
   } catch {}
   const mid = `ln-officer-${Date.now()}`;
