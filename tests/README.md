@@ -7,6 +7,9 @@ npm install    # installs jsdom for the DOM-based suites
 npm test       # node test-runner/run-tests.js
 ```
 
+Tests also run automatically on GitHub via **`.github/workflows/tests.yml`**
+(on every push and pull request, on Node 20 and 22).
+
 Each file exports `runTests({ assert })` and is discovered automatically by
 `test-runner/run-tests.js`. DOM-dependent suites skip gracefully with a warning
 if `jsdom` is not installed; the rest run on plain Node with no dependencies.
