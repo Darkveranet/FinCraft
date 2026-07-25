@@ -91,7 +91,7 @@ export async function openCloseGroupModal(id) {
 export async function openAssignStaffModal(id, g) {
   let staffList = [];
   try {
-    const r = await api.staff.list({ officeId: g.officeId, isLoanOfficer: true });
+    const r = await api.staff.list({ officeId: g.officeId, loanOfficersOnly: true });
     staffList = Array.isArray(r) ? r : (r?.pageItems || []);
   } catch {}
   const mid = `grp-assign-${Date.now()}`;

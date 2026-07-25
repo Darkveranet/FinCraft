@@ -171,7 +171,10 @@ function wireRowActions(c, el) {
   el.querySelectorAll('[data-view-task]').forEach(b => b.addEventListener('click', async () => {
     const taskId = b.dataset.viewTask;
     try {
-      const res = await api.makerchecker.list({ makerCheckerId: taskId });
+      // UI-CONTRACT FIX (UC-07): MakerCheckerApiResource has NO per-id GET and its list endpoint
+      // has NO `makerCheckerId` filter (the param was silently ignored). Fetch a bounded page and
+      // locate the entry client-side — the only supported way to view a single maker-checker task.
+      const res = await api.makerchecker.list({ limit: 200 });
       const list = Array.isArray(res) ? res : (res?.pageItems || []);
       const task = list.find(t => String(t.id) === String(taskId)) || list[0];
       if (task) openTaskDetailModal(task);

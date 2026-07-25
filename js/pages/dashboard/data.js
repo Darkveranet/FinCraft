@@ -296,7 +296,7 @@ export async function loadIncomeExpense(start, end, months, officeId) {
 /** Active loan COUNT per loan officer (not a currency figure — see file header for why). */
 export async function loadLoansByOfficer(officeId) {
   try {
-    const staff = await api.staff.list({ isLoanOfficer: true, ...(officeId ? { officeId } : {}) });
+    const staff = await api.staff.list({ loanOfficersOnly: true, ...(officeId ? { officeId } : {}) });
     const list = (Array.isArray(staff) ? staff : []).slice(0, 8); // cap chart to 8 bars
     const counts = await Promise.all(list.map(s =>
       api.loans.list({ limit: 1, status: 'active', loanOfficerId: s.id }).then(r => r?.totalFilteredRecords ?? 0).catch(() => null)

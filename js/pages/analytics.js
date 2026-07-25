@@ -70,7 +70,7 @@ async function loadAll(c) {
     api.loans.list({ limit: 1, status: 'closed' }),                                        // 2
     api.runReports.run('PortfolioAtRisk',     { genericResultSet: true }).catch(() => null),// 3
     api.runReports.run('ActiveLoansInArrears',{ genericResultSet: true }).catch(() => null),// 4
-    api.staff.list({ isLoanOfficer: true }),                                                // 5
+    api.staff.list({ loanOfficersOnly: true }),                                                // 5
     api.loanProducts.list()                                                                 // 6
   ]);
 
@@ -170,17 +170,36 @@ async function loadAll(c) {
   if (prodEl) {
     if (prodList.length) {
       const topProducts = prodList.slice(0, 12);
-      const counts = await Promise.all(topProducts.map(p =>
-        api.loans.list({ limit: 1, status: 'active', loanProductId: p.id })
-          .then(r => r?.totalFilteredRecords ?? null)
-          .catch(() => null)
-      ));
-      prodEl.innerHTML = topProducts.map((p, i) => `
+      // UI-CONTRACT FIX (UC-08a): GET /loans has NO `loanProductId` query param (spec params are
+      // externalId/offset/limit/orderBy/sortOrder/accountNo/associations/clientId/status). The old
+      // per-product `loans.list({ loanProductId: p.id })` silently ignored that filter, so EVERY
+      // product's `totalFilteredRecords` came back as the SAME grand total of active loans — the
+      // product-mix column was meaningless (and fired 12 redundant identical queries).
+      // Correct approach: pull ONE bounded sample of active loans (status IS a supported filter)
+      // and tally per-product client-side via each loan's `loanProductId`. If the sample is capped
+      // (more active loans than fetched), counts are marked approximate rather than shown as exact.
+      const SAMPLE_CAP = 1000;
+      let byProduct = null, sampled = false;
+      try {
+        const r = await api.loans.list({ limit: SAMPLE_CAP, status: 'active', orderBy: 'id', sortOrder: 'DESC' });
+        const loans = Array.isArray(r) ? r : (r?.pageItems || []);
+        const total = r?.totalFilteredRecords ?? loans.length;
+        sampled = total > loans.length;
+        byProduct = new Map();
+        for (const l of loans) {
+          const pid = l.loanProductId ?? l.productId ?? l.loanProduct?.id;
+          if (pid != null) byProduct.set(pid, (byProduct.get(pid) || 0) + 1);
+        }
+      } catch { byProduct = null; }
+      const countFor = (p) => byProduct ? (byProduct.get(p.id) || 0) : null;
+      prodEl.innerHTML = topProducts.map((p) => `
         <tr>
           <td>${escapeHtml(p.name)}<div class="text-muted mono" style="font-size:11px">${escapeHtml(p.shortName || '—')}</div></td>
           <td class="mono">${p.interestRatePerPeriod || 0}%</td>
           <td class="mono">${fmt(p.principal || 0)}</td>
-          <td class="mono">${counts[i] != null ? num(counts[i]) : '<span class="badge b-warn" title="Failed to load">—</span>'}</td>
+          <td class="mono">${countFor(p) != null
+              ? num(countFor(p)) + (sampled ? ' <span class="badge b-warn" title="Estimated from a sample of active loans — actual total exceeds the sample size">~</span>' : '')
+              : '<span class="badge b-warn" title="Failed to load">—</span>'}</td>
         </tr>`).join('') +
         (prodList.length > 12 ? `<tr><td colspan="4" class="text-muted" style="font-size:12px">+ ${prodList.length - 12} more product(s) not shown</td></tr>` : '');
     } else {

@@ -257,11 +257,14 @@ export async function render(c) {
       guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'pending', ...officeParam })),                     // 2
       guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'approved', ...officeParam })),                    // 3
       guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'closed', ...officeParam })),                      // 4
-      guarded(hasSavings, () => api.savings.list({ limit: 1, status: 'active', ...officeParam })),                    // 5
+      guarded(false,      () => null),                                                                                // 5 — UC-08b: was api.savings.list({status:'active'}) — /savingsaccounts has no status filter (ignored) AND the resulting `activeSavings` value was never rendered. Neutralised (slot kept for val() index stability). Savings balance KPI is handled by loadSavingsBalance() below.
       guarded(hasLoans,   () => api.runReports.run('PortfolioAtRisk', { genericResultSet: true, ...(officeId ? { R_officeId: officeId } : {}) })), // 6
       guarded(hasLoans,   () => api.runReports.run('ActiveLoansInArrears', { genericResultSet: true })),              // 7
       guarded(hasLoans,   () => api.runReports.run('TranDatewiseSummary', {
-        startDate: fmt8(start), endDate: fmt8(end), dateFormat: 'yyyy-MM-dd', locale: 'en', genericResultSet: true })), // 8
+        // UI-CONTRACT FIX (UC-05): stretchy-report params must carry the `R_` prefix (Fineract
+        // substitutes ${R_x} in the report SQL) — every sibling call here uses R_officeId. The
+        // un-prefixed startDate/endDate were ignored, so the report ran without its date range.
+        R_startDate: fmt8(start), R_endDate: fmt8(end), dateFormat: 'yyyy-MM-dd', locale: 'en', genericResultSet: true })), // 8
       guarded(hasAudit,   () => api.audits.list({ limit: 10, orderBy: 'id', sortOrder: 'DESC', paged: true })),       // 9
       guarded(hasLoans,   () => api.loans.list({ limit: 200, status: 'active', orderBy: 'id', sortOrder: 'DESC', ...officeParam })), // 10 — sample for product distribution
       guarded(hasClients, () => api.clients.list({ limit: 200, status: 'active', orderBy: 'id', sortOrder: 'DESC', ...officeParam })) // 11 — sample for "new this month"
@@ -273,7 +276,8 @@ export async function render(c) {
     const pendingLoans   = val(2)?.totalFilteredRecords ?? null;
     const approvedLoans  = val(3)?.totalFilteredRecords ?? null;
     const closedLoans    = val(4)?.totalFilteredRecords ?? null;
-    const activeSavings  = val(5)?.totalFilteredRecords ?? null;
+    // UC-08b: `activeSavings` removed — it read val(5).totalFilteredRecords from an unsupported
+    // status-filtered savings query (always the grand total) and was never rendered anywhere.
     const parReport       = val(6);
     const arrearsReport   = val(7);
     const tranReport      = val(8);
@@ -493,7 +497,12 @@ export async function render(c) {
         return { amount, approx: false };
       }
     } catch {}
-    const sample = await sampleBalance(l => api.savings.list({ limit: l, status: 'active', ...(officeId ? { officeId } : {}) }), x => x.summary?.accountBalance);
+    // UI-CONTRACT FIX (UC-08b): GET /savingsaccounts has NO `status` query param (spec params are
+    // externalId/offset/limit/orderBy/sortOrder), so the old `status: 'active'` was silently ignored.
+    // This KPI is "Total Savings Balance" anyway — a *total* shouldn't be filtered to active — so the
+    // param was both a no-op AND semantically wrong. Dropped it: behaviour on the wire is unchanged,
+    // the code now honestly reflects that it sums balances across all savings accounts.
+    const sample = await sampleBalance(l => api.savings.list({ limit: l, ...(officeId ? { officeId } : {}) }), x => x.summary?.accountBalance);
     return sample ? { amount: sample.capped ? (sample.sum / sample.sampleSize) * sample.total : sample.sum, approx: sample.capped } : null;
   }
 

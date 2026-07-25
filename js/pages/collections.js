@@ -23,7 +23,7 @@ export async function render(c) {
 
   const [offRes, staffRes, ptRes] = await Promise.all([
     api.offices.list().catch(() => []),
-    api.staff.list({ isLoanOfficer: true }).catch(() => []),
+    api.staff.list({ loanOfficersOnly: true }).catch(() => []),
     api.paymentTypes.list().catch(() => [])
   ]);
   const offices     = Array.isArray(offRes)   ? offRes   : [];

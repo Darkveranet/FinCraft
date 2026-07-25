@@ -22,7 +22,10 @@ export async function loadMyActivity(c) {
   }
 
   try {
-    const res = await api.audits.list({ limit: 100, makerUsername: username });
+    // UI-CONTRACT FIX (UC-06): AuditApiResource filters by integer `makerId`, not `makerUsername`
+    // (the latter is ignored → "My Activity" showed EVERY user's entries). auth.userId is set at
+    // login; if absent, makerId is undefined and core.js drops it (falls back to unfiltered).
+    const res = await api.audits.list({ limit: 100, makerId: auth.userId });
     const list = Array.isArray(res) ? res : (res?.pageItems || []);
 
     // KPIs
