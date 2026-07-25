@@ -1,6 +1,3 @@
-/* FinCraft · pages/self-service/portal-users.js — self-service portal user tab loader and modals.
-   Auto-split from the original monolithic pages/self-service.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, fmtDate, ini, num, sb } from '../../utils.js';
@@ -15,7 +12,6 @@ export async function loadPortalUsers(c) {
     const res = await api.selfService.users();
     const list = Array.isArray(res) ? res : (res?.pageItems || []);
 
-    // KPIs
     const activeCount   = list.filter(u => u.passwordExpired !== true && u.accountNonLocked !== false).length;
     const lockedCount   = list.filter(u => u.accountNonLocked === false).length;
     const expiredCount  = list.filter(u => u.passwordExpired).length;
@@ -180,8 +176,6 @@ function openResetPortalPasswordModal(userId, username) {
     if (modalEl.querySelector('#rpp-must-change').checked) payload.shouldRenewPassword = true;
 
     try {
-      // POST /users/{userId}/pwd (UsersApiResource#changePassword), not the
-      // generic PUT /users/{userId} update endpoint — see api/auth-account.js.
       await api.password.change(userId, payload);
       modalEl.remove();
       toast('success', 'Password reset', 'User must log in with new password');

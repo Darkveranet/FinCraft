@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/detail/collateral-guarantors.js — collateral, guarantors, originators, and external asset owner tab loaders.
-   Auto-split (2nd pass) from pages/loans/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { confirm, toast } from '../../../ui.js';
@@ -18,7 +15,6 @@ export async function loadLoanCollateral(c, loanId) {
       </div>` : '<h3>Loan Collateral</h3>'}
     <div id="ln-coll-list"><div class="empty-state-row">Loading…</div></div>`;
 
-  // Need clientId to load the client's collateral pool — pull from cached loan
   let clientId = null;
   try {
     const l = await api.loans.get(loanId, 'all');

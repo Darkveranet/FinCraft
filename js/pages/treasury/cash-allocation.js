@@ -1,10 +1,3 @@
-/* FinCraft · pages/treasury/cash-allocation.js — the Cash Allocation view.
-   The first WRITE screen in Phase 11 (Settings/Dashboard/Teller Console were read-only) — moves
-   cash from the vault to a cashier via Phase 5's allocateCashToCashier, which itself wraps
-   Fineract's native allocate API and records the matching Phase 3 teller event. Shows the current
-   vault status (balance/buffer/available) before submission so the operator can see whether a
-   request will be blocked before trying it, not just after. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { toast } from '../../ui.js';
@@ -78,11 +71,9 @@ async function loadFormForOffice(c, officeId) {
       toast('success', 'Cash allocated', `${fmtMoney(amount)} allocated. Available vault after: ${fmtMoney(result.availableVaultAfter)}`);
       c.querySelector('#tca-amount').value = '';
       c.querySelector('#tca-note').value = '';
-      await loadVaultStatus(c, officeId); // refresh the status line to reflect the new balance
+      await loadVaultStatus(c, officeId);
     } catch (err) {
       if (err instanceof TreasuryReconciliationGapError) {
-        // Real cash already moved in Fineract even though this failed — this is not an ordinary
-        // validation error, so it must not look like one (see js/treasury/errors.js).
         toast('error', 'Reconciliation gap — action required', err.message);
       } else {
         toast('error', 'Allocation failed', err?.message || String(err));

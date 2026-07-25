@@ -1,6 +1,3 @@
-/* FinCraft · pages/products/shared.js — small shared constants/helpers used across this page module.
-   Auto-split from the original monolithic pages/products.js for maintainability. */
-
 import { api } from '../../api.js';
 import { escapeHtml } from '../../utils.js';
 import { store } from '../../store.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/reports/manage-reports.js — manage-reports tab: report list and create/edit modal.
-   Auto-split from the original monolithic pages/reports.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, num, sb } from '../../utils.js';

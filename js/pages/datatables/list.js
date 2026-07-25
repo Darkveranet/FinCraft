@@ -1,6 +1,3 @@
-/* FinCraft · pages/datatables/list.js — renderList — the datatables list view.
-   Auto-split from the original monolithic pages/datatables.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, num, sb } from '../../utils.js';
@@ -58,7 +55,6 @@ export async function renderList(c) {
       const res = await api.dataTables.list();
       allTables = Array.isArray(res) ? res : [];
 
-      // KPIs
       c.querySelector('#dt-total').textContent   = num(allTables.length);
       c.querySelector('#dt-clients').textContent = num(allTables.filter(t => t.applicationTableName === 'm_client').length);
       c.querySelector('#dt-loans').textContent   = num(allTables.filter(t => t.applicationTableName === 'm_loan').length);
@@ -103,7 +99,6 @@ export async function renderList(c) {
         </tr>`;
     }).join('') : '<tr><td colspan="5" class="empty-state-row">No data tables match</td></tr>';
 
-    // Wire actions
     c.querySelectorAll('[data-view-dt]').forEach(b => b.addEventListener('click', () =>
       import('../../router.js').then(r => r.navigate('datatables', { view: 'detail', name: b.dataset.viewDt }))));
 

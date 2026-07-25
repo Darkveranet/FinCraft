@@ -1,6 +1,3 @@
-/* FinCraft · pages/products/actions/share-products.js — share product modal.
-   Auto-split (2nd pass) from pages/products/actions.js for maintainability. */
-
 import { LOCALE } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';

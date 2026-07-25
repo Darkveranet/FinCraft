@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/loaders/coa.js — chart of accounts, journal entries, and frequent postings tab loaders.
-   Auto-split from the original monolithic pages/accounting/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { escapeHtml, fmt, fmtDate } from '../../../utils.js';
@@ -169,10 +166,8 @@ export async function loadJournalEntries(c, params = {}) {
   loadJournalEntries(c, p);
 });
 
-// Populate filter dropdowns with real offices + GL accounts
 populateJEFilters(el);
 
-// Clear filter button
 el.querySelector('#je-filter-clear')?.addEventListener('click', () => {
   el.querySelector('#je-f-set').value    = '';
   el.querySelector('#je-f-office').value = '';

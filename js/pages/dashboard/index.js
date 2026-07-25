@@ -1,8 +1,3 @@
-/* FinCraft · pages/dashboard/index.js — render(): the dashboard page entry point.
-   Filter bar, headline KPI cards (with period-over-period deltas via the daily snapshot
-   mechanism in ./data.js), the chart bank (rendered via ./charts.js), Quick Actions, and
-   Recent Activity. Split out of the former single dashboard.js — see js/pages/dashboard.js
-   barrel + FRONTEND.md for the split rationale and known data-honesty notes for this page. */
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { fmt, num, escapeHtml, fmtDate } from '../../utils.js';
@@ -201,7 +196,6 @@ export async function render(c) {
   const approxBadge = () =>
     `<span class="badge b-warning" title="Estimated from a limited sample — the full total could not be summed in one request" style="font-size:9px;padding:1px 6px;margin-left:6px">~</span>`;
 
-  /* ---- Filters: populate Branch / Product dropdowns, wire change handlers ---- */
   const officeSel = c.querySelector('#dash-f-office');
   const periodSel = c.querySelector('#dash-f-period');
   const productSel = c.querySelector('#dash-f-product');
@@ -211,18 +205,18 @@ export async function render(c) {
       const offices = await api.offices.list();
       const list = Array.isArray(offices) ? offices : (offices?.pageItems || []);
       list.forEach(o => { const opt = document.createElement('option'); opt.value = o.id; opt.textContent = o.name; officeSel.appendChild(opt); });
-    } catch { /* branch filter just stays "All Branches" only */ }
+    } catch { }
   }
   if (productSel) {
     try {
       const products = await api.loanProducts.list();
       const list = Array.isArray(products) ? products : [];
       list.forEach(p => { const opt = document.createElement('option'); opt.value = p.name; opt.textContent = p.name; productSel.appendChild(opt); });
-    } catch { /* product filter just stays "All Products" only */ }
+    } catch { }
   }
   [officeSel, periodSel, productSel].forEach(sel => sel?.addEventListener('change', () => loadAll()));
 
-  let lastSummary = {}; // populated by loadAll(), read by the Export button
+  let lastSummary = {};
   let headOfficeId = null;
   let snapshotHistory = [];
   let snapshotWritable = false;
@@ -242,8 +236,6 @@ export async function render(c) {
 
     const guarded = (cond, fn) => cond ? fn().catch(() => null) : Promise.resolve(null);
 
-    /* Ensure the snapshot datatable exists (idempotent, cheap after the first run) and
-       pull its history — needed both for KPI deltas and the Customer Growth chart. */
     if (isAllBranches) {
       if (!headOfficeId) headOfficeId = await getHeadOfficeId();
       snapshotWritable = await ensureSnapshotTable();
@@ -252,22 +244,19 @@ export async function render(c) {
     const baseline = isAllBranches ? pickBaseline(snapshotHistory) : null;
 
     const results = await Promise.allSettled([
-      guarded(hasClients, () => api.clients.list({ limit: 1, status: 'active', ...officeParam })),                    // 0
-      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'active', ...officeParam })),                      // 1
-      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'pending', ...officeParam })),                     // 2
-      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'approved', ...officeParam })),                    // 3
-      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'closed', ...officeParam })),                      // 4
-      guarded(false,      () => null),                                                                                // 5 — UC-08b: was api.savings.list({status:'active'}) — /savingsaccounts has no status filter (ignored) AND the resulting `activeSavings` value was never rendered. Neutralised (slot kept for val() index stability). Savings balance KPI is handled by loadSavingsBalance() below.
-      guarded(hasLoans,   () => api.runReports.run('PortfolioAtRisk', { genericResultSet: true, ...(officeId ? { R_officeId: officeId } : {}) })), // 6
-      guarded(hasLoans,   () => api.runReports.run('ActiveLoansInArrears', { genericResultSet: true })),              // 7
+      guarded(hasClients, () => api.clients.list({ limit: 1, status: 'active', ...officeParam })),
+      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'active', ...officeParam })),
+      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'pending', ...officeParam })),
+      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'approved', ...officeParam })),
+      guarded(hasLoans,   () => api.loans.list({ limit: 1, status: 'closed', ...officeParam })),
+      guarded(false,      () => null),
+      guarded(hasLoans,   () => api.runReports.run('PortfolioAtRisk', { genericResultSet: true, ...(officeId ? { R_officeId: officeId } : {}) })),
+      guarded(hasLoans,   () => api.runReports.run('ActiveLoansInArrears', { genericResultSet: true })),
       guarded(hasLoans,   () => api.runReports.run('TranDatewiseSummary', {
-        // UI-CONTRACT FIX (UC-05): stretchy-report params must carry the `R_` prefix (Fineract
-        // substitutes ${R_x} in the report SQL) — every sibling call here uses R_officeId. The
-        // un-prefixed startDate/endDate were ignored, so the report ran without its date range.
-        R_startDate: fmt8(start), R_endDate: fmt8(end), dateFormat: 'yyyy-MM-dd', locale: 'en', genericResultSet: true })), // 8
-      guarded(hasAudit,   () => api.audits.list({ limit: 10, orderBy: 'id', sortOrder: 'DESC', paged: true })),       // 9
-      guarded(hasLoans,   () => api.loans.list({ limit: 200, status: 'active', orderBy: 'id', sortOrder: 'DESC', ...officeParam })), // 10 — sample for product distribution
-      guarded(hasClients, () => api.clients.list({ limit: 200, status: 'active', orderBy: 'id', sortOrder: 'DESC', ...officeParam })) // 11 — sample for "new this month"
+        R_startDate: fmt8(start), R_endDate: fmt8(end), dateFormat: 'yyyy-MM-dd', locale: 'en', genericResultSet: true })),
+      guarded(hasAudit,   () => api.audits.list({ limit: 10, orderBy: 'id', sortOrder: 'DESC', paged: true })),
+      guarded(hasLoans,   () => api.loans.list({ limit: 200, status: 'active', orderBy: 'id', sortOrder: 'DESC', ...officeParam })),
+      guarded(hasClients, () => api.clients.list({ limit: 200, status: 'active', orderBy: 'id', sortOrder: 'DESC', ...officeParam }))
     ]);
     const val = (i) => results[i].status === 'fulfilled' ? results[i].value : null;
 
@@ -276,8 +265,6 @@ export async function render(c) {
     const pendingLoans   = val(2)?.totalFilteredRecords ?? null;
     const approvedLoans  = val(3)?.totalFilteredRecords ?? null;
     const closedLoans    = val(4)?.totalFilteredRecords ?? null;
-    // UC-08b: `activeSavings` removed — it read val(5).totalFilteredRecords from an unsupported
-    // status-filtered savings query (always the grand total) and was never rendered anywhere.
     const parReport       = val(6);
     const arrearsReport   = val(7);
     const tranReport      = val(8);
@@ -288,11 +275,9 @@ export async function render(c) {
     const arrearsCount = arrearsReport?.data?.length ?? null;
     const parInfo = analyzePAR(parReport);
 
-    /* ---- KPI: Total Customers ---- */
     if (hasClients) setKpi('clients', num(activeClients ?? '—'), deltaHtml(activeClients, 'clients', baseline));
     else setKpi('clients', '—', 'No permission');
 
-    /* ---- KPI: New This Month ---- */
     let newClientsCount = null;
     if (hasClients) {
       const now = new Date();
@@ -301,11 +286,10 @@ export async function render(c) {
         return d && d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
       });
       newClientsCount = inMonth.length;
-      const capped = clientSample.length >= 200; // whole 200-row sample still in play — likely undercounting
+      const capped = clientSample.length >= 200;
       setKpi('newClients', num(newClientsCount) + (capped ? approxBadge() : ''), deltaHtml(newClientsCount, 'newClients', baseline));
     } else setKpi('newClients', '—', 'No permission');
 
-    /* ---- KPI: Total Savings Balance ---- */
     let savingsAmount = null;
     if (hasSavings) {
       const savingsInfo = await loadSavingsBalance(officeId);
@@ -315,10 +299,6 @@ export async function render(c) {
       } else setKpi('savings', '—', 'Unavailable');
     } else setKpi('savings', '—', 'No permission');
 
-    /* ---- Shared active-loan sample for the Gross Portfolio KPI and the Outstanding KPI's
-     *      fallback path — fetched at most once per dashboard load instead of twice (see
-     *      FIXLOG-duplicate-api-calls.md bug #2). Only actually hits the network if `hasLoans`
-     *      and (later) if the PAR report doesn't already supply `totalOutstanding`. */
     let loanSampleRaw = null;
     let loanSampleFetched = false;
     const getLoanSample = async () => {
@@ -329,7 +309,6 @@ export async function render(c) {
       return loanSampleRaw;
     };
 
-    /* ---- KPI: Loan Portfolio (gross principal disbursed, active loans) ---- */
     let grossPortfolio = null;
     if (hasLoans) {
       const raw = await getLoanSample();
@@ -341,7 +320,6 @@ export async function render(c) {
       } else setKpi('gross', '—', 'Unavailable');
     } else setKpi('gross', '—', 'No permission');
 
-    /* ---- KPI: Outstanding — report first, bounded sample as fallback ---- */
     let outstanding = null;
     if (hasLoans) {
       if (parInfo?.totalOutstanding != null) {
@@ -357,7 +335,6 @@ export async function render(c) {
       }
     } else setKpi('outstanding', '—', 'No permission');
 
-    /* ---- KPI: Portfolio at Risk ---- */
     let parRatio = null;
     if (hasLoans) {
       if (parInfo?.parRatio != null) {
@@ -372,12 +349,10 @@ export async function render(c) {
       } else setKpi('par', '—', 'Report unavailable');
     } else setKpi('par', '—', 'No permission');
 
-    /* ---- KPI: Pending Approvals ---- */
     const pendingTotal = (pendingLoans != null && approvedLoans != null) ? pendingLoans + approvedLoans : null;
     if (hasLoans) setKpi('pending', num(pendingTotal ?? '—'), deltaHtml(pendingTotal, 'pending', baseline));
     else setKpi('pending', '—', 'No permission');
 
-    /* ---- KPI: Amount Collected (cash inflow this month, from cash GL accounts) ---- */
     let cashActivity = null;
     if (hasAccounting) {
       const monthStart = new Date(end.getFullYear(), end.getMonth(), 1);
@@ -388,7 +363,6 @@ export async function render(c) {
       } else setKpi('collected', '—', 'Not configured');
     } else setKpi('collected', '—', 'No permission');
 
-    /* ---- Save today's snapshot (unfiltered totals only) ---- */
     if (isAllBranches && snapshotWritable) {
       await saveSnapshot(headOfficeId, snapshotHistory, {
         clients: activeClients, newClients: newClientsCount, savings: savingsAmount, gross: grossPortfolio,
@@ -396,11 +370,9 @@ export async function render(c) {
       });
     }
 
-    /* ---- Chart: Loan Portfolio & Collection Trend (disbursements + snapshot-based outstanding) ---- */
     const trend = bucketMonthly(tranReport, months);
     await renderTrendChart(c, trend, snapshotHistory, months);
 
-    /* ---- Chart: Product Distribution (or, if a product is selected, that product's status mix) ---- */
     const distTitle = c.querySelector('#dash-dist-title');
     if (productFilter) {
       if (distTitle) distTitle.textContent = `${productFilter} — Status Mix`;
@@ -411,21 +383,17 @@ export async function render(c) {
       await renderProductDistChart(c, loanSample.length ? groupBy(loanSample, l => l.loanProductName || 'Unknown') : null);
     }
 
-    /* ---- Chart: Customer Growth (from snapshot history) ---- */
     await renderGrowthChart(c, isAllBranches ? snapshotHistory : []);
 
-    /* ---- Chart: Income vs Expenses ---- */
     if (hasAccounting) {
       const ie = await loadIncomeExpense(start, end, months, officeId);
       await renderIncomeExpenseChart(c, ie);
     } else await renderIncomeExpenseChart(c, null, 'No permission');
 
-    /* ---- Chart: PAR aging ---- */
     await renderParChart(c, parInfo);
     const parSummaryEl = c.querySelector('#dash-par-summary');
     if (parSummaryEl) parSummaryEl.textContent = parInfo?.parRatio != null ? `PAR>30: ${parInfo.parRatio.toFixed(2)}%` : '';
 
-    /* ---- Chart: Branch Performance ---- */
     if (hasOffices && hasLoans) {
       const branchLoans = parseOfficeBreakdown(parReport);
       const savingsReport = await api.runReports.run('Portfolio at a glance', { R_officeId: -1 }).catch(() => null);
@@ -433,20 +401,17 @@ export async function render(c) {
       await renderBranchChart(c, branchLoans, branchSavings);
     } else await renderBranchChart(c, null, null, 'No permission');
 
-    /* ---- Chart: Loans by Officer ---- */
     if (hasStaff && hasLoans) {
       const officerData = await loadLoansByOfficer(officeId);
       await renderOfficerChart(c, officerData);
     } else await renderOfficerChart(c, null, 'No permission');
 
-    /* ---- Chart: Daily Cash Flow — This Week ---- */
     if (hasAccounting) {
       const weekStart = new Date(); weekStart.setDate(weekStart.getDate() - 6);
       const weekly = await loadCashActivity(weekStart, end, officeId, true);
       await renderCashFlowChart(c, weekly);
     } else await renderCashFlowChart(c, null, 'No permission');
 
-    /* ---- Recent activity ---- */
     if (hasAudit) {
       const auditEl = c.querySelector('#dash-audits');
       if (auditEl) {
@@ -468,7 +433,6 @@ export async function render(c) {
       }
     }
 
-    /* ---- Bookkeeping for the Export button + "as of" timestamp ---- */
     lastSummary = {
       'Total Customers': activeClients,
       'New This Month': newClientsCount,
@@ -485,8 +449,6 @@ export async function render(c) {
     if (updatedEl) updatedEl.textContent = `As of ${new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}`;
   }
 
-  /** Kept separate from the main Promise.allSettled batch because it needs its own
-   *  report-then-fallback chain. */
   async function loadSavingsBalance(officeId) {
     try {
       const r = await api.runReports.run('Portfolio at a glance', { R_officeId: officeId || -1 });
@@ -497,11 +459,6 @@ export async function render(c) {
         return { amount, approx: false };
       }
     } catch {}
-    // UI-CONTRACT FIX (UC-08b): GET /savingsaccounts has NO `status` query param (spec params are
-    // externalId/offset/limit/orderBy/sortOrder), so the old `status: 'active'` was silently ignored.
-    // This KPI is "Total Savings Balance" anyway — a *total* shouldn't be filtered to active — so the
-    // param was both a no-op AND semantically wrong. Dropped it: behaviour on the wire is unchanged,
-    // the code now honestly reflects that it sums balances across all savings accounts.
     const sample = await sampleBalance(l => api.savings.list({ limit: l, ...(officeId ? { officeId } : {}) }), x => x.summary?.accountBalance);
     return sample ? { amount: sample.capped ? (sample.sum / sample.sampleSize) * sample.total : sample.sum, approx: sample.capped } : null;
   }
@@ -531,12 +488,6 @@ export async function render(c) {
     URL.revokeObjectURL(url);
   });
 
-  /** Renders a "↑ 4.2% vs Jul 13" (or "↓") line, or null if there's no usable baseline.
-   *  `formatter` (fmt/num) controls how the raw diff itself would be displayed if ever
-   *  needed — currently only the percentage is shown, so it's accepted for symmetry with
-   *  a possible future absolute-diff display but unused today. `isPercentPoint` treats the
-   *  KPI's OWN value as already being a percentage (PAR), diffing in percentage points and
-   *  flipping the up=good/down=good colour convention (more PAR is bad, not good). */
   function deltaHtml(current, key, baseline, formatter, isPercentPoint) {
     if (!baseline || current == null || !isFinite(current)) return '';
     const prev = baseline.metrics?.[key];

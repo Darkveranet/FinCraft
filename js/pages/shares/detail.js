@@ -1,6 +1,3 @@
-/* FinCraft · pages/shares/detail.js — renderDetail and its tab loaders (requests, charges, dividends, notes, documents).
-   Auto-split from the original monolithic pages/shares.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm, toast } from '../../ui.js';
 import { escapeHtml, fmt, fmtDate, num, sb } from '../../utils.js';
@@ -24,18 +21,12 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const canApprove        = isPending  && can('APPROVE_SHAREACCOUNT');
     const canUndoApproval   = isApproved && can('UNDOAPPROVAL_SHAREACCOUNT');
     const canReject         = isPending  && can('REJECT_SHAREACCOUNT');
-    // FLAGGED, NOT VERIFIED: no WITHDRAW_SHAREACCOUNT permission exists anywhere in the 961-code Fineract set.
-    // ShareAccountsApiResource wasn't captured by the source-derived API map either, so the real gate can't be
-    // confirmed statically. Falling back to CREATE_SHAREACCOUNT (matches the single-generic-permission command
-    // dispatch pattern used by ClientsApiResource/GroupsApiResource) as a best-effort placeholder — confirm
-    // against a live server before relying on this for access control.
     const canWithdrawApp    = isPending  && can('CREATE_SHAREACCOUNT');
     const canActivate       = isApproved && can('ACTIVATE_SHAREACCOUNT');
     const canApplyAdditional= isActive   && can('APPLYADDITIONALSHARES_SHAREACCOUNT');
     const canRedeem         = isActive   && can('REDEEMSHARES_SHAREACCOUNT');
     const canClose          = isActive   && can('CLOSE_SHAREACCOUNT');
     const canEdit           = isPending  && can('UPDATE_SHAREACCOUNT');
-    // FLAGGED, NOT VERIFIED: same situation as canWithdrawApp above — no DELETE_SHAREACCOUNT code exists.
     const canDelete         = isPending  && can('CREATE_SHAREACCOUNT');
 
     const totalApprovedShares = s.totalApprovedShares || 0;
@@ -129,7 +120,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         <div class="tab-panel" data-shpanel="documents" hidden><div id="sh-docs-wrap"><div class="empty-state-row">Loading…</div></div></div>
       </div>`;
 
-    // -------- Tab switching with deep-link --------
     enhanceScrollableTabs(c.querySelector('#sh-tabs'));
     const tabs = c.querySelectorAll('[data-shtab]');
     const panels = c.querySelectorAll('[data-shpanel]');
@@ -156,12 +146,10 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.shtab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Back --------
     c.querySelector('#back-to-shares').addEventListener('click', () => {
       import('../../router.js').then(r => r.navigate('shares'));
     });
 
-    // -------- Toolbar (lifecycle) --------
     c.querySelector('#btn-sh-edit')?.addEventListener('click', () => openEditShareModal(s));
     c.querySelector('#btn-sh-approve')?.addEventListener('click', () => openShareSimpleCmd({
       id, command: 'approve', label: 'Approve Share Account', dateField: 'approvedDate'
@@ -181,11 +169,9 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       id, command: 'activate', label: 'Activate Share Account', dateField: 'activatedDate'
     }));
 
-    // -------- Toolbar (share operations) --------
     c.querySelector('#btn-sh-apply')?.addEventListener('click', () => openApplyAdditionalSharesModal(id, shareValue));
     c.querySelector('#btn-sh-redeem')?.addEventListener('click', () => openRedeemSharesModal(id, totalApprovedShares, shareValue));
 
-    // -------- Toolbar (close / delete) --------
     c.querySelector('#btn-sh-close')?.addEventListener('click', () => openCloseShareModal(id));
     c.querySelector('#btn-sh-delete')?.addEventListener('click', async () => {
       if (!await confirm({
@@ -280,12 +266,6 @@ async function loadShareRequests(c, id, s) {
 
 async function loadShareCharges(c, id) {
   const wrap = c.querySelector('#sh-charges-wrap');
-  // NOTE: Fineract has no /accounts/share/{id}/charges sub-resource — share
-  // account charges are only ever set via the account create/update JSON
-  // body (as `charges: [...]`), never through a nested REST path. The
-  // previous version of this tab called a fabricated endpoint that always
-  // returned 404. Until this is rebuilt against create/update payloads,
-  // show an explicit notice rather than a silently-broken UI.
   wrap.innerHTML = `
     <h3>Account Charges</h3>
     <div class="msg-banner b-warning">

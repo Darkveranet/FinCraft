@@ -1,11 +1,7 @@
-/* FinCraft · ui/modal-dropdowns.js — populates <select> dropdowns inside modals once they load.
-   Auto-split from the original monolithic ui.js for maintainability. */
-
 import { api } from '../api.js';
 import { escapeHtml } from '../utils.js';
 import { BULK_IMPORT_ENTITIES } from '../bulk-import-entities.js';
 
-// ════════════════════════════════════════════════════════════
 async function populateModalDropdowns() {
   const results = await Promise.allSettled([
     api.offices.list(),
@@ -34,7 +30,6 @@ async function populateModalDropdowns() {
   const faList    = Array.isArray(get(9)) ? get(9) : [];
   const centerList = Array.isArray(get(10)) ? get(10) : (get(10)?.pageItems || []);
 
-  // Offices
   document.querySelectorAll('[data-populate="offices"]').forEach(sel => {
     sel.innerHTML = '<option value="">Select office…</option>' +
       offices.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
@@ -46,13 +41,11 @@ async function populateModalDropdowns() {
   if (holidayOffices) holidayOffices.innerHTML =
     offices.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
 
-  // Staff
   document.querySelectorAll('[data-populate="staff"]').forEach(sel => {
     sel.innerHTML = '<option value="">Unassigned</option>' +
       staff.map(s => `<option value="${s.id}">${escapeHtml(s.displayName)}</option>`).join('');
   });
 
-  // Products
   document.querySelectorAll('[data-populate="loanProducts"]').forEach(sel => {
     sel.innerHTML = '<option value="">Select product…</option>' +
       loanProds.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
@@ -70,22 +63,17 @@ async function populateModalDropdowns() {
       rdProds.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
   });
 
-  // Bulk import entity types — static list, no network call needed. Replaces the
-  // previously-hardcoded 5-option markup in views/modals/system.html #bulkImportModal, which had
-  // drifted out of sync with the fuller 14-entity list on the Organization → Bulk Imports tab.
   document.querySelectorAll('[data-populate="bulkImportEntities"]').forEach(sel => {
     sel.innerHTML = '<option value="">Select entity to import…</option>' +
       BULK_IMPORT_ENTITIES.map(t => `<option value="${t.entity}">${escapeHtml(t.label)}</option>`).join('');
   });
 
-  // Gender (client template)
   const genderOpts = clientTpl?.genderOptions || [];
   document.querySelectorAll('[data-populate="gender"]').forEach(sel => {
     sel.innerHTML = '<option value="">— Not specified —</option>' +
       genderOpts.map(g => `<option value="${g.id}">${escapeHtml(g.name)}</option>`).join('');
   });
 
-  // Currencies (loan + savings product modals)
   const currOpts = currList.length
     ? currList.map(c => `<option value="${c.code}">${escapeHtml(c.code + ' — ' + c.name)}</option>`).join('')
     : '<option value="">No currencies configured</option>';
@@ -94,7 +82,6 @@ async function populateModalDropdowns() {
     if (el) el.innerHTML = '<option value="">Select currency…</option>' + currOpts;
   });
 
-  // GL accounts
   const glOpts = glList.length
     ? glList.map(g => `<option value="${g.id}">${escapeHtml((g.glCode ? g.glCode + ' — ' : '') + g.name)}</option>`).join('')
     : '<option value="">No GL accounts found</option>';
@@ -103,15 +90,10 @@ async function populateModalDropdowns() {
     if (el) el.innerHTML = '<option value="">Select account…</option>' + glOpts;
   });
 
-  // Financial activities
   const faEl = document.getElementById('fa-activity-sel');
   if (faEl) faEl.innerHTML = '<option value="">Select activity…</option>' +
     faList.map(a => `<option value="${a.financialActivityData?.id || a.id}">${escapeHtml(a.financialActivityData?.name || a.name || '—')}</option>`).join('');
 
-  // Centers — used by the New Group modal (group creation is required to be
-  // attached to a center) and by the New Client modal's optional center/group
-  // cascade. Cached on window so the change-listener wiring in modal-init.js
-  // doesn't need a second network round-trip.
   window.__fcCenters = centerList;
   document.querySelectorAll('[data-populate="centers"]').forEach(sel => {
     sel.innerHTML = centerList.length
@@ -121,4 +103,3 @@ async function populateModalDropdowns() {
   });
 }
 document.addEventListener('fc:modals-loaded', populateModalDropdowns);
-

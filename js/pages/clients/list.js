@@ -1,7 +1,3 @@
-/* FinCraft · pages/clients/list.js — the list/table view for this entity.
-   Redesigned around the cv-* (clients-view.css) component set: warm paper-white cards,
-   pill filters, hashed avatar colours, and a fully clickable row. */
-
 import { api } from '../../api.js';
 import { escapeHtml, fmtDate, num } from '../../utils.js';
 import { toast } from '../../ui.js';
@@ -64,7 +60,6 @@ export async function renderList(c) {
     </div>
   </div>`;
 
-  // Office filter (tucked behind "More filters")
   api.offices.list().then(offices => {
     const sel = c.querySelector('#cf-office');
     (Array.isArray(offices) ? offices : []).forEach(o => {

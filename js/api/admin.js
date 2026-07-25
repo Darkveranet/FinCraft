@@ -1,6 +1,3 @@
-/* FinCraft · api/admin.js — Users, roles, permissions, jobs/audits, maker-checker, system configuration, and surveys.
-   Auto-split from the original monolithic api.js for maintainability. */
-
 export function makeUsersAPI(self) {
   return {
     list:   ()       => self._g('/users'),
@@ -39,11 +36,16 @@ export function makeJobsAPI(self) {
     get:     (id)      => self._g(`/jobs/${id}`),
     update:  (id, b)   => self._u(`/jobs/${id}`, b),
     runJob:  (id)      => self._p(`/jobs/${id}?command=executeJob`, {}),
-    history: (id, params) => self._g(`/jobs/${id}/runhistory`, params)
-    // NOTE: there is no PUT /jobs/{id}/schedulername endpoint in Fineract —
-    // schedulerName is an internal Quartz-scheduler detail, never exposed
-    // over HTTP. A `schedule()` method calling that path used to live here;
-    // it was removed since it always 404'd and nothing in the UI called it.
+    history: (id, params) => self._g(`/jobs/${id}/runhistory`, params),
+    businessJobNames:  ()               => self._g('/jobs/names'),
+    availableSteps:    (jobName)        => self._g(`/jobs/${encodeURIComponent(jobName)}/available-steps`),
+    steps:             (jobName)        => self._g(`/jobs/${encodeURIComponent(jobName)}/steps`),
+    updateSteps:       (jobName, body)  => self._u(`/jobs/${encodeURIComponent(jobName)}/steps`, body),
+    executeInline:     (jobName, body)  => self._p(`/jobs/${encodeURIComponent(jobName)}/inline`, body || {}),
+    getByShortName:     (shortName)        => self._g(`/jobs/short-name/${encodeURIComponent(shortName)}`),
+    executeByShortName: (shortName, body)  => self._p(`/jobs/short-name/${encodeURIComponent(shortName)}`, body || {}),
+    updateByShortName:  (shortName, body)  => self._u(`/jobs/short-name/${encodeURIComponent(shortName)}`, body),
+    historyByShortName: (shortName, params)=> self._g(`/jobs/short-name/${encodeURIComponent(shortName)}/runhistory`, params)
   };
 }
 
@@ -57,9 +59,6 @@ export function makeAuditsAPI(self) {
 
 export function makeMakercheckerAPI(self) {
   return {
-    // Real Fineract resource is /v1/makercheckers (FinCraft was calling the
-    // non-existent /makercheckertasks). Delete uses a real HTTP DELETE, not
-    // POST ?command=delete.
     list:    (params) => self._g('/makercheckers', params),
     template:()       => self._g('/makercheckers/searchtemplate'),
     approve: (id)     => self._p(`/makercheckers/${id}?command=approve`, {}),
@@ -68,28 +67,13 @@ export function makeMakercheckerAPI(self) {
   };
 }
 
-// The maker-checker permissions toggle screen duplicated makePermissionsAPI
-// with a fabricated /makercheckerpermissions endpoint that doesn't exist.
-// The real capability is the existing PermissionsApiResource, filtered by
-// the makerCheckerable query param — use api.permissions.list(true) /
-// api.permissions.update() instead of this API going forward.
-
 export function makeConfigurationsAPI(self) {
   return {
     list:        ()         => self._g('/configurations'),
-    // NOTE: previously sent `name` as a query param to the list endpoint
-    // (/configurations?name=X), which is not a real Fineract route. Corrected
-    // to the documented /configurations/name/{name} path.
     get:         (name)     => self._g(`/configurations/name/${name}`),
     getById:     (id)       => self._g(`/configurations/${id}`),
     update:      (id, body) => self._u(`/configurations/${id}`, body),
     updateByName:(name, body) => self._u(`/configurations/name/${name}`, body),
-    // FIXLOG #4: cache()/updateCache() previously called `/configurations/cache`, which
-    // GlobalConfigurationApiResource has no route for — CacheApiResource's real
-    // `/v1/caches` (GET/PUT) is the only cache-toggle endpoint Fineract exposes, and
-    // it's already correctly wired below as cacheTypes()/switchCache(), which is what
-    // js/pages/system/loaders/info.js actually calls. Removed the dead/broken pair
-    // rather than leave unused code pointing at a route that doesn't exist.
     cacheTypes:  ()         => self._g('/caches'),
     switchCache: (body)     => self._u('/caches', body),
     globalConfig: {
@@ -105,7 +89,6 @@ export function makeSurveysAdminAPI(self) {
     get:        (id) => self._g(`/surveys/${id}`),
     create:     (body) => self._p('/surveys', body),
     update:     (id, b) => self._u(`/surveys/${id}`, b),
-    // No template() or delete() — SpmApiResource has no /surveys/template endpoint and no DELETE method at all.
     activate:   (id) => self._p(`/surveys/${id}?command=activate`, {}),
     deactivate: (id) => self._p(`/surveys/${id}?command=deactivate`, {})
   };
@@ -115,15 +98,31 @@ export function makeEntityToEntityMappingsAPI(self) {
   return {
     list:     ()                  => self._g('/entitytoentitymapping'),
     get:      (mappingTypeId)     => self._g(`/entitytoentitymapping/${mappingTypeId}`),
-    // NOTE: the API reference gives no summary text or field names for any of
-    // entitytoentitymapping's endpoints beyond the bare paths (mapId/relId/
-    // fromId/toId are undocumented). These are added as thin, correctly-routed
-    // pass-throughs only — no UI has been built against them since there's no
-    // safe basis for guessing the request/response shape.
     getMapping: (mapId, fromId, toId) => self._g(`/entitytoentitymapping/${mapId}/${fromId}/${toId}`),
     create:     (relId, body)     => self._p(`/entitytoentitymapping/${relId}`, body),
     update:   (mappingTypeId, b)  => self._u(`/entitytoentitymapping/${mappingTypeId}`, b),
     delete:     (mapId)           => self._d(`/entitytoentitymapping/${mapId}`)
+  };
+}
+
+export function makeSchedulerAPI(self) {
+  return {
+    status: ()        => self._g('/scheduler'),
+    start:  ()        => self._p('/scheduler?command=start', {}),
+    stop:   ()        => self._p('/scheduler?command=stop', {}),
+    command:(command) => self._p(`/scheduler?command=${encodeURIComponent(command)}`, {})
+  };
+}
+
+export function makeInstanceModeAPI(self) {
+  return {
+    update: (body) => self._u('/instance-mode', body)
+  };
+}
+
+export function makeFieldConfigurationAPI(self) {
+  return {
+    get: (entity) => self._g(`/fieldconfiguration/${encodeURIComponent(entity)}`)
   };
 }
 

@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/actions/balances.js — opening balance row helper and submit handler.
-   Auto-split from the original monolithic pages/accounting/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';

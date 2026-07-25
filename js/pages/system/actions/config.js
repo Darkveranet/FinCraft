@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/actions/config.js — code/code-value/maker-checker/business-date modals.
-   Auto-split from the original monolithic pages/system/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm as modalConfirm, toast } from '../../../ui.js';

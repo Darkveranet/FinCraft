@@ -1,4 +1,3 @@
-/* FinCraft · store.js */
 const LS_KEY = 'fincraft.state';
 const SS_KEY = 'fincraft.session';
 
@@ -7,15 +6,14 @@ class Store {
     this.state = {
       auth: null, theme: 'dark', sidebar: 'expanded',
       currentPage: 'dashboard', currentParams: {}, cache: {}, offline: false,
-      perms: [],          // Fineract permission codes for current user
-      defaultCurrency: null // tenant's configured currency, fetched at login; fmt() falls back to this
+      perms: [],
+      defaultCurrency: null
     };
     this.subs = {};
   }
   get(k)    { return this.state[k]; }
   set(k, v) { this.state[k] = v; this._notify(k, v); this.persist(); }
   patch(k, v) { this.state[k] = { ...(this.state[k] || {}), ...v }; this._notify(k, this.state[k]); this.persist(); }
-  /** Remove a key — used by logout flow. */
   remove(k) { delete this.state[k]; this._notify(k, undefined); this.persist(); }
   subscribe(k, cb) {
     (this.subs[k] ||= new Set()).add(cb);
@@ -39,7 +37,7 @@ class Store {
           roles:     this.state.auth.roles  || [],
           officeId:  this.state.auth.officeId || null,
           officeName:this.state.auth.officeName || null,
-          perms:     this.state.perms || [],     // persist perms WITH session
+          perms:     this.state.perms || [],
           defaultCurrency: this.state.defaultCurrency || null
         }));
       } else {
@@ -63,7 +61,6 @@ class Store {
     document.documentElement.setAttribute('data-theme', this.state.theme);
   }
 
-  /** Permission check — strict: empty perms = deny. */
   hasPermission(code) {
     if (!code) return true;
     const perms = this.state.perms || [];
@@ -72,17 +69,6 @@ class Store {
     return perms.includes(code);
   }
 
-  /**
-   * True if the user can act on *some* maker-checker approval queue item.
-   * Fineract's maker-checker model has no single umbrella "approve" permission —
-   * approval rights are granted per entity-action via a `..._CHECKER` suffix
-   * permission (e.g. `CREATE_ROLE_CHECKER`, `DISBURSE_LOAN_CHECKER`), of which
-   * there are 100+ real codes in the 961-code permission set. `CHECKER_SUPER_USER`
-   * is the only special/global permission and bypasses all of them. Gating the
-   * Checker Inbox on `CHECKER_SUPER_USER` alone locks out the overwhelmingly
-   * common case of a checker-role user who only holds specific entity `_CHECKER`
-   * grants.
-   */
   hasAnyCheckerPermission() {
     const perms = this.state.perms || [];
     if (perms.includes('ALL_FUNCTIONS')) return true;

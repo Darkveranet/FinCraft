@@ -1,17 +1,12 @@
-/* FinCraft · pages/users/index.js — render() entry point — builds the tab shell.
-   Auto-split from the original monolithic pages/users.js for maintainability. */
-
 import { loadUsersList, renderUserDetail } from './account.js';
 import { loadRoles, renderRoleDetail } from './roles.js';
 import { loadPasswordPolicy, loadTwoFactorConfig } from './security.js';
 import { TABS } from './shared.js';
 
 export async function render(c, params = {}) {
-  // Sub-routing inside this module via ?view=
   if (params.view === 'user-detail' && params.id) return renderUserDetail(c, params.id);
   if (params.view === 'role-detail' && params.id) return renderRoleDetail(c, params.id);
 
-  // Default: tabbed shell
   c.innerHTML = `
     <div class="page-header mb-3">
       <div>

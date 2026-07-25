@@ -1,4 +1,3 @@
-/* FinCraft · utils.js */
 import { store } from './store.js';
 
 export const fmt = (n, ccy) => {

@@ -1,19 +1,12 @@
-/* FinCraft · pages/treasury/settings.js — the Treasury Settings view.
-   Reads/writes one office's dt_treasury_thresholds row via js/treasury/thresholds.js. Every other
-   treasury screen (Dashboard, Teller Console, Vault Control, Loan Disbursement, Expenses,
-   Borrowings, Reconciliation) depends on this being configured first — see
-   FINCRAFT_Fineract_Treasury_Integration_Log.md §17, which is why this was built before any of
-   them despite being listed last in the brief's own Phase 11 checklist.
-
-   Follows the exact structure of js/pages/misc/settings.js (plain innerHTML template,
-   querySelector + addEventListener, `toast()` for feedback, `escapeHtml()` for any user-supplied
-   text) — no new UI pattern introduced. */
-
 import { api } from '../../api.js';
+import { store } from '../../store.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
 import { getThresholds, upsertThresholds } from '../../treasury/thresholds.js';
+import { TREASURY_ACTION_PERMS } from '../../treasury/permissions.js';
 import { officeOptionsHtml, glOptionsHtml } from './shared.js';
+
+const canSaveThresholds = () => store.hasPermission(TREASURY_ACTION_PERMS.saveThresholds);
 
 const GL_FIELDS = [
   { key: 'vaultGlAccountId',                label: 'Vault GL Account',                required: true },
@@ -50,12 +43,18 @@ async function loadFormForOffice(c, officeId, glAccounts) {
       <label><span class="form-label">Currency Code *</span>
         <input class="form-control" id="trs-currencyCode" maxlength="3" style="text-transform:uppercase" value="${escapeHtml(t?.currencyCode || 'USD')}"/>
       </label>
+      ${canSaveThresholds() ? `
       <button class="btn-primary mt-2" id="trs-save">
         <i class="fa-solid fa-floppy-disk"></i> ${configured ? 'Save Changes' : 'Create Configuration'}
-      </button>
+      </button>` : `
+      <div class="msg-banner b-info mt-2">
+        <i class="fa-solid fa-lock"></i> You can view this configuration but need the
+        <code>CREATE_DATATABLE</code> permission to change it.
+      </div>`}
     </div>`;
 
-  c.querySelector('#trs-save').addEventListener('click', async () => {
+  c.querySelector('#trs-save')?.addEventListener('click', async () => {
+    if (!canSaveThresholds()) { toast('warn', 'Not permitted', 'You lack CREATE_DATATABLE to save treasury configuration'); return; }
     const btn = c.querySelector('#trs-save');
     const payload = { currencyCode: c.querySelector('#trs-currencyCode').value.trim().toUpperCase() };
     for (const f of GL_FIELDS) {
@@ -73,7 +72,7 @@ async function loadFormForOffice(c, officeId, glAccounts) {
     try {
       await upsertThresholds(officeId, payload);
       toast('success', 'Saved', 'Treasury configuration updated for this office');
-      await loadFormForOffice(c, officeId, glAccounts); // re-render to reflect the now-configured state
+      await loadFormForOffice(c, officeId, glAccounts);
     } catch (err) {
       toast('error', 'Save failed', err?.message || String(err));
     } finally {

@@ -1,6 +1,3 @@
-/* FinCraft · pages/datatables/actions.js — modal openers for create/add-column/register actions.
-   Auto-split from the original monolithic pages/datatables.js for maintainability. */
-
 import { api } from '../../api.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -15,7 +12,6 @@ export function openDatatableEntryModal(tableName, entityId, columns, existing, 
   modalEl.setAttribute('role', 'dialog');
   modalEl.setAttribute('aria-modal', 'true');
 
-  // Skip system-managed columns that Fineract populates itself.
   const editable = columns.filter(c => !['id'].includes(c.columnName));
 
   const inputFor = (col) => {

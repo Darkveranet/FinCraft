@@ -1,11 +1,3 @@
-/* FinCraft · pages/treasury/teller-console.js — the Teller Console view.
-   Lists every teller/cashier at an office with FinCraft's computed expected cash (Phase 4) next
-   to Fineract's own cashierSummary netCash, so a drift between the two (see log §5 risks) is
-   visible at a glance rather than requiring someone to go compare two systems by hand. Each row
-   can be expanded to show that cashier's recent Phase 3 events, for tracing exactly what produced
-   the current figure. Read-only — no writes happen on this screen (cash allocation, disbursement,
-   etc. are their own screens, still to be built per the integration log). */
-
 import { api } from '../../api.js';
 import { toast } from '../../ui.js';
 import { escapeHtml } from '../../utils.js';
@@ -16,7 +8,7 @@ import { officeOptionsHtml, matchBadgeClass, fmtMoney, loadOfficeTellerCashierLi
 function eventRowsHtml(events) {
   if (!events.length) return '<tr><td colspan="4" class="text-muted text-center">No events recorded</td></tr>';
   return events
-    .slice() // don't mutate the array the caller still holds
+    .slice()
     .sort((a, b) => String(b.transaction_date).localeCompare(String(a.transaction_date)))
     .slice(0, 20)
     .map(e => `
@@ -67,8 +59,6 @@ async function loadConsoleForOffice(c, officeId) {
   const breakdown = await getOfficeTellerBreakdown(officeId, tellerCashierList).catch(err => { toast('error', 'Failed to compute balances', err?.message || String(err)); return { perCashier: [] }; });
   const byKey = new Map(breakdown.perCashier.map(b => [`${b.tellerId}:${b.cashierId}`, b]));
 
-  // Fetch each cashier's Fineract-vs-FinCraft comparison in parallel (one call per cashier —
-  // fine for a console screen refreshed on demand, not something hit at high frequency).
   const comparisons = await Promise.all(tellerCashierList.map(tc =>
     compareCashierBalanceToFineract(officeId, tc.tellerId, tc.cashierId).catch(() => null)));
 

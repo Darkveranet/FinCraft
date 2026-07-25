@@ -1,11 +1,15 @@
 # FinCraft Fineract Treasury Integration Log
 
-_Last updated: **Phase 11 COMPLETE — all 8 treasury UI screens built AND wired into the sidebar
-nav** (Settings, Dashboard, Teller Console, Cash Allocation, Loan Disbursement, Expense Management,
-Borrowings, Daily Reconciliation). Phases 0-10 (backend + persistence) were already complete. This
-checkpoint finishes the UI layer and fixes a navigation gap (screens were route-registered but not
-in `NAV_GROUPS`, so unreachable from the sidebar). What remains: Phase 12 (Permissions — real
-mapping still open, see §17) and Phase 13 (cross-cutting test pass). Decisions on persistence,
+_Last updated: **Phase 12 COMPLETE — treasury permission mapping resolved.** All 8 treasury routes
+are now gated on the REAL Fineract permission of the operation each screen performs (single source
+of truth: `js/treasury/permissions.js`), replacing the blanket `READ_JOURNALENTRY` placeholder /
+under-gating previously flagged in §17. Only permission codes confirmed present in the codebase's
+trusted set were used — no invented codes. The Settings Save action is additionally gated per-action
+on `CREATE_DATATABLE` (its route only needs `READ_DATATABLE` to view). Full suite: 16 passed / 0
+failed. Phases 0-11 (backend + persistence + all 8 UI screens + sidebar nav) and Phase 13 (tenant
+bootstrap / self-healing / health / nav completion) were already complete. What remains: only the
+optional Phase 13 (original) end-to-end/jsdom UI test pass, which needs a browser test environment
+(`jsdom`) not installable in this sandbox — every runnable suite passes. Decisions on persistence,
 GL-balance strategy, and multi-tenancy remain final per user direction._
 
 ## 1. Project Overview
@@ -608,11 +612,44 @@ and route entries added to `router.js`'s `PAGES`.
       not run against any Phase 11 code — `npm install`'s `jsdom` failure (§16) has not been
       re-attempted this round since it was already confirmed non-transient last time; re-checking
       it is not expected to change without a different network environment.
-### Phase 12 - Permissions — not started (see risk: must map to *real* Fineract permission codes
-      only, per existing project convention in `router.js`; several requested codes in the brief,
-      e.g. `ALLOCATE_CASH`, `DISBURSE_LOAN_THROUGH_TELLER`, are FinCraft-invented concepts with no
-      Fineract-native equivalent and will need a mapping decision, not a 1:1 code creation, since
-      FinCraft cannot add permission codes to Fineract itself)
+### Phase 12 - Permissions — **COMPLETE (this session)**
+- [x] **Single source of truth** — new `js/treasury/permissions.js` (`TREASURY_ROUTE_PERMS` +
+      `TREASURY_ACTION_PERMS`) documents the full mapping and the rationale for every code.
+- [x] **Resolved the brief's invented codes by mapping to the REAL underlying Fineract op**, not by
+      inventing 1:1 codes (FinCraft cannot add codes to Fineract). Each treasury screen is now gated
+      on the real permission of the operation it performs, using ONLY codes already proven present in
+      this codebase's trusted set (existing `store.hasPermission(...)`/`can(...)` call sites + router
+      gates). Confirmed-real codes used: `READ_DATATABLE`, `CREATE_DATATABLE`, `READ_JOURNALENTRY`,
+      `CREATE_JOURNALENTRY`, `READ_OFFICE`, `ALLOCATECASHTOCASHIER_TELLER`, `DISBURSE_LOAN`.
+
+      | Route | Underlying op | Real permission |
+      |---|---|---|
+      | `treasury` (Settings) | view dt_treasury_thresholds datatable | `READ_DATATABLE` |
+      | `treasury-dashboard` | read GL running balances | `READ_JOURNALENTRY` |
+      | `teller-console` | office→teller→cashier read view | `READ_OFFICE` |
+      | `cash-allocation` | allocate cash to cashier | `ALLOCATECASHTOCASHIER_TELLER` |
+      | `loan-disbursement` | disburse loan via teller | `DISBURSE_LOAN` |
+      | `treasury-expenses` | post expense-payment JE | `CREATE_JOURNALENTRY` |
+      | `treasury-borrowings` | post drawdown/interest/repayment JE | `CREATE_JOURNALENTRY` |
+      | `treasury-reconciliation` | post shortage/overage JE | `CREATE_JOURNALENTRY` |
+
+- [x] **Router updated** — `js/router.js`: the eight treasury `requiredPermission` gates replaced
+      the blanket `READ_JOURNALENTRY` placeholder (the §17 under-gating flag) with the real codes
+      above; each entry comments its mapping and points to `permissions.js`.
+- [x] **Per-action defense-in-depth** — `js/pages/treasury/settings.js`: the Settings route is
+      reachable with `READ_DATATABLE` (view) but *saving* thresholds is a datatable WRITE, so the
+      Save button is separately gated on the real `CREATE_DATATABLE` — a read-only viewer now sees a
+      "need CREATE_DATATABLE to change" banner instead of a button that would 403, and the click
+      handler re-checks before writing. The other five write screens already route-gate on their
+      exact action code (`ALLOCATECASHTOCASHIER_TELLER` / `DISBURSE_LOAN` / `CREATE_JOURNALENTRY`),
+      so reaching the screen already implies the write permission — a redundant per-button guard was
+      deliberately NOT added there (route gate == action gate; extra surface, no extra control).
+- [x] **Honesty note** — `READ_TELLER` does not appear in the trusted set, so the read-only Teller
+      Console is gated on `READ_OFFICE` (its data is office-scoped) rather than an unverifiable
+      `READ_TELLER`. No invented codes anywhere.
+- [x] **Verification** — `node --check` clean on `permissions.js`, `router.js`, `settings.js`;
+      full suite **16 passed / 0 failed** (unchanged; page/router edits don't touch the unit-tested
+      service functions).
 ### Phase 13 - Tenant Bootstrap, Self-Healing, Health & Nav completion — **COMPLETE (this session)**
 - [x] `js/treasury/bootstrap.js` — `initializeTreasuryTenant()`, `ensureTreasuryDatatables()`
       (per-tenant/per-session memoized wrapper over real `api.treasury.ensureTreasuryDatatables()`),

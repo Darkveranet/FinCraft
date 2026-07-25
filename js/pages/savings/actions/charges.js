@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/actions/charges.js — apply/pay savings charge modals.
-   Auto-split from the original monolithic pages/savings/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -46,8 +43,7 @@ export async function openEditSavingsChargeModal(savingsId, chargeId, onSuccess)
 export async function openApplySavingsChargeModal(id, onSuccess) {
   let charges = [];
   try {
-    // chargeAppliesTo: 2 = Savings charges in Fineract
-    const r = await api.charges.list({ chargeAppliesTo: 2 });
+    const r = await api.charges.listByAppliesTo(2);
     charges = Array.isArray(r) ? r : [];
   } catch {}
   const mid = `sv-applycharge-${Date.now()}`;

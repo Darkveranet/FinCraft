@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/actions/audit.js — audit trail detail modal.
-   Auto-split from the original monolithic pages/system/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { toast } from '../../../ui.js';
 import { escapeHtml, fmtDate } from '../../../utils.js';

@@ -1,16 +1,7 @@
-/* FinCraft · pages/organization/index.js — render() entry point.
-   Converted from a 15-tab bar (which overflowed on any reasonable screen width,
-   and previously eagerly loaded 8 sections' data on every page visit) to a
-   card-grid hub — see js/ui/section-hub.js for the rationale.
-   panelId values (og-0..og-14) match the IDs each loader function already expects
-   via c.querySelector('#og-N') — kept as-is so none of the loaders needed changes. */
-
 import { api } from '../../api.js';
 import { loadAdhocQueries, loadBulkImports, loadCurrencies, loadEmailCampaigns, loadEntityDatatableChecks, loadExternalAssetOwners, loadFunds, loadGroupHierarchy, loadHolidays, loadLoanOriginators, loadOffices, loadPaymentTypes, loadSmsCampaigns, loadStaff, loadStandingInstructions, loadTellers, loadWorkingDays } from './loaders.js';
 import { renderSectionHub } from '../../ui/section-hub.js';
 
-// Offices and Holidays both need the office list (previously fetched once up-front and
-// shared). Now that sections load on demand, each fetches it independently on first visit.
 async function loadOfficesSection(c) {
   const offices = await api.offices.list().catch(() => []);
   loadOffices(c, Array.isArray(offices) ? offices : []);

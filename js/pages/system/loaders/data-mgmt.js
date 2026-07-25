@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/loaders/data-mgmt.js — account number prefs, entity mappings, surveys, and migration link loaders.
-   Auto-split (2nd pass) from pages/system/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, num, sb } from '../../../utils.js';

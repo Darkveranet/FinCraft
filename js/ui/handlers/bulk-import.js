@@ -1,6 +1,3 @@
-/* FinCraft · ui/handlers/bulk-import.js — BULK IMPORT form-submit handlers.
-   Auto-split from ui.js's monolithic handleAction() switch for maintainability. */
-
 import { api } from '../../api.js';
 import { closeModal, toast } from '../core.js';
 import { extractFineractError, setSubmitting } from '../dom-helpers.js';
@@ -19,9 +16,6 @@ export const BulkImportHandlers = {
       fd.append('file', file);
       fd.append('locale', LOCALE);
       fd.append('dateFormat', DATE_FORMAT);
-      // FIX: this select is populated via data-populate="offices" and was already sitting in
-      // the modal, but previously had no `name` attribute so this handler had no way to read
-      // it — the office filter appeared functional in the UI but was silently never sent.
       if (officeSel?.value) fd.append('officeId', officeSel.value);
 
       setSubmitting(btn, true);
@@ -48,8 +42,6 @@ export const BulkImportHandlers = {
         const blob = await res.blob();
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        // entity values with a nested path (e.g. 'loans/repayments') need slashes stripped
-        // out of the filename — they're a URL path segment, not part of the file name.
         a.download = entitySel.value.replace(/\//g, '-') + '-template.xlsx';
         a.click();
         toast('success', 'Template downloaded', entitySel.options[entitySel.selectedIndex]?.text || entitySel.value);

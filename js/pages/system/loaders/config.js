@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/loaders/config.js — global configurations, codes, and maker-checker config tab loaders.
-   Auto-split (2nd pass) from pages/system/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, num, sb } from '../../../utils.js';
@@ -117,12 +114,11 @@ export async function loadMakerCheckerConfig(c) {
   const el = c.querySelector('#sy-11');
   el.innerHTML = '<div class="empty-state-row">Loading maker-checker tasks…</div>';
   try {
-    const res = await api.permissions.list(true); // GET /permissions?makerCheckerable=true
+    const res = await api.permissions.list(true);
     const list = Array.isArray(res) ? res : (res?.permissions || []);
 
     const canEdit = can('UPDATE_USER');
 
-    // Group by entity prefix (CLIENT, LOAN, SAVINGS, etc.)
     const groups = {};
     list.forEach(p => {
       const code = p.code || p.permissionCode || '';
@@ -181,7 +177,6 @@ export async function loadMakerCheckerConfig(c) {
         ${canEdit ? `<div class="mt-3"><button class="btn-primary" id="mc-save">Save Configuration</button></div>` : ''}
       ` : '<div class="empty-state-row">No maker-checker permissions available</div>'}`;
 
-    // Expand/collapse group panels
     el.querySelectorAll('[data-toggle-mc-group]').forEach(h => h.addEventListener('click', (e) => {
       if (e.target.closest('button')) return;
       const panel = h.parentElement.querySelector('.mc-perm-list');
@@ -191,7 +186,6 @@ export async function loadMakerCheckerConfig(c) {
       icon.className = hidden ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right';
     }));
 
-    // Filter
     el.querySelector('#mc-search')?.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
       el.querySelectorAll('.mc-group').forEach(g => {

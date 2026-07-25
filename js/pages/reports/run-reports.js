@@ -1,6 +1,3 @@
-/* FinCraft · pages/reports/run-reports.js — run-reports tab: report picker, run modal, execution.
-   Auto-split from the original monolithic pages/reports.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../config.js';
 import { escapeHtml, num } from '../../utils.js';
@@ -148,7 +145,6 @@ async function runReport(modalEl, reportName) {
 
   try {
     if (outputType === 'HTML' || outputType === 'CSV') {
-      // Inline render (CSV is shown as table + export button)
       const res = await api.runReports.run(reportName, { ...paramObj, 'output-type': 'JSON' });
       const cols = res.columnHeaders || [];
       const rows = res.data || [];
@@ -168,7 +164,6 @@ async function runReport(modalEl, reportName) {
         </div>`;
       resultEl.querySelector('#rp-export')?.addEventListener('click', () => exportCSV(reportName, cols, rows));
     } else {
-      // Binary download — XLS/XLSX/PDF
       const res = await api.runReports.run(reportName, { ...paramObj, 'output-type': outputType }, { raw: true });
       if (!res.ok) {
         const errText = await res.text();

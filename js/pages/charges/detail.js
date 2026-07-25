@@ -1,6 +1,3 @@
-/* FinCraft · pages/charges/detail.js — renderDetail, usage, and tax-linkage tab loaders.
-   Auto-split from the original monolithic pages/charges.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm, toast } from '../../ui.js';
 import { escapeHtml, fmt, num, sb } from '../../utils.js';
@@ -88,7 +85,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         </div>
       </div>`;
 
-    // Tab switching
     enhanceScrollableTabs(c.querySelector('#ch-tabs'));
     const tabs = c.querySelectorAll('[data-chtab]');
     const panels = c.querySelectorAll('[data-chpanel]');
@@ -112,7 +108,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.chtab)));
     switchTab(initialTab || 'overview');
 
-    // Toolbar handlers
     c.querySelector('#back-to-charges').addEventListener('click', () => {
       import('../../router.js').then(r => r.navigate('charges'));
     });
@@ -164,7 +159,6 @@ async function loadChargeUsage(c, ch) {
     let products = [];
     let label = 'Products';
 
-    // Pull products of the matching type
     if (appliesToId === 1) {
       label = 'Loan Products';
       const r = await api.loanProducts.list();
@@ -184,9 +178,6 @@ async function loadChargeUsage(c, ch) {
       return;
     }
 
-    // For each product, check if it references this charge
-    // The product list endpoint returns lean records; we'd need to fetch each for charges array.
-    // To avoid N requests we just show the list of products of matching type with a "click to verify" hint.
     wrapEl.innerHTML = `
       <table class="table">
         <thead><tr><th>${label}</th><th>Currency</th><th>Active</th></tr></thead>

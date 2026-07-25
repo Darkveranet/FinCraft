@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/actions/statements.js — statement export.
-   Auto-split from the original monolithic pages/savings/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { toast } from '../../../ui.js';
 

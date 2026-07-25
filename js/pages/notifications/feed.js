@@ -1,6 +1,3 @@
-/* FinCraft · pages/notifications/feed.js — the notifications feed tab loader.
-   Auto-split from the original monolithic pages/notifications.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, num } from '../../utils.js';
@@ -20,7 +17,6 @@ export async function loadNotifications(c) {
     const unreadCount = list.filter(n => !n.isRead).length;
     const readCount   = list.length - unreadCount;
 
-    // Object-type frequency for filter chips
     const typeCounts = {};
     list.forEach(n => {
       const t = n.objectType || 'Other';
@@ -123,9 +119,7 @@ export async function loadNotifications(c) {
                   <td title="${escapeHtml(String(n.createdAt || ''))}">${timeAgo(n.createdAt)}</td>
                   <td class="text-right">
                     ${link ? `<button class="btn-ghost btn-xs" data-go-link="${link}" title="Open entity"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>` : ''}
-                    ${''/* FIXLOG #2: per-row "mark as read" removed — Fineract's NotificationApiResource
-                           has no per-notification endpoint, only list + mark-all-read. See
-                           js/api/integrations.js makeNotificationsAPI for details. */}
+                    ${''}
                   </td>
                 </tr>`;
               }).join('')}
@@ -133,10 +127,6 @@ export async function loadNotifications(c) {
           </table>
         </div>`;
 
-      // FIXLOG #2: per-row mark-as-read handler removed along with the button above —
-      // Fineract has no per-notification mark-read endpoint (see makeNotificationsAPI).
-
-      // Open entity link
       listEl.querySelectorAll('[data-go-link]').forEach(b =>
         b.addEventListener('click', () => {
           location.hash = b.dataset.goLink;
@@ -159,7 +149,6 @@ export async function loadNotifications(c) {
       draw(filtered);
     }
 
-    // Wire filters
     let t;
     el.querySelector('#nt-search').addEventListener('input', e => {
       clearTimeout(t);
@@ -178,7 +167,6 @@ export async function loadNotifications(c) {
       })
     );
 
-    // Mark all as read
     el.querySelector('#nt-mark-all-read')?.addEventListener('click', async () => {
       if (!await modalConfirm({
         title: 'Mark all notifications as read?',
@@ -188,7 +176,6 @@ export async function loadNotifications(c) {
       try {
         await api.notifications.markAllRead();
         toast('success', 'All marked as read', '');
-        // Update bell badge
         const dot = document.getElementById('notifBadgeDot');
         if (dot) dot.hidden = true;
         loadNotifications(c);

@@ -1,23 +1,7 @@
-/* FinCraft · api/index.js — assembles the FineractAPI client from its domain modules.
-   Each domain module (clients.js, loans.js, ...) exports factory functions that take the
-   shared `self` (this FineractAPI instance) and return the namespaced method object, e.g.
-   self.clients.list(). This keeps js/api.js's public surface — `import { api } from './api.js'`
-   — completely unchanged for the rest of the app.
-
-   Namespace-usage review (audit item 6): several namespaces expose only 1-2 methods and are
-   called from a single page. This is intentional, not dead surface — each maps to one focused
-   UI action rather than a full CRUD screen:
-     - runAccruals        → accounting/loaders/period.js   (period-close "run accruals" button)
-     - openingBalances    → accounting/actions/balances.js (one-time GL opening-balance entry)
-     - collectionSheet    → pages/collections.js            (generate/save collection sheet)
-     - permissions        → users/roles.js, users/account/detail.js (role permission editor)
-     - externalServices   → system/actions/integrations.js  (configure SMTP/S3 endpoints)
-     - batch              → pages/collections.js, ui/handlers/config-wizard.js (bulk submit)
-   tenantOidc and groupLevels were previously unused; both are now wired (see below / groups-centers.js). */
 import { FineractAPI } from './core.js';
 import { makePasswordAPI, makeTenantOidcAPI, makeTwoFactorAPI, makeUserDetailsAPI } from './auth-account.js';
 import { makeClientsAPI } from './clients.js';
-import { makeCollateralManagementAPI, makeDelinquencyBucketsAPI, makeExternalAssetOwnersAPI, makeLoanOriginatorsAPI, makeLoansAPI } from './loans.js';
+import { makeCollateralManagementAPI, makeDelinquencyBucketsAPI, makeExternalAssetOwnersAPI, makeLoanCollateralManagementAPI, makeLoanOriginatorsAPI, makeLoansAPI } from './loans.js';
 import { makeFixedDepositsAPI, makeRecurringDepositsAPI, makeSavingsAPI } from './savings-deposits.js';
 import { makeSharesAPI } from './shares.js';
 import { makeCalendarsAPI, makeCentersAPI, makeGroupLevelsAPI, makeGroupsAPI, makeMeetingsAPI } from './groups-centers.js';
@@ -25,10 +9,17 @@ import { makeCodesAPI, makeCurrenciesAPI, makeFundsAPI, makeHolidaysAPI, makeOff
 import { makeFdProductsAPI, makeFloatingRatesAPI, makeLoanProductsAPI, makeProductMixAPI, makeRatesAPI, makeRdProductsAPI, makeSavingsProductsAPI, makeShareProductsAPI } from './products.js';
 import { makeAccountingRulesAPI, makeFinancialActivityAccountsAPI, makeGlAccountsAPI, makeGlClosuresAPI, makeJournalEntriesAPI, makeOpeningBalancesAPI, makeProvisioningAPI, makeProvisioningCategoryAPI, makeRunAccrualsAPI, makeTaxComponentsAPI, makeTaxGroupsAPI } from './accounting.js';
 import { makeAdhocQueriesAPI, makeCollectionSheetAPI, makeDataTablesAPI, makeEntityDatatableChecksAPI, makeReportsAPI, makeRunReportsAPI } from './reports.js';
-import { makeAccountNumberPreferencesAPI, makeAuditsAPI, makeConfigurationsAPI, makeEntityToEntityMappingsAPI, makeJobsAPI, makeMakercheckerAPI, makePermissionsAPI, makeRolesAPI, makeSurveysAdminAPI, makeUsersAPI } from './admin.js';
+import { makeAccountNumberPreferencesAPI, makeAuditsAPI, makeConfigurationsAPI, makeEntityToEntityMappingsAPI, makeFieldConfigurationAPI, makeInstanceModeAPI, makeJobsAPI, makeMakercheckerAPI, makePermissionsAPI, makeRolesAPI, makeSchedulerAPI, makeSurveysAdminAPI, makeUsersAPI } from './admin.js';
 import { makeEmailAPI, makeEmailCampaignsAPI, makeEmailConfigurationAPI, makeExternalEventsAPI, makeExternalServicesAPI, makeHooksAPI, makeNotificationsAPI, makeSmsAPI, makeSmsCampaignsAPI } from './integrations.js';
 import { makeBatchAPI, makeBulkImportsAPI, makeChargesAPI, makeCobAPI, makeDocumentsAPI, makeImagesAPI, makeNotesAPI, makeSearchAPI, makeSelfServiceAPI, makeStandingInstructionsAPI, makeTemplatesAPI, makeTransfersAPI } from './misc.js';
 import { makeTreasuryAPI } from './treasury.js';
+import { makeScorecardsAPI, makeSurveyDataAPI, makeLikelihoodAPI, makePovertyLineAPI } from './social-performance.js';
+import { makeInteroperationAPI } from './interoperation.js';
+import { makeCreditBureauConfigAPI, makeCreditBureauIntegrationAPI } from './credit-bureau.js';
+import { makeInterestRateChartsAPI } from './interest-rate-charts.js';
+import { makeReportMailingJobsAPI } from './report-mailing.js';
+import { makeMixXbrlAPI } from './mix-xbrl.js';
+import { makeOfficeTransactionsAPI } from './office-transactions.js';
 
 export class FineractAPIFull extends FineractAPI {
   constructor() {
@@ -108,9 +99,6 @@ export class FineractAPIFull extends FineractAPI {
     this.currencies = makeCurrenciesAPI(this);
     this.templates = makeTemplatesAPI(this);
     this.dataTables = makeDataTablesAPI(this);
-    // Treasury control layer (FinCraft-owned records, persisted as Fineract datatables — see
-    // FINCRAFT_Fineract_Treasury_Integration_Log.md). Depends on this.dataTables, so must be
-    // constructed after it.
     this.treasury = makeTreasuryAPI(this);
     this.selfService = makeSelfServiceAPI(this);
     this.search = makeSearchAPI(this);
@@ -122,6 +110,21 @@ export class FineractAPIFull extends FineractAPI {
     this.standingInstructions = makeStandingInstructionsAPI(this);
     this.cob = makeCobAPI(this);
     this.bulkImports = makeBulkImportsAPI(this);
+    this.loanCollateralManagement = makeLoanCollateralManagementAPI(this);
+    this.scheduler = makeSchedulerAPI(this);
+    this.instanceMode = makeInstanceModeAPI(this);
+    this.fieldConfiguration = makeFieldConfigurationAPI(this);
+    this.scorecards = makeScorecardsAPI(this);
+    this.surveyData = makeSurveyDataAPI(this);
+    this.likelihood = makeLikelihoodAPI(this);
+    this.povertyLine = makePovertyLineAPI(this);
+    this.interoperation = makeInteroperationAPI(this);
+    this.creditBureauConfig = makeCreditBureauConfigAPI(this);
+    this.creditBureauIntegration = makeCreditBureauIntegrationAPI(this);
+    this.interestRateCharts = makeInterestRateChartsAPI(this);
+    this.reportMailingJobs = makeReportMailingJobsAPI(this);
+    this.mixXbrl = makeMixXbrlAPI(this);
+    this.officeTransactions = makeOfficeTransactionsAPI(this);
   }
 }
 

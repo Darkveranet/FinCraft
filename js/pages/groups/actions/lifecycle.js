@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/actions/lifecycle.js — edit, close, and assign-staff modals.
-   Auto-split from the original monolithic pages/groups/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm, toast } from '../../../ui.js';

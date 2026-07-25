@@ -1,6 +1,3 @@
-/* FinCraft · pages/self-service/beneficiaries.js — external transfer beneficiaries tab loader and modal.
-   Auto-split from the original monolithic pages/self-service.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, num } from '../../utils.js';
@@ -82,7 +79,6 @@ export async function loadBeneficiaries(c) {
 function openBeneficiaryFormModal(existing, onSuccess) {
   const isEdit = !!existing;
 
-  // Account types per Fineract TPT spec
   const accountTypes = [
     { id: 1, name: 'Loan' },
     { id: 2, name: 'Savings' }

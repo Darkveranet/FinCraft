@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/actions/charges.js — apply/pay deposit charge modals.
-   Auto-split from the original monolithic pages/deposits/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -10,12 +7,9 @@ import { extractFineractError } from '../../../ui/dom-helpers.js';
 export async function openApplyDepositChargeModal(apiObj, id, onSuccess) {
   let charges = [];
   try {
-    // For FD/RD, Fineract uses chargeAppliesTo: 5 (Savings) by default,
-    // but products often filter via their own charge list. We use 5 = Savings.
-    const r = await api.charges.list({ chargeAppliesTo: 5 });
+    const r = await api.charges.listByAppliesTo(2);
     charges = Array.isArray(r) ? r : [];
     if (!charges.length) {
-      // fallback: any charge
       const r2 = await api.charges.list({});
       charges = Array.isArray(r2) ? r2 : [];
     }

@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/loaders/integrations.js — external services, webhooks, external events, and COB tab loaders.
-   Auto-split (2nd pass) from pages/system/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, num, sb } from '../../../utils.js';
@@ -57,7 +54,7 @@ export async function loadCOB(c) {
     const cfgs = cfgRes.status === 'fulfilled' ? cfgRes.value : null;
     const cfgList = Array.isArray(cfgs) ? cfgs : (cfgs?.businessSteps || []);
 
-    const canCatchUp = can('EXECUTEJOB_SCHEDULER'); // LoanCOBCatchUpApiResource has no documented permission requirement in Fineract source at all
+    const canCatchUp = can('EXECUTEJOB_SCHEDULER');
     const canSetDate = can('UPDATE_BUSINESS_DATE');
 
     const dateDisplay = date
@@ -209,7 +206,6 @@ export async function loadExternalEvents(c) {
   const el = c.querySelector('#sy-10');
   el.innerHTML = '<div class="empty-state-row">Loading external event configuration…</div>';
   try {
-    // FIXLOG #3: externalEvents.list() removed — no public Fineract route backs it.
     const configRes = await api.externalEvents.configurations().catch(() => null);
 
     const configList = Array.isArray(configRes) ? configRes : (configRes?.externalEventConfiguration || []);

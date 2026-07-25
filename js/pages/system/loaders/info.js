@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/loaders/info.js — system info tab loader.
-   Auto-split (2nd pass) from pages/system/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { escapeHtml, fmtDate, num, sb } from '../../../utils.js';
 import { can } from '../shared.js';
@@ -15,7 +12,6 @@ export async function loadSystemInfo(c) {
 
   const auth = store.get('auth') || {};
 
-  // Try to fetch real version/tenant info from Fineract endpoints
   let serverVersion = '—';
   let buildInfo = '—';
   let cacheInfo = '—';
@@ -23,7 +19,6 @@ export async function loadSystemInfo(c) {
   let currentCacheType = null;
 
   try {
-    // Some Fineract versions expose /configurations or /info — try gracefully
     const cfg = await api.configurations.list().catch(() => null);
     if (cfg) {
       const versionCfg = (cfg.globalConfiguration || []).find(c =>
@@ -38,8 +33,6 @@ export async function loadSystemInfo(c) {
     if (cacheRes) {
       const cacheArr = Array.isArray(cacheRes) ? cacheRes : (cacheRes?.cacheTypes || []);
       if (cacheArr.length) {
-        // Response shape for GET /caches isn't detailed in the API reference beyond
-        // the path — rendered defensively rather than assuming one fixed schema.
         cacheOptions = cacheArr;
         const active = cacheArr.find(c => c.enabled || c.selected || c.active) || cacheArr[0];
         currentCacheType = active?.value || active?.name || active;
@@ -113,7 +106,6 @@ export async function loadSystemInfo(c) {
       </div>
     </div>`;
 
-  // Permission summary
   const permEl = el.querySelector('#sys-perms');
   try {
     const perms = store.get('perms') || [];
@@ -137,7 +129,6 @@ export async function loadSystemInfo(c) {
     permEl.innerHTML = '<div class="empty-state-row text-muted">Permission summary unavailable</div>';
   }
 
-  // API health check
   const healthEl = el.querySelector('#sys-health');
   const rtEl = el.querySelector('#sys-rt');
   const timeEl = el.querySelector('#sys-time');

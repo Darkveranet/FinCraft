@@ -1,6 +1,3 @@
-/* FinCraft · pages/templates/detail.js — renderDetail — template detail view.
-   Auto-split from the original monolithic pages/templates.js for maintainability. */
-
 import { api } from '../../api.js';
 import { escapeHtml } from '../../utils.js';
 import { openPreviewModal, openTemplateFormModal } from './actions.js';

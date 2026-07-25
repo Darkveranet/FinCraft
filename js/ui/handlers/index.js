@@ -1,5 +1,3 @@
-/* FinCraft · ui/handlers/index.js — merges every domain handler registry and dispatches
-   by data-action name. Replaces the original ui.js handleAction() switch statement. */
 import { ClientsHandlers } from './clients.js';
 import { LoansHandlers } from './loans.js';
 import { SavingsHandlers } from './savings.js';

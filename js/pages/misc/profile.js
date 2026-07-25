@@ -1,6 +1,3 @@
-/* FinCraft · pages/misc/profile.js — the Profile view.
-   Auto-split from the original monolithic pages/misc.js for maintainability. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { toast } from '../../ui.js';
@@ -48,7 +45,6 @@ export async function profile(c) {
     </div>
   `;
 
-  // Load user details
   const detailEl = c.querySelector('#profile-details');
   let me = null;
   if (auth.userId) {
@@ -72,7 +68,6 @@ export async function profile(c) {
     </div>
   `;
 
-  // Change password handler
   c.querySelector('#pw-save').addEventListener('click', async () => {
     const cur = c.querySelector('#pw-cur').value;
     const nw  = c.querySelector('#pw-new').value;
@@ -87,7 +82,6 @@ export async function profile(c) {
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Updating…';
 
-    // Verify current password by attempting auth
     try {
       await api.auth(auth.username, cur);
     } catch {
@@ -97,11 +91,8 @@ export async function profile(c) {
       return;
     }
 
-    // Update password
     try {
       if (!auth.userId) throw new Error('Session missing user ID — sign out and back in');
-      // POST /users/{userId}/pwd (UsersApiResource#changePassword), not the
-      // generic PUT /users/{userId} update endpoint — see api/auth-account.js.
       await api.password.change(auth.userId, { password: nw, repeatPassword: cfm });
       toast('success', 'Password updated', 'Use the new password on next sign-in');
       c.querySelector('#pw-cur').value = '';

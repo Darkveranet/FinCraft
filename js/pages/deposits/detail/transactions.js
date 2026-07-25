@@ -1,6 +1,3 @@
-/* FinCraft · pages/deposits/detail/transactions.js — transactions and charges tab loaders.
-   Auto-split from the original monolithic pages/deposits/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, fmtDate, sb } from '../../../utils.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/detail/index.js — renderDetail — tab shell.
-   Auto-split from the original monolithic pages/savings/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm, openModal, toast } from '../../../ui.js';
@@ -30,7 +27,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const isDepBlocked  = sub === 'BlockCredit' || sub === 'Block';
     const isWdrBlocked  = sub === 'BlockDebit'  || sub === 'Block';
 
-    // Permission-gated toolbar flags
     const canApprove        = isPending  && can('APPROVE_SAVINGSACCOUNT');
     const canUndoApproval   = isApproved && can('APPROVALUNDO_SAVINGSACCOUNT');
     const canReject         = isPending  && can('REJECT_SAVINGSACCOUNT');
@@ -148,7 +144,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         <div class="tab-panel" data-svpanel="documents"    hidden><div id="sv-docs-wrap"><div class="empty-state-row">Loading…</div></div></div>
       </div>`;
 
-    // -------- Tab switching with deep-link --------
     enhanceScrollableTabs(c.querySelector('#sv-tabs'));
     const tabs = c.querySelectorAll('[data-svtab]');
     const panels = c.querySelectorAll('[data-svpanel]');
@@ -176,12 +171,10 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.svtab)));
     switchTab(initialTab || 'overview');
 
-    // -------- Back --------
     c.querySelector('#back-to-savings').addEventListener('click', () => {
       import('../../../router.js').then(r => r.navigate('savings'));
     });
 
-    // -------- Toolbar (lifecycle) --------
     c.querySelector('#btn-sv-edit')?.addEventListener('click', () =>
       (typeof openEditSavingsModal === 'function') && openEditSavingsModal(s));
     c.querySelector('#btn-sv-approve')?.addEventListener('click', () =>
@@ -204,7 +197,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       } catch (e) { toast('error', 'Activation failed', extractFineractError(e)); }
     });
 
-    // -------- Toolbar (transactions) --------
     c.querySelector('#btn-sv-deposit')?.addEventListener('click', () => {
       const modal = openModal('savingsDepositModal');
       if (modal) modal.dataset.accountId = id;
@@ -213,7 +205,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       openSavingsTransactionModal({ id, type: 'withdrawal', label: 'Withdraw' }));
     c.querySelector('#btn-sv-hold')?.addEventListener('click', () => openHoldModal(id));
 
-    // -------- Toolbar (block / unblock) --------
     const blockBtns = [
       ['#btn-sv-block',         'block',         'Account blocked'],
       ['#btn-sv-unblock',       'unblock',       'Account unblocked'],
@@ -230,7 +221,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       });
     });
 
-    // -------- Toolbar (interest / fees / staff) --------
     c.querySelector('#btn-sv-calc-int')?.addEventListener('click', async () => {
       try { await api.savings.calculateInterest(id); toast('success', 'Interest calculated', ''); document.dispatchEvent(new CustomEvent('fc:reload')); }
       catch (e) { toast('error', 'Failed', extractFineractError(e)); }
@@ -247,7 +237,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     c.querySelector('#btn-sv-assign-staff')?.addEventListener('click', () =>
       (typeof openSavingsAssignStaffModal === 'function') && openSavingsAssignStaffModal(id, s));
 
-    // -------- Toolbar (close / delete / export) --------
     c.querySelector('#btn-sv-close')?.addEventListener('click', () => openSavingsCloseModal(id));
     c.querySelector('#btn-sv-delete')?.addEventListener('click', async () => {
       if (!await confirm({

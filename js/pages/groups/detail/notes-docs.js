@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/detail/notes-docs.js — notes and documents tab loaders.
-   Auto-split from the original monolithic pages/groups/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmtDate } from '../../../utils.js';

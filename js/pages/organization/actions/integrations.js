@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/actions/integrations.js — loan originator, EAO, and SMS campaign modals.
-   Auto-split from the original monolithic pages/organization/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -110,9 +107,6 @@ export async function openLoanOriginatorModal(existing, onSuccess) {
 }
 
 export async function openExternalAssetOwnerModal(existing, onSuccess) {
-  // ExternalAssetOwnersApiResource has no GET-by-id, PUT, or DELETE in Fineract (confirmed via the source-derived
-  // API map: only bare list/create/search and the transfer sub-paths exist) — this modal is create-only. The
-  // `existing` param is accepted for API-shape stability but is never populated by any caller.
   const typeOptions = [
     { id: 'INVESTOR',             name: 'Investor' },
     { id: 'BANK',                 name: 'Bank' },

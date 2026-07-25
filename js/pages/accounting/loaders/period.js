@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/loaders/period.js — run accruals, GL closure, provisioning, and financial activities tab loaders.
-   Auto-split from the original monolithic pages/accounting/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { confirm as modalConfirm, toast } from '../../../ui.js';

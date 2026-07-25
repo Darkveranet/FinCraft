@@ -1,6 +1,3 @@
-/* FinCraft · pages/products/actions/loan-products.js — loan product and floating rate modals.
-   Auto-split (2nd pass) from pages/products/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';
@@ -87,7 +84,6 @@ export async function openLoanProductModal(productId, onSuccess) {
 
   await populateGl(el);
 
-  // Pre-fill GL accounts on edit
   if (isEdit && existing.accountingMappings) {
     const m = existing.accountingMappings;
     const setSel = (id, val) => { const s = el.querySelector('#' + id); if (s && val) s.value = String(val); };

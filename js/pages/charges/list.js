@@ -1,6 +1,3 @@
-/* FinCraft · pages/charges/list.js — renderList — the charges list view.
-   Auto-split from the original monolithic pages/charges.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm, toast } from '../../ui.js';
 import { escapeHtml, fmt, num } from '../../utils.js';
@@ -67,12 +64,12 @@ export async function renderList(c) {
       '<tr><td colspan="9" class="empty-state-row">Loading…</td></tr>';
     try {
       const appliesTo = c.querySelector('#ch-applies')?.value;
-      const params = {};
-      if (appliesTo) params.chargeAppliesTo = appliesTo;
-      const res = await api.charges.list(params);
-      let list = Array.isArray(res) ? res : (res?.pageItems || []);
+      const res = await api.charges.list({});
+      const all = Array.isArray(res) ? res : (res?.pageItems || []);
+      let list = appliesTo
+        ? all.filter(ch => String(ch.chargeAppliesTo?.id) === String(appliesTo))
+        : all.slice();
 
-      // Client-side filters
       const q = c.querySelector('#ch-search')?.value?.toLowerCase() || '';
       if (q) list = list.filter(ch => (ch.name || '').toLowerCase().includes(q));
 
@@ -86,9 +83,6 @@ export async function renderList(c) {
 
       allCharges = list;
 
-      // KPIs (computed across the unfiltered server result for accuracy)
-      const allRes = await api.charges.list({});
-      const all = Array.isArray(allRes) ? allRes : (allRes?.pageItems || []);
       c.querySelector('#ch-active').textContent   = num(all.filter(ch => ch.active).length);
       c.querySelector('#ch-inactive').textContent = num(all.filter(ch => !ch.active).length);
       c.querySelector('#ch-penalty').textContent  = num(all.filter(ch => ch.penalty).length);

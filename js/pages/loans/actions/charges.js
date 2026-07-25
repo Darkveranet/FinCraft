@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/actions/charges.js — apply/pay/adjust loan charge modals.
-   Auto-split (2nd pass) from pages/loans/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml, fmt } from '../../../utils.js';
@@ -10,7 +7,7 @@ import { extractFineractError } from '../../../ui/dom-helpers.js';
 export async function openApplyLoanChargeModal(loanId, onSuccess) {
   let charges = [];
   try {
-    const r = await api.charges.list({ chargeAppliesTo: 1 }); // 1 = Loan charges
+    const r = await api.charges.listByAppliesTo(1);
     charges = Array.isArray(r) ? r : [];
   } catch {}
   const mid = `ln-applycharge-${Date.now()}`;

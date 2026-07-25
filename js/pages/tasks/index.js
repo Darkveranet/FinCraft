@@ -1,6 +1,3 @@
-/* FinCraft · pages/tasks/index.js — render() entry point — builds the tab shell.
-   Auto-split from the original monolithic pages/tasks.js for maintainability. */
-
 import { toast } from '../../ui.js';
 import { loadClientApprovals, loadLoanApprovals, loadRescheduleRequests } from './approvals.js';
 import { loadCheckerInbox } from './checker-inbox.js';
@@ -11,7 +8,6 @@ let _autoRefresh = false;
 let _refreshTimer = null;
 
 export async function render(c) {
-  // Cleanup any prior auto-refresh
   if (_refreshTimer) { clearInterval(_refreshTimer); _refreshTimer = null; }
 
   c.innerHTML = `
@@ -59,7 +55,6 @@ export async function render(c) {
     }
   }));
 
-  // Auto-refresh wiring
   c.querySelector('#tk-auto-refresh').addEventListener('change', (e) => {
     _autoRefresh = e.target.checked;
     if (_refreshTimer) { clearInterval(_refreshTimer); _refreshTimer = null; }
@@ -74,7 +69,6 @@ export async function render(c) {
     }
   });
 
-  // Manual refresh
   c.querySelector('#tk-refresh').addEventListener('click', () => {
     const activeTab = c.querySelector('.tab.active');
     if (!activeTab) return;

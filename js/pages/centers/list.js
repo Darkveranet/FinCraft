@@ -1,6 +1,3 @@
-/* FinCraft · pages/centers/list.js — renderList — the centers list view.
-   Auto-split from the original monolithic pages/centers.js for maintainability. */
-
 import { api } from '../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { toast } from '../../ui.js';
@@ -46,7 +43,6 @@ export async function renderList(c) {
       <div id="ctr-pagination" class="pagination-bar"></div>
     </div>`;
 
-  // Office filter
   api.offices.list().then(offices => {
     const sel = c.querySelector('#ctr-office');
     (Array.isArray(offices) ? offices : []).forEach(o => {

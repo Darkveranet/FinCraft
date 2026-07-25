@@ -1,6 +1,3 @@
-/* FinCraft · pages/reports/index.js — render() entry point — builds the tab shell.
-   Auto-split from the original monolithic pages/reports.js for maintainability. */
-
 import { loadManageReports } from './manage-reports.js';
 import { loadRunReports } from './run-reports.js';
 import { TABS } from './shared.js';

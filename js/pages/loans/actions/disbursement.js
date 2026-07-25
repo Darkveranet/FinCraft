@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/actions/disbursement.js — disburse (to loan / to savings) modals.
-   Auto-split (2nd pass) from pages/loans/actions.js for maintainability. */
-
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';

@@ -1,6 +1,3 @@
-/* FinCraft · pages/clients/detail/accounts.js — accounts, charges, transactions, and standing instructions tab loaders.
-   Auto-split from the original monolithic pages/clients/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { confirm, toast } from '../../../ui.js';
 import { escapeHtml, fmt, fmtDate, sb } from '../../../utils.js';
@@ -8,9 +5,6 @@ import { openPayChargeModal } from '../actions.js';
 import { can, cvAvatar } from '../shared.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
-/* Powers the Financial Summary panel on the redesigned Overview tab — a light read of the
-   same /clients/{id}/accounts payload used by the full Accounts tab, so it costs one extra
-   request rather than re-deriving anything server-side doesn't already give us. */
 export async function loadClientOverviewStats(c, id, cl) {
   const wrap = c.querySelector('#cl-overview-stats');
   if (!wrap) return;
@@ -42,8 +36,6 @@ export async function loadClientOverviewStats(c, id, cl) {
   }
 }
 
-/* Dedicated "Loans" quick-tab — same underlying data as the Accounts tab's loan section,
-   surfaced on its own since that's how the client's loan book gets checked most often. */
 export async function loadClientLoansOnly(c, id) {
   const wrap = c.querySelector('#cl-loans-only-wrap');
   if (!wrap) return;

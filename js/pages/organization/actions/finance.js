@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/actions/finance.js — currency, payment type, and fund modals.
-   Auto-split from the original monolithic pages/organization/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { toast } from '../../../ui.js';
 import { escapeHtml } from '../../../utils.js';

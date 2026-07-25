@@ -1,21 +1,3 @@
-/* FinCraft · treasury/borrowings.js — Phase 8: Borrowings Management orchestration.
-   Persists to dt_office_borrowings / dt_office_borrowing_schedule / dt_office_borrowing_txns,
-   generates schedules via the pure math in ./borrowing-schedule.js, and posts the four
-   accounting legs specified in the integration brief via api.journalEntries.create, reusing the
-   now-established "Fineract JE succeeds → then FinCraft write → TreasuryReconciliationGapError if
-   that write fails" pattern from Phases 5-7 (js/treasury/errors.js).
-
-   Borrowed operating funds are a LIABILITY, not income/equity — see file header intent in the
-   integration brief. Accounting legs:
-     Drawdown:          Dr Bank/Vault             Cr Borrowings Liability
-     Interest accrued:  Dr Interest Expense       Cr Interest Payable
-     Interest paid:     Dr Interest Payable       Cr Bank/Vault
-     Principal repaid:  Dr Borrowings Liability   Cr Bank/Vault
-
-   "Bank/Vault" is a per-call choice (`fundingSource: 'BANK'|'VAULT'`, defaulting to BANK) since
-   the brief itself uses "Bank / Vault" interchangeably — GL account id comes from
-   dt_treasury_thresholds' bankGlAccountId/vaultGlAccountId either way. */
-
 import { api } from '../api.js';
 import { requireThresholds } from './thresholds.js';
 import { generateBorrowingSchedule } from './borrowing-schedule.js';
@@ -34,7 +16,7 @@ function round2(n) { return Math.round((n + Number.EPSILON) * 100) / 100; }
 async function fundingGlAccountId(officeId, fundingSource) {
   const t = await requireThresholds(officeId);
   if (fundingSource === 'VAULT') return t.vaultGlAccountId;
-  return t.bankGlAccountId; // default BANK
+  return t.bankGlAccountId;
 }
 
 async function getBorrowing(officeId, borrowingId) {
@@ -49,8 +31,6 @@ async function getScheduleRow(officeId, scheduleId) {
   return row;
 }
 
-/** Re-derives a schedule row's status from paid-vs-due amounts (with a 1-cent rounding
- *  tolerance), rather than trusting a separately-tracked flag that could drift out of sync. */
 function deriveScheduleStatus(row) {
   const principalPaid = Number(row.principal_paid) || 0, interestPaid = Number(row.interest_paid) || 0;
   const principalDue = Number(row.principal_due) || 0, interestDue = Number(row.interest_due) || 0;
@@ -59,30 +39,12 @@ function deriveScheduleStatus(row) {
   return fullyPaid ? SCHEDULE_STATUS.PAID : anyPaid ? SCHEDULE_STATUS.PARTIALLY_PAID : SCHEDULE_STATUS.SCHEDULED;
 }
 
-/**
- * Creates a borrowing record AND its full amortization schedule (via
- * ./borrowing-schedule.js#generateBorrowingSchedule) in one call. Status starts `PENDING` — no
- * money has moved yet; call postBorrowingDrawdown() next to actually draw the funds down.
- *
- * @param {object} payload
- * @param {number} payload.officeId
- * @param {string} payload.lenderName
- * @param {string} [payload.lenderType]
- * @param {number} payload.principalAmount
- * @param {number} payload.interestRate        annual %, e.g. 12
- * @param {'FLAT'|'REDUCING_BALANCE'} payload.interestMethod
- * @param {string} payload.startDate            'YYYY-MM-DD'
- * @param {number} payload.tenorMonths
- * @param {string} payload.repaymentFrequency   stored as-is; schedule generation currently
- *   assumes monthly (see borrowing-schedule.js header comment)
- * @returns {Promise<{officeId:number, borrowingId:number, schedule: Array}>}
- */
 export async function createBorrowing(payload) {
   const required = ['officeId', 'lenderName', 'principalAmount', 'interestRate', 'interestMethod', 'startDate', 'tenorMonths', 'repaymentFrequency'];
   const missing = required.filter(f => payload[f] === undefined || payload[f] === null || payload[f] === '');
   if (missing.length) throw new Error(`createBorrowing: missing required field(s): ${missing.join(', ')}`);
 
-  const schedule = generateBorrowingSchedule(payload); // validates amount/tenor/method itself
+  const schedule = generateBorrowingSchedule(payload);
 
   const borrowingRow = {
     lender_name: payload.lenderName,
@@ -121,8 +83,6 @@ export async function createBorrowing(payload) {
   return { officeId: payload.officeId, borrowingId, schedule: createdSchedule };
 }
 
-/** Dr fundingSource GL / Cr Borrowings Liability GL, for the full principal amount. Requires the
- *  borrowing to be PENDING (a borrowing can only be drawn down once through this workflow). */
 export async function postBorrowingDrawdown(officeId, borrowingId, { transactionDate = today(), fundingSource = 'BANK' } = {}) {
   const borrowing = await getBorrowing(officeId, borrowingId);
   if (borrowing.status !== BORROWING_STATUS.PENDING) {
@@ -159,10 +119,6 @@ export async function postBorrowingDrawdown(officeId, borrowingId, { transaction
   }
 }
 
-/** Dr Interest Expense / Cr Interest Payable, for one schedule installment's full interest_due.
- *  Guarded against double-accrual for the same installment (checks existing txns first) — accrual
- *  recognizes the expense/liability; it does NOT mark the schedule row as paid (that only happens
- *  via payBorrowingInterest below, which is a separate, later cash event). */
 export async function accrueInterest(officeId, borrowingId, scheduleId, { transactionDate = today() } = {}) {
   const [borrowing, schedule, t, existingTxns] = await Promise.all([
     getBorrowing(officeId, borrowingId),
@@ -199,9 +155,6 @@ export async function accrueInterest(officeId, borrowingId, scheduleId, { transa
   }
 }
 
-/** Dr Interest Payable / Cr fundingSource GL. `amount` defaults to the installment's remaining
- *  unpaid interest (interest_due - interest_paid so far); an explicit `amount` is validated to
- *  not exceed that remainder (protects against accidental overpayment). */
 export async function payBorrowingInterest(officeId, borrowingId, scheduleId, { amount, transactionDate = today(), fundingSource = 'BANK' } = {}) {
   const [borrowing, schedule, t] = await Promise.all([getBorrowing(officeId, borrowingId), getScheduleRow(officeId, scheduleId), requireThresholds(officeId)]);
   if (schedule.borrowing_row_id !== borrowingId) throw new Error(`Schedule ${scheduleId} does not belong to borrowing ${borrowingId}`);
@@ -239,9 +192,6 @@ export async function payBorrowingInterest(officeId, borrowingId, scheduleId, { 
   }
 }
 
-/** Dr Borrowings Liability / Cr fundingSource GL. `amount` defaults to the installment's
- *  remaining unpaid principal, same overpayment guard as payBorrowingInterest. Also decrements
- *  the parent borrowing's outstanding_principal, and closes the borrowing once it reaches ~0. */
 export async function repayBorrowingPrincipal(officeId, borrowingId, scheduleId, { amount, transactionDate = today(), fundingSource = 'BANK' } = {}) {
   const [borrowing, schedule, t] = await Promise.all([getBorrowing(officeId, borrowingId), getScheduleRow(officeId, scheduleId), requireThresholds(officeId)]);
   if (schedule.borrowing_row_id !== borrowingId) throw new Error(`Schedule ${scheduleId} does not belong to borrowing ${borrowingId}`);
@@ -290,9 +240,6 @@ export async function repayBorrowingPrincipal(officeId, borrowingId, scheduleId,
   }
 }
 
-/** Simple office-wide summary — per-borrowing figures plus totals. Upcoming-due-installment
- *  aggregation across all borrowings' schedules is deliberately left to Phase 9 (Treasury
- *  Dashboard) to avoid scope creep here; this returns borrowing-level data only. */
 export async function getBorrowingsDashboard(officeId) {
   const borrowings = await api.treasury.queryRows(BORROWINGS_TABLE, officeId);
   const list = Array.isArray(borrowings) ? borrowings : [];

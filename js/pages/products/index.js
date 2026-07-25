@@ -1,8 +1,3 @@
-/* FinCraft · pages/products/index.js — render() entry point — orchestrates the pieces above.
-   Converted from a 9-tab bar (which previously eagerly loaded all 9 product-type tables
-   on every visit) to a card-grid hub — see js/ui/section-hub.js for the rationale.
-   Only the selected product type now loads, on demand. */
-
 import { api } from '../../api.js';
 import { escapeHtml, fmt, sb } from '../../utils.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
@@ -15,7 +10,6 @@ import { extractFineractError } from '../../ui/dom-helpers.js';
 export async function render(c, params = {}) {
   resetGlCache();
 
-  // Loader registry — Path B: Charges removed, Product Mix added at index 5
   const loaders = [
     {
       key: 0, label: 'Loan Product', perm: 'LOANPRODUCT', icon: 'fa-hand-holding-dollar', desc: 'Lending product definitions',
@@ -24,7 +18,6 @@ export async function render(c, params = {}) {
       row: p => [p.name, p.shortName, fmt(p.principal || 0), `${p.interestRatePerPeriod || 0}%`],
       newFn: () => openLoanProductModal(null, () => reload(0)),
       editFn: (id) => openLoanProductModal(id, () => reload(0)),
-      // LoanProductsApiResource has no DELETE method in Fineract (POST/GET/PUT only) — same situation as Tax below
       deleteFn: null
     },
     {
@@ -61,8 +54,6 @@ export async function render(c, params = {}) {
       row: p => [p.name, p.shortName, fmt(p.unitPrice || 0)],
       newFn: () => openShareProductModal(null, () => reload(4)),
       editFn: (id) => openShareProductModal(id, () => reload(4)),
-      // AUDIT FIX (Products PR-01): Fineract has no share-product DELETE endpoint, so the
-      // delete action is disabled (null) — mirrors loan products / rates which also lack delete.
       deleteFn: null
     },
     {
@@ -82,7 +73,6 @@ export async function render(c, params = {}) {
       row: p => [p.name, p.isBaseLendingRate ? 'Yes' : 'No', p.active !== false ? 'Yes' : 'No'],
       newFn: () => openFloatingRateModal(null, () => reload(6)),
       editFn: (id) => openFloatingRateModal(id, () => reload(6)),
-      // FloatingRatesApiResource has no DELETE method in Fineract, and no DELETE_FLOATINGRATE permission exists either
       deleteFn: null
     },
     {
@@ -92,8 +82,6 @@ export async function render(c, params = {}) {
       row: p => [p.name, `${p.percentage ?? 0}%`],
       newFn: () => openRateModal(null, () => reload(7)),
       editFn: (id) => openRateModal(id, () => reload(7)),
-      // RateApiResource has no DELETE method in Fineract, and no DELETE_RATE permission exists either
-      // — same situation as Floating Rate.
       deleteFn: null
     },
     {
@@ -109,7 +97,6 @@ export async function render(c, params = {}) {
       row: p => [p.name, p._type],
       newFn: () => openTaxModal(null, null, () => reload(8)),
       editFn: (id, item) => openTaxModal(item._type === 'Component' ? 'component' : 'group', id, () => reload(8)),
-      // Tax CRUD: components/groups don't expose DELETE in Fineract — handled via deactivation
       deleteFn: null
     },
     {
@@ -135,7 +122,7 @@ export async function render(c, params = {}) {
   async function reload(key) {
     const cfg = loaders[key];
     const pane = c.querySelector('#pr-' + key);
-    if (!pane) return; // panel isn't mounted (user navigated away) — nothing to do
+    if (!pane) return;
     pane.innerHTML = '<div class="empty-state-row">Loading…</div>';
     try {
       const res = await cfg.fn();

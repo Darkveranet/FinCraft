@@ -1,6 +1,3 @@
-/* FinCraft · pages/users/roles.js — role list, role detail, and role create/edit modal.
-   Auto-split from the original monolithic pages/users.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm as modalConfirm, toast } from '../../ui.js';
 import { escapeHtml, num, sb } from '../../utils.js';
@@ -144,8 +141,6 @@ export async function renderRoleDetail(c, roleId) {
     const role = await api.roles.get(roleId);
     const permData = role.permissionUsageData || [];
 
-    // Group permissions by code prefix (CREATE_, READ_, UPDATE_, DELETE_, etc.)
-    // and by entity (extracted from code suffix). Group by "grouping" field where available.
     const grouped = {};
     permData.forEach(p => {
       const group = p.grouping || extractGroup(p.code);
@@ -208,9 +203,8 @@ export async function renderRoleDetail(c, roleId) {
     c.querySelector('[data-back-roles]').addEventListener('click', () =>
       import('../../router.js').then(r => r.navigate('users')));
 
-    // Toggle group panels
     c.querySelectorAll('[data-toggle-group]').forEach(h => h.addEventListener('click', (e) => {
-      if (e.target.closest('button')) return; // ignore button clicks
+      if (e.target.closest('button')) return;
       const panel = h.parentElement.querySelector('.perm-list');
       const icon = h.querySelector('i');
       const hidden = panel.style.display === 'none';
@@ -218,7 +212,6 @@ export async function renderRoleDetail(c, roleId) {
       icon.className = hidden ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right';
     }));
 
-    // Per-group toggle
     c.querySelectorAll('[data-group-toggle]').forEach(b => b.addEventListener('click', (e) => {
       e.stopPropagation();
       const group = b.dataset.groupToggle;
@@ -239,7 +232,6 @@ export async function renderRoleDetail(c, roleId) {
 
     c.querySelectorAll('.perm-chk').forEach(cb => cb.addEventListener('change', updateCounts));
 
-    // Filter
     c.querySelector('#perm-search').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
       c.querySelectorAll('.perm-group').forEach(g => {
@@ -254,7 +246,6 @@ export async function renderRoleDetail(c, roleId) {
       });
     });
 
-    // Bulk select buttons
     c.querySelector('#perm-select-all')?.addEventListener('click', () => {
       c.querySelectorAll('.perm-chk').forEach(cb => cb.checked = true);
       updateCounts();
@@ -270,7 +261,6 @@ export async function renderRoleDetail(c, roleId) {
       updateCounts();
     });
 
-    // Save
     c.querySelector('#btn-save-perms')?.addEventListener('click', async () => {
       const permissions = {};
       c.querySelectorAll('.perm-chk').forEach(cb => {
@@ -292,7 +282,6 @@ export async function renderRoleDetail(c, roleId) {
 
 function extractGroup(code) {
   if (!code) return 'Other';
-  // Common Fineract action prefixes
   const prefixes = ['CREATE_', 'READ_', 'UPDATE_', 'DELETE_', 'APPROVE_', 'REJECT_', 'ACTIVATE_',
                     'CLOSE_', 'DISBURSE_', 'WITHDRAW_', 'EXECUTE_', 'PAY_', 'WAIVE_',
                     'ENABLE_', 'DISABLE_', 'IMPORT_', 'EXPORT_'];
@@ -300,7 +289,6 @@ function extractGroup(code) {
   for (const p of prefixes) {
     if (code.startsWith(p)) { entity = code.substring(p.length); break; }
   }
-  // Strip _CHECKER or _MAKER suffix if present
   entity = entity.replace(/_CHECKER$|_MAKER$/, '');
   return entity || 'Other';
 }

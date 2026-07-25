@@ -1,10 +1,6 @@
-/* FinCraft · ui/core.js — toasts, modals, tabs, sidebar, theme toggle, confirm dialog.
-   Auto-split from the original monolithic ui.js for maintainability. */
-
 import { store } from '../store.js';
 import { escapeHtml } from '../utils.js';
 
-// ════════════════════════════════════════════════════════════
 export function setBreadcrumb(parts) {
   const el = document.getElementById('breadcrumb');
   if (!el) return;
@@ -71,7 +67,6 @@ export function closeAllModals() {
   document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
 }
 
-/** Generic entity detail panel reused by Centers, Groups, etc. */
 export async function showEntityDetail({ title, fetchFn, renderBody, onMount }) {
   const titleEl = document.getElementById('edm-title');
   const bodyEl  = document.getElementById('edm-body');
@@ -163,4 +158,3 @@ export function confirm({ title = 'Are you sure?', message = '', confirmText = '
     el.addEventListener('click', (e) => { if (e.target === el) { el.remove(); resolve(false); } });
   });
 }
-

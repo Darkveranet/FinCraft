@@ -1,30 +1,6 @@
-/* FinCraft · treasury/thresholds.js — per-office treasury configuration.
-   Backs `dt_treasury_thresholds` (a ONE-TO-ONE datatable — one config row per office, see
-   js/api/treasury.js#TREASURY_DATATABLES). Holds the GL account mappings (vault/bank/borrowings-
-   liability/interest-payable/interest-expense) and the reserve buffer that Vault Control (Phase 5)
-   and, later, the Treasury Dashboard (Phase 9) both read.
-
-   This resolves Open Questions #3/#4 from FINCRAFT_Fineract_Treasury_Integration_Log.md as code:
-   rather than hard-coding a GL account id or inventing an env-var system that doesn't exist in
-   this browser-only app, the mapping is per-office data, editable (Phase 11: a "Treasury Settings"
-   screen) and readable here. Until that screen exists, `upsertThresholds()` is how it gets seeded
-   (e.g. from a one-off admin console call, or a future setup wizard). */
-
 import { api } from '../api.js';
 
 const DATATABLE = 'dt_treasury_thresholds';
-
-/**
- * @typedef {object} TreasuryThresholds
- * @property {number} vaultGlAccountId
- * @property {number} cashAtTellersGlAccountId
- * @property {number} bankGlAccountId
- * @property {number} [borrowingsLiabilityGlAccountId]
- * @property {number} [interestPayableGlAccountId]
- * @property {number} [interestExpenseGlAccountId]
- * @property {number} reserveBufferAmount
- * @property {string} currencyCode
- */
 
 function fromRow(row) {
   if (!row) return null;
@@ -42,25 +18,15 @@ function fromRow(row) {
   };
 }
 
-/** Returns this office's TreasuryThresholds, or `null` if the office has never been configured
- *  (callers must handle `null` explicitly — there is deliberately no silent zero-buffer default,
- *  since "not configured" and "configured with a zero buffer" are different, both legitimate,
- *  states that must not be conflated for a control that guards real cash). */
 export async function getThresholds(officeId) {
   const result = await api.treasury.queryRows(DATATABLE, officeId).catch(err => {
-    // Fineract returns 404 for "no row yet" on a one-to-one datatable with nothing seeded —
-    // treat that the same as "not configured" rather than propagating an HTTP error.
     if (err?.status === 404 || err?.detail?.httpStatusCode === '404') return null;
     throw err;
   });
-  // Fineract's one-to-one GET returns a single object; defensively also accept an array of one
-  // (e.g. if a caller's stub/mock returns queryRows-style array shape).
   const row = Array.isArray(result) ? result[0] : result;
   return fromRow(row);
 }
 
-/** Creates or replaces this office's threshold config. Required fields mirror the datatable's
- *  `mandatory: true` columns (see js/api/treasury.js); everything else is optional. */
 export async function upsertThresholds(officeId, thresholds) {
   const required = ['vaultGlAccountId', 'cashAtTellersGlAccountId', 'bankGlAccountId', 'reserveBufferAmount', 'currencyCode'];
   const missing = required.filter(f => thresholds[f] === undefined || thresholds[f] === null || thresholds[f] === '');
@@ -85,9 +51,6 @@ export async function upsertThresholds(officeId, thresholds) {
   return api.treasury.createRow(DATATABLE, officeId, row);
 }
 
-/** Convenience guard used by every Phase 5+ consumer: fetch thresholds and throw a clear,
- *  actionable error (rather than a confusing downstream null-property crash) if the office
- *  hasn't been configured yet. */
 export async function requireThresholds(officeId) {
   const t = await getThresholds(officeId);
   if (!t) throw new Error(`Office ${officeId} has no treasury configuration (dt_treasury_thresholds). Configure Vault/Cash-At-Tellers/Bank GL accounts and a reserve buffer before using Vault Control.`);

@@ -1,6 +1,3 @@
-/* FinCraft · pages/dashboard/data.js — daily snapshot mechanism, report parsing/aggregation
-   helpers, and sampled-balance/report loaders used by dashboard/index.js. Split out of the
-   former single dashboard.js (see js/pages/dashboard.js barrel + FRONTEND.md). */
 import { api } from '../../api.js';
 import { SNAPSHOT_TABLE, toJsDate, isoDay } from './shared.js';
 
@@ -13,9 +10,6 @@ export async function getHeadOfficeId() {
   } catch { return 1; }
 }
 
-/** Registers the snapshot datatable if it doesn't already exist. Returns false (never
- *  throws) if the user lacks permission or the call fails for any other reason — callers
- *  treat that as "deltas unavailable this session", not an error. */
 export async function ensureSnapshotTable() {
   try {
     const tables = await api.dataTables.list();
@@ -45,8 +39,6 @@ export async function loadSnapshotHistory(officeId) {
   } catch { return []; }
 }
 
-/** Upserts today's row — updates it in place if the dashboard's already been loaded once
- *  today (so a 5pm refresh reflects the day's latest figures, not the 9am snapshot). */
 export async function saveSnapshot(officeId, history, metrics) {
   const todayStr = isoDay(new Date());
   const body = { snapshot_date: todayStr, metrics_json: JSON.stringify(metrics), dateFormat: 'yyyy-MM-dd', locale: 'en' };
@@ -54,24 +46,15 @@ export async function saveSnapshot(officeId, history, metrics) {
     const todayRow = history.find(h => isoDay(toJsDate(h.date) || new Date(0)) === todayStr);
     if (todayRow) await api.dataTables.updateEntryOneToMany(SNAPSHOT_TABLE, officeId, todayRow.id, body);
     else await api.dataTables.createEntry(SNAPSHOT_TABLE, officeId, body);
-  } catch { /* non-fatal — deltas just won't have today's baseline for next time */ }
+  } catch { }
 }
 
-/** Most recent snapshot strictly before today. */
 export function pickBaseline(history) {
   const todayStr = isoDay(new Date());
   const prior = history.filter(h => isoDay(toJsDate(h.date) || new Date(0)) < todayStr);
   return prior.length ? prior[prior.length - 1] : null;
 }
 
-/* ------------------------------------------------------------------- */
-/* Report parsing — column-name matching, not fixed indices, because   */
-/* Fineract's genericResultSet layout varies slightly by deployment.   */
-/* ------------------------------------------------------------------- */
-
-/** Parses a PortfolioAtRisk genericResultSet into:
- *    { totalOutstanding, atRiskOutstanding, parRatio, buckets: [{label, value}] }
- *  or null if the report didn't return a recognisable shape. */
 export function analyzePAR(parData) {
   if (!parData?.data?.length || !parData?.columnHeaders?.length) return null;
   const cols = parData.columnHeaders.map(h => h.columnName || '');
@@ -103,11 +86,6 @@ export function analyzePAR(parData) {
   return { totalOutstanding, atRiskOutstanding, parRatio, buckets };
 }
 
-/** If a genericResultSet has a per-office label column (many stock Fineract reports do
- *  when run without a specific R_officeId), groups a value column by that label. Returns
- *  null if there's no more than one distinct label — i.e. the report only gave one
- *  aggregate row, not a real office breakdown. `valueColRegex` picks which numeric column
- *  to sum; defaults to the same "total outstanding" pattern analyzePAR uses. */
 export function parseOfficeBreakdown(reportData, valueColRegex = /total.*(outstanding|portfolio)|outstanding.*total/i) {
   if (!reportData?.data?.length || !reportData?.columnHeaders?.length) return null;
   const cols = reportData.columnHeaders.map(h => h.columnName || '');
@@ -125,13 +103,10 @@ export function parseOfficeBreakdown(reportData, valueColRegex = /total.*(outsta
     if (!label || isNaN(v)) continue;
     sums.set(label, (sums.get(label) || 0) + v);
   }
-  if (sums.size <= 1) return null; // only one aggregate row — no real office dimension
+  if (sums.size <= 1) return null;
   return [...sums.entries()].map(([label, value]) => ({ label, value }));
 }
 
-/** Buckets a TranDatewiseSummary genericResultSet into `months` trailing calendar months
- *  (oldest first), zero-filling months with no matching rows. Returns null only if the
- *  report shape wasn't recognisable at all. */
 export function bucketMonthly(tranData, months = 6) {
   if (!tranData?.data?.length || !tranData?.columnHeaders?.length) return null;
   const cols = tranData.columnHeaders.map(h => h.columnName || '');
@@ -161,7 +136,6 @@ export function bucketMonthly(tranData, months = 6) {
   return { labels, values };
 }
 
-/** Groups an array by a key function into [{label, value}] sorted descending. */
 export function groupBy(arr, keyFn) {
   const sums = new Map();
   for (const item of arr) {
@@ -178,9 +152,6 @@ export function summarizeStatusMix(loans) {
   return { performing, overdue, closed };
 }
 
-/** Bounded-sample fallback for KPIs that ideally want a portfolio-wide sum but have no
- *  cheap aggregate endpoint to fall back on. `listFn` is called with the sample size so
- *  callers can reuse it for different limits if ever needed. */
 export async function sampleBalance(listFn, balancePath, cap = 100) {
   try {
     const r = await listFn(cap);
@@ -191,9 +162,6 @@ export async function sampleBalance(listFn, balancePath, cap = 100) {
   } catch { return null; }
 }
 
-/** Fetches a bounded sample's raw record list without summing any particular field yet — lets
- *  a caller derive more than one KPI (e.g. principalDisbursed AND totalOutstanding) from a
- *  single network round trip via `sumFromSample()` below, instead of re-fetching per field. */
 export async function sampleList(listFn, cap = 100) {
   try {
     const r = await listFn(cap);
@@ -203,20 +171,12 @@ export async function sampleList(listFn, cap = 100) {
   } catch { return null; }
 }
 
-/** Sums one field out of an already-fetched `sampleList()` result — the multi-KPI counterpart
- *  to `sampleBalance()`'s single-field fetch+sum. */
 export function sumFromSample(sample, balancePath) {
   if (!sample) return null;
   const sum = sample.list.reduce((s, x) => s + (balancePath(x) || 0), 0);
   return { sum, sampleSize: sample.list.length, total: sample.total, capped: sample.capped };
 }
 
-/** Loads all Financial-Activity accounts tagged as cash (name containing "Cash", covering
- *  Fineract's standard "Cash at Main Vault" / "Cash at Tellers" activity labels), then
- *  sums journal-entry movements on those GL accounts for the given date range. For an
- *  ASSET account, a DEBIT increases the balance (cash in), a CREDIT decreases it (cash
- *  out) — standard double-entry convention. Returns null if no cash accounts are
- *  configured. `daily`=true also returns a day-bucketed breakdown for the cash-flow chart. */
 export async function loadCashActivity(start, end, officeId, daily = false) {
   try {
     const activities = await api.financialActivityAccounts.list();
@@ -253,9 +213,6 @@ export async function loadCashActivity(start, end, officeId, daily = false) {
   } catch { return null; }
 }
 
-/** Sums INCOME vs EXPENSE GL account movements per trailing calendar month. Income
- *  accounts recognise revenue on CREDIT, expense accounts recognise cost on DEBIT —
- *  standard double-entry convention. */
 export async function loadIncomeExpense(start, end, months, officeId) {
   try {
     const accounts = await api.glAccounts.list();
@@ -293,17 +250,19 @@ export async function loadIncomeExpense(start, end, months, officeId) {
   } catch { return null; }
 }
 
-/** Active loan COUNT per loan officer (not a currency figure — see file header for why). */
 export async function loadLoansByOfficer(officeId) {
   try {
     const staff = await api.staff.list({ loanOfficersOnly: true, ...(officeId ? { officeId } : {}) });
-    const list = (Array.isArray(staff) ? staff : []).slice(0, 8); // cap chart to 8 bars
-    const counts = await Promise.all(list.map(s =>
-      api.loans.list({ limit: 1, status: 'active', loanOfficerId: s.id }).then(r => r?.totalFilteredRecords ?? 0).catch(() => null)
-    ));
-    return list.map((s, i) => ({ label: s.displayName || `Staff #${s.id}`, value: counts[i] })).filter(x => x.value != null);
+    const list = (Array.isArray(staff) ? staff : []).slice(0, 8);
+    if (!list.length) return [];
+    const SAMPLE_CAP = 1000;
+    const r = await api.loans.list({ limit: SAMPLE_CAP, status: 'active', orderBy: 'id', sortOrder: 'DESC' });
+    const loans = Array.isArray(r) ? r : (r?.pageItems || []);
+    const byOfficer = new Map();
+    for (const l of loans) {
+      const oid = l.loanOfficerId;
+      if (oid != null) byOfficer.set(oid, (byOfficer.get(oid) || 0) + 1);
+    }
+    return list.map(s => ({ label: s.displayName || `Staff #${s.id}`, value: byOfficer.get(s.id) || 0 }));
   } catch { return null; }
 }
-
-/* Chart.js loading itself now lives in ./charts.js (loadChartJs()), which */
-/* has its own module-scope chartJsPromise — this file no longer needs one. */

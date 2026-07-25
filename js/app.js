@@ -1,4 +1,3 @@
-/* FinCraft · app.js — bootstrap */
 import './ui.js';
 import './modal-init.js';
 import { initAuth } from './auth.js';
@@ -14,8 +13,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// fc:reload — fired by submit handlers after a successful create/update.
-// Re-navigate to the same page so lists refresh with the new record.
 document.addEventListener('fc:reload', () => {
   const page = store.get('currentPage') || 'dashboard';
   navigate(page);
@@ -23,9 +20,6 @@ document.addEventListener('fc:reload', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   initAuth().catch(err => {
-    // If bootstrap itself throws (bad config, blocked/missing module, etc.)
-    // both #loginScreen and #appShell stay empty <div>s — a silent blank
-    // screen with the only trace in the console. Surface it instead.
     console.error('[fc-fatal]', err);
     const el = document.getElementById('loginScreen');
     if (el) {

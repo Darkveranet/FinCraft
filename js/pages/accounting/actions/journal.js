@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/actions/journal.js — journal entry, reversal, and frequent posting modals.
-   Auto-split from the original monolithic pages/accounting/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';

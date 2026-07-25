@@ -1,6 +1,3 @@
-/* FinCraft · pages/clients/actions/charges.js — apply/pay client charge modals.
-   Auto-split from the original monolithic pages/clients/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -10,7 +7,7 @@ import { extractFineractError } from '../../../ui/dom-helpers.js';
 export async function openApplyChargeModal(clientId, onSuccess) {
   let charges = [];
   try {
-    const r = await api.charges.list({ chargeAppliesTo: 3 }); // 3 = Client charges
+    const r = await api.charges.listByAppliesTo(3);
     charges = Array.isArray(r) ? r : [];
   } catch {}
   const mid = `cl-applycharge-${Date.now()}`;

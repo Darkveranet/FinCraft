@@ -1,6 +1,3 @@
-/* FinCraft · pages/system/actions/integrations.js — external service and webhook modals.
-   Auto-split from the original monolithic pages/system/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { toast } from '../../../ui.js';
 import { escapeHtml } from '../../../utils.js';

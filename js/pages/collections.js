@@ -1,4 +1,3 @@
-/* FinCraft · collections.js — Live API */
 import { LOCALE, DATE_FORMAT, today } from '../config.js';
 import { api } from '../api.js';
 import { fmt, escapeHtml } from '../utils.js';
@@ -48,7 +47,6 @@ export async function render(c) {
     c.querySelector('#sheet-area').innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-notch fa-spin"></i><div>Loading collection sheet…</div></div>';
 
     try {
-      // Real Fineract collection sheet endpoint — returns center→group→client→loan tree
       const params = {
         officeId:    officeId || undefined,
         staffId:     staffId  || undefined,
@@ -58,7 +56,6 @@ export async function render(c) {
       };
       const sheet = await api.collectionSheet.get(params);
 
-      // Flatten tree into rows for display: sheet.groups[].clients[].loans[]
       const groups = Array.isArray(sheet.groups) ? sheet.groups : [];
       const flatRows = [];
       groups.forEach(g => {

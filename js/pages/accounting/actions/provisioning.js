@@ -1,6 +1,3 @@
-/* FinCraft · pages/accounting/actions/provisioning.js — provisioning entry and financial activity modals.
-   Auto-split from the original monolithic pages/accounting/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { LOCALE } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -102,10 +99,6 @@ export async function openProvisioningCategoryModal(onSuccess, existing) {
   el.querySelector('#' + mid + '-save').addEventListener('click', async () => {
     const categoryName = v(el, 'pcat-name');
     if (!categoryName) { toast('warn', 'Enter a category name', ''); return; }
-    // FLAGGED, NOT VERIFIED: payload field names (categoryName/categoryDescription) assumed by
-    // analogy with the read-side ProvisioningCategoryData shape; not cross-checked against the
-    // ProvisioningCategoryApiConstants source, since ProvisioningCategoryApiResource wasn't captured
-    // with body/param details in fineract_api_raw.json.
     const payload = { categoryName };
     const desc = v(el, 'pcat-desc'); if (desc) payload.categoryDescription = desc;
     try {

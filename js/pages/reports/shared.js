@@ -1,6 +1,3 @@
-/* FinCraft · pages/reports/shared.js — cached lookups (offices/staff/currencies), param field builder, CSV export.
-   Auto-split from the original monolithic pages/reports.js for maintainability. */
-
 import { api } from '../../api.js';
 import { store } from '../../store.js';
 import { escapeHtml } from '../../utils.js';
@@ -37,20 +34,6 @@ async function getStaff()      { return _staff      ||= await api.staff.list().c
 async function getCurrencies() { return _currencies ||= await api.currencies.list().catch(() => []); }
 
 export async function buildParamField(p) {
-  // AUDIT FIX (Reports RP-02): Fineract's GET /reports/{id} returns each parameter as
-  // { id, parameterId, parameterName, reportParameterName } — there is NO `name` field.
-  // The old code read p.name (always undefined), so every field rendered with a blank
-  // label AND fell through to the plain text input (no office/staff/date/currency widget) —
-  // exactly the reported "parameter details don't show + types not enforced" symptom.
-  //   • reportParameterName  = the SQL substitution key (e.g. "officeId") → used to build R_<key>
-  //   • parameterName        = the descriptive definition name (e.g. "OfficeIdSelectOne") → best
-  //                            source for type detection
-  // We also bake the R_ prefix into the input's `name` attribute so runReport()'s [name]
-  // collector sends the keys Fineract actually expects (spec: R_officeId, R_fromDate, …);
-  // previously the raw, unprefixed keys were silently ignored (filters had no effect).
-  // NOTE: the OpenAPI ReportParameterData schema is empty, so field names are per Fineract's
-  // documented report-parameter shape — verify against your target server. Fallbacks across
-  // reportParameterName/parameterName/name keep it working regardless of exact casing.
   const rpName  = p.reportParameterName || p.parameterName || p.name || '';
   const key     = rpName ? (rpName.startsWith('R_') ? rpName : 'R_' + rpName) : '';
   const nm      = (p.parameterName || p.reportParameterName || p.name || '').toLowerCase();
@@ -104,8 +87,6 @@ export async function buildParamField(p) {
       </label>`;
   }
   if (/^select|selectall|selectone/i.test(nm) || /\bid$/i.test(rpName)) {
-    // Unknown *SelectAll/*SelectOne or *Id parameter with no cached lookup — render a
-    // numeric input so at least the type is hinted rather than a free-text box.
     return `
       <label>${escapeHtml(lbl)}
         <input type="number" name="${nameAttr}" class="form-control" id="${id}"/>

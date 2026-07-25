@@ -1,6 +1,3 @@
-/* FinCraft · pages/groups/actions/meetings.js — schedule meeting and attendance modals.
-   Auto-split from the original monolithic pages/groups/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';
@@ -41,7 +38,7 @@ export async function openScheduleMeetingModal(groupId, onSuccess, existingCal) 
       startDate: el.querySelector('#m-start').value,
       frequency: parseInt(el.querySelector('#m-freq').value),
       interval: parseInt(el.querySelector('#m-int').value) || 1,
-      typeId: 1,  // 1 = COLLECTION calendar
+      typeId: 1,
       description: el.querySelector('#m-desc').value.trim() || undefined,
       repeating: true,
       dateFormat: DATE_FORMAT, locale: LOCALE

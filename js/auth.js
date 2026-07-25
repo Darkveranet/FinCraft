@@ -1,5 +1,3 @@
-/* FinCraft · auth.js — Login / Logout / Change password / Forgot / 2FA / Session bootstrap
-   Tenant-aware: remembers recent tenants per device for quick re-login. */
 import { api, configureAPI } from './api.js';
 import { store } from './store.js';
 import { FINERACT_DEMO } from './config.js';
@@ -8,14 +6,6 @@ import { extractFineractError } from './ui/dom-helpers.js';
 const LOGIN_ID = 'loginScreen';
 const SHELL_ID = 'appShell';
 
-/* ------------------------------------------------------------------ */
-/* Permission extraction helper                                        */
-/* ------------------------------------------------------------------ */
-/** Extract permission codes from a payload — handles all 3 shapes:
- *  - permissions: ["CODE", "CODE", ...]
- *  - permissions: [{ code: "CODE" }, ...]
- *  - roles: [{ permissions: [{ code, selected }, ...] }, ...]
- */
 export function _extractPerms(payload) {
   const out = new Set();
   const top = Array.isArray(payload?.permissions) ? payload.permissions : [];
@@ -35,9 +25,6 @@ export function _extractPerms(payload) {
   return [...out];
 }
 
-/* ------------------------------------------------------------------ */
-/* Recent tenants — remembered per device                              */
-/* ------------------------------------------------------------------ */
 const RECENT_TENANTS_KEY = 'fincraft.recentTenants';
 const MAX_RECENT_TENANTS = 5;
 
@@ -66,9 +53,6 @@ function _removeRecentTenant(tenantId, serverUrl) {
   } catch {}
 }
 
-/* ------------------------------------------------------------------ */
-/* Boot                                                                */
-/* ------------------------------------------------------------------ */
 export async function initAuth() {
   api.onUnauthorized(() => {
     _clearSession();
@@ -88,7 +72,6 @@ export async function initAuth() {
       if (e.status === 401 || e.status === 403) {
         _clearSession();
       } else {
-        // Network error or transient — keep cached session
         console.warn('[auth] /userdetails failed, using cached perms:', e.message);
         if (Array.isArray(store.get('perms')) && store.get('perms').length) {
           showApp();
@@ -101,22 +84,16 @@ export async function initAuth() {
   showLogin();
 }
 
-/* ------------------------------------------------------------------ */
-/* Login                                                               */
-/* ------------------------------------------------------------------ */
 export async function login({ serverUrl, tenantId, username, password }) {
   configureAPI({ serverUrl, tenantId });
 
-  // /authentication returns the FULL payload (token + roles + permissions)
   const authResponse = await api.auth(username, password);
   const token = authResponse?.base64EncodedAuthenticationKey;
   if (!token) throw new Error('Authentication failed — check credentials');
   configureAPI({ authToken: token });
 
-  // Extract perms from authentication response (the reliable source)
   const authPerms = _extractPerms(authResponse);
 
-  // Persist initial session
   store.set('auth', {
     serverUrl, tenantId, username, authToken: token,
     userId:     authResponse.userId,
@@ -126,13 +103,6 @@ export async function login({ serverUrl, tenantId, username, password }) {
   });
   store.set('perms', authPerms);
 
-  // Fineract flags accounts that must set a new password before doing
-  // anything else — first login, or an admin-forced reset, or an expired
-  // password policy. The token issued in this state is only valid for the
-  // password-change endpoint, so we must stop here (before 2FA or any other
-  // authenticated call) and force the change-password step. The caller
-  // (renderLogin) catches PASSWORD_RESET_REQUIRED and shows that step;
-  // completeMustChangePassword() below resumes once it succeeds.
   if (authResponse.shouldRenewPassword) {
     throw Object.assign(new Error('PASSWORD_RESET_REQUIRED'), { code: 'PASSWORD_RESET_REQUIRED' });
   }
@@ -140,13 +110,7 @@ export async function login({ serverUrl, tenantId, username, password }) {
   await _continueAfterCredentials({ serverUrl, tenantId, username, authPerms });
 }
 
-/** Shared tail of the sign-in flow, run once credentials are fully accepted
- *  (i.e. after any forced password change), but before 2FA/finishLogin. */
 async function _continueAfterCredentials({ serverUrl, tenantId, username, authPerms }) {
-  // If the tenant has two-factor auth enabled, stop here and require OTP
-  // verification before making any further authenticated calls or completing
-  // sign-in. The caller (renderLogin) catches OTP_REQUIRED and shows the OTP
-  // step; finishLogin() below resumes once the OTP has been validated.
   if (await isTwoFactorRequired()) {
     throw Object.assign(new Error('OTP_REQUIRED'), { code: 'OTP_REQUIRED' });
   }
@@ -154,11 +118,6 @@ async function _continueAfterCredentials({ serverUrl, tenantId, username, authPe
   await finishLogin({ serverUrl, tenantId, username, authPerms });
 }
 
-/**
- * Called once the user has successfully set a new password in response to a
- * PASSWORD_RESET_REQUIRED login. Resumes the normal sign-in flow (2FA check,
- * then finishLogin) using the session already stored by login().
- */
 export async function completeMustChangePassword({ password, repeatPassword }) {
   await changePassword({ password, repeatPassword });
   const auth = store.get('auth') || {};
@@ -170,14 +129,7 @@ export async function completeMustChangePassword({ password, repeatPassword }) {
   });
 }
 
-/**
- * Completes sign-in: enriches the session from /userdetails, remembers the
- * tenant, loads the default currency, and reveals the app shell. Called
- * directly from login() when no 2FA is required, or from completeTwoFactorLogin()
- * once the OTP has been validated.
- */
 async function finishLogin({ serverUrl, tenantId, username, authPerms }) {
-  // Best-effort enrichment from /userdetails — merges, never overwrites with empty
   try {
     const me = await api.userDetails.self();
     _persistUserContext(me);
@@ -186,20 +138,14 @@ async function finishLogin({ serverUrl, tenantId, username, authPerms }) {
       _clearSession();
       throw new Error('Server rejected the session token.');
     }
-    // Non-fatal — keep auth-response perms
   }
 
   console.log('[auth] Signed in with', (store.get('perms') || []).length, 'permissions');
-  _saveRecentTenant(serverUrl, tenantId, username);   // Remember for next time
+  _saveRecentTenant(serverUrl, tenantId, username);
   await _loadDefaultCurrency();
   showApp();
 }
 
-/**
- * Called once the OTP has been validated for a tenant that requires 2FA.
- * `tfaToken` is the session token returned by validateOtp(), sent as the
- * Fineract-Platform-TFA-Token header on every subsequent request.
- */
 export async function completeTwoFactorLogin(tfaToken) {
   if (tfaToken) configureAPI({ tfaToken });
   const auth = store.get('auth') || {};
@@ -212,7 +158,6 @@ export async function completeTwoFactorLogin(tfaToken) {
   });
 }
 
-/** Best-effort fetch of the tenant's configured currency, used as the fallback in fmt(). */
 async function _loadDefaultCurrency() {
   try {
     const res = await api.currencies.all();
@@ -220,11 +165,9 @@ async function _loadDefaultCurrency() {
     const code = Array.isArray(selected) && selected.length ? selected[0].code : null;
     if (code) store.set('defaultCurrency', code);
   } catch (e) {
-    // Non-fatal — fmt() falls back to USD if this isn't available
   }
 }
 
-/** Persist /userdetails enrichment — only overwrite when new payload is richer. */
 function _persistUserContext(me) {
   const auth = store.get('auth') || {};
   store.set('auth', {
@@ -235,7 +178,6 @@ function _persistUserContext(me) {
     roles:      Array.isArray(me.roles) && me.roles.length ? me.roles : auth.roles
   });
 
-  // NEVER wipe perms — only merge if /userdetails actually returned some
   const newPerms = _extractPerms(me);
   if (newPerms.length) {
     const existing = store.get('perms') || [];
@@ -244,18 +186,9 @@ function _persistUserContext(me) {
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Permission helper                                                   */
-/* ------------------------------------------------------------------ */
 export function canDo(code) { return store.hasPermission(code); }
 
-/* ------------------------------------------------------------------ */
-/* Logout                                                              */
-/* ------------------------------------------------------------------ */
 export function logout() {
-  // Fineract's docs: "Two factor access tokens should be invalidated on
-  // logout." Best-effort — fire it off but never let a network hiccup
-  // block the user from actually signing out.
   const auth = store.get('auth');
   if (auth?.tfaToken) {
     api.twoFactor.invalidate(auth.tfaToken).catch(() => {});
@@ -271,9 +204,6 @@ function _clearSession() {
   api.reset();
 }
 
-/* ------------------------------------------------------------------ */
-/* Change password                                                     */
-/* ------------------------------------------------------------------ */
 export async function changePassword({ password, repeatPassword }) {
   const auth = store.get('auth');
   if (!auth?.userId) throw new Error('Not signed in');
@@ -281,23 +211,12 @@ export async function changePassword({ password, repeatPassword }) {
   return api.password.change(auth.userId, { password, repeatPassword });
 }
 
-/* ------------------------------------------------------------------ */
-/* Forgot password                                                     */
-/* ------------------------------------------------------------------ */
 export async function forgotPassword({ serverUrl, tenantId, username, email }) {
   if (!username && !email) throw new Error('Provide username or email');
-  // The user may not have successfully logged in yet (that's the whole point
-  // of "forgot password"), so the API client might not be configured with a
-  // server/tenant at all. Without this, the request silently falls back to a
-  // relative URL and hits whatever origin FinCraft itself is hosted on
-  // (e.g. GitHub Pages), which returns 405 since it's static hosting.
   if (serverUrl || tenantId) configureAPI({ serverUrl, tenantId });
   return api.password.forgot({ username, email });
 }
 
-/* ------------------------------------------------------------------ */
-/* 2FA helpers                                                          */
-/* ------------------------------------------------------------------ */
 export async function isTwoFactorRequired() {
   try {
     const cfg = await api.twoFactor.config.get();
@@ -311,10 +230,6 @@ export const requestOtp    = (deliveryMethod, extendedToken = false) =>
   api.twoFactor.request({ deliveryMethod, extendedToken });
 export const validateOtp   = (token)                             => api.twoFactor.validate(token);
 
-/* ------------------------------------------------------------------ */
-/* Screens                                                             */
-/* ------------------------------------------------------------------ */
-/** True if this page is at meaningful risk of sending Basic-auth credentials over plaintext HTTP. */
 function _isInsecureContext() {
   const proto = window.location.protocol;
   const host  = window.location.hostname;
@@ -345,11 +260,6 @@ function showApp() {
       r.initRouter();
     });
   });
-  // Phase 13 — Treasury tenant bootstrap. Fineract datatables are per-tenant, so a new tenant has
-  // none of the eight `dt_*` treasury tables until they're registered. Auto-provision them at
-  // login (idempotent, per-tenant memoized) so treasury screens work without any manual setup.
-  // Fire-and-forget and fully guarded: a bootstrap failure must never block sign-in, and the
-  // treasury screens surface their own health/config state independently (see treasury/health.js).
   import('./treasury/bootstrap.js')
     .then(b => b.initializeTreasuryTenant())
     .then(res => {
@@ -364,7 +274,6 @@ function showApp() {
 }
 
 function renderLogin(container, banner) {
-  // Build the recent-tenants chip row (only if any tenants are remembered)
   const recents = _loadRecentTenants();
   const recentChipsHtml = recents.length ? `
     <div class="mb-2" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
@@ -477,10 +386,8 @@ function renderLogin(container, banner) {
   btn.addEventListener('click', doLogin);
   pass.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
-  // Tenant chip clicks — fill in server URL, tenant, and username
   container.querySelectorAll('[data-recent-idx]').forEach(chip => {
     chip.addEventListener('click', (e) => {
-      // Ignore clicks on the × remove button
       if (e.target.classList.contains('tenant-chip-x')) return;
       const idx = parseInt(chip.dataset.recentIdx, 10);
       const list = _loadRecentTenants();
@@ -493,7 +400,6 @@ function renderLogin(container, banner) {
     });
   });
 
-  // Tenant chip × — remove from recents and re-render
   container.querySelectorAll('[data-remove-idx]').forEach(x => {
     x.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -506,7 +412,6 @@ function renderLogin(container, banner) {
     });
   });
 
-  // Chip hover effect
   container.querySelectorAll('.tenant-chip').forEach(chip => {
     chip.addEventListener('mouseenter', () => {
       chip.style.borderColor = 'var(--brand-teal, #00c9b1)';
@@ -534,7 +439,6 @@ function renderLogin(container, banner) {
   });
 }
 
-/** Renders the OTP verification step. Shown after login() throws OTP_REQUIRED. */
 async function renderOtpStep(container) {
   let methods = [];
   try { methods = await getOtpMethods(); } catch { methods = []; }
@@ -612,9 +516,6 @@ async function renderOtpStep(container) {
   });
 }
 
-/** Renders the forced password-change step. Shown after login() throws
- *  PASSWORD_RESET_REQUIRED (first login, admin-forced reset, or an expired
- *  password policy). */
 function renderMustChangePasswordStep(container) {
   container.innerHTML = `
     <div class="login-wrap active" style="width:100%;height:100vh;display:flex;align-items:center;justify-content:center">

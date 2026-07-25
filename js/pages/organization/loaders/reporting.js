@@ -1,6 +1,3 @@
-/* FinCraft · pages/organization/loaders/reporting.js — ad-hoc queries and entity datatable checks tab loaders.
-   Auto-split (2nd pass) from pages/organization/loaders.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, sb } from '../../../utils.js';

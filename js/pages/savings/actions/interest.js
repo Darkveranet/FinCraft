@@ -1,6 +1,3 @@
-/* FinCraft · pages/savings/actions/interest.js — post-interest-as-on and annual fees modals.
-   Auto-split from the original monolithic pages/savings/actions.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { DATE_FORMAT, LOCALE, today } from '../../../config.js';
 import { toast } from '../../../ui.js';

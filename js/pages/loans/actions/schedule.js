@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/actions/schedule.js — shared schedule-table renderer used by the schedule tab loaders.
-   Auto-split (2nd pass) from pages/loans/actions.js for maintainability. */
-
 import { fmt, fmtDate, sb } from '../../../utils.js';
 
 export function renderScheduleTable(wrap, sched, isOriginal = false) {

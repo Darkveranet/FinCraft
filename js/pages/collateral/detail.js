@@ -1,6 +1,3 @@
-/* FinCraft · pages/collateral/detail.js — renderDetail, valuation guide, and usage tab loaders.
-   Auto-split from the original monolithic pages/collateral.js for maintainability. */
-
 import { api } from '../../api.js';
 import { confirm, toast } from '../../ui.js';
 import { escapeHtml, fmt, num, sb } from '../../utils.js';
@@ -89,7 +86,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
         </div>
       </div>`;
 
-    // Tab switching
     enhanceScrollableTabs(c.querySelector('#col-tabs'));
     const tabs = c.querySelectorAll('[data-coltab]');
     const panels = c.querySelectorAll('[data-colpanel]');
@@ -113,7 +109,6 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.coltab)));
     switchTab(initialTab || 'overview');
 
-    // Toolbar handlers
     c.querySelector('#back-to-collateral').addEventListener('click', () => {
       import('../../router.js').then(r => r.navigate('collaterals'));
     });

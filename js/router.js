@@ -1,15 +1,7 @@
-/* FinCraft · router.js — hash routing + auth/permission guards */
 import { parseHash, buildHash } from './utils.js';
 import { store } from './store.js';
 import { setActiveNav, setBreadcrumb } from './ui.js';
 
-/**
- * `requiredPermission` is a single Fineract permission code OR an array (any-of).
- * `null` = authenticated user only. Use `'ALL_FUNCTIONS'` to bypass (admin-only).
- * The sentinel `ANY_CHECKER_PERMISSION` below is a special third form, handled by
- * `isAllowed()`, for routes gated on "holds CHECKER_SUPER_USER or any entity-level
- * `..._CHECKER` permission" rather than one fixed code or a fixed list of codes.
- */
 export const ANY_CHECKER_PERMISSION = Symbol('ANY_CHECKER_PERMISSION');
 
 const PAGES = {
@@ -19,22 +11,22 @@ const PAGES = {
   loans:        { mod: () => import('./pages/loans.js'),        label: 'Loans',         icon: 'fa-hand-holding-dollar', requiredPermission: 'READ_LOAN' },
   savings:      { mod: () => import('./pages/savings.js'),      label: 'Savings',       icon: 'fa-piggy-bank',     requiredPermission: 'READ_SAVINGSACCOUNT' },
   deposits:     { mod: () => import('./pages/deposits.js'),     label: 'Deposits',      icon: 'fa-vault',          requiredPermission: ['READ_FIXEDDEPOSITACCOUNT','READ_RECURRINGDEPOSITACCOUNT'] },
-  shares:       { mod: () => import('./pages/shares.js'),       label: 'Shares',        icon: 'fa-chart-pie',      requiredPermission: null }, // no READ_SHAREACCOUNT code exists in the 961-code Fineract permission set; was permanently unreachable
+  shares:       { mod: () => import('./pages/shares.js'),       label: 'Shares',        icon: 'fa-chart-pie',      requiredPermission: null },
   groups:       { mod: () => import('./pages/groups.js'),       label: 'Groups',        icon: 'fa-people-group',   requiredPermission: 'READ_GROUP' },
   centers:      { mod: () => import('./pages/centers.js'),      label: 'Centers',       icon: 'fa-building-columns', requiredPermission: 'READ_CENTER' },
   collections:  { mod: () => import('./pages/collections.js'),  label: 'Collections',   icon: 'fa-file-invoice-dollar', requiredPermission: 'READ_COLLECTIONSHEET' },
   transfers:    { mod: () => import('./pages/transfers.js'),    label: 'Transfers',     icon: 'fa-right-left',     requiredPermission: 'READ_ACCOUNTTRANSFER' },
   remittances:  { mod: () => import('./pages/misc.js'),         label: 'Remittances',   icon: 'fa-paper-plane',    view: 'remittances', requiredPermission: 'READ_ACCOUNTTRANSFER' },
   accounting:   { mod: () => import('./pages/accounting.js'),   label: 'Accounting',    icon: 'fa-calculator',     requiredPermission: 'READ_JOURNALENTRY' },
-  treasury:     { mod: () => import('./pages/treasury.js'),     label: 'Treasury Settings', icon: 'fa-vault',     view: 'settings', requiredPermission: 'READ_JOURNALENTRY' }, // FinCraft-only feature — no dedicated Fineract permission code exists for it; gated on the closest related real accounting permission until Phase 12 defines a proper mapping strategy (see integration log §17)
-  'treasury-dashboard': { mod: () => import('./pages/treasury.js'), label: 'Treasury Dashboard', icon: 'fa-gauge-high', view: 'dashboard', requiredPermission: 'READ_JOURNALENTRY' }, // same FinCraft-only permission-mapping caveat as the `treasury` route above
-  'teller-console': { mod: () => import('./pages/treasury.js'), label: 'Teller Console', icon: 'fa-cash-register', view: 'teller-console', requiredPermission: 'READ_JOURNALENTRY' }, // same FinCraft-only permission-mapping caveat as the `treasury` route above
-  'cash-allocation': { mod: () => import('./pages/treasury.js'), label: 'Cash Allocation', icon: 'fa-right-left', view: 'cash-allocation', requiredPermission: 'READ_JOURNALENTRY' }, // FinCraft-only WRITE action, temporarily gated on the same READ_JOURNALENTRY code as the read-only treasury routes above — a real write-level Fineract permission (candidate: CREATE_JOURNALENTRY) was NOT used here because it could not be confirmed to actually exist in this sandbox (no live Fineract instance reachable to check the permission list against, and this codebase's own convention is to never assume/invent a permission code — see router.js's shares/surveys precedent). This under-gates the write action relative to the read screens and MUST be revisited in Phase 12, not left as-is.
-  'loan-disbursement': { mod: () => import('./pages/treasury.js'), label: 'Loan Disbursement', icon: 'fa-money-bill-transfer', view: 'loan-disbursement', requiredPermission: 'READ_JOURNALENTRY' }, // FinCraft-only WRITE action — same unresolved under-gated-permission caveat as `cash-allocation` above (see integration log §17); repeated here rather than silently left off because Phase 12 still hasn't happened
-  'treasury-expenses': { mod: () => import('./pages/treasury.js'), label: 'Expense Management', icon: 'fa-receipt', view: 'expenses', requiredPermission: 'READ_JOURNALENTRY' }, // FinCraft-only WRITE action (expense request/approve/reject/pay) — same under-gated READ_JOURNALENTRY placeholder as cash-allocation/loan-disbursement above; Phase 12 must map this to a real write permission (see integration log §17)
-  'treasury-borrowings': { mod: () => import('./pages/treasury.js'), label: 'Borrowings', icon: 'fa-hand-holding-dollar', view: 'borrowings', requiredPermission: 'READ_JOURNALENTRY' }, // FinCraft-only WRITE action (borrowing create/drawdown/accrue/pay/repay) — same under-gated placeholder caveat as the other treasury write routes; Phase 12 to resolve (see integration log §17)
-  'treasury-reconciliation': { mod: () => import('./pages/treasury.js'), label: 'Daily Reconciliation', icon: 'fa-scale-balanced', view: 'reconciliation', requiredPermission: 'READ_JOURNALENTRY' }, // FinCraft-only WRITE action (cash count + shortage/overage posting) — same under-gated placeholder caveat as the other treasury write routes; Phase 12 to resolve (see integration log §17)
-  tasks:        { mod: () => import('./pages/tasks.js'),        label: 'Checker Inbox', icon: 'fa-inbox',          requiredPermission: ANY_CHECKER_PERMISSION }, // gated on CHECKER_SUPER_USER OR any real entity "..._CHECKER" permission (e.g. CREATE_ROLE_CHECKER) — see store.hasAnyCheckerPermission()
+  treasury:     { mod: () => import('./pages/treasury.js'),     label: 'Treasury Settings', icon: 'fa-vault',     view: 'settings', requiredPermission: 'READ_DATATABLE' },
+  'treasury-dashboard': { mod: () => import('./pages/treasury.js'), label: 'Treasury Dashboard', icon: 'fa-gauge-high', view: 'dashboard', requiredPermission: 'READ_JOURNALENTRY' },
+  'teller-console': { mod: () => import('./pages/treasury.js'), label: 'Teller Console', icon: 'fa-cash-register', view: 'teller-console', requiredPermission: 'READ_OFFICE' },
+  'cash-allocation': { mod: () => import('./pages/treasury.js'), label: 'Cash Allocation', icon: 'fa-right-left', view: 'cash-allocation', requiredPermission: 'ALLOCATECASHTOCASHIER_TELLER' },
+  'loan-disbursement': { mod: () => import('./pages/treasury.js'), label: 'Loan Disbursement', icon: 'fa-money-bill-transfer', view: 'loan-disbursement', requiredPermission: 'DISBURSE_LOAN' },
+  'treasury-expenses': { mod: () => import('./pages/treasury.js'), label: 'Expense Management', icon: 'fa-receipt', view: 'expenses', requiredPermission: 'CREATE_JOURNALENTRY' },
+  'treasury-borrowings': { mod: () => import('./pages/treasury.js'), label: 'Borrowings', icon: 'fa-hand-holding-dollar', view: 'borrowings', requiredPermission: 'CREATE_JOURNALENTRY' },
+  'treasury-reconciliation': { mod: () => import('./pages/treasury.js'), label: 'Daily Reconciliation', icon: 'fa-scale-balanced', view: 'reconciliation', requiredPermission: 'CREATE_JOURNALENTRY' },
+  tasks:        { mod: () => import('./pages/tasks.js'),        label: 'Checker Inbox', icon: 'fa-inbox',          requiredPermission: ANY_CHECKER_PERMISSION },
   reports:      { mod: () => import('./pages/reports.js'),      label: 'Reports',       icon: 'fa-file-chart-column', requiredPermission: 'READ_REPORT' },
   products:     { mod: () => import('./pages/products.js'),     label: 'Products',      icon: 'fa-cubes',          requiredPermission: 'READ_LOANPRODUCT' },
   charges:      { mod: () => import('./pages/charges.js'),      label: 'Charges',       icon: 'fa-tags',           requiredPermission: 'READ_CHARGE' },
@@ -48,10 +40,17 @@ const PAGES = {
   profile:      { mod: () => import('./pages/misc.js'),         label: 'Profile',       icon: 'fa-user',           view: 'profile', requiredPermission: null },
   settings:     { mod: () => import('./pages/misc.js'),         label: 'Settings',      icon: 'fa-gear',           view: 'settings', requiredPermission: null },
   datatables:   { mod: () => import('./pages/datatables.js'),   label: 'Data Tables',   icon: 'fa-table',          requiredPermission: 'READ_DATATABLE' },
-  surveys:      { mod: () => import('./pages/misc.js'),         label: 'Surveys',       icon: 'fa-clipboard-list', view: 'surveys', requiredPermission: null }, // no READ_SURVEY code exists; real SurveyApiResource GET endpoints carry no permission literal in Fineract source either
+  surveys:      { mod: () => import('./pages/surveys-spm.js'),  label: 'Surveys',       icon: 'fa-clipboard-list', requiredPermission: null },
   templates:    { mod: () => import('./pages/templates.js'), label: 'Templates', icon: 'fa-file-lines', requiredPermission: 'READ_TEMPLATE' },
   navigation:   { mod: () => import('./pages/misc.js'),         label: 'Navigation',    icon: 'fa-folder-tree',    view: 'navigation', requiredPermission: null },
   'self-service': { mod: () => import('./pages/self-service.js'), label: 'Self Service', icon: 'fa-mobile-screen', requiredPermission: null },
+  'interest-rate-charts': { mod: () => import('./pages/interest-rate-charts.js'), label: 'Interest Rate Charts', icon: 'fa-percent', requiredPermission: null },
+  'report-mailing':       { mod: () => import('./pages/report-mailing.js'),       label: 'Report Mailing',      icon: 'fa-envelope-circle-check', requiredPermission: 'READ_REPORT' },
+  'mix-xbrl':             { mod: () => import('./pages/mix-xbrl.js'),              label: 'MIX (XBRL)',          icon: 'fa-file-code',  requiredPermission: 'READ_REPORT' },
+  'office-transactions':  { mod: () => import('./pages/office-transactions.js'),  label: 'Inter-Office Cash',   icon: 'fa-money-bill-transfer', requiredPermission: 'READ_OFFICE' },
+  'credit-bureau':        { mod: () => import('./pages/credit-bureau.js'),        label: 'Credit Bureau',       icon: 'fa-id-card-clip', requiredPermission: null },
+  interoperation:         { mod: () => import('./pages/interoperation.js'),       label: 'Interoperation',      icon: 'fa-network-wired', requiredPermission: null },
+  scheduler:              { mod: () => import('./pages/scheduler.js'),            label: 'Scheduler & Jobs',    icon: 'fa-clock',      requiredPermission: null },
   forbidden:    { mod: null,                                    label: 'Access denied', icon: 'fa-ban',            requiredPermission: null },
   'not-found':  { mod: null,                                    label: 'Page not found', icon: 'fa-question',      requiredPermission: null }
 };
@@ -68,11 +67,10 @@ async function loadModule(name) {
   return mod;
 }
 
-/** Strict permission check — denies when perms array is empty for non-public pages. */
 export function isAllowed(def) {
   if (!def) return false;
   const need = def.requiredPermission;
-  if (need === null || need === undefined) return true;            // public-to-authenticated
+  if (need === null || need === undefined) return true;
   if (need === ANY_CHECKER_PERMISSION) return store.hasAnyCheckerPermission();
   const codes = Array.isArray(need) ? need : [need];
   return codes.some(c => store.hasPermission(c));
@@ -106,7 +104,6 @@ export async function handleHash() {
   const content = document.getElementById('contentArea');
   if (!content) return;
 
-  // Unknown page → 404
   if (!exists) {
     store.set('currentPage', 'not-found');
     setActiveNav(null);
@@ -115,7 +112,6 @@ export async function handleHash() {
     return;
   }
 
-  // Permission gate
   if (!isAllowed(def)) {
     store.set('currentPage', 'forbidden');
     setActiveNav(null);
@@ -156,14 +152,6 @@ export function navigate(page, params = {}) { location.hash = buildHash(page, pa
 
 let _hashListenerBound = false;
 
-/**
- * Registers the hashchange listener (once ever — safe to call again on
- * re-login within the same page session) and renders whatever route is
- * currently in location.hash. Callers that need to redirect to a default
- * page for an empty hash (see auth.js showApp()) must set location.hash
- * BEFORE calling this, not after — calling navigate() afterwards would
- * fire the listener a second time and double-render/double-fetch the page.
- */
 export function initRouter() {
   if (!_hashListenerBound) {
     window.addEventListener('hashchange', handleHash);

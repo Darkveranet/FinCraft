@@ -1,6 +1,3 @@
-/* FinCraft · pages/collateral/index.js — render() entry point.
-   Auto-split from the original monolithic pages/collateral.js for maintainability. */
-
 import { renderDetail } from './detail.js';
 import { renderList } from './list.js';
 

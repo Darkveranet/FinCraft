@@ -1,20 +1,9 @@
-/* FinCraft · pages/treasury/dashboard.js — the Treasury Dashboard view.
-   Pure read-only screen over Phase 9's getTreasuryDashboard() — no writes happen here. Reuses the
-   app's existing .stat-card tile markup (see js/pages/dashboard/index.js) rather than inventing
-   new dashboard-tile CSS. If the selected office has no treasury configuration yet (Phase 5's
-   requireThresholds() throws), shows a clear pointer to the Treasury Settings screen instead of a
-   confusing error. */
-
 import { api } from '../../api.js';
 import { toast } from '../../ui.js';
 import { getTreasuryDashboard } from '../../treasury/dashboard.js';
 import { getTreasuryHealth, TREASURY_HEALTH_STATUS } from '../../treasury/health.js';
 import { officeOptionsHtml, liquidityBadgeClass, liquidityAccentClass, fmtMoney } from './shared.js';
 
-/** Phase 13 — a compact treasury health banner (datatables provisioned? office configured?) shown
- *  above the dashboard tiles, so an operator sees "why is this empty/broken" at a glance instead of
- *  guessing. READY renders nothing (no noise when all is well); CONFIG_REQUIRED points to Settings;
- *  BROKEN means datatables are missing on this tenant (bootstrap should have created them). */
 function healthBannerHtml(health) {
   if (!health || health.status === TREASURY_HEALTH_STATUS.READY) return '';
   if (health.status === TREASURY_HEALTH_STATUS.CONFIG_REQUIRED) {
@@ -24,7 +13,6 @@ function healthBannerHtml(health) {
       <a class="btn-secondary btn-sm mt-2" href="#/treasury">Go to Treasury Settings</a>
     </div>`;
   }
-  // BROKEN
   const missing = (health.missingDatatables || []).join(', ');
   return `<div class="msg-banner b-danger mb-3">
     <i class="fa-solid fa-triangle-exclamation"></i>
@@ -58,9 +46,6 @@ async function loadDashboardForOffice(c, officeId) {
   const body = c.querySelector('#trd-body');
   body.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-notch fa-spin"></i><div>Loading…</div></div>';
 
-  // Phase 13 — read the treasury health first (datatables provisioned? office configured?) so a
-  // clear banner can head the page. Non-fatal: if the probe itself fails, fall through with no
-  // banner rather than blocking the dashboard.
   const health = await getTreasuryHealth(officeId).catch(() => null);
   const banner = healthBannerHtml(health);
 

@@ -1,6 +1,3 @@
-/* FinCraft · pages/loans/detail/notes-docs.js — notes and documents tab loaders.
-   Auto-split (2nd pass) from pages/loans/detail.js for maintainability. */
-
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { confirm, toast } from '../../../ui.js';

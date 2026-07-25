@@ -1,9 +1,3 @@
-/* FinCraft · pages/products/actions/rates.js — standalone Rate entity modal (RateApiResource, /v1/rates).
-   Was previously entirely unimplemented — see fixlogs/FIXLOG-api-audit.md, "Not touched in this pass"
-   section ("the standalone Rate entity ... entirely unimplemented"). Distinct from Floating Rate
-   (loan-products.js) — this is the simple named-percentage rate used elsewhere in Fineract
-   (e.g. attached to charges/products), not a lending base-rate with time-boxed periods. */
-
 import { LOCALE, DATE_FORMAT } from '../../../config.js';
 import { api } from '../../../api.js';
 import { escapeHtml } from '../../../utils.js';

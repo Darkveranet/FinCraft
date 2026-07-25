@@ -1,6 +1,3 @@
-/* FinCraft · api/groups-centers.js — Groups, centers, and the calendars/meetings shared across group-based entities.
-   Auto-split from the original monolithic api.js for maintainability. */
-
 export function makeGroupsAPI(self) {
   return {
     list:           (params)   => self._g('/groups', params),
@@ -11,12 +8,8 @@ export function makeGroupsAPI(self) {
     activate:       (id, body) => self._p(`/groups/${id}?command=activate`, body),
     close:          (id, body) => self._p(`/groups/${id}?command=close`, body),
     assignStaff:    (id, body) => self._p(`/groups/${id}?command=assignStaff`, body),
-    // Fineract's reference doc lists two ways to reach this action: a dedicated
-    // /groups/{groupId}/command/unassign_staff sub-path, and the same
-    // ?command=unassignStaff dispatch already used for every other group command
-    // (see the shared-command row in the doc). Keeping the original, already-working
-    // ?command= form rather than swapping to the alternate path on unverified footing.
     unassignStaff:  (id, body) => self._p(`/groups/${id}?command=unassignStaff`, body || {}),
+    unassignStaffCommand: (id, body) => self._p(`/groups/${id}/command/unassign_staff`, body || {}),
     assignRole:     (id, body) => self._p(`/groups/${id}?command=assignRole`, body),
     updateRole:     (id, rid, body) => self._p(`/groups/${id}?command=updateRole&roleId=${rid}`, body),
     unassignRole:   (id, rid)  => self._p(`/groups/${id}?command=unassignRole&roleId=${rid}`, {}),
@@ -28,10 +21,6 @@ export function makeGroupsAPI(self) {
     accounts:       (id)       => self._g(`/groups/${id}/accounts`),
     glimAccounts:   (id, parentLoanAccountNo) => self._g(`/groups/${id}/glimaccounts`, parentLoanAccountNo ? { parentLoanAccountNo } : undefined),
     gsimAccounts:   (id, params) => self._g(`/groups/${id}/gsimaccounts`, params),
-    // NOTE: charges/, addCharge/, payCharge/, waiveCharge/, deleteCharge/ were
-    // removed — GroupsApiResource has no /charges sub-path at all (confirmed
-    // by reading its full @Path list). Apply charges to the group's
-    // individual member clients (ClientChargesApiResource) instead.
     delete:         (id)       => self._d(`/groups/${id}`)
   };
 }
@@ -40,7 +29,7 @@ export function makeCentersAPI(self) {
   return {
     list:     (params)     => self._g('/centers', params),
     get:      (id, params) => self._g(`/centers/${id}`, params),
-    template: (params)     => self._g('/centers/template', params),       // ← now accepts officeId/staffId/command
+    template: (params)     => self._g('/centers/template', params),
     create:   (body)       => self._p('/centers', body),
     update:   (id, body)   => self._u(`/centers/${id}`, body),
     delete:   (id)         => self._d(`/centers/${id}`),
@@ -50,7 +39,7 @@ export function makeCentersAPI(self) {
     disassociateGroups: (id, body) => self._p(`/centers/${id}?command=disassociateGroups`, body),
     generateCollectionSheet: (id, body) => self._p(`/centers/${id}?command=generateCollectionSheet`, body),
     saveCollectionSheet:     (id, body) => self._p(`/centers/${id}?command=saveCollectionSheet`, body),
-    accounts: (id) => self._g(`/centers/${id}/accounts`)                  // ← added for symmetry with groups
+    accounts: (id) => self._g(`/centers/${id}/accounts`)
   };
 }
 
