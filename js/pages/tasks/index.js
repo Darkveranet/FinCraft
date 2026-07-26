@@ -1,10 +1,7 @@
 import { toast } from '../../ui.js';
-import { loadClientApprovals, loadLoanApprovals, loadRescheduleRequests } from './approvals.js';
-import { loadCheckerInbox } from './checker-inbox.js';
-import { TABS } from './shared.js';
+import { loadApprovalInbox } from './checker-inbox.js';
 
 let _autoRefresh = false;
-
 let _refreshTimer = null;
 
 export async function render(c) {
@@ -13,8 +10,7 @@ export async function render(c) {
   c.innerHTML = `
     <div class="page-header mb-3">
       <div>
-        <h1>Checker Inbox &amp; Tasks</h1>
-        <div class="text-muted">Pending approvals across the platform</div>
+        <h1>Approval Inbox</h1>
       </div>
       <div class="page-actions">
         <label class="checkbox-row" style="margin-right:12px">
@@ -25,57 +21,20 @@ export async function render(c) {
       </div>
     </div>
 
-    <div class="card">
-      <div class="tabs" id="tk-tabs">
-        ${TABS.map((t, i) => `<button class="tab ${i === 0 ? 'active' : ''}" data-tab="tk-${i}">${t}</button>`).join('')}
-      </div>
-      ${TABS.map((_, i) => `
-        <div class="tab-panel ${i === 0 ? 'active' : ''}" id="tk-${i}">
-          <div class="empty-state-row">Loading…</div>
-        </div>`).join('')}
+    <div id="tk-inbox">
+      <div class="empty-state-row">Loading approval inbox…</div>
     </div>`;
-
-  const loaders = {
-    0: loadCheckerInbox,
-    1: loadLoanApprovals,
-    2: loadClientApprovals,
-    3: loadRescheduleRequests
-  };
-  const loaded = {};
-
-  c.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
-    c.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    c.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    c.querySelector('#' + tab.dataset.tab)?.classList.add('active');
-    const idx = parseInt(tab.dataset.tab.split('-')[1]);
-    if (loaders[idx] && !loaded[idx]) {
-      loaded[idx] = true;
-      loaders[idx](c);
-    }
-  }));
 
   c.querySelector('#tk-auto-refresh').addEventListener('change', (e) => {
     _autoRefresh = e.target.checked;
     if (_refreshTimer) { clearInterval(_refreshTimer); _refreshTimer = null; }
     if (_autoRefresh) {
-      _refreshTimer = setInterval(() => {
-        const activeTab = c.querySelector('.tab.active');
-        if (!activeTab) return;
-        const idx = parseInt(activeTab.dataset.tab.split('-')[1]);
-        loaders[idx]?.(c);
-      }, 30000);
+      _refreshTimer = setInterval(() => loadApprovalInbox(c), 30000);
       toast('info', 'Auto-refresh enabled', 'Refreshing every 30s');
     }
   });
 
-  c.querySelector('#tk-refresh').addEventListener('click', () => {
-    const activeTab = c.querySelector('.tab.active');
-    if (!activeTab) return;
-    const idx = parseInt(activeTab.dataset.tab.split('-')[1]);
-    loaders[idx]?.(c);
-  });
+  c.querySelector('#tk-refresh').addEventListener('click', () => loadApprovalInbox(c));
 
-  loadCheckerInbox(c);
-  loaded[0] = true;
+  loadApprovalInbox(c);
 }
