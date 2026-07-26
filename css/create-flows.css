@@ -1,0 +1,122 @@
+/* FinCraft · css/create-flows.css
+   Two things:
+   1) Richer LIST views for Loans & Savings (icon KPI strip, inline-label filter
+      bar, two-line customer cell) — matches the approved screenshots.
+   2) Full-page multi-step WIZARD for New Client / New Loan / New Savings.
+   Reuses existing design tokens; the .stepper primitives live in forms.css. */
+
+/* ───────────────────────── LIST: icon KPI strip ─────────────────────────── */
+.lx-kpi-grid {
+  display: grid; gap: 16px; margin-bottom: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.lx-kpi {
+  background: var(--bg-card); border: 1px solid var(--border-1);
+  border-radius: 14px; padding: 16px 18px;
+  display: flex; align-items: flex-start; gap: 12px;
+  transition: transform var(--t-base), box-shadow var(--t-base);
+}
+.lx-kpi:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.lx-kpi-ico {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 13px;
+  background: rgba(0,201,177,.12); color: var(--brand-teal);
+}
+.lx-kpi.warn .lx-kpi-ico   { background: rgba(251,191,36,.14);  color: var(--brand-amber); }
+.lx-kpi.danger .lx-kpi-ico { background: rgba(248,113,113,.14); color: var(--brand-coral); }
+.lx-kpi-body { min-width: 0; }
+.lx-kpi-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--text-3); }
+.lx-kpi-value { font-size: 24px; font-weight: 700; color: var(--text-1); letter-spacing: -.5px; line-height: 1.15; margin-top: 4px; }
+.lx-kpi-value.danger { color: var(--brand-coral); }
+
+/* ───────────────────────── LIST: inline-label filter bar ────────────────── */
+.lx-filter {
+  background: var(--bg-card); border: 1px solid var(--border-1); border-radius: 12px;
+  padding: 12px 16px; display: flex; align-items: center; gap: 10px 14px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.lx-filter .lx-fl { display: inline-flex; align-items: center; gap: 8px; }
+.lx-filter .lx-fl > span { font-size: 12px; color: var(--text-3); font-weight: 600; }
+.lx-filter select.form-control { min-width: 150px; width: auto; }
+.lx-searchbar {
+  background: var(--bg-card); border: 1px solid var(--border-1); border-radius: 12px;
+  padding: 10px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.lx-searchbar i { color: var(--text-3); font-size: 13px; }
+.lx-searchbar input { flex: 1; background: none; border: none; outline: none; color: var(--text-1); font-size: 13px; font-family: var(--font-ui); }
+.lx-searchbar input::placeholder { color: var(--text-3); }
+
+/* ───────────────────────── LIST: table cells ────────────────────────────── */
+.lx-cust { line-height: 1.35; }
+.lx-cust .lx-cust-name { font-weight: 600; color: var(--text-1); }
+.lx-cust .lx-cust-sub  { font-size: 11.5px; color: var(--text-3); font-family: var(--font-mono); }
+.lx-acct { font-weight: 600; color: var(--text-1); }
+td.lx-num, th.lx-num { text-align: right; font-variant-numeric: tabular-nums; }
+.lx-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 12px 4px 2px; font-size: 12.5px; color: var(--text-2); }
+
+/* Extra status-badge tones used by the loan/savings pipelines (align to app badges) */
+.badge.b-review     { background: rgba(96,165,250,.14);  color: #60a5fa; }
+.badge.b-assessment { background: rgba(167,139,250,.16); color: #a78bfa; }
+.badge.b-recommend  { background: rgba(96,165,250,.14);  color: #60a5fa; }
+.badge.b-disbursed  { background: rgba(74,222,128,.14);  color: #4ade80; }
+.badge.b-dormant    { background: rgba(251,191,36,.14);  color: #fbbf24; }
+.badge.b-frozen     { background: rgba(96,165,250,.16);  color: #60a5fa; }
+
+/* ───────────────────────── WIZARD (full page) ───────────────────────────── */
+.wz-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+.wz-head h1 { font-size: 24px; font-weight: 700; letter-spacing: -.4px; }
+.wz-head .wz-sub { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+.wz-card { background: var(--bg-card); border: 1px solid var(--border-1); border-radius: 16px; box-shadow: var(--shadow-2); padding: 24px 26px; max-width: 860px; }
+
+/* The stepper header inside the card (uses forms.css .stepper primitives) */
+.wz-card .stepper { margin-bottom: 26px; }
+
+.wz-step-title { font-size: 17px; font-weight: 700; color: var(--text-1); margin-bottom: 16px; }
+
+/* Two-column form grid */
+.wz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+.wz-grid .full { grid-column: 1 / -1; }
+@media (max-width: 640px) { .wz-grid { grid-template-columns: 1fr; } }
+.wz-field { display: flex; flex-direction: column; gap: 6px; }
+.wz-field > label { font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+.wz-field .req { color: var(--brand-coral); }
+.wz-hint { font-size: 11px; color: var(--text-3); }
+
+/* Customer-type selector cards (client wizard step 1) */
+.wz-type-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 760px) { .wz-type-grid { grid-template-columns: repeat(2, 1fr); } }
+.wz-type {
+  border: 1.5px solid var(--border-1); border-radius: 12px; padding: 18px 16px; cursor: pointer;
+  background: var(--bg-card); text-align: left; transition: all var(--t-fast);
+}
+.wz-type:hover { border-color: var(--brand-teal); }
+.wz-type.active { border-color: var(--brand-teal); background: rgba(0,201,177,.06); box-shadow: 0 0 0 1px var(--brand-teal); }
+.wz-type i { font-size: 18px; color: var(--text-2); }
+.wz-type.active i { color: var(--brand-teal); }
+.wz-type .wz-type-name { font-weight: 700; color: var(--text-1); margin-top: 10px; }
+.wz-type .wz-type-desc { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+/* Product info strip (loan wizard step 2) */
+.wz-info-strip {
+  display: flex; gap: 28px; flex-wrap: wrap; background: var(--bg-card-alt);
+  border: 1px solid var(--border-1); border-radius: 12px; padding: 12px 16px; margin: 4px 0 16px;
+}
+.wz-info-strip .k { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-3); }
+.wz-info-strip .v { font-size: 14px; font-weight: 700; color: var(--text-1); margin-top: 3px; }
+
+/* Upload dropzone (client wizard step 3) */
+.wz-drop {
+  border: 1.5px dashed var(--border-2); border-radius: 12px; padding: 22px; text-align: center;
+  color: var(--text-3); margin-top: 6px;
+}
+.wz-drop .wz-drop-ico { font-size: 20px; margin-bottom: 8px; }
+.wz-doc-btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+.wz-doc-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+
+/* Review step */
+.wz-review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; }
+@media (max-width: 640px) { .wz-review-grid { grid-template-columns: 1fr; } }
+.wz-rv .k { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-3); }
+.wz-rv .v { font-size: 14px; color: var(--text-1); margin-top: 3px; }
+
+/* Footer nav */
+.wz-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border-1); }

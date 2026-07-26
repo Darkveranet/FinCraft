@@ -17,7 +17,7 @@ export async function renderList(c) {
       <div class="cv-detail-actions">
         ${can('CREATE_CLIENT') ? `
           <button class="cv-btn-ghost" data-modal="bulkImportModal"><i class="fa-solid fa-file-arrow-up"></i> Bulk Import</button>
-          <button class="cv-btn-solid" data-modal="newClientModal"><i class="fa-solid fa-plus"></i> New Client</button>` : ''}
+          <button class="cv-btn-solid" id="cl-new-btn"><i class="fa-solid fa-plus"></i> New Client</button>` : ''}
       </div>
     </div>
 
@@ -73,6 +73,9 @@ export async function renderList(c) {
     const row = c.querySelector('#cf-more-row');
     row.hidden = !row.hidden;
   });
+
+  c.querySelector('#cl-new-btn')?.addEventListener('click', () =>
+    import('../../router.js').then(r => r.navigate('client-new')));
 
   let allClients = [], totalRecords = 0, currentOffset = 0, pageSize = DEFAULT_PAGE_SIZE;
 

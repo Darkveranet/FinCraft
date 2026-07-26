@@ -1,62 +1,106 @@
 import { DATE_FORMAT, LOCALE, today } from '../../config.js';
 import { api } from '../../api.js';
-import { escapeHtml, fmt, num, sb } from '../../utils.js';
+import { escapeHtml, fmt, fmtDate, num } from '../../utils.js';
 import { openModal, toast } from '../../ui.js';
+import { store } from '../../store.js';
 import { renderPagination, DEFAULT_PAGE_SIZE } from '../../ui/pagination.js';
 import { can } from './shared.js';
-
 import { extractFineractError } from '../../ui/dom-helpers.js';
+
+function savingsBadge(statusValue) {
+  const s = String(statusValue || '').toLowerCase();
+  let cls = 'b-info', label = statusValue || '—';
+  if (s.includes('pending')) { cls = 'b-pending'; label = 'Pending Approval'; }
+  else if (s === 'approved') { cls = 'b-approved'; label = 'Approved'; }
+  else if (s === 'active') { cls = 'b-active'; label = 'Active'; }
+  else if (s.includes('dormant') || s.includes('inactive')) { cls = 'b-dormant'; label = 'Dormant'; }
+  else if (s.includes('closed')) { cls = 'b-closed'; label = 'Closed'; }
+  else if (s.includes('rejected')) { cls = 'b-overdue'; label = 'Rejected'; }
+  return `<span class="badge ${cls}">${escapeHtml(label)}</span>`;
+}
+
+const compact = (amount) => {
+  if (amount == null || isNaN(amount)) return '—';
+  const currency = store.get('defaultCurrency') || 'NGN';
+  try { return new Intl.NumberFormat(undefined, { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 2 }).format(amount); }
+  catch { return num(amount); }
+};
+
 export async function renderList(c) {
   c.innerHTML = `
     <div class="page-header mb-3">
       <div>
-        <h1>Savings</h1>
-        <div class="text-muted">Savings accounts portfolio</div>
+        <h1>Savings Accounts</h1>
+        <div class="text-muted"><span id="sv-hdr-count">—</span> accounts · Total balance: <span id="sv-hdr-balance">—</span></div>
       </div>
       <div class="page-actions">
-        ${can('CREATE_SAVINGSACCOUNT') ? `<button class="btn-primary" data-modal="newSavingsModal"><i class="fa-solid fa-plus"></i> New Savings</button>` : ''}
+        ${can('CREATE_SAVINGSACCOUNT') ? `<button class="btn-primary" id="sv-new-btn"><i class="fa-solid fa-plus"></i> Open Account</button>` : ''}
       </div>
     </div>
 
-    <div class="kpi-grid mb-4">
-      <div class="kpi-card"><div class="kpi-label">Total Accounts</div><div class="kpi-value" id="sv-count">—</div></div>
-      <div class="kpi-card"><div class="kpi-label">Total Balance</div><div class="kpi-value" id="sv-balance">—</div></div>
-      <div class="kpi-card"><div class="kpi-label">Avg Balance</div><div class="kpi-value" id="sv-avg">—</div></div>
-      <div class="kpi-card"><div class="kpi-label">Records</div><div class="kpi-value" id="sv-total">—</div></div>
+    <div class="lx-kpi-grid">
+      <div class="lx-kpi"><div class="lx-kpi-ico"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="lx-kpi-body"><div class="lx-kpi-label">Total Accounts</div><div class="lx-kpi-value" id="sv-k-count">—</div></div></div>
+      <div class="lx-kpi"><div class="lx-kpi-ico"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="lx-kpi-body"><div class="lx-kpi-label">Total Balance</div><div class="lx-kpi-value" id="sv-k-balance">—</div></div></div>
+      <div class="lx-kpi"><div class="lx-kpi-ico"><i class="fa-solid fa-percent"></i></div>
+        <div class="lx-kpi-body"><div class="lx-kpi-label">Interest Earned</div><div class="lx-kpi-value" id="sv-k-interest">—</div></div></div>
+      <div class="lx-kpi"><div class="lx-kpi-ico"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="lx-kpi-body"><div class="lx-kpi-label">Active</div><div class="lx-kpi-value" id="sv-k-active">—</div></div></div>
     </div>
 
-    <div class="card">
-      <div class="filter-bar">
-        <input id="sv-search" class="form-control" placeholder="Search account or client…" autocomplete="off"/>
+    <div class="lx-filter">
+      <label class="lx-fl"><span>Product</span>
+        <select id="sv-product" class="form-control"><option value="">All Products</option></select></label>
+      <label class="lx-fl"><span>Status</span>
         <select id="sv-status" class="form-control">
           <option value="">All Status</option>
           <option value="active">Active</option>
           <option value="pending">Pending Approval</option>
           <option value="approved">Approved</option>
           <option value="closed">Closed</option>
-        </select>
-        <select id="sv-product" class="form-control"><option value="">All Products</option></select>
-        <button class="btn-secondary" id="sv-export"><i class="fa-solid fa-download"></i> Export CSV</button>
-      </div>
+        </select></label>
+      <label class="lx-fl"><span>Branch</span>
+        <select id="sv-branch" class="form-control"><option value="">All Branches</option></select></label>
+    </div>
 
+    <div class="lx-searchbar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="sv-search" placeholder="Search…" autocomplete="off"/>
+    </div>
+
+    <div class="card">
       <table class="table">
         <thead><tr>
-          <th>Account</th><th>Client</th><th>Product</th>
-          <th class="text-right">Balance</th><th>Status</th><th></th>
+          <th>Account No</th><th>Customer</th><th>Product</th>
+          <th class="lx-num">Balance</th><th class="lx-num">Interest Earned</th>
+          <th>Branch</th><th>Opened</th><th>Status</th>
         </tr></thead>
         <tbody id="sv-rows">
-          <tr><td colspan="6" class="empty-state-row">Loading…</td></tr>
+          <tr><td colspan="8" class="empty-state-row">Loading…</td></tr>
         </tbody>
       </table>
-      <div id="sv-pagination" class="pagination-bar"></div>
+      <div class="lx-foot">
+        <div id="sv-showing" class="text-muted"></div>
+        <div id="sv-pagination" class="pagination-bar"></div>
+      </div>
     </div>`;
+
+  if (can('CREATE_SAVINGSACCOUNT')) {
+    c.querySelector('#sv-new-btn')?.addEventListener('click', () =>
+      import('../../router.js').then(r => r.navigate('savings-new')));
+  }
 
   api.savingsProducts.list().then(p => {
     const sel = c.querySelector('#sv-product');
     (Array.isArray(p) ? p : []).forEach(prod => {
-      const opt = document.createElement('option');
-      opt.value = prod.id; opt.textContent = prod.name;
-      sel.appendChild(opt);
+      const opt = document.createElement('option'); opt.value = prod.id; opt.textContent = prod.name; sel.appendChild(opt);
+    });
+  }).catch(() => {});
+  api.offices.list().then(offices => {
+    const sel = c.querySelector('#sv-branch');
+    (Array.isArray(offices) ? offices : []).forEach(o => {
+      const opt = document.createElement('option'); opt.value = o.name; opt.textContent = o.name; sel.appendChild(opt);
     });
   }).catch(() => {});
 
@@ -72,22 +116,28 @@ export async function renderList(c) {
 
       const res = await api.savings.list(params);
       const all = Array.isArray(res) ? res : (res?.pageItems || []);
-      const total = all.reduce((sum, a) => sum + (a.summary?.accountBalance || 0), 0);
+      const totalBal = all.reduce((sum, a) => sum + (a.summary?.accountBalance || 0), 0);
+      const totalInt = all.reduce((sum, a) => sum + (a.summary?.totalInterestEarned || a.summary?.totalInterestPosted || 0), 0);
+      const activeCount = all.filter(a => (a.status?.value || '') === 'Active').length;
 
-      c.querySelector('#sv-count').textContent   = num(all.length);
-      c.querySelector('#sv-balance').textContent = fmt(total);
-      c.querySelector('#sv-avg').textContent     = fmt(all.length ? total / all.length : 0);
-    } catch (e) {
-      ['#sv-count', '#sv-balance', '#sv-avg'].forEach(id => {
-        const el = c.querySelector(id);
-        if (el) el.textContent = '—';
+      const setTxt = (id, v) => { const el = c.querySelector(id); if (el) el.textContent = v; };
+      setTxt('#sv-k-count', num(all.length));
+      setTxt('#sv-k-balance', compact(totalBal));
+      setTxt('#sv-k-interest', compact(totalInt));
+      setTxt('#sv-k-active', num(activeCount));
+      setTxt('#sv-hdr-count', num(all.length));
+      setTxt('#sv-hdr-balance', compact(totalBal));
+    } catch {
+      ['#sv-k-count', '#sv-k-balance', '#sv-k-interest', '#sv-k-active'].forEach(id => {
+        const el = c.querySelector(id); if (el) el.textContent = '—';
       });
     }
   }
 
   async function load(offset = 0) {
-    c.querySelector('#sv-rows').innerHTML =
-      '<tr><td colspan="6" class="empty-state-row">Loading…</td></tr>';
+    const rowsEl = c.querySelector('#sv-rows');
+    if (!rowsEl) return;
+    rowsEl.innerHTML = '<tr><td colspan="8" class="empty-state-row">Loading…</td></tr>';
     try {
       const status = c.querySelector('#sv-status')?.value;
       const prod   = c.querySelector('#sv-product')?.value;
@@ -99,6 +149,9 @@ export async function renderList(c) {
       let list = Array.isArray(res) ? res : (res?.pageItems || []);
       totalRecords = res?.totalFilteredRecords ?? list.length;
 
+      const branch = c.querySelector('#sv-branch')?.value;
+      if (branch) list = list.filter(s => (s.officeName || '') === branch);
+
       const q = c.querySelector('#sv-search')?.value?.toLowerCase() || '';
       if (q) list = list.filter(s =>
         (s.accountNo || '').toLowerCase().includes(q) ||
@@ -107,13 +160,15 @@ export async function renderList(c) {
       allAccounts = list;
       currentOffset = offset;
 
-      c.querySelector('#sv-total').textContent   = num(totalRecords);
+      const from = totalRecords ? offset + 1 : 0;
+      const to = Math.min(offset + list.length, totalRecords);
+      const showEl = c.querySelector('#sv-showing');
+      if (showEl) showEl.textContent = `Showing ${from}–${to} of ${num(totalRecords)}`;
 
       draw(list);
       drawPagination();
     } catch (e) {
-      c.querySelector('#sv-rows').innerHTML =
-        `<tr><td colspan="6" class="text-error">${escapeHtml(extractFineractError(e))}</td></tr>`;
+      rowsEl.innerHTML = `<tr><td colspan="8" class="text-error">${escapeHtml(extractFineractError(e))}</td></tr>`;
     }
   }
 
@@ -125,80 +180,37 @@ export async function renderList(c) {
   }
 
   function draw(rows) {
-    c.querySelector('#sv-rows').innerHTML = rows.map(s => {
-      const status     = s.status?.value || '—';
-      const isPending  = status === 'Submitted and pending approval';
-      const isApproved = status === 'Approved';
-      const isActive   = status === 'Active';
+    const rowsEl = c.querySelector('#sv-rows');
+    if (!rowsEl) return;
+    rowsEl.innerHTML = rows.map(s => {
+      const bal = s.summary?.accountBalance ?? 0;
+      const int = s.summary?.totalInterestEarned ?? s.summary?.totalInterestPosted ?? 0;
+      const opened = s.timeline?.activatedOnDate || s.timeline?.approvedOnDate || s.timeline?.submittedOnDate;
       return `
         <tr>
-          <td><a href="#" data-view-savings="${s.id}">${escapeHtml(s.accountNo || `#${s.id}`)}</a></td>
-          <td>${escapeHtml(s.clientName || '—')}</td>
+          <td><a href="#" data-view-savings="${s.id}" class="lx-acct">SA-${escapeHtml(s.accountNo || s.id)}</a></td>
+          <td><div class="lx-cust"><div class="lx-cust-name">${escapeHtml(s.clientName || s.groupName || '—')}</div></div></td>
           <td>${escapeHtml(s.savingsProductName || '—')}</td>
-          <td class="text-right">${fmt(s.summary?.accountBalance ?? 0)}</td>
-          <td>${sb(status)}</td>
-          <td class="text-right">
-            ${isPending  && can('APPROVE_SAVINGSACCOUNT')  ? `<button class="btn-mini btn-success" data-sv-approve="${s.id}">Approve</button>`  : ''}
-            ${isApproved && can('ACTIVATE_SAVINGSACCOUNT') ? `<button class="btn-mini btn-success" data-sv-activate="${s.id}">Activate</button>` : ''}
-            ${isActive   && can('DEPOSIT_SAVINGSACCOUNT')  ? `<button class="btn-mini" data-sv-deposit="${s.id}">Deposit</button>` : ''}
-          </td>
+          <td class="lx-num">${fmt(bal)}</td>
+          <td class="lx-num">${fmt(int)}</td>
+          <td>${escapeHtml(s.officeName || '—')}</td>
+          <td>${opened ? fmtDate(opened) : '—'}</td>
+          <td>${savingsBadge(s.status?.value)}</td>
         </tr>`;
-    }).join('') || '<tr><td colspan="6" class="empty-state-row">No accounts found</td></tr>';
+    }).join('') || '<tr><td colspan="8" class="empty-state-row">No accounts found</td></tr>';
 
-    c.querySelectorAll('[data-view-savings]').forEach(b => b.addEventListener('click', (e) => {
+    rowsEl.querySelectorAll('[data-view-savings]').forEach(b => b.addEventListener('click', (e) => {
       e.preventDefault();
       import('../../router.js').then(r => r.navigate('savings', { id: b.dataset.viewSavings }));
-    }));
-    c.querySelectorAll('[data-sv-deposit]').forEach(b => b.addEventListener('click', () => {
-      const modal = openModal('savingsDepositModal');
-      if (modal) modal.dataset.accountId = b.dataset.svDeposit;
-    }));
-    c.querySelectorAll('[data-sv-approve]').forEach(b => b.addEventListener('click', async () => {
-      const id = b.dataset.svApprove;
-      const approvedOnDate = today();
-      try {
-        await api.savings.approve(id, {
-          approvedOnDate, dateFormat: DATE_FORMAT, locale: LOCALE
-        });
-        let activated = false;
-        try {
-          await api.savings.activate(id, { activatedOnDate: approvedOnDate, dateFormat: DATE_FORMAT, locale: LOCALE });
-          activated = true;
-        } catch (actErr) {
-          toast('warn', 'Approved, but activation failed', extractFineractError(actErr));
-        }
-        toast('success', activated ? 'Account approved & activated' : 'Account approved', `#${id}`);
-        load(currentOffset); loadKpis();
-      } catch (e) { toast('error', 'Approval failed', extractFineractError(e)); }
-    }));
-    c.querySelectorAll('[data-sv-activate]').forEach(b => b.addEventListener('click', async () => {
-      try {
-        await api.savings.activate(b.dataset.svActivate, {
-          activatedOnDate: today(), dateFormat: DATE_FORMAT, locale: LOCALE
-        });
-        toast('success', 'Account activated', `#${b.dataset.svActivate}`);
-        load(currentOffset); loadKpis();
-      } catch (e) { toast('error', 'Activation failed', extractFineractError(e)); }
     }));
   }
 
   await Promise.all([load(), loadKpis()]);
 
   let t;
-  c.querySelector('#sv-search').addEventListener('input', () => {
-    clearTimeout(t); t = setTimeout(() => load(0), 400);
-  });
+  c.querySelector('#sv-search').addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => load(0), 400); });
   ['#sv-status', '#sv-product'].forEach(sel => {
     c.querySelector(sel)?.addEventListener('change', () => { load(0); loadKpis(); });
   });
-
-  c.querySelector('#sv-export').addEventListener('click', () => {
-    const rows = allAccounts.map(s =>
-      [s.accountNo, s.clientName, s.savingsProductName, s.summary?.accountBalance ?? 0, s.status?.value].join(','));
-    const csv = ['Account,Client,Product,Balance,Status', ...rows].join('\n');
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
-    a.download = 'savings.csv'; a.click();
-    toast('success', 'Exported', 'savings.csv downloaded');
-  });
+  c.querySelector('#sv-branch')?.addEventListener('change', () => load(0));
 }
