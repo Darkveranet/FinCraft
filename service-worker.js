@@ -1,4 +1,5 @@
-const CACHE = 'fincraft-v13'; // bumped: dashboard chart-loader retry+jsdelivr fallback (was permanently caching a failed load), router render-generation guard + list-page null guards (fixes intermittent "innerHTML of null" on first Centers/Clients/Groups click), CSP now allows cdn.jsdelivr.net for the Chart.js fallback.
+const CACHE = 'fincraft-v14'; // bumped: force-evict a stale pre-fix auth.js that was cached WITHOUT the `escapeHtml` import (caused "escapeHtml is not defined" / "FinCraft failed to start" on the login screen). The source already imports escapeHtml from utils.js; this bump + the activate-phase cache cleanup guarantee old browsers stop serving the broken copy.
+// (v13: dashboard chart-loader retry+jsdelivr fallback, router render-generation guard + list-page null guards for intermittent "innerHTML of null" on first Centers/Clients/Groups click, CSP allows cdn.jsdelivr.net for the Chart.js fallback.)
 // Bearer-scheme support in api/core.js, and auth.js/store.js session changes. Bumping forces the
 // activate-phase cache cleanup below to run and guarantees no stale mix of old/new assets.
 const ASSETS = [
