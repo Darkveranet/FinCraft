@@ -1,5 +1,5 @@
-const CACHE = 'fincraft-v11'; // bumped: this session touched several core files (chart loader,
-// create->approve->activate handlers, group/center/client modals+wiring) — bumping forces the
+const CACHE = 'fincraft-v13'; // bumped: dashboard chart-loader retry+jsdelivr fallback (was permanently caching a failed load), router render-generation guard + list-page null guards (fixes intermittent "innerHTML of null" on first Centers/Clients/Groups click), CSP now allows cdn.jsdelivr.net for the Chart.js fallback.
+// Bearer-scheme support in api/core.js, and auth.js/store.js session changes. Bumping forces the
 // activate-phase cache cleanup below to run and guarantees no stale mix of old/new assets.
 const ASSETS = [
   './',
@@ -18,6 +18,7 @@ const ASSETS = [
   './js/config.js',
   './js/api.js',
   './js/auth.js',
+  './js/oidc.js',
   './js/router.js',
   './js/store.js',
   './js/ui.js',

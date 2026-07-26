@@ -58,6 +58,14 @@ const PAGES = {
 export const PAGE_REGISTRY = PAGES;
 const moduleCache = {};
 
+// Monotonic render token. Every handleHash() call claims the next number; after each
+// await it checks whether a newer navigation has superseded it and, if so, bails out
+// BEFORE writing to #contentArea. This kills the "innerHTML of null" crash that happened
+// when two overlapping renders (the first-load double handleHash + a slow first dynamic
+// import()) both wrote into the same container — the stale one used to keep going and
+// query DOM nodes the newer render had already wiped.
+let _renderToken = 0;
+
 async function loadModule(name) {
   if (moduleCache[name]) return moduleCache[name];
   const def = PAGES[name];
@@ -96,6 +104,7 @@ function renderStaticPage(content, def, kind) {
 }
 
 export async function handleHash() {
+  const myToken = ++_renderToken;
   const { page, params } = parseHash();
   const exists = !!PAGES[page];
   const def = exists ? PAGES[page] : PAGES['not-found'];
@@ -131,13 +140,18 @@ export async function handleHash() {
 
   try {
     const mod = await loadModule(realName);
+    // A newer navigation started while this module was importing → abort before rendering,
+    // so we never write a stale page into a container the newer render already owns.
+    if (myToken !== _renderToken) return;
     if (!mod?.render) throw new Error('Module has no render() export');
     const view = def.view || realName;
     await mod.render(content, { ...params, view });
+    if (myToken !== _renderToken) return;   // superseded during render → skip nav/scroll side-effects
     setActiveNav(realName);
     setBreadcrumb(['Home', def.label]);
     window.scrollTo({ top: 0, behavior: 'instant' });
   } catch (e) {
+    if (myToken !== _renderToken) return;   // a superseded render's error is irrelevant — swallow it
     console.error(e);
     content.innerHTML = `<div class="card"><div class="empty-state">
       <i class="fa-solid fa-triangle-exclamation"></i>

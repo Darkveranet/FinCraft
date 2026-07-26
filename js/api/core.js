@@ -3,15 +3,27 @@ import { getRuntimeConfig, LOCALE, DATE_FORMAT } from '../config.js';
 const CFG = getRuntimeConfig();
 
 export class FineractAPI {
-  constructor() { this.serverUrl = ''; this.tenantId = 'default'; this.authToken = ''; this.tfaToken = ''; this._onUnauthorized = null; }
-
-  configure({ serverUrl, tenantId, authToken, tfaToken }) {
-    if (serverUrl != null) this.serverUrl = serverUrl.replace(/\/$/, '');
-    if (tenantId  != null) this.tenantId  = tenantId;
-    if (authToken != null) this.authToken = authToken;
-    if (tfaToken  != null) this.tfaToken  = tfaToken;
+  constructor() {
+    this.serverUrl = ''; this.tenantId = 'default';
+    this.authToken = '';                 // Basic: base64(user:pass) from /authentication
+    this.authScheme = 'Basic';           // 'Basic' (password) | 'Bearer' (OAuth2/OIDC)
+    this.bearerToken = '';               // Bearer: OAuth2/OIDC access token (JWT)
+    this.tfaToken = '';
+    this._onUnauthorized = null;
   }
-  reset() { this.serverUrl = ''; this.authToken = ''; this.tfaToken = ''; }
+
+  configure({ serverUrl, tenantId, authToken, tfaToken, authScheme, bearerToken }) {
+    if (serverUrl   != null) this.serverUrl   = serverUrl.replace(/\/$/, '');
+    if (tenantId    != null) this.tenantId    = tenantId;
+    if (authToken   != null) this.authToken   = authToken;
+    if (tfaToken    != null) this.tfaToken    = tfaToken;
+    if (authScheme  != null) this.authScheme  = authScheme;
+    if (bearerToken != null) this.bearerToken = bearerToken;
+  }
+  reset() {
+    this.serverUrl = ''; this.authToken = ''; this.tfaToken = '';
+    this.bearerToken = ''; this.authScheme = 'Basic';
+  }
 
   onUnauthorized(fn) { this._onUnauthorized = fn; }
 
@@ -30,7 +42,13 @@ export class FineractAPI {
     const h = { 'Accept': 'application/json', 'Content-Type': 'application/json',
                 'Fineract-Platform-TenantId': this.tenantId, ...extra };
     if (h['Content-Type'] == null) delete h['Content-Type'];
-    if (this.authToken) h['Authorization'] = 'Basic ' + this.authToken;
+    // Auth scheme: Bearer (OAuth2/OIDC) takes precedence when configured,
+    // otherwise fall back to Basic (username/password) auth.
+    if (this.authScheme === 'Bearer' && this.bearerToken) {
+      h['Authorization'] = 'Bearer ' + this.bearerToken;
+    } else if (this.authToken) {
+      h['Authorization'] = 'Basic ' + this.authToken;
+    }
     if (this.tfaToken) h['Fineract-Platform-TFA-Token'] = this.tfaToken;
     return h;
   }
