@@ -7,7 +7,7 @@ import assert from 'assert';
 
 export async function runTests({ assert: a = assert } = {}) {
   const cfg = await import('../js/config.js');
-  const { LOCALE, DATE_FORMAT, today, FINERACT_DEMO, getRuntimeConfig } = cfg;
+  const { LOCALE, DATE_FORMAT, today, FINERACT_DEMO, getRuntimeConfig, OIDC_DEFAULT } = cfg;
 
   // Fineract's default-command locale/date-format contract.
   a.strictEqual(LOCALE, 'en');
@@ -33,4 +33,10 @@ export async function runTests({ assert: a = assert } = {}) {
   a.strictEqual(rc.apiBase, FINERACT_DEMO.apiBase);
   a.strictEqual(rc.requestTimeoutMs, FINERACT_DEMO.requestTimeoutMs);
   a.strictEqual(rc.autoConnectTimeoutMs, FINERACT_DEMO.autoConnectTimeoutMs);
+
+  // OIDC defaults (added for Zitadel SSO): must exist with a safe, secret-free shape.
+  a.strictEqual(typeof OIDC_DEFAULT, 'object', 'OIDC_DEFAULT must be exported');
+  a.ok('issuer' in OIDC_DEFAULT && 'clientId' in OIDC_DEFAULT, 'OIDC_DEFAULT needs issuer + clientId');
+  a.ok(/\bopenid\b/.test(OIDC_DEFAULT.scopes || ''), 'scopes must include openid');
+  a.strictEqual('clientSecret' in OIDC_DEFAULT, false, 'no client secret may ship in a public SPA config');
 }

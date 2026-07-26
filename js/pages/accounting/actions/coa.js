@@ -155,8 +155,8 @@ export async function openAccountingRuleModal(ruleId, onSuccess) {
     }
     const payload = {
       name,
-      debitAccountId: debitId,
-      creditAccountId: creditId
+      accountToDebit: debitId,
+      accountToCredit: creditId
     };
     const offId = vi(el, 'ar-office'); if (offId) payload.officeId = offId;
     const desc = v(el, 'ar-desc'); if (desc) payload.description = desc;

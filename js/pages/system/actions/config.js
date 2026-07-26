@@ -195,10 +195,15 @@ export function extractMCEntityGroup(code) {
 }
 
 export function questionRow(idx, existing = {}) {
+  const responses = Array.isArray(existing.responseDatas || existing.responses)
+    ? (existing.responseDatas || existing.responses)
+        .map(r => `${r.text}=${r.value ?? 0}`).join(', ')
+    : '';
   return `
     <tr class="sv-q-row" data-idx="${idx}">
       <td><input type="number" class="form-control sv-q-seq" value="${existing.sequenceNo ?? idx}" style="width:80px"/></td>
       <td><input class="form-control sv-q-text" placeholder="Question text" value="${escapeHtml(existing.text || '')}"/></td>
+      <td><input class="form-control sv-q-resp" placeholder="e.g. Yes=1, No=0" value="${escapeHtml(responses)}"/></td>
       <td><input class="form-control sv-q-desc" placeholder="Optional description" value="${escapeHtml(existing.description || '')}"/></td>
       <td><button type="button" class="btn-mini btn-danger sv-q-remove">&times;</button></td>
     </tr>`;

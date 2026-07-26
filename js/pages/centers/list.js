@@ -55,7 +55,11 @@ export async function renderList(c) {
   let allCenters = [], totalRecords = 0, currentOffset = 0, pageSize = DEFAULT_PAGE_SIZE;
 
   async function load(offset = 0) {
-    c.querySelector('#ctr-rows').innerHTML =
+    // If a newer navigation already replaced this page's DOM, the rows element is gone —
+    // bail instead of throwing "Cannot set properties of null (setting 'innerHTML')".
+    const rowsEl = c.querySelector('#ctr-rows');
+    if (!rowsEl) return;
+    rowsEl.innerHTML =
       '<tr><td colspan="7" class="empty-state-row">Loading…</td></tr>';
     try {
       const officeId = c.querySelector('#ctr-office')?.value;
@@ -88,7 +92,9 @@ export async function renderList(c) {
   }
 
   function draw(rows) {
-    c.querySelector('#ctr-rows').innerHTML = rows.map(s => `
+    const rowsEl = c.querySelector('#ctr-rows');
+    if (!rowsEl) return;   // superseded by a newer navigation mid-fetch — stale render, bail
+    rowsEl.innerHTML = rows.map(s => `
       <tr>
         <td><a href="#" data-view-center="${s.id}">${escapeHtml(s.accountNo || `C${s.id}`)}</a></td>
         <td>${escapeHtml(s.name || '—')}</td>

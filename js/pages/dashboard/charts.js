@@ -3,16 +3,39 @@ import { PALETTE, isoDay } from './shared.js';
 
 let chartJsPromise = null;
 
-export function loadChartJs() {
-  if (window.Chart) return Promise.resolve(true);
-  if (chartJsPromise) return chartJsPromise;
-  chartJsPromise = new Promise((resolve) => {
+// CDN sources tried in order. Both are whitelisted in index.html's CSP script-src.
+// If Chart.js ever gets self-hosted, prepend './js/vendor/chart.umd.min.js' here.
+const CHARTJS_SOURCES = [
+  'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js',
+  'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js'
+];
+
+function _injectScript(src) {
+  return new Promise((resolve) => {
     const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js';
+    s.src = src;
+    s.async = true;
     s.onload = () => resolve(true);
-    s.onerror = () => resolve(false);
+    s.onerror = () => { s.remove(); resolve(false); };  // remove the dead tag so a retry is clean
     document.head.appendChild(s);
   });
+}
+
+export function loadChartJs() {
+  if (window.Chart) return Promise.resolve(true);
+  // Reuse an IN-FLIGHT attempt (dedupes the ~9 charts loading at once), but do NOT
+  // permanently memoize a FAILURE — a transient/blocked first load used to poison every
+  // chart for the whole session because the resolved-false promise was cached forever.
+  if (chartJsPromise) return chartJsPromise;
+  chartJsPromise = (async () => {
+    for (const src of CHARTJS_SOURCES) {
+      const ok = await _injectScript(src);
+      if (ok && window.Chart) return true;
+    }
+    return false;
+  })();
+  // Clear the cache once settled so a later render can retry (e.g. after connectivity returns).
+  chartJsPromise.then((ok) => { if (!ok) chartJsPromise = null; }, () => { chartJsPromise = null; });
   return chartJsPromise;
 }
 

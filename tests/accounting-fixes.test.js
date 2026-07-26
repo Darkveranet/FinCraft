@@ -91,10 +91,20 @@ export async function runTests({ assert: a = assert } = {}) {
   /* ---------------------------------------------------------------- */
   /* 4. Accounting Rule payload-shape regression                       */
   /* ---------------------------------------------------------------- */
-  a.ok(coaActionsSrc.includes('debitAccountId: debitId') && coaActionsSrc.includes('creditAccountId: creditId'),
-    'openAccountingRuleModal must send singular debitAccountId/creditAccountId');
+  // Correct request contract per Fineract's PostAccountingRulesRequest (verified against the
+  // mifos API reference and the generated fineract python client): the create body uses
+  // `accountToDebit` / `accountToCredit`. An earlier pass sent `debitAccountId`/`creditAccountId`,
+  // which are NOT real request fields — that produced the "Validation errors exist" failure seen
+  // in the field error screenshots, because the mandatory accountToDebit/accountToCredit never
+  // arrived. This test now locks in the corrected field names and guards against both regressions:
+  // the pre-fix `debitAccountId` names and the even-older `debitAccounts: [{glAccountId}]` shape
+  // (that array-of-objects form is the GET *response* shape, not the POST request shape).
+  a.ok(coaActionsSrc.includes('accountToDebit: debitId') && coaActionsSrc.includes('accountToCredit: creditId'),
+    'openAccountingRuleModal must send accountToDebit/accountToCredit (real PostAccountingRulesRequest fields)');
+  a.ok(!coaActionsSrc.includes('debitAccountId: debitId'),
+    'openAccountingRuleModal must not regress to the non-existent debitAccountId request field');
   a.ok(!coaActionsSrc.includes('debitAccounts: [{ glAccountId: debitId }]'),
-    'openAccountingRuleModal must not send the old debitAccounts array-of-objects shape');
+    'openAccountingRuleModal must not send the old debitAccounts array-of-objects request shape');
 
   /* ---------------------------------------------------------------- */
   /* 5. Provisioning Category API wiring                                */

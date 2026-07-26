@@ -189,12 +189,15 @@ export async function openSurveyFormModal(surveyId, onSuccess) {
           <h4 class="mt-3">Questions</h4>
           <div class="text-muted small mb-2">
             <i class="fa-solid fa-circle-info"></i>
-            Each question has a text and a sequence number. Survey responses are stored against client/loan records.
+            Each question needs a text, a sequence number and at least one response option
+            (Fineract requires responses). Enter responses as <code>label=value</code> pairs
+            separated by commas, e.g. <code>Yes=1, No=0</code>.
           </div>
           <table class="table">
             <thead><tr>
               <th>Sequence</th>
               <th>Question Text</th>
+              <th>Responses *</th>
               <th>Description</th>
               <th></th>
             </tr></thead>
@@ -241,32 +244,62 @@ export async function openSurveyFormModal(surveyId, onSuccess) {
 
     if (!key) { toast('warn', 'Enter a survey name', ''); return; }
 
+    const slug = (s, fallback) => {
+      const base = (s || '').trim().toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+      return (base || fallback).slice(0, 32);
+    };
+
     const questions = [];
-    m.querySelectorAll('.sv-q-row').forEach(row => {
+    let responsesMissing = false;
+    m.querySelectorAll('.sv-q-row').forEach((row, i) => {
       const seq = parseInt(row.querySelector('.sv-q-seq').value) || 0;
       const text = row.querySelector('.sv-q-text').value.trim();
       const qDesc = row.querySelector('.sv-q-desc').value.trim();
-      if (text) {
-        const q = {};
-        q.text = text;
-        q.sequenceNo = seq;
-        if (qDesc) q.description = qDesc;
-        questions.push(q);
-      }
+      const respRaw = row.querySelector('.sv-q-resp')?.value.trim() || '';
+      if (!text) return;
+
+      // Parse "label=value, label2=value2" into Fineract responseDatas.
+      const responseDatas = respRaw.split(',').map(p => p.trim()).filter(Boolean).map((p, ri) => {
+        const [label, val] = p.split('=').map(x => (x ?? '').trim());
+        return { text: label, value: parseInt(val), sequenceNo: ri };
+      }).filter(r => r.text && Number.isFinite(r.value));
+
+      if (!responseDatas.length) responsesMissing = true;
+
+      const q = {
+        key: slug(text, 'q_' + i),
+        text,
+        sequenceNo: seq,
+        description: qDesc || text,
+        responseDatas
+      };
+      questions.push(q);
     });
 
     if (!questions.length) { toast('warn', 'Add at least one question', ''); return; }
+    if (responsesMissing) {
+      toast('warn', 'Each question needs responses', 'Enter at least one label=value pair per question, e.g. Yes=1, No=0');
+      return;
+    }
 
     const payload = {};
-    if (!isEdit) payload.key = key;
-    if (countryCode) payload.countryCode = countryCode;
-    if (description) payload.description = description;
+    if (!isEdit) {
+      payload.key = key;
+      payload.name = key;
+    }
+    payload.countryCode = countryCode || 'US';
+    payload.description = description || key;
     if (validFrom) {
       payload.validFrom = validFrom;
       payload.dateFormat = DATE_FORMAT;
       payload.locale = LOCALE;
     }
-    if (validTo) payload.validTo = validTo;
+    if (validTo) {
+      payload.validTo = validTo;
+      payload.dateFormat = DATE_FORMAT;
+      payload.locale = LOCALE;
+    }
     payload.questionDatas = questions;
 
     try {

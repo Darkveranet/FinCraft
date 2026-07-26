@@ -77,7 +77,10 @@ export async function renderList(c) {
   let allClients = [], totalRecords = 0, currentOffset = 0, pageSize = DEFAULT_PAGE_SIZE;
 
   async function loadClients(offset = 0) {
-    c.querySelector('#clients-rows').innerHTML =
+    // Bail if a newer navigation already replaced this page's DOM (stale render).
+    const rowsEl = c.querySelector('#clients-rows');
+    if (!rowsEl) return;
+    rowsEl.innerHTML =
       '<tr><td colspan="8" class="empty-state-row">Loading…</td></tr>';
     try {
       const q       = c.querySelector('#cf-search')?.value?.trim() || '';
@@ -114,7 +117,9 @@ export async function renderList(c) {
       ? rows.filter(cl => String(cl.legalForm?.id ?? (/entity/i.test(cl.legalForm?.value || '') ? 2 : 1)) === typeFilter)
       : rows;
 
-    c.querySelector('#clients-rows').innerHTML = filtered.map(cl => {
+    const rowsEl = c.querySelector('#clients-rows');
+    if (!rowsEl) return;   // superseded by a newer navigation mid-fetch — stale render, bail
+    rowsEl.innerHTML = filtered.map(cl => {
       const type = cvClientType(cl);
       return `
       <tr class="cv-row" data-view-client="${cl.id}">

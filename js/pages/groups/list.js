@@ -55,7 +55,10 @@ export async function renderList(c) {
   let allGroups = [], totalRecords = 0, currentOffset = 0, pageSize = DEFAULT_PAGE_SIZE;
 
   async function load(offset = 0) {
-    c.querySelector('#grp-rows').innerHTML =
+    // Bail if a newer navigation already replaced this page's DOM (stale render).
+    const rowsEl = c.querySelector('#grp-rows');
+    if (!rowsEl) return;
+    rowsEl.innerHTML =
       '<tr><td colspan="7" class="empty-state-row">Loading…</td></tr>';
     try {
       const officeId = c.querySelector('#grp-office')?.value;
@@ -88,7 +91,9 @@ export async function renderList(c) {
   }
 
   function draw(rows) {
-    c.querySelector('#grp-rows').innerHTML = rows.map(g => `
+    const rowsEl = c.querySelector('#grp-rows');
+    if (!rowsEl) return;   // superseded by a newer navigation mid-fetch — stale render, bail
+    rowsEl.innerHTML = rows.map(g => `
       <tr>
         <td><a href="#" data-view-group="${g.id}">${escapeHtml(g.accountNo || `G${g.id}`)}</a></td>
         <td>${escapeHtml(g.name || '—')}</td>

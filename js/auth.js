@@ -1,6 +1,7 @@
 import { api, configureAPI } from './api.js';
 import { store } from './store.js';
-import { FINERACT_DEMO } from './config.js';
+import { FINERACT_DEMO, OIDC_DEFAULT } from './config.js';
+import * as oidc from './oidc.js';
 
 import { extractFineractError } from './ui/dom-helpers.js';
 const LOGIN_ID = 'loginScreen';
@@ -53,13 +54,43 @@ function _removeRecentTenant(tenantId, serverUrl) {
   } catch {}
 }
 
+const OIDC_PENDING_KEY = 'fincraft.oidc.pending';   // {serverUrl, tenantId} across the IdP redirect
+
+function _oidcConfig() { return oidc.loadOidcConfig(OIDC_DEFAULT); }
+
 export async function initAuth() {
   api.onUnauthorized(() => {
     _clearSession();
     showLogin('Your session expired. Please sign in again.');
   });
 
+  // 1) OAuth2/OIDC redirect coming back from the IdP (?code=…&state=…).
+  if (oidc.isCallback()) {
+    try {
+      await _completeOidcCallback();
+      return;
+    } catch (e) {
+      oidc.cleanCallbackUrl();
+      console.error('[auth] OIDC callback failed:', e);
+      showLogin(e.message || 'SSO sign-in failed. Please try again.');
+      return;
+    }
+  }
+
   const saved = store.get('auth');
+
+  // 2) Restore a Bearer (OAuth2/OIDC) session, refreshing the token if it lapsed.
+  if (saved?.bearerToken && saved?.serverUrl) {
+    try {
+      await _restoreBearerSession(saved);
+      return;
+    } catch (e) {
+      console.warn('[auth] Bearer session restore failed:', e.message);
+      _clearSession();
+    }
+  }
+
+  // 3) Restore a Basic (username/password) session.
   if (saved?.authToken && saved?.serverUrl) {
     configureAPI(saved);
     try {
@@ -82,6 +113,105 @@ export async function initAuth() {
     }
   }
   showLogin();
+}
+
+/* ------------------------------------------------------------------ */
+/* OAuth2 / OIDC (Zitadel) sign-in                                     */
+/* ------------------------------------------------------------------ */
+
+// Called from the login screen "Sign in with SSO" button.
+export async function loginWithOidc({ serverUrl, tenantId }) {
+  const cfg = _oidcConfig();
+  if (!oidc.isConfigured(cfg)) {
+    throw new Error('SSO is not configured yet — set the Issuer URL and Client ID first.');
+  }
+  if (!serverUrl) throw new Error('Enter the Fineract Server URL before signing in with SSO.');
+  // The Fineract server URL + tenant must survive the round-trip to the IdP.
+  try { sessionStorage.setItem(OIDC_PENDING_KEY, JSON.stringify({ serverUrl, tenantId: tenantId || 'default' })); } catch {}
+  await oidc.beginLogin(cfg);        // redirects the browser to the IdP
+}
+
+async function _completeOidcCallback() {
+  const cfg = _oidcConfig();
+  const tokens = await oidc.handleCallback(cfg);       // validates state + PKCE, exchanges code
+  oidc.cleanCallbackUrl();                             // strip ?code&state from the address bar
+
+  let pending = {};
+  try { pending = JSON.parse(sessionStorage.getItem(OIDC_PENDING_KEY) || '{}') || {}; } catch {}
+  sessionStorage.removeItem(OIDC_PENDING_KEY);
+
+  const serverUrl = pending.serverUrl || FINERACT_DEMO.serverUrl;
+  const tenantId  = pending.tenantId  || 'default';
+
+  configureAPI({ serverUrl, tenantId, authScheme: 'Bearer', bearerToken: tokens.accessToken });
+
+  store.set('auth', {
+    serverUrl, tenantId,
+    username:     tokens.username || 'sso-user',
+    authScheme:   'Bearer',
+    bearerToken:  tokens.accessToken,
+    refreshToken: tokens.refreshToken,
+    idToken:      tokens.idToken,
+    expiresAt:    tokens.expiresAt,
+    roles:        []
+  });
+  store.set('perms', []);
+
+  await finishLogin({ serverUrl, tenantId, username: tokens.username || 'sso-user', authPerms: [] });
+  _scheduleTokenRefresh();
+}
+
+async function _restoreBearerSession(saved) {
+  let bearer = saved.bearerToken;
+  // Proactively refresh if the access token is expired/near-expiry.
+  const expired = (saved.expiresAt && Date.now() >= saved.expiresAt - 30000) || oidc.isTokenExpired(bearer);
+  if (expired) {
+    if (!saved.refreshToken) throw new Error('Access token expired and no refresh token is available.');
+    const cfg = _oidcConfig();
+    const t = await oidc.refresh(cfg, saved.refreshToken);
+    bearer = t.accessToken;
+    store.set('auth', {
+      ...saved,
+      bearerToken:  t.accessToken,
+      refreshToken: t.refreshToken || saved.refreshToken,
+      idToken:      t.idToken || saved.idToken,
+      expiresAt:    t.expiresAt
+    });
+  }
+  configureAPI({ serverUrl: saved.serverUrl, tenantId: saved.tenantId, authScheme: 'Bearer', bearerToken: bearer });
+
+  const me = await api.userDetails.self();
+  _persistUserContext(me);
+  console.log('[auth] Restored SSO session with', (store.get('perms') || []).length, 'permissions');
+  await _loadDefaultCurrency();
+  showApp();
+  _scheduleTokenRefresh();
+}
+
+let _refreshTimer = null;
+function _scheduleTokenRefresh() {
+  if (_refreshTimer) { clearTimeout(_refreshTimer); _refreshTimer = null; }
+  const auth = store.get('auth') || {};
+  if (auth.authScheme !== 'Bearer' || !auth.refreshToken || !auth.expiresAt) return;
+  // Refresh ~60s before expiry (never sooner than 5s from now).
+  const delay = Math.max(5000, auth.expiresAt - Date.now() - 60000);
+  _refreshTimer = setTimeout(async () => {
+    try {
+      const cfg = _oidcConfig();
+      const t = await oidc.refresh(cfg, auth.refreshToken);
+      configureAPI({ authScheme: 'Bearer', bearerToken: t.accessToken });
+      store.set('auth', {
+        ...(store.get('auth') || {}),
+        bearerToken:  t.accessToken,
+        refreshToken: t.refreshToken || auth.refreshToken,
+        idToken:      t.idToken || auth.idToken,
+        expiresAt:    t.expiresAt
+      });
+      _scheduleTokenRefresh();
+    } catch (e) {
+      console.warn('[auth] silent token refresh failed:', e.message);
+    }
+  }, delay);
 }
 
 export async function login({ serverUrl, tenantId, username, password }) {
@@ -193,7 +323,28 @@ export function logout() {
   if (auth?.tfaToken) {
     api.twoFactor.invalidate(auth.tfaToken).catch(() => {});
   }
+  // For an SSO session, also end the IdP session (single logout) if the IdP
+  // advertises an end_session_endpoint — best-effort, non-blocking.
+  const wasBearer = auth?.authScheme === 'Bearer';
+  const idToken = auth?.idToken;
+  if (_refreshTimer) { clearTimeout(_refreshTimer); _refreshTimer = null; }
   _clearSession();
+
+  if (wasBearer) {
+    const cfg = _oidcConfig();
+    oidc.discover(cfg.issuer)
+      .then(meta => {
+        const url = oidc.logoutUrl(meta, {
+          idToken,
+          clientId: cfg.clientId,
+          postLogoutRedirectUri: oidc.defaultRedirectUri()
+        });
+        if (url) { location.assign(url); return; }
+        showLogin();
+      })
+      .catch(() => showLogin());
+    return;
+  }
   showLogin();
 }
 
@@ -275,6 +426,9 @@ function showApp() {
 
 function renderLogin(container, banner) {
   const recents = _loadRecentTenants();
+  const ssoCfg = _oidcConfig();
+  const ssoConfigured = oidc.isConfigured(ssoCfg);
+  const ssoLabel = ssoCfg.providerLabel || 'SSO';
   const recentChipsHtml = recents.length ? `
     <div class="mb-2" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
       <span style="font-size:11px;color:var(--text-3,#8fa8c8);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-right:4px">Recent:</span>
@@ -335,6 +489,35 @@ function renderLogin(container, banner) {
           <button class="btn btn-primary btn-full" id="l-btn">
             <i class="fa-solid fa-right-to-bracket"></i> Sign In
           </button>
+
+          <div id="sso-block" style="margin-top:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin:6px 0 12px">
+              <div style="flex:1;height:1px;background:var(--border-1,#1a2d4a)"></div>
+              <span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3,#8fa8c8);font-weight:700">or</span>
+              <div style="flex:1;height:1px;background:var(--border-1,#1a2d4a)"></div>
+            </div>
+            <button class="btn btn-secondary btn-full" id="l-sso" type="button">
+              <i class="fa-solid fa-shield-halved"></i> Sign in with SSO${ssoConfigured && ssoLabel ? ' (' + escapeHtml(ssoLabel) + ')' : ''}
+            </button>
+            <div style="text-align:center;margin-top:6px">
+              <a href="#" id="l-sso-config" class="link" style="font-size:11px">${ssoConfigured ? 'SSO settings' : 'Configure SSO…'}</a>
+            </div>
+            <div id="sso-config-panel" hidden style="margin-top:10px;padding:12px;border:1px solid var(--border-1,#1a2d4a);border-radius:8px;background:var(--bg-2,#0e1a2e)">
+              <div class="text-muted" style="font-size:11px;margin-bottom:8px">
+                <i class="fa-solid fa-circle-info"></i>
+                OpenID Connect (Authorization Code + PKCE). No client secret is stored. Add this app's URL as a redirect URI in your IdP.
+              </div>
+              <div class="form-group mb-2"><label class="form-label">Issuer URL</label>
+                <input id="sso-issuer" class="form-control" placeholder="https://your-instance.zitadel.cloud" value="${escapeHtml(ssoCfg.issuer || '')}"/></div>
+              <div class="form-group mb-2"><label class="form-label">Client ID</label>
+                <input id="sso-clientid" class="form-control" value="${escapeHtml(ssoCfg.clientId || '')}"/></div>
+              <div class="form-group mb-2"><label class="form-label">Project ID <span class="text-muted" style="font-weight:400">(optional, Zitadel roles)</span></label>
+                <input id="sso-project" class="form-control" value="${escapeHtml(ssoCfg.projectId || '')}"/></div>
+              <div class="text-muted" style="font-size:10px;margin-bottom:8px">Redirect URI: <code>${escapeHtml(oidc.defaultRedirectUri())}</code></div>
+              <button class="btn btn-primary btn-sm" id="sso-save" type="button"><i class="fa-solid fa-check"></i> Save SSO settings</button>
+            </div>
+          </div>
+
           <div class="login-footer mt-3">
             <a href="#" id="l-forgot" class="link" style="font-size:12px">Forgot password?</a>
             &nbsp;·&nbsp; Demo: <b>mifos / password</b>
@@ -385,6 +568,46 @@ function renderLogin(container, banner) {
 
   btn.addEventListener('click', doLogin);
   pass.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  // --- SSO / OIDC wiring ------------------------------------------------
+  const ssoBtn        = container.querySelector('#l-sso');
+  const ssoConfigLink = container.querySelector('#l-sso-config');
+  const ssoPanel      = container.querySelector('#sso-config-panel');
+  const ssoSaveBtn    = container.querySelector('#sso-save');
+
+  ssoConfigLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (ssoPanel) ssoPanel.hidden = !ssoPanel.hidden;
+  });
+
+  ssoSaveBtn?.addEventListener('click', () => {
+    const issuer   = container.querySelector('#sso-issuer').value.trim().replace(/\/$/, '');
+    const clientId = container.querySelector('#sso-clientid').value.trim();
+    const projectId= container.querySelector('#sso-project').value.trim();
+    oidc.saveOidcConfig({ issuer, clientId, projectId, enabled: true });
+    showOk('SSO settings saved. You can now sign in with SSO.');
+    renderLogin(container, banner);   // re-render so the button reflects configured state
+  });
+
+  ssoBtn?.addEventListener('click', async () => {
+    const serverUrl = container.querySelector('#l-server').value.trim().replace(/\/$/, '');
+    const tenantId  = container.querySelector('#l-tenant').value.trim() || 'default';
+    if (!oidc.isConfigured(_oidcConfig())) {
+      if (ssoPanel) ssoPanel.hidden = false;
+      return showErr('Set the Issuer URL and Client ID first, then click "Sign in with SSO".');
+    }
+    if (!serverUrl) return showErr('Enter the Fineract Server URL first.');
+    err.style.display = 'none';
+    ssoBtn.disabled = true;
+    ssoBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Redirecting to sign-in…';
+    try {
+      await loginWithOidc({ serverUrl, tenantId });   // redirects away
+    } catch (e) {
+      showErr(e.message || 'Could not start SSO sign-in.');
+      ssoBtn.disabled = false;
+      ssoBtn.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Sign in with SSO';
+    }
+  });
 
   container.querySelectorAll('[data-recent-idx]').forEach(chip => {
     chip.addEventListener('click', (e) => {

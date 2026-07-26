@@ -3,7 +3,8 @@
    permission gating, theme, and the offline cache. Covers get/set/patch/remove,
    subscribe notifications (incl. error isolation), permission helpers
    (ALL_FUNCTIONS + ALL_FUNCTIONS_READ superuser bypasses, checker detection),
-   and persist()/restore() round-tripping through storage.
+   and persist()/restore() round-tripping through storage — including the
+   OAuth2/OIDC (Bearer) session that SSO login introduced.
 
    store.js runs restore() at import time (reads storage, sets document theme),
    so this test installs minimal Web-Storage + document stubs FIRST, then
@@ -97,7 +98,7 @@ export async function runTests({ assert: a = assert } = {}) {
   store.set('perms', ['ALL_FUNCTIONS']);
   a.strictEqual(store.hasAnyCheckerPermission(), true);
 
-  // --- persist / restore round-trip -------------------------------------
+  // --- persist / restore round-trip (Basic auth) ------------------------
   // Non-auth prefs land in localStorage; auth + perms in sessionStorage.
   store.set('perms', ['READ_CLIENT', 'CREATE_CLIENT']);
   store.set('defaultCurrency', 'NGN');
@@ -132,4 +133,26 @@ export async function runTests({ assert: a = assert } = {}) {
   a.deepStrictEqual(store.get('perms'), ['READ_LOAN']);
   a.strictEqual(store.get('defaultCurrency'), 'USD');
   a.strictEqual(themeSink['data-theme'], 'light', 'restore must reflect theme onto the DOM');
+
+  // --- persist / restore round-trip (OAuth2/OIDC Bearer session) --------
+  store.set('perms', ['READ_CLIENT']);
+  store.set('auth', {
+    serverUrl: 'https://bank.test', tenantId: 'default', username: 'mifos',
+    authScheme: 'Bearer', bearerToken: 'JWT.aaa.bbb', refreshToken: 'rt-1',
+    idToken: 'ID.ccc.ddd', expiresAt: Date.now() + 3600000, roles: []
+  });
+  const ssBearer = JSON.parse(ss.getItem('fincraft.session'));
+  a.strictEqual(ssBearer.authScheme, 'Bearer', 'Bearer scheme persisted');
+  a.strictEqual(ssBearer.bearerToken, 'JWT.aaa.bbb', 'access token persisted');
+  a.strictEqual(ssBearer.refreshToken, 'rt-1', 'refresh token persisted');
+  a.ok(!('authToken' in ssBearer) || ssBearer.authToken == null, 'no Basic token on an SSO session');
+
+  // A session with only a bearerToken (no Basic authToken) must still restore.
+  store.set('auth', null);
+  ss.setItem('fincraft.session', JSON.stringify({
+    authScheme: 'Bearer', bearerToken: 'JWT.zzz', refreshToken: 'rt-2', perms: ['READ_LOAN'], username: 'mifos'
+  }));
+  store.restore();
+  a.ok(store.get('auth') && store.get('auth').bearerToken === 'JWT.zzz', 'Bearer-only session must be restored');
+  a.deepStrictEqual(store.get('perms'), ['READ_LOAN']);
 }

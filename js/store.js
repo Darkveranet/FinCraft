@@ -33,6 +33,13 @@ class Store {
           tenantId:  this.state.auth.tenantId,
           username:  this.state.auth.username,
           authToken: this.state.auth.authToken,
+          // OAuth2/OIDC (Bearer) session — persisted so an SSO login survives
+          // a page reload just like a Basic-auth session does.
+          authScheme:   this.state.auth.authScheme || 'Basic',
+          bearerToken:  this.state.auth.bearerToken || null,
+          refreshToken: this.state.auth.refreshToken || null,
+          idToken:      this.state.auth.idToken || null,
+          expiresAt:    this.state.auth.expiresAt || null,
           userId:    this.state.auth.userId || null,
           roles:     this.state.auth.roles  || [],
           officeId:  this.state.auth.officeId || null,
@@ -52,7 +59,8 @@ class Store {
       if (ls.theme) this.state.theme = ls.theme;
       if (ls.sidebar) this.state.sidebar = ls.sidebar;
       const ss = JSON.parse(sessionStorage.getItem(SS_KEY) || 'null');
-      if (ss && ss.authToken) {
+      // Accept either a Basic (authToken) or an OAuth2/OIDC (bearerToken) session.
+      if (ss && (ss.authToken || ss.bearerToken)) {
         this.state.auth  = ss;
         this.state.perms = Array.isArray(ss.perms) ? ss.perms : [];
         this.state.defaultCurrency = ss.defaultCurrency || null;
