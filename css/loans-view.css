@@ -1,0 +1,86 @@
+/* FinCraft · css/loans-view.css — visual language for the Loan detail view.
+   Builds on the shared .cv-detail design system (clients-view.css) so Loans and
+   Clients read as one product. Everything here is scoped under .ln-detail (which
+   is applied alongside .cv-detail on the loan detail root) so it can never leak. */
+
+/* ── Hero KPI row (Loan Status · Principal · Outstanding) ─────────────────── */
+.ln-detail .ln-kpi-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+@media (max-width: 900px) { .ln-detail .ln-kpi-row { grid-template-columns: 1fr; } }
+
+.ln-detail .ln-kpi { padding: 18px 20px; position: relative; }
+.ln-detail .ln-kpi-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px;
+}
+.ln-detail .ln-kpi-label {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--cv-text-3); display: flex; align-items: center; gap: 7px;
+}
+.ln-detail .ln-kpi-icon {
+  width: 34px; height: 34px; border-radius: 10px; display: inline-flex; align-items: center;
+  justify-content: center; font-size: 15px; background: rgba(79,112,171,.12); color: #6d90d1; flex-shrink: 0;
+}
+.ln-detail .ln-kpi.is-warn .ln-kpi-icon { background: rgba(220,154,43,.16); color: #dc9a2b; }
+.ln-detail .ln-kpi-value { font-size: 26px; font-weight: 700; color: var(--cv-text); letter-spacing: -.5px; line-height: 1.1; }
+.ln-detail .ln-kpi-sub { font-size: 12px; color: var(--cv-text-3); margin-top: 4px; }
+
+/* Repayment-progress card */
+.ln-detail .ln-progress-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 13px; color: var(--cv-text-2); margin-top: 4px;
+}
+.ln-detail .ln-progress-head b { color: var(--cv-text); font-size: 14px; }
+.ln-detail .ln-progress {
+  height: 8px; border-radius: 999px; background: var(--cv-bg); overflow: hidden; margin: 10px 0 8px;
+  border: 1px solid var(--cv-border);
+}
+.ln-detail .ln-progress-fill {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #0f7a6e, var(--cv-teal, #14a091));
+  transition: width 400ms ease;
+}
+.ln-detail .ln-progress-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 11.5px; color: var(--cv-text-3);
+}
+
+/* ── Overview panel opts out of the default card wrapper (its own cards frame it) ─ */
+.ln-detail .tab-panel[data-lnpanel="overview"] { background: none; border: none; box-shadow: none; padding: 0; }
+
+/* Highlighted mini-tiles inside the Next-Repayment card */
+.ln-detail .ln-hl-tile { background: rgba(79,112,171,.09); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.ln-detail .ln-hl-tile .cv-i-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--cv-text-3); }
+.ln-detail .ln-hl-tile .ln-hl-val { font-size: 18px; font-weight: 700; color: var(--cv-text); margin-top: 3px; letter-spacing: -.3px; }
+.ln-detail .ln-guarantor-line,
+.ln-detail .cv-guarantor-line { font-size: 13px; color: var(--cv-text); padding: 3px 0; }
+
+/* Section blocks used inside the folded tabs (Credit Assessment / Approvals) */
+.ln-detail .ln-block { margin-bottom: 26px; }
+.ln-detail .ln-block:last-child { margin-bottom: 0; }
+.ln-detail .ln-block > h3 { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--cv-text); margin-bottom: 12px; }
+
+/* Approval timeline (mirrors the checker-inbox tk-timeline styling, self-contained) */
+.ln-detail .ln-timeline { list-style: none; margin: 0 0 4px; padding: 0 0 0 20px; position: relative; }
+.ln-detail .ln-timeline::before { content: ""; position: absolute; left: 5px; top: 4px; bottom: 4px; width: 2px; background: var(--cv-border); }
+.ln-detail .ln-tl-item { position: relative; padding: 0 0 18px 14px; }
+.ln-detail .ln-tl-item:last-child { padding-bottom: 0; }
+.ln-detail .ln-tl-item::before {
+  content: ""; position: absolute; left: -20px; top: 3px; width: 12px; height: 12px; border-radius: 999px;
+  background: var(--cv-teal, #14a091); box-shadow: 0 0 0 3px var(--cv-card);
+}
+.ln-detail .ln-tl-item.is-pending::before { background: var(--cv-text-3); }
+.ln-detail .ln-tl-item.is-future::before { background: var(--cv-border-2); }
+.ln-detail .ln-tl-title { font-size: 13px; font-weight: 600; color: var(--cv-text); }
+.ln-detail .ln-tl-note { font-size: 12px; color: var(--cv-text-2); margin-top: 1px; }
+.ln-detail .ln-tl-date { font-size: 11px; color: var(--cv-text-3); margin-top: 1px; }
+
+/* Actions strip inside the Approvals tab (keeps every lifecycle action reachable) */
+.ln-detail .ln-actions-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Toolbar row above the schedule table (Export button, etc.) */
+.ln-detail .ln-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.ln-detail .ln-toolbar h3 { font-size: 13.5px; font-weight: 700; color: var(--cv-text); }

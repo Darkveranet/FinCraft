@@ -1,0 +1,98 @@
+<!doctype html>
+<html data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Savings Detail — preview</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./css/app.css"/>
+<style>body{padding:28px;max-width:1200px;margin:0 auto;background:var(--bg-app)}</style>
+</head>
+<body>
+  <div class="cv-detail sv-detail">
+    <div class="cv-detail-head">
+      <div>
+        <h1>SA-200001</h1>
+        <div class="cv-sub">Regular Savings · Amara Eze · Head Office</div>
+      </div>
+      <div class="cv-detail-actions">
+        <button class="cv-btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="cv-btn-solid"><i class="fa-solid fa-arrow-down"></i> Deposit</button>
+        <div class="dropdown"><button class="cv-btn-ghost"><i class="fa-solid fa-ellipsis"></i></button></div>
+      </div>
+    </div>
+
+    <div class="sv-kpi-row">
+      <div class="cv-card sv-kpi">
+        <div class="sv-kpi-head">
+          <span class="sv-kpi-label"><i class="fa-solid fa-piggy-bank"></i> Account Status</span>
+          <span class="sv-kpi-icon"><i class="fa-solid fa-piggy-bank"></i></span>
+        </div>
+        <div><span class="badge b-success">Active</span></div>
+        <div class="sv-status-meta"><span>Kwame Mensah</span><span>5% p.a.</span></div>
+      </div>
+      <div class="cv-card sv-kpi">
+        <div class="sv-kpi-head">
+          <span class="sv-kpi-label"><i class="fa-solid fa-wallet"></i> Account Balance</span>
+          <span class="sv-kpi-icon"><i class="fa-solid fa-dollar-sign"></i></span>
+        </div>
+        <div class="sv-kpi-value">₦178.09K</div>
+        <div class="sv-kpi-sub">Available: ₦178.09K</div>
+      </div>
+      <div class="cv-card sv-kpi">
+        <div class="sv-kpi-head">
+          <span class="sv-kpi-label"><i class="fa-solid fa-percent"></i> Interest Earned</span>
+          <span class="sv-kpi-icon"><i class="fa-solid fa-percent"></i></span>
+        </div>
+        <div class="sv-kpi-value">₦3.21K</div>
+        <div class="sv-kpi-sub">Posted: ₦2.90K</div>
+      </div>
+    </div>
+
+    <div class="cv-tabs">
+      <button class="cv-tab active">Overview</button>
+      <button class="cv-tab">Transactions</button>
+      <button class="cv-tab">Charges</button>
+      <button class="cv-tab">Standing Instructions</button>
+      <button class="cv-tab">Documents</button>
+    </div>
+
+    <div class="tab-panel" data-svpanel="overview">
+      <div class="cv-grid-3">
+        <div class="cv-card cv-panel">
+          <h3>Account Details</h3>
+          <div class="cv-info-row"><span class="cv-i-label">Account No</span><span class="cv-i-val">SA200001</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Product</span><span class="cv-i-val">Regular Savings</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Status</span><span class="cv-i-val"><span class="badge b-success">Active</span></span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Sub-status</span><span class="cv-i-val">None</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Currency</span><span class="cv-i-val">NGN</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Nominal Rate</span><span class="cv-i-val">5% p.a.</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Compounding</span><span class="cv-i-val">Daily</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Posting</span><span class="cv-i-val">Monthly</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Officer</span><span class="cv-i-val">Kwame Mensah</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">External ID</span><span class="cv-i-val">—</span></div>
+        </div>
+        <div class="cv-card cv-panel">
+          <h3>Balances</h3>
+          <div class="cv-info-row"><span class="cv-i-label">Account Balance</span><span class="cv-i-val">₦178,089.85</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Available</span><span class="cv-i-val">₦178,089.85</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">On Hold</span><span class="cv-i-val">₦0.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Total Deposits</span><span class="cv-i-val">₦250,000.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Total Withdrawals</span><span class="cv-i-val">₦75,120.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Interest Earned</span><span class="cv-i-val">₦3,209.85</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Interest Posted</span><span class="cv-i-val">₦2,900.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Total Fees</span><span class="cv-i-val">₦0.00</span></div>
+        </div>
+        <div class="cv-card cv-panel">
+          <h3>Timeline</h3>
+          <div class="cv-info-row"><span class="cv-i-label">Submitted</span><span class="cv-i-val">01 Apr 2026</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Approved</span><span class="cv-i-val">03 Apr 2026</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Activated</span><span class="cv-i-val">05 Apr 2026</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Closed</span><span class="cv-i-val">—</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,4 +1,5 @@
-const CACHE = 'fincraft-v14'; // bumped: force-evict a stale pre-fix auth.js that was cached WITHOUT the `escapeHtml` import (caused "escapeHtml is not defined" / "FinCraft failed to start" on the login screen). The source already imports escapeHtml from utils.js; this bump + the activate-phase cache cleanup guarantee old browsers stop serving the broken copy.
+const CACHE = 'fincraft-v16'; // bumped: Savings detail redesigned into the shared cv-/sv- card layout (hero KPI cards + clean 5 tabs), matching Clients & Loans. Also fixes the dead `lazyLoaders;` no-op (tabs never lazy-loaded) and adds `.active` panel toggling. New css/savings-view.css. Bump forces old browsers to drop stale CSS/JS.
+// (v15: tab-panel visibility fix for Client & Loan detail — `.cv-detail .tab-panel:not([hidden]){display:block}` + `.active` toggling.)
 // (v13: dashboard chart-loader retry+jsdelivr fallback, router render-generation guard + list-page null guards for intermittent "innerHTML of null" on first Centers/Clients/Groups click, CSP allows cdn.jsdelivr.net for the Chart.js fallback.)
 // Bearer-scheme support in api/core.js, and auth.js/store.js session changes. Bumping forces the
 // activate-phase cache cleanup below to run and guarantees no stale mix of old/new assets.
