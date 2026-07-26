@@ -200,4 +200,11 @@
 .cv-detail .tab-panel { background: var(--cv-card); border: 1px solid var(--cv-border); border-radius: var(--cv-radius); box-shadow: var(--cv-shadow); padding: 20px 22px; }
 .cv-detail .tab-panel[data-clpanel="overview"] { background: none; border: none; box-shadow: none; padding: 0; }
 
+/* Panel visibility — components.css sets `.tab-panel { display:none }` and only shows
+   `.tab-panel.active`, but the Clients/Loans detail views toggle the `hidden` attribute
+   instead of the `.active` class. Without this rule the active-but-not-".active" panel
+   stays display:none and its content "doesn't show". Higher specificity than the base
+   rule; the `[hidden]{display:none!important}` rule still wins for the inactive panels. */
+.cv-detail .tab-panel:not([hidden]) { display: block; }
+
 .cv-kebab-menu { min-width: 190px; }

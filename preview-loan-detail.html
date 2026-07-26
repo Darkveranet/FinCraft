@@ -1,0 +1,143 @@
+<!doctype html>
+<html data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Loan Detail — preview</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./css/app.css"/>
+<style>body{padding:28px;max-width:1200px;margin:0 auto;background:var(--bg-app)}</style>
+</head>
+<body>
+  <div class="cv-detail ln-detail">
+    <div class="cv-detail-head">
+      <div>
+        <h1>LN-300002</h1>
+        <div class="cv-sub">Personal Loan · Bola Foods Ltd · Head Office</div>
+      </div>
+      <div class="cv-detail-actions">
+        <button class="cv-btn-ghost"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="cv-btn-solid"><i class="fa-solid fa-coins"></i> Record Repayment</button>
+        <div class="dropdown">
+          <button class="cv-btn-ghost"><i class="fa-solid fa-ellipsis"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ln-kpi-row">
+      <div class="cv-card ln-kpi ln-kpi-status">
+        <div class="ln-kpi-head">
+          <span class="ln-kpi-label"><i class="fa-solid fa-file-invoice-dollar"></i> Loan Status</span>
+          <span class="ln-kpi-icon"><i class="fa-regular fa-credit-card"></i></span>
+        </div>
+        <div><span class="badge b-success">Active</span></div>
+        <div class="ln-progress-head">Repayment Progress <b>16.7%</b></div>
+        <div class="ln-progress"><div class="ln-progress-fill" style="width:16.7%"></div></div>
+        <div class="ln-progress-foot"><span>Paid: ₦295.8K</span><span>Total: ₦1.77M</span></div>
+      </div>
+      <div class="cv-card ln-kpi">
+        <div class="ln-kpi-head">
+          <span class="ln-kpi-label"><i class="fa-solid fa-sack-dollar"></i> Principal</span>
+          <span class="ln-kpi-icon"><i class="fa-solid fa-dollar-sign"></i></span>
+        </div>
+        <div class="ln-kpi-value">₦168.50M</div>
+        <div class="ln-kpi-sub">Interest: ₦166.73M</div>
+      </div>
+      <div class="cv-card ln-kpi is-warn">
+        <div class="ln-kpi-head">
+          <span class="ln-kpi-label"><i class="fa-solid fa-triangle-exclamation"></i> Outstanding</span>
+          <span class="ln-kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        </div>
+        <div class="ln-kpi-value">₦1.48M</div>
+        <div class="ln-kpi-sub">Current</div>
+      </div>
+    </div>
+
+    <div class="cv-tabs">
+      <button class="cv-tab active">Overview</button>
+      <button class="cv-tab">Repayment Schedule</button>
+      <button class="cv-tab">Credit Assessment</button>
+      <button class="cv-tab">Approvals</button>
+      <button class="cv-tab">Documents</button>
+    </div>
+
+    <div class="tab-panel" data-lnpanel="overview">
+      <div class="cv-grid-3">
+        <div class="cv-card cv-panel">
+          <h3>Loan Details</h3>
+          <div class="cv-info-row"><span class="cv-i-label">Loan Number</span><span class="cv-i-val">LN-300002</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Product</span><span class="cv-i-val">Personal Loan</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Amount</span><span class="cv-i-val">₦168,500,000.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Interest Rate</span><span class="cv-i-val">18% p.a.</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Interest Method</span><span class="cv-i-val">declining balance</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Tenure</span><span class="cv-i-val">6 months</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Frequency</span><span class="cv-i-val">monthly</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Purpose</span><span class="cv-i-val">Working capital</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Loan Officer</span><span class="cv-i-val">Ngozi Eze</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Disbursed</span><span class="cv-i-val">28 Mar 2026</span></div>
+        </div>
+        <div class="cv-card cv-panel">
+          <h3>Financial Summary</h3>
+          <div class="cv-info-row"><span class="cv-i-label">Principal</span><span class="cv-i-val">₦168,500,000.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Interest</span><span class="cv-i-val">₦166,725,440.07</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Fees</span><span class="cv-i-val">₦25,275.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Penalties</span><span class="cv-i-val">₦0.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Total Due</span><span class="cv-i-val">₦1,774,559.93</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Amount Paid</span><span class="cv-i-val">₦295,759.99</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Outstanding</span><span class="cv-i-val">₦1,478,799.94</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Arrears</span><span class="cv-i-val">₦0.00</span></div>
+          <div class="cv-info-row"><span class="cv-i-label">Days Past Due</span><span class="cv-i-val">Current</span></div>
+        </div>
+        <div class="cv-card cv-panel">
+          <h3>Next Repayment</h3>
+          <div class="ln-hl-tile">
+            <div class="cv-i-label">Due Date</div>
+            <div class="ln-hl-val">26 Sept 2026</div>
+          </div>
+          <div class="ln-hl-tile">
+            <div class="cv-i-label">Amount Due</div>
+            <div class="ln-hl-val">₦295,759.99</div>
+          </div>
+          <div class="cv-i-label" style="margin-top:14px">Guarantors</div>
+          <div>
+            <div class="cv-guarantor-line">Amara Eze</div>
+            <div class="cv-guarantor-line">Bola Adeyemi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second view: Repayment Schedule tab -->
+  <div class="cv-detail ln-detail" style="margin-top:40px">
+    <div class="cv-tabs">
+      <button class="cv-tab">Overview</button>
+      <button class="cv-tab active">Repayment Schedule</button>
+      <button class="cv-tab">Credit Assessment</button>
+      <button class="cv-tab">Approvals</button>
+      <button class="cv-tab">Documents</button>
+    </div>
+    <div class="tab-panel">
+      <div class="ln-toolbar">
+        <h3>Repayment Schedule</h3>
+        <div style="display:flex;gap:8px">
+          <button class="cv-btn-ghost btn-sm"><i class="fa-solid fa-clock-rotate-left"></i> Original schedule</button>
+          <button class="cv-btn-ghost btn-sm"><i class="fa-solid fa-download"></i> Export</button>
+        </div>
+      </div>
+      <table class="table table-compact">
+        <thead><tr><th>#</th><th>Due Date</th><th class="text-right">Principal</th><th class="text-right">Interest</th><th class="text-right">Total Due</th><th class="text-right">Outstanding</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="paid-row"><td>1</td><td>26 Aug 2026</td><td class="text-right">₦270,484.99</td><td class="text-right">₦25,275.00</td><td class="text-right"><b>₦295,759.99</b></td><td class="text-right">₦1,414,515.01</td><td><span class="badge b-success">Paid</span></td></tr>
+          <tr><td>2</td><td>26 Sept 2026</td><td class="text-right">₦274,542.26</td><td class="text-right">₦21,217.73</td><td class="text-right"><b>₦295,759.99</b></td><td class="text-right">₦1,139,972.75</td><td><span class="badge b-warn">Pending</span></td></tr>
+          <tr><td>3</td><td>26 Oct 2026</td><td class="text-right">₦278,660.40</td><td class="text-right">₦17,099.59</td><td class="text-right"><b>₦295,759.99</b></td><td class="text-right">₦861,312.35</td><td><span class="badge b-warn">Pending</span></td></tr>
+          <tr><td>4</td><td>26 Nov 2026</td><td class="text-right">₦282,840.30</td><td class="text-right">₦12,919.69</td><td class="text-right"><b>₦295,759.99</b></td><td class="text-right">₦578,472.05</td><td><span class="badge b-warn">Pending</span></td></tr>
+          <tr><td>5</td><td>26 Dec 2026</td><td class="text-right">₦287,082.91</td><td class="text-right">₦8,677.08</td><td class="text-right"><b>₦295,759.99</b></td><td class="text-right">₦291,389.14</td><td><span class="badge b-warn">Pending</span></td></tr>
+          <tr><td>6</td><td>26 Jan 2027</td><td class="text-right">₦291,389.14</td><td class="text-right">₦4,370.84</td><td class="text-right"><b>₦295,759.98</b></td><td class="text-right">₦0.00</td><td><span class="badge b-warn">Pending</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

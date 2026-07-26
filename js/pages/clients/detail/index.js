@@ -257,7 +257,11 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     };
     function switchTab(name) {
       tabs.forEach(t => t.classList.toggle('active', t.dataset.cltab === name));
-      panels.forEach(p => p.hidden = p.dataset.clpanel !== name);
+      panels.forEach(p => {
+        const on = p.dataset.clpanel === name;
+        p.hidden = !on;
+        p.classList.toggle('active', on);   // match components.css .tab-panel.active display contract
+      });
       if (lazyLoaders[name] && !lazyLoaded[name]) { lazyLoaded[name] = true; lazyLoaders[name](); }
       const hashParts = (location.hash || '').split('?');
       const params = new URLSearchParams(hashParts[1] || '');
