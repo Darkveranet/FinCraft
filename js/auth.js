@@ -2,7 +2,7 @@ import { api, configureAPI } from './api.js';
 import { store } from './store.js';
 import { FINERACT_DEMO, OIDC_DEFAULT } from './config.js';
 import * as oidc from './oidc.js';
-
+import { escapeHtml } from './utils.js'; 
 import { extractFineractError } from './ui/dom-helpers.js';
 const LOGIN_ID = 'loginScreen';
 const SHELL_ID = 'appShell';
