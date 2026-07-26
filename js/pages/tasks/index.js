@@ -29,12 +29,18 @@ export async function render(c) {
     _autoRefresh = e.target.checked;
     if (_refreshTimer) { clearInterval(_refreshTimer); _refreshTimer = null; }
     if (_autoRefresh) {
-      _refreshTimer = setInterval(() => loadApprovalInbox(c), 30000);
+      _refreshTimer = setInterval(() => { loadApprovalInbox(c).catch(reportInboxError); }, 30000);
       toast('info', 'Auto-refresh enabled', 'Refreshing every 30s');
     }
   });
 
-  c.querySelector('#tk-refresh').addEventListener('click', () => loadApprovalInbox(c));
+  c.querySelector('#tk-refresh').addEventListener('click', () => { loadApprovalInbox(c).catch(reportInboxError); });
 
-  loadApprovalInbox(c);
+  // Fire-and-forget: never let a background inbox load turn into an unhandled rejection.
+  loadApprovalInbox(c).catch(reportInboxError);
+}
+
+function reportInboxError(err) {
+  console.error('[approval-inbox] load failed', err);
+  try { toast('error', 'Approval inbox', 'Could not load the approval inbox. Please retry.'); } catch {}
 }

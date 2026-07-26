@@ -302,25 +302,31 @@ export async function loadApprovalInbox(c) {
   };
 
   // Build the fetch plan; each entry maps its raw payload → descriptor list.
+  // NOTE: the request factory is a thunk (() => api....list()) and is invoked ONLY when
+  // `enabled` is true. Creating the promise eagerly for disabled entries orphaned it (it
+  // never reached Promise.allSettled below), so a rejected fetch on a permission the user
+  // lacks became an unhandled rejection and crashed the process. Keep this lazy.
   const plan = [];
-  const add = (enabled, label, promise, map) => { if (enabled) plan.push({ label, promise, map }); };
+  const add = (enabled, label, makePromise, map) => {
+    if (enabled) plan.push({ label, promise: makePromise(), map });
+  };
 
   add(perms.checker, 'checker tasks',
-    api.makerchecker.list({ limit: 200 }), rows => rows.map(describeCheckerTask));
+    () => api.makerchecker.list({ limit: 200 }), rows => rows.map(describeCheckerTask));
   add(perms.loanApprove || perms.loanReject, 'loan approvals',
-    api.loans.list({ status: 'pending', limit: 200 }), rows => rows.map(describeLoan)); // FIX: was 'approvalPending' → 500
+    () => api.loans.list({ status: 'pending', limit: 200 }), rows => rows.map(describeLoan)); // FIX: was 'approvalPending' → 500
   add(perms.disburse, 'loan disbursements',
-    api.loans.list({ status: 'approved', limit: 200 }), rows => rows.map(describeDisbursement));
+    () => api.loans.list({ status: 'approved', limit: 200 }), rows => rows.map(describeDisbursement));
   add(perms.clientActivate, 'client approvals',
-    api.clients.list({ status: 'pending', limit: 200 }), rows => rows.map(describeClient));
+    () => api.clients.list({ status: 'pending', limit: 200 }), rows => rows.map(describeClient));
   add(perms.savingsApprove || perms.savingsReject, 'savings approvals',
-    api.savings.list({ limit: 200 }),
+    () => api.savings.list({ limit: 200 }),
     rows => rows.filter(s => s.status?.value === SAVINGS_PENDING).map(s => describeDeposit(s, 'savings')));
   add(perms.fixedApprove || perms.fixedReject, 'fixed deposit approvals',
-    api.fixedDeposits.list({ limit: 200 }),
+    () => api.fixedDeposits.list({ limit: 200 }),
     rows => rows.filter(s => s.status?.value === SAVINGS_PENDING).map(s => describeDeposit(s, 'fixedDeposit')));
   add(perms.recurringApprove || perms.recurringReject, 'recurring deposit approvals',
-    api.recurringDeposits.list({ limit: 200 }),
+    () => api.recurringDeposits.list({ limit: 200 }),
     rows => rows.filter(s => s.status?.value === SAVINGS_PENDING).map(s => describeDeposit(s, 'recurringDeposit')));
 
   const [coreSettled, treasuryItems] = await Promise.all([
