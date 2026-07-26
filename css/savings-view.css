@@ -1,0 +1,47 @@
+/* FinCraft · css/savings-view.css — Savings/Deposit detail view.
+   Same "cv-" design language as Clients & Loans (the root carries
+   `cv-detail sv-detail`). Everything here is scoped under .sv-detail so it
+   never leaks. Mirrors loans-view.css's hero-KPI pattern. */
+
+/* ── Hero KPI row (Account Status · Balance · Available/On-hold) ──────────── */
+.sv-detail .sv-kpi-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+@media (max-width: 900px) { .sv-detail .sv-kpi-row { grid-template-columns: 1fr; } }
+
+.sv-detail .sv-kpi { padding: 18px 20px; position: relative; }
+.sv-detail .sv-kpi-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px;
+}
+.sv-detail .sv-kpi-label {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--cv-text-3); display: flex; align-items: center; gap: 7px;
+}
+.sv-detail .sv-kpi-icon {
+  width: 34px; height: 34px; border-radius: 10px; display: inline-flex; align-items: center;
+  justify-content: center; font-size: 15px; background: rgba(47,166,109,.12); color: #2fa66d; flex-shrink: 0;
+}
+.sv-detail .sv-kpi.is-warn .sv-kpi-icon { background: rgba(220,154,43,.16); color: #dc9a2b; }
+.sv-detail .sv-kpi-value { font-size: 26px; font-weight: 700; color: var(--cv-text); letter-spacing: -.5px; line-height: 1.1; }
+.sv-detail .sv-kpi-sub { font-size: 12px; color: var(--cv-text-3); margin-top: 4px; }
+
+/* Sub-status / meta line under the status badge */
+.sv-detail .sv-status-meta {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 12px; color: var(--cv-text-2); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--cv-border);
+}
+
+/* Overview panel opts out of the default card wrapper (its own cards frame it) */
+.sv-detail .tab-panel[data-svpanel="overview"] { background: none; border: none; box-shadow: none; padding: 0; }
+
+/* Section blocks used inside the folded tabs */
+.sv-detail .sv-block { margin-bottom: 26px; }
+.sv-detail .sv-block:last-child { margin-bottom: 0; }
+.sv-detail .sv-block > h3 { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--cv-text); margin-bottom: 12px; }
+
+/* Toolbar row above tables (Statement export, etc.) */
+.sv-detail .sv-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.sv-detail .sv-toolbar h3 { font-size: 13.5px; font-weight: 700; color: var(--cv-text); }
