@@ -18,6 +18,7 @@ export const StaffHandlers = {
         isActive: f.isActive !== 'false'
       };
       if (f.mobileNo) payload.mobileNo = f.mobileNo;
+      if (f.externalId) payload.externalId = f.externalId;
       if (f.joiningDate) payload.joiningDate = f.joiningDate;
 
       setSubmitting(btn, true);

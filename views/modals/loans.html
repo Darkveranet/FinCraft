@@ -5,50 +5,85 @@
 
 <!-- New Loan -->
 <div id="newLoanModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Loan Application</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newLoanForm">
-        <label class="full"><span class="form-label">Client *</span>
-          <div class="search-field">
-            <input id="loanClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
-            <input type="hidden" name="clientId" id="loanClientId"/>
-            <div id="loanClientResults" class="search-dropdown" style="display:none"></div>
-          </div>
-        </label>
-        <label><span class="form-label">Loan type *</span>
-          <select name="loanType" class="form-control" required>
-            <option value="individual">Individual</option>
-            <option value="group">Group</option>
-            <option value="jlg">JLG</option>
-          </select></label>
-        <label><span class="form-label">Loan product *</span>
-          <select name="productId" class="form-control" data-populate="loanProducts" required></select></label>
-        <label><span class="form-label">Loan officer</span>
-          <select name="loanOfficerId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
-        <label><span class="form-label">Principal *</span>
-          <input name="principal" type="number" min="0" step="0.01" class="form-control" required/></label>
-        <label><span class="form-label">Interest rate % (per period)</span>
-          <input name="interestRate" type="number" min="0" step="0.01" class="form-control"/></label>
-        <label><span class="form-label">No. of repayments *</span>
-          <input name="numberOfRepayments" type="number" min="1" value="12" class="form-control" required/></label>
-        <label><span class="form-label">Repay every</span>
-          <input name="repaymentEvery" type="number" min="1" value="1" class="form-control"/></label>
-        <label><span class="form-label">Repayment frequency</span>
-          <select name="repaymentFrequencyType" class="form-control">
-            <option value="2">Months</option>
-            <option value="1">Weeks</option>
-            <option value="0">Days</option>
-          </select></label>
-        <label><span class="form-label">Submitted on *</span>
-          <input name="submittedOnDate" type="date" class="form-control" required/></label>
-        <label><span class="form-label">Expected disbursement *</span>
-          <input name="expectedDisbursementDate" type="date" class="form-control" required/></label>
-        <label><span class="form-label">Purpose</span>
-          <input name="purpose" class="form-control"/></label>
-        <label><span class="form-label">External ID</span>
-          <input name="externalId" class="form-control"/></label>
+      <form id="newLoanForm">
+        <!-- Step 1 · Applicant -->
+        <div class="wz-pane form-grid" data-wz-step="Applicant">
+          <label class="full"><span class="form-label">Client *</span>
+            <div class="search-field">
+              <input id="loanClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
+              <input type="hidden" name="clientId" id="loanClientId"/>
+              <div id="loanClientResults" class="search-dropdown" style="display:none"></div>
+            </div>
+          </label>
+          <label><span class="form-label">Loan type *</span>
+            <select name="loanType" class="form-control" required>
+              <option value="individual">Individual</option>
+              <option value="group">Group</option>
+              <option value="jlg">JLG</option>
+            </select></label>
+          <label><span class="form-label">Loan product *</span>
+            <select name="productId" class="form-control" data-populate="loanProducts" required></select></label>
+          <label><span class="form-label">Loan officer</span>
+            <select name="loanOfficerId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
+          <label><span class="form-label">Fund</span>
+            <select name="fundId" id="loan-fund-sel" class="form-control"><option value="">— None —</option></select></label>
+          <label><span class="form-label">External ID</span>
+            <input name="externalId" class="form-control"/></label>
+        </div>
+        <!-- Step 2 · Terms -->
+        <div class="wz-pane form-grid" data-wz-step="Terms">
+          <label><span class="form-label">Principal *</span>
+            <input name="principal" type="number" min="0" step="0.01" class="form-control" required/></label>
+          <label><span class="form-label">Interest rate % (per period)</span>
+            <input name="interestRate" type="number" min="0" step="0.01" class="form-control"/></label>
+          <label><span class="form-label">No. of repayments *</span>
+            <input name="numberOfRepayments" type="number" min="1" value="12" class="form-control" required/></label>
+          <label><span class="form-label">Repay every</span>
+            <input name="repaymentEvery" type="number" min="1" value="1" class="form-control"/></label>
+          <label><span class="form-label">Repayment frequency</span>
+            <select name="repaymentFrequencyType" class="form-control">
+              <option value="2">Months</option>
+              <option value="1">Weeks</option>
+              <option value="0">Days</option>
+            </select></label>
+          <label><span class="form-label">Amortization</span>
+            <select name="amortizationType" class="form-control">
+              <option value="1">Equal installments</option>
+              <option value="0">Equal principal payments</option></select></label>
+          <label><span class="form-label">Interest method</span>
+            <select name="interestType" class="form-control">
+              <option value="0">Declining balance</option>
+              <option value="1">Flat</option></select></label>
+          <label><span class="form-label">Interest calculation period</span>
+            <select name="interestCalculationPeriodType" class="form-control">
+              <option value="1">Same as repayment</option>
+              <option value="0">Daily</option></select></label>
+        </div>
+        <!-- Step 3 · Schedule & Options -->
+        <div class="wz-pane form-grid" data-wz-step="Schedule">
+          <label><span class="form-label">Submitted on *</span>
+            <input name="submittedOnDate" type="date" class="form-control" required/></label>
+          <label><span class="form-label">Expected disbursement *</span>
+            <input name="expectedDisbursementDate" type="date" class="form-control" required/></label>
+          <label><span class="form-label">Expected first repayment</span>
+            <input name="repaymentsStartingFromDate" type="date" class="form-control"/></label>
+          <label><span class="form-label">Grace on principal</span>
+            <input name="graceOnPrincipalPayment" type="number" min="0" class="form-control"/></label>
+          <label><span class="form-label">Grace on interest payment</span>
+            <input name="graceOnInterestPayment" type="number" min="0" class="form-control"/></label>
+          <label><span class="form-label">Grace on arrears ageing</span>
+            <input name="graceOnArrearsAgeing" type="number" min="0" class="form-control"/></label>
+          <label><span class="form-label">Loan purpose</span>
+            <select name="loanPurposeId" id="loan-purpose-sel" class="form-control"><option value="">— None —</option></select></label>
+          <label><span class="form-label">Link savings account</span>
+            <select name="linkAccountId" id="loan-link-sel" class="form-control"><option value="">— None —</option></select></label>
+          <label class="full"><span class="form-label">Purpose notes</span>
+            <input name="purpose" class="form-control"/></label>
+        </div>
       </form>
     </div>
     <div class="modal-foot">

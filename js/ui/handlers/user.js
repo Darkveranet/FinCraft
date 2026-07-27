@@ -19,6 +19,9 @@ export const UserHandlers = {
         officeId: parseInt(f.officeId),
         roles
       };
+      if (f.staffId) payload.staffId = parseInt(f.staffId);
+      if (f.passwordNeverExpires === 'on' || f.passwordNeverExpires === 'true') payload.passwordNeverExpires = true;
+      if (f.isSelfServiceUser === 'on' || f.isSelfServiceUser === 'true') payload.isSelfServiceUser = true;
       if (f.sendPasswordToEmail === 'on' || f.sendPasswordToEmail === 'true') {
         payload.sendPasswordToEmail = true;
       } else {

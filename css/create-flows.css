@@ -120,3 +120,32 @@ td.lx-num, th.lx-num { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* Footer nav */
 .wz-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border-1); }
+
+/* ── Multi-step modal (wizardModal in products/shared.js) ─────────────────── */
+.modal .stepper { margin-bottom: 20px; }
+.modal .step-circle { cursor: pointer; }
+.modal .step-label { cursor: pointer; }
+.wz-panel .wz-step-title { font-size: 15px; font-weight: 700; color: var(--text-1); margin: 2px 0 14px; }
+.wz-panel .form-section-note { font-size: 12px; color: var(--text-3); margin: -8px 0 12px; }
+.wz-panel h4.mt-3 { margin-top: 18px; }
+
+/* ── Static-modal wizard (js/ui/modal-wizard.js) ─────────────────────────── */
+.wz-modal-stepper { margin: 4px 0 18px; }
+.modal .wz-modal-stepper .step-circle,
+.modal .wz-modal-stepper .step-label { cursor: pointer; }
+.wz-pane { animation: wz-fade .18s ease; }
+@keyframes wz-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.modal-foot .wz-modal-back,
+.modal-foot .wz-modal-next { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Auto Review / Confirm pane (injected by modal-wizard.js) */
+.wz-review-intro { font-size: 12.5px; color: var(--text-3); margin: 0 0 16px; line-height: 1.5; }
+.wz-review-section { margin-bottom: 18px; }
+.wz-review-section:last-child { margin-bottom: 0; }
+.wz-review-group-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--brand-teal); margin: 0 0 12px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-1);
+}
+.wz-review .wz-review-grid { margin-bottom: 0; }
+.wz-rv .v.empty { color: var(--text-3); font-style: italic; }

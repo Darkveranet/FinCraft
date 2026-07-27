@@ -24,9 +24,21 @@
         <label><span class="form-label">Submitted on *</span>
           <input name="submittedOnDate" type="date" class="form-control" required/></label>
         <label><span class="form-label">Nominal annual interest %</span>
-          <input name="nominalAnnualInterestRate" type="number" min="0" step="0.01" class="form-control" placeholder="Leave blank to use product rate"/></label>
+          <input name="nominalAnnualInterestRate" type="number" min="0" step="0.000001" class="form-control" placeholder="Leave blank to use product rate"/></label>
+        <label><span class="form-label">Opening deposit</span>
+          <input name="minRequiredOpeningBalance" type="number" min="0" step="0.01" class="form-control" placeholder="Optional"/></label>
+        <label><span class="form-label">Lock-in period</span>
+          <input name="lockinPeriodFrequency" type="number" min="0" class="form-control"/></label>
+        <label><span class="form-label">Lock-in period type</span>
+          <select name="lockinPeriodFrequencyType" class="form-control">
+            <option value="0">Days</option><option value="1">Weeks</option>
+            <option value="2" selected>Months</option><option value="3">Years</option></select></label>
         <label><span class="form-label">External ID</span>
           <input name="externalId" class="form-control"/></label>
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="allowOverdraft"/> <span>Allow overdraft on this account</span></label>
+        <label><span class="form-label">Overdraft limit</span>
+          <input name="overdraftLimit" type="number" min="0" step="0.01" class="form-control"/></label>
         <label class="full form-check" style="align-items:center">
           <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
       </form>
@@ -77,6 +89,12 @@
             <option value="2">Reinvest principal &amp; interest</option>
             <option value="3">Reinvest principal only</option>
           </select></label>
+        <label><span class="form-label">Lock-in period</span>
+          <input name="lockinPeriodFrequency" type="number" min="0" class="form-control" placeholder="Optional"/></label>
+        <label><span class="form-label">Lock-in period type</span>
+          <select name="lockinPeriodFrequencyType" class="form-control">
+            <option value="0">Days</option><option value="1">Weeks</option>
+            <option value="2" selected>Months</option><option value="3">Years</option></select></label>
         <label><span class="form-label">External ID</span>
           <input name="externalId" class="form-control"/></label>
         <label class="full form-check" style="align-items:center">
@@ -132,6 +150,12 @@
           <input name="submittedOnDate" type="date" class="form-control" required/></label>
         <label><span class="form-label">Expected first deposit on</span>
           <input name="expectedFirstDepositOnDate" type="date" class="form-control"/></label>
+        <label><span class="form-label">Lock-in period</span>
+          <input name="lockinPeriodFrequency" type="number" min="0" class="form-control" placeholder="Optional"/></label>
+        <label><span class="form-label">Lock-in period type</span>
+          <select name="lockinPeriodFrequencyType" class="form-control">
+            <option value="0">Days</option><option value="1">Weeks</option>
+            <option value="2" selected>Months</option><option value="3">Years</option></select></label>
         <label><span class="form-label">External ID</span>
           <input name="externalId" class="form-control"/></label>
         <label class="full form-check" style="align-items:center">

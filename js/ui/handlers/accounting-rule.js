@@ -16,6 +16,8 @@ export const AccountingRuleHandlers = {
       if (f.officeId) payload.officeId = parseInt(f.officeId);
       if (f.description) payload.description = f.description;
       if (f.tags) payload.tags = f.tags;
+      if (f.allowMultipleDebitEntries === 'on' || f.allowMultipleDebitEntries === 'true') payload.allowMultipleDebitEntries = true;
+      if (f.allowMultipleCreditEntries === 'on' || f.allowMultipleCreditEntries === 'true') payload.allowMultipleCreditEntries = true;
 
       setSubmitting(btn, true);
       try {

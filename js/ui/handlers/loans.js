@@ -23,15 +23,21 @@ export const LoansHandlers = {
         repaymentFrequencyType: parseInt(f.repaymentFrequencyType ?? tpl.repaymentFrequencyType ?? 2),
         interestRatePerPeriod: parseFloat(f.interestRate) || tpl.interestRatePerPeriod || 0,
         interestRateFrequencyType: tpl.interestRateFrequencyType ?? 2,
-        amortizationType: tpl.amortizationType ?? 1,
-        interestType: tpl.interestType ?? 0,
-        interestCalculationPeriodType: tpl.interestCalculationPeriodType ?? 1,
+        amortizationType: f.amortizationType != null && f.amortizationType !== '' ? parseInt(f.amortizationType) : (tpl.amortizationType ?? 1),
+        interestType: f.interestType != null && f.interestType !== '' ? parseInt(f.interestType) : (tpl.interestType ?? 0),
+        interestCalculationPeriodType: f.interestCalculationPeriodType != null && f.interestCalculationPeriodType !== '' ? parseInt(f.interestCalculationPeriodType) : (tpl.interestCalculationPeriodType ?? 1),
         transactionProcessingStrategyCode: tpl.transactionProcessingStrategyCode || 'mifos-standard-strategy',
         submittedOnDate: f.submittedOnDate,
         expectedDisbursementDate: f.expectedDisbursementDate
       };
       if (f.loanOfficerId) payload.loanOfficerId = parseInt(f.loanOfficerId);
-      if (f.purpose) payload.loanPurposeId = f.purpose;
+      if (f.fundId) payload.fundId = parseInt(f.fundId);
+      if (f.loanPurposeId) payload.loanPurposeId = parseInt(f.loanPurposeId);
+      if (f.linkAccountId) payload.linkAccountId = parseInt(f.linkAccountId);
+      if (f.repaymentsStartingFromDate) payload.repaymentsStartingFromDate = f.repaymentsStartingFromDate;
+      if (f.graceOnPrincipalPayment) payload.graceOnPrincipalPayment = parseInt(f.graceOnPrincipalPayment);
+      if (f.graceOnInterestPayment) payload.graceOnInterestPayment = parseInt(f.graceOnInterestPayment);
+      if (f.graceOnArrearsAgeing) payload.graceOnArrearsAgeing = parseInt(f.graceOnArrearsAgeing);
       if (f.externalId) payload.externalId = f.externalId;
 
       setSubmitting(btn, true);

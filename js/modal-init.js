@@ -191,6 +191,23 @@ document.addEventListener('fc:modals-loaded', async () => {
         if (repEveryInput && tpl.repaymentEvery) repEveryInput.value = tpl.repaymentEvery;
         if (repFreqSel && cfg.repaymentFrequencyType != null) repFreqSel.value = String(cfg.repaymentFrequencyType);
         if (rateInput && cfg.interestRatePerPeriod != null) rateInput.value = cfg.interestRatePerPeriod;
+        // Reflect the product's amortization / interest method / calc period defaults.
+        const setSel = (name, val) => { const s = loanForm.querySelector(`[name="${name}"]`); if (s && val != null) s.value = String(val); };
+        setSel('amortizationType', cfg.amortizationType);
+        setSel('interestType', cfg.interestType);
+        setSel('interestCalculationPeriodType', cfg.interestCalculationPeriodType);
+        // Populate the fund / loan-purpose / linkable-savings selects from the template.
+        const fillSel = (id, opts, labelFn) => {
+          const sel = document.getElementById(id);
+          if (!sel) return;
+          const cur = sel.value;
+          sel.innerHTML = '<option value="">— None —</option>' +
+            (opts || []).map(o => `<option value="${o.id}">${escapeHtml(labelFn(o))}</option>`).join('');
+          if (cur) sel.value = cur;
+        };
+        fillSel('loan-fund-sel', tpl.fundOptions, o => o.name);
+        fillSel('loan-purpose-sel', tpl.loanPurposeOptions, o => o.name);
+        fillSel('loan-link-sel', tpl.accountLinkingOptions, o => o.accountNo || o.productName || ('#' + o.id));
       } catch { }
     });
   }

@@ -15,6 +15,15 @@ export const SavingsHandlers = {
       };
       if (f.staffId) payload.fieldOfficerId = parseInt(f.staffId);
       if (f.nominalAnnualInterestRate) payload.nominalAnnualInterestRate = parseFloat(f.nominalAnnualInterestRate);
+      if (f.minRequiredOpeningBalance) payload.minRequiredOpeningBalance = parseFloat(f.minRequiredOpeningBalance);
+      if (f.lockinPeriodFrequency) {
+        payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency);
+        payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType || 2);
+      }
+      if (f.allowOverdraft === 'on' || f.allowOverdraft === 'true') {
+        payload.allowOverdraft = true;
+        if (f.overdraftLimit) payload.overdraftLimit = parseFloat(f.overdraftLimit);
+      }
       if (f.externalId) payload.externalId = f.externalId;
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';

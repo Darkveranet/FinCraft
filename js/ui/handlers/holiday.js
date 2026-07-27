@@ -10,15 +10,17 @@ export const HolidayHandlers = {
       if (!f.name || !f.fromDate || !f.toDate || !officeIds.length) {
         toast('warn', 'Required', 'Name, dates and at least one office are required'); return;
       }
+      const reschedulingType = parseInt(f.reschedulingType || '2');
       const payload = {
         dateFormat: DATE_FORMAT, locale: LOCALE,
         name: f.name,
         fromDate: f.fromDate,
         toDate: f.toDate,
-        reschedulingType: 2,
+        reschedulingType,
         offices: officeIds.map(id => ({ officeId: id }))
       };
-      if (f.repaymentsRescheduledTo) payload.repaymentsRescheduledTo = f.repaymentsRescheduledTo;
+      // A specific reschedule date only applies to rescheduling type 2.
+      if (reschedulingType === 2 && f.repaymentsRescheduledTo) payload.repaymentsRescheduledTo = f.repaymentsRescheduledTo;
       if (f.description) payload.description = f.description;
 
       setSubmitting(btn, true);

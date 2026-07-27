@@ -21,6 +21,10 @@ export const FixedDepositHandlers = {
       if (f.fieldOfficerId) payload.fieldOfficerId = parseInt(f.fieldOfficerId);
       if (f.expectedFirstDepositOnDate) payload.expectedFirstDepositOnDate = f.expectedFirstDepositOnDate;
       if (f.maturityInstructionId) payload.maturityInstructionId = parseInt(f.maturityInstructionId);
+      if (f.lockinPeriodFrequency) {
+        payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency);
+        payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType || 2);
+      }
       if (f.externalId) payload.externalId = f.externalId;
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';

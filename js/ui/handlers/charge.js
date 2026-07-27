@@ -20,6 +20,11 @@ export const ChargeHandlers = {
         penalty: f.penalty === 'true',
         active: f.active !== 'false'
       };
+      if (f.minCap) payload.minCap = parseFloat(f.minCap);
+      if (f.maxCap) payload.maxCap = parseFloat(f.maxCap);
+      if (f.feeInterval) payload.feeInterval = parseInt(f.feeInterval);
+      if (f.feeFrequency !== undefined && f.feeFrequency !== '') payload.feeFrequency = parseInt(f.feeFrequency);
+      if (f.feeOnMonthDay) { payload.feeOnMonthDay = f.feeOnMonthDay; payload.monthDayFormat = 'dd MMMM'; }
 
       setSubmitting(btn, true);
       try {
