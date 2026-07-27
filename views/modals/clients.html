@@ -5,45 +5,58 @@
 
 <!-- New Client -->
 <div id="newClientModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Client</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newClientForm">
-        <label class="full"><span class="form-label">Client type *</span>
-          <select name="legalFormId" class="form-control" required id="client-legal-form">
-            <option value="1">Individual (Person)</option>
-            <option value="2">Entity (Organisation)</option>
-          </select></label>
-        <!-- Individual fields -->
-        <div id="client-individual-fields" style="display:contents">
-          <label><span class="form-label">First name *</span><input name="firstname" class="form-control" autocomplete="off"/></label>
-          <label><span class="form-label">Middle name</span><input name="middlename" class="form-control" autocomplete="off"/></label>
-          <label><span class="form-label">Last name *</span><input name="lastname" class="form-control" autocomplete="off"/></label>
-          <label><span class="form-label">Date of birth</span><input name="dateOfBirth" type="date" class="form-control"/></label>
-          <label><span class="form-label">Gender</span>
-            <select name="genderId" class="form-control" data-populate="gender"><option value="">— Not specified —</option></select></label>
+      <form id="newClientForm">
+        <!-- Step 1 · Identity -->
+        <div class="wz-pane form-grid" data-wz-step="Identity">
+          <label class="full"><span class="form-label">Client type *</span>
+            <select name="legalFormId" class="form-control" required id="client-legal-form">
+              <option value="1">Individual (Person)</option>
+              <option value="2">Entity (Organisation)</option>
+            </select></label>
+          <!-- Individual fields -->
+          <div id="client-individual-fields" style="display:contents">
+            <label><span class="form-label">First name *</span><input name="firstname" class="form-control" autocomplete="off"/></label>
+            <label><span class="form-label">Middle name</span><input name="middlename" class="form-control" autocomplete="off"/></label>
+            <label><span class="form-label">Last name *</span><input name="lastname" class="form-control" autocomplete="off"/></label>
+            <label><span class="form-label">Date of birth</span><input name="dateOfBirth" type="date" class="form-control"/></label>
+            <label><span class="form-label">Gender</span>
+              <select name="genderId" class="form-control" data-populate="gender"><option value="">— Not specified —</option></select></label>
+          </div>
+          <!-- Entity fields (hidden unless Entity selected) -->
+          <div id="client-entity-fields" style="display:none" class="full">
+            <label class="full"><span class="form-label">Full legal name *</span><input name="fullname" class="form-control" autocomplete="off"/></label>
+            <label><span class="form-label">Incorporation number</span><input name="incorpNumber" class="form-control"/></label>
+            <label><span class="form-label">Incorporation valid till</span><input name="incorpValidityTill" type="date" class="form-control"/></label>
+          </div>
+          <label><span class="form-label">Mobile</span><input name="mobileNo" class="form-control" type="tel"/></label>
+          <label><span class="form-label">Email address</span><input name="emailAddress" type="email" class="form-control"/></label>
+          <label><span class="form-label">External ID</span><input name="externalId" class="form-control"/></label>
         </div>
-        <!-- Entity fields (hidden unless Entity selected) -->
-        <div id="client-entity-fields" style="display:none" class="full">
-          <label class="full"><span class="form-label">Full legal name *</span><input name="fullname" class="form-control" autocomplete="off"/></label>
+        <!-- Step 2 · Placement & Dates -->
+        <div class="wz-pane form-grid" data-wz-step="Placement">
+          <label><span class="form-label">Office *</span>
+            <select name="officeId" class="form-control" data-populate="offices" required></select></label>
+          <label><span class="form-label">Loan officer</span>
+            <select name="staffId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
+          <label><span class="form-label">Client type</span>
+            <select name="clientTypeId" class="form-control" data-populate="clientType"><option value="">— Not specified —</option></select></label>
+          <label><span class="form-label">Classification</span>
+            <select name="clientClassificationId" class="form-control" data-populate="clientClassification"><option value="">— Not specified —</option></select></label>
+          <label><span class="form-label">Center</span>
+            <select id="cl-center-sel" class="form-control" data-populate="centers"><option value="">— None —</option></select></label>
+          <label id="cl-group-wrap" style="display:none"><span class="form-label">Group *</span>
+            <select name="groupId" id="cl-group-sel" class="form-control"><option value="">— Select a group —</option></select></label>
+          <label><span class="form-label">Submitted on *</span>
+            <input name="submittedOnDate" type="date" class="form-control" required/></label>
+          <label><span class="form-label">Activation date</span>
+            <input name="activationDate" type="date" class="form-control"/></label>
+          <label class="full flex items-center gap-2" style="align-items:center">
+            <input type="checkbox" name="isStaff"/> <span>Is a staff member</span></label>
         </div>
-        <label><span class="form-label">Mobile</span><input name="mobileNo" class="form-control" type="tel"/></label>
-        <label><span class="form-label">External ID</span><input name="externalId" class="form-control"/></label>
-        <label><span class="form-label">Office *</span>
-          <select name="officeId" class="form-control" data-populate="offices" required></select></label>
-        <label><span class="form-label">Loan officer</span>
-          <select name="staffId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
-        <label><span class="form-label">Center</span>
-          <select id="cl-center-sel" class="form-control" data-populate="centers"><option value="">— None —</option></select></label>
-        <label id="cl-group-wrap" style="display:none"><span class="form-label">Group *</span>
-          <select name="groupId" id="cl-group-sel" class="form-control"><option value="">— Select a group —</option></select></label>
-        <label><span class="form-label">Submitted on *</span>
-          <input name="submittedOnDate" type="date" class="form-control" required/></label>
-        <label><span class="form-label">Activation date</span>
-          <input name="activationDate" type="date" class="form-control"/></label>
-        <label class="full flex items-center gap-2" style="align-items:center">
-          <input type="checkbox" name="isStaff"/> <span>Is a staff member</span></label>
       </form>
     </div>
     <div class="modal-foot">

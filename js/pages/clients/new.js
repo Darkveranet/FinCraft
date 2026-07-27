@@ -47,17 +47,23 @@ export async function renderNew(c) {
     // identity
     idTypeId: '', idType: '', idNumber: '', idExpiry: '', taxId: '',
     officeId: '', officeName: '', risk: 'Low',
+    // native Fineract columns
+    externalId: '', staffId: '', staffName: '', clientTypeId: '', clientClassificationId: '',
+    active: false, activationDate: today(),
     docs: { id: false, address: false, photo: false, signature: false }
   };
 
   // Reference data (best-effort)
-  let offices = [], genders = [], idTypes = [];
+  let offices = [], genders = [], idTypes = [], staff = [], clientTypes = [], classifications = [];
   try {
     const [off, tpl] = await Promise.allSettled([api.offices.list(), api.clients.template()]);
     offices = off.status === 'fulfilled' && Array.isArray(off.value) ? off.value : [];
     const t = tpl.status === 'fulfilled' ? tpl.value : {};
     genders = t?.genderOptions || [];
     idTypes = t?.clientIdentifierTypeOptions || t?.clientIdentifierOptions || [];
+    staff = t?.staffOptions || [];
+    clientTypes = t?.clientTypeOptions || [];
+    classifications = t?.clientClassificationOptions || [];
   } catch { /* degrade gracefully */ }
   if (offices[0]) { state.officeId = String(offices[0].id); state.officeName = offices[0].name; }
 
@@ -133,14 +139,37 @@ export async function renderNew(c) {
           <div class="wz-field"><label>ID Number</label><input id="wz-idnum" class="form-control" value="${escapeHtml(state.idNumber)}" placeholder="Enter ID number"/></div>
           <div class="wz-field"><label>ID Expiry Date</label><input id="wz-idexp" type="date" class="form-control" value="${escapeHtml(state.idExpiry)}"/></div>
           <div class="wz-field"><label>Tax ID (optional)</label><input id="wz-tax" class="form-control" value="${escapeHtml(state.taxId)}" placeholder="TIN number"/></div>
+          <div class="wz-field"><label>External ID</label><input id="wz-ext" class="form-control" value="${escapeHtml(state.externalId)}" placeholder="Your own reference"/></div>
           <div class="wz-field"><label>Branch <span class="req">*</span></label>
             <select id="wz-office" class="form-control">
               ${offices.map(o => `<option value="${o.id}" ${String(state.officeId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Field Officer / Staff</label>
+            <select id="wz-staff" class="form-control">
+              <option value="">— Unassigned —</option>
+              ${staff.map(s => `<option value="${s.id}" ${String(state.staffId) === String(s.id) ? 'selected' : ''}>${escapeHtml(s.displayName || s.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Client Type</label>
+            <select id="wz-ctype" class="form-control">
+              <option value="">Select…</option>
+              ${clientTypes.map(t => `<option value="${t.id}" ${String(state.clientTypeId) === String(t.id) ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Classification</label>
+            <select id="wz-classif" class="form-control">
+              <option value="">Select…</option>
+              ${classifications.map(t => `<option value="${t.id}" ${String(state.clientClassificationId) === String(t.id) ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
             </select></div>
           <div class="wz-field"><label>Risk Rating</label>
             <select id="wz-risk" class="form-control">
               ${['Low', 'Medium', 'High'].map(r => `<option value="${r}" ${state.risk === r ? 'selected' : ''}>${r} Risk</option>`).join('')}
             </select></div>
+          <div class="wz-field full">
+            <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
+              <input type="checkbox" id="wz-active" ${state.active ? 'checked' : ''}/> <span>Activate customer immediately</span>
+            </label>
+            <div class="wz-hint">When on, the client is created <b>and</b> activated on the date below (ready to hold accounts).</div>
+          </div>
+          <div class="wz-field"><label>Activation Date</label><input id="wz-actdate" type="date" class="form-control" value="${escapeHtml(state.activationDate)}"/></div>
         </div>
         <div class="wz-drop">
           <div class="wz-drop-ico"><i class="fa-solid fa-cloud-arrow-up"></i></div>
@@ -227,8 +256,15 @@ export async function renderNew(c) {
       state.idNumber = c.querySelector('#wz-idnum')?.value.trim() || '';
       state.idExpiry = c.querySelector('#wz-idexp')?.value || '';
       state.taxId    = c.querySelector('#wz-tax')?.value.trim() || '';
+      state.externalId = c.querySelector('#wz-ext')?.value.trim() || '';
       const osel = c.querySelector('#wz-office');
       if (osel) { state.officeId = osel.value; state.officeName = osel.selectedOptions[0]?.textContent?.trim() || ''; }
+      const ssel = c.querySelector('#wz-staff');
+      if (ssel) { state.staffId = ssel.value; state.staffName = ssel.selectedOptions[0]?.textContent?.trim() || ''; }
+      state.clientTypeId = c.querySelector('#wz-ctype')?.value || '';
+      state.clientClassificationId = c.querySelector('#wz-classif')?.value || '';
+      state.active = !!c.querySelector('#wz-active')?.checked;
+      state.activationDate = c.querySelector('#wz-actdate')?.value || state.activationDate;
       state.risk = c.querySelector('#wz-risk')?.value || 'Low';
     }
   }
@@ -289,7 +325,12 @@ export async function renderNew(c) {
     }
     if (state.mobileNo) payload.mobileNo = state.mobileNo;
     if (state.email) payload.emailAddress = state.email;
-    if (state.taxId) payload.externalId = state.taxId;
+    if (state.externalId) payload.externalId = state.externalId;
+    else if (state.taxId) payload.externalId = state.taxId;
+    if (state.staffId) payload.staffId = parseInt(state.staffId);
+    if (state.clientTypeId) payload.clientTypeId = parseInt(state.clientTypeId);
+    if (state.clientClassificationId) payload.clientClassificationId = parseInt(state.clientClassificationId);
+    if (state.active) { payload.active = true; payload.activationDate = state.activationDate || today(); }
 
     try {
       const r = await api.clients.create(payload);

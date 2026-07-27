@@ -26,7 +26,11 @@ export async function renderNew(c) {
     step: 1,
     clientId: '', clientName: '', officeId: '', officeName: '',
     productId: '', productName: '', rate: null, currency: '',
-    nominalRate: '', externalId: '', autoActivate: true
+    nominalRate: '', externalId: '', autoActivate: true,
+    // native Fineract savings-create columns
+    fieldOfficerId: '', submittedOnDate: today(), openingBalance: '',
+    lockinFrequency: '', lockinType: '2', allowOverdraft: false, overdraftLimit: '',
+    tpl: null
   };
 
   let clients = [], offices = [], products = [];
@@ -85,11 +89,33 @@ export async function renderNew(c) {
         ${strip}`;
     }
     if (state.step === 3) {
+      const officers = state.tpl?.fieldOfficerOptions || state.tpl?.staffOptions || [];
       return `
         <div class="wz-step-title">Account Terms</div>
         <div class="wz-grid">
-          <div class="wz-field"><label>Nominal Annual Interest %</label><input id="wz-rate" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.nominalRate)}" placeholder="Leave blank to use product rate"/></div>
+          <div class="wz-field"><label>Nominal Annual Interest %</label><input id="wz-rate" type="number" min="0" step="0.000001" class="form-control" value="${escapeHtml(state.nominalRate)}" placeholder="Leave blank to use product rate"/></div>
+          <div class="wz-field"><label>Submitted On <span class="req">*</span></label><input id="wz-submitted" type="date" class="form-control" value="${escapeHtml(state.submittedOnDate)}"/></div>
+          <div class="wz-field"><label>Field Officer</label>
+            <select id="wz-officer" class="form-control">
+              <option value="">— Unassigned —</option>
+              ${officers.map(o => `<option value="${o.id}" ${String(state.fieldOfficerId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.displayName || o.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Opening Deposit</label><input id="wz-opening" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.openingBalance)}" placeholder="₦ (optional)"/></div>
+          <div class="wz-field"><label>Lock-in Period</label><input id="wz-lockin" type="number" min="0" class="form-control" value="${escapeHtml(state.lockinFrequency)}" placeholder="e.g. 3"/></div>
+          <div class="wz-field"><label>Lock-in Period Type</label>
+            <select id="wz-lockin-type" class="form-control">
+              <option value="0" ${state.lockinType === '0' ? 'selected' : ''}>Days</option>
+              <option value="1" ${state.lockinType === '1' ? 'selected' : ''}>Weeks</option>
+              <option value="2" ${state.lockinType === '2' ? 'selected' : ''}>Months</option>
+              <option value="3" ${state.lockinType === '3' ? 'selected' : ''}>Years</option>
+            </select></div>
           <div class="wz-field"><label>External ID</label><input id="wz-ext" class="form-control" value="${escapeHtml(state.externalId)}" placeholder="Optional reference"/></div>
+          <div class="wz-field full">
+            <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
+              <input type="checkbox" id="wz-od" ${state.allowOverdraft ? 'checked' : ''}/> <span>Allow overdraft on this account</span>
+            </label>
+          </div>
+          <div class="wz-field"><label>Overdraft Limit</label><input id="wz-od-limit" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.overdraftLimit)}" placeholder="₦"/></div>
           <div class="wz-field full">
             <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
               <input type="checkbox" id="wz-auto" ${state.autoActivate ? 'checked' : ''}/> <span>Also approve &amp; activate immediately</span>
@@ -130,7 +156,7 @@ export async function renderNew(c) {
     wire();
   }
 
-  function capture() {
+  async function capture() {
     if (state.step === 1) {
       const csel = c.querySelector('#wz-client');
       if (csel) { state.clientId = csel.value; state.clientName = csel.selectedOptions[0]?.textContent?.replace(/\s*\(.*\)$/, '').trim() || ''; }
@@ -139,15 +165,27 @@ export async function renderNew(c) {
     }
     if (state.step === 2) {
       const psel = c.querySelector('#wz-product');
-      if (psel) {
+      if (psel && psel.value !== state.productId) {
         state.productId = psel.value;
         state.productName = psel.selectedOptions[0]?.textContent?.replace(/\s*—.*$/, '').trim() || '';
         const p = products.find(pr => String(pr.id) === String(state.productId));
         state.rate = p?.nominalAnnualInterestRate ?? null;
+        // Pull field-officer options (and any product create-defaults) from the template.
+        if (state.productId && state.clientId) {
+          try { state.tpl = await api.savings.template({ clientId: state.clientId, productId: state.productId }); }
+          catch { /* optional */ }
+        }
       }
     }
     if (state.step === 3) {
       state.nominalRate = c.querySelector('#wz-rate')?.value || '';
+      state.submittedOnDate = c.querySelector('#wz-submitted')?.value || state.submittedOnDate;
+      state.fieldOfficerId = c.querySelector('#wz-officer')?.value || '';
+      state.openingBalance = c.querySelector('#wz-opening')?.value || '';
+      state.lockinFrequency = c.querySelector('#wz-lockin')?.value || '';
+      state.lockinType = c.querySelector('#wz-lockin-type')?.value || '2';
+      state.allowOverdraft = !!c.querySelector('#wz-od')?.checked;
+      state.overdraftLimit = c.querySelector('#wz-od-limit')?.value || '';
       state.externalId = c.querySelector('#wz-ext')?.value.trim() || '';
       state.autoActivate = !!c.querySelector('#wz-auto')?.checked;
     }
@@ -161,18 +199,18 @@ export async function renderNew(c) {
 
   function wire() {
     c.querySelector('#wz-back-top')?.addEventListener('click', () => import('../../router.js').then(r => r.navigate('savings')));
-    c.querySelector('#wz-prev')?.addEventListener('click', () => { capture(); if (state.step > 1) { state.step--; render(); } });
-    c.querySelector('#wz-next')?.addEventListener('click', () => { capture(); if (!validate()) return; state.step++; render(); });
+    c.querySelector('#wz-prev')?.addEventListener('click', async () => { await capture(); if (state.step > 1) { state.step--; render(); } });
+    c.querySelector('#wz-next')?.addEventListener('click', async () => { await capture(); if (!validate()) return; state.step++; render(); });
     c.querySelector('#wz-submit')?.addEventListener('click', submit);
-    c.querySelector('#wz-product')?.addEventListener('change', () => { capture(); render(); });
+    c.querySelector('#wz-product')?.addEventListener('change', async () => { await capture(); render(); });
   }
 
   async function submit() {
-    capture();
+    await capture();
     const btn = c.querySelector('#wz-submit');
     if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Opening…'; }
 
-    const sub = today();
+    const sub = state.submittedOnDate || today();
     const payload = {
       dateFormat: DATE_FORMAT, locale: LOCALE,
       clientId: parseInt(state.clientId),
@@ -181,6 +219,16 @@ export async function renderNew(c) {
     };
     if (state.nominalRate) payload.nominalAnnualInterestRate = parseFloat(state.nominalRate);
     if (state.externalId) payload.externalId = state.externalId;
+    if (state.fieldOfficerId) payload.fieldOfficerId = parseInt(state.fieldOfficerId);
+    if (state.openingBalance) payload.minRequiredOpeningBalance = parseFloat(state.openingBalance);
+    if (state.lockinFrequency) {
+      payload.lockinPeriodFrequency = parseInt(state.lockinFrequency);
+      payload.lockinPeriodFrequencyType = parseInt(state.lockinType || '2');
+    }
+    if (state.allowOverdraft) {
+      payload.allowOverdraft = true;
+      if (state.overdraftLimit) payload.overdraftLimit = parseFloat(state.overdraftLimit);
+    }
 
     try {
       const r = await api.savings.create(payload);

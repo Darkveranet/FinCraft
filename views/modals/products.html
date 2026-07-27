@@ -22,6 +22,19 @@
           <select name="currencyCode" id="charge-currency" class="form-control" required></select></label>
         <label><span class="form-label">Amount *</span>
           <input name="amount" type="number" step="0.01" min="0" required class="form-control"/></label>
+        <label><span class="form-label">Min cap</span>
+          <input name="minCap" type="number" step="0.01" min="0" class="form-control" placeholder="Optional"/></label>
+        <label><span class="form-label">Max cap</span>
+          <input name="maxCap" type="number" step="0.01" min="0" class="form-control" placeholder="Optional"/></label>
+        <label><span class="form-label">Fee interval</span>
+          <input name="feeInterval" type="number" min="1" class="form-control" placeholder="e.g. 1"/></label>
+        <label><span class="form-label">Fee frequency</span>
+          <select name="feeFrequency" class="form-control">
+            <option value="">— Not recurring —</option>
+            <option value="0">Days</option><option value="1">Weeks</option>
+            <option value="2">Months</option><option value="3">Years</option></select></label>
+        <label><span class="form-label">Charge on month day</span>
+          <input name="feeOnMonthDay" type="text" class="form-control" placeholder="dd MMMM (e.g. 15 January)"/></label>
         <label><span class="form-label">Penalty?</span>
           <select name="penalty" class="form-control"><option value="false">No</option><option value="true">Yes</option></select></label>
         <label><span class="form-label">Active?</span>
@@ -37,73 +50,82 @@
 
 <!-- New Loan Product -->
 <div id="newLoanProductModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Loan Product</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newLoanProductForm">
-        <label><span class="form-label">Product name *</span>
-          <input name="name" required class="form-control"/></label>
-        <label><span class="form-label">Short name *</span>
-          <input name="shortName" required class="form-control" maxlength="4"/></label>
-        <label><span class="form-label">Currency *</span>
-          <select name="currencyCode" id="lp-currency" class="form-control" required><option value="">Loading…</option></select></label>
-        <label><span class="form-label">Decimal places</span>
-          <input name="digitsAfterDecimal" type="number" min="0" max="6" value="2" class="form-control"/></label>
-        <label><span class="form-label">Principal *</span>
-          <input name="principal" type="number" min="0" step="0.01" class="form-control" required/></label>
-        <label><span class="form-label">Min principal</span>
-          <input name="minPrincipal" type="number" min="0" step="0.01" class="form-control"/></label>
-        <label><span class="form-label">Max principal</span>
-          <input name="maxPrincipal" type="number" min="0" step="0.01" class="form-control"/></label>
-        <label><span class="form-label">Interest rate % *</span>
-          <input name="interestRatePerPeriod" type="number" min="0" step="0.01" class="form-control" required/></label>
-        <label><span class="form-label">Interest frequency</span>
-          <select name="interestRateFrequencyType" class="form-control">
-            <option value="2">Per month</option><option value="3">Per year</option>
-            <option value="0">Per day</option><option value="1">Per week</option></select></label>
-        <label><span class="form-label">Amortization</span>
-          <select name="amortizationType" class="form-control">
-            <option value="1">Equal installments</option>
-            <option value="0">Equal principal payments</option></select></label>
-        <label><span class="form-label">Interest type</span>
-          <select name="interestType" class="form-control">
-            <option value="0">Declining balance</option>
-            <option value="1">Flat</option></select></label>
-        <label><span class="form-label">Repayments *</span>
-          <input name="numberOfRepayments" type="number" min="1" value="12" class="form-control" required/></label>
-        <label><span class="form-label">Repay every</span>
-          <input name="repaymentEvery" type="number" min="1" value="1" class="form-control"/></label>
-        <label><span class="form-label">Repayment frequency</span>
-          <select name="repaymentFrequencyType" class="form-control">
-            <option value="2">Months</option><option value="1">Weeks</option><option value="0">Days</option></select></label>
-        <label><span class="form-label">Transaction strategy *</span>
-          <select name="transactionProcessingStrategyCode" class="form-control" required>
-            <option value="mifos-standard-strategy">Mifos standard</option>
-            <option value="heavensfamily-strategy">Heavens family</option>
-            <option value="creocore-strategy">CreoCore</option>
-            <option value="rbi-india-strategy">RBI India</option>
-            <option value="principal-interest-penalties-fees-order-strategy">P+I+Fees+Penalties order</option>
-            <option value="interest-principal-penalties-fees-order-strategy">I+P+Fees+Penalties order</option>
-          </select></label>
-        <label><span class="form-label">Grace on principal</span>
-          <input name="graceOnPrincipalPayment" type="number" min="0" value="0" class="form-control"/></label>
-        <label><span class="form-label">Grace on interest</span>
-          <input name="graceOnInterestPayment" type="number" min="0" value="0" class="form-control"/></label>
-        <label><span class="form-label">Interest calculation period *</span>
-          <select name="interestCalculationPeriodType" class="form-control" required>
-            <option value="1">Same as repayment period</option>
-            <option value="0">Daily</option>
-          </select></label>
-        <label><span class="form-label">Accounting rule</span>
-          <select name="accountingRule" class="form-control">
-            <option value="1">None</option>
-            <option value="2">Cash</option>
-            <option value="3">Accrual (Periodic)</option>
-            <option value="4">Accrual (Upfront)</option>
-          </select></label>
-        <label class="full"><span class="form-label">Description</span>
-          <textarea name="description" class="form-control" rows="2"></textarea></label>
+      <form id="newLoanProductForm">
+        <!-- Step 1 · Details -->
+        <div class="wz-pane form-grid" data-wz-step="Details">
+          <label><span class="form-label">Product name *</span>
+            <input name="name" required class="form-control"/></label>
+          <label><span class="form-label">Short name *</span>
+            <input name="shortName" required class="form-control" maxlength="4"/></label>
+          <label><span class="form-label">Currency *</span>
+            <select name="currencyCode" id="lp-currency" class="form-control" required><option value="">Loading…</option></select></label>
+          <label><span class="form-label">Decimal places</span>
+            <input name="digitsAfterDecimal" type="number" min="0" max="6" value="2" class="form-control"/></label>
+          <label><span class="form-label">Principal *</span>
+            <input name="principal" type="number" min="0" step="0.01" class="form-control" required/></label>
+          <label><span class="form-label">Min principal</span>
+            <input name="minPrincipal" type="number" min="0" step="0.01" class="form-control"/></label>
+          <label><span class="form-label">Max principal</span>
+            <input name="maxPrincipal" type="number" min="0" step="0.01" class="form-control"/></label>
+          <label class="full"><span class="form-label">Description</span>
+            <textarea name="description" class="form-control" rows="2"></textarea></label>
+        </div>
+        <!-- Step 2 · Terms & Interest -->
+        <div class="wz-pane form-grid" data-wz-step="Terms">
+          <label><span class="form-label">Interest rate % *</span>
+            <input name="interestRatePerPeriod" type="number" min="0" step="0.01" class="form-control" required/></label>
+          <label><span class="form-label">Interest frequency</span>
+            <select name="interestRateFrequencyType" class="form-control">
+              <option value="2">Per month</option><option value="3">Per year</option>
+              <option value="0">Per day</option><option value="1">Per week</option></select></label>
+          <label><span class="form-label">Amortization</span>
+            <select name="amortizationType" class="form-control">
+              <option value="1">Equal installments</option>
+              <option value="0">Equal principal payments</option></select></label>
+          <label><span class="form-label">Interest type</span>
+            <select name="interestType" class="form-control">
+              <option value="0">Declining balance</option>
+              <option value="1">Flat</option></select></label>
+          <label><span class="form-label">Interest calculation period *</span>
+            <select name="interestCalculationPeriodType" class="form-control" required>
+              <option value="1">Same as repayment period</option>
+              <option value="0">Daily</option>
+            </select></label>
+          <label><span class="form-label">Repayments *</span>
+            <input name="numberOfRepayments" type="number" min="1" value="12" class="form-control" required/></label>
+          <label><span class="form-label">Repay every</span>
+            <input name="repaymentEvery" type="number" min="1" value="1" class="form-control"/></label>
+          <label><span class="form-label">Repayment frequency</span>
+            <select name="repaymentFrequencyType" class="form-control">
+              <option value="2">Months</option><option value="1">Weeks</option><option value="0">Days</option></select></label>
+          <label><span class="form-label">Grace on principal</span>
+            <input name="graceOnPrincipalPayment" type="number" min="0" value="0" class="form-control"/></label>
+          <label><span class="form-label">Grace on interest</span>
+            <input name="graceOnInterestPayment" type="number" min="0" value="0" class="form-control"/></label>
+        </div>
+        <!-- Step 3 · Strategy & Accounting -->
+        <div class="wz-pane form-grid" data-wz-step="Accounting">
+          <label class="full"><span class="form-label">Transaction strategy *</span>
+            <select name="transactionProcessingStrategyCode" class="form-control" required>
+              <option value="mifos-standard-strategy">Mifos standard</option>
+              <option value="heavensfamily-strategy">Heavens family</option>
+              <option value="creocore-strategy">CreoCore</option>
+              <option value="rbi-india-strategy">RBI India</option>
+              <option value="principal-interest-penalties-fees-order-strategy">P+I+Fees+Penalties order</option>
+              <option value="interest-principal-penalties-fees-order-strategy">I+P+Fees+Penalties order</option>
+            </select></label>
+          <label class="full"><span class="form-label">Accounting rule</span>
+            <select name="accountingRule" class="form-control">
+              <option value="1">None</option>
+              <option value="2">Cash</option>
+              <option value="3">Accrual (Periodic)</option>
+              <option value="4">Accrual (Upfront)</option>
+            </select></label>
+        </div>
       </form>
     </div>
     <div class="modal-foot">
@@ -115,51 +137,60 @@
 
 <!-- New Savings Product -->
 <div id="newSavingsProductModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Savings Product</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newSavingsProductForm">
-        <label><span class="form-label">Product name *</span>
-          <input name="name" required class="form-control"/></label>
-        <label><span class="form-label">Short name *</span>
-          <input name="shortName" required class="form-control" maxlength="4"/></label>
-        <label><span class="form-label">Currency *</span>
-          <select name="currencyCode" id="sp-currency" class="form-control" required><option value="">Loading…</option></select></label>
-        <label><span class="form-label">Decimal places</span>
-          <input name="digitsAfterDecimal" type="number" min="0" max="6" value="2" class="form-control"/></label>
-        <label><span class="form-label">Nominal annual interest %</span>
-          <input name="nominalAnnualInterestRate" type="number" min="0" step="0.01" value="0" class="form-control"/></label>
-        <label><span class="form-label">Interest compounding</span>
-          <select name="interestCompoundingPeriodType" class="form-control">
-            <option value="1">Daily</option><option value="2">Monthly</option>
-            <option value="3">Quarterly</option><option value="4">Semi-annually</option>
-            <option value="5">Annually</option></select></label>
-        <label><span class="form-label">Interest posting period</span>
-          <select name="interestPostingPeriodType" class="form-control">
-            <option value="4">Monthly</option><option value="5">Quarterly</option>
-            <option value="6">Semi-annually</option><option value="7">Annually</option></select></label>
-        <label><span class="form-label">Interest calculation</span>
-          <select name="interestCalculationType" class="form-control">
-            <option value="1">Daily balance</option>
-            <option value="2">Average daily balance</option></select></label>
-        <label><span class="form-label">Days in year</span>
-          <select name="interestCalculationDaysInYearType" class="form-control">
-            <option value="365">365 days</option>
-            <option value="360">360 days</option></select></label>
-        <label><span class="form-label">Min opening balance</span>
-          <input name="minRequiredOpeningBalance" type="number" min="0" step="0.01" value="0" class="form-control"/></label>
-        <label><span class="form-label">Withdrawal fee (flat)</span>
-          <input name="withdrawalFeeForTransfers" type="number" min="0" step="0.01" value="0" class="form-control"/></label>
-        <label><span class="form-label">Accounting rule</span>
-          <select name="accountingRule" class="form-control">
-            <option value="1">None</option>
-            <option value="2">Cash</option>
-            <option value="3">Accrual (Periodic)</option>
-            <option value="4">Accrual (Upfront)</option>
-          </select></label>
-        <label class="full"><span class="form-label">Description</span>
-          <textarea name="description" class="form-control" rows="2"></textarea></label>
+      <form id="newSavingsProductForm">
+        <!-- Step 1 · Details -->
+        <div class="wz-pane form-grid" data-wz-step="Details">
+          <label><span class="form-label">Product name *</span>
+            <input name="name" required class="form-control"/></label>
+          <label><span class="form-label">Short name *</span>
+            <input name="shortName" required class="form-control" maxlength="4"/></label>
+          <label><span class="form-label">Currency *</span>
+            <select name="currencyCode" id="sp-currency" class="form-control" required><option value="">Loading…</option></select></label>
+          <label><span class="form-label">Decimal places</span>
+            <input name="digitsAfterDecimal" type="number" min="0" max="6" value="2" class="form-control"/></label>
+          <label><span class="form-label">Min opening balance</span>
+            <input name="minRequiredOpeningBalance" type="number" min="0" step="0.01" value="0" class="form-control"/></label>
+          <label><span class="form-label">Withdrawal fee (flat)</span>
+            <input name="withdrawalFeeForTransfers" type="number" min="0" step="0.01" value="0" class="form-control"/></label>
+          <label class="full"><span class="form-label">Description</span>
+            <textarea name="description" class="form-control" rows="2"></textarea></label>
+        </div>
+        <!-- Step 2 · Interest -->
+        <div class="wz-pane form-grid" data-wz-step="Interest">
+          <label><span class="form-label">Nominal annual interest %</span>
+            <input name="nominalAnnualInterestRate" type="number" min="0" step="0.000001" value="0" class="form-control"/></label>
+          <label><span class="form-label">Interest compounding</span>
+            <select name="interestCompoundingPeriodType" class="form-control">
+              <option value="1">Daily</option><option value="2">Monthly</option>
+              <option value="3">Quarterly</option><option value="4">Semi-annually</option>
+              <option value="5">Annually</option></select></label>
+          <label><span class="form-label">Interest posting period</span>
+            <select name="interestPostingPeriodType" class="form-control">
+              <option value="4">Monthly</option><option value="5">Quarterly</option>
+              <option value="6">Semi-annually</option><option value="7">Annually</option></select></label>
+          <label><span class="form-label">Interest calculation</span>
+            <select name="interestCalculationType" class="form-control">
+              <option value="1">Daily balance</option>
+              <option value="2">Average daily balance</option></select></label>
+          <label><span class="form-label">Days in year</span>
+            <select name="interestCalculationDaysInYearType" class="form-control">
+              <option value="365">365 days</option>
+              <option value="360">360 days</option></select></label>
+        </div>
+        <!-- Step 3 · Accounting -->
+        <div class="wz-pane form-grid" data-wz-step="Accounting">
+          <label class="full"><span class="form-label">Accounting rule</span>
+            <select name="accountingRule" class="form-control">
+              <option value="1">None</option>
+              <option value="2">Cash</option>
+              <option value="3">Accrual (Periodic)</option>
+              <option value="4">Accrual (Upfront)</option>
+            </select></label>
+        </div>
       </form>
     </div>
     <div class="modal-foot">

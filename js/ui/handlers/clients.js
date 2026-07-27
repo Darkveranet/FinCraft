@@ -16,6 +16,12 @@ export const ClientsHandlers = {
       if (f.legalFormId === '2') {
         if (!f.fullname) { toast('warn', 'Full name required', ''); return; }
         payload.fullname = f.fullname;
+        if (f.incorpNumber || f.incorpValidityTill) {
+          payload.clientNonPersonDetails = {
+            ...(f.incorpNumber ? { incorpNumber: f.incorpNumber } : {}),
+            ...(f.incorpValidityTill ? { incorpValidityTill: f.incorpValidityTill, dateFormat: DATE_FORMAT, locale: LOCALE } : {})
+          };
+        }
       } else {
         if (!f.firstname || !f.lastname) { toast('warn', 'First & last name required', ''); return; }
         payload.firstname = f.firstname;
@@ -25,8 +31,11 @@ export const ClientsHandlers = {
         if (f.genderId) payload.genderId = parseInt(f.genderId);
       }
       if (f.mobileNo) payload.mobileNo = f.mobileNo;
+      if (f.emailAddress) payload.emailAddress = f.emailAddress;
       if (f.externalId) payload.externalId = f.externalId;
       if (f.staffId) payload.staffId = parseInt(f.staffId);
+      if (f.clientTypeId) payload.clientTypeId = parseInt(f.clientTypeId);
+      if (f.clientClassificationId) payload.clientClassificationId = parseInt(f.clientClassificationId);
       if (f.groupId) payload.groupId = parseInt(f.groupId);
       if (f.activationDate) { payload.activationDate = f.activationDate; payload.active = true; }
       if (f.isStaff === 'on' || f.isStaff === 'true') payload.isStaff = true;

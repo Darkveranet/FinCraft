@@ -31,6 +31,9 @@ export async function renderNew(c) {
     clientId: '', clientName: '', officeId: '', officeName: '',
     productId: '', productName: '', principal: '', tenure: 12, purpose: '',
     income: '', expenses: '', repaymentSource: '', guarantors: '',
+    // native Fineract loan-create columns
+    loanOfficerId: '', fundId: '', loanPurposeId: '', externalId: '', linkAccountId: '',
+    submittedOnDate: today(), expectedDisbursementDate: today(), expectedFirstRepaymentOnDate: '',
     rate: null, minP: null, maxP: null, tpl: null
   };
 
@@ -44,6 +47,8 @@ export async function renderNew(c) {
     offices = off.status === 'fulfilled' && Array.isArray(off.value) ? off.value : [];
     products = pr.status === 'fulfilled' && Array.isArray(pr.value) ? pr.value : [];
   } catch { /* degrade */ }
+  // Loan officers, funds, purposes and the client's savings accounts come from
+  // the loan template — pulled lazily on the Loan Details step (see capture()).
   if (clients[0]) { state.clientId = String(clients[0].id); state.clientName = clients[0].displayName || clients[0].fullname; state.officeId = String(clients[0].officeId || ''); }
   if (offices[0] && !state.officeId) { state.officeId = String(offices[0].id); state.officeName = offices[0].name; }
 
@@ -102,7 +107,31 @@ export async function renderNew(c) {
         <div class="wz-grid">
           <div class="wz-field"><label>Amount Requested <span class="req">*</span></label><input id="wz-principal" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.principal)}" placeholder="₦"/></div>
           <div class="wz-field"><label>Tenure (months) <span class="req">*</span></label><input id="wz-tenure" type="number" min="1" class="form-control" value="${escapeHtml(String(state.tenure))}"/></div>
-          <div class="wz-field full"><label>Purpose of Loan</label><textarea id="wz-purpose" class="form-control" rows="2">${escapeHtml(state.purpose)}</textarea></div>
+          <div class="wz-field"><label>Submitted On <span class="req">*</span></label><input id="wz-submitted" type="date" class="form-control" value="${escapeHtml(state.submittedOnDate)}"/></div>
+          <div class="wz-field"><label>Expected Disbursement <span class="req">*</span></label><input id="wz-disburse" type="date" class="form-control" value="${escapeHtml(state.expectedDisbursementDate)}"/></div>
+          <div class="wz-field"><label>Expected First Repayment</label><input id="wz-firstrepay" type="date" class="form-control" value="${escapeHtml(state.expectedFirstRepaymentOnDate)}"/></div>
+          <div class="wz-field"><label>Loan Officer</label>
+            <select id="wz-officer" class="form-control">
+              <option value="">— Unassigned —</option>
+              ${(state.tpl?.loanOfficerOptions || []).map(o => `<option value="${o.id}" ${String(state.loanOfficerId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.displayName || o.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Fund</label>
+            <select id="wz-fund" class="form-control">
+              <option value="">— None —</option>
+              ${(state.tpl?.fundOptions || []).map(o => `<option value="${o.id}" ${String(state.fundId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Loan Purpose</label>
+            <select id="wz-purpose-id" class="form-control">
+              <option value="">Select…</option>
+              ${(state.tpl?.loanPurposeOptions || []).map(o => `<option value="${o.id}" ${String(state.loanPurposeId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>Link Savings Account</label>
+            <select id="wz-link" class="form-control">
+              <option value="">— None —</option>
+              ${(state.tpl?.accountLinkingOptions || []).map(o => `<option value="${o.id}" ${String(state.linkAccountId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.accountNo || o.productName || ('#' + o.id))}</option>`).join('')}
+            </select></div>
+          <div class="wz-field"><label>External ID</label><input id="wz-ext" class="form-control" value="${escapeHtml(state.externalId)}" placeholder="Your own reference"/></div>
+          <div class="wz-field full"><label>Purpose Notes</label><textarea id="wz-purpose" class="form-control" rows="2">${escapeHtml(state.purpose)}</textarea></div>
         </div>`;
     }
     if (state.step === 3) {
@@ -180,6 +209,14 @@ export async function renderNew(c) {
       state.principal = c.querySelector('#wz-principal')?.value || '';
       state.tenure = c.querySelector('#wz-tenure')?.value || state.tenure;
       state.purpose = c.querySelector('#wz-purpose')?.value.trim() || '';
+      state.submittedOnDate = c.querySelector('#wz-submitted')?.value || state.submittedOnDate;
+      state.expectedDisbursementDate = c.querySelector('#wz-disburse')?.value || state.expectedDisbursementDate;
+      state.expectedFirstRepaymentOnDate = c.querySelector('#wz-firstrepay')?.value || '';
+      state.loanOfficerId = c.querySelector('#wz-officer')?.value || '';
+      state.fundId = c.querySelector('#wz-fund')?.value || '';
+      state.loanPurposeId = c.querySelector('#wz-purpose-id')?.value || '';
+      state.linkAccountId = c.querySelector('#wz-link')?.value || '';
+      state.externalId = c.querySelector('#wz-ext')?.value.trim() || '';
     }
     if (state.step === 3) {
       state.income = c.querySelector('#wz-income')?.value || '';
@@ -229,9 +266,15 @@ export async function renderNew(c) {
       interestType: tpl.interestType?.id ?? tpl.interestType ?? 0,
       interestCalculationPeriodType: tpl.interestCalculationPeriodType?.id ?? tpl.interestCalculationPeriodType ?? 1,
       transactionProcessingStrategyCode: tpl.transactionProcessingStrategyCode || tpl.transactionProcessingStrategyOptions?.[0]?.code || 'mifos-standard-strategy',
-      expectedDisbursementDate: today(),
-      submittedOnDate: today()
+      expectedDisbursementDate: state.expectedDisbursementDate || today(),
+      submittedOnDate: state.submittedOnDate || today()
     };
+    if (state.expectedFirstRepaymentOnDate) payload.repaymentsStartingFromDate = state.expectedFirstRepaymentOnDate;
+    if (state.loanOfficerId) payload.loanOfficerId = parseInt(state.loanOfficerId);
+    if (state.fundId) payload.fundId = parseInt(state.fundId);
+    if (state.loanPurposeId) payload.loanPurposeId = parseInt(state.loanPurposeId);
+    if (state.linkAccountId) payload.linkAccountId = parseInt(state.linkAccountId);
+    if (state.externalId) payload.externalId = state.externalId;
 
     try {
       const r = await api.loans.create(payload);

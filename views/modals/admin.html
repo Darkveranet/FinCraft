@@ -5,28 +5,38 @@
 
 <!-- New User (staff/admin login, not self-service portal) -->
 <div id="newUserModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal">
+  <div class="modal" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New User</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newUserForm">
-        <label><span class="form-label">Username *</span>
-          <input name="username" required class="form-control"/></label>
-        <label><span class="form-label">Email *</span>
-          <input name="email" type="email" required class="form-control"/></label>
-        <label><span class="form-label">First name *</span>
-          <input name="firstname" required class="form-control"/></label>
-        <label><span class="form-label">Last name *</span>
-          <input name="lastname" required class="form-control"/></label>
-        <label class="full"><span class="form-label">Office *</span>
-          <select name="officeId" class="form-control" data-populate="offices" required></select></label>
-        <label class="full"><span class="form-label">Role(s) *</span>
-          <select name="roles" id="newuser-roles" class="form-control" multiple size="4" required></select></label>
-        <label class="full"><span class="form-check"><input type="checkbox" name="sendPasswordToEmail" id="nu-sendemail" checked/> Email the user a link to set their own password</span></label>
-        <label><span class="form-label">Password</span>
-          <input name="password" type="password" class="form-control" id="nu-pw" disabled/></label>
-        <label><span class="form-label">Confirm</span>
-          <input name="repeatPassword" type="password" class="form-control" id="nu-pw2" disabled/></label>
+      <form id="newUserForm">
+        <!-- Step 1 · Identity -->
+        <div class="wz-pane form-grid" data-wz-step="Identity">
+          <label><span class="form-label">Username *</span>
+            <input name="username" required class="form-control" autocomplete="off"/></label>
+          <label><span class="form-label">Email *</span>
+            <input name="email" type="email" required class="form-control"/></label>
+          <label><span class="form-label">First name *</span>
+            <input name="firstname" required class="form-control"/></label>
+          <label><span class="form-label">Last name *</span>
+            <input name="lastname" required class="form-control"/></label>
+          <label class="full"><span class="form-label">Office *</span>
+            <select name="officeId" class="form-control" data-populate="offices" required></select></label>
+          <label class="full"><span class="form-label">Link to staff member</span>
+            <select name="staffId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
+        </div>
+        <!-- Step 2 · Access & Credentials -->
+        <div class="wz-pane form-grid" data-wz-step="Access">
+          <label class="full"><span class="form-label">Role(s) *</span>
+            <select name="roles" id="newuser-roles" class="form-control" multiple size="4" required></select></label>
+          <label class="full"><span class="form-check"><input type="checkbox" name="sendPasswordToEmail" id="nu-sendemail" checked/> Email the user a link to set their own password</span></label>
+          <label><span class="form-label">Password</span>
+            <input name="password" type="password" class="form-control" id="nu-pw" disabled autocomplete="new-password"/></label>
+          <label><span class="form-label">Confirm</span>
+            <input name="repeatPassword" type="password" class="form-control" id="nu-pw2" disabled autocomplete="new-password"/></label>
+          <label class="full"><span class="form-check"><input type="checkbox" name="passwordNeverExpires"/> Password never expires</span></label>
+          <label class="full"><span class="form-check"><input type="checkbox" name="isSelfServiceUser"/> Is self-service (portal) user</span></label>
+        </div>
       </form>
     </div>
     <div class="modal-foot">

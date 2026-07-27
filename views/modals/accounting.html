@@ -5,25 +5,38 @@
 
 <!-- Journal Entry -->
 <div id="journalEntryModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Journal Entry</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="journalEntryForm">
-        <label><span class="form-label">Office *</span>
-          <select name="officeId" class="form-control" data-populate="offices" required></select></label>
-        <label><span class="form-label">Currency *</span>
-          <select name="currencyCode" class="form-control" id="je-currency-sel" required><option value="">Loading…</option></select></label>
-        <label><span class="form-label">Transaction date *</span>
-          <input name="transactionDate" type="date" class="form-control" required/></label>
-        <label><span class="form-label">Reference</span>
-          <input name="reference" class="form-control"/></label>
-        <label><span class="form-label">Payment type</span>
-          <select name="paymentTypeId" id="je-paymenttype" class="form-control"><option value="">— None —</option></select></label>
-        <label class="full"><span class="form-label">Comments</span>
-          <textarea name="comments" class="form-control" rows="2"></textarea></label>
-        <!-- Debits -->
-        <div class="full">
+      <form id="journalEntryForm">
+        <!-- Step 1 · Details -->
+        <div class="wz-pane form-grid" data-wz-step="Details">
+          <label><span class="form-label">Office *</span>
+            <select name="officeId" class="form-control" data-populate="offices" required></select></label>
+          <label><span class="form-label">Currency *</span>
+            <select name="currencyCode" class="form-control" id="je-currency-sel" required><option value="">Loading…</option></select></label>
+          <label><span class="form-label">Transaction date *</span>
+            <input name="transactionDate" type="date" class="form-control" required/></label>
+          <label><span class="form-label">Reference</span>
+            <input name="reference" class="form-control"/></label>
+          <label><span class="form-label">Payment type</span>
+            <select name="paymentTypeId" id="je-paymenttype" class="form-control"><option value="">— None —</option></select></label>
+          <label><span class="form-label">Account number</span>
+            <input name="accountNumber" class="form-control"/></label>
+          <label><span class="form-label">Cheque number</span>
+            <input name="checkNumber" class="form-control"/></label>
+          <label><span class="form-label">Routing code</span>
+            <input name="routingCode" class="form-control"/></label>
+          <label><span class="form-label">Receipt number</span>
+            <input name="receiptNumber" class="form-control"/></label>
+          <label><span class="form-label">Bank number</span>
+            <input name="bankNumber" class="form-control"/></label>
+          <label class="full"><span class="form-label">Comments</span>
+            <textarea name="comments" class="form-control" rows="2"></textarea></label>
+        </div>
+        <!-- Step 2 · Lines -->
+        <div class="wz-pane" data-wz-step="Lines">
           <div class="flex justify-between mb-2">
             <h4>Debits</h4>
             <button type="button" class="btn-ghost btn-sm" id="add-debit-row"><i class="fa-solid fa-plus"></i> Add row</button>
@@ -37,10 +50,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
-        <!-- Credits -->
-        <div class="full">
-          <div class="flex justify-between mb-2">
+          <div class="flex justify-between mb-2 mt-4">
             <h4>Credits</h4>
             <button type="button" class="btn-ghost btn-sm" id="add-credit-row"><i class="fa-solid fa-plus"></i> Add row</button>
           </div>
@@ -121,6 +131,8 @@
           <textarea name="description" class="form-control" rows="2"></textarea></label>
         <label class="full"><span class="form-label">Tags (comma-separated)</span>
           <input name="tags" class="form-control" placeholder="e.g. loan,interest"/></label>
+        <label class="full"><span class="form-check"><input type="checkbox" name="allowMultipleDebitEntries"/> Allow multiple debit entries</span></label>
+        <label class="full"><span class="form-check"><input type="checkbox" name="allowMultipleCreditEntries"/> Allow multiple credit entries</span></label>
       </form>
     </div>
     <div class="modal-foot">

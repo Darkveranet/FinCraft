@@ -29,6 +29,11 @@ export const JournalEntryHandlers = {
       if (f.reference) payload.referenceNumber = f.reference;
       if (f.comments) payload.comments = f.comments;
       if (f.paymentTypeId) payload.paymentTypeId = parseInt(f.paymentTypeId);
+      if (f.accountNumber) payload.accountNumber = f.accountNumber;
+      if (f.checkNumber) payload.checkNumber = f.checkNumber;
+      if (f.routingCode) payload.routingCode = f.routingCode;
+      if (f.receiptNumber) payload.receiptNumber = f.receiptNumber;
+      if (f.bankNumber) payload.bankNumber = f.bankNumber;
 
       setSubmitting(btn, true);
       try {

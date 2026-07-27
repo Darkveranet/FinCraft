@@ -5,35 +5,44 @@
 
 <!-- Account Transfer -->
 <div id="newTransferModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Account Transfer</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newTransferForm">
-        <label><span class="form-label">From office *</span>
-          <select name="fromOfficeId" class="form-control" data-populate="offices" required></select></label>
-        <label><span class="form-label">To office *</span>
-          <select name="toOfficeId" class="form-control" data-populate="offices" required></select></label>
-        <label><span class="form-label">From client ID *</span>
-          <input name="fromClientId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">From account ID *</span>
-          <input name="fromAccountId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">From account type</span>
-          <select name="fromAccountType" class="form-control">
-            <option value="2">Savings</option><option value="1">Loan</option></select></label>
-        <label><span class="form-label">To client ID *</span>
-          <input name="toClientId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">To account ID *</span>
-          <input name="toAccountId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">To account type</span>
-          <select name="toAccountType" class="form-control">
-            <option value="2">Savings</option><option value="1">Loan</option></select></label>
-        <label><span class="form-label">Amount *</span>
-          <input name="transferAmount" type="number" min="0.01" step="0.01" class="form-control" required/></label>
-        <label><span class="form-label">Date *</span>
-          <input name="transferDate" type="date" class="form-control" required/></label>
-        <label class="full"><span class="form-label">Description</span>
-          <input name="transferDescription" class="form-control"/></label>
+      <form id="newTransferForm">
+        <!-- Step 1 · Source -->
+        <div class="wz-pane form-grid" data-wz-step="From">
+          <label><span class="form-label">From office *</span>
+            <select name="fromOfficeId" class="form-control" data-populate="offices" required></select></label>
+          <label><span class="form-label">From account type</span>
+            <select name="fromAccountType" class="form-control">
+              <option value="2">Savings</option><option value="1">Loan</option></select></label>
+          <label><span class="form-label">From client ID *</span>
+            <input name="fromClientId" type="number" class="form-control" required/></label>
+          <label><span class="form-label">From account ID *</span>
+            <input name="fromAccountId" type="number" class="form-control" required/></label>
+        </div>
+        <!-- Step 2 · Destination -->
+        <div class="wz-pane form-grid" data-wz-step="To">
+          <label><span class="form-label">To office *</span>
+            <select name="toOfficeId" class="form-control" data-populate="offices" required></select></label>
+          <label><span class="form-label">To account type</span>
+            <select name="toAccountType" class="form-control">
+              <option value="2">Savings</option><option value="1">Loan</option></select></label>
+          <label><span class="form-label">To client ID *</span>
+            <input name="toClientId" type="number" class="form-control" required/></label>
+          <label><span class="form-label">To account ID *</span>
+            <input name="toAccountId" type="number" class="form-control" required/></label>
+        </div>
+        <!-- Step 3 · Amount -->
+        <div class="wz-pane form-grid" data-wz-step="Amount">
+          <label><span class="form-label">Amount *</span>
+            <input name="transferAmount" type="number" min="0.01" step="0.01" class="form-control" required/></label>
+          <label><span class="form-label">Date *</span>
+            <input name="transferDate" type="date" class="form-control" required/></label>
+          <label class="full"><span class="form-label">Description</span>
+            <input name="transferDescription" class="form-control"/></label>
+        </div>
       </form>
     </div>
     <div class="modal-foot">
@@ -45,60 +54,69 @@
 
 <!-- New Standing Instruction -->
 <div id="newSIModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg">
+  <div class="modal modal-lg" data-wizard>
     <div class="modal-head"><h3 class="modal-title">New Standing Instruction</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form class="form-grid" id="newSIForm">
-        <label class="full"><span class="form-label">Instruction name *</span>
-          <input name="name" required class="form-control"/></label>
-        <label><span class="form-label">From client ID *</span>
-          <input name="fromClientId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">From account ID *</span>
-          <input name="fromAccountId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">From account type</span>
-          <select name="fromAccountType" class="form-control">
-            <option value="2">Savings</option><option value="1">Loan</option></select></label>
-        <label><span class="form-label">To client ID *</span>
-          <input name="toClientId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">To account ID *</span>
-          <input name="toAccountId" type="number" class="form-control" required/></label>
-        <label><span class="form-label">To account type</span>
-          <select name="toAccountType" class="form-control">
-            <option value="2">Savings</option><option value="1">Loan</option></select></label>
-        <label><span class="form-label">Amount *</span>
-          <input name="amount" type="number" min="0.01" step="0.01" class="form-control" required/></label>
-        <label><span class="form-label">Transfer type</span>
-          <select name="transferType" class="form-control">
-            <option value="1">Account Transfer</option>
-            <option value="2">Loan Repayment</option></select></label>
-        <label><span class="form-label">Valid from *</span>
-          <input name="validFrom" type="date" class="form-control" required/></label>
-        <label><span class="form-label">Valid till</span>
-          <input name="validTill" type="date" class="form-control"/></label>
-        <label><span class="form-label">Recurrence type *</span>
-          <select name="recurrenceType" class="form-control" required>
-            <option value="1">Fixed</option><option value="2">Variable</option></select></label>
-        <label><span class="form-label">Recurrence frequency</span>
-          <select name="recurrenceFrequency" class="form-control">
-            <option value="1">Daily</option>
-            <option value="2">Weekly</option>
-            <option value="3">Monthly</option>
-            <option value="4">Yearly</option></select></label>
-        <label><span class="form-label">Every (interval)</span>
-          <input name="recurrenceInterval" type="number" min="1" value="1" class="form-control"/></label>
-        <label><span class="form-label">On month day</span>
-          <input name="recurrenceOnMonthDay" type="number" min="1" max="31" class="form-control"/></label>
-        <label class="full"><span class="form-label">Instruction type</span>
-          <select name="instructionType" class="form-control">
-            <option value="1">Fixed</option><option value="2">Best effort (partial allowed)</option></select></label>
-        <label><span class="form-label">Priority</span>
-          <select name="priority" class="form-control">
-            <option value="1">Urgent</option><option value="2">High</option>
-            <option value="3">Medium</option><option value="4">Low</option></select></label>
-        <label><span class="form-label">Status</span>
-          <select name="status" class="form-control">
-            <option value="1">Active</option><option value="2">Disabled</option></select></label>
+      <form id="newSIForm">
+        <!-- Step 1 · Accounts -->
+        <div class="wz-pane form-grid" data-wz-step="Accounts">
+          <label class="full"><span class="form-label">Instruction name *</span>
+            <input name="name" required class="form-control"/></label>
+          <label><span class="form-label">From client ID *</span>
+            <input name="fromClientId" type="number" class="form-control" required/></label>
+          <label><span class="form-label">From account ID *</span>
+            <input name="fromAccountId" type="number" class="form-control" required/></label>
+          <label><span class="form-label">From account type</span>
+            <select name="fromAccountType" class="form-control">
+              <option value="2">Savings</option><option value="1">Loan</option></select></label>
+          <label><span class="form-label">To client ID *</span>
+            <input name="toClientId" type="number" class="form-control" required/></label>
+          <label><span class="form-label">To account ID *</span>
+            <input name="toAccountId" type="number" class="form-control" required/></label>
+          <label><span class="form-label">To account type</span>
+            <select name="toAccountType" class="form-control">
+              <option value="2">Savings</option><option value="1">Loan</option></select></label>
+        </div>
+        <!-- Step 2 · Amount & Schedule -->
+        <div class="wz-pane form-grid" data-wz-step="Schedule">
+          <label><span class="form-label">Amount *</span>
+            <input name="amount" type="number" min="0.01" step="0.01" class="form-control" required/></label>
+          <label><span class="form-label">Transfer type</span>
+            <select name="transferType" class="form-control">
+              <option value="1">Account Transfer</option>
+              <option value="2">Loan Repayment</option></select></label>
+          <label><span class="form-label">Valid from *</span>
+            <input name="validFrom" type="date" class="form-control" required/></label>
+          <label><span class="form-label">Valid till</span>
+            <input name="validTill" type="date" class="form-control"/></label>
+          <label><span class="form-label">Recurrence type *</span>
+            <select name="recurrenceType" class="form-control" required>
+              <option value="1">Fixed</option><option value="2">Variable</option></select></label>
+          <label><span class="form-label">Recurrence frequency</span>
+            <select name="recurrenceFrequency" class="form-control">
+              <option value="1">Daily</option>
+              <option value="2">Weekly</option>
+              <option value="3">Monthly</option>
+              <option value="4">Yearly</option></select></label>
+          <label><span class="form-label">Every (interval)</span>
+            <input name="recurrenceInterval" type="number" min="1" value="1" class="form-control"/></label>
+          <label><span class="form-label">On month day</span>
+            <input name="recurrenceOnMonthDay" type="number" min="1" max="31" class="form-control"/></label>
+        </div>
+        <!-- Step 3 · Options -->
+        <div class="wz-pane form-grid" data-wz-step="Options">
+          <label class="full"><span class="form-label">Instruction type</span>
+            <select name="instructionType" class="form-control">
+              <option value="1">Fixed</option><option value="2">Best effort (partial allowed)</option></select></label>
+          <label><span class="form-label">Priority</span>
+            <select name="priority" class="form-control">
+              <option value="1">Urgent</option><option value="2">High</option>
+              <option value="3">Medium</option><option value="4">Low</option></select></label>
+          <label><span class="form-label">Status</span>
+            <select name="status" class="form-control">
+              <option value="1">Active</option><option value="2">Disabled</option></select></label>
+        </div>
       </form>
     </div>
     <div class="modal-foot">

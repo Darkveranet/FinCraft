@@ -74,6 +74,18 @@ async function populateModalDropdowns() {
       genderOpts.map(g => `<option value="${g.id}">${escapeHtml(g.name)}</option>`).join('');
   });
 
+  const clientTypeOpts = clientTpl?.clientTypeOptions || [];
+  document.querySelectorAll('[data-populate="clientType"]').forEach(sel => {
+    sel.innerHTML = '<option value="">— Not specified —</option>' +
+      clientTypeOpts.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
+  });
+
+  const clientClassOpts = clientTpl?.clientClassificationOptions || [];
+  document.querySelectorAll('[data-populate="clientClassification"]').forEach(sel => {
+    sel.innerHTML = '<option value="">— Not specified —</option>' +
+      clientClassOpts.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
+  });
+
   const currOpts = currList.length
     ? currList.map(c => `<option value="${c.code}">${escapeHtml(c.code + ' — ' + c.name)}</option>`).join('')
     : '<option value="">No currencies configured</option>';

@@ -72,6 +72,8 @@
         <label><span class="form-label">Active?</span>
           <select name="isActive" class="form-control">
             <option value="true">Yes</option><option value="false">No</option></select></label>
+        <label><span class="form-label">External ID</span>
+          <input name="externalId" class="form-control"/></label>
         <label class="full"><span class="form-label">Joining date</span>
           <input name="joiningDate" type="date" class="form-control"/></label>
       </form>
@@ -96,7 +98,12 @@
           <input name="fromDate" type="date" class="form-control" required/></label>
         <label><span class="form-label">To date *</span>
           <input name="toDate" type="date" class="form-control" required/></label>
-        <label><span class="form-label">Repayment rescheduled to</span>
+        <label><span class="form-label">Rescheduling type *</span>
+          <select name="reschedulingType" class="form-control" id="holiday-resch-type">
+            <option value="2">Reschedule to a specific date</option>
+            <option value="1">Reschedule to next repayment/working day</option>
+          </select></label>
+        <label id="holiday-resch-date-wrap"><span class="form-label">Repayment rescheduled to</span>
           <input name="repaymentsRescheduledTo" type="date" class="form-control"/></label>
         <label class="full"><span class="form-label">Office(s) *</span>
           <select name="offices" id="holiday-offices-sel" class="form-control" multiple size="4" required><option value="">Loading…</option></select></label>
