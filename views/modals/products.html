@@ -35,6 +35,11 @@
             <option value="2">Months</option><option value="3">Years</option></select></label>
         <label><span class="form-label">Charge on month day</span>
           <input name="feeOnMonthDay" type="text" class="form-control" placeholder="dd MMMM (e.g. 15 January)"/></label>
+        <label><span class="form-label">Payment mode</span>
+          <select name="chargePaymentMode" id="charge-paymentmode" class="form-control">
+            <option value="0">Regular</option><option value="1">Account transfer</option></select></label>
+        <label><span class="form-label">Tax group</span>
+          <select name="taxGroupId" id="charge-taxgroup" class="form-control"><option value="">— None —</option></select></label>
         <label><span class="form-label">Penalty?</span>
           <select name="penalty" class="form-control"><option value="false">No</option><option value="true">Yes</option></select></label>
         <label><span class="form-label">Active?</span>

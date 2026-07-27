@@ -21,7 +21,7 @@ export async function loadExternalServices(c) {
     </div>
     <div class="text-muted small mb-3">
       <i class="fa-solid fa-circle-info"></i>
-      External service configuration is read-only here for security. Editing is done via the Fineract server-side tooling.
+      Configure third-party connections. Secret fields are write-only — leave blank to keep the stored value.
     </div>
     <div class="kpi-grid">
       ${services.map(svc => `
@@ -31,7 +31,7 @@ export async function loadExternalServices(c) {
           </div>
           <div class="mt-2">
             <button class="btn-secondary btn-sm" data-svc-view="${svc.key}" data-svc-label="${escapeHtml(svc.label)}">
-              <i class="fa-solid fa-eye"></i> View Configuration
+              <i class="fa-solid fa-pen-to-square"></i> View / Edit
             </button>
           </div>
         </div>`).join('')}

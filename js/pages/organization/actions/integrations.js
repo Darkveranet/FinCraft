@@ -40,6 +40,18 @@ export async function openLoanOriginatorModal(existing, onSuccess) {
               }).join('')}
             </select>
           </label>
+          <label>Channel Type
+            <select id="orig-channel" class="form-control">
+              <option value="">— None —</option>
+              ${(tpl.channelOptions || tpl.channelTypeOptions || [
+                { id: 1, name: 'Branch' }, { id: 2, name: 'Online' },
+                { id: 3, name: 'Mobile' }, { id: 4, name: 'Agent' }
+              ]).map(ch => {
+                const sel = (existing?.channel?.id === ch.id || existing?.channelTypeId === ch.id) ? 'selected' : '';
+                return `<option value="${ch.id}" ${sel}>${escapeHtml(ch.name || ch.value)}</option>`;
+              }).join('')}
+            </select>
+          </label>
           <label>External ID
             <input id="orig-extid" class="form-control" value="${escapeHtml(existing?.externalId || '')}"/>
           </label>
@@ -83,6 +95,8 @@ export async function openLoanOriginatorModal(existing, onSuccess) {
     payload.active = modalEl.querySelector('#orig-active').checked;
     payload.locale = LOCALE;
 
+    const channelId = parseInt(modalEl.querySelector('#orig-channel').value);
+    if (isFinite(channelId)) payload.channelTypeId = channelId;
     const ext = modalEl.querySelector('#orig-extid').value.trim();
     if (ext) payload.externalId = ext;
     const email = modalEl.querySelector('#orig-email').value.trim();

@@ -14,7 +14,8 @@ async function populateModalDropdowns() {
     api.currencies.list(),
     api.glAccounts.list(),
     api.financialActivityAccounts.list(),
-    api.centers.list()
+    api.centers.list(),
+    api.clients.list({ limit: 200, offset: 0 })
   ]);
   const get = (i, fb = []) => results[i].status === 'fulfilled' ? (results[i].value ?? fb) : fb;
 
@@ -29,6 +30,7 @@ async function populateModalDropdowns() {
   const glList    = Array.isArray(get(8)) ? get(8) : [];
   const faList    = Array.isArray(get(9)) ? get(9) : [];
   const centerList = Array.isArray(get(10)) ? get(10) : (get(10)?.pageItems || []);
+  const clientList = Array.isArray(get(11)) ? get(11) : (get(11)?.pageItems || []);
 
   document.querySelectorAll('[data-populate="offices"]').forEach(sel => {
     sel.innerHTML = '<option value="">Select office…</option>' +
@@ -108,10 +110,16 @@ async function populateModalDropdowns() {
 
   window.__fcCenters = centerList;
   document.querySelectorAll('[data-populate="centers"]').forEach(sel => {
+    const keep = sel.querySelector('option[value=""]')?.outerHTML || '';
     sel.innerHTML = centerList.length
-      ? '<option value="">Select center…</option>' +
-        centerList.map(c => `<option value="${c.id}" data-office-id="${c.officeId ?? ''}">${escapeHtml(c.name)}</option>`).join('')
-      : '<option value="">No centers found — create one first</option>';
+      ? keep + centerList.map(c => `<option value="${c.id}" data-office-id="${c.officeId ?? ''}">${escapeHtml(c.name)}</option>`).join('')
+      : (keep || '<option value="">No centers found — create one first</option>');
+  });
+
+  document.querySelectorAll('[data-populate="clients"]').forEach(sel => {
+    sel.innerHTML = clientList.length
+      ? clientList.map(cl => `<option value="${cl.id}" data-office-id="${cl.officeId ?? ''}">${escapeHtml(cl.displayName || cl.fullname || (`${cl.firstname || ''} ${cl.lastname || ''}`).trim() || `Client #${cl.id}`)}</option>`).join('')
+      : '<option value="" disabled>No clients found</option>';
   });
 }
 document.addEventListener('fc:modals-loaded', populateModalDropdowns);

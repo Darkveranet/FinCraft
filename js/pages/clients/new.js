@@ -63,6 +63,8 @@ export async function renderNew(c) {
     officeId: '', officeName: '', risk: 'Low',
     // native Fineract columns
     externalId: '', staffId: '', staffName: '', clientTypeId: '', clientClassificationId: '',
+    isStaff: false, submittedOnDate: today(),
+    savingsProductId: '', savingsProductName: '',
     active: false, activationDate: today(),
     docs: { id: false, address: false, photo: false, signature: false }
   };
@@ -70,15 +72,18 @@ export async function renderNew(c) {
   // Reference data (best-effort)
   let offices = [], genders = [], idTypes = [], staff = [], clientTypes = [], classifications = [];
   let constitutions = [], businessLines = [];
+  let savingsProducts = [];   // native "Open Savings Account" options (POST /clients → savingsProductId)
   // address reference data (from /client/addresses/template) — empty ⇒ module off
   let addressTypes = [], countries = [], states = [];
   let addressModuleOn = false;
   try {
-    const [off, tpl, at] = await Promise.allSettled([
+    const [off, tpl, at, sp] = await Promise.allSettled([
       api.offices.list(),
       api.clients.template(),
-      api.clients.addressTemplate()
+      api.clients.addressTemplate(),
+      api.savingsProducts.list()
     ]);
+    savingsProducts = sp.status === 'fulfilled' && Array.isArray(sp.value) ? sp.value : [];
     offices = off.status === 'fulfilled' && Array.isArray(off.value) ? off.value : [];
     const t = tpl.status === 'fulfilled' ? tpl.value : {};
     genders = t?.genderOptions || [];
@@ -225,6 +230,20 @@ export async function renderNew(c) {
             <select id="wz-risk" class="form-control">
               ${['Low', 'Medium', 'High'].map(r => `<option value="${r}" ${state.risk === r ? 'selected' : ''}>${r} Risk</option>`).join('')}
             </select></div>
+          <div class="wz-field"><label>Submitted On <span class="req">*</span></label><input id="wz-submitted" type="date" class="form-control" value="${escapeHtml(state.submittedOnDate)}"/></div>
+          <div class="wz-field"><label>Open Savings Account</label>
+            <select id="wz-savprod" class="form-control">
+              <option value="">— None —</option>
+              ${savingsProducts.map(p => `<option value="${p.id}" ${String(state.savingsProductId) === String(p.id) ? 'selected' : ''}>${escapeHtml(p.name)}</option>`).join('')}
+            </select>
+            <div class="wz-hint">Optional. A savings account on this product is opened automatically when the client is activated.</div>
+          </div>
+          <div class="wz-field full">
+            <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
+              <input type="checkbox" id="wz-isstaff" ${state.isStaff ? 'checked' : ''}/> <span>This client is a staff member</span>
+            </label>
+            <div class="wz-hint">Flags the record as belonging to an employee of the organisation.</div>
+          </div>
           <div class="wz-field full">
             <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
               <input type="checkbox" id="wz-active" ${state.active ? 'checked' : ''}/> <span>Activate customer immediately</span>
@@ -271,6 +290,10 @@ export async function renderNew(c) {
         <div class="wz-rv"><div class="k">ID Number</div><div class="v">${dash(state.idNumber)}</div></div>
         <div class="wz-rv"><div class="k">Branch</div><div class="v">${dash(state.officeName)}</div></div>
         <div class="wz-rv"><div class="k">Risk Rating</div><div class="v">${dash(state.risk)}</div></div>
+        <div class="wz-rv"><div class="k">Submitted On</div><div class="v">${dash(state.submittedOnDate)}</div></div>
+        <div class="wz-rv"><div class="k">Staff Member</div><div class="v">${state.isStaff ? 'Yes' : 'No'}</div></div>
+        <div class="wz-rv"><div class="k">Savings Account</div><div class="v">${dash(state.savingsProductName)}</div></div>
+        <div class="wz-rv"><div class="k">Status</div><div class="v">${state.active ? 'Active on ' + escapeHtml(state.activationDate) : 'Pending'}</div></div>
         <div class="wz-rv wz-rv-wide"><div class="k">Residential Address</div><div class="v">${dash(addrLine)}</div></div>
       </div>`;
   }
@@ -345,6 +368,10 @@ export async function renderNew(c) {
       if (ssel) { state.staffId = ssel.value; state.staffName = ssel.selectedOptions[0]?.textContent?.trim() || ''; }
       state.clientTypeId = c.querySelector('#wz-ctype')?.value || '';
       state.clientClassificationId = c.querySelector('#wz-classif')?.value || '';
+      state.isStaff = !!c.querySelector('#wz-isstaff')?.checked;
+      state.submittedOnDate = c.querySelector('#wz-submitted')?.value || state.submittedOnDate;
+      const svsel = c.querySelector('#wz-savprod');
+      if (svsel) { state.savingsProductId = svsel.value; state.savingsProductName = svsel.selectedOptions[0]?.textContent?.trim() || ''; }
       state.active = !!c.querySelector('#wz-active')?.checked;
       state.activationDate = c.querySelector('#wz-actdate')?.value || state.activationDate;
       state.risk = c.querySelector('#wz-risk')?.value || 'Low';
@@ -357,6 +384,10 @@ export async function renderNew(c) {
       if (!isPerson() && !state.fullname) { toast('warn', 'Name required', 'Legal/business name is required'); return false; }
     }
     if (state.step === 3 && !state.officeId) { toast('warn', 'Branch required', 'Select a branch'); return false; }
+    if (state.step === 3 && !state.submittedOnDate) { toast('warn', 'Submitted date required', 'Select the date the client is submitted on'); return false; }
+    if (state.step === 3 && state.active && state.activationDate && state.submittedOnDate && state.activationDate < state.submittedOnDate) {
+      toast('warn', 'Invalid activation date', 'Activation date cannot be before the submitted-on date'); return false;
+    }
     return true;
   }
 
@@ -394,7 +425,7 @@ export async function renderNew(c) {
     const payload = {
       officeId: parseInt(state.officeId),
       legalFormId,
-      submittedOnDate: today(),
+      submittedOnDate: state.submittedOnDate || today(),
       dateFormat: DATE_FORMAT, locale: LOCALE
     };
     if (legalFormId === 1) {
@@ -420,6 +451,8 @@ export async function renderNew(c) {
     if (state.staffId) payload.staffId = parseInt(state.staffId);
     if (state.clientTypeId) payload.clientTypeId = parseInt(state.clientTypeId);
     if (state.clientClassificationId) payload.clientClassificationId = parseInt(state.clientClassificationId);
+    if (state.isStaff) payload.isStaff = true;
+    if (state.savingsProductId) payload.savingsProductId = parseInt(state.savingsProductId);
     if (state.active) { payload.active = true; payload.activationDate = state.activationDate || today(); }
 
     try {

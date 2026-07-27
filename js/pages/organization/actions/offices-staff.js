@@ -82,6 +82,8 @@ export async function openEditStaffModal(staffId, onSuccess) {
                 ${offList.map(o => `<option value="${o.id}" ${s.officeId === o.id ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}
               </select>
             </label>
+            <label>Mobile Number <input id="${mid}-mobile" class="form-control" value="${escapeHtml(s.mobileNo || '')}"/></label>
+            <label>External ID <input id="${mid}-extid" class="form-control" value="${escapeHtml(s.externalId || '')}"/></label>
             <label>Joining Date <input type="date" id="${mid}-joindate" class="form-control" value="${s.joiningDate || ''}"/></label>
             <label class="checkbox-row"><input type="checkbox" id="${mid}-loanoff" ${s.isLoanOfficer ? 'checked' : ''}/> Is Loan Officer</label>
             <label class="checkbox-row"><input type="checkbox" id="${mid}-active" ${s.isActive ? 'checked' : ''}/> Active</label>
@@ -100,12 +102,16 @@ export async function openEditStaffModal(staffId, onSuccess) {
     const firstname = m.querySelector('#' + mid + '-fn').value.trim();
     const lastname = m.querySelector('#' + mid + '-ln').value.trim();
     const officeId = parseInt(m.querySelector('#' + mid + '-office').value);
+    const mobileNo = m.querySelector('#' + mid + '-mobile').value.trim();
+    const externalId = m.querySelector('#' + mid + '-extid').value.trim();
     const joiningDate = m.querySelector('#' + mid + '-joindate').value;
     const isLoanOfficer = m.querySelector('#' + mid + '-loanoff').checked;
     const isActive = m.querySelector('#' + mid + '-active').checked;
     if (!firstname || !lastname || !officeId) { toast('warn', 'Fill required fields', ''); return; }
 
     const payload = { firstname, lastname, officeId, isLoanOfficer, isActive };
+    if (mobileNo) payload.mobileNo = mobileNo;
+    if (externalId) payload.externalId = externalId;
     if (joiningDate) { payload.joiningDate = joiningDate; payload.dateFormat = DATE_FORMAT; payload.locale = LOCALE; }
 
     try {
@@ -141,7 +147,15 @@ export async function openAllocateCashierModal(tellerId, tellerName, onSuccess) 
           <label>Start date * <input type="date" id="alloc-start" class="form-control" value="${today()}" required/></label>
           <label>End date <input type="date" id="alloc-end" class="form-control"/></label>
           <label>Cash limit <input type="number" step="0.01" id="alloc-limit" class="form-control"/></label>
+          <label class="checkbox-row"><input type="checkbox" id="alloc-fullday" checked/> Full working day</label>
         </div>
+        <div id="alloc-hours" class="form-grid" style="display:none">
+          <label>Start time (hour) <input type="number" min="0" max="23" id="alloc-hstart" class="form-control" placeholder="0–23"/></label>
+          <label>Start time (min) <input type="number" min="0" max="59" id="alloc-mstart" class="form-control" placeholder="0–59"/></label>
+          <label>End time (hour) <input type="number" min="0" max="23" id="alloc-hend" class="form-control" placeholder="0–23"/></label>
+          <label>End time (min) <input type="number" min="0" max="59" id="alloc-mend" class="form-control" placeholder="0–59"/></label>
+        </div>
+        <label class="full"><span class="form-label">Description</span><input id="alloc-desc" class="form-control"/></label>
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" data-close-modal>Cancel</button>
@@ -151,16 +165,32 @@ export async function openAllocateCashierModal(tellerId, tellerName, onSuccess) 
   document.getElementById('modalRoot').appendChild(modalEl);
 
   modalEl.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => modalEl.remove()));
+  const allocFullDay = modalEl.querySelector('#alloc-fullday');
+  const allocHours = modalEl.querySelector('#alloc-hours');
+  allocFullDay.addEventListener('change', () => { allocHours.style.display = allocFullDay.checked ? 'none' : ''; });
   modalEl.querySelector('#alloc-confirm').addEventListener('click', async () => {
     const staffId = parseInt(modalEl.querySelector('#alloc-staff').value);
     const startDate = modalEl.querySelector('#alloc-start').value;
     const endDate = modalEl.querySelector('#alloc-end').value;
     const cashLimit = parseFloat(modalEl.querySelector('#alloc-limit').value);
+    const description = modalEl.querySelector('#alloc-desc').value.trim();
+    const isFullDay = allocFullDay.checked;
     if (!staffId || !startDate) { toast('warn', 'Fill required fields', ''); return; }
 
-    const payload = { staffId, startDate, dateFormat: DATE_FORMAT, locale: LOCALE };
+    const payload = { staffId, startDate, isFullDay, dateFormat: DATE_FORMAT, locale: LOCALE };
     if (endDate) payload.endDate = endDate;
+    if (description) payload.description = description;
     if (cashLimit) { payload.cashLimit = cashLimit; payload.cashLimitCurrency = 'USD'; }
+    if (!isFullDay) {
+      const hs = parseInt(modalEl.querySelector('#alloc-hstart').value);
+      const ms = parseInt(modalEl.querySelector('#alloc-mstart').value);
+      const he = parseInt(modalEl.querySelector('#alloc-hend').value);
+      const me = parseInt(modalEl.querySelector('#alloc-mend').value);
+      if (isFinite(hs)) payload.hourStartTime = hs;
+      if (isFinite(ms)) payload.minStartTime = ms;
+      if (isFinite(he)) payload.hourEndTime = he;
+      if (isFinite(me)) payload.minEndTime = me;
+    }
 
     try {
       await api.tellers.allocateCashier(tellerId, payload);
@@ -281,6 +311,12 @@ export async function openEditTellerModal(tellerId, allTellers, onSuccess) {
           </label>
           <label>Start date * <input type="date" id="et-start" class="form-control" value="${(t?.startDate || []).join?.('-') || ''}" required/></label>
           <label>End date <input type="date" id="et-end" class="form-control" value="${(t?.endDate || []).join?.('-') || ''}"/></label>
+          <label>Status
+            <select id="et-status" class="form-control">
+              <option value="ACTIVE" ${(t?.status?.value || t?.status) === 'ACTIVE' ? 'selected' : ''}>Active</option>
+              <option value="INACTIVE" ${(t?.status?.value || t?.status) === 'INACTIVE' ? 'selected' : ''}>Inactive</option>
+            </select>
+          </label>
           <label class="full">Description <textarea id="et-desc" class="form-control" rows="2">${escapeHtml(t?.description || '')}</textarea></label>
         </div>
       </div>
@@ -296,9 +332,10 @@ export async function openEditTellerModal(tellerId, allTellers, onSuccess) {
     const officeId = parseInt(modalEl.querySelector('#et-office').value);
     const startDate = modalEl.querySelector('#et-start').value;
     const endDate = modalEl.querySelector('#et-end').value;
+    const status = modalEl.querySelector('#et-status').value;
     const description = modalEl.querySelector('#et-desc').value.trim();
     if (!name || !officeId || !startDate) { toast('warn', 'Fill required fields', ''); return; }
-    const payload = { name, officeId, startDate, dateFormat: DATE_FORMAT, locale: LOCALE };
+    const payload = { name, officeId, startDate, status, dateFormat: DATE_FORMAT, locale: LOCALE };
     if (endDate) payload.endDate = endDate;
     if (description) payload.description = description;
     try {
@@ -329,6 +366,13 @@ export async function openEditCashierModal(tellerId, cashierId, onSuccess) {
           <label>End date <input type="date" id="ec-end" class="form-control" value="${record?.endDate || ''}"/></label>
           <label>Cash limit <input type="number" step="0.01" id="ec-limit" class="form-control" value="${record?.cashLimit ?? ''}"/></label>
           <label>Description <input id="ec-desc" class="form-control" value="${escapeHtml(record?.description || '')}"/></label>
+          <label class="checkbox-row"><input type="checkbox" id="ec-fullday" ${record?.isFullDay !== false ? 'checked' : ''}/> Full working day</label>
+        </div>
+        <div id="ec-hours" class="form-grid" style="${record?.isFullDay === false ? '' : 'display:none'}">
+          <label>Start time (hour) <input type="number" min="0" max="23" id="ec-hstart" class="form-control" value="${record?.hourStartTime ?? ''}"/></label>
+          <label>Start time (min) <input type="number" min="0" max="59" id="ec-mstart" class="form-control" value="${record?.minStartTime ?? ''}"/></label>
+          <label>End time (hour) <input type="number" min="0" max="23" id="ec-hend" class="form-control" value="${record?.hourEndTime ?? ''}"/></label>
+          <label>End time (min) <input type="number" min="0" max="59" id="ec-mend" class="form-control" value="${record?.minEndTime ?? ''}"/></label>
         </div>
       </div>
       <div class="modal-footer">
@@ -338,16 +382,30 @@ export async function openEditCashierModal(tellerId, cashierId, onSuccess) {
     </div>`;
   document.getElementById('modalRoot').appendChild(modalEl);
   modalEl.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => modalEl.remove()));
+  const ecFullDay = modalEl.querySelector('#ec-fullday');
+  const ecHours = modalEl.querySelector('#ec-hours');
+  ecFullDay.addEventListener('change', () => { ecHours.style.display = ecFullDay.checked ? 'none' : ''; });
   modalEl.querySelector('#ec-save').addEventListener('click', async () => {
     const startDate = modalEl.querySelector('#ec-start').value;
     const endDate = modalEl.querySelector('#ec-end').value;
     const cashLimit = parseFloat(modalEl.querySelector('#ec-limit').value);
     const description = modalEl.querySelector('#ec-desc').value.trim();
+    const isFullDay = ecFullDay.checked;
     if (!startDate) { toast('warn', 'Select a start date', ''); return; }
-    const payload = { startDate, dateFormat: DATE_FORMAT, locale: LOCALE };
+    const payload = { startDate, isFullDay, dateFormat: DATE_FORMAT, locale: LOCALE };
     if (endDate) payload.endDate = endDate;
     if (isFinite(cashLimit)) payload.cashLimit = cashLimit;
     if (description) payload.description = description;
+    if (!isFullDay) {
+      const hs = parseInt(modalEl.querySelector('#ec-hstart').value);
+      const ms = parseInt(modalEl.querySelector('#ec-mstart').value);
+      const he = parseInt(modalEl.querySelector('#ec-hend').value);
+      const me = parseInt(modalEl.querySelector('#ec-mend').value);
+      if (isFinite(hs)) payload.hourStartTime = hs;
+      if (isFinite(ms)) payload.minStartTime = ms;
+      if (isFinite(he)) payload.hourEndTime = he;
+      if (isFinite(me)) payload.minEndTime = me;
+    }
     try {
       await api.tellers.updateCashier(tellerId, cashierId, payload);
       modalEl.remove(); toast('success', 'Cashier updated', ''); onSuccess();

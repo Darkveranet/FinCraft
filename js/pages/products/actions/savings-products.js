@@ -89,7 +89,14 @@ export async function openSavingsProductModal(productId, onSuccess) {
       <label>Balance required for interest <input type="number" step="0.01" id="sp-min-bal-interest" class="form-control" value="${existing.minBalanceForInterestCalculation ?? ''}"/></label>
       <label class="checkbox-row"><input type="checkbox" id="sp-withdraw-fee" ${existing.withdrawalFeeForTransfers ? 'checked' : ''}/> Apply withdrawal fee for transfers</label>
       <label class="checkbox-row"><input type="checkbox" id="sp-withhold-tax" ${existing.withHoldTax ? 'checked' : ''}/> Is withhold tax applicable</label>
+      <label>Tax group
+        <select id="sp-tax-group" class="form-control"><option value="">— None —</option>
+          ${(tpl.taxGroupOptions || []).map(g => `<option value="${g.id}" ${existing.taxGroup?.id === g.id ? 'selected' : ''}>${escapeHtml(g.name || '—')}</option>`).join('')}
+        </select></label>
       <label class="checkbox-row"><input type="checkbox" id="sp-dormancy" ${existing.isDormancyTrackingActive ? 'checked' : ''}/> Enable dormancy tracking</label>
+      <label>Days to inactive <input type="number" id="sp-days-inactive" class="form-control" value="${existing.daysToInactive ?? ''}"/></label>
+      <label>Days to dormancy <input type="number" id="sp-days-dormancy" class="form-control" value="${existing.daysToDormancy ?? ''}"/></label>
+      <label>Days to escheat <input type="number" id="sp-days-escheat" class="form-control" value="${existing.daysToEscheat ?? ''}"/></label>
     </div>
     <h4 class="mt-3">Overdraft</h4>
     <div class="form-grid">
@@ -178,7 +185,12 @@ export async function openSavingsProductModal(productId, onSuccess) {
       minBalanceForInterestCalculation: vf(el, 'sp-min-bal-interest') || undefined,
       withdrawalFeeForTransfers: vb(el, 'sp-withdraw-fee'),
       withHoldTax: vb(el, 'sp-withhold-tax'),
+      taxGroupId: vb(el, 'sp-withhold-tax') ? (vi(el, 'sp-tax-group') || undefined) : undefined,
       isDormancyTrackingActive: vb(el, 'sp-dormancy'),
+      daysToInactive: vb(el, 'sp-dormancy') ? (vi(el, 'sp-days-inactive') || undefined) : undefined,
+      daysToDormancy: vb(el, 'sp-dormancy') ? (vi(el, 'sp-days-dormancy') || undefined) : undefined,
+      daysToEscheat: vb(el, 'sp-dormancy') ? (vi(el, 'sp-days-escheat') || undefined) : undefined,
+      enableLockinPeriod: vi(el, 'sp-lockin') ? true : undefined,
       allowOverdraft: allowOd,
       overdraftLimit: allowOd ? (vf(el, 'sp-overdraft-limit') || undefined) : undefined,
       nominalAnnualInterestRateOverdraft: allowOd ? (vf(el, 'sp-overdraft-rate') || undefined) : undefined,
@@ -274,12 +286,19 @@ export async function openFDProductModal(productId, onSuccess) {
       <label>Max deposit term <input type="number" id="fd-max-term" class="form-control" value="${existing.maxDepositTerm ?? ''}"/></label>
       <label>Max term period <select id="fd-max-term-type" class="form-control">${termPeriods(existing.maxDepositTermType?.id ?? 2)}</select></label>
       <label>Term in multiples of <input type="number" id="fd-term-multiple" class="form-control" value="${existing.inMultiplesOfDepositTerm ?? ''}"/></label>
+      <label>Term multiple period <select id="fd-term-multiple-type" class="form-control">${termPeriods(existing.inMultiplesOfDepositTermType?.id ?? 2)}</select></label>
+      <label>Lock-in period <input type="number" id="fd-lockin" class="form-control" value="${existing.lockinPeriodFrequency ?? ''}"/></label>
+      <label>Lock-in period type <select id="fd-lockin-type" class="form-control">${termPeriods(existing.lockinPeriodFrequencyType?.id ?? 2)}</select></label>
     </div>
     <h4 class="mt-3">Pre-closure &amp; Maturity</h4>
     <div class="form-grid">
       <label class="checkbox-row"><input type="checkbox" id="fd-premature" ${preClose ? 'checked' : ''}/> Allow premature closure</label>
       <label>Penalty on premature (%) <input type="number" step="0.01" id="fd-premature-penalty" class="form-control" value="${existing.preClosurePenalInterest ?? ''}"/></label>
       <label class="checkbox-row"><input type="checkbox" id="fd-withhold-tax" ${existing.withHoldTax ? 'checked' : ''}/> Is withhold tax applicable</label>
+      <label>Tax group
+        <select id="fd-tax-group" class="form-control"><option value="">— None —</option>
+          ${(tpl.taxGroupOptions || []).map(g => `<option value="${g.id}" ${existing.taxGroup?.id === g.id ? 'selected' : ''}>${escapeHtml(g.name || '—')}</option>`).join('')}
+        </select></label>
     </div>
     <h4 class="mt-3">Charges</h4>
     <div class="form-grid full">${chargeBoxes('fd', tpl, existing)}</div>`;
@@ -362,10 +381,14 @@ export async function openFDProductModal(productId, onSuccess) {
       maxDepositTerm: vi(el, 'fd-max-term') || undefined,
       maxDepositTermTypeId: vi(el, 'fd-max-term-type') ?? 2,
       inMultiplesOfDepositTerm: vi(el, 'fd-term-multiple') || undefined,
+      inMultiplesOfDepositTermTypeId: vi(el, 'fd-term-multiple') ? (vi(el, 'fd-term-multiple-type') ?? 2) : undefined,
+      lockinPeriodFrequency: vi(el, 'fd-lockin') || undefined,
+      lockinPeriodFrequencyType: vi(el, 'fd-lockin') ? (vi(el, 'fd-lockin-type') ?? 2) : undefined,
       preClosurePenalApplicable: preC,
       preClosurePenalInterest: preC ? (vf(el, 'fd-premature-penalty') ?? 0) : undefined,
       preClosurePenalInterestOnTypeId: preC ? 1 : undefined,
       withHoldTax: vb(el, 'fd-withhold-tax'),
+      taxGroupId: vb(el, 'fd-withhold-tax') ? (vi(el, 'fd-tax-group') || undefined) : undefined,
       accountingRule,
       description: v(el, 'fd-desc') || undefined
     };
@@ -445,16 +468,28 @@ export async function openRDProductModal(productId, onSuccess) {
   const stepDeposit = `
     <div class="form-grid">
       <label>Mandatory deposit amount * <input type="number" step="0.01" id="rdp-deposit" class="form-control" value="${existing.mandatoryRecommendedDepositAmount ?? ''}" required/></label>
+      <label>Min deposit amount <input type="number" step="0.01" id="rdp-min-deposit" class="form-control" value="${existing.minDepositAmount ?? ''}"/></label>
+      <label>Max deposit amount <input type="number" step="0.01" id="rdp-max-deposit" class="form-control" value="${existing.maxDepositAmount ?? ''}"/></label>
       <label>Deposit every <input type="number" id="rdp-deposit-every" class="form-control" value="${existing.recurringDepositFrequency ?? 1}"/></label>
       <label>Deposit period <select id="rdp-deposit-period" class="form-control">${termPeriods(existing.recurringDepositFrequencyType?.id ?? 2)}</select></label>
       <label>Min deposit term * <input type="number" id="rdp-min-term" class="form-control" value="${existing.minDepositTerm ?? ''}" required/></label>
       <label>Min term period <select id="rdp-min-term-type" class="form-control">${termPeriods(existing.minDepositTermType?.id ?? 2)}</select></label>
       <label>Max deposit term <input type="number" id="rdp-max-term" class="form-control" value="${existing.maxDepositTerm ?? ''}"/></label>
       <label>Max term period <select id="rdp-max-term-type" class="form-control">${termPeriods(existing.maxDepositTermType?.id ?? 2)}</select></label>
+      <label>Term in multiples of <input type="number" id="rdp-term-multiple" class="form-control" value="${existing.inMultiplesOfDepositTerm ?? ''}"/></label>
+      <label>Term multiple period <select id="rdp-term-multiple-type" class="form-control">${termPeriods(existing.inMultiplesOfDepositTermType?.id ?? 2)}</select></label>
+      <label>Lock-in period <input type="number" id="rdp-lockin" class="form-control" value="${existing.lockinPeriodFrequency ?? ''}"/></label>
+      <label>Lock-in period type <select id="rdp-lockin-type" class="form-control">${termPeriods(existing.lockinPeriodFrequencyType?.id ?? 2)}</select></label>
       <label class="checkbox-row"><input type="checkbox" id="rdp-adjust-deposit" ${existing.isMandatoryDeposit ? 'checked' : ''}/> Is mandatory deposit</label>
+      <label class="checkbox-row"><input type="checkbox" id="rdp-adjust-advance" ${existing.adjustAdvanceTowardsFuturePayments ? 'checked' : ''}/> Adjust advance towards future instalments</label>
       <label class="checkbox-row"><input type="checkbox" id="rdp-allow-withdrawal" ${existing.allowWithdrawal ? 'checked' : ''}/> Allow withdrawal</label>
       <label class="checkbox-row"><input type="checkbox" id="rdp-premature" ${preClose ? 'checked' : ''}/> Allow premature closure</label>
       <label>Penalty on premature (%) <input type="number" step="0.01" id="rdp-premature-penalty" class="form-control" value="${existing.preClosurePenalInterest ?? ''}"/></label>
+      <label class="checkbox-row"><input type="checkbox" id="rdp-withhold-tax" ${existing.withHoldTax ? 'checked' : ''}/> Is withhold tax applicable</label>
+      <label>Tax group
+        <select id="rdp-tax-group" class="form-control"><option value="">— None —</option>
+          ${(tpl.taxGroupOptions || []).map(g => `<option value="${g.id}" ${existing.taxGroup?.id === g.id ? 'selected' : ''}>${escapeHtml(g.name || '—')}</option>`).join('')}
+        </select></label>
     </div>
     <h4 class="mt-3">Charges</h4>
     <div class="form-grid full">${chargeBoxes('rdp', tpl, existing)}</div>`;
@@ -529,14 +564,23 @@ export async function openRDProductModal(productId, onSuccess) {
       interestCalculationDaysInYearType: vi(el, 'rdp-days') ?? 365,
       mandatoryRecommendedDepositAmount: deposit,
       depositAmount: deposit,
+      minDepositAmount: vf(el, 'rdp-min-deposit') || undefined,
+      maxDepositAmount: vf(el, 'rdp-max-deposit') || undefined,
       recurringDepositFrequency: vi(el, 'rdp-deposit-every') || 1,
       recurringDepositFrequencyTypeId: vi(el, 'rdp-deposit-period') ?? 2,
       minDepositTerm: minTerm,
       minDepositTermTypeId: vi(el, 'rdp-min-term-type') ?? 2,
       maxDepositTerm: vi(el, 'rdp-max-term') || undefined,
       maxDepositTermTypeId: vi(el, 'rdp-max-term-type') ?? 2,
+      inMultiplesOfDepositTerm: vi(el, 'rdp-term-multiple') || undefined,
+      inMultiplesOfDepositTermTypeId: vi(el, 'rdp-term-multiple') ? (vi(el, 'rdp-term-multiple-type') ?? 2) : undefined,
+      lockinPeriodFrequency: vi(el, 'rdp-lockin') || undefined,
+      lockinPeriodFrequencyType: vi(el, 'rdp-lockin') ? (vi(el, 'rdp-lockin-type') ?? 2) : undefined,
       isMandatoryDeposit: vb(el, 'rdp-adjust-deposit'),
+      adjustAdvanceTowardsFuturePayments: vb(el, 'rdp-adjust-advance'),
       allowWithdrawal: vb(el, 'rdp-allow-withdrawal'),
+      withHoldTax: vb(el, 'rdp-withhold-tax'),
+      taxGroupId: vb(el, 'rdp-withhold-tax') ? (vi(el, 'rdp-tax-group') || undefined) : undefined,
       preClosurePenalApplicable: preC,
       preClosurePenalInterest: preC ? (vf(el, 'rdp-premature-penalty') ?? 0) : undefined,
       preClosurePenalInterestOnTypeId: preC ? 1 : undefined,

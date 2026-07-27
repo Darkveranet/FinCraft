@@ -61,6 +61,15 @@ export async function openChargeFormModal(existing, onSuccess) {
             <label>Min Cap <input type="number" step="0.01" id="cf-min" class="form-control" value="${existing?.minCap ?? ''}"/></label>
             <label>Max Cap <input type="number" step="0.01" id="cf-max" class="form-control" value="${existing?.maxCap ?? ''}"/></label>
             <label>Fee Interval <input type="number" id="cf-interval" class="form-control" value="${existing?.feeInterval ?? ''}"/></label>
+            <label>Fee Frequency
+              <select id="cf-feefreq" class="form-control">
+                <option value="">— Not recurring —</option>
+                <option value="0" ${existing?.feeFrequency?.id === 0 ? 'selected' : ''}>Days</option>
+                <option value="1" ${existing?.feeFrequency?.id === 1 ? 'selected' : ''}>Weeks</option>
+                <option value="2" ${existing?.feeFrequency?.id === 2 ? 'selected' : ''}>Months</option>
+                <option value="3" ${existing?.feeFrequency?.id === 3 ? 'selected' : ''}>Years</option>
+              </select>
+            </label>
             <label>Income Account
               <select id="cf-income" class="form-control">
                 <option value="">— No mapping —</option>
@@ -106,6 +115,8 @@ export async function openChargeFormModal(existing, onSuccess) {
     if (isFinite(maxCap)) payload.maxCap = maxCap;
     const interval = parseInt(el.querySelector('#cf-interval').value);
     if (isFinite(interval)) payload.feeInterval = interval;
+    const feefreq = el.querySelector('#cf-feefreq').value;
+    if (feefreq !== '') payload.feeFrequency = parseInt(feefreq);
     const income = el.querySelector('#cf-income').value;
     if (income) payload.incomeAccountId = parseInt(income);
     const tax = el.querySelector('#cf-tax').value;

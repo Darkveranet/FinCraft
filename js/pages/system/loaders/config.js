@@ -1,7 +1,7 @@
 import { api } from '../../../api.js';
 import { can } from '../shared.js';
 import { escapeHtml, num, sb } from '../../../utils.js';
-import { extractMCEntityGroup, openCodeValuesModal, openNewCodeModal } from '../actions.js';
+import { extractMCEntityGroup, openCodeValuesModal, openEditConfigModal, openNewCodeModal } from '../actions.js';
 import { confirm as modalConfirm, toast } from '../../../ui.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
@@ -27,20 +27,30 @@ export async function loadConfigurations(c) {
       ${list.length ? `
         <table class="table">
           <thead><tr>
-            <th>Configuration</th><th>Description</th><th>Value</th><th>Enabled</th>
+            <th>Configuration</th><th>Description</th><th>Value</th><th>Enabled</th><th></th>
           </tr></thead>
-          <tbody id="cfg-tbody">${list.map(cfg => `
+          <tbody id="cfg-tbody">${list.map((cfg, i) => {
+            const val = cfg.stringValue ?? cfg.dateValue ?? cfg.value;
+            return `
             <tr class="cfg-row">
               <td><code>${escapeHtml(cfg.name)}</code></td>
               <td class="text-muted small">${escapeHtml(cfg.description || '—')}</td>
-              <td>${escapeHtml(String(cfg.value ?? '—'))}</td>
+              <td>${escapeHtml(String(val ?? '—'))}</td>
               <td>
                 ${canEdit
                   ? `<input type="checkbox" data-cfg="${cfg.id || cfg.name}" ${cfg.enabled ? 'checked' : ''}/>`
                   : (cfg.enabled ? sb('Yes') : sb('No'))}
               </td>
-            </tr>`).join('')}</tbody>
+              <td class="text-right">
+                ${canEdit ? `<button class="btn-mini" data-edit-cfg="${i}">Edit</button>` : ''}
+              </td>
+            </tr>`;
+          }).join('')}</tbody>
         </table>` : '<div class="empty-state-row">No configurations found</div>'}`;
+
+    el.querySelectorAll('[data-edit-cfg]').forEach(b => b.addEventListener('click', () =>
+      openEditConfigModal(list[parseInt(b.dataset.editCfg)], () => loadConfigurations(c))
+    ));
 
     el.querySelector('#cfg-search')?.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();

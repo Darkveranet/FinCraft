@@ -32,6 +32,10 @@ export async function openLoanProductModal(productId, onSuccess) {
   const daysInYear   = opt(tpl.daysInYearTypeOptions, existing.daysInYearType?.id);
   const daysInMonth  = opt(tpl.daysInMonthTypeOptions, existing.daysInMonthType?.id);
   const funds        = opt(tpl.fundOptions, existing.fundId, 'id', 'name');
+  const delinquencyBuckets = (tpl.delinquencyBucketOptions || []).map(o =>
+    `<option value="${o.id}" ${existing.delinquencyBucket?.id === o.id ? 'selected' : ''}>${escapeHtml(o.name || ('#' + o.id))}</option>`).join('');
+  const floatingRates = (tpl.floatingRateOptions || []).map(o =>
+    `<option value="${o.id}" ${(existing.floatingRates?.floatingRatesId ?? existing.floatingRatesId) === o.id ? 'selected' : ''}>${escapeHtml(o.name || ('#' + o.id))}</option>`).join('');
   const strategies   = (tpl.transactionProcessingStrategyOptions || []).map(o =>
     `<option value="${o.code}" ${existing.transactionProcessingStrategyCode === o.code ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('');
   const currencies   = (tpl.currencyOptions || []).map(o => `<option value="${o.code}" ${existing.currency?.code === o.code ? 'selected' : ''}>${escapeHtml(o.name)} (${o.code})</option>`).join('');
@@ -108,7 +112,7 @@ export async function openLoanProductModal(productId, onSuccess) {
       <label>Days in month
         <select id="lp-days-month" class="form-control"><option value="">Product default</option>${daysInMonth}</select>
       </label>
-      <label class="checkbox-row"><input type="checkbox" id="lp-partial-period" ${existing.allowPartialPeriodInterestCalcualtion ? 'checked' : ''}/> Allow partial-period interest</label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-partial-period" ${(existing.allowPartialPeriodInterestCalculation ?? existing.allowPartialPeriodInterestCalcualtion) ? 'checked' : ''}/> Allow partial-period interest</label>
     </div>
     <h4 class="mt-3">Moratorium / Grace &amp; Arrears</h4>
     <div class="form-grid">
@@ -159,11 +163,98 @@ export async function openLoanProductModal(productId, onSuccess) {
       </div>
     </div>`;
 
+  const irc = !!existing.isInterestRecalculationEnabled;
+  const floating = !!(existing.isLinkedToFloatingInterestRates);
+  const stepAdvanced = `
+    <div class="form-grid">
+      <label>External ID <input id="lp-external-id" class="form-control" value="${escapeHtml(existing.externalId || '')}"/></label>
+      <label>Repayment start date type
+        <select id="lp-repay-start-type" class="form-control">
+          <option value="1" ${(existing.repaymentStartDateType?.id ?? 1) === 1 ? 'selected' : ''}>Disbursement date</option>
+          <option value="2" ${existing.repaymentStartDateType?.id === 2 ? 'selected' : ''}>Submitted on date</option>
+        </select></label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-equal-amort" ${existing.isEqualAmortization ? 'checked' : ''}/> Equal amortization</label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-accrual-activity" ${existing.enableAccrualActivityPosting ? 'checked' : ''}/> Enable accrual activity posting</label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-topup" ${existing.canUseForTopup ? 'checked' : ''}/> Can be used for top-up loans</label>
+      <label>Delinquency bucket
+        <select id="lp-delinquency-bucket" class="form-control"><option value="">— None —</option>${delinquencyBuckets}</select></label>
+    </div>
+
+    <h4 class="mt-3">Down payment</h4>
+    <div class="form-grid">
+      <label class="checkbox-row"><input type="checkbox" id="lp-down-payment" ${existing.enableDownPayment ? 'checked' : ''}/> Enable down payment</label>
+      <label>Down payment (% of principal) <input type="number" step="0.000001" id="lp-down-pct" class="form-control" value="${existing.disbursedAmountPercentageForDownPayment ?? ''}"/></label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-down-auto-repay" ${existing.enableAutoRepaymentForDownPayment ? 'checked' : ''}/> Auto-repayment for down payment</label>
+    </div>
+
+    <h4 class="mt-3">Over-applied (disbursement above approved)</h4>
+    <div class="form-grid">
+      <label class="checkbox-row"><input type="checkbox" id="lp-over-applied" ${existing.allowApprovedDisbursedAmountsOverApplied ? 'checked' : ''}/> Allow disbursal above approved</label>
+      <label>Over-applied calculation
+        <select id="lp-over-applied-type" class="form-control">
+          <option value="percentage" ${existing.overAppliedCalculationType === 'percentage' ? 'selected' : ''}>Percentage</option>
+          <option value="flat" ${existing.overAppliedCalculationType === 'flat' ? 'selected' : ''}>Flat</option>
+        </select></label>
+      <label>Over-applied number <input type="number" id="lp-over-applied-number" class="form-control" value="${existing.overAppliedNumber ?? ''}"/></label>
+    </div>
+
+    <h4 class="mt-3">Variable installments</h4>
+    <div class="form-grid">
+      <label class="checkbox-row"><input type="checkbox" id="lp-variable-inst" ${existing.allowVariableInstallments ? 'checked' : ''}/> Allow variable installments</label>
+      <label>Minimum gap (days) <input type="number" id="lp-min-gap-vi" class="form-control" value="${existing.minimumGap ?? ''}"/></label>
+      <label>Maximum gap (days) <input type="number" id="lp-max-gap-vi" class="form-control" value="${existing.maximumGap ?? ''}"/></label>
+    </div>
+
+    <h4 class="mt-3">Interest recalculation</h4>
+    <div class="form-grid">
+      <label class="checkbox-row"><input type="checkbox" id="lp-irc" ${irc ? 'checked' : ''}/> Recalculate interest</label>
+      <label>Pre-closure interest calculation
+        <select id="lp-irc-preclose" class="form-control">
+          <option value="1" ${existing.preClosureInterestCalculationStrategy?.id === 1 ? 'selected' : ''}>Till pre-close date</option>
+          <option value="2" ${existing.preClosureInterestCalculationStrategy?.id === 2 ? 'selected' : ''}>Till rest frequency date</option>
+        </select></label>
+      <label>Advance payments adjustment
+        <select id="lp-irc-reschedule" class="form-control">
+          <option value="1" ${existing.rescheduleStrategyMethod?.id === 1 ? 'selected' : ''}>Reduce EMI</option>
+          <option value="2" ${existing.rescheduleStrategyMethod?.id === 2 ? 'selected' : ''}>Reduce number of installments</option>
+          <option value="3" ${(existing.rescheduleStrategyMethod?.id ?? 3) === 3 ? 'selected' : ''}>Reschedule next repayments</option>
+        </select></label>
+      <label>Compounding on
+        <select id="lp-irc-compound" class="form-control">
+          <option value="0" ${(existing.interestRecalculationCompoundingMethod?.id ?? 0) === 0 ? 'selected' : ''}>None</option>
+          <option value="1" ${existing.interestRecalculationCompoundingMethod?.id === 1 ? 'selected' : ''}>Interest</option>
+          <option value="2" ${existing.interestRecalculationCompoundingMethod?.id === 2 ? 'selected' : ''}>Fee</option>
+          <option value="3" ${existing.interestRecalculationCompoundingMethod?.id === 3 ? 'selected' : ''}>Fee and Interest</option>
+        </select></label>
+      <label>Recalculation rest frequency
+        <select id="lp-irc-rest-type" class="form-control">
+          <option value="1" ${existing.recalculationRestFrequencyType?.id === 1 ? 'selected' : ''}>Same as repayment</option>
+          <option value="2" ${(existing.recalculationRestFrequencyType?.id ?? 2) === 2 ? 'selected' : ''}>Daily</option>
+          <option value="3" ${existing.recalculationRestFrequencyType?.id === 3 ? 'selected' : ''}>Weekly</option>
+          <option value="4" ${existing.recalculationRestFrequencyType?.id === 4 ? 'selected' : ''}>Monthly</option>
+        </select></label>
+      <label>Rest frequency interval <input type="number" id="lp-irc-rest-interval" class="form-control" value="${existing.recalculationRestFrequencyInterval ?? ''}"/></label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-irc-original" ${existing.isArrearsBasedOnOriginalSchedule ? 'checked' : ''}/> Arrears recognition based on original schedule</label>
+    </div>
+
+    <h4 class="mt-3">Floating interest rates</h4>
+    <div class="form-grid">
+      <label class="checkbox-row"><input type="checkbox" id="lp-floating" ${floating ? 'checked' : ''}/> Link to floating interest rates</label>
+      <label>Floating rate
+        <select id="lp-floating-rate" class="form-control"><option value="">— Select —</option>${floatingRates}</select></label>
+      <label>Interest rate differential <input type="number" step="0.000001" id="lp-floating-diff" class="form-control" value="${existing.interestRateDifferential ?? ''}"/></label>
+      <label class="checkbox-row"><input type="checkbox" id="lp-floating-calc" ${existing.isFloatingInterestRateCalculationAllowed ? 'checked' : ''}/> Allow rate calculation on disbursement</label>
+      <label>Min differential lending rate <input type="number" step="0.000001" id="lp-floating-min" class="form-control" value="${existing.minDifferentialLendingRate ?? ''}"/></label>
+      <label>Default differential lending rate <input type="number" step="0.000001" id="lp-floating-def" class="form-control" value="${existing.defaultDifferentialLendingRate ?? ''}"/></label>
+      <label>Max differential lending rate <input type="number" step="0.000001" id="lp-floating-max" class="form-control" value="${existing.maxDifferentialLendingRate ?? ''}"/></label>
+    </div>`;
+
   const el = wizardModal(mid, isEdit ? 'Edit Loan Product' : 'New Loan Product', [
     { label: 'Details',    html: stepDetails },
     { label: 'Terms',      html: stepTerms },
     { label: 'Interest',   html: stepInterest },
     { label: 'Settings',   html: stepSettings },
+    { label: 'Advanced',   html: stepAdvanced },
     { label: 'Accounting', html: stepAccounting },
   ], { saveLabel: isEdit ? 'Save Changes' : 'Create Product' });
 
@@ -230,7 +321,7 @@ export async function openLoanProductModal(productId, onSuccess) {
       amortizationType: vi(el, 'lp-amort') ?? 1,
       interestType: vi(el, 'lp-int-type') ?? 0,
       interestCalculationPeriodType: vi(el, 'lp-int-calc') ?? 1,
-      allowPartialPeriodInterestCalcualtion: vb(el, 'lp-partial-period'),
+      allowPartialPeriodInterestCalculation: vb(el, 'lp-partial-period'),
       daysInYearType: vi(el, 'lp-days-year') || undefined,
       daysInMonthType: vi(el, 'lp-days-month') || undefined,
       graceOnPrincipalPayment: vi(el, 'lp-grace-pr') || undefined,
@@ -249,9 +340,67 @@ export async function openLoanProductModal(productId, onSuccess) {
       accountMovesOutOfNPAOnlyOnArrearsCompletion: vb(el, 'lp-npa-arrears'),
       allowAttributeOverrides: vb(el, 'lp-attribute-overrides') || undefined,
       accountingRule,
+      externalId: v(el, 'lp-external-id') || undefined,
+      repaymentStartDateType: vi(el, 'lp-repay-start-type') || undefined,
+      isEqualAmortization: vb(el, 'lp-equal-amort'),
+      enableAccrualActivityPosting: vb(el, 'lp-accrual-activity') || undefined,
+      canUseForTopup: vb(el, 'lp-topup'),
+      delinquencyBucketId: vi(el, 'lp-delinquency-bucket') || undefined,
       description: v(el, 'lp-desc') || undefined
     };
     if (charges.length) payload.charges = charges;
+
+    // Down payment
+    const downPay = vb(el, 'lp-down-payment');
+    payload.enableDownPayment = downPay;
+    if (downPay) {
+      payload.disbursedAmountPercentageForDownPayment = vf(el, 'lp-down-pct') || undefined;
+      payload.enableAutoRepaymentForDownPayment = vb(el, 'lp-down-auto-repay');
+    }
+
+    // Over-applied
+    const overApplied = vb(el, 'lp-over-applied');
+    if (overApplied) {
+      payload.allowApprovedDisbursedAmountsOverApplied = true;
+      payload.overAppliedCalculationType = v(el, 'lp-over-applied-type') || 'percentage';
+      payload.overAppliedNumber = vi(el, 'lp-over-applied-number') || undefined;
+    }
+
+    // Variable installments
+    const variableInst = vb(el, 'lp-variable-inst');
+    payload.allowVariableInstallments = variableInst;
+    if (variableInst) {
+      payload.minimumGap = vi(el, 'lp-min-gap-vi') || undefined;
+      payload.maximumGap = vi(el, 'lp-max-gap-vi') || undefined;
+    }
+
+    // Interest recalculation
+    const ircOn = vb(el, 'lp-irc');
+    payload.isInterestRecalculationEnabled = ircOn;
+    if (ircOn) {
+      payload.preClosureInterestCalculationStrategy = vi(el, 'lp-irc-preclose') || 1;
+      payload.rescheduleStrategyMethod = vi(el, 'lp-irc-reschedule') || 3;
+      payload.interestRecalculationCompoundingMethod = vi(el, 'lp-irc-compound') ?? 0;
+      payload.recalculationRestFrequencyType = vi(el, 'lp-irc-rest-type') || 2;
+      payload.recalculationRestFrequencyInterval = vi(el, 'lp-irc-rest-interval') || 1;
+      payload.isArrearsBasedOnOriginalSchedule = vb(el, 'lp-irc-original');
+    }
+
+    // Floating interest rates
+    const floatingOn = vb(el, 'lp-floating');
+    payload.isLinkedToFloatingInterestRates = floatingOn;
+    if (floatingOn) {
+      payload.floatingRatesId = vi(el, 'lp-floating-rate') || undefined;
+      payload.interestRateDifferential = vf(el, 'lp-floating-diff') || 0;
+      payload.isFloatingInterestRateCalculationAllowed = vb(el, 'lp-floating-calc');
+      const minD = vf(el, 'lp-floating-min'); if (minD !== null) payload.minDifferentialLendingRate = minD;
+      const defD = vf(el, 'lp-floating-def'); if (defD !== null) payload.defaultDifferentialLendingRate = defD;
+      const maxD = vf(el, 'lp-floating-max'); if (maxD !== null) payload.maxDifferentialLendingRate = maxD;
+      // when floating, Fineract ignores the fixed interestRatePerPeriod trio
+      delete payload.interestRatePerPeriod;
+      delete payload.minInterestRatePerPeriod;
+      delete payload.maxInterestRatePerPeriod;
+    }
 
     if (accountingRule !== 1) {
       const fs = vi(el, 'gl-lp-fund-source');
