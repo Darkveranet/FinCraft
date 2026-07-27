@@ -31,6 +31,20 @@ export async function openGLAccountModal(onSuccess, existingId) {
   const parentOpts = (Array.isArray(tpl.allowedParents) ? tpl.allowedParents : [])
     .map(p => `<option value="${p.id}">${escapeHtml(p.name)} (${p.glCode})</option>`).join('');
 
+  // Type-dependent GL tag options (native Fineract COA field). Keyed by accountType id.
+  const tagOptionsByType = {
+    1: tpl.allowedAssetsTagOptions || [],
+    2: tpl.allowedLiabilitiesTagOptions || [],
+    3: tpl.allowedEquityTagOptions || [],
+    4: tpl.allowedIncomeTagOptions || [],
+    5: tpl.allowedExpensesTagOptions || []
+  };
+  const buildTagOpts = (typeId, selectedId) => {
+    const opts = tagOptionsByType[typeId] || [];
+    return '<option value="">— None —</option>' +
+      opts.map(t => `<option value="${t.id}" ${String(selectedId) === String(t.id) ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('');
+  };
+
   let existing = null;
   if (isEdit) {
     try { existing = await api.glAccounts.get(existingId); }
@@ -57,6 +71,11 @@ export async function openGLAccountModal(onSuccess, existingId) {
           <option value="">— None (top-level) —</option>${parentOpts}
         </select>
       </label>
+      <label>Tag
+        <select id="gla-tag" class="form-control">
+          ${buildTagOpts(existing?.type?.id ?? existing?.type ?? '', existing?.tagId ?? existing?.tagId?.id)}
+        </select>
+      </label>
       <label class="full">Description <textarea id="gla-desc" class="form-control" rows="2">${escapeHtml(existing?.description || '')}</textarea></label>
       <label class="checkbox-row"><input type="checkbox" id="gla-manual" ${existing ? (existing.manualEntriesAllowed ? 'checked' : '') : 'checked'}/> Allow manual entries</label>
     </div>`);
@@ -69,6 +88,12 @@ export async function openGLAccountModal(onSuccess, existingId) {
     const parentId = existing.parentId ?? existing.parent?.id;
     if (parentId) el.querySelector('#gla-parent').value = String(parentId);
   }
+
+  // Tag options depend on the selected account type — refresh on change.
+  el.querySelector('#gla-type')?.addEventListener('change', (e) => {
+    const tagSel = el.querySelector('#gla-tag');
+    if (tagSel) tagSel.innerHTML = buildTagOpts(e.target.value, '');
+  });
 
   el.querySelector('#' + mid + '-save').addEventListener('click', async () => {
     const name = v(el, 'gla-name'), glCode = v(el, 'gla-code');
@@ -83,6 +108,7 @@ export async function openGLAccountModal(onSuccess, existingId) {
     };
     const desc = v(el, 'gla-desc'); if (desc) payload.description = desc;
     const parentId = vi(el, 'gla-parent'); if (parentId) payload.parentId = parentId;
+    const tagId = vi(el, 'gla-tag'); if (tagId) payload.tagId = tagId;
     try {
       if (isEdit) await api.glAccounts.update(existingId, payload);
       else        await api.glAccounts.create(payload);

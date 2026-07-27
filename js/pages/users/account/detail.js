@@ -163,6 +163,8 @@ export async function openUserFormModal(userId, onSuccess) {
               <input type="password" id="uf-password-repeat" class="form-control" autocomplete="new-password"/>
             </label>
             <label class="checkbox-row"><input type="checkbox" id="uf-must-change" checked/> User must change password on first login</label>
+            <label class="checkbox-row"><input type="checkbox" id="uf-never-expires-create"/> Password never expires</label>
+            <label class="checkbox-row"><input type="checkbox" id="uf-self-service"/> Is self-service (portal) user</label>
           </div>` : ''}
 
         ${isEdit ? `
@@ -216,7 +218,8 @@ export async function openUserFormModal(userId, onSuccess) {
         payload.repeatPassword = pw2;
         payload.sendPasswordToEmail = false;
       }
-      payload.passwordNeverExpires = false;
+      payload.passwordNeverExpires = modalEl.querySelector('#uf-never-expires-create').checked;
+      if (modalEl.querySelector('#uf-self-service').checked) payload.isSelfServiceUser = true;
       if (modalEl.querySelector('#uf-must-change').checked) payload.shouldRenewPassword = true;
     } else {
       payload.accountNonLocked = !modalEl.querySelector('#uf-locked').checked;

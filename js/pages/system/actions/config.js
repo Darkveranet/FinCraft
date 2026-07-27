@@ -5,6 +5,59 @@ import { escapeHtml } from '../../../utils.js';
 import { can } from '../shared.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
+/**
+ * Edit a global configuration. Aligned to the Fineract edit-configuration form:
+ * exposes `enabled`, `value` (numeric), `stringValue`, and `dateValue` — the field
+ * shown adapts to the configuration's data type.
+ */
+export function openEditConfigModal(cfg, onSuccess) {
+  const mid = 'cfg-edit-' + Date.now();
+  const hasDate = cfg.dateValue !== undefined && cfg.dateValue !== null;
+  const hasString = typeof cfg.stringValue === 'string' || (cfg.value == null && !hasDate);
+  document.getElementById('modalRoot').insertAdjacentHTML('beforeend', `
+    <div class="modal-overlay open" role="dialog" aria-modal="true" id="${mid}">
+      <div class="modal modal-sm">
+        <div class="modal-header"><h3>Edit Configuration</h3><button data-close-modal>&times;</button></div>
+        <div class="modal-body">
+          <div class="text-muted small mb-2"><code>${escapeHtml(cfg.name)}</code></div>
+          ${cfg.description ? `<div class="text-muted small mb-3">${escapeHtml(cfg.description)}</div>` : ''}
+          <label class="checkbox-row mb-2"><input type="checkbox" id="cfg-enabled" ${cfg.enabled ? 'checked' : ''}/> Enabled</label>
+          <label class="mb-2">Numeric value
+            <input type="number" id="cfg-value" class="form-control" value="${cfg.value ?? ''}" placeholder="Leave blank if N/A"/></label>
+          <label class="mb-2">String value
+            <input id="cfg-string" class="form-control" value="${escapeHtml(cfg.stringValue || '')}" placeholder="Leave blank if N/A"/></label>
+          <label>Date value
+            <input type="date" id="cfg-date" class="form-control" value="${escapeHtml(cfg.dateValue || '')}"/></label>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" data-close-modal>Cancel</button>
+          <button class="btn-primary" id="${mid}-save">Save</button>
+        </div>
+      </div>
+    </div>`);
+
+  const m = document.getElementById(mid);
+  m.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => m.remove()));
+
+  m.querySelector('#' + mid + '-save').addEventListener('click', async () => {
+    const payload = { enabled: m.querySelector('#cfg-enabled').checked };
+    const numVal = m.querySelector('#cfg-value').value.trim();
+    const strVal = m.querySelector('#cfg-string').value.trim();
+    const dateVal = m.querySelector('#cfg-date').value;
+    if (numVal !== '') payload.value = Number(numVal);
+    if (strVal !== '') payload.stringValue = strVal;
+    if (dateVal) { payload.dateValue = dateVal; payload.dateFormat = DATE_FORMAT; payload.locale = LOCALE; }
+    try {
+      await api.configurations.update(cfg.id || cfg.name, payload);
+      m.remove();
+      toast('success', 'Configuration updated', cfg.name);
+      onSuccess?.();
+    } catch (e) {
+      toast('error', 'Update failed', extractFineractError(e));
+    }
+  });
+}
+
 export function openNewCodeModal(onSuccess) {
   const mid = 'code-' + Date.now();
   document.getElementById('modalRoot').insertAdjacentHTML('beforeend', `

@@ -1,7 +1,11 @@
 <!-- FinCraft modal partials — shares domain. Fetched and concatenated at
      runtime by js/ui/shell.js alongside the other views/modals/*.html files (mirrors
      the js/api/shares.js domain split). All forms have name= attrs and
-     data-populate= hooks. -->
+     data-populate= hooks.
+     Field set aligned to Fineract reference (share account create/template):
+     productId, submittedDate, externalId, unitPrice, requestedShares,
+     savingsAccountId, applicationDate, allowDividendCalculationForInactiveClients,
+     minimumActivePeriod(+FrequencyType), lockinPeriodFrequency(+Type). -->
 
 <!-- New Share Account -->
 <div id="newShareModal" class="modal-overlay" role="dialog" aria-modal="true">
@@ -24,10 +28,37 @@
           <input name="requestedShares" type="number" min="1" class="form-control" required/></label>
         <label><span class="form-label">Unit price *</span>
           <input name="unitPrice" type="number" min="0.01" step="0.01" class="form-control" required placeholder="Share price per unit"/></label>
-        <label><span class="form-label">Submitted on *</span>
+        <label><span class="form-label">Submitted / application date *</span>
           <input name="submittedDate" type="date" class="form-control" required/></label>
         <label><span class="form-label">External ID</span>
           <input name="externalId" class="form-control"/></label>
+
+        <label class="full"><span class="form-label">Linked savings account (for dividends)</span>
+          <select name="savingsAccountId" id="shSavingsSel" class="form-control">
+            <option value="">— None —</option></select></label>
+
+        <div class="full form-subhead"><i class="fa-solid fa-sliders"></i> Overrides (optional — default to product)</div>
+        <label><span class="form-label">Minimum active period</span>
+          <input name="minimumActivePeriod" type="number" min="0" step="1" class="form-control" placeholder="e.g. 30"/></label>
+        <label><span class="form-label">Minimum active period type</span>
+          <select name="minimumActivePeriodFrequencyType" class="form-control">
+            <option value="">— Default —</option>
+            <option value="0">Days</option>
+          </select></label>
+        <label><span class="form-label">Lock-in period</span>
+          <input name="lockinPeriodFrequency" type="number" min="0" step="1" class="form-control" placeholder="e.g. 6"/></label>
+        <label><span class="form-label">Lock-in period type</span>
+          <select name="lockinPeriodFrequencyType" class="form-control">
+            <option value="">— Default —</option>
+            <option value="0">Days</option>
+            <option value="1">Weeks</option>
+            <option value="2">Months</option>
+            <option value="3">Years</option>
+          </select></label>
+
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="allowDividendCalculationForInactiveClients"/>
+          <span>Allow dividend calculation for inactive clients</span></label>
         <label class="full form-check" style="align-items:center">
           <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
       </form>
@@ -38,4 +69,3 @@
     </div>
   </div>
 </div>
-

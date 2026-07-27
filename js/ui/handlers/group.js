@@ -6,8 +6,8 @@ import { DATE_FORMAT, LOCALE } from '../../config.js';
 export const GroupHandlers = {
     'submit-group': async (btn) => {
       const f = formData('newGroupForm');
-      if (!f.name || !f.officeId || !f.submittedOnDate || !f.centerId) {
-        toast('warn', 'Required', 'Name, center, office and submitted date are required'); return;
+      if (!f.name || !f.officeId || !f.submittedOnDate) {
+        toast('warn', 'Required', 'Name, office and submitted date are required'); return;
       }
       const payload = {
         dateFormat: DATE_FORMAT, locale: LOCALE,
@@ -17,7 +17,14 @@ export const GroupHandlers = {
       };
       if (f.staffId) payload.staffId = parseInt(f.staffId);
       if (f.externalId) payload.externalId = f.externalId;
-      const autoActivate = f.autoActivate === 'on' || f.autoActivate === 'true';
+      if (f.accountNo) payload.accountNo = f.accountNo;
+      // Native clientMembers[] — enrol members at creation (single select ⇒ string, multi ⇒ array)
+      const clientMembers = Array.isArray(f.clientMembers)
+        ? f.clientMembers
+        : (f.clientMembers ? [f.clientMembers] : []);
+      if (clientMembers.length) payload.clientMembers = clientMembers.map(id => parseInt(id));
+      const autoActivate = f.active === 'on' || f.active === 'true';
+      const activationDate = f.activationDate || f.submittedOnDate;
 
       setSubmitting(btn, true);
       try {
@@ -25,7 +32,8 @@ export const GroupHandlers = {
         const id = r.groupId || r.resourceId;
         let statusMsg = 'Group created';
 
-        if (id) {
+        // Center attachment is optional (Fineract allows standalone groups)
+        if (id && f.centerId) {
           try {
             await api.centers.associateGroups(f.centerId, { groupMembers: [String(id)] });
             statusMsg = 'Group created & attached to center';
@@ -37,11 +45,30 @@ export const GroupHandlers = {
 
         if (autoActivate && id) {
           try {
-            await api.groups.activate(id, { activationDate: f.submittedOnDate, dateFormat: DATE_FORMAT, locale: LOCALE });
+            await api.groups.activate(id, { activationDate, dateFormat: DATE_FORMAT, locale: LOCALE });
             statusMsg = statusMsg ? statusMsg + ' & activated' : 'Group activated';
           } catch (actErr) {
             toast('warn', 'Group created, but activation failed', extractFineractError(actErr));
             if (!statusMsg) statusMsg = null;
+          }
+        }
+
+        // Optional collection-meeting calendar (Fineract meeting fields)
+        if (id && f.frequency && f.meetingStartDate) {
+          try {
+            const cal = {
+              dateFormat: DATE_FORMAT, locale: LOCALE,
+              title: `${f.name} collection meeting`,
+              startDate: f.meetingStartDate,
+              typeId: 1, repeating: true,
+              frequency: parseInt(f.frequency),
+              interval: parseInt(f.interval) || 1
+            };
+            if (f.repeatsOnDay) cal.repeatsOnDay = parseInt(f.repeatsOnDay);
+            await api.calendars.create('groups', id, cal);
+            statusMsg = statusMsg ? statusMsg + ' + meeting set' : 'Meeting scheduled';
+          } catch (calErr) {
+            toast('warn', 'Group saved, but meeting schedule failed', extractFineractError(calErr));
           }
         }
 

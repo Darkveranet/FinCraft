@@ -149,13 +149,19 @@ export async function openFrequentPostingModal(ruleId, rule, onSuccess) {
 }
 
 export async function openJournalEntryModal(onSuccess) {
-  const [officesRes, glAccounts] = await Promise.all([
+  const [officesRes, glAccounts, currRes, ptRes] = await Promise.all([
     api.offices.list().catch(() => []),
-    glList()
+    glList(),
+    api.currencies.list().catch(() => null),
+    api.paymentTypes.list().catch(() => [])
   ]);
   const offices = Array.isArray(officesRes) ? officesRes : [];
+  const currencies = currRes?.selectedCurrencyOptions || currRes?.currencyOptions || [];
+  const paymentTypes = Array.isArray(ptRes) ? ptRes : (ptRes?.pageItems || []);
   const offOpts = offices.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
   const glOptsHtml = glAccounts.map(g => `<option value="${g.id}">${escapeHtml(g.name)} (${g.glCode})</option>`).join('');
+  const currOpts = currencies.map(cu => `<option value="${cu.code}">${escapeHtml(cu.code + ' — ' + cu.name)}</option>`).join('');
+  const ptOpts = paymentTypes.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
 
   const mid = 'je-' + Date.now();
   const el = dynModal(mid, 'New Journal Entry', `
@@ -165,9 +171,31 @@ export async function openJournalEntryModal(onSuccess) {
           <option value="">Select…</option>${offOpts}
         </select>
       </label>
+      <label>Currency *
+        <select id="je-currency" class="form-control" required>
+          <option value="">Select…</option>${currOpts}
+        </select>
+      </label>
       <label>Transaction date * <input type="date" id="je-date" class="form-control" value="${today()}" required/></label>
-      <label class="full">Reference / comments <input id="je-ref" class="form-control"/></label>
+      <label>Reference number <input id="je-refnum" class="form-control" placeholder="Optional"/></label>
+      <label class="full">Comments <input id="je-ref" class="form-control" placeholder="Optional narrative"/></label>
     </div>
+
+    <details class="mt-2">
+      <summary class="form-subhead" style="cursor:pointer"><i class="fa-solid fa-money-check-dollar"></i> Payment details (optional)</summary>
+      <div class="form-grid mt-2">
+        <label>Payment type
+          <select id="je-pt" class="form-control">
+            <option value="">— None —</option>${ptOpts}
+          </select>
+        </label>
+        <label>Account number <input id="je-acct" class="form-control"/></label>
+        <label>Cheque number <input id="je-cheque" class="form-control"/></label>
+        <label>Routing code <input id="je-routing" class="form-control"/></label>
+        <label>Receipt number <input id="je-receipt" class="form-control"/></label>
+        <label>Bank number <input id="je-bank" class="form-control"/></label>
+      </div>
+    </details>
 
     <h4 class="mt-3">Debits</h4>
     <div id="je-debits">
@@ -212,9 +240,11 @@ export async function openJournalEntryModal(onSuccess) {
 
   el.querySelector('#' + mid + '-save').addEventListener('click', async () => {
     const officeId = vi(el, 'je-office');
+    const currencyCode = v(el, 'je-currency');
     const transactionDate = v(el, 'je-date');
     const comments = v(el, 'je-ref');
-    if (!officeId || !transactionDate) { toast('warn', 'Fill required fields', ''); return; }
+    const referenceNumber = v(el, 'je-refnum');
+    if (!officeId || !currencyCode || !transactionDate) { toast('warn', 'Fill required fields', 'Office, currency and transaction date are required'); return; }
 
     const collectRows = (containerId) => {
       const rows = [];
@@ -234,11 +264,23 @@ export async function openJournalEntryModal(onSuccess) {
     }
 
     const payload = {
-      officeId, transactionDate,
+      officeId, currencyCode, transactionDate,
       dateFormat: DATE_FORMAT, locale: LOCALE,
       debits, credits
     };
     if (comments) payload.comments = comments;
+    if (referenceNumber) payload.referenceNumber = referenceNumber;
+
+    // Optional payment details (native Fineract JE contract)
+    const ptId = vi(el, 'je-pt');
+    if (ptId) {
+      payload.paymentTypeId = ptId;
+      const acct = v(el, 'je-acct'); if (acct) payload.accountNumber = acct;
+      const cheque = v(el, 'je-cheque'); if (cheque) payload.checkNumber = cheque;
+      const routing = v(el, 'je-routing'); if (routing) payload.routingCode = routing;
+      const receipt = v(el, 'je-receipt'); if (receipt) payload.receiptNumber = receipt;
+      const bank = v(el, 'je-bank'); if (bank) payload.bankNumber = bank;
+    }
 
     try {
       await api.journalEntries.create(payload);

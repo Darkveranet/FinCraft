@@ -53,6 +53,7 @@ export async function openShareProductModal(productId, onSuccess) {
         <select id="shp-currency" class="form-control" required><option value="">Select…</option>${currencies}</select>
       </label>
       <label>Decimal places <input type="number" id="shp-decimals" class="form-control" value="${existing.digitsAfterDecimal ?? 2}"/></label>
+      <label>Currency in multiples of <input type="number" id="shp-multiples" class="form-control" value="${existing.inMultiplesOf ?? ''}" placeholder="e.g. 1"/></label>
     </div>`;
 
   const stepShares = `
@@ -150,6 +151,7 @@ export async function openShareProductModal(productId, onSuccess) {
     const payload = {
       name, shortName, currencyCode, locale: LOCALE, dateFormat: DATE_FORMAT,
       digitsAfterDecimal: vi(el, 'shp-decimals') ?? 2,
+      inMultiplesOf: vi(el, 'shp-multiples') || undefined,
       totalShares, unitPrice,
       sharesIssued: vi(el, 'shp-issue') || totalShares,
       minimumShares: vi(el, 'shp-min-shares') || undefined,

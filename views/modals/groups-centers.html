@@ -1,7 +1,10 @@
 <!-- FinCraft modal partials — groups-centers domain. Fetched and concatenated at
      runtime by js/ui/shell.js alongside the other views/modals/*.html files (mirrors
      the js/api/groups-centers.js domain split). All forms have name= attrs and
-     data-populate= hooks. -->
+     data-populate= hooks.
+     Field set aligned to Fineract reference (groups/centers create + meeting calendar):
+     name, officeId, staffId, submittedOnDate, externalId, active, activationDate,
+     + collection meeting: startDate, frequency, interval, repeatsOnDay. -->
 
 <!-- New Group -->
 <div id="newGroupModal" class="modal-overlay" role="dialog" aria-modal="true">
@@ -12,8 +15,8 @@
       <form class="form-grid" id="newGroupForm">
         <label class="full"><span class="form-label">Group name *</span>
           <input name="name" required class="form-control"/></label>
-        <label><span class="form-label">Center *</span>
-          <select name="centerId" id="grp-center-sel" class="form-control" data-populate="centers" required></select></label>
+        <label><span class="form-label">Center</span>
+          <select name="centerId" id="grp-center-sel" class="form-control" data-populate="centers"><option value="">— Standalone (no center) —</option></select></label>
         <label><span class="form-label">Office *</span>
           <select name="officeId" class="form-control" data-populate="offices" required></select></label>
         <label><span class="form-label">Staff</span>
@@ -22,8 +25,38 @@
           <input name="submittedOnDate" type="date" class="form-control" required/></label>
         <label><span class="form-label">External ID</span>
           <input name="externalId" class="form-control"/></label>
+        <label><span class="form-label">Account number</span>
+          <input name="accountNo" class="form-control" placeholder="Optional — if manual numbering is enabled"/></label>
+        <label class="full"><span class="form-label">Client members</span>
+          <select name="clientMembers" id="grp-clients-sel" class="form-control" data-populate="clients" multiple size="5"></select>
+          <span class="form-hint">Optional — hold Ctrl/Cmd to select multiple clients to enrol at creation.</span></label>
+
         <label class="full form-check" style="align-items:center">
-          <input type="checkbox" name="autoActivate" checked/> <span>Also activate immediately</span></label>
+          <input type="checkbox" name="active" id="grp-active" checked/> <span>Activate immediately</span></label>
+        <label id="grp-activation-wrap"><span class="form-label">Activation date</span>
+          <input name="activationDate" type="date" class="form-control"/></label>
+
+        <div class="full form-subhead"><i class="fa-solid fa-calendar-days"></i> Collection meeting (optional)</div>
+        <label><span class="form-label">Meeting start date</span>
+          <input name="meetingStartDate" type="date" class="form-control"/></label>
+        <label><span class="form-label">Frequency</span>
+          <select name="frequency" class="form-control">
+            <option value="">— No recurring meeting —</option>
+            <option value="1">Daily</option>
+            <option value="2">Weekly</option>
+            <option value="3">Monthly</option>
+            <option value="4">Yearly</option>
+          </select></label>
+        <label><span class="form-label">Repeats every (interval)</span>
+          <input name="interval" type="number" min="1" step="1" class="form-control" placeholder="e.g. 1"/></label>
+        <label><span class="form-label">Repeats on (day)</span>
+          <select name="repeatsOnDay" class="form-control">
+            <option value="">— N/A —</option>
+            <option value="1">Monday</option><option value="2">Tuesday</option>
+            <option value="3">Wednesday</option><option value="4">Thursday</option>
+            <option value="5">Friday</option><option value="6">Saturday</option>
+            <option value="7">Sunday</option>
+          </select></label>
       </form>
     </div>
     <div class="modal-foot">
@@ -60,8 +93,35 @@
           <input name="submittedOnDate" type="date" class="form-control" required/></label>
         <label><span class="form-label">External ID</span>
           <input name="externalId" class="form-control"/></label>
+        <label><span class="form-label">Account number</span>
+          <input name="accountNo" class="form-control" placeholder="Optional — if manual numbering is enabled"/></label>
+
         <label class="full form-check" style="align-items:center">
-          <input type="checkbox" name="autoActivate" checked/> <span>Also activate immediately</span></label>
+          <input type="checkbox" name="active" id="ctr-active" checked/> <span>Activate immediately</span></label>
+        <label id="ctr-activation-wrap"><span class="form-label">Activation date</span>
+          <input name="activationDate" type="date" class="form-control"/></label>
+
+        <div class="full form-subhead"><i class="fa-solid fa-calendar-days"></i> Collection meeting (optional)</div>
+        <label><span class="form-label">Meeting start date</span>
+          <input name="meetingStartDate" type="date" class="form-control"/></label>
+        <label><span class="form-label">Frequency</span>
+          <select name="frequency" class="form-control">
+            <option value="">— No recurring meeting —</option>
+            <option value="1">Daily</option>
+            <option value="2">Weekly</option>
+            <option value="3">Monthly</option>
+            <option value="4">Yearly</option>
+          </select></label>
+        <label><span class="form-label">Repeats every (interval)</span>
+          <input name="interval" type="number" min="1" step="1" class="form-control" placeholder="e.g. 1"/></label>
+        <label><span class="form-label">Repeats on (day)</span>
+          <select name="repeatsOnDay" class="form-control">
+            <option value="">— N/A —</option>
+            <option value="1">Monday</option><option value="2">Tuesday</option>
+            <option value="3">Wednesday</option><option value="4">Thursday</option>
+            <option value="5">Friday</option><option value="6">Saturday</option>
+            <option value="7">Sunday</option>
+          </select></label>
       </form>
     </div>
     <div class="modal-foot">
@@ -70,4 +130,3 @@
     </div>
   </div>
 </div>
-

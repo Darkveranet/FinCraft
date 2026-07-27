@@ -221,6 +221,15 @@ document.addEventListener('fc:modals-loaded', async () => {
       document.getElementById('charge-timetype').innerHTML = opt(tpl.chargeTimeTypeOptions);
       document.getElementById('charge-calctype').innerHTML = opt(tpl.chargeCalculationTypeOptions);
       document.getElementById('charge-currency').innerHTML = (tpl.currencyOptions || []).map(c => `<option value="${c.code}">${escapeHtml(c.name)} (${c.code})</option>`).join('');
+      const pmSel = document.getElementById('charge-paymentmode');
+      if (pmSel && Array.isArray(tpl.chargePaymentModeOptions) && tpl.chargePaymentModeOptions.length) {
+        pmSel.innerHTML = opt(tpl.chargePaymentModeOptions);
+      }
+      const tgSel = document.getElementById('charge-taxgroup');
+      if (tgSel) {
+        tgSel.innerHTML = '<option value="">— None —</option>' +
+          (tpl.taxGroupOptions || []).map(g => `<option value="${g.id}">${escapeHtml(g.name || '—')}</option>`).join('');
+      }
     } catch (e) { console.warn('[charges/template]', e); }
   }
 

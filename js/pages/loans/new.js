@@ -33,7 +33,13 @@ export async function renderNew(c) {
     income: '', expenses: '', repaymentSource: '', guarantors: '',
     // native Fineract loan-create columns
     loanOfficerId: '', fundId: '', loanPurposeId: '', externalId: '', linkAccountId: '',
+    originatorExternalId: '', createStandingInstructionAtDisbursement: false,
     submittedOnDate: today(), expectedDisbursementDate: today(), expectedFirstRepaymentOnDate: '',
+    // optional terms overrides (blank/false ⇒ use product/template default)
+    repaymentEvery: '', repaymentFrequencyType: '', fixedEmiAmount: '', interestChargedFromDate: '',
+    inArrearsTolerance: '', graceOnPrincipalPayment: '', graceOnInterestPayment: '',
+    graceOnInterestCharged: '', graceOnArrearsAgeing: '', maxOutstandingLoanBalance: '',
+    isTopup: false, loanIdToClose: '',
     rate: null, minP: null, maxP: null, tpl: null
   };
 
@@ -131,8 +137,48 @@ export async function renderNew(c) {
               ${(state.tpl?.accountLinkingOptions || []).map(o => `<option value="${o.id}" ${String(state.linkAccountId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.accountNo || o.productName || ('#' + o.id))}</option>`).join('')}
             </select></div>
           <div class="wz-field"><label>External ID</label><input id="wz-ext" class="form-control" value="${escapeHtml(state.externalId)}" placeholder="Your own reference"/></div>
+          <div class="wz-field"><label>Originator External ID</label><input id="wz-orig-ext" class="form-control" value="${escapeHtml(state.originatorExternalId)}" placeholder="Third-party reference"/></div>
+          <div class="wz-field full"><label class="wz-check"><input type="checkbox" id="wz-si-disburse" ${state.createStandingInstructionAtDisbursement ? 'checked' : ''}/> Create standing instruction at disbursement</label></div>
           <div class="wz-field full"><label>Purpose Notes</label><textarea id="wz-purpose" class="form-control" rows="2">${escapeHtml(state.purpose)}</textarea></div>
-        </div>`;
+        </div>
+
+        <details class="wz-advanced" ${(state.repaymentEvery || state.fixedEmiAmount || state.isTopup || state.inArrearsTolerance || state.graceOnPrincipalPayment || state.graceOnInterestPayment) ? 'open' : ''} style="margin-top:14px">
+          <summary style="cursor:pointer;font-weight:600"><i class="fa-solid fa-sliders"></i> Advanced terms (override product defaults)</summary>
+          <div class="wz-hint" style="margin:6px 0 10px">Leave blank to use the product / template default. Change only what this loan needs.</div>
+          <div class="wz-grid">
+            <div class="wz-field"><label>Repay every</label><input id="wz-repay-every" type="number" min="1" class="form-control" value="${escapeHtml(state.repaymentEvery)}" placeholder="e.g. 1"/></div>
+            <div class="wz-field"><label>Repayment frequency</label>
+              <select id="wz-repay-freq" class="form-control">
+                <option value="">Product default</option>
+                <option value="0" ${String(state.repaymentFrequencyType) === '0' ? 'selected' : ''}>Days</option>
+                <option value="1" ${String(state.repaymentFrequencyType) === '1' ? 'selected' : ''}>Weeks</option>
+                <option value="2" ${String(state.repaymentFrequencyType) === '2' ? 'selected' : ''}>Months</option>
+                <option value="3" ${String(state.repaymentFrequencyType) === '3' ? 'selected' : ''}>Years</option>
+              </select></div>
+            <div class="wz-field"><label>Fixed EMI amount</label><input id="wz-fixed-emi" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.fixedEmiAmount)}" placeholder="Optional"/></div>
+            <div class="wz-field"><label>Interest charged from</label><input id="wz-int-from" type="date" class="form-control" value="${escapeHtml(state.interestChargedFromDate)}"/></div>
+            <div class="wz-field"><label>Arrears tolerance</label><input id="wz-arrears-tol" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.inArrearsTolerance)}"/></div>
+            <div class="wz-field"><label>Max outstanding balance</label><input id="wz-max-outstanding" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.maxOutstandingLoanBalance)}" placeholder="Tranche loans"/></div>
+          </div>
+          <div class="wz-subhead" style="margin-top:8px"><i class="fa-solid fa-hourglass-half"></i> Moratorium / grace (periods)</div>
+          <div class="wz-grid">
+            <div class="wz-field"><label>Grace on principal</label><input id="wz-grace-pr" type="number" min="0" class="form-control" value="${escapeHtml(state.graceOnPrincipalPayment)}"/></div>
+            <div class="wz-field"><label>Grace on interest payment</label><input id="wz-grace-intpay" type="number" min="0" class="form-control" value="${escapeHtml(state.graceOnInterestPayment)}"/></div>
+            <div class="wz-field"><label>Grace on interest charged</label><input id="wz-grace-intchg" type="number" min="0" class="form-control" value="${escapeHtml(state.graceOnInterestCharged)}"/></div>
+            <div class="wz-field"><label>Grace on arrears ageing</label><input id="wz-grace-arrears" type="number" min="0" class="form-control" value="${escapeHtml(state.graceOnArrearsAgeing)}"/></div>
+          </div>
+          <div class="wz-subhead" style="margin-top:8px"><i class="fa-solid fa-arrows-rotate"></i> Top-up loan</div>
+          <div class="wz-grid">
+            <div class="wz-field full"><label class="wz-check"><input type="checkbox" id="wz-topup" ${state.isTopup ? 'checked' : ''}/> This is a top-up that closes an existing loan</label></div>
+            <div class="wz-field full" id="wz-topup-wrap" style="${state.isTopup ? '' : 'display:none'}"><label>Loan to close &amp; top-up</label>
+              <select id="wz-loan-close" class="form-control">
+                <option value="">Select existing loan…</option>
+                ${(state.tpl?.clientActiveLoanOptions || []).map(o => `<option value="${o.id}" ${String(state.loanIdToClose) === String(o.id) ? 'selected' : ''}>${escapeHtml((o.productName || 'Loan') + ' — #' + (o.accountNo || o.id))}</option>`).join('')}
+              </select>
+              ${(state.tpl && !(state.tpl.clientActiveLoanOptions || []).length) ? `<div class="wz-hint">No active loans found for this client to top-up.</div>` : ''}
+            </div>
+          </div>
+        </details>`;
     }
     if (state.step === 3) {
       return `
@@ -200,7 +246,7 @@ export async function renderNew(c) {
         // Pull the product's real create-defaults from the loan template.
         if (state.productId && state.clientId) {
           try {
-            state.tpl = await api.loans.template({ templateType: 'individual', clientId: state.clientId, productId: state.productId });
+            state.tpl = await api.loans.template({ templateType: 'individual', clientId: state.clientId, productId: state.productId, activeOnly: true });
             if (state.tpl?.numberOfRepayments && (!state.tenure || state.tenure === 12)) state.tenure = state.tpl.numberOfRepayments;
             if (state.rate == null && state.tpl?.interestRatePerPeriod != null) state.rate = state.tpl.interestRatePerPeriod;
           } catch { /* optional */ }
@@ -217,6 +263,21 @@ export async function renderNew(c) {
       state.loanPurposeId = c.querySelector('#wz-purpose-id')?.value || '';
       state.linkAccountId = c.querySelector('#wz-link')?.value || '';
       state.externalId = c.querySelector('#wz-ext')?.value.trim() || '';
+      state.originatorExternalId = c.querySelector('#wz-orig-ext')?.value.trim() || '';
+      state.createStandingInstructionAtDisbursement = !!c.querySelector('#wz-si-disburse')?.checked;
+      // advanced term overrides
+      state.repaymentEvery = c.querySelector('#wz-repay-every')?.value || '';
+      state.repaymentFrequencyType = c.querySelector('#wz-repay-freq')?.value || '';
+      state.fixedEmiAmount = c.querySelector('#wz-fixed-emi')?.value || '';
+      state.interestChargedFromDate = c.querySelector('#wz-int-from')?.value || '';
+      state.inArrearsTolerance = c.querySelector('#wz-arrears-tol')?.value || '';
+      state.maxOutstandingLoanBalance = c.querySelector('#wz-max-outstanding')?.value || '';
+      state.graceOnPrincipalPayment = c.querySelector('#wz-grace-pr')?.value || '';
+      state.graceOnInterestPayment = c.querySelector('#wz-grace-intpay')?.value || '';
+      state.graceOnInterestCharged = c.querySelector('#wz-grace-intchg')?.value || '';
+      state.graceOnArrearsAgeing = c.querySelector('#wz-grace-arrears')?.value || '';
+      state.isTopup = !!c.querySelector('#wz-topup')?.checked;
+      state.loanIdToClose = c.querySelector('#wz-loan-close')?.value || '';
     }
     if (state.step === 3) {
       state.income = c.querySelector('#wz-income')?.value || '';
@@ -243,6 +304,11 @@ export async function renderNew(c) {
     c.querySelector('#wz-submit')?.addEventListener('click', submit);
     // Re-render the info strip immediately when the product changes on step 2.
     c.querySelector('#wz-product')?.addEventListener('change', async () => { await capture(); render(); });
+    // Top-up toggle reveals the loan-to-close selector without a full re-render.
+    c.querySelector('#wz-topup')?.addEventListener('change', (e) => {
+      const wrap = c.querySelector('#wz-topup-wrap');
+      if (wrap) wrap.style.display = e.target.checked ? '' : 'none';
+    });
   }
 
   async function submit() {
@@ -275,6 +341,24 @@ export async function renderNew(c) {
     if (state.loanPurposeId) payload.loanPurposeId = parseInt(state.loanPurposeId);
     if (state.linkAccountId) payload.linkAccountId = parseInt(state.linkAccountId);
     if (state.externalId) payload.externalId = state.externalId;
+    if (state.originatorExternalId) payload.originatorExternalId = state.originatorExternalId;
+    if (state.createStandingInstructionAtDisbursement) payload.createStandingInstructionAtDisbursement = true;
+
+    // Optional term overrides — only sent when the officer set them.
+    if (state.repaymentEvery) payload.repaymentEvery = parseInt(state.repaymentEvery);
+    if (state.repaymentFrequencyType !== '') payload.repaymentFrequencyType = parseInt(state.repaymentFrequencyType);
+    if (state.fixedEmiAmount) payload.fixedEmiAmount = parseFloat(state.fixedEmiAmount);
+    if (state.interestChargedFromDate) payload.interestChargedFromDate = state.interestChargedFromDate;
+    if (state.inArrearsTolerance) payload.inArrearsTolerance = parseFloat(state.inArrearsTolerance);
+    if (state.maxOutstandingLoanBalance) payload.maxOutstandingLoanBalance = parseFloat(state.maxOutstandingLoanBalance);
+    if (state.graceOnPrincipalPayment) payload.graceOnPrincipalPayment = parseInt(state.graceOnPrincipalPayment);
+    if (state.graceOnInterestPayment) payload.graceOnInterestPayment = parseInt(state.graceOnInterestPayment);
+    if (state.graceOnInterestCharged) payload.graceOnInterestCharged = parseInt(state.graceOnInterestCharged);
+    if (state.graceOnArrearsAgeing) payload.graceOnArrearsAgeing = parseInt(state.graceOnArrearsAgeing);
+    if (state.isTopup && state.loanIdToClose) {
+      payload.isTopup = true;
+      payload.loanIdToClose = parseInt(state.loanIdToClose);
+    }
 
     try {
       const r = await api.loans.create(payload);

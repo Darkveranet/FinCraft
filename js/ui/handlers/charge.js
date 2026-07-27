@@ -25,6 +25,8 @@ export const ChargeHandlers = {
       if (f.feeInterval) payload.feeInterval = parseInt(f.feeInterval);
       if (f.feeFrequency !== undefined && f.feeFrequency !== '') payload.feeFrequency = parseInt(f.feeFrequency);
       if (f.feeOnMonthDay) { payload.feeOnMonthDay = f.feeOnMonthDay; payload.monthDayFormat = 'dd MMMM'; }
+      if (f.chargePaymentMode !== undefined && f.chargePaymentMode !== '') payload.chargePaymentMode = parseInt(f.chargePaymentMode);
+      if (f.taxGroupId) payload.taxGroupId = parseInt(f.taxGroupId);
 
       setSubmitting(btn, true);
       try {

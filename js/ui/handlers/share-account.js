@@ -15,9 +15,21 @@ export const ShareAccountHandlers = {
         productId: parseInt(f.productId),
         requestedShares: parseInt(f.requestedShares),
         unitPrice: parseFloat(f.unitPrice) || 1,
-        submittedDate: f.submittedDate
+        submittedDate: f.submittedDate,
+        applicationDate: f.submittedDate
       };
       if (f.externalId) payload.externalId = f.externalId;
+      if (f.savingsAccountId) payload.savingsAccountId = parseInt(f.savingsAccountId);
+      if (f.minimumActivePeriod) {
+        payload.minimumActivePeriod = parseInt(f.minimumActivePeriod);
+        payload.minimumActivePeriodFrequencyType = parseInt(f.minimumActivePeriodFrequencyType || 0);
+      }
+      if (f.lockinPeriodFrequency) {
+        payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency);
+        payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType || 0);
+      }
+      payload.allowDividendCalculationForInactiveClients =
+        (f.allowDividendCalculationForInactiveClients === 'on' || f.allowDividendCalculationForInactiveClients === 'true');
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';
 
