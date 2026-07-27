@@ -1,0 +1,154 @@
+<!doctype html>
+<html data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Approval Inbox — preview</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="./css/app.css"/>
+<style>body{padding:28px;max-width:1200px;margin:0 auto}h1{margin-bottom:2px}</style>
+</head>
+<body>
+  <h1>Approval Inbox</h1>
+  <div class="ck-subhead">11 pending approvals • 11 total</div>
+
+  <div class="ck-kpi-grid">
+    <div class="ck-kpi"><div class="ck-kpi-head"><i class="fa-regular fa-clock"></i><span class="ck-kpi-label">Pending</span></div><div class="ck-kpi-value">11</div></div>
+    <div class="ck-kpi is-urgent"><div class="ck-kpi-head"><i class="fa-solid fa-triangle-exclamation"></i><span class="ck-kpi-label">Urgent</span></div><div class="ck-kpi-value">1</div></div>
+    <div class="ck-kpi"><div class="ck-kpi-head"><i class="fa-solid fa-hand-holding-dollar"></i><span class="ck-kpi-label">Loans</span></div><div class="ck-kpi-value">4</div></div>
+    <div class="ck-kpi"><div class="ck-kpi-head"><i class="fa-solid fa-book"></i><span class="ck-kpi-label">Expenses</span></div><div class="ck-kpi-value">2</div></div>
+  </div>
+
+  <div class="filter-bar ck-filter">
+    <span class="ck-filter-label">Type</span>
+    <select class="form-control"><option>All Types</option></select>
+    <input class="form-control ck-search" placeholder="Search title, reference, requester…"/>
+  </div>
+
+  <div class="ck-list">
+    <div class="ck-item ck-pri-high" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Business Loan — Bola Foods Ltd</span><span class="ck-pri-badge high">high</span></div>
+        <div class="ck-item-meta">LN-000031<span class="dot">•</span>Loan<span class="dot">•</span>Approval Review<span class="dot">•</span>1d ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦3.5M</span><span class="badge b-pending">Pending</span><span class="ck-requester">Ngozi Eze</span></div>
+    </div>
+    <div class="ck-item ck-pri-medium" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Personal Loan — Chidi Okafor</span><span class="ck-pri-badge medium">medium</span></div>
+        <div class="ck-item-meta">LN-000032<span class="dot">•</span>Loan<span class="dot">•</span>Initial Review<span class="dot">•</span>2d ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦750.0K</span><span class="badge b-pending">Pending</span><span class="ck-requester">Ngozi Eze</span></div>
+    </div>
+    <div class="ck-item ck-pri-medium" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Loan — Cooperative Society 12</span><span class="ck-pri-badge medium">medium</span></div>
+        <div class="ck-item-meta">LN-000033<span class="dot">•</span>Loan<span class="dot">•</span>Loan Approval<span class="dot">•</span>just now</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦1.8M</span><span class="badge b-pending">Pending</span><span class="ck-requester">Ngozi Eze</span></div>
+    </div>
+    <div class="ck-item ck-pri-low" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-book"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Manual journal — prepaid rent</span><span class="ck-pri-badge low">low</span></div>
+        <div class="ck-item-meta">JE-000078<span class="dot">•</span>Journal Entry<span class="dot">•</span>Initial Review<span class="dot">•</span>1d ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦120.0K</span><span class="badge b-pending">Pending</span><span class="ck-requester">Emeka Nwosu</span></div>
+    </div>
+    <div class="ck-item ck-pri-medium" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Disbursement — Bola Foods Ltd</span><span class="ck-pri-badge medium">medium</span></div>
+        <div class="ck-item-meta">DSB-000031<span class="dot">•</span>Disbursement<span class="dot">•</span>Awaiting Disbursement<span class="dot">•</span>1d ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦3.5M</span><span class="badge b-pending">Pending</span><span class="ck-requester">Ngozi Eze</span></div>
+    </div>
+    <div class="ck-item ck-pri-medium" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Savings — Amina Yusuf</span><span class="ck-pri-badge medium">medium</span></div>
+        <div class="ck-item-meta">SV-000210<span class="dot">•</span>Savings<span class="dot">•</span>Savings Approval<span class="dot">•</span>3h ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦500.0K</span><span class="badge b-pending">Pending</span><span class="ck-requester">Emeka Nwosu</span></div>
+    </div>
+    <div class="ck-item ck-pri-low" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-vault"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Fixed Deposit — Chidi Okafor</span><span class="ck-pri-badge low">low</span></div>
+        <div class="ck-item-meta">DP-000045<span class="dot">•</span>Fixed Deposit<span class="dot">•</span>Fixed Deposit Approval<span class="dot">•</span>5h ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦200.0K</span><span class="badge b-pending">Pending</span><span class="ck-requester">Ngozi Eze</span></div>
+    </div>
+    <div class="ck-item ck-pri-medium" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-receipt"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Expense — Office equipment purchase</span><span class="ck-pri-badge medium">medium</span></div>
+        <div class="ck-item-meta">EXP-2-0015<span class="dot">•</span>Expense<span class="dot">•</span>Accountant Review</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦450.0K</span><span class="badge b-pending">Pending</span><span class="ck-requester">emeka.n</span></div>
+    </div>
+    <div class="ck-item ck-pri-high" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-building-columns"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Borrowing — First Bank Facility</span><span class="ck-pri-badge high">high</span></div>
+        <div class="ck-item-meta">BRW-2-0003<span class="dot">•</span>Borrowing<span class="dot">•</span>Awaiting Drawdown<span class="dot">•</span>2d ago</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦5.0M</span><span class="badge b-pending">Pending</span><span class="ck-requester">—</span></div>
+    </div>
+    <div class="ck-item ck-pri-low" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-user-plus"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Account Opening — Esther Cosmetics</span><span class="ck-pri-badge low">low</span></div>
+        <div class="ck-item-meta">ACC-000091<span class="dot">•</span>Account Opening<span class="dot">•</span>Operations Review<span class="dot">•</span>2d ago</div>
+      </div>
+      <div class="ck-item-right"><span class="badge b-pending">Pending</span><span class="ck-requester">Ngozi Eze</span></div>
+    </div>
+    <div class="ck-item ck-pri-urgent" role="button" tabindex="0">
+      <div class="ck-item-icon"><i class="fa-solid fa-right-left"></i></div>
+      <div class="ck-item-main">
+        <div class="ck-item-title"><span class="ck-name">Large withdrawal — above teller limit</span><span class="ck-pri-badge urgent">urgent</span></div>
+        <div class="ck-item-meta">TXN-000512<span class="dot">•</span>Transaction<span class="dot">•</span>Withdrawal Review<span class="dot">•</span>just now</div>
+      </div>
+      <div class="ck-item-right"><span class="ck-amount">₦350.0K</span><span class="badge b-pending">Pending</span><span class="ck-requester">Kwame Mensah</span></div>
+    </div>
+  </div>
+
+  <!-- Modal preview -->
+  <div class="modal-overlay open" style="position:relative;margin-top:28px;background:none;padding:0;display:block">
+    <div class="modal modal-md" style="max-width:560px;margin:0 auto">
+      <div class="modal-header">
+        <div><div class="modal-title">Business Loan — Bola Foods Ltd</div><div class="modal-subtitle">LN-000031 • Loan • Victoria Island</div></div>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tk-field-grid">
+          <div class="tk-field"><div class="tk-field-label">Requested By</div><div class="tk-field-value">Ngozi Eze</div></div>
+          <div class="tk-field"><div class="tk-field-label">Requested At</div><div class="tk-field-value">25 Jul 2026</div></div>
+          <div class="tk-field"><div class="tk-field-label">Current Stage</div><div class="tk-field-value">Approval Review</div></div>
+          <div class="tk-field"><div class="tk-field-label">Amount</div><div class="tk-field-value">₦3,500,000.00</div></div>
+        </div>
+        <div class="tk-section-label">Approval History</div>
+        <ul class="tk-timeline">
+          <li class="tk-timeline-item"><div class="tk-tl-title">Ngozi Eze — submitted</div><div class="tk-tl-note">Loan approve requested for review.</div><div class="tk-tl-date">25 Jul 2026</div></li>
+          <li class="tk-timeline-item is-pending"><div class="tk-tl-title">Checker — awaiting decision</div><div class="tk-tl-note">Pending at: Approval Review</div></li>
+        </ul>
+        <div class="tk-decision">
+          <div class="tk-decision-title">Approve</div>
+          <div class="tk-decision-hint">Provide a comment for this decision (optional).</div>
+          <textarea placeholder="Enter your comment…"></textarea>
+          <button class="btn-primary tk-decision-confirm"><i class="fa-solid fa-check"></i> Confirm Approval</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary"><i class="fa-solid fa-arrow-left"></i> Close</button>
+        <button class="btn-amber"><i class="fa-solid fa-rotate-left"></i> Return for Correction</button>
+        <button class="btn-danger"><i class="fa-solid fa-xmark"></i> Reject</button>
+        <button class="btn-primary"><i class="fa-solid fa-check"></i> Approve</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -144,20 +144,3 @@ td.lx-num, th.lx-num { text-align: right; font-variant-numeric: tabular-nums; }
 @keyframes wz-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 .modal-foot .wz-modal-back,
 .modal-foot .wz-modal-next { display: inline-flex; align-items: center; gap: 6px; }
-
-/* ── Auto Review/Confirm pane (js/ui/modal-wizard.js renderReview) ────────── */
-.wz-review-card { border: 1px solid var(--line, #e5e7eb); border-radius: 12px; padding: 4px 0; }
-.wz-review-title {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 700; color: var(--text-2, #475569);
-  padding: 12px 16px; border-bottom: 1px solid var(--line, #e5e7eb);
-}
-.wz-review-title i { color: var(--brand-teal, #0f9d8f); }
-.wz-review-list { margin: 0; padding: 6px 0; }
-.wz-review-row {
-  display: grid; grid-template-columns: 40% 60%; gap: 12px;
-  padding: 8px 16px; border-bottom: 1px dashed var(--line, #eef2f6);
-}
-.wz-review-row:last-child { border-bottom: 0; }
-.wz-review-row dt { color: var(--text-3, #64748b); font-size: 13px; }
-.wz-review-row dd { margin: 0; color: var(--text-1, #0f172a); font-size: 13px; font-weight: 600; word-break: break-word; }

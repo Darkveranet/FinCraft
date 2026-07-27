@@ -18,18 +18,6 @@ export const ShareAccountHandlers = {
         submittedDate: f.submittedDate
       };
       if (f.externalId) payload.externalId = f.externalId;
-      if (f.savingsAccountId) payload.savingsAccountId = parseInt(f.savingsAccountId);
-      if (f.lockinPeriodFrequency) {
-        payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency);
-        payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType || 2);
-      }
-      if (f.minimumActivePeriod) {
-        payload.minimumActivePeriod = parseInt(f.minimumActivePeriod);
-        payload.minimumActivePeriodFrequencyType = parseInt(f.minimumActivePeriodFrequencyType || 0);
-      }
-      if (f.allowDividendCalculationForInactiveClients === 'on' || f.allowDividendCalculationForInactiveClients === 'true') {
-        payload.allowDividendCalculationForInactiveClients = true;
-      }
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';
 

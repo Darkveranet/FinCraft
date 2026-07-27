@@ -9,7 +9,6 @@ export const PaymentTypeHandlers = {
       const payload = {
         name: f.name,
         description: f.description || undefined,
-        codeName: f.codeName || undefined,
         isCashPayment: f.isCashPayment === 'true',
         position: parseInt(f.position) || 0
       };

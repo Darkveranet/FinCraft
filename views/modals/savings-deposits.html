@@ -1,82 +1,46 @@
 <!-- FinCraft modal partials — savings-deposits domain. Fetched and concatenated at
      runtime by js/ui/shell.js alongside the other views/modals/*.html files (mirrors
      the js/api/savings-deposits.js domain split). All forms have name= attrs and
-     data-populate= hooks. New Savings / FD / RD are multi-step wizards
-     (js/ui/modal-wizard.js) with an auto Review step. -->
+     data-populate= hooks. -->
 
 <!-- New Savings -->
 <div id="newSavingsModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg" data-wizard>
+  <div class="modal modal-lg">
     <div class="modal-head"><h3 class="modal-title">New Savings Account</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form id="newSavingsForm">
-        <div class="wz-pane form-grid" data-wz-step="Account">
-          <label class="full"><span class="form-label">Client *</span>
-            <div class="search-field">
-              <input id="savClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
-              <input type="hidden" name="clientId" id="savClientId"/>
-              <div id="savClientResults" class="search-dropdown" style="display:none"></div>
-            </div>
-          </label>
-          <label><span class="form-label">Product *</span>
-            <select name="productId" class="form-control" data-populate="savingsProducts" required></select></label>
-          <label><span class="form-label">Field officer</span>
-            <select name="staffId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
-          <label><span class="form-label">Submitted on *</span>
-            <input name="submittedOnDate" type="date" class="form-control" required/></label>
-          <label><span class="form-label">External ID</span>
-            <input name="externalId" class="form-control"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Interest &amp; Terms">
-          <label class="full"><span class="form-label">Nominal annual interest %</span>
-            <input name="nominalAnnualInterestRate" type="number" min="0" step="0.000001" class="form-control" placeholder="Leave blank to use product rate"/></label>
-          <label><span class="form-label">Interest compounding</span>
-            <select name="interestCompoundingPeriodType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="1">Daily</option><option value="4">Monthly</option></select></label>
-          <label><span class="form-label">Interest posting</span>
-            <select name="interestPostingPeriodType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="4">Monthly</option><option value="5">Quarterly</option>
-              <option value="6">Bi-annual</option><option value="7">Annually</option></select></label>
-          <label><span class="form-label">Interest calculated using</span>
-            <select name="interestCalculationType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="1">Daily balance</option><option value="2">Average daily balance</option></select></label>
-          <label><span class="form-label">Days in year</span>
-            <select name="interestCalculationDaysInYearType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="360">360 days</option><option value="365">365 days</option></select></label>
-          <label><span class="form-label">Opening deposit</span>
-            <input name="minRequiredOpeningBalance" type="number" min="0" step="0.01" class="form-control" placeholder="Optional"/></label>
-          <label><span class="form-label">Lock-in period</span>
-            <input name="lockinPeriodFrequency" type="number" min="0" class="form-control"/></label>
-          <label><span class="form-label">Lock-in period type</span>
-            <select name="lockinPeriodFrequencyType" class="form-control">
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Overdraft &amp; Options">
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="allowOverdraft"/> <span>Allow overdraft on this account</span></label>
-          <label><span class="form-label">Overdraft limit</span>
-            <input name="overdraftLimit" type="number" min="0" step="0.01" class="form-control"/></label>
-          <label><span class="form-label">Nominal annual interest for overdraft %</span>
-            <input name="nominalAnnualInterestRateOverdraft" type="number" min="0" step="0.000001" class="form-control"/></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="enforceMinRequiredBalance"/> <span>Enforce minimum required balance</span></label>
-          <label><span class="form-label">Minimum required balance</span>
-            <input name="minRequiredBalance" type="number" min="0" step="0.01" class="form-control"/></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="withHoldTax"/> <span>Withhold tax on interest</span></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
-        </div>
-
-        <div class="wz-pane" data-wz-step="Review" data-wz-review></div>
+      <form class="form-grid" id="newSavingsForm">
+        <label class="full"><span class="form-label">Client *</span>
+          <div class="search-field">
+            <input id="savClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
+            <input type="hidden" name="clientId" id="savClientId"/>
+            <div id="savClientResults" class="search-dropdown" style="display:none"></div>
+          </div>
+        </label>
+        <label><span class="form-label">Product *</span>
+          <select name="productId" class="form-control" data-populate="savingsProducts" required></select></label>
+        <label><span class="form-label">Field officer</span>
+          <select name="staffId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
+        <label><span class="form-label">Submitted on *</span>
+          <input name="submittedOnDate" type="date" class="form-control" required/></label>
+        <label><span class="form-label">Nominal annual interest %</span>
+          <input name="nominalAnnualInterestRate" type="number" min="0" step="0.000001" class="form-control" placeholder="Leave blank to use product rate"/></label>
+        <label><span class="form-label">Opening deposit</span>
+          <input name="minRequiredOpeningBalance" type="number" min="0" step="0.01" class="form-control" placeholder="Optional"/></label>
+        <label><span class="form-label">Lock-in period</span>
+          <input name="lockinPeriodFrequency" type="number" min="0" class="form-control"/></label>
+        <label><span class="form-label">Lock-in period type</span>
+          <select name="lockinPeriodFrequencyType" class="form-control">
+            <option value="0">Days</option><option value="1">Weeks</option>
+            <option value="2" selected>Months</option><option value="3">Years</option></select></label>
+        <label><span class="form-label">External ID</span>
+          <input name="externalId" class="form-control"/></label>
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="allowOverdraft"/> <span>Allow overdraft on this account</span></label>
+        <label><span class="form-label">Overdraft limit</span>
+          <input name="overdraftLimit" type="number" min="0" step="0.01" class="form-control"/></label>
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
       </form>
     </div>
     <div class="modal-foot">
@@ -88,88 +52,47 @@
 
 <!-- New Fixed Deposit -->
 <div id="newFDModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg" data-wizard>
+  <div class="modal modal-lg">
     <div class="modal-head"><h3 class="modal-title">New Fixed Deposit</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form id="newFDForm">
-        <div class="wz-pane form-grid" data-wz-step="Account">
-          <label class="full"><span class="form-label">Client *</span>
-            <div class="search-field">
-              <input id="fdClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
-              <input type="hidden" name="clientId" id="fdClientId"/>
-              <div id="fdClientResults" class="search-dropdown" style="display:none"></div>
-            </div>
-          </label>
-          <label><span class="form-label">FD product *</span>
-            <select name="productId" class="form-control" data-populate="fdProducts" required></select></label>
-          <label><span class="form-label">Field officer</span>
-            <select name="fieldOfficerId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
-          <label><span class="form-label">Submitted on *</span>
-            <input name="submittedOnDate" type="date" class="form-control" required/></label>
-          <label><span class="form-label">External ID</span>
-            <input name="externalId" class="form-control"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Deposit Terms">
-          <label><span class="form-label">Deposit amount *</span>
-            <input name="depositAmount" type="number" min="0" step="0.01" class="form-control" required/></label>
-          <label><span class="form-label">Deposit period *</span>
-            <input name="depositPeriod" type="number" min="1" value="12" class="form-control" required/></label>
-          <label><span class="form-label">Period frequency</span>
-            <select name="depositPeriodFrequencyId" class="form-control">
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-          <label><span class="form-label">Expected first deposit on</span>
-            <input name="expectedFirstDepositOnDate" type="date" class="form-control"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Interest &amp; Lock-in">
-          <label class="full"><span class="form-label">Nominal annual interest %</span>
-            <input name="nominalAnnualInterestRate" type="number" min="0" step="0.000001" class="form-control" placeholder="Leave blank to use product rate"/></label>
-          <label><span class="form-label">Interest compounding</span>
-            <select name="interestCompoundingPeriodType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="1">Daily</option><option value="4">Monthly</option>
-              <option value="5">Quarterly</option><option value="7">Annually</option></select></label>
-          <label><span class="form-label">Interest posting</span>
-            <select name="interestPostingPeriodType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="4">Monthly</option><option value="5">Quarterly</option>
-              <option value="6">Bi-annual</option><option value="7">Annually</option></select></label>
-          <label><span class="form-label">Interest calculated using</span>
-            <select name="interestCalculationType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="1">Daily balance</option><option value="2">Average daily balance</option></select></label>
-          <label><span class="form-label">Days in year</span>
-            <select name="interestCalculationDaysInYearType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="360">360 days</option><option value="365">365 days</option></select></label>
-          <label><span class="form-label">Lock-in period</span>
-            <input name="lockinPeriodFrequency" type="number" min="0" class="form-control"/></label>
-          <label><span class="form-label">Lock-in period type</span>
-            <select name="lockinPeriodFrequencyType" class="form-control">
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Maturity &amp; Options">
-          <label class="full"><span class="form-label">Maturity instruction</span>
-            <select name="maturityInstructionId" class="form-control">
-              <option value="1">Withdraw deposit</option>
-              <option value="2">Reinvest principal &amp; interest</option>
-              <option value="3">Reinvest principal only</option>
-              <option value="200">Transfer to savings on maturity</option>
-            </select></label>
-          <label><span class="form-label">Transfer to savings account (ID)</span>
-            <input name="transferToSavingsId" type="number" min="1" class="form-control" placeholder="For maturity transfer / linked savings"/></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="transferInterestToSavings"/> <span>Transfer interest to linked savings</span></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
-        </div>
-
-        <div class="wz-pane" data-wz-step="Review" data-wz-review></div>
+      <form class="form-grid" id="newFDForm">
+        <label class="full"><span class="form-label">Client *</span>
+          <div class="search-field">
+            <input id="fdClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
+            <input type="hidden" name="clientId" id="fdClientId"/>
+            <div id="fdClientResults" class="search-dropdown" style="display:none"></div>
+          </div>
+        </label>
+        <label><span class="form-label">FD product *</span>
+          <select name="productId" class="form-control" data-populate="fdProducts" required></select></label>
+        <label><span class="form-label">Field officer</span>
+          <select name="fieldOfficerId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
+        <label><span class="form-label">Deposit amount *</span>
+          <input name="depositAmount" type="number" min="0" step="0.01" class="form-control" required/></label>
+        <label><span class="form-label">Deposit period *</span>
+          <input name="depositPeriod" type="number" min="1" value="12" class="form-control" required/></label>
+        <label><span class="form-label">Period frequency</span>
+          <select name="depositPeriodFrequencyId" class="form-control">
+            <option value="0">Days</option>
+            <option value="1">Weeks</option>
+            <option value="2" selected>Months</option>
+            <option value="3">Years</option>
+          </select></label>
+        <label><span class="form-label">Submitted on *</span>
+          <input name="submittedOnDate" type="date" class="form-control" required/></label>
+        <label><span class="form-label">Expected first deposit on</span>
+          <input name="expectedFirstDepositOnDate" type="date" class="form-control"/></label>
+        <label class="full"><span class="form-label">Maturity instruction</span>
+          <select name="maturityInstructionId" class="form-control">
+            <option value="1">Withdraw deposit</option>
+            <option value="2">Reinvest principal &amp; interest</option>
+            <option value="3">Reinvest principal only</option>
+          </select></label>
+        <label><span class="form-label">External ID</span>
+          <input name="externalId" class="form-control"/></label>
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
       </form>
     </div>
     <div class="modal-foot">
@@ -181,85 +104,50 @@
 
 <!-- New Recurring Deposit -->
 <div id="newRDModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg" data-wizard>
+  <div class="modal modal-lg">
     <div class="modal-head"><h3 class="modal-title">New Recurring Deposit</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form id="newRDForm">
-        <div class="wz-pane form-grid" data-wz-step="Account">
-          <label class="full"><span class="form-label">Client *</span>
-            <div class="search-field">
-              <input id="rdClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
-              <input type="hidden" name="clientId" id="rdClientId"/>
-              <div id="rdClientResults" class="search-dropdown" style="display:none"></div>
-            </div>
-          </label>
-          <label><span class="form-label">RD product *</span>
-            <select name="productId" class="form-control" data-populate="rdProducts" required></select></label>
-          <label><span class="form-label">Field officer</span>
-            <select name="fieldOfficerId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
-          <label><span class="form-label">Submitted on *</span>
-            <input name="submittedOnDate" type="date" class="form-control" required/></label>
-          <label><span class="form-label">External ID</span>
-            <input name="externalId" class="form-control"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Deposit Terms">
-          <label><span class="form-label">Deposit amount per period *</span>
-            <input name="mandatoryRecommendedDepositAmount" type="number" min="0" step="0.01" class="form-control" required/></label>
-          <label><span class="form-label">Recurring frequency *</span>
-            <input name="recurringDepositFrequency" type="number" min="1" value="1" class="form-control" required/></label>
-          <label><span class="form-label">Frequency type *</span>
-            <select name="recurringDepositFrequencyTypeId" class="form-control" required>
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-          <label><span class="form-label">Deposit period *</span>
-            <input name="depositPeriod" type="number" min="1" value="12" class="form-control" required/></label>
-          <label><span class="form-label">Deposit period frequency</span>
-            <select name="depositPeriodFrequencyId" class="form-control">
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-          <label><span class="form-label">Expected first deposit on</span>
-            <input name="expectedFirstDepositOnDate" type="date" class="form-control"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Interest &amp; Lock-in">
-          <label class="full"><span class="form-label">Nominal annual interest %</span>
-            <input name="nominalAnnualInterestRate" type="number" min="0" step="0.000001" class="form-control" placeholder="Leave blank to use product rate"/></label>
-          <label><span class="form-label">Interest compounding</span>
-            <select name="interestCompoundingPeriodType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="1">Daily</option><option value="4">Monthly</option>
-              <option value="5">Quarterly</option><option value="7">Annually</option></select></label>
-          <label><span class="form-label">Interest posting</span>
-            <select name="interestPostingPeriodType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="4">Monthly</option><option value="5">Quarterly</option>
-              <option value="6">Bi-annual</option><option value="7">Annually</option></select></label>
-          <label><span class="form-label">Interest calculated using</span>
-            <select name="interestCalculationType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="1">Daily balance</option><option value="2">Average daily balance</option></select></label>
-          <label><span class="form-label">Days in year</span>
-            <select name="interestCalculationDaysInYearType" class="form-control">
-              <option value="">— Product default —</option>
-              <option value="360">360 days</option><option value="365">365 days</option></select></label>
-          <label><span class="form-label">Lock-in period</span>
-            <input name="lockinPeriodFrequency" type="number" min="0" class="form-control"/></label>
-          <label><span class="form-label">Lock-in period type</span>
-            <select name="lockinPeriodFrequencyType" class="form-control">
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Options">
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="isCalendarInherited"/> <span>Inherit meeting calendar from group/center</span></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
-        </div>
-
-        <div class="wz-pane" data-wz-step="Review" data-wz-review></div>
+      <form class="form-grid" id="newRDForm">
+        <label class="full"><span class="form-label">Client *</span>
+          <div class="search-field">
+            <input id="rdClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
+            <input type="hidden" name="clientId" id="rdClientId"/>
+            <div id="rdClientResults" class="search-dropdown" style="display:none"></div>
+          </div>
+        </label>
+        <label><span class="form-label">RD product *</span>
+          <select name="productId" class="form-control" data-populate="rdProducts" required></select></label>
+        <label><span class="form-label">Field officer</span>
+          <select name="fieldOfficerId" class="form-control" data-populate="staff"><option value="">— None —</option></select></label>
+        <label><span class="form-label">Deposit amount per period *</span>
+          <input name="mandatoryRecommendedDepositAmount" type="number" min="0" step="0.01" class="form-control" required/></label>
+        <label><span class="form-label">Recurring frequency *</span>
+          <input name="recurringDepositFrequency" type="number" min="1" value="1" class="form-control" required/></label>
+        <label><span class="form-label">Frequency type *</span>
+          <select name="recurringDepositFrequencyTypeId" class="form-control" required>
+            <option value="0">Days</option>
+            <option value="1">Weeks</option>
+            <option value="2" selected>Months</option>
+            <option value="3">Years</option>
+          </select></label>
+        <label><span class="form-label">Deposit period *</span>
+          <input name="depositPeriod" type="number" min="1" value="12" class="form-control" required/></label>
+        <label><span class="form-label">Deposit period frequency</span>
+          <select name="depositPeriodFrequencyId" class="form-control">
+            <option value="0">Days</option>
+            <option value="1">Weeks</option>
+            <option value="2" selected>Months</option>
+            <option value="3">Years</option>
+          </select></label>
+        <label><span class="form-label">Submitted on *</span>
+          <input name="submittedOnDate" type="date" class="form-control" required/></label>
+        <label><span class="form-label">Expected first deposit on</span>
+          <input name="expectedFirstDepositOnDate" type="date" class="form-control"/></label>
+        <label><span class="form-label">External ID</span>
+          <input name="externalId" class="form-control"/></label>
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
       </form>
     </div>
     <div class="modal-foot">
@@ -291,12 +179,8 @@
           <input name="accountNumber" class="form-control" placeholder="For cheque/bank ref"/></label>
         <label><span class="form-label">Check number</span>
           <input name="checkNumber" class="form-control"/></label>
-        <label><span class="form-label">Routing code</span>
-          <input name="routingCode" class="form-control"/></label>
         <label><span class="form-label">Receipt number</span>
           <input name="receiptNumber" class="form-control"/></label>
-        <label><span class="form-label">Bank number</span>
-          <input name="bankNumber" class="form-control"/></label>
         <label class="full"><span class="form-label">Note</span>
           <textarea name="note" class="form-control" rows="2"></textarea></label>
       </form>
@@ -307,3 +191,4 @@
     </div>
   </div>
 </div>
+
