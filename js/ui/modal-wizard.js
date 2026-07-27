@@ -13,73 +13,29 @@
 
    This module then:
      • injects a clickable stepper at the top of the modal body,
+     • auto-appends a read-only "Review" step that summarises every named field
+       so the user confirms before the [data-action] submit fires,
      • adds Back / Next buttons to the footer and hides the existing primary
-       submit button until the final step,
+       submit button until the final (Review) step,
      • resets to step 1 every time the modal is opened.
+
+   Review-step OPT-OUT
+   ───────────────────
+   Some wizards must NOT get an auto Review step — e.g. modals whose final pane
+   is already a bespoke review/confirmation, or destructive one-off actions that
+   would be confused by a generic field dump. Those opt out declaratively:
+
+       <div class="modal modal-lg" data-wizard data-wz-no-review> … </div>
+
+   When `data-wz-no-review` is present (or the wizard already ships its own pane
+   marked `data-wz-review`), NO synthetic Review step is injected — the wizard
+   ends on its last authored pane. This module must always honour that opt-out.
 
    Because every field keeps its `name`, the handler's `formData(formId)` still
    sees the whole form on submit — panes are purely a display concern.
-
-   REVIEW / CONFIRM STEP
-   ─────────────────────
-   Add a final pane flagged with `data-wz-review` to get an auto-generated
-   read-only summary of every filled-in field, e.g.
-
-       <div class="wz-pane" data-wz-step="Review" data-wz-review></div>
-
-   The controller walks the form on entry to that pane and renders a
-   label → value table (selects show their option text, checkboxes show
-   Yes/No, password/empty fields are skipped). No per-form JS required.
    ──────────────────────────────────────────────────────────────────────────── */
 
-function humanizeName(el) {
-  // Prefer the visible .form-label text of the wrapping <label>, else the name.
-  const wrap = el.closest('label');
-  const lbl = wrap?.querySelector('.form-label');
-  let t = lbl ? lbl.textContent : (el.getAttribute('name') || '');
-  return t.replace(/\s*\*\s*$/, '').trim();
-}
-
-function fieldValue(el) {
-  if (el.type === 'checkbox') return el.checked ? 'Yes' : '';
-  if (el.type === 'radio') return el.checked ? (el.labels?.[0]?.textContent.trim() || el.value) : '';
-  if (el.tagName === 'SELECT') {
-    if (el.multiple) return [...el.selectedOptions].map(o => o.textContent.trim()).join(', ');
-    const o = el.selectedOptions?.[0];
-    return o && o.value !== '' ? o.textContent.trim() : '';
-  }
-  return (el.value || '').trim();
-}
-
-function renderReview(pane, form) {
-  const seen = new Set();
-  const rows = [];
-  form.querySelectorAll('input[name], select[name], textarea[name]').forEach((el) => {
-    if (el.type === 'hidden' || el.type === 'password' || el.disabled) return;
-    if (el.type === 'radio') { if (seen.has(el.name)) return; }
-    const val = fieldValue(el.type === 'radio' ? (form.querySelector(`input[name="${el.name}"]:checked`) || el) : el);
-    if (el.type === 'radio') seen.add(el.name);
-    if (!val) return;
-    // For a client search, surface the typed display name if present.
-    let label = humanizeName(el);
-    if (!label || label.toLowerCase() === el.name.toLowerCase()) label = el.name;
-    rows.push([label, val]);
-  });
-  // Include free-standing client search inputs (their hidden id is captured above).
-  const searchDisplay = form.querySelector('.search-field input:not([type=hidden])');
-  if (searchDisplay && searchDisplay.value.trim()) {
-    rows.unshift(['Client', searchDisplay.value.trim()]);
-  }
-  pane.innerHTML = rows.length
-    ? `<div class="wz-review-card">
-         <div class="wz-review-title"><i class="fa-solid fa-clipboard-check"></i> Please review before submitting</div>
-         <dl class="wz-review-list">${rows.map(([k, v]) =>
-           `<div class="wz-review-row"><dt>${k}</dt><dd>${String(v).replace(/</g, '&lt;')}</dd></div>`).join('')}</dl>
-       </div>`
-    : `<div class="empty-state"><i class="fa-solid fa-clipboard"></i><div>Nothing to review yet — go back and fill in the form.</div></div>`;
-}
-
-function buildStepper(titles) {
+export function buildStepper(titles) {
   const stepper = document.createElement('div');
   stepper.className = 'stepper wz-modal-stepper';
   stepper.innerHTML = titles.map((t, i) => `
@@ -90,18 +46,113 @@ function buildStepper(titles) {
   return stepper;
 }
 
-function setupWizard(box) {
+/* Human-readable label for a field: prefer its <label> text, fall back to the
+   field's `name` de-camel-cased. */
+function labelFor(field, form) {
+  // Wrapping <label> (the pattern used throughout views/modals/*.html).
+  const wrap = field.closest('label');
+  const span = wrap?.querySelector('.form-label');
+  let text = (span?.textContent || wrap?.textContent || '').trim();
+  // <label for="id"> association.
+  if (!text && field.id) {
+    const assoc = form.querySelector(`label[for="${CSS && CSS.escape ? CSS.escape(field.id) : field.id}"]`);
+    text = (assoc?.textContent || '').trim();
+  }
+  if (!text) {
+    text = field.name
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .replace(/[_-]+/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase())
+      .trim();
+  }
+  return text.replace(/\s*\*\s*$/, '').trim();   // drop trailing required-asterisk
+}
+
+/* Display value for a field — resolves <select> option text, checkbox state,
+   password masking, and skips empties. Returns null when nothing to show. */
+function displayValue(field) {
+  if (field.type === 'password') return field.value ? '••••••••' : null;
+  if (field.type === 'checkbox') return field.checked ? 'Yes' : 'No';
+  if (field.type === 'radio')    return field.checked ? (field.value || 'Yes') : null;
+  if (field.tagName === 'SELECT') {
+    const opt = field.selectedOptions && field.selectedOptions[0];
+    const txt = (opt?.textContent || '').trim();
+    if (!field.value || /^—/.test(txt)) return null;   // "— None —" style placeholders
+    return txt || field.value;
+  }
+  const v = (field.value || '').trim();
+  return v || null;
+}
+
+/* Build the synthetic Review pane. Not inserted here — caller decides placement. */
+function buildReviewPane() {
+  const pane = document.createElement('div');
+  pane.className = 'wz-pane form-grid';
+  pane.dataset.wzStep = 'Review';
+  pane.dataset.wzReview = '1';        // marks this as the (synthetic) review pane
+  pane.dataset.wzSynthetic = '1';
+  pane.innerHTML = `
+    <div class="msg-banner b-info full mb-4">
+      <i class="fa-solid fa-circle-info"></i>
+      Review the details below, then submit. Use <strong>Back</strong> to change anything.
+    </div>
+    <div class="wz-review-grid full" data-wz-review-grid></div>`;
+  return pane;
+}
+
+/* Re-scan the form and repaint the review summary. Called each time the Review
+   step becomes visible so it always reflects the latest input. */
+function renderReview(form, grid) {
+  if (!form || !grid) return;
+  const seen = new Set();
+  const rows = [];
+  form.querySelectorAll('input[name], select[name], textarea[name]').forEach(field => {
+    if (field.disabled || field.type === 'hidden' || field.type === 'file') return;
+    if (field.type === 'radio' && !field.checked) return;
+    // Collapse radio groups to a single row keyed by name.
+    if (field.type === 'radio') { if (seen.has(field.name)) return; }
+    const val = displayValue(field);
+    if (val == null) return;
+    if (seen.has(field.name) && field.type !== 'radio') return;
+    seen.add(field.name);
+    rows.push(`
+      <div class="wz-review-row">
+        <div class="wz-review-k">${labelFor(field, form)}</div>
+        <div class="wz-review-v">${String(val).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))}</div>
+      </div>`);
+  });
+  grid.innerHTML = rows.length
+    ? rows.join('')
+    : '<div class="text-muted">No details captured yet — go back and fill in the form.</div>';
+}
+
+export function setupWizard(box) {
   if (box.dataset.wzReady) return;
   const panes = [...box.querySelectorAll('[data-wz-step]')];
   if (panes.length < 2) return;
   box.dataset.wzReady = '1';
 
-  const titles = panes.map(p => p.dataset.wzStep);
   const body = box.querySelector('.modal-body');
   const foot = box.querySelector('.modal-foot');
   const form = box.querySelector('form');
   const primary = foot?.querySelector('[data-action]');
   if (!body || !foot || !primary) return;
+
+  /* ── Auto Review step ──────────────────────────────────────────────────────
+     Honour the opt-out: skip injection when the wizard declares
+     `data-wz-no-review`, or when it already ships its own pane flagged
+     `data-wz-review`. Otherwise append a synthetic Review pane as the last step. */
+  const optedOut     = box.hasAttribute('data-wz-no-review');
+  const hasOwnReview = panes.some(p => p.hasAttribute('data-wz-review'));
+  let reviewGrid = null;
+  if (!optedOut && !hasOwnReview && form) {
+    const reviewPane = buildReviewPane();
+    form.appendChild(reviewPane);
+    panes.push(reviewPane);
+    reviewGrid = reviewPane.querySelector('[data-wz-review-grid]');
+  }
+
+  const titles = panes.map(p => p.dataset.wzStep);
 
   // Stepper goes above the form (but below any intro banner already in body).
   const stepper = buildStepper(titles);
@@ -123,9 +174,6 @@ function setupWizard(box) {
   const show = (n) => {
     cur = Math.max(0, Math.min(last, n));
     panes.forEach((p, i) => { p.style.display = i === cur ? '' : 'none'; });
-    // Auto-render the read-only summary whenever a review pane becomes active.
-    const active = panes[cur];
-    if (active && active.hasAttribute('data-wz-review') && form) renderReview(active, form);
     stepper.querySelectorAll('.step-circle').forEach((c, i) => {
       c.classList.toggle('active', i === cur);
       c.classList.toggle('done', i < cur);
@@ -138,6 +186,8 @@ function setupWizard(box) {
     backBtn.style.display = cur === 0 ? 'none' : '';
     nextBtn.style.display = cur === last ? 'none' : '';
     primary.style.display = cur === last ? '' : 'none';
+    // Repaint the review summary whenever we land on it.
+    if (reviewGrid && cur === last) renderReview(form, reviewGrid);
     body.scrollTop = 0;
   };
 
@@ -156,7 +206,7 @@ function setupWizard(box) {
   }
 }
 
-function initWizardModals() {
+export function initWizardModals() {
   document.querySelectorAll('.modal[data-wizard]').forEach(setupWizard);
 }
 

@@ -1,62 +1,35 @@
 <!-- FinCraft modal partials — shares domain. Fetched and concatenated at
      runtime by js/ui/shell.js alongside the other views/modals/*.html files (mirrors
      the js/api/shares.js domain split). All forms have name= attrs and
-     data-populate= hooks. New Share Account is a multi-step wizard
-     (js/ui/modal-wizard.js) with an auto Review step. -->
+     data-populate= hooks. -->
 
 <!-- New Share Account -->
 <div id="newShareModal" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal modal-lg" data-wizard>
+  <div class="modal modal-lg">
     <div class="modal-head"><h3 class="modal-title">New Share Account</h3>
       <button class="icon-btn" data-close-modal><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form id="newShareForm">
-        <div class="wz-pane form-grid" data-wz-step="Account">
-          <label class="full"><span class="form-label">Client *</span>
-            <div class="search-field">
-              <input id="shClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
-              <input type="hidden" name="clientId" id="shClientId"/>
-              <div id="shClientResults" class="search-dropdown" style="display:none"></div>
-            </div>
-          </label>
-          <label><span class="form-label">Share product *</span>
-            <select name="productId" class="form-control" id="shareProductSel" required>
-              <option value="">Select product…</option></select></label>
-          <label><span class="form-label">Submitted on *</span>
-            <input name="submittedDate" type="date" class="form-control" required/></label>
-          <label><span class="form-label">External ID</span>
-            <input name="externalId" class="form-control"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Shares &amp; Price">
-          <label><span class="form-label">Requested shares *</span>
-            <input name="requestedShares" type="number" min="1" class="form-control" required/></label>
-          <label><span class="form-label">Unit price *</span>
-            <input name="unitPrice" type="number" min="0.01" step="0.01" class="form-control" required placeholder="Share price per unit"/></label>
-          <label class="full"><span class="form-label">Linked savings account (ID)</span>
-            <input name="savingsAccountId" type="number" min="1" class="form-control" placeholder="Used to settle share purchases &amp; dividends"/></label>
-        </div>
-
-        <div class="wz-pane form-grid" data-wz-step="Lock-in &amp; Options">
-          <label><span class="form-label">Lock-in period</span>
-            <input name="lockinPeriodFrequency" type="number" min="0" class="form-control"/></label>
-          <label><span class="form-label">Lock-in period type</span>
-            <select name="lockinPeriodFrequencyType" class="form-control">
-              <option value="0">Days</option><option value="1">Weeks</option>
-              <option value="2" selected>Months</option><option value="3">Years</option></select></label>
-          <label><span class="form-label">Minimum active period</span>
-            <input name="minimumActivePeriod" type="number" min="0" class="form-control"/></label>
-          <label><span class="form-label">Minimum active period type</span>
-            <select name="minimumActivePeriodFrequencyType" class="form-control">
-              <option value="0" selected>Days</option><option value="1">Weeks</option>
-              <option value="2">Months</option><option value="3">Years</option></select></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="allowDividendCalculationForInactiveClients"/> <span>Allow dividend calculation for inactive clients</span></label>
-          <label class="full form-check" style="align-items:center">
-            <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
-        </div>
-
-        <div class="wz-pane" data-wz-step="Review" data-wz-review></div>
+      <form class="form-grid" id="newShareForm">
+        <label class="full"><span class="form-label">Client *</span>
+          <div class="search-field">
+            <input id="shClientSearch" placeholder="Type client name or account…" class="form-control" autocomplete="off"/>
+            <input type="hidden" name="clientId" id="shClientId"/>
+            <div id="shClientResults" class="search-dropdown" style="display:none"></div>
+          </div>
+        </label>
+        <label><span class="form-label">Share product *</span>
+          <select name="productId" class="form-control" id="shareProductSel" required>
+            <option value="">Select product…</option></select></label>
+        <label><span class="form-label">Requested shares *</span>
+          <input name="requestedShares" type="number" min="1" class="form-control" required/></label>
+        <label><span class="form-label">Unit price *</span>
+          <input name="unitPrice" type="number" min="0.01" step="0.01" class="form-control" required placeholder="Share price per unit"/></label>
+        <label><span class="form-label">Submitted on *</span>
+          <input name="submittedDate" type="date" class="form-control" required/></label>
+        <label><span class="form-label">External ID</span>
+          <input name="externalId" class="form-control"/></label>
+        <label class="full form-check" style="align-items:center">
+          <input type="checkbox" name="autoApproveActivate" checked/> <span>Also approve &amp; activate immediately</span></label>
       </form>
     </div>
     <div class="modal-foot">
@@ -65,3 +38,4 @@
     </div>
   </div>
 </div>
+
