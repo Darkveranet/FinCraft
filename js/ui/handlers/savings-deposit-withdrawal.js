@@ -20,7 +20,9 @@ export const SavingsDepositWithdrawalHandlers = {
       if (f.paymentTypeId) payload.paymentTypeId = parseInt(f.paymentTypeId);
       if (f.accountNumber) payload.accountNumber = f.accountNumber;
       if (f.checkNumber)   payload.checkNumber   = f.checkNumber;
+      if (f.routingCode)   payload.routingCode   = f.routingCode;
       if (f.receiptNumber) payload.receiptNumber = f.receiptNumber;
+      if (f.bankNumber)    payload.bankNumber    = f.bankNumber;
       if (f.note) payload.note = f.note;
 
       setSubmitting(btn, true);

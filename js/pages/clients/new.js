@@ -17,10 +17,17 @@ import { extractFineractError } from '../../ui/dom-helpers.js';
      • Mobile     → mobileNo        · Email → emailAddress
      • DOB        → dateOfBirth     · Gender → genderId (from /clients/template)
      • Branch     → officeId        · External refs → externalId
-   KYC that HAS a real endpoint is written after creation (best-effort, never
-   blocks the record): ID Type/Number → POST /clients/{id}/identifiers; fields
-   with no native column (occupation, source of income, risk rating, residential
-   address, next-of-kin) are preserved in a structured Note so nothing is lost.
+   KYC that HAS a real endpoint is written after creation (never blocks the
+   record, and any failure is surfaced to the user):
+     • ID Type/Number   → POST /clients/{id}/identifiers
+     • Residential addr → POST /client/{id}/addresses?type={addressTypeId}
+                          (falls back to a Note only if the Address module is off)
+     • Next of kin      → POST /clients/{id}/familymembers
+     • Entity details   → clientNonPersonDetails in POST /clients
+                          (incorpNumber, incorpValidityTillDate, constitutionId,
+                           mainBusinessLineId, remarks)
+   Only truly column-less fields (occupation, source of income, risk rating,
+   requested customer sub-type) remain in a structured Note — their correct home.
    ──────────────────────────────────────────────────────────────────────────── */
 
 const TYPES = [
@@ -42,8 +49,15 @@ export async function renderNew(c) {
     type: 'individual',
     // personal
     firstname: '', middlename: '', lastname: '', fullname: '',
+    incorpNumber: '', incorpValidityTill: '', constitutionId: '', mainBusinessLineId: '', remarks: '',
     mobileNo: '', email: '', dob: '', genderId: '', gender: '',
-    address: '', occupation: '', sourceOfIncome: '', nokName: '', nokPhone: '',
+    // structured residential address (Fineract /client/{id}/addresses contract)
+    addr: {
+      line1: '', line2: '', line3: '',
+      townVillage: '', city: '', countyDistrict: '',
+      stateProvinceId: '', countryId: '', postalCode: ''
+    },
+    occupation: '', sourceOfIncome: '', nokName: '', nokPhone: '',
     // identity
     idTypeId: '', idType: '', idNumber: '', idExpiry: '', taxId: '',
     officeId: '', officeName: '', risk: 'Low',
@@ -55,8 +69,16 @@ export async function renderNew(c) {
 
   // Reference data (best-effort)
   let offices = [], genders = [], idTypes = [], staff = [], clientTypes = [], classifications = [];
+  let constitutions = [], businessLines = [];
+  // address reference data (from /client/addresses/template) — empty ⇒ module off
+  let addressTypes = [], countries = [], states = [];
+  let addressModuleOn = false;
   try {
-    const [off, tpl] = await Promise.allSettled([api.offices.list(), api.clients.template()]);
+    const [off, tpl, at] = await Promise.allSettled([
+      api.offices.list(),
+      api.clients.template(),
+      api.clients.addressTemplate()
+    ]);
     offices = off.status === 'fulfilled' && Array.isArray(off.value) ? off.value : [];
     const t = tpl.status === 'fulfilled' ? tpl.value : {};
     genders = t?.genderOptions || [];
@@ -64,6 +86,15 @@ export async function renderNew(c) {
     staff = t?.staffOptions || [];
     clientTypes = t?.clientTypeOptions || [];
     classifications = t?.clientClassificationOptions || [];
+    constitutions = t?.clientNonPersonConstitutionOptions || [];
+    businessLines = t?.clientNonPersonMainBusinessLineOptions || [];
+    const a = at.status === 'fulfilled' ? at.value : null;
+    if (a) {
+      addressModuleOn = true;
+      addressTypes = a.addressTypeIdOptions || [];
+      countries    = a.countryIdOptions || [];
+      states       = a.stateProvinceIdOptions || [];
+    }
   } catch { /* degrade gracefully */ }
   if (offices[0]) { state.officeId = String(offices[0].id); state.officeName = offices[0].name; }
 
@@ -103,6 +134,19 @@ export async function renderNew(c) {
         <div class="wz-field"><label>Surname <span class="req">*</span></label><input id="wz-last" class="form-control" value="${escapeHtml(state.lastname)}" placeholder="Surname"/></div>
       ` : `
         <div class="wz-field full"><label>Legal / Business Name <span class="req">*</span></label><input id="wz-fullname" class="form-control" value="${escapeHtml(state.fullname)}" placeholder="Registered name"/></div>
+        <div class="wz-field"><label>Incorporation Number</label><input id="wz-incorp" class="form-control" value="${escapeHtml(state.incorpNumber)}" placeholder="RC / registration no."/></div>
+        <div class="wz-field"><label>Incorporation Valid Till</label><input id="wz-incorpvalid" type="date" class="form-control" value="${escapeHtml(state.incorpValidityTill)}"/></div>
+        <div class="wz-field"><label>Constitution</label>
+          <select id="wz-constitution" class="form-control">
+            <option value="">Select…</option>
+            ${constitutions.map(o => `<option value="${o.id}" ${String(state.constitutionId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}
+          </select></div>
+        <div class="wz-field"><label>Main Business Line</label>
+          <select id="wz-busline" class="form-control">
+            <option value="">Select…</option>
+            ${businessLines.map(o => `<option value="${o.id}" ${String(state.mainBusinessLineId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}
+          </select></div>
+        <div class="wz-field full"><label>Remarks</label><input id="wz-remarks" class="form-control" value="${escapeHtml(state.remarks)}" placeholder="Optional notes about the entity"/></div>
       `;
       return `
         <div class="wz-step-title">Personal Information</div>
@@ -117,7 +161,25 @@ export async function renderNew(c) {
               <option value="">Select…</option>
               ${genders.map(g => `<option value="${g.id}" ${String(state.genderId) === String(g.id) ? 'selected' : ''}>${escapeHtml(g.name)}</option>`).join('')}
             </select></div>` : ''}
-          <div class="wz-field full"><label>Residential Address</label><textarea id="wz-address" class="form-control" rows="2" placeholder="Enter full address">${escapeHtml(state.address)}</textarea></div>
+          <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-location-dot"></i> Residential Address</div></div>
+          <div class="wz-field full"><label>Address Line 1</label><input id="wz-addr1" class="form-control" value="${escapeHtml(state.addr.line1)}" placeholder="House no. / street"/></div>
+          <div class="wz-field"><label>Address Line 2</label><input id="wz-addr2" class="form-control" value="${escapeHtml(state.addr.line2)}" placeholder="Area / landmark (optional)"/></div>
+          <div class="wz-field"><label>Address Line 3</label><input id="wz-addr3" class="form-control" value="${escapeHtml(state.addr.line3)}" placeholder="Optional"/></div>
+          <div class="wz-field"><label>Town / Village</label><input id="wz-town" class="form-control" value="${escapeHtml(state.addr.townVillage)}" placeholder="Town or village"/></div>
+          <div class="wz-field"><label>City</label><input id="wz-city" class="form-control" value="${escapeHtml(state.addr.city)}" placeholder="City"/></div>
+          <div class="wz-field"><label>County / District (LGA)</label><input id="wz-county" class="form-control" value="${escapeHtml(state.addr.countyDistrict)}" placeholder="County / LGA"/></div>
+          <div class="wz-field"><label>State / Province</label>
+            ${states.length
+              ? `<select id="wz-state" class="form-control"><option value="">Select…</option>${states.map(o => `<option value="${o.id}" ${String(state.addr.stateProvinceId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}</select>`
+              : `<input id="wz-state" class="form-control" value="${escapeHtml(state.addr.stateProvinceId)}" placeholder="State / province"/>`}
+          </div>
+          <div class="wz-field"><label>Country</label>
+            ${countries.length
+              ? `<select id="wz-country" class="form-control"><option value="">Select…</option>${countries.map(o => `<option value="${o.id}" ${String(state.addr.countryId) === String(o.id) ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('')}</select>`
+              : `<input id="wz-country" class="form-control" value="${escapeHtml(state.addr.countryId)}" placeholder="Country"/>`}
+          </div>
+          <div class="wz-field"><label>Postal Code</label><input id="wz-postal" class="form-control" value="${escapeHtml(state.addr.postalCode)}" placeholder="Postal / ZIP code"/></div>
+          <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-briefcase"></i> Employment &amp; Kin</div></div>
           <div class="wz-field"><label>Occupation</label><input id="wz-occupation" class="form-control" value="${escapeHtml(state.occupation)}" placeholder="e.g. Trader"/></div>
           <div class="wz-field"><label>Source of Income</label><input id="wz-income" class="form-control" value="${escapeHtml(state.sourceOfIncome)}" placeholder="e.g. Business revenue"/></div>
           <div class="wz-field"><label>Next of Kin</label><input id="wz-nok" class="form-control" value="${escapeHtml(state.nokName)}" placeholder="Full name"/></div>
@@ -192,6 +254,11 @@ export async function renderNew(c) {
     const name = isPerson()
       ? [state.firstname, state.middlename, state.lastname].filter(Boolean).join(' ')
       : state.fullname;
+    const a = state.addr;
+    const addrLine = [a.line1, a.line2, a.line3, a.townVillage, a.city, a.countyDistrict,
+                      states.find(s => String(s.id) === String(a.stateProvinceId))?.name || a.stateProvinceId,
+                      countries.find(x => String(x.id) === String(a.countryId))?.name || a.countryId,
+                      a.postalCode].filter(Boolean).join(', ');
     return `
       <div class="wz-step-title">Review &amp; Submit</div>
       <div class="msg-banner b-info mb-4"><i class="fa-solid fa-circle-info"></i> Review the information below. On submit, the client record is created in Fineract and any KYC attachments are uploaded to it.</div>
@@ -204,6 +271,7 @@ export async function renderNew(c) {
         <div class="wz-rv"><div class="k">ID Number</div><div class="v">${dash(state.idNumber)}</div></div>
         <div class="wz-rv"><div class="k">Branch</div><div class="v">${dash(state.officeName)}</div></div>
         <div class="wz-rv"><div class="k">Risk Rating</div><div class="v">${dash(state.risk)}</div></div>
+        <div class="wz-rv wz-rv-wide"><div class="k">Residential Address</div><div class="v">${dash(addrLine)}</div></div>
       </div>`;
   }
 
@@ -238,10 +306,24 @@ export async function renderNew(c) {
         state.gender    = gsel?.selectedOptions?.[0]?.textContent?.trim() || '';
       } else {
         state.fullname  = c.querySelector('#wz-fullname')?.value.trim() || '';
+        state.incorpNumber = c.querySelector('#wz-incorp')?.value.trim() || '';
+        state.incorpValidityTill = c.querySelector('#wz-incorpvalid')?.value || '';
+        state.constitutionId = c.querySelector('#wz-constitution')?.value || '';
+        state.mainBusinessLineId = c.querySelector('#wz-busline')?.value || '';
+        state.remarks = c.querySelector('#wz-remarks')?.value.trim() || '';
       }
       state.mobileNo = c.querySelector('#wz-mobile')?.value.trim() || '';
       state.email    = c.querySelector('#wz-email')?.value.trim() || '';
-      state.address  = c.querySelector('#wz-address')?.value.trim() || '';
+      // structured address
+      state.addr.line1 = c.querySelector('#wz-addr1')?.value.trim() || '';
+      state.addr.line2 = c.querySelector('#wz-addr2')?.value.trim() || '';
+      state.addr.line3 = c.querySelector('#wz-addr3')?.value.trim() || '';
+      state.addr.townVillage    = c.querySelector('#wz-town')?.value.trim() || '';
+      state.addr.city           = c.querySelector('#wz-city')?.value.trim() || '';
+      state.addr.countyDistrict = c.querySelector('#wz-county')?.value.trim() || '';
+      state.addr.stateProvinceId = c.querySelector('#wz-state')?.value.trim() || '';
+      state.addr.countryId       = c.querySelector('#wz-country')?.value.trim() || '';
+      state.addr.postalCode      = c.querySelector('#wz-postal')?.value.trim() || '';
       state.occupation = c.querySelector('#wz-occupation')?.value.trim() || '';
       state.sourceOfIncome = c.querySelector('#wz-income')?.value.trim() || '';
       state.nokName  = c.querySelector('#wz-nok')?.value.trim() || '';
@@ -295,7 +377,8 @@ export async function renderNew(c) {
       fileInput.onchange = () => {
         if (fileInput.files?.length) {
           state.docs[b.dataset.doc] = fileInput.files[0];
-          render(); state.step = 3; // keep on identity step
+          captureStep();  // preserve values typed on this step before re-render
+          render();       // stays on the current step (state.step unchanged)
         }
       };
       fileInput.click();
@@ -322,6 +405,13 @@ export async function renderNew(c) {
       if (state.genderId) payload.genderId = parseInt(state.genderId);
     } else {
       payload.fullname = state.fullname;
+      const nonPerson = {};
+      if (state.incorpNumber) nonPerson.incorpNumber = state.incorpNumber;
+      if (state.incorpValidityTill) { nonPerson.incorpValidityTillDate = state.incorpValidityTill; nonPerson.dateFormat = DATE_FORMAT; nonPerson.locale = LOCALE; }
+      if (state.constitutionId) nonPerson.constitutionId = parseInt(state.constitutionId);
+      if (state.mainBusinessLineId) nonPerson.mainBusinessLineId = parseInt(state.mainBusinessLineId);
+      if (state.remarks) nonPerson.remarks = state.remarks;
+      if (Object.keys(nonPerson).length) payload.clientNonPersonDetails = nonPerson;
     }
     if (state.mobileNo) payload.mobileNo = state.mobileNo;
     if (state.email) payload.emailAddress = state.email;
@@ -353,30 +443,91 @@ export async function renderNew(c) {
         } catch (e) { console.warn('[new-client] identifier skipped:', e?.message); }
       }
 
-      // Fields with no native person column → preserve as a structured Note.
+      const failures = [];  // collect real KYC errors so they are surfaced, not swallowed
+
+      // Residential address → real /client/{id}/addresses (structured fields).
+      // Falls back to a Note only if the Address module is disabled on the tenant.
+      const a = state.addr;
+      const hasAddress = !!(a.line1 || a.line2 || a.line3 || a.townVillage || a.city ||
+                            a.countyDistrict || a.stateProvinceId || a.countryId || a.postalCode);
+      if (id && hasAddress) {
+        try {
+          const types = addressTypes.length ? addressTypes
+                        : (await api.clients.addressTemplate().catch(() => null))?.addressTypeIdOptions || [];
+          const addressTypeId = (types.find(t => /resid|home|perm/i.test(t.name || '')) || types[0])?.id;
+          if (!addressTypeId) throw new Error('address module not enabled');
+          const addrBody = { addressTypeId: parseInt(addressTypeId), isActive: true };
+          if (a.line1) addrBody.addressLine1 = a.line1;
+          if (a.line2) addrBody.addressLine2 = a.line2;
+          if (a.line3) addrBody.addressLine3 = a.line3;
+          if (a.townVillage) addrBody.townVillage = a.townVillage;
+          if (a.city) addrBody.city = a.city;
+          if (a.countyDistrict) addrBody.countyDistrict = a.countyDistrict;
+          if (a.stateProvinceId) addrBody.stateProvinceId = parseInt(a.stateProvinceId) || undefined;
+          if (a.countryId) addrBody.countryId = parseInt(a.countryId) || undefined;
+          if (a.postalCode) addrBody.postalCode = a.postalCode;
+          await api.clients.createAddress(id, addrBody);
+        } catch (e) {
+          const oneLine = [a.line1, a.line2, a.line3, a.townVillage, a.city, a.countyDistrict,
+                           states.find(s => String(s.id) === String(a.stateProvinceId))?.name || a.stateProvinceId,
+                           countries.find(x => String(x.id) === String(a.countryId))?.name || a.countryId,
+                           a.postalCode].filter(Boolean).join(', ');
+          try { await api.notes.create('clients', id, { note: `Residential address: ${oneLine}` }); } catch {}
+          console.warn('[new-client] address → note fallback:', e?.message);
+        }
+      }
+
+      // Next of kin → real /clients/{id}/familymembers (needs a relationship type).
+      if (id && (state.nokName || state.nokPhone)) {
+        try {
+          const ft = await api.clients.familyMemberTemplate(id).catch(() => null);
+          const rels = ft?.familyMemberOptions?.relationshipIdOptions || ft?.relationshipIdOptions || [];
+          const relationshipId = (rels.find(r => /kin|spouse|other|relative/i.test(r.name || '')) || rels[0])?.id;
+          const parts = (state.nokName || '').trim().split(/\s+/).filter(Boolean);
+          if (!relationshipId || !parts[0]) throw new Error('no relationship options / name');
+          await api.clients.createFamilyMember(id, {
+            firstName: parts[0],
+            ...(parts.length > 1 ? { lastName: parts.slice(1).join(' ') } : {}),
+            ...(state.nokPhone ? { mobileNumber: state.nokPhone } : {}),
+            relationshipId: parseInt(relationshipId),
+            locale: LOCALE
+          });
+        } catch (e) {
+          try { await api.notes.create('clients', id, { note: `Next of kin: ${[state.nokName, state.nokPhone].filter(Boolean).join(' · ')}` }); } catch {}
+          console.warn('[new-client] family member → note fallback:', e?.message);
+        }
+      }
+
+      // Only fields with NO native Fineract column stay in a structured Note (their correct home).
       const noteBits = [];
       if (state.occupation) noteBits.push(`Occupation: ${state.occupation}`);
       if (state.sourceOfIncome) noteBits.push(`Source of income: ${state.sourceOfIncome}`);
-      if (state.risk) noteBits.push(`Risk rating: ${state.risk}`);
-      if (state.address) noteBits.push(`Residential address: ${state.address}`);
-      if (state.nokName || state.nokPhone) noteBits.push(`Next of kin: ${[state.nokName, state.nokPhone].filter(Boolean).join(' · ')}`);
+      if (state.risk && state.risk !== 'Low') noteBits.push(`Risk rating: ${state.risk}`);
       if (state.type !== 'individual') noteBits.push(`Requested customer type: ${TYPES.find(t => t.key === state.type)?.name}`);
       if (id && noteBits.length) {
         try { await api.notes.create('clients', id, { note: noteBits.join('\n') }); }
         catch (e) { console.warn('[new-client] note skipped:', e?.message); }
       }
 
-      // Uploaded docs → real document/image endpoints (best-effort)
+      // Uploaded docs → real document/image endpoints. Failures are surfaced (not swallowed).
       if (id) {
-        const uploads = [];
         for (const [k, file] of Object.entries(state.docs)) {
           if (!file || typeof file === 'boolean') continue;
-          const fd = new FormData();
-          if (k === 'photo') { fd.append('file', file); uploads.push(api.images.upload('clients', id, fd).catch(() => {})); }
-          else { fd.append('file', file); fd.append('name', k); fd.append('description', k); uploads.push(api.documents.upload('clients', id, fd).catch(() => {})); }
+          try {
+            const fd = new FormData();
+            if (k === 'photo') {
+              fd.append('file', file);
+              await api.images.upload('clients', id, fd);
+            } else {
+              fd.append('file', file);
+              fd.append('name', k);
+              fd.append('description', k);   // Fineract: 'description' is mandatory for documents
+              await api.documents.upload('clients', id, fd);
+            }
+          } catch (e) { failures.push(`${k}: ${extractFineractError(e)}`); }
         }
-        if (uploads.length) await Promise.allSettled(uploads);
       }
+      if (failures.length) toast('warn', 'Some attachments did not upload', failures.join(' · '));
 
       import('../../router.js').then(rt => rt.navigate('client-detail', { id }));
     } catch (e) {

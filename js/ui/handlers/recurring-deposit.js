@@ -22,10 +22,16 @@ export const RecurringDepositHandlers = {
       };
       if (f.fieldOfficerId) payload.fieldOfficerId = parseInt(f.fieldOfficerId);
       if (f.expectedFirstDepositOnDate) payload.expectedFirstDepositOnDate = f.expectedFirstDepositOnDate;
+      if (f.nominalAnnualInterestRate) payload.nominalAnnualInterestRate = parseFloat(f.nominalAnnualInterestRate);
+      if (f.interestCompoundingPeriodType) payload.interestCompoundingPeriodType = parseInt(f.interestCompoundingPeriodType);
+      if (f.interestPostingPeriodType) payload.interestPostingPeriodType = parseInt(f.interestPostingPeriodType);
+      if (f.interestCalculationType) payload.interestCalculationType = parseInt(f.interestCalculationType);
+      if (f.interestCalculationDaysInYearType) payload.interestCalculationDaysInYearType = parseInt(f.interestCalculationDaysInYearType);
       if (f.lockinPeriodFrequency) {
         payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency);
         payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType || 2);
       }
+      if (f.isCalendarInherited === 'on' || f.isCalendarInherited === 'true') payload.isCalendarInherited = true;
       if (f.externalId) payload.externalId = f.externalId;
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';
