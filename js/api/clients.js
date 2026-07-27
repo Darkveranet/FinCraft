@@ -43,7 +43,7 @@ export function makeClientsAPI(self) {
     updateIdentifier:   (id, iid, body) => self._u(`/clients/${id}/identifiers/${iid}`, body),
     deleteIdentifier:   (id, iid)  => self._d(`/clients/${id}/identifiers/${iid}`),
     addresses:          (id)       => self._g(`/client/${id}/addresses`),
-    createAddress:      (id, body) => self._p(`/client/${id}/addresses`, body),
+    createAddress:      (id, body) => self._p(`/client/${id}/addresses?type=${body.addressTypeId}`, body),
     updateAddress:      (id, body) => self._u(`/client/${id}/addresses`, body),
     addressTemplate:    ()         => self._g('/client/addresses/template'),
     familyMembers:      (id)       => self._g(`/clients/${id}/familymembers`),

@@ -20,10 +20,18 @@ export const SavingsHandlers = {
         payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency);
         payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType || 2);
       }
+      if (f.interestCompoundingPeriodType) payload.interestCompoundingPeriodType = parseInt(f.interestCompoundingPeriodType);
+      if (f.interestPostingPeriodType) payload.interestPostingPeriodType = parseInt(f.interestPostingPeriodType);
+      if (f.interestCalculationType) payload.interestCalculationType = parseInt(f.interestCalculationType);
+      if (f.interestCalculationDaysInYearType) payload.interestCalculationDaysInYearType = parseInt(f.interestCalculationDaysInYearType);
       if (f.allowOverdraft === 'on' || f.allowOverdraft === 'true') {
         payload.allowOverdraft = true;
         if (f.overdraftLimit) payload.overdraftLimit = parseFloat(f.overdraftLimit);
+        if (f.nominalAnnualInterestRateOverdraft) payload.nominalAnnualInterestRateOverdraft = parseFloat(f.nominalAnnualInterestRateOverdraft);
       }
+      if (f.enforceMinRequiredBalance === 'on' || f.enforceMinRequiredBalance === 'true') payload.enforceMinRequiredBalance = true;
+      if (f.minRequiredBalance) payload.minRequiredBalance = parseFloat(f.minRequiredBalance);
+      if (f.withHoldTax === 'on' || f.withHoldTax === 'true') payload.withHoldTax = true;
       if (f.externalId) payload.externalId = f.externalId;
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';
