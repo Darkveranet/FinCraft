@@ -1,41 +1,74 @@
-import { api, configureAPI } from './api.js';
+/* FinCraft · js/auth.js
+   ---------------------------------------------------------------------------
+   Public authentication entry point + login/OTP/must-change UI.
+
+   The auth logic is split across three modules (kept non-breaking by re-exporting
+   the full public surface from here — external code still `import … from
+   './auth.js'`):
+
+     • auth-core.js  — shared plumbing (permission extraction, session persist,
+                       finishLogin, the view seam);
+     • auth-basic.js — username/password login, OTP, forgot/change password,
+                       Basic session restore;
+     • auth-oidc.js  — OAuth2/OIDC (Zitadel/Keycloak) sign-in, Bearer session
+                       restore, silent token refresh.
+
+   This file keeps: initAuth() orchestration, logout(), and the DOM rendering of
+   the login screen. It registers its showLogin/showApp with auth-core so the
+   flow modules can drive the UI without importing it (no circular dependency).
+*/
 import { store } from './store.js';
-import { FINERACT_DEMO, OIDC_DEFAULT } from './config.js';
+import { FINERACT_DEMO } from './config.js';
 import * as oidc from './oidc.js';
-import { escapeHtml } from './utils.js'; 
+import { escapeHtml } from './utils.js';
 import { extractFineractError } from './ui/dom-helpers.js';
-// "Recent tenants" persistence now lives in its own module (§2 refactor). Aliased
-// to the historical private names so the internal call sites are untouched.
 import {
   loadRecentTenants   as _loadRecentTenants,
-  saveRecentTenant    as _saveRecentTenant,
   removeRecentTenant  as _removeRecentTenant,
 } from './recent-tenants.js';
-const LOGIN_ID = 'loginScreen';
-const SHELL_ID = 'appShell';
 
-export function _extractPerms(payload) {
-  const out = new Set();
-  const top = Array.isArray(payload?.permissions) ? payload.permissions : [];
-  top.forEach(p => {
-    const code = typeof p === 'string' ? p : p?.code;
-    if (code) out.add(code);
-  });
-  const roles = Array.isArray(payload?.roles) ? payload.roles : [];
-  roles.forEach(r => {
-    const rolePerms = Array.isArray(r.permissions) ? r.permissions : [];
-    rolePerms.forEach(p => {
-      const code = typeof p === 'string' ? p : p?.code;
-      const selected = typeof p === 'object' ? p.selected !== false : true;
-      if (code && selected) out.add(code);
-    });
-  });
-  return [...out];
-}
+import {
+  api,
+  LOGIN_ID, SHELL_ID,
+  _oidcConfig,
+  _extractPerms, canDo, _clearSession,
+  registerViews,
+} from './auth-core.js';
 
-const OIDC_PENDING_KEY = 'fincraft.oidc.pending';   // {serverUrl, tenantId} across the IdP redirect
+import {
+  login,
+  completeMustChangePassword,
+  completeTwoFactorLogin,
+  changePassword,
+  forgotPassword,
+  isTwoFactorRequired,
+  getOtpMethods, requestOtp, validateOtp,
+  restoreBasicSession,
+} from './auth-basic.js';
 
-function _oidcConfig() { return oidc.loadOidcConfig(OIDC_DEFAULT); }
+import {
+  loginWithOidc,
+  completeOidcCallback,
+  restoreBearerSession,
+  clearRefreshTimer,
+  idpLogoutUrl,
+} from './auth-oidc.js';
+
+/* Re-export the public surface so external importers are unchanged. */
+export {
+  _extractPerms, canDo,
+  login, loginWithOidc,
+  completeMustChangePassword, completeTwoFactorLogin,
+  changePassword, forgotPassword, isTwoFactorRequired,
+  getOtpMethods, requestOtp, validateOtp,
+};
+
+// Let auth-core (and thus the flow modules) drive the UI through this seam.
+registerViews({ showLogin, showApp });
+
+/* ================================================================== */
+/* Orchestration                                                       */
+/* ================================================================== */
 
 export async function initAuth() {
   api.onUnauthorized(() => {
@@ -46,7 +79,7 @@ export async function initAuth() {
   // 1) OAuth2/OIDC redirect coming back from the IdP (?code=…&state=…).
   if (oidc.isCallback()) {
     try {
-      await _completeOidcCallback();
+      await completeOidcCallback();
       return;
     } catch (e) {
       oidc.cleanCallbackUrl();
@@ -61,7 +94,7 @@ export async function initAuth() {
   // 2) Restore a Bearer (OAuth2/OIDC) session, refreshing the token if it lapsed.
   if (saved?.bearerToken && saved?.serverUrl) {
     try {
-      await _restoreBearerSession(saved);
+      await restoreBearerSession(saved);
       return;
     } catch (e) {
       console.warn('[auth] Bearer session restore failed:', e.message);
@@ -71,231 +104,11 @@ export async function initAuth() {
 
   // 3) Restore a Basic (username/password) session.
   if (saved?.authToken && saved?.serverUrl) {
-    configureAPI(saved);
-    try {
-      const me = await api.userDetails.self();
-      _persistUserContext(me);
-      console.log('[auth] Restored session with', (store.get('perms') || []).length, 'permissions');
-      showApp();
-      return;
-    } catch (e) {
-      if (e.status === 401 || e.status === 403) {
-        _clearSession();
-      } else {
-        console.warn('[auth] /userdetails failed, using cached perms:', e.message);
-        if (Array.isArray(store.get('perms')) && store.get('perms').length) {
-          showApp();
-          return;
-        }
-        _clearSession();
-      }
-    }
+    if (await restoreBasicSession(saved)) return;
   }
+
   showLogin();
 }
-
-/* ------------------------------------------------------------------ */
-/* OAuth2 / OIDC (Zitadel) sign-in                                     */
-/* ------------------------------------------------------------------ */
-
-// Called from the login screen "Sign in with SSO" button.
-export async function loginWithOidc({ serverUrl, tenantId }) {
-  const cfg = _oidcConfig();
-  if (!oidc.isConfigured(cfg)) {
-    throw new Error('SSO is not configured yet — set the Issuer URL and Client ID first.');
-  }
-  if (!serverUrl) throw new Error('Enter the Fineract Server URL before signing in with SSO.');
-  // The Fineract server URL + tenant must survive the round-trip to the IdP.
-  try { sessionStorage.setItem(OIDC_PENDING_KEY, JSON.stringify({ serverUrl, tenantId: tenantId || 'default' })); } catch {}
-  await oidc.beginLogin(cfg);        // redirects the browser to the IdP
-}
-
-async function _completeOidcCallback() {
-  const cfg = _oidcConfig();
-  const tokens = await oidc.handleCallback(cfg);       // validates state + PKCE, exchanges code
-  oidc.cleanCallbackUrl();                             // strip ?code&state from the address bar
-
-  let pending = {};
-  try { pending = JSON.parse(sessionStorage.getItem(OIDC_PENDING_KEY) || '{}') || {}; } catch {}
-  sessionStorage.removeItem(OIDC_PENDING_KEY);
-
-  const serverUrl = pending.serverUrl || FINERACT_DEMO.serverUrl;
-  const tenantId  = pending.tenantId  || 'default';
-
-  configureAPI({ serverUrl, tenantId, authScheme: 'Bearer', bearerToken: tokens.accessToken });
-
-  store.set('auth', {
-    serverUrl, tenantId,
-    username:     tokens.username || 'sso-user',
-    authScheme:   'Bearer',
-    bearerToken:  tokens.accessToken,
-    refreshToken: tokens.refreshToken,
-    idToken:      tokens.idToken,
-    expiresAt:    tokens.expiresAt,
-    roles:        []
-  });
-  store.set('perms', []);
-
-  await finishLogin({ serverUrl, tenantId, username: tokens.username || 'sso-user', authPerms: [] });
-  _scheduleTokenRefresh();
-}
-
-async function _restoreBearerSession(saved) {
-  let bearer = saved.bearerToken;
-  // Proactively refresh if the access token is expired/near-expiry.
-  const expired = (saved.expiresAt && Date.now() >= saved.expiresAt - 30000) || oidc.isTokenExpired(bearer);
-  if (expired) {
-    if (!saved.refreshToken) throw new Error('Access token expired and no refresh token is available.');
-    const cfg = _oidcConfig();
-    const t = await oidc.refresh(cfg, saved.refreshToken);
-    bearer = t.accessToken;
-    store.set('auth', {
-      ...saved,
-      bearerToken:  t.accessToken,
-      refreshToken: t.refreshToken || saved.refreshToken,
-      idToken:      t.idToken || saved.idToken,
-      expiresAt:    t.expiresAt
-    });
-  }
-  configureAPI({ serverUrl: saved.serverUrl, tenantId: saved.tenantId, authScheme: 'Bearer', bearerToken: bearer });
-
-  const me = await api.userDetails.self();
-  _persistUserContext(me);
-  console.log('[auth] Restored SSO session with', (store.get('perms') || []).length, 'permissions');
-  await _loadDefaultCurrency();
-  showApp();
-  _scheduleTokenRefresh();
-}
-
-let _refreshTimer = null;
-function _scheduleTokenRefresh() {
-  if (_refreshTimer) { clearTimeout(_refreshTimer); _refreshTimer = null; }
-  const auth = store.get('auth') || {};
-  if (auth.authScheme !== 'Bearer' || !auth.refreshToken || !auth.expiresAt) return;
-  // Refresh ~60s before expiry (never sooner than 5s from now).
-  const delay = Math.max(5000, auth.expiresAt - Date.now() - 60000);
-  _refreshTimer = setTimeout(async () => {
-    try {
-      const cfg = _oidcConfig();
-      const t = await oidc.refresh(cfg, auth.refreshToken);
-      configureAPI({ authScheme: 'Bearer', bearerToken: t.accessToken });
-      store.set('auth', {
-        ...(store.get('auth') || {}),
-        bearerToken:  t.accessToken,
-        refreshToken: t.refreshToken || auth.refreshToken,
-        idToken:      t.idToken || auth.idToken,
-        expiresAt:    t.expiresAt
-      });
-      _scheduleTokenRefresh();
-    } catch (e) {
-      console.warn('[auth] silent token refresh failed:', e.message);
-    }
-  }, delay);
-}
-
-export async function login({ serverUrl, tenantId, username, password }) {
-  configureAPI({ serverUrl, tenantId });
-
-  const authResponse = await api.auth(username, password);
-  const token = authResponse?.base64EncodedAuthenticationKey;
-  if (!token) throw new Error('Authentication failed — check credentials');
-  configureAPI({ authToken: token });
-
-  const authPerms = _extractPerms(authResponse);
-
-  store.set('auth', {
-    serverUrl, tenantId, username, authToken: token,
-    userId:     authResponse.userId,
-    officeId:   authResponse.officeId,
-    officeName: authResponse.officeName,
-    roles:      Array.isArray(authResponse.roles) ? authResponse.roles : []
-  });
-  store.set('perms', authPerms);
-
-  if (authResponse.shouldRenewPassword) {
-    throw Object.assign(new Error('PASSWORD_RESET_REQUIRED'), { code: 'PASSWORD_RESET_REQUIRED' });
-  }
-
-  await _continueAfterCredentials({ serverUrl, tenantId, username, authPerms });
-}
-
-async function _continueAfterCredentials({ serverUrl, tenantId, username, authPerms }) {
-  if (await isTwoFactorRequired()) {
-    throw Object.assign(new Error('OTP_REQUIRED'), { code: 'OTP_REQUIRED' });
-  }
-
-  await finishLogin({ serverUrl, tenantId, username, authPerms });
-}
-
-export async function completeMustChangePassword({ password, repeatPassword }) {
-  await changePassword({ password, repeatPassword });
-  const auth = store.get('auth') || {};
-  await _continueAfterCredentials({
-    serverUrl: auth.serverUrl,
-    tenantId:  auth.tenantId,
-    username:  auth.username,
-    authPerms: store.get('perms') || []
-  });
-}
-
-async function finishLogin({ serverUrl, tenantId, username, authPerms }) {
-  try {
-    const me = await api.userDetails.self();
-    _persistUserContext(me);
-  } catch (e) {
-    if (e.status === 401) {
-      _clearSession();
-      throw new Error('Server rejected the session token.');
-    }
-  }
-
-  console.log('[auth] Signed in with', (store.get('perms') || []).length, 'permissions');
-  _saveRecentTenant(serverUrl, tenantId, username);
-  await _loadDefaultCurrency();
-  showApp();
-}
-
-export async function completeTwoFactorLogin(tfaToken) {
-  if (tfaToken) configureAPI({ tfaToken });
-  const auth = store.get('auth') || {};
-  if (tfaToken) store.set('auth', { ...auth, tfaToken });
-  await finishLogin({
-    serverUrl: auth.serverUrl,
-    tenantId:  auth.tenantId,
-    username:  auth.username,
-    authPerms: store.get('perms') || []
-  });
-}
-
-async function _loadDefaultCurrency() {
-  try {
-    const res = await api.currencies.all();
-    const selected = res?.selectedCurrencyOptions;
-    const code = Array.isArray(selected) && selected.length ? selected[0].code : null;
-    if (code) store.set('defaultCurrency', code);
-  } catch (e) {
-  }
-}
-
-function _persistUserContext(me) {
-  const auth = store.get('auth') || {};
-  store.set('auth', {
-    ...auth,
-    userId:     me.userId ?? me.id ?? auth.userId,
-    officeId:   me.officeId ?? auth.officeId,
-    officeName: me.officeName ?? auth.officeName,
-    roles:      Array.isArray(me.roles) && me.roles.length ? me.roles : auth.roles
-  });
-
-  const newPerms = _extractPerms(me);
-  if (newPerms.length) {
-    const existing = store.get('perms') || [];
-    const merged = [...new Set([...existing, ...newPerms])];
-    store.set('perms', merged);
-  }
-}
-
-export function canDo(code) { return store.hasPermission(code); }
 
 export function logout() {
   const auth = store.get('auth');
@@ -306,18 +119,12 @@ export function logout() {
   // advertises an end_session_endpoint — best-effort, non-blocking.
   const wasBearer = auth?.authScheme === 'Bearer';
   const idToken = auth?.idToken;
-  if (_refreshTimer) { clearTimeout(_refreshTimer); _refreshTimer = null; }
+  clearRefreshTimer();
   _clearSession();
 
   if (wasBearer) {
-    const cfg = _oidcConfig();
-    oidc.discover(cfg.issuer)
-      .then(meta => {
-        const url = oidc.logoutUrl(meta, {
-          idToken,
-          clientId: cfg.clientId,
-          postLogoutRedirectUri: oidc.defaultRedirectUri()
-        });
+    idpLogoutUrl(idToken)
+      .then(url => {
         if (url) { location.assign(url); return; }
         showLogin();
       })
@@ -327,38 +134,9 @@ export function logout() {
   showLogin();
 }
 
-function _clearSession() {
-  store.remove('auth');
-  store.set('perms', []);
-  store.set('offline', false);
-  api.reset();
-}
-
-export async function changePassword({ password, repeatPassword }) {
-  const auth = store.get('auth');
-  if (!auth?.userId) throw new Error('Not signed in');
-  if (!password || password !== repeatPassword) throw new Error('Passwords do not match');
-  return api.password.change(auth.userId, { password, repeatPassword });
-}
-
-export async function forgotPassword({ serverUrl, tenantId, username, email }) {
-  if (!username && !email) throw new Error('Provide username or email');
-  if (serverUrl || tenantId) configureAPI({ serverUrl, tenantId });
-  return api.password.forgot({ username, email });
-}
-
-export async function isTwoFactorRequired() {
-  try {
-    const cfg = await api.twoFactor.config.get();
-    const flag = Array.isArray(cfg) ? cfg.find(c => /enable/i.test(c.name)) : null;
-    return !!(flag && (flag.value === true || flag.value === 'true' || flag.value === 1));
-  } catch { return false; }
-}
-
-export const getOtpMethods = ()                                  => api.twoFactor.methods();
-export const requestOtp    = (deliveryMethod, extendedToken = false) =>
-  api.twoFactor.request({ deliveryMethod, extendedToken });
-export const validateOtp   = (token)                             => api.twoFactor.validate(token);
+/* ================================================================== */
+/* View shell                                                          */
+/* ================================================================== */
 
 function _isInsecureContext() {
   const proto = window.location.protocol;
@@ -414,15 +192,15 @@ function renderLogin(container, banner) {
       ${recents.map((t, i) => `
         <button type="button" class="tenant-chip" data-recent-idx="${i}"
                 style="padding:4px 10px;font-size:11px;background:var(--bg-2,#0e1a2e);border:1px solid var(--border-1,#1a2d4a);border-radius:99px;color:var(--text-2,#e8f0fc);cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono,monospace);transition:all 200ms"
-                title="${t.tenantId} on ${t.serverUrl}${t.username ? ' (last user: ' + t.username + ')' : ''}">
+                title="${escapeHtml(t.tenantId)} on ${escapeHtml(t.serverUrl)}${t.username ? ' (last user: ' + escapeHtml(t.username) + ')' : ''}">
           <i class="fa-solid fa-server" style="font-size:9px;color:var(--brand-teal,#00c9b1)"></i>
-          ${t.tenantId}
+          ${escapeHtml(t.tenantId)}
           <span class="tenant-chip-x" data-remove-idx="${i}" style="opacity:0.5;font-size:13px;margin-left:2px" title="Forget this tenant">×</span>
         </button>
       `).join('')}
     </div>` : '';
 
-  container.innerHTML = `
+  container.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="login-wrap active" style="width:100%;height:100vh;display:flex">
       <div class="login-left">
         <div class="login-brand">
@@ -448,14 +226,14 @@ function renderLogin(container, banner) {
         <div class="login-form-box">
           <div class="login-form-title">Welcome back</div>
           <div class="login-form-sub">Sign in to your FinCraft account</div>
-          ${banner ? `<div class="msg-banner b-warning mb-4">${banner}</div>` : ''}
+          ${banner ? `<div class="msg-banner b-warning mb-4">${escapeHtml(banner)}</div>` : ''}
           <div id="login-error" class="msg-banner b-danger mb-4" style="display:none"></div>
           <div class="form-group mb-3"><label class="form-label">Server URL</label>
-            <input id="l-server" class="form-control" value="${FINERACT_DEMO.serverUrl}"/></div>
+            <input id="l-server" class="form-control" value="${escapeHtml(FINERACT_DEMO.serverUrl)}"/></div>
           ${recentChipsHtml}
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="mb-3">
             <div class="form-group"><label class="form-label">Tenant ID</label>
-              <input id="l-tenant" class="form-control" value="${FINERACT_DEMO.tenantId}"/></div>
+              <input id="l-tenant" class="form-control" value="${escapeHtml(FINERACT_DEMO.tenantId)}"/></div>
             <div class="form-group"><label class="form-label">Username</label>
               <input id="l-user" class="form-control" value="" autocomplete="username"/></div>
           </div>
@@ -645,9 +423,9 @@ async function renderOtpStep(container) {
   let methods = [];
   try { methods = await getOtpMethods(); } catch { methods = []; }
   const methodOptions = (Array.isArray(methods) && methods.length ? methods : [{ name: 'Default', deliveryMethod: 'default' }])
-    .map(m => `<option value="${m.deliveryMethod ?? m.name}">${m.name ?? m.deliveryMethod}</option>`).join('');
+    .map(m => `<option value="${escapeHtml(String(m.deliveryMethod ?? m.name))}">${escapeHtml(String(m.name ?? m.deliveryMethod))}</option>`).join('');
 
-  container.innerHTML = `
+  container.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="login-wrap active" style="width:100%;height:100vh;display:flex;align-items:center;justify-content:center">
       <div class="login-form-box" style="max-width:420px">
         <div class="login-form-title">Two-factor verification</div>

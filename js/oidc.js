@@ -34,14 +34,52 @@ const STORAGE_KEYS = {
 
 const _crypto = () => (globalThis.crypto || (globalThis.window && globalThis.window.crypto));
 
+// Pure-JS base64 (RFC 4648 §4) — used only when the environment provides neither
+// `btoa`/`atob` nor a DOM. Keeps this module dependency-free and browser-safe:
+// no `Buffer` reference, so it lints clean under browser-only globals and still
+// works in the Node test runner without needing a Node global.
+const _B64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+function _bytesToBase64(bytes) {
+  let out = '';
+  for (let i = 0; i < bytes.length; i += 3) {
+    const b0 = bytes[i];
+    const b1 = i + 1 < bytes.length ? bytes[i + 1] : 0;
+    const b2 = i + 2 < bytes.length ? bytes[i + 2] : 0;
+    out += _B64[b0 >> 2];
+    out += _B64[((b0 & 3) << 4) | (b1 >> 4)];
+    out += i + 1 < bytes.length ? _B64[((b1 & 15) << 2) | (b2 >> 6)] : '=';
+    out += i + 2 < bytes.length ? _B64[b2 & 63] : '=';
+  }
+  return out;
+}
+
+function _base64ToBytes(b64) {
+  const clean = b64.replace(/[^A-Za-z0-9+/]/g, '');
+  const out = [];
+  for (let i = 0; i < clean.length; i += 4) {
+    const e0 = _B64.indexOf(clean[i]);
+    const e1 = _B64.indexOf(clean[i + 1]);
+    const e2 = i + 2 < clean.length ? _B64.indexOf(clean[i + 2]) : -1;
+    const e3 = i + 3 < clean.length ? _B64.indexOf(clean[i + 3]) : -1;
+    out.push((e0 << 2) | (e1 >> 4));
+    if (e2 !== -1) out.push(((e1 & 15) << 4) | (e2 >> 2));
+    if (e3 !== -1) out.push(((e2 & 3) << 6) | e3);
+  }
+  return new Uint8Array(out);
+}
+
 // RFC 4648 §5 base64url (no padding) from an ArrayBuffer / Uint8Array.
 export function base64UrlEncode(buffer) {
   const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
-  let str = '';
-  for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
-  const b64 = (typeof btoa === 'function')
-    ? btoa(str)
-    : globalThis.Buffer.from(bytes).toString('base64');   // Node fallback (tests)
+  let b64;
+  if (typeof btoa === 'function') {
+    let str = '';
+    for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
+    b64 = btoa(str);
+  } else {
+    b64 = _bytesToBase64(bytes);              // DOM-less fallback (Node tests)
+  }
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
@@ -56,7 +94,7 @@ export function base64UrlDecode(b64url) {
       return new TextDecoder().decode(bytes);
     } catch { return bin; }
   }
-  return globalThis.Buffer.from(b64, 'base64').toString('utf8');   // Node fallback (tests)
+  return new TextDecoder().decode(_base64ToBytes(b64));   // DOM-less fallback (Node tests)
 }
 
 // A high-entropy PKCE code_verifier: 43–128 chars from the unreserved set.

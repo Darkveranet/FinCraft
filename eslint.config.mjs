@@ -45,12 +45,14 @@ export default [
       'prefer-const': 'warn',
       'eqeqeq': ['warn', 'smart'],
 
-      // The headline rule. Kept as 'warn' for now: the standalone
-      // scan_unescaped_innerhtml.mjs (baseline-ratcheted) is the BLOCKING CI gate,
-      // while this gives editor squiggles without failing local `eslint .` on the
-      // ~84 reviewed-legacy interpolations. Flip to 'error' once the baseline is
-      // burned down.
-      'local/no-unescaped-innerhtml': 'warn',
+      // The headline rule. Now 'error': the scan-innerhtml baseline has been
+      // burned down to empty (2026-07-28) — every remaining innerHTML/outerHTML
+      // interpolation either routes through an escaping/formatting helper or
+      // carries an audited `scan-allow-innerhtml` suppression (numeric IDs,
+      // code-defined labels, computed dates, pre-escaped HTML fragments). Any NEW
+      // raw interpolation now fails `eslint .` as well as the standalone
+      // scan_unescaped_innerhtml.mjs CI gate.
+      'local/no-unescaped-innerhtml': 'error',
     },
   },
 

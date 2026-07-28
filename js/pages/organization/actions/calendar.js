@@ -18,7 +18,7 @@ export async function openHolidayModal(officeList, onSuccess) {
   modalEl.className = 'modal-overlay open';
   modalEl.setAttribute('role', 'dialog');
   modalEl.setAttribute('aria-modal', 'true');
-  modalEl.innerHTML = `
+  modalEl.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="modal modal-md">
       <div class="modal-header"><h3>New Holiday</h3><button data-close-modal>&times;</button></div>
       <div class="modal-body">

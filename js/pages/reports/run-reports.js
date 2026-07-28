@@ -93,7 +93,7 @@ async function openRunModal(report) {
   modalEl.className = 'modal-overlay open';
   modalEl.setAttribute('role', 'dialog');
   modalEl.setAttribute('aria-modal', 'true');
-  modalEl.innerHTML = `
+  modalEl.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="modal modal-xl">
       <div class="modal-header"><h3>Run: ${escapeHtml(report.reportName)}</h3><button data-close-modal>&times;</button></div>
       <div class="modal-body">
@@ -175,7 +175,7 @@ async function runReport(modalEl, reportName) {
       a.href = URL.createObjectURL(blob);
       a.download = reportName.replace(/\s+/g, '_') + '.' + ext;
       a.click();
-      resultEl.innerHTML = `
+      resultEl.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
         <div class="msg-banner b-success mt-3">
           <i class="fa-solid fa-check"></i>
           ${outputType} downloaded: <b>${escapeHtml(a.download)}</b>

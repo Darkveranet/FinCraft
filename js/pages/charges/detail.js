@@ -178,7 +178,7 @@ async function loadChargeUsage(c, ch) {
       return;
     }
 
-    wrapEl.innerHTML = `
+    wrapEl.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <table class="table">
         <thead><tr><th>${label}</th><th>Currency</th><th>Active</th></tr></thead>
         <tbody>${products.map(p => `

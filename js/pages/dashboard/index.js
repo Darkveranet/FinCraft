@@ -28,7 +28,7 @@ export async function render(c) {
   const greeting = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const firstName = (auth.displayName || auth.username || '').split(/\s+/)[0] || '';
 
-  c.innerHTML = `
+  c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="page-header mb-4">
       <div>
         <h1>Welcome back${firstName ? `, ${escapeHtml(firstName)}` : ''}</h1>

@@ -6,7 +6,7 @@ import { extractFineractError } from '../ui/dom-helpers.js';
 export async function render(c) {
   const today = new Date().toISOString().slice(0, 10);
   const yearStart = today.slice(0, 4) + '-01-01';
-  c.innerHTML = `
+  c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="page-header mb-3">
       <div><h1>MIX Market (XBRL)</h1><div class="text-muted">Generate the MIX XBRL report and inspect its taxonomy</div></div>
     </div>

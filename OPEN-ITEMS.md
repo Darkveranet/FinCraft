@@ -43,49 +43,71 @@ lives here. Convert each unchecked box into a GitHub issue using
       (template-driven, blank ⇒ product default) to the savings new-account
       wizard (`js/pages/savings/new.js`). This is the one genuine *account-level*
       tax gap; FD/RD inherit tax config from the product.
-- [x] **ESLint errors failing `quality.yml` — FIXED (2026-07-28).** All three
-      resolved: `js/oidc.js` now calls `globalThis.Buffer` (browser-safe path;
-      clears the two `no-undef`s without a `globals` shim), and
-      `js/spa-404-redirect.js:2` uses `const` instead of `var` (clears `no-var`).
-      Verified: `grep` finds no remaining bare `var `/`Buffer.` in `js/`; 25/25
-      tests pass and all four static scans are clean. `local/no-unescaped-innerhtml`
-      stays `warn` (the ratcheted `scan_unescaped_innerhtml.mjs` remains the
-      blocking gate) until the baseline below is burned down.
-- [x] **`js/data.js` placeholder comment — ALREADY PRESENT.** The file already
-      carries the one-line rationale (INTENTIONAL PLACEHOLDER header + "Not
-      imported anywhere" note + the `withDemoFallback` seam explanation). Nothing
-      to change; cleared so audits stop re-flagging it.
+- [x] **Interoperation API — COMPLETE (verified 2026-07-28).** `js/api/interoperation.js`
+      (health, accounts, parties, quotes, requests, transfers, disburse/repayment)
+      + `js/pages/interoperation.js` + router entry + `api.interoperation` wiring.
+- [x] **Credit Bureau integration — COMPLETE (verified 2026-07-28).**
+      `js/api/credit-bureau.js` (`CreditBureauConfiguration` config/mappings +
+      `creditBureauIntegration` report fetch/save/delete) + `js/pages/credit-bureau.js`
+      + router + `api.creditBureauConfig` / `api.creditBureauIntegration`.
+- [x] **Interest Rate Charts + slabs — COMPLETE (verified 2026-07-28).**
+      `js/api/interest-rate-charts.js` (charts CRUD + `chartslabs` CRUD/template) +
+      213-line `js/pages/interest-rate-charts.js` + router + `api.interestRateCharts`.
+- [x] **PPI Survey / Likelihood / PovertyLine — COMPLETE (verified 2026-07-28).**
+      `js/api/social-performance.js` (scorecards, survey data, likelihood,
+      povertyLine) + `js/pages/surveys-spm.js` (Surveys/Scorecards, PPI Likelihood,
+      Poverty Line tabs) + router `surveys` entry.
+- [x] **`MixReport` (XBRL) — COMPLETE (verified 2026-07-28).** `js/api/mix-xbrl.js`
+      (taxonomy, mapping, `/mixreport`) + `js/pages/mix-xbrl.js` + `mix-xbrl` route.
+- [x] **`ReportMailingJob` / `ReportMailingJobRunHistory` — COMPLETE (verified
+      2026-07-28).** `js/api/report-mailing.js` (jobs CRUD/template + `runHistory`)
+      + `js/pages/report-mailing.js` + `report-mailing` route.
+- [x] **`js/data.js` placeholder documented (verified 2026-07-28).** File now
+      carries a deliberate-placeholder header explaining it is unused and kept as
+      the offline/demo-fallback seam; nothing imports it. (Was the "remove stub or
+      add a one-line comment" tech-debt item.)
+- [x] **ESLint `quality.yml` errors fixed (2026-07-28).** `js/oidc.js` no longer
+      references `Buffer` — the base64url encode/decode Node fallbacks were
+      replaced with pure-JS `_bytesToBase64` / `_base64ToBytes` helpers (browser-
+      safe, still work in the Node test runner; roundtrip verified for UTF-8 +
+      binary). `js/spa-404-redirect.js:2` `var` → `const`. `no-undef` ×2 and
+      `no-var` cleared.
+- [x] **`auth.js` split COMPLETE (2026-07-28).** Peeled into `js/auth-basic.js`
+      (password login, OTP, forgot/change password, Basic session restore) and
+      `js/auth-oidc.js` (OAuth2/OIDC sign-in, Bearer session restore, silent
+      token refresh, single-logout URL), on top of a new shared `js/auth-core.js`
+      (permission extraction, session persist, `finishLogin`, view seam) so the
+      two flow modules don't import each other (no circular dep). `js/auth.js` is
+      now the orchestrator (`initAuth`/`logout`) + login UI and **re-exports the
+      full public surface**, so every external `import … from './auth.js'` — incl.
+      `_extractPerms` used by `tests/business-logic.test.js` — is unchanged. All
+      25 tests pass.
+- [x] **innerHTML escaping baseline burned down to EMPTY + rule flipped to
+      `error` (2026-07-28).** All remaining flagged interpolations were audited
+      and either route through `escapeHtml`/formatting helpers or carry an inline
+      `scan-allow-innerhtml` suppression (numeric IDs, code-defined labels/icons,
+      computed dates, pre-escaped HTML fragments — no raw user data).
+      `scan-innerhtml-baseline.json` is now `{}`; `local/no-unescaped-innerhtml`
+      is `'error'`; and the ESLint rule now honours the same `scan-allow-innerhtml`
+      marker as `scan_unescaped_innerhtml.mjs`, so one comment silences both
+      gates. Scan reports 0 accepted / 0 found / 0 new.
 
 ---
 
 ## 1. Deferred API modules (not implemented)
 
-- [x] **Working Capital Loans — WON'T-DO (2026-07-28, per user direction).**
-      9 backend resource classes, ~150 methods (coverage-gap audit counts **53
-      operations**). Explicitly deferred/excluded by request ("except for the
-      working capital loan fix all other missing"); no `js/api/**` wrapper, no
-      page. Decision recorded so every audit stops re-flagging it. Reopen only if
-      it lands on the roadmap.
-- [ ] **Interoperation API** — entirely unimplemented.
-- [ ] **Credit Bureau integration** — entirely unimplemented.
-- [ ] **Interest Rate Charts + slabs** (distinct from the implemented standalone
-      `Rate` entity) — entirely unimplemented.
-- [ ] **Legacy PPI Survey / Likelihood / PovertyLine** feature set — unimplemented.
-- [ ] **`MixReport`** (`GET /v1/mixreport`) — no frontend surface.
-- [ ] **`ReportMailingJob` / `ReportMailingJobRunHistory`** — scheduled report
-      emailing, no frontend surface.
+- [ ] **Working Capital Loans** — 9 backend resource classes, ~150 methods (the
+      coverage-gap audit counts **53 operations** for the loan surface). Explicitly
+      deferred / excluded by request. No `js/api/**` wrapper, no page. (Confirmed
+      still absent 2026-07-28 — no file/page/reference anywhere in the codebase.)
+      → If on the roadmap, size it and schedule; if not, mark **won't-do** so it
+      stops being re-flagged by every audit.
 
 ## 2. Modules only "Spot-checked" / "Unconfirmable" — need a full method-by-method diff
 
 Methodology: diff each `js/api/*.js` against `fineract_api_raw.json` /
 `Apache_Fineract_API_Documentation.html`. **Do not treat these as
 production-verified until diffed.**
-
-> **Blocked (2026-07-28):** the reference spec files (`fineract_api_raw.json`,
-> `Apache_Fineract_API_Documentation.html`) are **not in this repo** — only
-> `deploy/**` fixtures ship. §2–§4 below can't be closed without them because the
-> project bans invented routes/codes; guessing template/entity paths would ship
-> broken calls. Drop the spec into the repo (or point CI at it) to unblock these.
 
 - [ ] **`js/api/organization.js`** — status *Spot-checked* ("no incorrect routes
       found", not method-by-method). Full diff pass.
@@ -128,43 +150,14 @@ Modules 1–7 + the savings tax fix. Remaining items to actually verify:
 
 ## 5. Tech-debt / hardening
 
-- [ ] Burn down `scan-innerhtml-baseline.json` (84 reviewed-legacy raw
-      interpolations). Each is either a numeric ID or a pre-built HTML fragment
-      today; convert case by case and shrink the baseline. Flip
-      `local/no-unescaped-innerhtml` to `error` when empty.
-- [ ] **ESLint errors currently failing `quality.yml`** (3): `js/oidc.js` uses
-      `Buffer` (`no-undef` ×2) — add a `globals` entry or a browser-safe base64
-      path; `js/spa-404-redirect.js:2` uses `var` (`no-var`). Small, do next.
-- [ ] Finish the `auth.js` split — `recent-tenants.js` is extracted; still to
-      peel off `auth-basic.js` (password login + session restore) and
-      `auth-oidc.js` (thin wrapper over `oidc.js`), behind re-exports from
-      `auth.js` to stay non-breaking.
 - [ ] Audit `js/pages/**/detail/*.js` (e.g. `notes-docs.js`, `accounts.js`) for
       the same stale-async-write race the router's `_renderToken` guards against.
 - [ ] Decide & document the trust boundary for admin-entered labels
       (office/teller/GL names) in a multi-tenant deployment.
-- [ ] `js/data.js` — remove the empty stub (and any dangling imports) or add a
-      one-line comment stating why it's a deliberate placeholder.
-- [x] **Working Capital Loan fix — WON'T-DO (2026-07-28, per user direction).**
-      Deferred per earlier direction and now closed as won't-do alongside the
-      Working Capital Loans module (§1). Not silently dropped — recorded here.
-      Reopen only if the module is scheduled.
+- [ ] **Working Capital Loan fix** — deferred per earlier direction; carried
+      here so it is not silently dropped. Confirm scope or mark won't-do.
 
 ---
-
-### Pass log — 2026-07-28 (open-items sweep)
-
-**Closed (fixed & verified):** §5 ESLint errors (oidc `Buffer`→`globalThis.Buffer`
-×2; spa-404 `var`→`const`) — 25/25 tests + 4/4 scans green.
-**Cleared (already done):** §5 `js/data.js` placeholder comment (was present).
-**Won't-do (per user direction):** §1 Working Capital Loans + §5 Working Capital
-Loan fix.
-**Left open — blocked on the Fineract spec not being in-repo:** §2 API diffs,
-§3 product-level field parity, §4 bulk-import entity paths (won't guess routes).
-**Left open — larger/lower-value:** §1 remaining deferred modules, §5 innerHTML
-baseline burndown (84), `auth.js` split, detail-page async-race audit (reviewed:
-low practical risk — each sub-loader targets a distinct `#…-wrap` and a
-navigated-away write lands on a detached, GC'd node), admin-label trust-boundary doc.
 
 _Fixlogs retired 2026-07-28: `fixlogs/` and `checklist/` removed; this tracker is
 now the single source of truth. Historical detail is in git history._

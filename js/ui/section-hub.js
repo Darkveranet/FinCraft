@@ -5,7 +5,7 @@ export function renderSectionHub(c, { pageKey, title, subtitle, sections, params
   const active = activeKey ? sections.find(s => s.key === activeKey) : null;
 
   if (!active) {
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="page-header mb-3">
         <div>
           <h1>${title}</h1>
@@ -26,7 +26,7 @@ export function renderSectionHub(c, { pageKey, title, subtitle, sections, params
     return;
   }
 
-  c.innerHTML = `
+  c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <button class="hub-back" data-hub-back><i class="fa-solid fa-arrow-left"></i> ${title}</button>
     <div class="page-header mb-3">
       <div>

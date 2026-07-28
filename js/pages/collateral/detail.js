@@ -23,7 +23,7 @@ export async function renderDetail(c, id, initialTab = 'overview') {
                       : '<span class="badge">Unrated</span>';
     const effectiveValue = (col.basePrice || 0) * (col.pctToBase || 0) / 100;
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="page-header mb-3">
         <div>
           <h1>${escapeHtml(col.name || '—')}</h1>

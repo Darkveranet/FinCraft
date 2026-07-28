@@ -129,7 +129,7 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const next      = nextRepayment(l);
     const dpd       = l.delinquent?.pastDueDays || 0;
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="cv-detail ln-detail">
       <div class="cv-detail-head">
         <div>

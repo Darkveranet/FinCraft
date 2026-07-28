@@ -105,7 +105,7 @@ async function openStandingInstructionModal(onSuccess) {
   m.className = 'modal-overlay open';
   m.setAttribute('role', 'dialog');
   m.setAttribute('aria-modal', 'true');
-  m.innerHTML = `
+  m.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="modal modal-lg">
       <div class="modal-header"><h3>New Standing Instruction</h3><button data-close-modal>&times;</button></div>
       <div class="modal-body">

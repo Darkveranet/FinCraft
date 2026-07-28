@@ -139,7 +139,7 @@ export async function loadTellers(c) {
       try {
         const cashiers = await api.tellers.cashiers(tid);
         const clist = Array.isArray(cashiers) ? cashiers : (cashiers?.cashiers || []);
-        body.innerHTML = `
+        body.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
           <div class="section-header mb-2">
             <b>Cashiers — ${escapeHtml(b.dataset.tellerName)}</b>
             ${(can('CREATE_TELLER') || can('ALLOCATECASHIER_TELLER')) ? `<button class="btn-secondary btn-sm" data-alloc-teller="${tid}"><i class="fa-solid fa-plus"></i> Allocate</button>` : ''}

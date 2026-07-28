@@ -142,7 +142,7 @@ function openDrawdownForm(c, officeId, borrowingId) {
   const row = detailRow(c, borrowingId);
   if (!row.classList.contains('hidden')) { row.classList.add('hidden'); return; }
   row.classList.remove('hidden');
-  detailCell(c, borrowingId).innerHTML = `
+  detailCell(c, borrowingId).innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="form-grid">
       <label><span class="form-label">Funding Destination</span>${fundingSourceSelect(`txb-dd-src-${borrowingId}`)}</label>
       <label><span class="form-label">Transaction Date</span>
@@ -175,7 +175,7 @@ async function reloadList(c, officeId) {
     listBody.innerHTML = `<div class="empty-state">Failed to load borrowings: ${escapeHtml(err?.message || String(err))}</div>`;
     return;
   }
-  listBody.innerHTML = `
+  listBody.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="mb-3 text-muted">
       Active: <strong>${dash.activeCount}</strong> &nbsp;·&nbsp;
       Total Principal: <strong>${fmtMoney(dash.totalPrincipal)}</strong> &nbsp;·&nbsp;

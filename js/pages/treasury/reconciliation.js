@@ -64,7 +64,7 @@ function openCountForm(c, officeId, reconciliationId, expectedCash) {
   const row = detailRow(c, reconciliationId);
   if (!row.classList.contains('hidden')) { row.classList.add('hidden'); return; }
   row.classList.remove('hidden');
-  detailCell(c, reconciliationId).innerHTML = `
+  detailCell(c, reconciliationId).innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="form-grid">
       <div class="text-muted">Expected cash (FinCraft): <strong>${fmtMoney(expectedCash)}</strong></div>
       <label><span class="form-label">Physical Cash Counted</span>

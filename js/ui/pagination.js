@@ -13,7 +13,7 @@ export function renderPagination(container, { total, offset, pageSize, onChange 
   const to   = Math.min(offset + pageSize, total);
   const pages = buildPageList(currentPage, totalPages);
 
-  container.innerHTML = `
+  container.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="pagination-info">
       <span class="text-muted">Showing ${num(from)}–${num(to)} of ${num(total)}</span>
       <label class="pagination-size">

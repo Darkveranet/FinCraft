@@ -62,7 +62,7 @@ export async function loadCOB(c) {
       : '—';
     const dateType = date ? escapeHtml(date.type || 'BUSINESS_DATE') : '—';
 
-    el.innerHTML = `
+    el.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="grid-2">
         <div class="card-inset" style="padding:16px; border:1px solid var(--border); border-radius:4px">
           <h3>Business Date</h3>

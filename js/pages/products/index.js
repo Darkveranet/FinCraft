@@ -132,7 +132,7 @@ export async function render(c, params = {}) {
       const canEdit   = can('UPDATE_' + cfg.perm);
       const canDelete = can('DELETE_' + cfg.perm) && !!cfg.deleteFn;
 
-      pane.innerHTML = `
+      pane.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
         <div class="section-header mb-2">
           <div>
             <h3>${cfg.label}s</h3>

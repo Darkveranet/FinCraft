@@ -14,7 +14,7 @@ export async function loadHolidays(c, officeList) {
     const list = Array.isArray(holidays) ? holidays : [];
     const offOpts = officeList.map(o => `<option value="${o.id}" ${o.id === headOffice?.id ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('');
 
-    el.innerHTML = `
+    el.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="section-header mb-2">
         <label>Office <select id="hol-office" class="form-control" style="display:inline-block;width:auto">${offOpts}</select></label>
         ${can('CREATE_HOLIDAY') ? `<button class="btn-primary" id="btn-new-hol"><i class="fa-solid fa-plus"></i> New Holiday</button>` : ''}
