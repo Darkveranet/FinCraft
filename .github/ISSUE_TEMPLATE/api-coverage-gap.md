@@ -9,18 +9,18 @@ labels: ["api-coverage", "audit"]
 <!-- e.g. js/api/organization.js, or "Working Capital Loans" -->
 
 ## Current status
-<!-- Deferred | Spot-checked | Unconfirmable | Mixed — copy the row from
-     fixlogs/FIXLOG-full-api-audit-consolidated.md -->
+<!-- Deferred | Spot-checked | Unconfirmable | Mixed — copy the matching line
+     from OPEN-ITEMS.md -->
 
 ## What "done" means
 - [ ] Diffed method-by-method against `fineract_api_raw.json` /
       `Apache_Fineract_API_Documentation.html`
-- [ ] Any wrong path/method corrected (see §2 "Used Incorrectly" table for the pattern)
+- [ ] Any wrong path/method corrected
 - [ ] Frontend surface wired (or explicitly marked won't-do with a reason)
-- [ ] Removed from `OPEN-ITEMS.md`
+- [ ] Ticked / removed in `OPEN-ITEMS.md`
 
-## Fixlog / source
-<!-- Link the relevant fixlogs/*.md -->
+## Source
+<!-- OPEN-ITEMS.md section + relevant git commit(s) -->
 
 ## Notes
 <!-- Op count, backend resource classes, roadmap decision, etc. -->
