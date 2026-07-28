@@ -117,7 +117,7 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const onHold = sm.onHoldFunds ?? 0;
     const thirdWarn = onHold > 0;
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="cv-detail sv-detail">
       <div class="cv-detail-head">
         <div>

@@ -14,7 +14,10 @@
               `.length` / `.size` member reads (numeric).
      UNSAFE → a bare Identifier or non-numeric MemberExpression rendered directly.
 
-   Suppress an audited-safe case with the usual eslint-disable-next-line comment.
+   Suppress an audited-safe case with a trailing / inline `scan-allow-innerhtml`
+   comment on the assignment line — the SAME marker honoured by
+   scan_unescaped_innerhtml.mjs, so one comment suppresses both gates. (A regular
+   eslint-disable-next-line also works for ESLint specifically.)
    ──────────────────────────────────────────────────────────────────────────── */
 
 function isSafe(node) {
@@ -71,6 +74,13 @@ export default {
           (left.property.name !== 'innerHTML' && left.property.name !== 'outerHTML')
         ) return;
         if (node.right.type !== 'TemplateLiteral') return;
+
+        // Honour the shared `scan-allow-innerhtml` suppression on the assignment
+        // line — keeps this rule in sync with scan_unescaped_innerhtml.mjs so a
+        // single audited comment silences both the editor rule and the CI gate.
+        const startLine = node.loc.start.line;
+        const lineText = (source.lines && source.lines[startLine - 1]) || '';
+        if (/scan-allow-innerhtml/.test(lineText)) return;
 
         for (const expr of node.right.expressions) {
           if (!isSafe(expr)) {

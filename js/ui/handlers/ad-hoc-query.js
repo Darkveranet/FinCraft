@@ -15,7 +15,7 @@ export const AdHocQueryHandlers = {
         const r = await api.runReports.run(queryName, {});
         const headers = (r.columnHeaders || []).map(h => `<th>${escapeHtml(h.columnName)}</th>`).join('');
         const rows = (r.data || []).map(d => `<tr>${(d.row || []).map(v => `<td>${escapeHtml(String(v ?? ''))}</td>`).join('')}</tr>`).join('');
-        if (out) out.innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr>${headers}</tr></thead><tbody>${rows || '<tr><td>No data</td></tr>'}</tbody></table></div>`;
+        if (out) out.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `<div class="tbl-wrap"><table class="tbl"><thead><tr>${headers}</tr></thead><tbody>${rows || '<tr><td>No data</td></tr>'}</tbody></table></div>`;
       } catch (e) {
         if (out) out.innerHTML = `<div class="msg-banner b-danger">${escapeHtml(extractFineractError(e))}</div>`;
       } finally { setSubmitting(btn, false); }

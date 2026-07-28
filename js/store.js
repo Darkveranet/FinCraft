@@ -66,7 +66,13 @@ class Store {
         this.state.defaultCurrency = ss.defaultCurrency || null;
       }
     } catch {}
-    document.documentElement.setAttribute('data-theme', this.state.theme);
+    // Guard the DOM write: store.js is imported by non-DOM contexts too
+    // (the Node test runner, service worker, any SSR/tooling pass). Touching
+    // document unconditionally here throws `document is not defined` at module
+    // load and cascades into every module that imports the store singleton.
+    if (typeof document !== 'undefined' && document.documentElement) {
+      document.documentElement.setAttribute('data-theme', this.state.theme);
+    }
   }
 
   hasPermission(code) {

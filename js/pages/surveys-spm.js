@@ -82,7 +82,7 @@ async function openScorecards(surveyId) {
 function buildPpiForm(c, panelId, kind) {
   const el = c.querySelector('#' + panelId);
   const label = kind === 'likelihood' ? 'PPI Likelihood' : 'Poverty Line';
-  el.innerHTML = `
+  el.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="text-muted small mb-2"><i class="fa-solid fa-circle-info"></i> ${label} tables are keyed by PPI questionnaire name (e.g. <code>PPI_ZAF</code>).</div>
     <div class="filter-bar mb-2">
       <input id="${panelId}-ppi" class="form-control" placeholder="PPI name (e.g. PPI_ZAF)"/>

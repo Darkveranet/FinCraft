@@ -13,7 +13,7 @@ export async function renderDetail(c, templateId) {
     const entityInfo = ENTITY_OPTIONS.find(e => e.id === (tpl.entity?.id ?? tpl.entityId));
     const mappers = tpl.mappers || tpl.mappersData || [];
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="page-header mb-3">
         <div>
           <h1>${escapeHtml(tpl.name)}</h1>

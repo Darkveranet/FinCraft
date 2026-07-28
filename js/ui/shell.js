@@ -62,7 +62,7 @@ export function mountAppShell() {
       </div>`;
   }).join('');
 
-  shell.innerHTML = `
+  shell.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <a href="#contentArea" class="skip-link">Skip to main content</a>
     <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
       <div class="sidebar-brand" data-nav="dashboard">

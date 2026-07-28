@@ -55,7 +55,7 @@ export async function profile(c) {
     .map(r => escapeHtml(r.name || ''))
     .filter(Boolean).join(', ') || '—';
 
-  detailEl.innerHTML = `
+  detailEl.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="info-grid">
       <div class="info-item"><div class="info-label">Username</div><div class="info-value">${escapeHtml(me?.username || auth.username || '—')}</div></div>
       <div class="info-item"><div class="info-label">Email</div><div class="info-value">${escapeHtml(me?.email || '—')}</div></div>

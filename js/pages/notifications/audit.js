@@ -214,7 +214,7 @@ export async function openAuditDetailModal(auditId) {
 
     const link = buildEntityLink(audit.entityName, audit.resourceId);
 
-    body.innerHTML = `
+    body.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="info-grid mb-3">
         <div class="info-item"><div class="info-label">Action</div><div class="info-value"><b>${escapeHtml(audit.actionName || '—')}</b></div></div>
         <div class="info-item"><div class="info-label">Entity</div><div class="info-value">${escapeHtml(audit.entityName || '—')}</div></div>

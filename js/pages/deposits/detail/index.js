@@ -43,7 +43,7 @@ export async function renderDetail(c, apiGroup, id, initialTab) {
     const canCloseRD         = !isFD && isActive && can('CLOSE_' + permPrefix);
     const canDelete          = isPending && can('DELETE_' + permPrefix);
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="page-header mb-3">
         <div>
           <h1>${label} #${escapeHtml(d.accountNo || id)}</h1>

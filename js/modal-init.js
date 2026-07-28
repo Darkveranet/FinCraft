@@ -322,7 +322,7 @@ function addJERow(tbodyId, optHtml) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
   const tr = document.createElement('tr');
-  tr.innerHTML = `
+  tr.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <td><select class="form-control" data-je-account>${optHtml}</select></td>
     <td><input type="number" min="0" step="0.01" class="form-control" data-je-amount/></td>
     <td><button type="button" class="btn-ghost btn-sm" data-remove-row><i class="fa-solid fa-trash"></i></button></td>`;

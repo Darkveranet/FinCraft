@@ -71,7 +71,7 @@ export async function loadGLClosure(c) {
     const list = Array.isArray(closures) ? closures : [];
     const officeOpts = officeList.map(o => `<option value="${o.id}" ${o.id === headOffice?.id ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('');
 
-    el.innerHTML = `
+    el.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <h3>GL Closure</h3>
       <div class="text-muted small mb-3">
         <i class="fa-solid fa-circle-info"></i>

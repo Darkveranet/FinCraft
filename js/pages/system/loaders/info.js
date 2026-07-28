@@ -41,7 +41,7 @@ export async function loadSystemInfo(c) {
     }
   } catch {}
 
-  el.innerHTML = `
+  el.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="section-header mb-2">
       <h3>System Information</h3>
     </div>

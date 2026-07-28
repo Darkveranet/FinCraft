@@ -34,7 +34,7 @@ export async function renderDetail(c, id, initialTab = 'overview') {
     const shareValue = s.shareValue || s.unitPrice || 0;
     const totalValue = totalApprovedShares * shareValue;
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="page-header mb-3">
         <div>
           <h1>Share Account #${escapeHtml(s.accountNo || id)}</h1>

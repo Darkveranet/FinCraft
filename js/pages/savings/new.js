@@ -36,6 +36,8 @@ export async function renderNew(c) {
     // minimum balance / withdrawal
     enforceMinRequiredBalance: false, minRequiredBalance: '', minBalanceForInterestCalculation: '',
     withdrawalFeeForTransfers: false,
+    // tax withholding (blank ⇒ inherit product default)
+    withHoldTax: false, taxGroupId: '',
     // overdraft extras
     nominalAnnualInterestRateOverdraft: '', minOverdraftForInterestCalculation: '',
     tpl: null
@@ -163,6 +165,18 @@ export async function renderNew(c) {
             </label>
           </div>
 
+          <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-percent"></i> Tax Withholding</div></div>
+          <div class="wz-field full">
+            <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
+              <input type="checkbox" id="wz-withholdtax" ${state.withHoldTax ? 'checked' : ''}/> <span>Withhold tax on interest posting</span>
+            </label>
+          </div>
+          <div class="wz-field"><label>Tax Group</label>
+            ${Array.isArray(state.tpl?.taxGroupOptions) && state.tpl.taxGroupOptions.length
+              ? `<select id="wz-taxgroup" class="form-control"><option value="">Product default</option>${state.tpl.taxGroupOptions.map(t => `<option value="${t.id}" ${String(state.taxGroupId) === String(t.id) ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}</select>`
+              : `<input id="wz-taxgroup" type="number" min="1" step="1" class="form-control" value="${escapeHtml(state.taxGroupId)}" placeholder="Tax group ID (optional)"/>`}
+          </div>
+
           <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-money-bill-transfer"></i> Overdraft</div></div>
           <div class="wz-field full">
             <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
@@ -253,6 +267,8 @@ export async function renderNew(c) {
       state.minBalanceForInterestCalculation = c.querySelector('#wz-mininterest')?.value || '';
       state.enforceMinRequiredBalance = !!c.querySelector('#wz-enforcemin')?.checked;
       state.withdrawalFeeForTransfers = !!c.querySelector('#wz-wdfee')?.checked;
+      state.withHoldTax = !!c.querySelector('#wz-withholdtax')?.checked;
+      state.taxGroupId = c.querySelector('#wz-taxgroup')?.value || '';
       state.externalId = c.querySelector('#wz-ext')?.value.trim() || '';
       state.autoActivate = !!c.querySelector('#wz-auto')?.checked;
     }
@@ -300,6 +316,10 @@ export async function renderNew(c) {
     if (state.minBalanceForInterestCalculation) payload.minBalanceForInterestCalculation = parseFloat(state.minBalanceForInterestCalculation);
     if (state.enforceMinRequiredBalance) payload.enforceMinRequiredBalance = true;
     if (state.withdrawalFeeForTransfers) payload.withdrawalFeeForTransfers = true;
+    if (state.withHoldTax) {
+      payload.withHoldTax = true;
+      if (state.taxGroupId) payload.taxGroupId = parseInt(state.taxGroupId);
+    }
     if (state.allowOverdraft) {
       payload.allowOverdraft = true;
       if (state.overdraftLimit) payload.overdraftLimit = parseFloat(state.overdraftLimit);

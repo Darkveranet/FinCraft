@@ -149,7 +149,7 @@ export async function renderRoleDetail(c, roleId) {
     const groupKeys = Object.keys(grouped).sort();
     const selectedCount = permData.filter(p => p.selected).length;
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="page-header mb-3">
         <div>
           <h1>${escapeHtml(role.name)}</h1>

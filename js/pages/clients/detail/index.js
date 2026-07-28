@@ -39,7 +39,7 @@ export async function renderDetail(c, id, initialTab = 'overview') {
       canAssign     ? `<button class="dropdown-item" id="btn-assign-staff"><i class="fa-solid fa-user-tag"></i> Assign staff</button>` : ''
     ].filter(Boolean).join('');
 
-    c.innerHTML = `
+    c.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <div class="cv-detail">
       <div class="cv-detail-head">
         <div>

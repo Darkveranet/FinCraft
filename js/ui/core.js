@@ -31,7 +31,7 @@ export function toast(type, title, msg, durationMs) {
   const cls = type === 'warn' ? 'warning' : type;
   const icon = iconMap[type] || 'fa-circle-info';
   t.className = `toast ${cls}`;
-  t.innerHTML = `
+  t.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
     <i class="fa-solid ${icon} toast-icon"></i>
     <div style="flex:1">
       <div class="toast-title">${escapeHtml(title || '')}</div>

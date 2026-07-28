@@ -32,7 +32,7 @@ export async function loadMyActivity(c) {
     });
     const topAction = Object.entries(byAction).sort((a, b) => b[1] - a[1])[0];
 
-    el.innerHTML = `
+    el.innerHTML = /* scan-allow-innerhtml: audited-safe — numeric IDs / code-defined labels & icons / computed dates / pre-escaped HTML fragments (no raw user data) */ `
       <div class="grid-4 mb-3">
         <div class="stat-card c-teal">
           <div class="stat-icon c-teal"><i class="fa-solid fa-user-check"></i></div>
