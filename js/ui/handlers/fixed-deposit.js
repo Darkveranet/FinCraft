@@ -22,6 +22,11 @@ export const FixedDepositHandlers = {
       if (f.expectedFirstDepositOnDate) payload.expectedFirstDepositOnDate = f.expectedFirstDepositOnDate;
       if (f.maturityInstructionId) payload.maturityInstructionId = parseInt(f.maturityInstructionId);
       if (f.externalId) payload.externalId = f.externalId;
+      // Deposit-term limits, lock-in & tax (native FD create contract)
+      if (f.minDepositTerm) { payload.minDepositTerm = parseInt(f.minDepositTerm); if (f.minDepositTermTypeId) payload.minDepositTermTypeId = parseInt(f.minDepositTermTypeId); }
+      if (f.maxDepositTerm) { payload.maxDepositTerm = parseInt(f.maxDepositTerm); if (f.maxDepositTermTypeId) payload.maxDepositTermTypeId = parseInt(f.maxDepositTermTypeId); }
+      if (f.lockinPeriodFrequency) { payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency); if (f.lockinPeriodFrequencyType) payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType); }
+      if (f.withHoldTax === 'on' || f.withHoldTax === 'true') payload.withHoldTax = true;
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';
 

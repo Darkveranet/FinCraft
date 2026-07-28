@@ -55,3 +55,5 @@ for (const [key, owners] of globalKeyOwner) {
 }
 console.log(`\nTotal duplicate action keys across handler registries: ${dupes}`);
 console.log(`Total distinct action keys scanned: ${globalKeyOwner.size}`);
+// Non-zero exit so CI can gate on this (see .github/workflows/quality.yml).
+process.exit(dupes > 0 ? 1 : 0);

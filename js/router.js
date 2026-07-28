@@ -1,4 +1,4 @@
-import { parseHash, buildHash } from './utils.js';
+import { parseHash, buildHash, escapeHtml } from './utils.js';
 import { store } from './store.js';
 import { setActiveNav, setBreadcrumb } from './ui.js';
 
@@ -96,9 +96,9 @@ function renderStaticPage(content, def, kind) {
   content.innerHTML = `
     <div class="card">
       <div class="empty-state">
-        <i class="fa-solid ${icon}"></i>
-        <h3 class="mt-3">${title}</h3>
-        <div class="text-muted mt-2">${message}</div>
+        <i class="fa-solid ${escapeHtml(icon)}"></i>
+        <h3 class="mt-3">${escapeHtml(title)}</h3>
+        <div class="text-muted mt-2">${escapeHtml(message)}</div>
         <button class="btn-primary mt-4" data-nav="dashboard">
           <i class="fa-solid fa-house"></i> Back to Dashboard
         </button>
@@ -138,7 +138,7 @@ export async function handleHash() {
 
   content.innerHTML = `<div class="empty-state">
     <i class="fa-solid fa-circle-notch fa-spin"></i>
-    <div>Loading ${def.label}…</div>
+    <div>Loading ${escapeHtml(def.label)}…</div>
   </div>`;
 
   try {
@@ -158,8 +158,8 @@ export async function handleHash() {
     console.error(e);
     content.innerHTML = `<div class="card"><div class="empty-state">
       <i class="fa-solid fa-triangle-exclamation"></i>
-      <div><b>Failed to load ${def.label}</b></div>
-      <div class="text-muted mt-2">${e.message || e}</div>
+      <div><b>Failed to load ${escapeHtml(def.label)}</b></div>
+      <div class="text-muted mt-2">${escapeHtml(e.message || e)}</div>
       <button class="btn-secondary mt-4" data-nav="dashboard">Back to Dashboard</button>
     </div></div>`;
   }

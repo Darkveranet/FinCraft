@@ -72,3 +72,5 @@ for (const file of files) {
 }
 
 console.log(`\nTotal duplicate-key/case issues: ${totalIssues}`);
+// Non-zero exit so CI can gate on this (see .github/workflows/quality.yml).
+process.exit(totalIssues > 0 ? 1 : 0);

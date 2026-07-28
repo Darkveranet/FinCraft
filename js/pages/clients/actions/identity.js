@@ -140,11 +140,14 @@ export async function openEditClientCollateralModal(clientId, collateralId, onSu
 }
 
 export async function openAddFamilyModal(clientId, onSuccess) {
-  let relationships = [], genders = [];
+  let relationships = [], genders = [], maritalStatuses = [], professions = [];
   try {
     const tpl = await api.clients.template();
-    relationships = tpl?.familyMemberOptions?.relationshipIdOptions || [];
-    genders = tpl?.familyMemberOptions?.genderIdOptions || tpl?.genderOptions || [];
+    const fm = tpl?.familyMemberOptions || {};
+    relationships = fm.relationshipIdOptions || [];
+    genders = fm.genderIdOptions || tpl?.genderOptions || [];
+    maritalStatuses = fm.maritalStatusIdOptions || [];
+    professions = fm.professionIdOptions || [];
   } catch {}
   const mid = `cl-fam-modal-${Date.now()}`;
   document.getElementById('modalRoot').insertAdjacentHTML('beforeend', `
@@ -154,6 +157,7 @@ export async function openAddFamilyModal(clientId, onSuccess) {
         <div class="modal-body">
           <div class="form-grid">
             <label>First name * <input id="fam-fname" class="form-control" required/></label>
+            <label>Middle name <input id="fam-mname" class="form-control"/></label>
             <label>Last name <input id="fam-lname" class="form-control"/></label>
             <label>Relationship *
               <select id="fam-rel" class="form-control" required>
@@ -167,9 +171,22 @@ export async function openAddFamilyModal(clientId, onSuccess) {
                 ${genders.map(g => `<option value="${g.id}">${escapeHtml(g.name)}</option>`).join('')}
               </select>
             </label>
+            <label>Marital status
+              <select id="fam-marital" class="form-control">
+                <option value="">— Not specified —</option>
+                ${maritalStatuses.map(m => `<option value="${m.id}">${escapeHtml(m.name)}</option>`).join('')}
+              </select>
+            </label>
+            <label>Profession
+              <select id="fam-profession" class="form-control">
+                <option value="">— Not specified —</option>
+                ${professions.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+              </select>
+            </label>
             <label>Date of birth <input id="fam-dob" type="date" class="form-control"/></label>
+            <label>Age <input id="fam-age" type="number" min="0" class="form-control"/></label>
+            <label>Qualification <input id="fam-qualification" class="form-control"/></label>
             <label class="checkbox-row"><input type="checkbox" id="fam-dependent"/> Dependent</label>
-            <label class="full">Occupation <input id="fam-occupation" class="form-control"/></label>
           </div>
         </div>
         <div class="modal-footer">
@@ -182,22 +199,30 @@ export async function openAddFamilyModal(clientId, onSuccess) {
   el.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => el.remove()));
   el.querySelector('#fam-save').addEventListener('click', async () => {
     const firstName = el.querySelector('#fam-fname').value.trim();
+    const middleName = el.querySelector('#fam-mname').value.trim();
     const lastName = el.querySelector('#fam-lname').value.trim();
     const relationshipId = el.querySelector('#fam-rel').value;
     const genderId = el.querySelector('#fam-gender').value;
+    const maritalStatusId = el.querySelector('#fam-marital').value;
+    const professionId = el.querySelector('#fam-profession').value;
     const dateOfBirth = el.querySelector('#fam-dob').value;
+    const age = el.querySelector('#fam-age').value;
+    const qualification = el.querySelector('#fam-qualification').value.trim();
     const isDependent = el.querySelector('#fam-dependent').checked;
-    const occupation = el.querySelector('#fam-occupation').value.trim();
     if (!firstName || !relationshipId) { toast('warn', 'Required fields missing', ''); return; }
     try {
       await api.clients.createFamilyMember(clientId, {
         firstName, locale: LOCALE,
+        ...(middleName && { middleName }),
         ...(lastName && { lastName }),
         relationshipId: parseInt(relationshipId),
         ...(genderId && { genderId: parseInt(genderId) }),
+        ...(maritalStatusId && { maritalStatusId: parseInt(maritalStatusId) }),
+        ...(professionId && { professionId: parseInt(professionId) }),
         ...(dateOfBirth && { dateOfBirth, dateFormat: DATE_FORMAT }),
-        isDependent,
-        ...(occupation && { occupation })
+        ...(age && { age: parseInt(age) }),
+        ...(qualification && { qualification }),
+        isDependent
       });
       el.remove(); toast('success', 'Family member added', firstName); onSuccess();
     } catch (e) { toast('error', 'Failed to add', extractFineractError(e)); }

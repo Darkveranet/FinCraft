@@ -78,7 +78,7 @@ export function mountAppShell() {
           <div class="user-avatar">${escapeHtml(initial)}</div>
           <div class="user-info">
             <div class="user-name">${escapeHtml(username)}</div>
-            <div class="user-role">${escapeHtml(tenant)} · ${office || 'Member'}</div>
+            <div class="user-role">${escapeHtml(tenant)} · ${escapeHtml(office || 'Member')}</div>
           </div>
         </div>
       </div>

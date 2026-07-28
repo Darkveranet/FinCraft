@@ -99,7 +99,10 @@ export async function runTests({ assert: a = assert } = {}) {
   // arrived. This test now locks in the corrected field names and guards against both regressions:
   // the pre-fix `debitAccountId` names and the even-older `debitAccounts: [{glAccountId}]` shape
   // (that array-of-objects form is the GET *response* shape, not the POST request shape).
-  a.ok(coaActionsSrc.includes('accountToDebit: debitId') && coaActionsSrc.includes('accountToCredit: creditId'),
+  // Accept both the object-literal form (`accountToDebit: debitId`) and the assignment form
+  // (`payload.accountToDebit = debitId`) — the production code uses the latter with validation
+  // guards. What we actually want to lock in is the real Fineract FIELD NAMES, not one syntax.
+  a.ok(/accountToDebit\s*[:=]\s*debitId/.test(coaActionsSrc) && /accountToCredit\s*[:=]\s*creditId/.test(coaActionsSrc),
     'openAccountingRuleModal must send accountToDebit/accountToCredit (real PostAccountingRulesRequest fields)');
   a.ok(!coaActionsSrc.includes('debitAccountId: debitId'),
     'openAccountingRuleModal must not regress to the non-existent debitAccountId request field');

@@ -39,12 +39,21 @@ for (const file of files) {
   });
 
   function checkFn(fnNode) {
-    // Only look at calls whose nearest enclosing function is this one (approx: collect all
-    // CallExpressions inside fnNode.body, but skip ones nested inside a deeper function —
-    // we approximate by just collecting all and it's fine for a manual-review heuristic).
+    // Only count calls whose NEAREST enclosing function is this one. We walk fnNode.body
+    // recursively but stop descending at any nested function, so a call inside an inner
+    // handler/callback is attributed to that inner function (which checkFn also visits),
+    // never double-counted here. This kills the scope-blind false positives that a flat
+    // walk produced (e.g. a KPI fetch and a paginated fetch that share the literal text
+    // `api.x.list(params)` but live in two different inner functions), while still catching
+    // a genuine "same call issued twice in the same scope" bug — which is the real defect
+    // the original manual audits (FIXLOG-duplicate-api-calls.md) were hunting.
     const calls = [];
-    walk.simple(fnNode.body, {
-      CallExpression(cn) {
+    const stopAtNestedFn = () => {};   // empty visitor ⇒ walk.recursive won't descend
+    walk.recursive(fnNode.body, null, {
+      FunctionDeclaration: stopAtNestedFn,
+      FunctionExpression: stopAtNestedFn,
+      ArrowFunctionExpression: stopAtNestedFn,
+      CallExpression(cn, state, c) {
         if (cn.callee.type === 'MemberExpression') {
           const calleeTxt = calleeSource(cn, src);
           if (/^api\.\w+\.\w+$/.test(calleeTxt)) {
@@ -52,6 +61,7 @@ for (const file of files) {
             calls.push({ calleeTxt, argsTxt, line: cn.loc.start.line });
           }
         }
+        walk.base.CallExpression(cn, state, c);   // keep walking args/callee at this scope
       },
     });
     const seen = new Map();
@@ -70,3 +80,5 @@ for (const file of files) {
 }
 
 console.log(`\nTotal repeated-identical-api-call issues: ${issues}`);
+// Non-zero exit so CI can gate on this (see .github/workflows/quality.yml).
+process.exit(issues > 0 ? 1 : 0);

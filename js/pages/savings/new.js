@@ -30,6 +30,14 @@ export async function renderNew(c) {
     // native Fineract savings-create columns
     fieldOfficerId: '', submittedOnDate: today(), openingBalance: '',
     lockinFrequency: '', lockinType: '2', allowOverdraft: false, overdraftLimit: '',
+    // interest configuration (blank ⇒ inherit product default)
+    interestCompoundingPeriodType: '', interestPostingPeriodType: '',
+    interestCalculationType: '', interestCalculationDaysInYearType: '',
+    // minimum balance / withdrawal
+    enforceMinRequiredBalance: false, minRequiredBalance: '', minBalanceForInterestCalculation: '',
+    withdrawalFeeForTransfers: false,
+    // overdraft extras
+    nominalAnnualInterestRateOverdraft: '', minOverdraftForInterestCalculation: '',
     tpl: null
   };
 
@@ -110,12 +118,61 @@ export async function renderNew(c) {
               <option value="3" ${state.lockinType === '3' ? 'selected' : ''}>Years</option>
             </select></div>
           <div class="wz-field"><label>External ID</label><input id="wz-ext" class="form-control" value="${escapeHtml(state.externalId)}" placeholder="Optional reference"/></div>
+
+          <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-percent"></i> Interest Settings <span class="wz-hint" style="font-weight:400">(leave blank to inherit the product default)</span></div></div>
+          <div class="wz-field"><label>Interest Compounding Period</label>
+            <select id="wz-compound" class="form-control">
+              <option value="">Product default</option>
+              <option value="1" ${state.interestCompoundingPeriodType === '1' ? 'selected' : ''}>Daily</option>
+              <option value="4" ${state.interestCompoundingPeriodType === '4' ? 'selected' : ''}>Monthly</option>
+              <option value="5" ${state.interestCompoundingPeriodType === '5' ? 'selected' : ''}>Quarterly</option>
+              <option value="7" ${state.interestCompoundingPeriodType === '7' ? 'selected' : ''}>Annually</option>
+            </select></div>
+          <div class="wz-field"><label>Interest Posting Period</label>
+            <select id="wz-posting" class="form-control">
+              <option value="">Product default</option>
+              <option value="4" ${state.interestPostingPeriodType === '4' ? 'selected' : ''}>Monthly</option>
+              <option value="5" ${state.interestPostingPeriodType === '5' ? 'selected' : ''}>Quarterly</option>
+              <option value="6" ${state.interestPostingPeriodType === '6' ? 'selected' : ''}>Bi-Annually</option>
+              <option value="7" ${state.interestPostingPeriodType === '7' ? 'selected' : ''}>Annually</option>
+            </select></div>
+          <div class="wz-field"><label>Interest Calculated Using</label>
+            <select id="wz-calc" class="form-control">
+              <option value="">Product default</option>
+              <option value="1" ${state.interestCalculationType === '1' ? 'selected' : ''}>Daily Balance</option>
+              <option value="2" ${state.interestCalculationType === '2' ? 'selected' : ''}>Average Daily Balance</option>
+            </select></div>
+          <div class="wz-field"><label>Days in Year</label>
+            <select id="wz-daysinyear" class="form-control">
+              <option value="">Product default</option>
+              <option value="360" ${state.interestCalculationDaysInYearType === '360' ? 'selected' : ''}>360 Days</option>
+              <option value="365" ${state.interestCalculationDaysInYearType === '365' ? 'selected' : ''}>365 Days</option>
+            </select></div>
+
+          <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-scale-balanced"></i> Balance Rules</div></div>
+          <div class="wz-field"><label>Minimum Required Balance</label><input id="wz-minbal" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.minRequiredBalance)}" placeholder="Optional"/></div>
+          <div class="wz-field"><label>Min Balance for Interest Calc</label><input id="wz-mininterest" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.minBalanceForInterestCalculation)}" placeholder="Optional"/></div>
+          <div class="wz-field full">
+            <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
+              <input type="checkbox" id="wz-enforcemin" ${state.enforceMinRequiredBalance ? 'checked' : ''}/> <span>Enforce minimum required balance</span>
+            </label>
+          </div>
+          <div class="wz-field full">
+            <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
+              <input type="checkbox" id="wz-wdfee" ${state.withdrawalFeeForTransfers ? 'checked' : ''}/> <span>Apply withdrawal fee on account transfers</span>
+            </label>
+          </div>
+
+          <div class="wz-field full"><div class="wz-subhead"><i class="fa-solid fa-money-bill-transfer"></i> Overdraft</div></div>
           <div class="wz-field full">
             <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
               <input type="checkbox" id="wz-od" ${state.allowOverdraft ? 'checked' : ''}/> <span>Allow overdraft on this account</span>
             </label>
           </div>
           <div class="wz-field"><label>Overdraft Limit</label><input id="wz-od-limit" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.overdraftLimit)}" placeholder="₦"/></div>
+          <div class="wz-field"><label>Overdraft Nominal Interest %</label><input id="wz-od-rate" type="number" min="0" step="0.000001" class="form-control" value="${escapeHtml(state.nominalAnnualInterestRateOverdraft)}" placeholder="Optional"/></div>
+          <div class="wz-field"><label>Min Overdraft for Interest Calc</label><input id="wz-od-mininterest" type="number" min="0" step="0.01" class="form-control" value="${escapeHtml(state.minOverdraftForInterestCalculation)}" placeholder="Optional"/></div>
+
           <div class="wz-field full">
             <label class="form-check" style="align-items:center;gap:8px;flex-direction:row">
               <input type="checkbox" id="wz-auto" ${state.autoActivate ? 'checked' : ''}/> <span>Also approve &amp; activate immediately</span>
@@ -186,6 +243,16 @@ export async function renderNew(c) {
       state.lockinType = c.querySelector('#wz-lockin-type')?.value || '2';
       state.allowOverdraft = !!c.querySelector('#wz-od')?.checked;
       state.overdraftLimit = c.querySelector('#wz-od-limit')?.value || '';
+      state.nominalAnnualInterestRateOverdraft = c.querySelector('#wz-od-rate')?.value || '';
+      state.minOverdraftForInterestCalculation = c.querySelector('#wz-od-mininterest')?.value || '';
+      state.interestCompoundingPeriodType = c.querySelector('#wz-compound')?.value || '';
+      state.interestPostingPeriodType = c.querySelector('#wz-posting')?.value || '';
+      state.interestCalculationType = c.querySelector('#wz-calc')?.value || '';
+      state.interestCalculationDaysInYearType = c.querySelector('#wz-daysinyear')?.value || '';
+      state.minRequiredBalance = c.querySelector('#wz-minbal')?.value || '';
+      state.minBalanceForInterestCalculation = c.querySelector('#wz-mininterest')?.value || '';
+      state.enforceMinRequiredBalance = !!c.querySelector('#wz-enforcemin')?.checked;
+      state.withdrawalFeeForTransfers = !!c.querySelector('#wz-wdfee')?.checked;
       state.externalId = c.querySelector('#wz-ext')?.value.trim() || '';
       state.autoActivate = !!c.querySelector('#wz-auto')?.checked;
     }
@@ -225,9 +292,19 @@ export async function renderNew(c) {
       payload.lockinPeriodFrequency = parseInt(state.lockinFrequency);
       payload.lockinPeriodFrequencyType = parseInt(state.lockinType || '2');
     }
+    if (state.interestCompoundingPeriodType) payload.interestCompoundingPeriodType = parseInt(state.interestCompoundingPeriodType);
+    if (state.interestPostingPeriodType) payload.interestPostingPeriodType = parseInt(state.interestPostingPeriodType);
+    if (state.interestCalculationType) payload.interestCalculationType = parseInt(state.interestCalculationType);
+    if (state.interestCalculationDaysInYearType) payload.interestCalculationDaysInYearType = parseInt(state.interestCalculationDaysInYearType);
+    if (state.minRequiredBalance) payload.minRequiredBalance = parseFloat(state.minRequiredBalance);
+    if (state.minBalanceForInterestCalculation) payload.minBalanceForInterestCalculation = parseFloat(state.minBalanceForInterestCalculation);
+    if (state.enforceMinRequiredBalance) payload.enforceMinRequiredBalance = true;
+    if (state.withdrawalFeeForTransfers) payload.withdrawalFeeForTransfers = true;
     if (state.allowOverdraft) {
       payload.allowOverdraft = true;
       if (state.overdraftLimit) payload.overdraftLimit = parseFloat(state.overdraftLimit);
+      if (state.nominalAnnualInterestRateOverdraft) payload.nominalAnnualInterestRateOverdraft = parseFloat(state.nominalAnnualInterestRateOverdraft);
+      if (state.minOverdraftForInterestCalculation) payload.minOverdraftForInterestCalculation = parseFloat(state.minOverdraftForInterestCalculation);
     }
 
     try {
