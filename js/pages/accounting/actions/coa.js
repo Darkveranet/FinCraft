@@ -132,6 +132,10 @@ export async function openAccountingRuleModal(ruleId, onSuccess) {
   const offices = Array.isArray(officesRes) ? officesRes : [];
   const glOptsHtml = glAccounts.map(g => `<option value="${g.id}">${escapeHtml(g.name)} (${g.glCode})</option>`).join('');
   const offOpts = offices.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
+  // Tag options for the tag-based rule mode (native Fineract debitTags/creditTags).
+  const debitTagOpts  = (tpl?.allowedDebitTagOptions  || tpl?.allowedCreditTagOptions || []).map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+  const creditTagOpts = (tpl?.allowedCreditTagOptions || tpl?.allowedDebitTagOptions  || []).map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+  const hasTags = !!(debitTagOpts || creditTagOpts);
 
   const mid = 'ar-' + Date.now();
   const el = dynModal(mid, isEdit ? 'Edit Accounting Rule' : 'Add Accounting Rule', `
@@ -146,18 +150,50 @@ export async function openAccountingRuleModal(ruleId, onSuccess) {
     </div>
 
     <h4 class="mt-3">Debit</h4>
-    <label>Debit GL Account *
-      <select id="ar-debit" class="form-control" required>
+    ${hasTags ? `<label>Debit rule type
+      <select id="ar-debit-mode" class="form-control">
+        <option value="fixed">Fixed account</option>
+        <option value="tags">List of accounts (by tag)</option>
+      </select></label>` : ''}
+    <label id="ar-debit-acc-wrap">Debit GL Account *
+      <select id="ar-debit" class="form-control">
         <option value="">— Select account —</option>${glOptsHtml}
       </select>
     </label>
+    ${hasTags ? `<label id="ar-debit-tag-wrap" style="display:none">Debit tags
+      <select id="ar-debit-tags" class="form-control" multiple size="4">${debitTagOpts}</select>
+      <span class="text-muted small">Hold Ctrl/Cmd to select multiple.</span></label>
+    <label class="checkbox-row" id="ar-debit-multi-wrap" style="display:none"><input type="checkbox" id="ar-debit-multi"/> Allow multiple debit entries</label>` : ''}
 
     <h4 class="mt-3">Credit</h4>
-    <label>Credit GL Account *
-      <select id="ar-credit" class="form-control" required>
+    ${hasTags ? `<label>Credit rule type
+      <select id="ar-credit-mode" class="form-control">
+        <option value="fixed">Fixed account</option>
+        <option value="tags">List of accounts (by tag)</option>
+      </select></label>` : ''}
+    <label id="ar-credit-acc-wrap">Credit GL Account *
+      <select id="ar-credit" class="form-control">
         <option value="">— Select account —</option>${glOptsHtml}
       </select>
-    </label>`);
+    </label>
+    ${hasTags ? `<label id="ar-credit-tag-wrap" style="display:none">Credit tags
+      <select id="ar-credit-tags" class="form-control" multiple size="4">${creditTagOpts}</select>
+      <span class="text-muted small">Hold Ctrl/Cmd to select multiple.</span></label>
+    <label class="checkbox-row" id="ar-credit-multi-wrap" style="display:none"><input type="checkbox" id="ar-credit-multi"/> Allow multiple credit entries</label>` : ''}`);
+
+  // Toggle fixed-account vs tag mode for each side.
+  const wireMode = (side) => {
+    const modeSel = el.querySelector(`#ar-${side}-mode`);
+    if (!modeSel) return;
+    const sync = () => {
+      const tags = modeSel.value === 'tags';
+      el.querySelector(`#ar-${side}-acc-wrap`).style.display  = tags ? 'none' : '';
+      el.querySelector(`#ar-${side}-tag-wrap`).style.display  = tags ? '' : 'none';
+      el.querySelector(`#ar-${side}-multi-wrap`).style.display = tags ? '' : 'none';
+    };
+    modeSel.addEventListener('change', sync); sync();
+  };
+  wireMode('debit'); wireMode('credit');
 
   if (isEdit) {
     try {
@@ -174,16 +210,36 @@ export async function openAccountingRuleModal(ruleId, onSuccess) {
 
   el.querySelector('#' + mid + '-save').addEventListener('click', async () => {
     const name = v(el, 'ar-name');
-    const debitId = vi(el, 'ar-debit'), creditId = vi(el, 'ar-credit');
-    if (!name || !debitId || !creditId) {
-      toast('warn', 'Fill required fields', '');
-      return;
+    const debitMode  = el.querySelector('#ar-debit-mode')?.value  || 'fixed';
+    const creditMode = el.querySelector('#ar-credit-mode')?.value || 'fixed';
+    const getTags = (id) => Array.from(el.querySelector(id)?.selectedOptions || []).map(o => ({ tag: { id: parseInt(o.value) } }));
+
+    if (!name) { toast('warn', 'Enter a rule name', ''); return; }
+    const payload = { name };
+
+    // Debit side — fixed account or tag list
+    if (debitMode === 'tags') {
+      const tags = getTags('#ar-debit-tags');
+      if (!tags.length) { toast('warn', 'Select at least one debit tag', ''); return; }
+      payload.debitTags = tags;
+      if (el.querySelector('#ar-debit-multi')?.checked) payload.allowMultipleDebitEntries = true;
+    } else {
+      const debitId = vi(el, 'ar-debit');
+      if (!debitId) { toast('warn', 'Select a debit account', ''); return; }
+      payload.accountToDebit = debitId;
     }
-    const payload = {
-      name,
-      accountToDebit: debitId,
-      accountToCredit: creditId
-    };
+    // Credit side — fixed account or tag list
+    if (creditMode === 'tags') {
+      const tags = getTags('#ar-credit-tags');
+      if (!tags.length) { toast('warn', 'Select at least one credit tag', ''); return; }
+      payload.creditTags = tags;
+      if (el.querySelector('#ar-credit-multi')?.checked) payload.allowMultipleCreditEntries = true;
+    } else {
+      const creditId = vi(el, 'ar-credit');
+      if (!creditId) { toast('warn', 'Select a credit account', ''); return; }
+      payload.accountToCredit = creditId;
+    }
+
     const offId = vi(el, 'ar-office'); if (offId) payload.officeId = offId;
     const desc = v(el, 'ar-desc'); if (desc) payload.description = desc;
     try {

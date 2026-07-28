@@ -4,8 +4,52 @@ import { escapeHtml } from '../../../utils.js';
 import { toast } from '../../../ui.js';
 
 import { extractFineractError } from '../../../ui/dom-helpers.js';
-export function openChargeOffModal(id) {
-  openSimpleLoanCmdModal({ id, command: 'chargeOff', label: 'Charge Off Loan', dateField: 'transactionDate' });
+export async function openChargeOffModal(id) {
+  // Fetch ChargeOffReasons code values (native Fineract field) — degrade gracefully if absent.
+  let reasons = [];
+  try {
+    const code = await api.codes.getByName('ChargeOffReasons');
+    if (code?.id) { const vals = await api.codes.values(code.id); reasons = Array.isArray(vals) ? vals : []; }
+  } catch { /* code not configured on this tenant */ }
+
+  const mid = `ln-chargeoff-${Date.now()}`;
+  document.getElementById('modalRoot').insertAdjacentHTML('beforeend', `
+    <div class="modal-overlay open" role="dialog" aria-modal="true" id="${mid}">
+      <div class="modal modal-sm">
+        <div class="modal-header"><h3>Charge Off Loan</h3><button data-close-modal>&times;</button></div>
+        <div class="modal-body">
+          <label>Transaction date * <input type="date" id="co-date" class="form-control" value="${today()}" required/></label>
+          <label class="mt-2">Charge-off reason
+            <select id="co-reason" class="form-control">
+              <option value="">— None —</option>
+              ${reasons.map(r => `<option value="${r.id}">${escapeHtml(r.name)}</option>`).join('')}
+            </select>
+          </label>
+          <label class="mt-2">Note <textarea id="co-note" class="form-control" rows="2"></textarea></label>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" data-close-modal>Cancel</button>
+          <button class="btn-primary" id="co-save">Charge Off Loan</button>
+        </div>
+      </div>
+    </div>`);
+  const el = document.getElementById(mid);
+  el.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => el.remove()));
+  el.querySelector('#co-save').addEventListener('click', async () => {
+    const transactionDate = el.querySelector('#co-date').value;
+    if (!transactionDate) { toast('warn', 'Select a date', ''); return; }
+    const payload = { transactionDate, dateFormat: DATE_FORMAT, locale: LOCALE };
+    const reasonId = el.querySelector('#co-reason').value;
+    if (reasonId) payload.chargeOffReasonId = parseInt(reasonId);
+    const note = el.querySelector('#co-note').value.trim();
+    if (note) payload.note = note;
+    try {
+      await api.loans.chargeOff(id, payload);
+      el.remove();
+      toast('success', 'Loan charged off', `Loan #${id}`);
+      document.dispatchEvent(new CustomEvent('fc:reload'));
+    } catch (e) { toast('error', 'Charge off failed', extractFineractError(e)); }
+  });
 }
 
 export function openForecloseModal(id) {

@@ -23,6 +23,13 @@ export const RecurringDepositHandlers = {
       if (f.fieldOfficerId) payload.fieldOfficerId = parseInt(f.fieldOfficerId);
       if (f.expectedFirstDepositOnDate) payload.expectedFirstDepositOnDate = f.expectedFirstDepositOnDate;
       if (f.externalId) payload.externalId = f.externalId;
+      // Deposit-term limits, lock-in, mandatory-deposit flags & tax (native RD create contract)
+      if (f.minDepositTerm) { payload.minDepositTerm = parseInt(f.minDepositTerm); if (f.minDepositTermTypeId) payload.minDepositTermTypeId = parseInt(f.minDepositTermTypeId); }
+      if (f.maxDepositTerm) { payload.maxDepositTerm = parseInt(f.maxDepositTerm); if (f.maxDepositTermTypeId) payload.maxDepositTermTypeId = parseInt(f.maxDepositTermTypeId); }
+      if (f.lockinPeriodFrequency) { payload.lockinPeriodFrequency = parseInt(f.lockinPeriodFrequency); if (f.lockinPeriodFrequencyType) payload.lockinPeriodFrequencyType = parseInt(f.lockinPeriodFrequencyType); }
+      payload.isMandatoryDeposit = (f.isMandatoryDeposit === 'on' || f.isMandatoryDeposit === 'true');
+      payload.adjustAdvanceTowardsFuturePayments = (f.adjustAdvanceTowardsFuturePayments === 'on' || f.adjustAdvanceTowardsFuturePayments === 'true');
+      if (f.withHoldTax === 'on' || f.withHoldTax === 'true') payload.withHoldTax = true;
 
       const autoApproveActivate = f.autoApproveActivate === 'on' || f.autoApproveActivate === 'true';
 

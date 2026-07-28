@@ -70,6 +70,16 @@ export async function openPayLoanChargeModal(loanId, chargeId, onSuccess) {
               ${(Array.isArray(paymentTypes) ? paymentTypes : []).map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
             </select>
           </label>
+          <details class="mt-2">
+            <summary style="cursor:pointer"><i class="fa-solid fa-money-check-dollar"></i> Payment details (optional)</summary>
+            <div class="form-grid mt-2">
+              <label>Account number <input id="pc-acct" class="form-control"/></label>
+              <label>Cheque number <input id="pc-cheque" class="form-control"/></label>
+              <label>Routing code <input id="pc-routing" class="form-control"/></label>
+              <label>Receipt number <input id="pc-receipt" class="form-control"/></label>
+              <label>Bank number <input id="pc-bank" class="form-control"/></label>
+            </div>
+          </details>
         </div>
         <div class="modal-footer">
           <button class="btn-secondary" data-close-modal>Cancel</button>
@@ -84,11 +94,17 @@ export async function openPayLoanChargeModal(loanId, chargeId, onSuccess) {
     const transactionDate = el.querySelector('#pc-date').value;
     const paymentTypeId = el.querySelector('#pc-pt').value;
     if (isNaN(amount)) { toast('warn', 'Enter amount', ''); return; }
+    const payload = {
+      amount, transactionDate, dateFormat: DATE_FORMAT, locale: LOCALE,
+      ...(paymentTypeId && { paymentTypeId: parseInt(paymentTypeId) })
+    };
+    const acct = el.querySelector('#pc-acct')?.value.trim(); if (acct) payload.accountNumber = acct;
+    const cheque = el.querySelector('#pc-cheque')?.value.trim(); if (cheque) payload.checkNumber = cheque;
+    const routing = el.querySelector('#pc-routing')?.value.trim(); if (routing) payload.routingCode = routing;
+    const receipt = el.querySelector('#pc-receipt')?.value.trim(); if (receipt) payload.receiptNumber = receipt;
+    const bank = el.querySelector('#pc-bank')?.value.trim(); if (bank) payload.bankNumber = bank;
     try {
-      await api.loans.payCharge(loanId, chargeId, {
-        amount, transactionDate, dateFormat: DATE_FORMAT, locale: LOCALE,
-        ...(paymentTypeId && { paymentTypeId: parseInt(paymentTypeId) })
-      });
+      await api.loans.payCharge(loanId, chargeId, payload);
       el.remove();
       toast('success', 'Charge paid', '');
       onSuccess();
