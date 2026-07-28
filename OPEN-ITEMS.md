@@ -43,16 +43,29 @@ lives here. Convert each unchecked box into a GitHub issue using
       (template-driven, blank ⇒ product default) to the savings new-account
       wizard (`js/pages/savings/new.js`). This is the one genuine *account-level*
       tax gap; FD/RD inherit tax config from the product.
+- [x] **ESLint errors failing `quality.yml` — FIXED (2026-07-28).** All three
+      resolved: `js/oidc.js` now calls `globalThis.Buffer` (browser-safe path;
+      clears the two `no-undef`s without a `globals` shim), and
+      `js/spa-404-redirect.js:2` uses `const` instead of `var` (clears `no-var`).
+      Verified: `grep` finds no remaining bare `var `/`Buffer.` in `js/`; 25/25
+      tests pass and all four static scans are clean. `local/no-unescaped-innerhtml`
+      stays `warn` (the ratcheted `scan_unescaped_innerhtml.mjs` remains the
+      blocking gate) until the baseline below is burned down.
+- [x] **`js/data.js` placeholder comment — ALREADY PRESENT.** The file already
+      carries the one-line rationale (INTENTIONAL PLACEHOLDER header + "Not
+      imported anywhere" note + the `withDemoFallback` seam explanation). Nothing
+      to change; cleared so audits stop re-flagging it.
 
 ---
 
 ## 1. Deferred API modules (not implemented)
 
-- [ ] **Working Capital Loans** — 9 backend resource classes, ~150 methods (the
-      coverage-gap audit counts **53 operations** for the loan surface). Explicitly
-      deferred / excluded by request. No `js/api/**` wrapper, no page.
-      → If on the roadmap, size it and schedule; if not, mark **won't-do** so it
-      stops being re-flagged by every audit.
+- [x] **Working Capital Loans — WON'T-DO (2026-07-28, per user direction).**
+      9 backend resource classes, ~150 methods (coverage-gap audit counts **53
+      operations**). Explicitly deferred/excluded by request ("except for the
+      working capital loan fix all other missing"); no `js/api/**` wrapper, no
+      page. Decision recorded so every audit stops re-flagging it. Reopen only if
+      it lands on the roadmap.
 - [ ] **Interoperation API** — entirely unimplemented.
 - [ ] **Credit Bureau integration** — entirely unimplemented.
 - [ ] **Interest Rate Charts + slabs** (distinct from the implemented standalone
@@ -67,6 +80,12 @@ lives here. Convert each unchecked box into a GitHub issue using
 Methodology: diff each `js/api/*.js` against `fineract_api_raw.json` /
 `Apache_Fineract_API_Documentation.html`. **Do not treat these as
 production-verified until diffed.**
+
+> **Blocked (2026-07-28):** the reference spec files (`fineract_api_raw.json`,
+> `Apache_Fineract_API_Documentation.html`) are **not in this repo** — only
+> `deploy/**` fixtures ship. §2–§4 below can't be closed without them because the
+> project bans invented routes/codes; guessing template/entity paths would ship
+> broken calls. Drop the spec into the repo (or point CI at it) to unblock these.
 
 - [ ] **`js/api/organization.js`** — status *Spot-checked* ("no incorrect routes
       found", not method-by-method). Full diff pass.
@@ -126,10 +145,26 @@ Modules 1–7 + the savings tax fix. Remaining items to actually verify:
       (office/teller/GL names) in a multi-tenant deployment.
 - [ ] `js/data.js` — remove the empty stub (and any dangling imports) or add a
       one-line comment stating why it's a deliberate placeholder.
-- [ ] **Working Capital Loan fix** — deferred per earlier direction; carried
-      here so it is not silently dropped. Confirm scope or mark won't-do.
+- [x] **Working Capital Loan fix — WON'T-DO (2026-07-28, per user direction).**
+      Deferred per earlier direction and now closed as won't-do alongside the
+      Working Capital Loans module (§1). Not silently dropped — recorded here.
+      Reopen only if the module is scheduled.
 
 ---
+
+### Pass log — 2026-07-28 (open-items sweep)
+
+**Closed (fixed & verified):** §5 ESLint errors (oidc `Buffer`→`globalThis.Buffer`
+×2; spa-404 `var`→`const`) — 25/25 tests + 4/4 scans green.
+**Cleared (already done):** §5 `js/data.js` placeholder comment (was present).
+**Won't-do (per user direction):** §1 Working Capital Loans + §5 Working Capital
+Loan fix.
+**Left open — blocked on the Fineract spec not being in-repo:** §2 API diffs,
+§3 product-level field parity, §4 bulk-import entity paths (won't guess routes).
+**Left open — larger/lower-value:** §1 remaining deferred modules, §5 innerHTML
+baseline burndown (84), `auth.js` split, detail-page async-race audit (reviewed:
+low practical risk — each sub-loader targets a distinct `#…-wrap` and a
+navigated-away write lands on a detached, GC'd node), admin-label trust-boundary doc.
 
 _Fixlogs retired 2026-07-28: `fixlogs/` and `checklist/` removed; this tracker is
 now the single source of truth. Historical detail is in git history._

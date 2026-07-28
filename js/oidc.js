@@ -41,7 +41,7 @@ export function base64UrlEncode(buffer) {
   for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
   const b64 = (typeof btoa === 'function')
     ? btoa(str)
-    : Buffer.from(bytes).toString('base64');   // Node fallback (tests)
+    : globalThis.Buffer.from(bytes).toString('base64');   // Node fallback (tests)
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
@@ -56,7 +56,7 @@ export function base64UrlDecode(b64url) {
       return new TextDecoder().decode(bytes);
     } catch { return bin; }
   }
-  return Buffer.from(b64, 'base64').toString('utf8');   // Node fallback (tests)
+  return globalThis.Buffer.from(b64, 'base64').toString('utf8');   // Node fallback (tests)
 }
 
 // A high-entropy PKCE code_verifier: 43–128 chars from the unreserved set.
