@@ -1,0 +1,59 @@
+name: Quality Gates
+
+# Complements tests.yml (§4 of the developer-recommendations report): wires the
+# previously ad-hoc scan_*.mjs audit tools into CI so duplication and unescaped
+# interpolations can't creep back in between manual passes.
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+  workflow_dispatch: {}
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scans:
+    name: static scans
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+
+      # Each scan exits non-zero on a finding, so a regression fails the job.
+      - name: Duplicate keys / switch cases
+        run: node scan_dupes.mjs
+      - name: Duplicate action-handler keys
+        run: node scan_handler_dupes.mjs
+      - name: Repeated identical API calls (same scope)
+        run: node scan_double_calls.mjs
+      - name: Unescaped innerHTML interpolations (baseline-ratcheted)
+        run: node scan_unescaped_innerhtml.mjs
+
+  lint:
+    name: eslint + prettier
+    runs-on: ubuntu-latest
+    # Non-blocking for now: enforce format/lint hygiene as a signal while the
+    # escaping baseline is burned down. Remove `continue-on-error` to make it a gate.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      # eslint/prettier are optional devDeps; install on demand if absent so this
+      # job is useful even before they're added to package.json.
+      - name: Ensure lint tooling
+        run: npm ls eslint >/dev/null 2>&1 || npm i --no-save eslint globals prettier
+      - name: ESLint
+        run: npx eslint .
+      - name: Prettier (check only)
+        run: npx prettier --check .

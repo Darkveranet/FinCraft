@@ -4,6 +4,13 @@ import { FINERACT_DEMO, OIDC_DEFAULT } from './config.js';
 import * as oidc from './oidc.js';
 import { escapeHtml } from './utils.js'; 
 import { extractFineractError } from './ui/dom-helpers.js';
+// "Recent tenants" persistence now lives in its own module (§2 refactor). Aliased
+// to the historical private names so the internal call sites are untouched.
+import {
+  loadRecentTenants   as _loadRecentTenants,
+  saveRecentTenant    as _saveRecentTenant,
+  removeRecentTenant  as _removeRecentTenant,
+} from './recent-tenants.js';
 const LOGIN_ID = 'loginScreen';
 const SHELL_ID = 'appShell';
 
@@ -24,34 +31,6 @@ export function _extractPerms(payload) {
     });
   });
   return [...out];
-}
-
-const RECENT_TENANTS_KEY = 'fincraft.recentTenants';
-const MAX_RECENT_TENANTS = 5;
-
-function _loadRecentTenants() {
-  try {
-    const raw = localStorage.getItem(RECENT_TENANTS_KEY);
-    const arr = raw ? JSON.parse(raw) : [];
-    return Array.isArray(arr) ? arr : [];
-  } catch { return []; }
-}
-
-function _saveRecentTenant(serverUrl, tenantId, username) {
-  try {
-    const all = _loadRecentTenants();
-    const filtered = all.filter(t => !(t.tenantId === tenantId && t.serverUrl === serverUrl));
-    filtered.unshift({ tenantId, serverUrl, username, lastUsed: Date.now() });
-    localStorage.setItem(RECENT_TENANTS_KEY, JSON.stringify(filtered.slice(0, MAX_RECENT_TENANTS)));
-  } catch {}
-}
-
-function _removeRecentTenant(tenantId, serverUrl) {
-  try {
-    const all = _loadRecentTenants();
-    const filtered = all.filter(t => !(t.tenantId === tenantId && t.serverUrl === serverUrl));
-    localStorage.setItem(RECENT_TENANTS_KEY, JSON.stringify(filtered));
-  } catch {}
 }
 
 const OIDC_PENDING_KEY = 'fincraft.oidc.pending';   // {serverUrl, tenantId} across the IdP redirect

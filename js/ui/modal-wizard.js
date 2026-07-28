@@ -1,3 +1,5 @@
+import { escapeHtml } from '../utils.js';
+
 /* ────────────────────────────────────────────────────────────────────────────
    FinCraft · modal-wizard.js
    Markup-driven multi-step controller for the STATIC modal partials in
@@ -117,8 +119,8 @@ function renderReview(form, grid) {
     seen.add(field.name);
     rows.push(`
       <div class="wz-review-row">
-        <div class="wz-review-k">${labelFor(field, form)}</div>
-        <div class="wz-review-v">${String(val).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))}</div>
+        <div class="wz-review-k">${escapeHtml(labelFor(field, form))}</div>
+        <div class="wz-review-v">${escapeHtml(val)}</div>
       </div>`);
   });
   grid.innerHTML = rows.length

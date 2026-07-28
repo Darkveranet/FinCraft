@@ -1,0 +1,6 @@
+node_modules
+deploy
+package-lock.json
+preview-*.html
+*.min.js
+service-worker.js

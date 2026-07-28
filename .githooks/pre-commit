@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+# ─────────────────────────────────────────────────────────────────────────────
+# FinCraft · pre-commit hook (§4 of the developer-recommendations report)
+#
+# Plain POSIX hook — no Husky, keeping the project's near-zero dependency stance.
+# Enable it once per clone (git doesn't run tracked hooks automatically):
+#
+#     git config core.hooksPath .githooks
+#
+# Runs the fast, zero-dependency gates before every commit. Set SKIP_HOOK=1 to
+# bypass in an emergency (e.g. `SKIP_HOOK=1 git commit …`).
+# ─────────────────────────────────────────────────────────────────────────────
+set -e
+
+if [ "$SKIP_HOOK" = "1" ]; then
+  echo "pre-commit: skipped (SKIP_HOOK=1)"
+  exit 0
+fi
+
+echo "pre-commit ▸ duplicate-key / case scan"
+node scan_dupes.mjs
+
+echo "pre-commit ▸ duplicate action-handler scan"
+node scan_handler_dupes.mjs
+
+echo "pre-commit ▸ repeated-api-call scan"
+node scan_double_calls.mjs
+
+echo "pre-commit ▸ unescaped-innerHTML gate (baseline-ratcheted)"
+node scan_unescaped_innerhtml.mjs
+
+echo "pre-commit ▸ test suite"
+npm test --silent
+
+# ESLint is optional locally (only if installed) so the hook works before deps
+# are added. It never blocks the commit on its own (see eslint.config.mjs).
+if [ -x "node_modules/.bin/eslint" ]; then
+  echo "pre-commit ▸ eslint"
+  node_modules/.bin/eslint . || echo "pre-commit: eslint reported issues (non-blocking)"
+fi
+
+echo "pre-commit ▸ all gates passed ✔"
