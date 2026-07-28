@@ -108,7 +108,7 @@ jobs:
           sha256sum birt-plugin-libs.zip
 
       - name: Publish/update release (birt-plugin-latest)
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: birt-plugin-latest
           name: "BIRT plugin (auto-built) — ${{ steps.meta.outputs.commit }}"
