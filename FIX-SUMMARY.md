@@ -38,3 +38,14 @@ Atomic multi-system financial posting, immutable database records, server author
 - Added an API-module coverage manifest and a regression test that fails if a new API module has no declared E2E owner.
 - Added Playwright/Fineract logs and evidence artifacts, followed by guaranteed container and volume teardown.
 - Important: infrastructure coverage and route coverage are not falsely labelled as complete financial lifecycle coverage. Loan, savings, accounting, maker-checker and Treasury write scenarios remain explicitly tracked for implementation in independent specs.
+
+## Lifecycle conversion — Module 01: Accounting setup
+- Added isolated real-Fineract scenarios for accounting templates and reference data.
+- Added creation of Asset, Liability, Equity, Income, and Expense detail GL accounts.
+- Added GL update, detail, list-with-balances, duplicate-code rejection, and unused-account deletion checks.
+- Added accounting-rule create/update/get/list/delete lifecycle.
+- Added balanced manual journal posting and debit/credit verification.
+- Added negative validation for an unbalanced journal.
+- Added journal reversal and reversal-state verification.
+- Added FinCraft accounting-route rendering against records created in the isolated Fineract database.
+- Added a standalone `accounting` workflow option. Runtime status remains pending until GitHub executes the Dockerized Fineract stack.

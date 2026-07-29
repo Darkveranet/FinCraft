@@ -12,7 +12,7 @@ on:
         required: true
         type: choice
         default: full
-        options: [client, full]
+        options: [client, accounting, full]
   schedule:
     - cron: '20 1 * * *'
 
@@ -70,12 +70,19 @@ jobs:
           npm install --no-save @playwright/test
           npx playwright install --with-deps chromium
 
+      - name: Generate complete FinCraft function inventory
+        run: node scripts/e2e/function-inventory.mjs
+
       - name: Run client lifecycle gate
         if: ${{ inputs.suite == 'client' }}
         run: npx playwright test tests-e2e/isolated/01-client-lifecycle.spec.mjs
 
+      - name: Run accounting lifecycle module
+        if: ${{ inputs.suite == 'accounting' }}
+        run: npx playwright test tests-e2e/isolated/04-accounting-setup.spec.mjs
+
       - name: Run full isolated suite
-        if: ${{ inputs.suite != 'client' }}
+        if: ${{ inputs.suite != 'client' && inputs.suite != 'accounting' }}
         run: npx playwright test tests-e2e/isolated
 
       - name: Export Fineract logs
@@ -93,6 +100,8 @@ jobs:
             test-results/
             fineract-containers.log
             tests-e2e/coverage-manifest.json
+            test-results/function-inventory.json
+            test-results/function-inventory.md
           if-no-files-found: warn
           retention-days: 30
 
