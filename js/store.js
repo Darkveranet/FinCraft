@@ -32,14 +32,11 @@ class Store {
           serverUrl: this.state.auth.serverUrl,
           tenantId:  this.state.auth.tenantId,
           username:  this.state.auth.username,
-          authToken: this.state.auth.authToken,
-          // OAuth2/OIDC (Bearer) session — persisted so an SSO login survives
-          // a page reload just like a Basic-auth session does.
-          authScheme:   this.state.auth.authScheme || 'Basic',
-          bearerToken:  this.state.auth.bearerToken || null,
-          refreshToken: this.state.auth.refreshToken || null,
-          idToken:      this.state.auth.idToken || null,
-          expiresAt:    this.state.auth.expiresAt || null,
+          // Bearer, refresh and ID tokens deliberately remain memory-only.
+          // Web Storage is readable by same-origin script, so persisting OAuth
+          // credentials would materially increase the impact of any XSS.
+          authToken: (this.state.auth.authScheme || 'Basic') === 'Basic' ? this.state.auth.authToken : null,
+          authScheme: this.state.auth.authScheme || 'Basic',
           userId:    this.state.auth.userId || null,
           roles:     this.state.auth.roles  || [],
           officeId:  this.state.auth.officeId || null,
@@ -59,8 +56,8 @@ class Store {
       if (ls.theme) this.state.theme = ls.theme;
       if (ls.sidebar) this.state.sidebar = ls.sidebar;
       const ss = JSON.parse(sessionStorage.getItem(SS_KEY) || 'null');
-      // Accept either a Basic (authToken) or an OAuth2/OIDC (bearerToken) session.
-      if (ss && (ss.authToken || ss.bearerToken)) {
+      // Only Basic sessions can be restored. OAuth credentials are memory-only.
+      if (ss && ss.authScheme !== 'Bearer' && ss.authToken) {
         this.state.auth  = ss;
         this.state.perms = Array.isArray(ss.perms) ? ss.perms : [];
         this.state.defaultCurrency = ss.defaultCurrency || null;

@@ -3,6 +3,7 @@ import { requireThresholds } from './thresholds.js';
 import { validateCashierCanPay } from './teller-balance.js';
 import { recordTellerEvent } from './teller-events.js';
 import { TreasuryReconciliationGapError } from './errors.js';
+import { assertDifferentActors, assertThreeWaySeparation } from './segregation.js';
 
 const REQUESTS_TABLE = 'dt_expense_requests';
 const APPROVALS_TABLE = 'dt_expense_approvals';
@@ -58,7 +59,9 @@ async function recordApproval(officeId, expenseId, action, approver, reason, act
 export async function approveExpense(officeId, expenseId, approver) {
   const expense = await getExpense(officeId, expenseId);
   assertStatus(expense, STATUS.PENDING, 'approve');
-  await api.treasury.updateRow(REQUESTS_TABLE, officeId, expenseId, { status: STATUS.APPROVED, locale: 'en', dateFormat: 'yyyy-MM-dd' });
+  assertDifferentActors(expense.requested_by, approver, 'approve');
+  assertDifferentActors(expense.requested_by, approver, 'approve');
+  await api.treasury.updateRow(REQUESTS_TABLE, officeId, expenseId, { status: STATUS.APPROVED, approved_by: approver, locale: 'en', dateFormat: 'yyyy-MM-dd' });
   await recordApproval(officeId, expenseId, 'APPROVE', approver);
   return { officeId, expenseId, status: STATUS.APPROVED };
 }
@@ -66,6 +69,8 @@ export async function approveExpense(officeId, expenseId, approver) {
 export async function rejectExpense(officeId, expenseId, approver, reason) {
   const expense = await getExpense(officeId, expenseId);
   assertStatus(expense, STATUS.PENDING, 'reject');
+  assertDifferentActors(expense.requested_by, approver, 'reject');
+  assertDifferentActors(expense.requested_by, approver, 'reject');
   await api.treasury.updateRow(REQUESTS_TABLE, officeId, expenseId, { status: STATUS.REJECTED, locale: 'en', dateFormat: 'yyyy-MM-dd' });
   await recordApproval(officeId, expenseId, 'REJECT', approver, reason);
   return { officeId, expenseId, status: STATUS.REJECTED };
@@ -76,6 +81,8 @@ export async function payExpense(officeId, expenseId, paymentPayload) {
   assertStatus(expense, STATUS.APPROVED, 'pay');
 
   const { paymentSource, transactionDate } = paymentPayload;
+  assertThreeWaySeparation(expense.requested_by, expense.approved_by, paymentPayload.performedBy);
+  assertThreeWaySeparation(expense.requested_by, expense.approved_by, paymentPayload.performedBy);
   if (paymentSource !== PAYMENT_SOURCE.TELLER_CASH && paymentSource !== PAYMENT_SOURCE.BANK) {
     throw new Error(`payExpense: paymentSource must be TELLER_CASH or BANK, got "${paymentSource}"`);
   }

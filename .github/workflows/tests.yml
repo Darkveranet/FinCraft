@@ -41,3 +41,60 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  demo-e2e:
+    name: Playwright - live Fineract demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    # The public demo is shared and periodically reset. Keep runs serialized so
+    # this repository does not create avoidable load or race with itself.
+    concurrency:
+      group: fincraft-fineract-demo-e2e
+      cancel-in-progress: false
+    env:
+      FINERACT_URL: ${{ secrets.FINERACT_URL || 'https://apis.mifos.community' }}
+      FINERACT_TENANT: ${{ secrets.FINERACT_TENANT || 'default' }}
+      FINERACT_USER: ${{ secrets.FINERACT_USER || 'mifos' }}
+      FINERACT_PASS: ${{ secrets.FINERACT_PASS || 'password' }}
+      CI: 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install application dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+
+      - name: Verify live Fineract demo is reachable
+        run: |
+          curl --fail --show-error --silent --retry 3 --retry-all-errors \
+            --connect-timeout 15 --max-time 60 \
+            "$FINERACT_URL/fineract-provider/api/v1/offices?tenantIdentifier=$FINERACT_TENANT" \
+            -H "Fineract-Platform-TenantId: $FINERACT_TENANT" \
+            -H "Authorization: Basic $(printf '%s' "$FINERACT_USER:$FINERACT_PASS" | base64 -w0)" \
+            -o /tmp/fineract-offices.json
+          test -s /tmp/fineract-offices.json
+
+      - name: Run authenticated read-only E2E suite
+        run: npx playwright test tests-e2e/smoke.spec.mjs tests-e2e/demo-e2e.spec.mjs
+
+      - name: Upload Playwright evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: fincraft-fineract-demo-playwright
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14

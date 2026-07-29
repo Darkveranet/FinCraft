@@ -1,0 +1,27 @@
+{
+  "module": "Accounting setup",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "load GL template, offices, and currencies",
+    "create asset, liability, equity, income, and expense detail accounts",
+    "update and retrieve GL account",
+    "list GL accounts with running balances",
+    "reject duplicate GL code",
+    "create, update, retrieve, list, and delete accounting rule",
+    "post balanced manual journal",
+    "verify debit and credit journal entries",
+    "reject unbalanced manual journal",
+    "reverse journal and verify reversal",
+    "render accounting module through FinCraft",
+    "delete unused GL account"
+  ],
+  "notIncluded": [
+    "provisioning categories and provisioning criteria",
+    "opening balances",
+    "GL closures",
+    "financial activity account mappings",
+    "tax components and tax groups",
+    "accrual processing"
+  ],
+  "reason": "These are separate accounting sub-lifecycles and will be added after the foundational chart-of-accounts and journal module is proven in GitHub CI."
+}

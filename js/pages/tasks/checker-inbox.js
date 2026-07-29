@@ -287,7 +287,7 @@ export async function loadApprovalInbox(c) {
   el.innerHTML = `<div class="empty-state-row">Loading approval inbox…</div>`;
 
   const perms = {
-    checker:          can('CHECKER_SUPER_USER'),
+    checker:          store.hasAnyCheckerPermission(),
     loanApprove:      can('APPROVE_LOAN'),
     loanReject:       can('REJECT_LOAN'),
     disburse:         can('DISBURSE_LOAN'),

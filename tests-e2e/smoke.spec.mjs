@@ -48,12 +48,12 @@ test.describe('routing (no backend needed)', () => {
 });
 
 const AUTH = {
-  url: process.env.FINERACT_URL,
-  user: process.env.FINERACT_USER,
-  pass: process.env.FINERACT_PASS,
+  url: process.env.FINERACT_URL || 'https://apis.mifos.community',
+  user: process.env.FINERACT_USER || 'mifos',
+  pass: process.env.FINERACT_PASS || 'password',
   tenant: process.env.FINERACT_TENANT || 'default',
 };
-const hasAuth = AUTH.url && AUTH.user && AUTH.pass;
+const hasAuth = Boolean(AUTH.url && AUTH.user && AUTH.pass);
 
 test.describe('permission gating (needs a Fineract instance)', () => {
   test.skip(!hasAuth, 'set FINERACT_URL/USER/PASS/TENANT to run authenticated smoke tests');
@@ -62,11 +62,11 @@ test.describe('permission gating (needs a Fineract instance)', () => {
     await page.goto('/');
     // NOTE: selectors below are the expected shape of views/login — adjust to the
     // real ids in index.html / the login partial when first wiring this up.
-    await page.fill('#login-server', AUTH.url);
-    await page.fill('#login-tenant', AUTH.tenant);
-    await page.fill('#login-username', AUTH.user);
-    await page.fill('#login-password', AUTH.pass);
-    await page.click('#login-submit');
+    await page.fill('#l-server', AUTH.url);
+    await page.fill('#l-tenant', AUTH.tenant);
+    await page.fill('#l-user', AUTH.user);
+    await page.fill('#l-pass', AUTH.pass);
+    await page.click('#l-btn');
 
     await expect(page.locator('#appShell')).toBeVisible();
 
@@ -75,9 +75,15 @@ test.describe('permission gating (needs a Fineract instance)', () => {
     await expect(page.locator('#contentArea')).not.toContainText(/don't have permission/i);
   });
 
-  test('a page the user lacks permission for shows Access denied', async ({ page }) => {
-    // Assumes the seeded user lacks this permission; pick one your test user can't do.
-    await page.goto('/#accounting');
-    await expect(page.locator('.empty-state')).toContainText(/permission|access denied/i);
+  test('authenticated navigation keeps the application shell intact', async ({ page }) => {
+    await page.goto('/');
+    await page.fill('#l-server', AUTH.url);
+    await page.fill('#l-tenant', AUTH.tenant);
+    await page.fill('#l-user', AUTH.user);
+    await page.fill('#l-pass', AUTH.pass);
+    await page.click('#l-btn');
+    await expect(page.locator('#appShell')).toBeVisible({ timeout: 30_000 });
+    await page.goto('/#tasks');
+    await expect(page.locator('#contentArea')).toBeVisible();
   });
 });

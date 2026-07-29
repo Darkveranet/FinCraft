@@ -37,6 +37,7 @@ export const TREASURY_DATATABLES = [
       { name: 'requested_by',              type: T.STRING,  length: 100, mandatory: true },
       { name: 'receipt_url',               type: T.STRING,  length: 255, mandatory: false },
       { name: 'status',                    type: T.STRING,  length: 20, mandatory: true },
+      { name: 'approved_by',               type: T.STRING,  length: 100, mandatory: false },
       { name: 'payment_source',            type: T.STRING,  length: 20, mandatory: false },
       { name: 'teller_id',                 type: T.NUMBER,  mandatory: false },
       { name: 'cashier_id',                type: T.NUMBER,  mandatory: false },
@@ -133,6 +134,7 @@ export const TREASURY_DATATABLES = [
       { name: 'physical_cash',             type: T.DECIMAL, mandatory: false },
       { name: 'variance',                  type: T.DECIMAL, mandatory: false },
       { name: 'status',                    type: T.STRING,  length: 20, mandatory: true },
+      { name: 'submitted_by',              type: T.STRING,  length: 100, mandatory: false },
       { name: 'approved_by',               type: T.STRING,  length: 100, mandatory: false },
       { name: 'fineract_je_transaction_id',type: T.STRING,  length: 40, mandatory: false }
     ]

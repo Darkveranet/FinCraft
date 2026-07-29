@@ -29,11 +29,12 @@ export async function runTests({ assert: a = assert } = {}) {
   a.strictEqual(TREASURY_ACTION_PERMS.allocateCash, 'ALLOCATECASHTOCASHIER_TELLER');
   a.strictEqual(TREASURY_ACTION_PERMS.saveThresholds, 'CREATE_DATATABLE');
 
-  // The three "post to the ledger" actions must all require CREATE_JOURNALENTRY.
-  for (const act of ['postExpense', 'postBorrowing', 'postReconcile']) {
-    a.strictEqual(TREASURY_ACTION_PERMS[act], 'CREATE_JOURNALENTRY', `${act} must require CREATE_JOURNALENTRY`);
-  }
-
+  // Maker/checker separation: approval actions require checker permission,
+  // while posting/payment retains CREATE_JOURNALENTRY.
+  a.strictEqual(TREASURY_ACTION_PERMS.approveExpense, 'CREATE_JOURNALENTRY_CHECKER');
+  a.strictEqual(TREASURY_ACTION_PERMS.approveBorrowing, 'CREATE_JOURNALENTRY_CHECKER');
+  a.strictEqual(TREASURY_ACTION_PERMS.approveReconciliation, 'CREATE_JOURNALENTRY_CHECKER');
+  a.strictEqual(TREASURY_ACTION_PERMS.payExpense, 'CREATE_JOURNALENTRY');
   // Consistency: a route and its primary action should agree on the perm where
   // both exist (disbursement + cash allocation are the paired cases).
   a.strictEqual(TREASURY_ROUTE_PERMS['loan-disbursement'], TREASURY_ACTION_PERMS.disburseLoan);
