@@ -78,7 +78,7 @@ function openCountForm(c, officeId, reconciliationId, expectedCash) {
     if (raw === '' || !(Number(raw) >= 0)) { toast('warn', 'Invalid count', 'Enter the physical cash counted (zero or more)'); return; }
     goBtn.disabled = true;
     try {
-      const result = await submitPhysicalCashCount(officeId, reconciliationId, Number(raw));
+      const result = await submitPhysicalCashCount(officeId, reconciliationId, Number(raw), currentUser());
       if (result.requiresApproval) {
         toast('warn', 'Variance found', `Variance of ${fmtMoney(Math.abs(result.variance))} — reconciliation #${reconciliationId} is SUBMITTED and awaits approval to post the adjustment.`);
       } else {

@@ -90,7 +90,7 @@ export async function runTests({ assert: a = assert } = {}) {
       a.strictEqual(expense.status, EXPENSE_STATUS.APPROVED);
       a.strictEqual(s.approvalsByOffice.get(1)[0].action, 'APPROVE');
 
-      const result = await payExpense(1, expenseId, { paymentSource: 'BANK', transactionDate: '2026-01-05' });
+      const result = await payExpense(1, expenseId, { paymentSource: 'BANK', performedBy: 'payer1', transactionDate: '2026-01-05' });
       a.strictEqual(result.status, EXPENSE_STATUS.PAID);
       a.strictEqual(s.calls.createJe, 1);
       expense = s.requestsByOffice.get(1).find(r => r.id === expenseId);
@@ -108,7 +108,7 @@ export async function runTests({ assert: a = assert } = {}) {
       await s.seedCash(2, 3, 9, 10000);
       const { expenseId } = await createExpenseRequest({ officeId: 2, expenseCategory: 'Office Supplies', expenseGlAccountId: 201, amount: 2000, currencyCode: 'USD', requestedBy: 'clerk1' });
       await approveExpense(2, expenseId, 'manager1');
-      const result = await payExpense(2, expenseId, { paymentSource: 'TELLER_CASH', tellerId: 3, cashierId: 9, transactionDate: '2026-01-05', performedBy: 'clerk1' });
+      const result = await payExpense(2, expenseId, { paymentSource: 'TELLER_CASH', tellerId: 3, cashierId: 9, transactionDate: '2026-01-05', performedBy: 'payer1' });
       a.strictEqual(result.status, EXPENSE_STATUS.PAID);
 
       const events = s.eventsByOffice.get(2);
@@ -144,7 +144,7 @@ export async function runTests({ assert: a = assert } = {}) {
       const { expenseId } = await createExpenseRequest({ officeId: 4, expenseCategory: 'Misc', expenseGlAccountId: 203, amount: 100, currencyCode: 'USD', requestedBy: 'clerk1' });
 
       // Can't pay a still-PENDING expense.
-      await a.rejects(() => payExpense(4, expenseId, { paymentSource: 'BANK', transactionDate: '2026-01-05' }), /status is PENDING, expected APPROVED/);
+      await a.rejects(() => payExpense(4, expenseId, { paymentSource: 'BANK', performedBy: 'payer1', transactionDate: '2026-01-05' }), /status is PENDING, expected APPROVED/);
 
       await rejectExpense(4, expenseId, 'manager1', 'not a valid business expense');
       const rejected = s.requestsByOffice.get(4).find(r => r.id === expenseId);
@@ -153,7 +153,7 @@ export async function runTests({ assert: a = assert } = {}) {
       // Can't approve an already-rejected expense.
       await a.rejects(() => approveExpense(4, expenseId, 'manager2'), /status is REJECTED, expected PENDING/);
       // Can't pay a rejected expense either.
-      await a.rejects(() => payExpense(4, expenseId, { paymentSource: 'BANK', transactionDate: '2026-01-05' }), /status is REJECTED, expected APPROVED/);
+      await a.rejects(() => payExpense(4, expenseId, { paymentSource: 'BANK', performedBy: 'payer1', transactionDate: '2026-01-05' }), /status is REJECTED, expected APPROVED/);
       a.strictEqual(s.calls.createJe, 0);
     } finally { s.restore(); }
   }
@@ -186,7 +186,7 @@ export async function runTests({ assert: a = assert } = {}) {
       const { expenseId } = await createExpenseRequest({ officeId: 6, expenseCategory: 'Rent', expenseGlAccountId: 205, amount: 3000, currencyCode: 'USD', requestedBy: 'clerk1' });
       await approveExpense(6, expenseId, 'manager1');
       let caught = null;
-      try { await payExpense(6, expenseId, { paymentSource: 'BANK', transactionDate: '2026-01-05' }); }
+      try { await payExpense(6, expenseId, { paymentSource: 'BANK', performedBy: 'payer1', transactionDate: '2026-01-05' }); }
       catch (e) { caught = e; }
       a.ok(caught instanceof TreasuryReconciliationGapError);
       a.strictEqual(caught.fineractTransactionId, 'JE-STUB-999');

@@ -3,6 +3,7 @@ import { requireThresholds } from './thresholds.js';
 import { computeCashierExpectedBalance } from './teller-balance.js';
 import { recordTellerEvent } from './teller-events.js';
 import { TreasuryReconciliationGapError } from './errors.js';
+import { assertDifferentActors } from './segregation.js';
 
 const TABLE = 'dt_daily_cash_reconciliation';
 const STATUS = Object.freeze({ OPEN: 'OPEN', SUBMITTED: 'SUBMITTED', APPROVED: 'APPROVED' });
@@ -30,21 +31,21 @@ export async function startDailyReconciliation(officeId, tellerId, cashierId, re
   const row = {
     teller_id: tellerId, cashier_id: cashierId, reconciliation_date: reconciliationDate,
     expected_cash: expectedCash, physical_cash: null, variance: null,
-    status: STATUS.OPEN, approved_by: null, fineract_je_transaction_id: null,
+    status: STATUS.OPEN, submitted_by: null, approved_by: null, fineract_je_transaction_id: null,
     locale: 'en', dateFormat: 'yyyy-MM-dd'
   };
   const result = await api.treasury.createRow(TABLE, officeId, row);
   return { officeId, reconciliationId: result?.resourceId, expectedCash };
 }
 
-export async function submitPhysicalCashCount(officeId, reconciliationId, physicalCash) {
+export async function submitPhysicalCashCount(officeId, reconciliationId, physicalCash, submittedBy = 'unknown') {
   const recon = await getReconciliation(officeId, reconciliationId);
   if (recon.status !== STATUS.OPEN) throw new Error(`Cannot submit a count for reconciliation ${reconciliationId}: status is ${recon.status}, expected ${STATUS.OPEN}`);
 
   const variance = round2(Number(physicalCash) - Number(recon.expected_cash));
   const noVariance = Math.abs(variance) <= VARIANCE_TOLERANCE;
   const patch = {
-    physical_cash: Number(physicalCash), variance,
+    physical_cash: Number(physicalCash), variance, submitted_by: submittedBy,
     status: noVariance ? STATUS.APPROVED : STATUS.SUBMITTED,
     locale: 'en', dateFormat: 'yyyy-MM-dd'
   };
@@ -57,6 +58,8 @@ export async function approveReconciliation(officeId, reconciliationId, approver
   if (recon.status !== STATUS.SUBMITTED) {
     throw new Error(`Cannot approve reconciliation ${reconciliationId}: status is ${recon.status}, expected ${STATUS.SUBMITTED}`);
   }
+  assertDifferentActors(recon.submitted_by, approver, 'approve');
+  assertDifferentActors(recon.submitted_by, approver, 'approve');
   const variance = Number(recon.variance);
   if (Math.abs(variance) <= VARIANCE_TOLERANCE) {
     throw new Error(`Reconciliation ${reconciliationId} has no variance to approve (${variance}) — this should have auto-approved at submission`);

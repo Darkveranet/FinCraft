@@ -115,10 +115,10 @@ if [ -n "$DOMAINS" ] && [ -n "${LETSENCRYPT_EMAIL:-}" ]; then
   fi
 fi
 
-log "[11/12] Installing auto-update (pulls THIS repo's own git remote)"
+log "[11/12] Configuring deployment updates (production default: manual promotion)"
 DEPLOY_DIR=$(pwd)                                   # ./deploy — where docker-compose.yml lives
 REPO_ROOT=$(cd .. && pwd)                            # repo root — what git tracks (frontend + deploy/)
-if git -C "$REPO_ROOT" rev-parse --git-dir >/dev/null 2>&1; then
+if [ "${ENABLE_MUTABLE_BRANCH_AUTOUPDATE:-false}" = "true" ] && git -C "$REPO_ROOT" rev-parse --git-dir >/dev/null 2>&1; then
   if [ "$REPO_PRIVATE" = "true" ]; then
     WATCHER_SSH="export GIT_SSH_COMMAND=\"ssh -i $DEPLOY_KEY -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new\""
   else
@@ -264,7 +264,7 @@ TIMER
   sudo systemctl daemon-reload
   sudo systemctl enable --now fincraft-autoupdate.timer
 else
-  warn "This directory isn't a git checkout — skipping auto-update timer. Use ./redeploy.sh manually to pick up changes."
+  warn "Mutable-branch auto-update is disabled. Promote a reviewed commit SHA with ./redeploy.sh. Set ENABLE_MUTABLE_BRANCH_AUTOUPDATE=true only for non-production development."
 fi
 
 log "[12/12] Installing logrotate, backups, cert renewal and monitoring crons"

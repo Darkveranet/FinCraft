@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16
+    image: ${POSTGRES_IMAGE:-postgres:16.4@sha256:REPLACE_WITH_VERIFIED_DIGEST}
     container_name: fineract-postgres
     restart: unless-stopped
     mem_limit: 2g
@@ -91,7 +91,7 @@ services:
       - fineract-net
 
   fincraft:
-    image: nginx:alpine
+    image: ${NGINX_IMAGE:-nginx:1.27.0-alpine@sha256:REPLACE_WITH_VERIFIED_DIGEST}
     container_name: fincraft-ui
     restart: unless-stopped
     volumes:

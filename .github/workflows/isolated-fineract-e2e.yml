@@ -1,0 +1,102 @@
+name: Isolated Fineract Transactional E2E
+
+on:
+  workflow_dispatch:
+    inputs:
+      fineract_ref:
+        description: Apache Fineract git ref (release tag, commit, or develop)
+        required: true
+        default: develop
+      suite:
+        description: Playwright suite to execute
+        required: true
+        type: choice
+        default: full
+        options: [client, full]
+  schedule:
+    - cron: '20 1 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isolated-fineract-e2e-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FINERACT_URL: https://127.0.0.1:8443
+  FINERACT_TENANT: default
+  FINERACT_USER: mifos
+  FINERACT_PASS: password
+  E2E_TARGET: isolated-ci
+  ALLOW_TRANSACTIONAL_E2E: 'true'
+  FINERACT_REF: ${{ inputs.fineract_ref || 'develop' }}
+
+jobs:
+  transactional-e2e:
+    name: Disposable Fineract + FinCraft Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout FinCraft
+        uses: actions/checkout@v7
+
+      - name: Guard against shared or production target
+        run: node scripts/e2e/guard-target.mjs
+
+      - name: Checkout Apache Fineract test stack
+        run: |
+          git clone --depth 1 --branch "$FINERACT_REF" https://github.com/apache/fineract.git "$RUNNER_TEMP/fineract" || {
+            git clone https://github.com/apache/fineract.git "$RUNNER_TEMP/fineract"
+            git -C "$RUNNER_TEMP/fineract" checkout "$FINERACT_REF"
+          }
+
+      - name: Start disposable PostgreSQL and Fineract
+        working-directory: ${{ runner.temp }}/fineract
+        run: docker compose -f docker-compose-postgresql.yml up -d
+
+      - name: Wait for Fineract readiness
+        run: scripts/e2e/wait-fineract.sh
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install FinCraft and Playwright
+        run: |
+          npm ci
+          npm install --no-save @playwright/test
+          npx playwright install --with-deps chromium
+
+      - name: Run client lifecycle gate
+        if: ${{ inputs.suite == 'client' }}
+        run: npx playwright test tests-e2e/isolated/01-client-lifecycle.spec.mjs
+
+      - name: Run full isolated suite
+        if: ${{ inputs.suite != 'client' }}
+        run: npx playwright test tests-e2e/isolated
+
+      - name: Export Fineract logs
+        if: always()
+        working-directory: ${{ runner.temp }}/fineract
+        run: docker compose -f docker-compose-postgresql.yml logs --no-color > "$GITHUB_WORKSPACE/fineract-containers.log" 2>&1 || true
+
+      - name: Upload end-to-end evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: isolated-fineract-e2e-${{ github.run_id }}
+          path: |
+            playwright-report/
+            test-results/
+            fineract-containers.log
+            tests-e2e/coverage-manifest.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Destroy disposable environment
+        if: always()
+        working-directory: ${{ runner.temp }}/fineract
+        run: docker compose -f docker-compose-postgresql.yml down --volumes --remove-orphans || true

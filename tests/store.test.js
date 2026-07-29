@@ -143,16 +143,13 @@ export async function runTests({ assert: a = assert } = {}) {
   });
   const ssBearer = JSON.parse(ss.getItem('fincraft.session'));
   a.strictEqual(ssBearer.authScheme, 'Bearer', 'Bearer scheme persisted');
-  a.strictEqual(ssBearer.bearerToken, 'JWT.aaa.bbb', 'access token persisted');
-  a.strictEqual(ssBearer.refreshToken, 'rt-1', 'refresh token persisted');
+  a.strictEqual(ssBearer.bearerToken, undefined, 'access token must remain memory-only');
+  a.strictEqual(ssBearer.refreshToken, undefined, 'refresh token must remain memory-only');
   a.ok(!('authToken' in ssBearer) || ssBearer.authToken == null, 'no Basic token on an SSO session');
 
-  // A session with only a bearerToken (no Basic authToken) must still restore.
+  // A forged/persisted Bearer session must never be restored from Web Storage.
   store.set('auth', null);
-  ss.setItem('fincraft.session', JSON.stringify({
-    authScheme: 'Bearer', bearerToken: 'JWT.zzz', refreshToken: 'rt-2', perms: ['READ_LOAN'], username: 'mifos'
-  }));
+  ss.setItem('fincraft.session', JSON.stringify({ authScheme: 'Bearer', bearerToken: 'JWT.zzz', refreshToken: 'rt-2' }));
   store.restore();
-  a.ok(store.get('auth') && store.get('auth').bearerToken === 'JWT.zzz', 'Bearer-only session must be restored');
-  a.deepStrictEqual(store.get('perms'), ['READ_LOAN']);
+  a.strictEqual(store.get('auth'), null, 'Bearer sessions must remain memory-only');
 }

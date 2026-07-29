@@ -35,7 +35,10 @@ export const OIDC_DEFAULT = {
   // Extra Zitadel scope so the access token carries Fineract project roles; the
   // {ProjectID} placeholder is substituted from projectId below when present.
   projectId: '',
-  providerLabel: 'Zitadel'
+  providerLabel: 'Zitadel',
+  // Production-safe default: do not persist OAuth credentials in Web Storage.
+  // Reloading requires a fresh SSO round-trip; the IdP session keeps this low-friction.
+  persistSession: false
 };
 
 export function getRuntimeConfig() {

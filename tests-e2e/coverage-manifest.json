@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "policy": "No API module may be added without explicit E2E ownership. Transactional=true means real write lifecycle is required before release certification.",
+  "modules": {
+    "accounting": {
+      "apiFiles": [
+        "accounting.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": true,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "admin": {
+      "apiFiles": [
+        "admin.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": true,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "auth-account": {
+      "apiFiles": [
+        "auth-account.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "clients": {
+      "apiFiles": [
+        "clients.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": true,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "core": {
+      "apiFiles": [
+        "core.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "credit-bureau": {
+      "apiFiles": [
+        "credit-bureau.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "groups-centers": {
+      "apiFiles": [
+        "groups-centers.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "index": {
+      "apiFiles": [
+        "index.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "integrations": {
+      "apiFiles": [
+        "integrations.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "interest-rate-charts": {
+      "apiFiles": [
+        "interest-rate-charts.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "interoperation": {
+      "apiFiles": [
+        "interoperation.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "loans": {
+      "apiFiles": [
+        "loans.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": true,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "misc": {
+      "apiFiles": [
+        "misc.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "mix-xbrl": {
+      "apiFiles": [
+        "mix-xbrl.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "office-transactions": {
+      "apiFiles": [
+        "office-transactions.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "organization": {
+      "apiFiles": [
+        "organization.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "products": {
+      "apiFiles": [
+        "products.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "report-mailing": {
+      "apiFiles": [
+        "report-mailing.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "reports": {
+      "apiFiles": [
+        "reports.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "savings-deposits": {
+      "apiFiles": [
+        "savings-deposits.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": true,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "shares": {
+      "apiFiles": [
+        "shares.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "social-performance": {
+      "apiFiles": [
+        "social-performance.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    },
+    "treasury": {
+      "apiFiles": [
+        "treasury.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": false,
+      "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
+    }
+  }
+}
