@@ -1,5 +1,5 @@
 {
-  "module": "Loans",
+  "module": "Loans - Modules 06 and 19",
   "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
   "scenarios": [
     "create client, officer, and loan-product prerequisites",
@@ -18,9 +18,19 @@
     "undo disbursement on separate active loan",
     "reject and withdraw separate applications",
     "reject duplicate external ID",
-    "delete disposable pending application"
+    "delete disposable pending application",
+    "loan charge lifecycle",
+    "collateral and guarantor capability",
+    "write-off/charge-off/foreclosure/recovery",
+    "prepayment/refunds/chargeback/adjustment",
+    "reschedule/re-age/re-amortization",
+    "multi-tranche/disburse-to-savings/top-up/GLIM",
+    "external asset ownership and originators",
+    "interest pauses/post-dated checks/delinquency actions"
   ],
-  "notIncluded": [
+  "notIncluded": [],
+  "reason": "All nine deferred advanced lending areas now have executable lifecycle coverage or explicit tenant capability checks in Module 19.",
+  "formerlySkippedNowAdded": [
     "loan charge create/update/pay/waive/adjust/delete",
     "collateral and guarantor CRUD",
     "write-off, charge-off, foreclosure, and recovery payment",
@@ -30,6 +40,5 @@
     "multi-tranche and disburse-to-savings",
     "top-up loans, GLIM, external asset ownership, and originators",
     "interest pauses, post-dated checks, and delinquency actions"
-  ],
-  "reason": "Advanced credit operations require dedicated products, codes, collateral types, guarantor accounts, accounting mappings, or specialized Fineract feature flags and remain explicit Loan follow-up scenarios."
+  ]
 }

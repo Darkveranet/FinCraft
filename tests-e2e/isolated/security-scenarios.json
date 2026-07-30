@@ -1,0 +1,27 @@
+{
+  "module": "Security",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "load user, role, permission, password, audit, and 2FA templates",
+    "create least-privilege role and assign selected read permissions",
+    "disable and re-enable role",
+    "create isolated user with least-privilege role",
+    "authenticate isolated user and verify approved read access",
+    "deny privileged role creation to least-privilege user",
+    "reject invalid credentials and unauthenticated requests",
+    "lock account, verify denial, and unlock account",
+    "reset password and validate new credentials when supported",
+    "verify audit trail captures user and role operations",
+    "probe maker-checker and two-factor capabilities",
+    "render Users, System Security, and Audit pages",
+    "delete isolated user and role without modifying seeded administrators"
+  ],
+  "notIncluded": [
+    "external identity-provider OIDC login",
+    "real email-based password recovery delivery",
+    "real OTP delivery and end-to-end two-factor validation",
+    "penetration testing or exploit simulation",
+    "production session-timeout and distributed revocation testing"
+  ],
+  "reason": "These require external identity/email/OTP infrastructure, production session topology, or intrusive security testing and remain explicit Security follow-ups."
+}

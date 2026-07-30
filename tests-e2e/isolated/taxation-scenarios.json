@@ -1,0 +1,25 @@
+{
+  "module": "Taxation",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "create GL prerequisites and load tax component/group templates",
+    "create multiple tax components",
+    "retrieve, update, and list tax components",
+    "reject negative percentage and missing-name payloads",
+    "create tax group with component associations when supported",
+    "verify tax-group component structure and calculated aggregate rate",
+    "update, retrieve, and list tax group",
+    "create charge linked to tax group",
+    "verify charge-to-tax-group linkage and component propagation",
+    "render taxation areas through Products and charge detail",
+    "re-query tax records after linked-object creation"
+  ],
+  "notIncluded": [
+    "country-specific statutory return filing",
+    "external tax authority integration",
+    "tax payment remittance and settlement",
+    "historical rate changes across advanced business dates",
+    "tax-inclusive portfolio transaction posting"
+  ],
+  "reason": "These require jurisdiction-specific rules, external services, specialized settlement flows, or controlled business-date progression and remain explicit Taxation follow-ups."
+}

@@ -12,7 +12,7 @@ on:
         required: true
         type: choice
         default: full
-        options: [client, accounting, products, clients, groups-centers, savings, loans, fixed-deposits, recurring-deposits, accounting-advanced, fixed-deposits-extended, full]
+        options: [client, accounting, products, clients, groups-centers, savings, loans, fixed-deposits, recurring-deposits, accounting-advanced, fixed-deposits-extended, recurring-deposits-extended, taxation, reporting, accounting-completion, security, notifications, shares, savings-extended, loans-extended, settings, full]
   schedule:
     - cron: '20 1 * * *'
 
@@ -117,8 +117,48 @@ jobs:
         if: ${{ inputs.suite == 'fixed-deposits-extended' }}
         run: npx playwright test tests-e2e/isolated/13-fixed-deposits-extended.spec.mjs
 
+      - name: Run recurring deposits extended lifecycle module
+        if: ${{ inputs.suite == 'recurring-deposits-extended' }}
+        run: npx playwright test tests-e2e/isolated/14-recurring-deposits-extended.spec.mjs
+
+      - name: Run taxation lifecycle module
+        if: ${{ inputs.suite == 'taxation' }}
+        run: npx playwright test tests-e2e/isolated/15-taxation-lifecycle.spec.mjs
+
+      - name: Run reporting lifecycle module
+        if: ${{ inputs.suite == 'reporting' }}
+        run: npx playwright test tests-e2e/isolated/16-reporting-lifecycle.spec.mjs
+
+      - name: Run accounting completion lifecycle module
+        if: ${{ inputs.suite == 'accounting-completion' }}
+        run: npx playwright test tests-e2e/isolated/17-accounting-completion.spec.mjs
+
+      - name: Run security lifecycle module
+        if: ${{ inputs.suite == 'security' }}
+        run: npx playwright test tests-e2e/isolated/18-security-lifecycle.spec.mjs
+
+      - name: Run notifications lifecycle module
+        if: ${{ inputs.suite == 'notifications' }}
+        run: npx playwright test tests-e2e/isolated/19-notifications-lifecycle.spec.mjs
+
+      - name: Run shares lifecycle module
+        if: ${{ inputs.suite == 'shares' }}
+        run: npx playwright test tests-e2e/isolated/20-shares-lifecycle.spec.mjs
+
+      - name: Run savings extended lifecycle module
+        if: ${{ inputs.suite == 'savings-extended' }}
+        run: npx playwright test tests-e2e/isolated/21-savings-extended.spec.mjs
+
+      - name: Run loans extended lifecycle module
+        if: ${{ inputs.suite == 'loans-extended' }}
+        run: npx playwright test tests-e2e/isolated/22-loans-extended.spec.mjs
+
+      - name: Run settings lifecycle module
+        if: ${{ inputs.suite == 'settings' }}
+        run: npx playwright test tests-e2e/isolated/23-settings-lifecycle.spec.mjs
+
       - name: Run full isolated suite
-        if: ${{ inputs.suite != 'client' && inputs.suite != 'accounting' && inputs.suite != 'products' && inputs.suite != 'clients' && inputs.suite != 'groups-centers' && inputs.suite != 'savings' && inputs.suite != 'loans' && inputs.suite != 'fixed-deposits' && inputs.suite != 'recurring-deposits' && inputs.suite != 'accounting-advanced' && inputs.suite != 'fixed-deposits-extended' }}
+        if: ${{ inputs.suite != 'client' && inputs.suite != 'accounting' && inputs.suite != 'products' && inputs.suite != 'clients' && inputs.suite != 'groups-centers' && inputs.suite != 'savings' && inputs.suite != 'loans' && inputs.suite != 'fixed-deposits' && inputs.suite != 'recurring-deposits' && inputs.suite != 'accounting-advanced' && inputs.suite != 'fixed-deposits-extended' && inputs.suite != 'recurring-deposits-extended' && inputs.suite != 'taxation' && inputs.suite != 'reporting' && inputs.suite != 'accounting-completion' && inputs.suite != 'security' && inputs.suite != 'notifications' && inputs.suite != 'shares' && inputs.suite != 'savings-extended' && inputs.suite != 'loans-extended' && inputs.suite != 'settings' }}
         run: npx playwright test tests-e2e/isolated
 
       - name: Export Fineract logs

@@ -1,5 +1,5 @@
 {
-  "module": "Savings",
+  "module": "Savings - Modules 05 and 18",
   "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
   "scenarios": [
     "create client, staff, and savings-product prerequisites",
@@ -19,9 +19,18 @@
     "render savings list and detail through FinCraft",
     "undo approval on separate account",
     "reject and withdraw separate applications",
-    "delete disposable pending application"
+    "delete disposable pending application",
+    "full savings-charge lifecycle using configured charge",
+    "hold and release amount",
+    "transaction adjustment and undo",
+    "account transfer and standing-instruction surfaces",
+    "account close with withdrawal",
+    "GSIM group-savings capability",
+    "overdraft negative-balance lifecycle"
   ],
-  "notIncluded": [
+  "notIncluded": [],
+  "reason": "All seven Module 05 follow-ups now have executable lifecycle tests or explicit capability checks in Module 18.",
+  "formerlySkippedNowAdded": [
     "savings charge create/update/pay/waive/inactivate/delete",
     "hold and release amount",
     "transaction adjustment and undo",
@@ -29,6 +38,5 @@
     "standing instructions and account transfers",
     "GSIM group savings",
     "overdraft lifecycle"
-  ],
-  "reason": "These require seeded charge/payment configurations, specific Fineract feature flags, or separate transfer/GSIM prerequisites and remain explicit Savings follow-up scenarios."
+  ]
 }

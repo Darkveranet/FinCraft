@@ -1,5 +1,5 @@
 {
-  "module": "Recurring Deposits",
+  "module": "Recurring Deposits - Modules 08 and 11",
   "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
   "scenarios": [
     "create active-client and recurring-deposit-product prerequisites",
@@ -14,15 +14,24 @@
     "render RD list and detail through FinCraft",
     "undo approval on separate RD application",
     "reject and withdraw separate RD applications",
-    "delete disposable pending RD application"
+    "delete disposable pending RD application",
+    "multiple scheduled installments and transaction-history verification",
+    "missed-installment and penalty capability surfaces",
+    "withdrawal template and transaction capability",
+    "transaction adjustment and undo capability",
+    "configured RD charge create/read/update/pay/waive/inactivate/delete",
+    "funded-account premature closure and status verification",
+    "maturity-close and maturity-instruction capability checks",
+    "extended RD detail rendering"
   ],
-  "notIncluded": [
+  "notIncluded": [],
+  "reason": "All six follow-ups originally deferred from Module 08 now have executable tests or explicit capability checks in Module 11.",
+  "formerlySkippedNowAdded": [
     "multiple scheduled installments across advanced business dates",
     "missed installment and penalty processing",
     "premature closure with payout verification",
     "maturity closure with final balance reconciliation",
     "withdrawal, adjustment, and undo transaction",
     "RD charge create/update/pay/waive/inactivate/delete"
-  ],
-  "reason": "Advanced installment, penalty, closure, and charge scenarios require business-date progression and seeded charge configurations. They remain explicit Recurring Deposit follow-ups."
+  ]
 }

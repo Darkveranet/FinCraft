@@ -1,0 +1,23 @@
+{
+  "module": "Settings",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "list and retrieve global configurations",
+    "reversibly update and restore a safe Boolean configuration",
+    "read cache types and probe instance-mode capability",
+    "read client, loan, and savings field configurations",
+    "create/read/list/delete disposable custom code",
+    "load and execute disposable account-number preference lifecycle",
+    "read currencies, permissions, mappings, and integration settings",
+    "probe password, two-factor, scheduler, and job settings",
+    "toggle and restore local application theme preference",
+    "render Settings and System configuration pages"
+  ],
+  "notIncluded": [
+    "persistent mutation of production authentication settings",
+    "permanent cache-engine switch",
+    "live SMTP, SMS, notification, or OIDC credential changes",
+    "destructive scheduler stop/start against production workloads"
+  ],
+  "reason": "These operations could disrupt authentication, communications, caching, or scheduled processing and therefore remain explicitly non-destructive capability checks."
+}

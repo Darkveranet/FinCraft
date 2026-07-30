@@ -153,3 +153,81 @@ The original Module 01 manifest now has an empty `notIncluded` list and a `forme
 - Added maturity-close and maturity-instruction capability checks.
 - Cleared the Fixed Deposit manifest `notIncluded` list and retained the original items in `formerlySkippedNowAdded`.
 - Added a standalone `fixed-deposits-extended` workflow option.
+
+## Lifecycle conversion - Module 11: Recurring Deposits Extended
+- Added all six Recurring Deposit areas deferred from Module 08.
+- Added multiple scheduled deposits and transaction-history verification.
+- Added missed-installment and penalty capability surfaces.
+- Added withdrawal, transaction adjustment, and undo coverage.
+- Added conditional full RD charge lifecycle using tenant-configured charge definitions.
+- Added funded-account premature closure and maturity-close capability checks.
+- Cleared the RD manifest `notIncluded` list while retaining an audit trail in `formerlySkippedNowAdded`.
+- Added a standalone `recurring-deposits-extended` workflow option.
+
+## Lifecycle conversion - Module 12: Taxation
+- Added tax component and tax group template validation.
+- Added multiple tax-component creation, read, update, list, and invalid-payload rejection.
+- Added tax-group creation with component associations where supported by the tenant.
+- Added aggregate tax-rate calculation verification from returned component structures.
+- Added tax-linked charge creation and linkage verification.
+- Added FinCraft Products and charge-detail rendering checks for taxation data.
+- Added a standalone `taxation` workflow option.
+
+## Lifecycle conversion - Module 13: Reporting
+- Added report catalogue and report-template validation.
+- Added custom report definition create/read/update/list/delete lifecycle.
+- Added invalid and duplicate report-definition rejection.
+- Added JSON report execution with schema and data validation.
+- Added available-export discovery plus CSV, XLS, and PDF capability probes.
+- Added representative core-report execution with parameter-aware status reporting.
+- Added conditional report-mailing CRUD and run-history verification.
+- Added FinCraft Reports and Report Mailing rendering checks.
+- Added a standalone `reporting` workflow option.
+
+## Lifecycle conversion - Module 14: Accounting Completion
+- Added trial-balance debit/credit reconciliation across generated portfolio accounting entries.
+- Added multi-office GL closure sequencing, with dynamic second-office creation where supported.
+- Added explicit rejection testing for journals back-dated before a closed period.
+- Added a populated active-loan setup followed by provisioning-entry and provisioning-journal capability execution.
+- Cleared the Advanced Accounting `notIncluded` list and preserved its four former items in `formerlySkippedNowAdded`.
+- Added a standalone `accounting-completion` workflow option.
+
+## Lifecycle conversion - Module 15: Security
+- Added least-privilege role lifecycle and exact permission assignment.
+- Added isolated user creation, authentication, authorization allow/deny checks, lock/unlock, and password reset capability.
+- Added bad-credential and unauthenticated-request rejection.
+- Added role disable/enable and safe cleanup without modifying seeded administrators.
+- Added audit-trail verification for security operations.
+- Added maker-checker, password preference, and two-factor capability probes.
+- Added FinCraft Users, System Security, and Audit rendering checks.
+- Added a standalone `security` workflow option.
+
+## Lifecycle conversion - Module 16: Notifications
+- Added auditable business-event creation and notification-feed retrieval.
+- Added unread/read filtering and mark-all-read verification.
+- Added SMS and email queue/status coverage.
+- Added SMS and email campaign templates, lists, and safe preview capability checks.
+- Added read-only notification, SMTP, SMS, email, external-event, and hook configuration checks.
+- Added FinCraft Notifications and Organization campaign rendering checks.
+- Added notification entity-link and audit-context verification.
+- Added a standalone `notifications` workflow option.
+
+## Lifecycle conversion - Module 17: Shares
+- Added share product, account, approval, activation, additional-share, redemption, dividend, rejection, withdrawal, undo, deletion, portfolio, and UI coverage.
+- Added a standalone `shares` workflow option.
+
+## Lifecycle conversion - Module 18: Savings Extended
+- Added all seven Savings follow-ups deferred from Module 05.
+- Added savings charges, holds, transaction correction, transfers, standing instructions, close-with-withdrawal, GSIM, overdraft, and UI coverage.
+- Added a standalone `savings-extended` workflow option.
+
+## Lifecycle conversion - Module 19: Loans Extended
+- Added all nine advanced Loans areas deferred from Module 06.
+- Added charges, collateral, guarantors, credit events, transaction corrections, rescheduling, advanced disbursement, asset ownership, originators, interest pauses, PDCs, delinquency, and UI checks.
+- Added a standalone `loans-extended` workflow option.
+
+## Lifecycle conversion - Module 20: Settings
+- Added global configuration read/detail and reversible update/restore coverage.
+- Added cache, instance mode, field configuration, custom code, account-number format, reference, integration, password, two-factor, scheduler, and job setting checks.
+- Added local appearance-setting persistence and System page rendering checks.
+- Added a standalone `settings` workflow option.
