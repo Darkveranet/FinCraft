@@ -1,11 +1,11 @@
 # FinCraft E2E Function Inventory
 
-Generated: 2026-07-29T19:42:18.361Z
+Generated: 2026-07-30T08:01:56.499Z
 
 - Source files: 287
 - Functions discovered: 1963
-- Referenced by E2E specs: 423
-- Not referenced by E2E specs: 1540
+- Referenced by E2E specs: 535
+- Not referenced by E2E specs: 1428
 
 > REFERENCED is evidence of test ownership, not proof that every branch executed. PASS/FAIL comes from Playwright/JUnit results.
 
@@ -13,27 +13,27 @@ Generated: 2026-07-29T19:42:18.361Z
 
 | Module | Functions | Referenced | Untested |
 |---|---:|---:|---:|
-| js/api/accounting.js | 71 | 36 | 35 |
-| js/api/admin.js | 85 | 39 | 46 |
+| js/api/accounting.js | 71 | 39 | 32 |
+| js/api/admin.js | 85 | 40 | 45 |
 | js/api/auth-account.js | 20 | 6 | 14 |
-| js/api/clients.js | 53 | 9 | 44 |
+| js/api/clients.js | 53 | 18 | 35 |
 | js/api/core.js | 13 | 1 | 12 |
 | js/api/credit-bureau.js | 19 | 0 | 19 |
-| js/api/groups-centers.js | 54 | 25 | 29 |
+| js/api/groups-centers.js | 54 | 34 | 20 |
 | js/api/index.js | 2 | 0 | 2 |
-| js/api/integrations.js | 68 | 38 | 30 |
+| js/api/integrations.js | 68 | 43 | 25 |
 | js/api/interest-rate-charts.js | 13 | 5 | 8 |
 | js/api/interoperation.js | 17 | 0 | 17 |
-| js/api/loans.js | 169 | 24 | 145 |
-| js/api/misc.js | 78 | 32 | 46 |
-| js/api/mix-xbrl.js | 5 | 1 | 4 |
-| js/api/office-transactions.js | 5 | 3 | 2 |
-| js/api/organization.js | 79 | 36 | 43 |
+| js/api/loans.js | 169 | 39 | 130 |
+| js/api/misc.js | 78 | 36 | 42 |
+| js/api/mix-xbrl.js | 5 | 2 | 3 |
+| js/api/office-transactions.js | 5 | 4 | 1 |
+| js/api/organization.js | 79 | 38 | 41 |
 | js/api/products.js | 52 | 35 | 17 |
 | js/api/report-mailing.js | 8 | 5 | 3 |
-| js/api/reports.js | 43 | 19 | 24 |
-| js/api/savings-deposits.js | 129 | 27 | 102 |
-| js/api/shares.js | 24 | 8 | 16 |
+| js/api/reports.js | 43 | 20 | 23 |
+| js/api/savings-deposits.js | 129 | 68 | 61 |
+| js/api/shares.js | 24 | 11 | 13 |
 | js/api/social-performance.js | 23 | 5 | 18 |
 | js/api/treasury.js | 10 | 0 | 10 |
 | js/pages/accounting/actions/balances.js | 2 | 0 | 2 |
@@ -44,15 +44,15 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/accounting/loaders/coa.js | 8 | 0 | 8 |
 | js/pages/accounting/loaders/period.js | 4 | 0 | 4 |
 | js/pages/accounting/loaders/rules.js | 2 | 0 | 2 |
-| js/pages/accounting/shared.js | 8 | 0 | 8 |
+| js/pages/accounting/shared.js | 8 | 1 | 7 |
 | js/pages/analytics.js | 11 | 1 | 10 |
 | js/pages/centers/actions.js | 6 | 0 | 6 |
-| js/pages/centers/detail.js | 13 | 1 | 12 |
+| js/pages/centers/detail.js | 13 | 2 | 11 |
 | js/pages/centers/index.js | 1 | 1 | 0 |
 | js/pages/centers/list.js | 5 | 1 | 4 |
 | js/pages/centers/shared.js | 1 | 0 | 1 |
 | js/pages/charges/actions.js | 1 | 0 | 1 |
-| js/pages/charges/detail.js | 6 | 1 | 5 |
+| js/pages/charges/detail.js | 6 | 2 | 4 |
 | js/pages/charges/index.js | 1 | 1 | 0 |
 | js/pages/charges/list.js | 3 | 1 | 2 |
 | js/pages/charges/shared.js | 1 | 0 | 1 |
@@ -61,11 +61,11 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/clients/actions/lifecycle.js | 6 | 0 | 6 |
 | js/pages/clients/detail/accounts.js | 7 | 0 | 7 |
 | js/pages/clients/detail/identity.js | 6 | 0 | 6 |
-| js/pages/clients/detail/index.js | 13 | 3 | 10 |
+| js/pages/clients/detail/index.js | 13 | 5 | 8 |
 | js/pages/clients/detail/notes-docs.js | 4 | 0 | 4 |
 | js/pages/clients/index.js | 1 | 1 | 0 |
 | js/pages/clients/list.js | 5 | 0 | 5 |
-| js/pages/clients/new.js | 11 | 2 | 9 |
+| js/pages/clients/new.js | 11 | 3 | 8 |
 | js/pages/clients/shared.js | 6 | 0 | 6 |
 | js/pages/collateral/actions.js | 1 | 0 | 1 |
 | js/pages/collateral/detail.js | 6 | 1 | 5 |
@@ -87,7 +87,7 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/deposits/actions/lifecycle.js | 3 | 0 | 3 |
 | js/pages/deposits/actions/transactions.js | 3 | 0 | 3 |
 | js/pages/deposits/detail/closure.js | 1 | 0 | 1 |
-| js/pages/deposits/detail/index.js | 7 | 1 | 6 |
+| js/pages/deposits/detail/index.js | 7 | 2 | 5 |
 | js/pages/deposits/detail/notes-docs.js | 2 | 0 | 2 |
 | js/pages/deposits/detail/transactions.js | 3 | 0 | 3 |
 | js/pages/deposits/index.js | 1 | 1 | 0 |
@@ -96,7 +96,7 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/groups/actions/lifecycle.js | 3 | 0 | 3 |
 | js/pages/groups/actions/meetings.js | 2 | 0 | 2 |
 | js/pages/groups/actions/members.js | 8 | 1 | 7 |
-| js/pages/groups/detail/index.js | 9 | 2 | 7 |
+| js/pages/groups/detail/index.js | 9 | 3 | 6 |
 | js/pages/groups/detail/meetings-charges.js | 3 | 0 | 3 |
 | js/pages/groups/detail/members.js | 4 | 0 | 4 |
 | js/pages/groups/detail/notes-docs.js | 2 | 0 | 2 |
@@ -114,21 +114,21 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/loans/actions/restructuring.js | 7 | 0 | 7 |
 | js/pages/loans/actions/schedule.js | 1 | 0 | 1 |
 | js/pages/loans/detail/collateral-guarantors.js | 4 | 0 | 4 |
-| js/pages/loans/detail/index.js | 9 | 0 | 9 |
+| js/pages/loans/detail/index.js | 9 | 2 | 7 |
 | js/pages/loans/detail/lifecycle.js | 3 | 0 | 3 |
 | js/pages/loans/detail/notes-docs.js | 2 | 0 | 2 |
 | js/pages/loans/detail/schedule.js | 2 | 0 | 2 |
 | js/pages/loans/detail/transactions.js | 4 | 0 | 4 |
 | js/pages/loans/index.js | 1 | 1 | 0 |
 | js/pages/loans/list.js | 10 | 1 | 9 |
-| js/pages/loans/new.js | 10 | 2 | 8 |
+| js/pages/loans/new.js | 10 | 3 | 7 |
 | js/pages/loans/shared.js | 1 | 0 | 1 |
 | js/pages/misc/index.js | 1 | 1 | 0 |
 | js/pages/misc/navigation.js | 1 | 1 | 0 |
 | js/pages/misc/profile.js | 1 | 0 | 1 |
 | js/pages/misc/remittances.js | 1 | 0 | 1 |
 | js/pages/misc/settings.js | 1 | 0 | 1 |
-| js/pages/mix-xbrl.js | 3 | 2 | 1 |
+| js/pages/mix-xbrl.js | 3 | 3 | 0 |
 | js/pages/notifications/activity.js | 1 | 0 | 1 |
 | js/pages/notifications/audit.js | 3 | 0 | 3 |
 | js/pages/notifications/feed.js | 4 | 0 | 4 |
@@ -158,7 +158,7 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/products/actions/share-products.js | 5 | 0 | 5 |
 | js/pages/products/index.js | 48 | 2 | 46 |
 | js/pages/products/loaders.js | 1 | 0 | 1 |
-| js/pages/products/shared.js | 12 | 0 | 12 |
+| js/pages/products/shared.js | 12 | 1 | 11 |
 | js/pages/report-mailing.js | 4 | 2 | 2 |
 | js/pages/reports/index.js | 1 | 1 | 0 |
 | js/pages/reports/manage-reports.js | 4 | 0 | 4 |
@@ -169,13 +169,13 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/savings/actions/lifecycle.js | 5 | 0 | 5 |
 | js/pages/savings/actions/statements.js | 1 | 0 | 1 |
 | js/pages/savings/actions/transactions.js | 4 | 0 | 4 |
-| js/pages/savings/detail/index.js | 7 | 1 | 6 |
+| js/pages/savings/detail/index.js | 7 | 2 | 5 |
 | js/pages/savings/detail/notes-docs.js | 2 | 0 | 2 |
 | js/pages/savings/detail/si.js | 1 | 0 | 1 |
 | js/pages/savings/detail/transactions.js | 4 | 0 | 4 |
 | js/pages/savings/index.js | 1 | 1 | 0 |
 | js/pages/savings/list.js | 9 | 1 | 8 |
-| js/pages/savings/new.js | 9 | 2 | 7 |
+| js/pages/savings/new.js | 9 | 3 | 6 |
 | js/pages/savings/shared.js | 1 | 0 | 1 |
 | js/pages/scheduler.js | 3 | 1 | 2 |
 | js/pages/search.js | 8 | 1 | 7 |
@@ -200,9 +200,9 @@ Generated: 2026-07-29T19:42:18.361Z
 | js/pages/system/loaders/data-mgmt.js | 4 | 0 | 4 |
 | js/pages/system/loaders/info.js | 1 | 0 | 1 |
 | js/pages/system/loaders/integrations.js | 4 | 0 | 4 |
-| js/pages/system/loaders/oidc.js | 2 | 0 | 2 |
+| js/pages/system/loaders/oidc.js | 2 | 1 | 1 |
 | js/pages/system/shared.js | 1 | 0 | 1 |
-| js/pages/tasks/checker-inbox.js | 31 | 0 | 31 |
+| js/pages/tasks/checker-inbox.js | 31 | 1 | 30 |
 | js/pages/tasks/index.js | 2 | 1 | 1 |
 | js/pages/tasks/shared.js | 1 | 0 | 1 |
 | js/pages/templates/actions.js | 5 | 0 | 5 |
@@ -246,7 +246,6 @@ Generated: 2026-07-29T19:42:18.361Z
 ## Untested functions
 
 - `js/api/accounting.js` — `get`
-- `js/api/accounting.js` — `provisioning`
 - `js/api/accounting.js` — `openingBalances`
 - `js/api/accounting.js` — `makeJournalEntriesAPI`
 - `js/api/accounting.js` — `get`
@@ -260,7 +259,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/accounting.js` — `makeAccountingRulesAPI`
 - `js/api/accounting.js` — `entriesFiltered`
 - `js/api/accounting.js` — `getEntry`
-- `js/api/accounting.js` — `criteria`
 - `js/api/accounting.js` — `criteriaTemplate`
 - `js/api/accounting.js` — `getCriteria`
 - `js/api/accounting.js` — `createCriteria`
@@ -272,7 +270,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/accounting.js` — `makeProvisioningAPI`
 - `js/api/accounting.js` — `makeProvisioningCategoryAPI`
 - `js/api/accounting.js` — `makeRunAccrualsAPI`
-- `js/api/accounting.js` — `define`
 - `js/api/accounting.js` — `makeOpeningBalancesAPI`
 - `js/api/accounting.js` — `get`
 - `js/api/accounting.js` — `makeFinancialActivityAccountsAPI`
@@ -304,7 +301,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/admin.js` — `get`
 - `js/api/admin.js` — `searchTemplate`
 - `js/api/admin.js` — `makeAuditsAPI`
-- `js/api/admin.js` — `approve`
 - `js/api/admin.js` — `makeMakercheckerAPI`
 - `js/api/admin.js` — `get`
 - `js/api/admin.js` — `getById`
@@ -341,18 +337,12 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/auth-account.js` — `get`
 - `js/api/auth-account.js` — `makeTenantOidcAPI`
 - `js/api/clients.js` — `get`
-- `js/api/clients.js` — `close`
-- `js/api/clients.js` — `withdraw`
 - `js/api/clients.js` — `undoTransfer`
-- `js/api/clients.js` — `assignStaff`
-- `js/api/clients.js` — `unassignStaff`
-- `js/api/clients.js` — `collateral`
 - `js/api/clients.js` — `getCollateral`
 - `js/api/clients.js` — `collateralTemplate`
 - `js/api/clients.js` — `addCollateral`
 - `js/api/clients.js` — `updateCollateral`
 - `js/api/clients.js` — `deleteCollateral`
-- `js/api/clients.js` — `transactions`
 - `js/api/clients.js` — `getTransaction`
 - `js/api/clients.js` — `undoTransaction`
 - `js/api/clients.js` — `waiveCharge`
@@ -361,17 +351,14 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/clients.js` — `chargeTemplate`
 - `js/api/clients.js` — `getCharge`
 - `js/api/clients.js` — `reactivate`
-- `js/api/clients.js` — `transfer`
 - `js/api/clients.js` — `acceptTransfer`
 - `js/api/clients.js` — `rejectTransfer`
 - `js/api/clients.js` — `addCharge`
-- `js/api/clients.js` — `identifiers`
 - `js/api/clients.js` — `identifierTemplate`
 - `js/api/clients.js` — `getIdentifier`
 - `js/api/clients.js` — `createIdentifier`
 - `js/api/clients.js` — `updateIdentifier`
 - `js/api/clients.js` — `deleteIdentifier`
-- `js/api/clients.js` — `addresses`
 - `js/api/clients.js` — `createAddress`
 - `js/api/clients.js` — `updateAddress`
 - `js/api/clients.js` — `addressTemplate`
@@ -416,25 +403,16 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/credit-bureau.js` — `deleteReport`
 - `js/api/credit-bureau.js` — `makeCreditBureauIntegrationAPI`
 - `js/api/groups-centers.js` — `get`
-- `js/api/groups-centers.js` — `close`
-- `js/api/groups-centers.js` — `assignStaff`
-- `js/api/groups-centers.js` — `unassignStaff`
 - `js/api/groups-centers.js` — `unassignStaffCommand`
 - `js/api/groups-centers.js` — `assignRole`
 - `js/api/groups-centers.js` — `updateRole`
 - `js/api/groups-centers.js` — `unassignRole`
-- `js/api/groups-centers.js` — `associateClients`
-- `js/api/groups-centers.js` — `disassociateClients`
-- `js/api/groups-centers.js` — `transferClients`
 - `js/api/groups-centers.js` — `generateCollectionSheet`
 - `js/api/groups-centers.js` — `saveCollectionSheet`
 - `js/api/groups-centers.js` — `glimAccounts`
 - `js/api/groups-centers.js` — `gsimAccounts`
 - `js/api/groups-centers.js` — `makeGroupsAPI`
 - `js/api/groups-centers.js` — `get`
-- `js/api/groups-centers.js` — `close`
-- `js/api/groups-centers.js` — `associateGroups`
-- `js/api/groups-centers.js` — `disassociateGroups`
 - `js/api/groups-centers.js` — `generateCollectionSheet`
 - `js/api/groups-centers.js` — `saveCollectionSheet`
 - `js/api/groups-centers.js` — `makeCentersAPI`
@@ -455,15 +433,12 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/integrations.js` — `updateConfig`
 - `js/api/integrations.js` — `makeExternalEventsAPI`
 - `js/api/integrations.js` — `get`
-- `js/api/integrations.js` — `close`
 - `js/api/integrations.js` — `reactivate`
-- `js/api/integrations.js` — `preview`
 - `js/api/integrations.js` — `makeSmsCampaignsAPI`
 - `js/api/integrations.js` — `get`
 - `js/api/integrations.js` — `messagesByStatus`
 - `js/api/integrations.js` — `makeSmsAPI`
 - `js/api/integrations.js` — `get`
-- `js/api/integrations.js` — `pending`
 - `js/api/integrations.js` — `sent`
 - `js/api/integrations.js` — `failed`
 - `js/api/integrations.js` — `byStatus`
@@ -471,9 +446,7 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/integrations.js` — `get`
 - `js/api/integrations.js` — `templateDetail`
 - `js/api/integrations.js` — `operate`
-- `js/api/integrations.js` — `close`
 - `js/api/integrations.js` — `reactivate`
-- `js/api/integrations.js` — `preview`
 - `js/api/integrations.js` — `makeEmailCampaignsAPI`
 - `js/api/integrations.js` — `makeEmailConfigurationAPI`
 - `js/api/interest-rate-charts.js` — `get`
@@ -504,16 +477,11 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/loans.js` — `get`
 - `js/api/loans.js` — `getWithParams`
 - `js/api/loans.js` — `approvalTemplate`
-- `js/api/loans.js` — `approve`
-- `js/api/loans.js` — `undoApproval`
 - `js/api/loans.js` — `withdrawApplication`
-- `js/api/loans.js` — `disburse`
 - `js/api/loans.js` — `disburseToSavings`
-- `js/api/loans.js` — `undoDisbursal`
 - `js/api/loans.js` — `writeOff`
 - `js/api/loans.js` — `chargeOff`
 - `js/api/loans.js` — `undoChargeOff`
-- `js/api/loans.js` — `close`
 - `js/api/loans.js` — `closeAsRescheduled`
 - `js/api/loans.js` — `foreclose`
 - `js/api/loans.js` — `reage`
@@ -527,9 +495,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/loans.js` — `recoverGuarantees`
 - `js/api/loans.js` — `assignOfficer`
 - `js/api/loans.js` — `removeOfficer`
-- `js/api/loans.js` — `transactions`
-- `js/api/loans.js` — `transaction`
-- `js/api/loans.js` — `repay`
 - `js/api/loans.js` — `prepayLoan`
 - `js/api/loans.js` — `downPayment`
 - `js/api/loans.js` — `recoverPayment`
@@ -548,8 +513,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/loans.js` — `adjustTransaction`
 - `js/api/loans.js` — `undoWaiveCharge`
 - `js/api/loans.js` — `modifyTransaction`
-- `js/api/loans.js` — `schedule`
-- `js/api/loans.js` — `originalSchedule`
 - `js/api/loans.js` — `calculateSchedule`
 - `js/api/loans.js` — `submitVariableSchedule`
 - `js/api/loans.js` — `addCharge`
@@ -569,17 +532,14 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/loans.js` — `addCollateral`
 - `js/api/loans.js` — `updateCollateral`
 - `js/api/loans.js` — `deleteCollateral`
-- `js/api/loans.js` — `guarantors`
 - `js/api/loans.js` — `guarantorTemplate`
 - `js/api/loans.js` — `getGuarantor`
 - `js/api/loans.js` — `guarantorAccountsTemplate`
 - `js/api/loans.js` — `addGuarantor`
 - `js/api/loans.js` — `updateGuarantor`
 - `js/api/loans.js` — `deleteGuarantor`
-- `js/api/loans.js` — `disbursement`
 - `js/api/loans.js` — `updateDisbursement`
 - `js/api/loans.js` — `editDisbursements`
-- `js/api/loans.js` — `delinquency`
 - `js/api/loans.js` — `addDelinquencyAction`
 - `js/api/loans.js` — `delinquencyTags`
 - `js/api/loans.js` — `getApprovedAmountHistory`
@@ -607,7 +567,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/loans.js` — `eaoList`
 - `js/api/loans.js` — `eaoTransfer`
 - `js/api/loans.js` — `eaoBuyBack`
-- `js/api/loans.js` — `originators`
 - `js/api/loans.js` — `attachOriginator`
 - `js/api/loans.js` — `detachOriginator`
 - `js/api/loans.js` — `bulkReassign`
@@ -642,7 +601,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/loans.js` — `createLoanProductAttribute`
 - `js/api/loans.js` — `updateLoanProductAttribute`
 - `js/api/loans.js` — `transferAsset`
-- `js/api/loans.js` — `search`
 - `js/api/loans.js` — `makeExternalAssetOwnersAPI`
 - `js/api/loans.js` — `get`
 - `js/api/loans.js` — `makeCollateralManagementAPI`
@@ -651,7 +609,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/misc.js` — `makeChargesAPI`
 - `js/api/misc.js` — `get`
 - `js/api/misc.js` — `templateForEdit`
-- `js/api/misc.js` — `preview`
 - `js/api/misc.js` — `makeTemplatesAPI`
 - `js/api/misc.js` — `register`
 - `js/api/misc.js` — `resetPassword`
@@ -660,10 +617,7 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/misc.js` — `updateBeneficiary`
 - `js/api/misc.js` — `deleteBeneficiary`
 - `js/api/misc.js` — `makeSelfServiceAPI`
-- `js/api/misc.js` — `search`
-- `js/api/misc.js` — `advanced`
 - `js/api/misc.js` — `makeSearchAPI`
-- `js/api/misc.js` — `submit`
 - `js/api/misc.js` — `makeBatchAPI`
 - `js/api/misc.js` — `get`
 - `js/api/misc.js` — `download`
@@ -693,10 +647,8 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/misc.js` — `outputTemplate`
 - `js/api/misc.js` — `makeBulkImportsAPI`
 - `js/api/mix-xbrl.js` — `taxonomies`
-- `js/api/mix-xbrl.js` — `mapping`
 - `js/api/mix-xbrl.js` — `updateMapping`
 - `js/api/mix-xbrl.js` — `makeMixXbrlAPI`
-- `js/api/office-transactions.js` — `transfer`
 - `js/api/office-transactions.js` — `makeOfficeTransactionsAPI`
 - `js/api/organization.js` — `get`
 - `js/api/organization.js` — `makeOfficesAPI`
@@ -715,9 +667,7 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/organization.js` — `cashierTransactions`
 - `js/api/organization.js` — `cashierSummary`
 - `js/api/organization.js` — `cashierTxTemplate`
-- `js/api/organization.js` — `transactions`
 - `js/api/organization.js` — `getTransaction`
-- `js/api/organization.js` — `journals`
 - `js/api/organization.js` — `makeTellersAPI`
 - `js/api/organization.js` — `makeTellerJournalAPI`
 - `js/api/organization.js` — `get`
@@ -775,7 +725,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/reports.js` — `get`
 - `js/api/reports.js` — `register`
 - `js/api/reports.js` — `deregister`
-- `js/api/reports.js` — `query`
 - `js/api/reports.js` — `updateSchema`
 - `js/api/reports.js` — `deleteTable`
 - `js/api/reports.js` — `createEntry`
@@ -789,28 +738,11 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/savings-deposits.js` — `createGsim`
 - `js/api/savings-deposits.js` — `updateGsim`
 - `js/api/savings-deposits.js` — `gsimCommand`
-- `js/api/savings-deposits.js` — `approve`
-- `js/api/savings-deposits.js` — `undoApproval`
 - `js/api/savings-deposits.js` — `withdrawApplication`
-- `js/api/savings-deposits.js` — `withdrawal`
-- `js/api/savings-deposits.js` — `deposit`
 - `js/api/savings-deposits.js` — `holdAmount`
 - `js/api/savings-deposits.js` — `releaseAmount`
 - `js/api/savings-deposits.js` — `reverseTransaction`
-- `js/api/savings-deposits.js` — `close`
-- `js/api/savings-deposits.js` — `postInterest`
-- `js/api/savings-deposits.js` — `calculateInterest`
-- `js/api/savings-deposits.js` — `block`
-- `js/api/savings-deposits.js` — `unblock`
-- `js/api/savings-deposits.js` — `blockDebit`
-- `js/api/savings-deposits.js` — `unblockDebit`
-- `js/api/savings-deposits.js` — `blockCredit`
-- `js/api/savings-deposits.js` — `unblockCredit`
-- `js/api/savings-deposits.js` — `applyAnnualFees`
-- `js/api/savings-deposits.js` — `postInterestAsOn`
 - `js/api/savings-deposits.js` — `onHoldTransactions`
-- `js/api/savings-deposits.js` — `assignStaff`
-- `js/api/savings-deposits.js` — `unassignStaff`
 - `js/api/savings-deposits.js` — `waiveCharge`
 - `js/api/savings-deposits.js` — `payCharge`
 - `js/api/savings-deposits.js` — `inactivateCharge`
@@ -821,7 +753,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/savings-deposits.js` — `addCharge`
 - `js/api/savings-deposits.js` — `chargeTemplate`
 - `js/api/savings-deposits.js` — `getCharge`
-- `js/api/savings-deposits.js` — `transactions`
 - `js/api/savings-deposits.js` — `transactionTemplate`
 - `js/api/savings-deposits.js` — `getTransaction`
 - `js/api/savings-deposits.js` — `searchTransactions`
@@ -829,21 +760,10 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/savings-deposits.js` — `makeSavingsAPI`
 - `js/api/savings-deposits.js` — `get`
 - `js/api/savings-deposits.js` — `calculateInterestPreview`
-- `js/api/savings-deposits.js` — `approve`
-- `js/api/savings-deposits.js` — `undoApproval`
 - `js/api/savings-deposits.js` — `withdrawApplication`
-- `js/api/savings-deposits.js` — `premature`
-- `js/api/savings-deposits.js` — `close`
 - `js/api/savings-deposits.js` — `prematureTemplate`
-- `js/api/savings-deposits.js` — `closeTemplate`
 - `js/api/savings-deposits.js` — `withdrawalTemplate`
-- `js/api/savings-deposits.js` — `calculateInterest`
-- `js/api/savings-deposits.js` — `postInterest`
-- `js/api/savings-deposits.js` — `transactions`
-- `js/api/savings-deposits.js` — `transaction`
 - `js/api/savings-deposits.js` — `transactionTemplate`
-- `js/api/savings-deposits.js` — `deposit`
-- `js/api/savings-deposits.js` — `withdrawal`
 - `js/api/savings-deposits.js` — `interestTx`
 - `js/api/savings-deposits.js` — `prematureTx`
 - `js/api/savings-deposits.js` — `adjustTransaction`
@@ -858,22 +778,10 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/savings-deposits.js` — `deleteCharge`
 - `js/api/savings-deposits.js` — `makeFixedDepositsAPI`
 - `js/api/savings-deposits.js` — `get`
-- `js/api/savings-deposits.js` — `approve`
-- `js/api/savings-deposits.js` — `undoApproval`
 - `js/api/savings-deposits.js` — `withdrawApplication`
-- `js/api/savings-deposits.js` — `premature`
-- `js/api/savings-deposits.js` — `updateDepositAmount`
-- `js/api/savings-deposits.js` — `close`
 - `js/api/savings-deposits.js` — `prematureTemplate`
-- `js/api/savings-deposits.js` — `closeTemplate`
 - `js/api/savings-deposits.js` — `withdrawalTemplate`
-- `js/api/savings-deposits.js` — `calculateInterest`
-- `js/api/savings-deposits.js` — `postInterest`
-- `js/api/savings-deposits.js` — `transactions`
-- `js/api/savings-deposits.js` — `transaction`
 - `js/api/savings-deposits.js` — `transactionTemplate`
-- `js/api/savings-deposits.js` — `deposit`
-- `js/api/savings-deposits.js` — `withdrawal`
 - `js/api/savings-deposits.js` — `interestTx`
 - `js/api/savings-deposits.js` — `prematureTx`
 - `js/api/savings-deposits.js` — `adjustTransaction`
@@ -888,10 +796,7 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/api/savings-deposits.js` — `deleteCharge`
 - `js/api/savings-deposits.js` — `makeRecurringDepositsAPI`
 - `js/api/shares.js` — `get`
-- `js/api/shares.js` — `approve`
-- `js/api/shares.js` — `undoApproval`
 - `js/api/shares.js` — `withdrawApplication`
-- `js/api/shares.js` — `close`
 - `js/api/shares.js` — `applyAdditional`
 - `js/api/shares.js` — `redeem`
 - `js/api/shares.js` — `approveShareReq`
@@ -968,7 +873,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/accounting/shared.js` — `can`
 - `js/pages/accounting/shared.js` — `glList`
 - `js/pages/accounting/shared.js` — `populateJEFilters`
-- `js/pages/accounting/shared.js` — `v`
 - `js/pages/accounting/shared.js` — `vi`
 - `js/pages/accounting/shared.js` — `vf`
 - `js/pages/accounting/shared.js` — `dynModal`
@@ -990,7 +894,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/centers/actions.js` — `openEditCenterModal`
 - `js/pages/centers/actions.js` — `openCloseCenterModal`
 - `js/pages/centers/detail.js` — `meetings`
-- `js/pages/centers/detail.js` — `collection`
 - `js/pages/centers/detail.js` — `notes`
 - `js/pages/centers/detail.js` — `documents`
 - `js/pages/centers/detail.js` — `switchTab`
@@ -1007,7 +910,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/centers/list.js` — `renderList`
 - `js/pages/centers/shared.js` — `can`
 - `js/pages/charges/actions.js` — `openChargeFormModal`
-- `js/pages/charges/detail.js` — `tax`
 - `js/pages/charges/detail.js` — `switchTab`
 - `js/pages/charges/detail.js` — `renderDetail`
 - `js/pages/charges/detail.js` — `loadChargeUsage`
@@ -1044,9 +946,7 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/clients/detail/identity.js` — `loadClientAddresses`
 - `js/pages/clients/detail/identity.js` — `loadClientPhoto`
 - `js/pages/clients/detail/index.js` — `overview`
-- `js/pages/clients/detail/index.js` — `transactions`
 - `js/pages/clients/detail/index.js` — `si`
-- `js/pages/clients/detail/index.js` — `collateral`
 - `js/pages/clients/detail/index.js` — `documents`
 - `js/pages/clients/detail/index.js` — `kyc`
 - `js/pages/clients/detail/index.js` — `notes`
@@ -1069,7 +969,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/clients/new.js` — `captureStep`
 - `js/pages/clients/new.js` — `validateStep`
 - `js/pages/clients/new.js` — `wire`
-- `js/pages/clients/new.js` — `submit`
 - `js/pages/clients/new.js` — `renderNew`
 - `js/pages/clients/shared.js` — `can`
 - `js/pages/clients/shared.js` — `cvHue`
@@ -1160,7 +1059,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/deposits/actions/transactions.js` — `openDepositTxModal`
 - `js/pages/deposits/actions/transactions.js` — `openAdjustDepositTxModal`
 - `js/pages/deposits/detail/closure.js` — `loadClosureCalculator`
-- `js/pages/deposits/detail/index.js` — `transactions`
 - `js/pages/deposits/detail/index.js` — `calculator`
 - `js/pages/deposits/detail/index.js` — `notes`
 - `js/pages/deposits/detail/index.js` — `documents`
@@ -1189,7 +1087,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/groups/actions/members.js` — `refreshSelected`
 - `js/pages/groups/actions/members.js` — `openAddMembersModal`
 - `js/pages/groups/actions/members.js` — `openTransferMembersModal`
-- `js/pages/groups/detail/index.js` — `members`
 - `js/pages/groups/detail/index.js` — `meetings`
 - `js/pages/groups/detail/index.js` — `si`
 - `js/pages/groups/detail/index.js` — `notes`
@@ -1263,8 +1160,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/loans/detail/collateral-guarantors.js` — `loadLoanEAO`
 - `js/pages/loans/detail/index.js` — `fmtCompact`
 - `js/pages/loans/detail/index.js` — `nextRepayment`
-- `js/pages/loans/detail/index.js` — `schedule`
-- `js/pages/loans/detail/index.js` — `credit`
 - `js/pages/loans/detail/index.js` — `approvals`
 - `js/pages/loans/detail/index.js` — `documents`
 - `js/pages/loans/detail/index.js` — `switchTab`
@@ -1296,13 +1191,11 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/loans/new.js` — `capture`
 - `js/pages/loans/new.js` — `validate`
 - `js/pages/loans/new.js` — `wire`
-- `js/pages/loans/new.js` — `submit`
 - `js/pages/loans/new.js` — `renderNew`
 - `js/pages/loans/shared.js` — `can`
 - `js/pages/misc/profile.js` — `profile`
 - `js/pages/misc/remittances.js` — `remittances`
 - `js/pages/misc/settings.js` — `settings`
-- `js/pages/mix-xbrl.js` — `tax`
 - `js/pages/notifications/activity.js` — `loadMyActivity`
 - `js/pages/notifications/audit.js` — `runAuditSearch`
 - `js/pages/notifications/audit.js` — `loadAuditTrails`
@@ -1437,7 +1330,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/products/shared.js` — `modal`
 - `js/pages/products/shared.js` — `show`
 - `js/pages/products/shared.js` — `wizardModal`
-- `js/pages/products/shared.js` — `v`
 - `js/pages/products/shared.js` — `vi`
 - `js/pages/products/shared.js` — `vf`
 - `js/pages/products/shared.js` — `vb`
@@ -1475,7 +1367,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/savings/actions/transactions.js` — `openHoldModal`
 - `js/pages/savings/actions/transactions.js` — `openAdjustSavingsTxModal`
 - `js/pages/savings/detail/index.js` — `fmtCompact`
-- `js/pages/savings/detail/index.js` — `transactions`
 - `js/pages/savings/detail/index.js` — `si`
 - `js/pages/savings/detail/index.js` — `documents`
 - `js/pages/savings/detail/index.js` — `switchTab`
@@ -1500,7 +1391,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/savings/new.js` — `capture`
 - `js/pages/savings/new.js` — `validate`
 - `js/pages/savings/new.js` — `wire`
-- `js/pages/savings/new.js` — `submit`
 - `js/pages/savings/new.js` — `renderNew`
 - `js/pages/savings/shared.js` — `can`
 - `js/pages/scheduler.js` — `loadStatus`
@@ -1579,7 +1469,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/system/loaders/integrations.js` — `loadCOB`
 - `js/pages/system/loaders/integrations.js` — `loadHooks`
 - `js/pages/system/loaders/integrations.js` — `loadExternalEvents`
-- `js/pages/system/loaders/oidc.js` — `v`
 - `js/pages/system/loaders/oidc.js` — `loadTenantOidc`
 - `js/pages/system/shared.js` — `can`
 - `js/pages/tasks/checker-inbox.js` — `currentUser`
@@ -1611,7 +1500,6 @@ Generated: 2026-07-29T19:42:18.361Z
 - `js/pages/tasks/checker-inbox.js` — `returnTpl`
 - `js/pages/tasks/checker-inbox.js` — `routeTpl`
 - `js/pages/tasks/checker-inbox.js` — `buildDecisions`
-- `js/pages/tasks/checker-inbox.js` — `close`
 - `js/pages/tasks/checker-inbox.js` — `openTaskDetailModal`
 - `js/pages/tasks/index.js` — `reportInboxError`
 - `js/pages/tasks/shared.js` — `can`

@@ -1,0 +1,34 @@
+{
+  "module": "Savings",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "create client, staff, and savings-product prerequisites",
+    "load account template for selected client and product",
+    "submit, retrieve, and update savings application",
+    "approve and activate savings account",
+    "assign and unassign savings officer",
+    "deposit and verify balance and transaction",
+    "withdraw and verify reduced balance",
+    "reverse deposit and verify reversal",
+    "re-deposit after reversal",
+    "block and unblock account",
+    "block and unblock debits",
+    "block and unblock credits",
+    "calculate interest and probe posting/annual-fee features",
+    "retrieve transactions, charges, on-hold, search, and query surfaces",
+    "render savings list and detail through FinCraft",
+    "undo approval on separate account",
+    "reject and withdraw separate applications",
+    "delete disposable pending application"
+  ],
+  "notIncluded": [
+    "savings charge create/update/pay/waive/inactivate/delete",
+    "hold and release amount",
+    "transaction adjustment and undo",
+    "account close with withdrawal",
+    "standing instructions and account transfers",
+    "GSIM group savings",
+    "overdraft lifecycle"
+  ],
+  "reason": "These require seeded charge/payment configurations, specific Fineract feature flags, or separate transfer/GSIM prerequisites and remain explicit Savings follow-up scenarios."
+}

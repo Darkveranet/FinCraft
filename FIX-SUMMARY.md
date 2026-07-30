@@ -49,3 +49,107 @@ Atomic multi-system financial posting, immutable database records, server author
 - Added journal reversal and reversal-state verification.
 - Added FinCraft accounting-route rendering against records created in the isolated Fineract database.
 - Added a standalone `accounting` workflow option. Runtime status remains pending until GitHub executes the Dockerized Fineract stack.
+
+## Lifecycle conversion — Module 02: Product setup
+- Added real isolated-Fineract product template and reference-data checks.
+- Added loan-product create/get/update/list and duplicate-short-name rejection.
+- Added savings-product create/get/update/list.
+- Added fixed-deposit-product create/get/update.
+- Added recurring-deposit-product create/get/update.
+- Added disposable savings/FD/RD product deletion checks.
+- Added FinCraft Products-route rendering against the isolated Fineract backend.
+- Added a standalone `products` workflow option.
+- Advanced share, floating-rate, product-mix, charge/tax, and GL-mapped accounting variants remain explicitly tracked.
+
+## Lifecycle conversion — Module 03: Clients
+- Added person and non-person client creation against isolated Fineract.
+- Added pending-client activation, complete read-back, update, duplicate-external-ID rejection, and pending-client deletion.
+- Added staff creation, assignment, and unassignment.
+- Added conditional identifier CRUD, address create/update, and family-member CRUD using tenant-provided templates and code values.
+- Added list/search, accounts, charges, transactions, obligee-details, and transfer-proposal probes.
+- Added pending-client rejection and withdrawal when lifecycle reason codes are configured.
+- Added FinCraft client-list and client-detail rendering against records created during the same run.
+- Added a standalone `clients` workflow option.
+- Environment-dependent features report SKIPPED/UNSUPPORTED rather than being falsely marked passed.
+
+## Lifecycle conversion — Module 04: Groups & Centres
+- Added group and centre template/reference-data validation.
+- Added active member-client creation for membership scenarios.
+- Added group create/update/activate/read, staff assignment/unassignment, and client association/disassociation.
+- Added centre create/update/activate/read and group association/disassociation.
+- Added client transfer between groups and verification at both source and destination.
+- Added group/centre account retrieval and GLIM/GSIM capability probes.
+- Added conditional group-calendar CRUD using the tenant's supported calendar API.
+- Added FinCraft group and centre list/detail route validation.
+- Added conditional closure lifecycle and pending-record deletion.
+- Added a standalone `groups-centers` workflow option.
+
+## Lifecycle conversion — Module 05: Savings
+- Added isolated prerequisites: active client, savings officer, and savings product.
+- Added savings application create/read/update, approval, activation, and officer assignment/unassignment.
+- Added real deposit, withdrawal, balance verification, transaction retrieval, reversal, and re-deposit.
+- Added account/debit/credit block and unblock commands.
+- Added interest calculation plus capability probes for interest posting, posting-as-on date, and annual fees.
+- Added transaction, charge, on-hold, search, and query endpoint coverage.
+- Added FinCraft savings list/detail route validation.
+- Added separate undo-approval, rejection, withdrawal, and pending-application deletion scenarios.
+- Added a standalone `savings` workflow option.
+
+## Lifecycle conversion — Module 06: Loans
+- Added isolated active-client, loan-officer, and loan-product prerequisites.
+- Added loan template, submission, read, update, and repayment-schedule validation.
+- Added officer assignment/unassignment, approval, disbursement, and summary checks.
+- Added real repayment, transaction read-back, reversal, and replacement repayment.
+- Added charges and optional advanced loan-lifecycle capability probes.
+- Added FinCraft loan list/detail route validation.
+- Added separate undo-approval, undo-disbursement, rejection, withdrawal, duplicate-ID rejection, and pending-loan deletion scenarios.
+- Added a standalone `loans` workflow option.
+
+## Lifecycle conversion - Module 07: Fixed Deposits
+- Added isolated client and fixed-deposit-product prerequisites.
+- Added FD template, interest-preview capability probe, application create/read/update, approval, and activation.
+- Added real principal deposit, balance verification, transaction retrieval, and interest calculation.
+- Added transaction, charge, withdrawal, premature-close, and close-template coverage.
+- Added FinCraft deposit list and FD detail rendering.
+- Added separate undo-approval, rejection, withdrawal, and pending-application deletion scenarios.
+- Added a standalone `fixed-deposits` workflow option.
+
+## Lifecycle conversion - Module 08: Recurring Deposits
+- Added isolated client and recurring-deposit-product prerequisites.
+- Added RD template, application create/read/update, approval, and activation.
+- Added real scheduled deposit, balance verification, transaction retrieval, and deposit-amount update capability testing.
+- Added interest calculation, interest-posting probes, and transaction/charge/closure-template coverage.
+- Added FinCraft deposit list and RD detail rendering.
+- Added separate undo-approval, rejection, withdrawal, and pending-application deletion scenarios.
+- Added a standalone `recurring-deposits` workflow option.
+
+## Lifecycle conversion - Module 09: Advanced Accounting
+- Added opening-balance write and opening-balance journal verification.
+- Added GL closure create/read/update/list/delete lifecycle.
+- Added conditional financial-activity mapping lifecycle using an unmapped activity from the tenant template.
+- Added conditional provisioning category and provisioning criteria CRUD.
+- Added provisioning-entry, provisioning-journal, and run-accrual capability probes with honest supported/not-applicable reporting.
+- Added manual journal debit/credit reconciliation, running-balance retrieval, and reversal.
+- Added FinCraft rendering checks for advanced Accounting areas.
+- Added a standalone `accounting-advanced` workflow option.
+
+## Module 01 skipped-item closure
+All six items originally deferred from Module 01 are now represented in executable Module 09 coverage:
+- Provisioning categories and provisioning criteria
+- Opening balances
+- GL closures
+- Financial activity account mappings
+- Tax components and tax groups
+- Accrual processing
+
+The original Module 01 manifest now has an empty `notIncluded` list and a `formerlySkippedNowAdded` audit trail. Environment-dependent Fineract features remain honestly reported as SUPPORTED, UNSUPPORTED, or NOT APPLICABLE at runtime.
+
+## Lifecycle conversion - Module 10: Fixed Deposits Extended
+- Added the five Fixed Deposit areas deferred from Module 07.
+- Added withdrawal template and withdrawal transaction capability coverage.
+- Added transaction adjustment and undo coverage.
+- Added conditional full FD charge lifecycle using tenant-configured charge definitions.
+- Added funded-account premature closure with status verification.
+- Added maturity-close and maturity-instruction capability checks.
+- Cleared the Fixed Deposit manifest `notIncluded` list and retained the original items in `formerlySkippedNowAdded`.
+- Added a standalone `fixed-deposits-extended` workflow option.

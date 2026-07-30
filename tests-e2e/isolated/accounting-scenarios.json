@@ -15,13 +15,14 @@
     "render accounting module through FinCraft",
     "delete unused GL account"
   ],
-  "notIncluded": [
+  "notIncluded": [],
+  "reason": "All six items originally deferred from Module 01 now have lifecycle tests or explicit capability probes in Module 09 Advanced Accounting.",
+  "formerlySkippedNowAdded": [
     "provisioning categories and provisioning criteria",
     "opening balances",
     "GL closures",
     "financial activity account mappings",
     "tax components and tax groups",
     "accrual processing"
-  ],
-  "reason": "These are separate accounting sub-lifecycles and will be added after the foundational chart-of-accounts and journal module is proven in GitHub CI."
+  ]
 }

@@ -1,0 +1,30 @@
+{
+  "module": "Groups & Centres",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "load group, centre, office, staff, and group-level reference data",
+    "create active clients for group membership",
+    "create, update, activate, and retrieve group",
+    "assign and unassign group staff",
+    "associate and disassociate group clients",
+    "create, update, activate, and retrieve centre",
+    "associate and disassociate group from centre",
+    "transfer client between groups",
+    "retrieve group and centre accounts",
+    "probe GLIM and GSIM account endpoints",
+    "group calendar create/read/update/delete when supported",
+    "list and filter groups and centres",
+    "render group and centre list/detail routes through FinCraft",
+    "close disposable group and centre when closure reasons exist",
+    "delete disposable pending group and centre"
+  ],
+  "notIncluded": [
+    "group roles assign/update/unassign",
+    "collection-sheet generation and save",
+    "meeting attendance save/update",
+    "centre calendar lifecycle",
+    "group charges",
+    "notes and multipart documents"
+  ],
+  "reason": "Role codes, collection-sheet loan data, attendance types, charges, and multipart fixtures require additional seeded prerequisites and remain explicit follow-up scenarios."
+}
