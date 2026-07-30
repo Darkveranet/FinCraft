@@ -231,3 +231,17 @@ The original Module 01 manifest now has an empty `notIncluded` list and a `forme
 - Added cache, instance mode, field configuration, custom code, account-number format, reference, integration, password, two-factor, scheduler, and job setting checks.
 - Added local appearance-setting persistence and System page rendering checks.
 - Added a standalone `settings` workflow option.
+
+## GitHub live-demo CI preflight repair
+- Replaced the hard-coded single-host `curl --fail` check with Fineract host discovery.
+- Removed the obsolete `tenantIdentifier` query parameter and retained the required tenant header.
+- Added JSON response validation so HTML error pages cannot pass the health check.
+- Exports the resolved host through `GITHUB_ENV` for Playwright.
+- Runs the preflight before downloading Chromium, avoiding a large download when the backend is unavailable.
+- Prints each attempted endpoint and HTTP status while keeping credentials out of logs.
+
+## GitHub lint/prettier repair
+- Replaced JavaScript template interpolation embedded in static `admin.html` with seven valid checkbox elements.
+- Preserved the original default: Monday through Friday checked, Saturday and Sunday unchecked.
+- Scoped the Prettier CI gate to the repaired critical modal template because the repository has no whole-repository Prettier baseline yet.
+- ESLint remains successful with warnings only and no errors.

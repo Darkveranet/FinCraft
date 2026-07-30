@@ -70,20 +70,56 @@ jobs:
       - name: Install application dependencies
         run: npm ci
 
+      # Resolve the public demo before downloading the browser. The Mifos
+      # community demo hostname can change, while self-hosted users normally
+      # provide FINERACT_URL as a repository secret.
+      - name: Resolve and verify live Fineract API
+        shell: bash
+        run: |
+          set -euo pipefail
+          auth="Basic $(printf '%s' "$FINERACT_USER:$FINERACT_PASS" | base64 -w0)"
+          configured="${FINERACT_URL%/}"
+          candidates=(
+            "$configured"
+            "https://demo.mifos.io"
+            "https://fineract-vm.apache.org"
+          )
+
+          : > /tmp/fineract-probe.log
+          resolved=""
+          for host in "${candidates[@]}"; do
+            # Skip duplicate fallback values.
+            grep -Fxq "$host" /tmp/fineract-hosts-seen 2>/dev/null && continue
+            echo "$host" >> /tmp/fineract-hosts-seen
+            endpoint="$host/fineract-provider/api/v1/offices"
+            code=$(curl --location --silent --show-error \
+              --connect-timeout 15 --max-time 45 \
+              -H "Fineract-Platform-TenantId: $FINERACT_TENANT" \
+              -H "Authorization: $auth" \
+              -H "Accept: application/json" \
+              -o /tmp/fineract-offices.json \
+              -w '%{http_code}' "$endpoint" || true)
+            printf '%s -> HTTP %s\n' "$endpoint" "$code" | tee -a /tmp/fineract-probe.log
+            if [[ "$code" =~ ^2 ]] && node -e               "const fs=require('fs'); const x=JSON.parse(fs.readFileSync('/tmp/fineract-offices.json','utf8')); if(!Array.isArray(x)) process.exit(1)"; then
+              resolved="$host"
+              break
+            fi
+          done
+
+          if [ -z "$resolved" ]; then
+            echo '::error::No compatible live Fineract API was reachable with the configured credentials.'
+            echo 'Set FINERACT_URL, FINERACT_TENANT, FINERACT_USER, and FINERACT_PASS repository secrets to a writable test tenant.'
+            cat /tmp/fineract-probe.log
+            exit 1
+          fi
+
+          echo "FINERACT_URL=$resolved" >> "$GITHUB_ENV"
+          echo "Resolved Fineract API host: $resolved"
+
       - name: Install Playwright
         run: |
           npm install --no-save @playwright/test
           npx playwright install --with-deps chromium
-
-      - name: Verify live Fineract demo is reachable
-        run: |
-          curl --fail --show-error --silent --retry 3 --retry-all-errors \
-            --connect-timeout 15 --max-time 60 \
-            "$FINERACT_URL/fineract-provider/api/v1/offices?tenantIdentifier=$FINERACT_TENANT" \
-            -H "Fineract-Platform-TenantId: $FINERACT_TENANT" \
-            -H "Authorization: Basic $(printf '%s' "$FINERACT_USER:$FINERACT_PASS" | base64 -w0)" \
-            -o /tmp/fineract-offices.json
-          test -s /tmp/fineract-offices.json
 
       - name: Run authenticated read-only E2E suite
         run: npx playwright test tests-e2e/smoke.spec.mjs tests-e2e/demo-e2e.spec.mjs
