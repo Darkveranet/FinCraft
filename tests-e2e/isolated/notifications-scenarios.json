@@ -1,0 +1,24 @@
+{
+  "module": "Notifications",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "create auditable client event and retrieve notification feed",
+    "filter unread and read notifications",
+    "mark all notifications read when supported",
+    "retrieve SMS and email delivery queues by status",
+    "load SMS campaign template, list campaigns, and preview message",
+    "load email campaign template, list campaigns, and preview message",
+    "read notification, SMTP, SMS, and email configurations without mutation",
+    "query external-event and hook notification surfaces",
+    "render Notifications and Organization campaign pages",
+    "verify notification entity identifiers and audit context"
+  ],
+  "notIncluded": [
+    "real outbound SMS delivery",
+    "real outbound email delivery",
+    "third-party provider callback verification",
+    "production push-notification broker integration",
+    "high-volume delivery throughput and retry benchmarking"
+  ],
+  "reason": "These require external providers, deliverable recipients, callback infrastructure, or production-volume load testing and remain explicit Notifications follow-ups."
+}

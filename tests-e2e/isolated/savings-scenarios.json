@@ -1,0 +1,42 @@
+{
+  "module": "Savings - Modules 05 and 18",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "create client, staff, and savings-product prerequisites",
+    "load account template for selected client and product",
+    "submit, retrieve, and update savings application",
+    "approve and activate savings account",
+    "assign and unassign savings officer",
+    "deposit and verify balance and transaction",
+    "withdraw and verify reduced balance",
+    "reverse deposit and verify reversal",
+    "re-deposit after reversal",
+    "block and unblock account",
+    "block and unblock debits",
+    "block and unblock credits",
+    "calculate interest and probe posting/annual-fee features",
+    "retrieve transactions, charges, on-hold, search, and query surfaces",
+    "render savings list and detail through FinCraft",
+    "undo approval on separate account",
+    "reject and withdraw separate applications",
+    "delete disposable pending application",
+    "full savings-charge lifecycle using configured charge",
+    "hold and release amount",
+    "transaction adjustment and undo",
+    "account transfer and standing-instruction surfaces",
+    "account close with withdrawal",
+    "GSIM group-savings capability",
+    "overdraft negative-balance lifecycle"
+  ],
+  "notIncluded": [],
+  "reason": "All seven Module 05 follow-ups now have executable lifecycle tests or explicit capability checks in Module 18.",
+  "formerlySkippedNowAdded": [
+    "savings charge create/update/pay/waive/inactivate/delete",
+    "hold and release amount",
+    "transaction adjustment and undo",
+    "account close with withdrawal",
+    "standing instructions and account transfers",
+    "GSIM group savings",
+    "overdraft lifecycle"
+  ]
+}

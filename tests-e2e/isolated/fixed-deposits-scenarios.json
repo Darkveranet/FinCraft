@@ -1,0 +1,33 @@
+{
+  "module": "Fixed Deposits - Modules 07 and 10",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "create active-client and fixed-deposit-product prerequisites",
+    "load FD account template and interest preview",
+    "submit, retrieve, and update FD application",
+    "approve and activate FD account",
+    "deposit principal and verify transaction and balance",
+    "calculate interest and probe interest posting",
+    "retrieve transactions and transaction template",
+    "retrieve charges and closure templates",
+    "render FD list and detail through FinCraft",
+    "undo approval on separate FD application",
+    "reject and withdraw separate FD applications",
+    "delete disposable pending FD application",
+    "withdrawal template and transaction capability",
+    "transaction adjustment and undo capability",
+    "configured FD charge create/read/update/pay/waive/inactivate/delete",
+    "funded-account premature closure and status verification",
+    "maturity-close capability and maturity-instruction commands",
+    "extended FD detail rendering"
+  ],
+  "notIncluded": [],
+  "reason": "All five follow-ups originally deferred from Module 07 now have executable tests or explicit capability checks in Module 10.",
+  "formerlySkippedNowAdded": [
+    "premature closure with payout verification",
+    "maturity closure with final balance reconciliation",
+    "withdrawal, adjustment, and undo transaction",
+    "FD charge create/update/pay/waive/inactivate/delete",
+    "maturity instruction changes"
+  ]
+}

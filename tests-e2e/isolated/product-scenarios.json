@@ -1,0 +1,24 @@
+{
+  "module": "Product setup",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "load loan, savings, fixed-deposit, recurring-deposit, share, floating-rate, and rate reference endpoints",
+    "create, retrieve, update, and list loan product",
+    "reject duplicate loan-product short name",
+    "create, retrieve, update, and list savings product",
+    "create, retrieve, and update fixed-deposit product",
+    "create, retrieve, and update recurring-deposit product",
+    "render product records through FinCraft",
+    "delete disposable savings, fixed-deposit, and recurring-deposit products"
+  ],
+  "notIncluded": [
+    "share-product transactional creation",
+    "floating-rate lifecycle",
+    "rate lifecycle",
+    "product mix",
+    "charges and tax mappings",
+    "cash-accounting GL mappings",
+    "accrual-accounting GL mappings"
+  ],
+  "reason": "The first product pass establishes products required by later loan, savings, FD, and RD account lifecycles. Advanced product sub-lifecycles remain explicitly tracked."
+}

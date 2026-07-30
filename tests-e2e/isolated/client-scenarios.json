@@ -1,0 +1,32 @@
+{
+  "module": "Clients",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "load client, address, office, and staff reference data",
+    "create and verify active person client",
+    "create pending person client",
+    "create active non-person client",
+    "update contact and demographic fields",
+    "reject duplicate external ID",
+    "activate pending client",
+    "create staff, assign client, and unassign client",
+    "identifier create/read/update/delete when configured",
+    "address create/read/update when enabled",
+    "family member create/read/update/delete when configured",
+    "list and search clients",
+    "retrieve client accounts, charges, and transactions",
+    "probe obligee and transfer-proposal details",
+    "render client list and client detail through FinCraft",
+    "reject and withdraw pending clients when reasons are configured",
+    "delete disposable pending client"
+  ],
+  "notIncluded": [
+    "client collateral lifecycle",
+    "client charge payment and waiver",
+    "office transfer acceptance and rejection across two offices",
+    "client closure and reactivation",
+    "document and image multipart upload",
+    "client transaction undo"
+  ],
+  "reason": "These require seeded collateral/charge/reason codes, a second office, or multipart fixtures and are retained as explicit Clients follow-up scenarios."
+}

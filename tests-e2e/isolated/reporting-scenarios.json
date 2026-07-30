@@ -1,0 +1,25 @@
+{
+  "module": "Reporting",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "load report catalogue and report template",
+    "create/read/update/list/delete custom report definition",
+    "reject invalid and duplicate report definitions",
+    "execute custom SQL report as JSON",
+    "validate report columns, rows, and schema",
+    "retrieve available export formats",
+    "probe CSV, XLS, and PDF report outputs",
+    "run representative core portfolio reports",
+    "create/read/update/list/delete report mailing job when supported",
+    "retrieve report mailing run history",
+    "render Reports and Report Mailing pages through FinCraft"
+  ],
+  "notIncluded": [
+    "external Pentaho server rendering with organization-specific templates",
+    "actual outbound email delivery verification",
+    "large-volume report performance and memory benchmarking",
+    "jurisdiction-specific regulatory reports",
+    "MIX/XBRL submission to external services"
+  ],
+  "reason": "These require external infrastructure, production-like data volumes, organization-specific report designs, or third-party submission endpoints and remain explicit Reporting follow-ups."
+}

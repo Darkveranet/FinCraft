@@ -1,0 +1,31 @@
+{
+  "module": "Accounting - Modules 01, 09 and 14",
+  "status": "IMPLEMENTED_PENDING_GITHUB_RUNTIME",
+  "scenarios": [
+    "create GL prerequisites and load advanced templates",
+    "define balanced opening balances and retrieve opening-balance journals",
+    "create/read/update/list/delete GL closure",
+    "create/read/delete financial-activity mapping when an unmapped activity exists",
+    "create/update/list/delete provisioning category when supported",
+    "create/read/update/delete provisioning criteria when supported",
+    "probe provisioning entry and provisioning journal lifecycle",
+    "probe run-accruals command",
+    "post balanced journal and reconcile debit/credit arithmetic",
+    "retrieve GL accounts with running balances",
+    "reverse reconciliation journal",
+    "create/read/update/list tax component and tax group",
+    "render GL closure, provisioning, and financial-activity areas through FinCraft",
+    "trial-balance reconciliation across generated accounting entries",
+    "multi-office GL closure sequencing",
+    "cross-period back-dating rejection after closure",
+    "populated-loan provisioning entry and provisioning journal capability"
+  ],
+  "notIncluded": [],
+  "reason": "All four follow-ups deferred from Module 09 now have executable lifecycle coverage or explicit capability checks in Module 14.",
+  "formerlySkippedNowAdded": [
+    "production-grade trial balance reconciliation across portfolio products",
+    "provisioning journal creation from a populated delinquent-loan portfolio",
+    "multi-office closure sequencing",
+    "cross-period back-dating rejection after closure"
+  ]
+}
