@@ -168,7 +168,7 @@ jobs:
 
       - name: Upload end-to-end evidence
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: isolated-fineract-e2e-${{ github.run_id }}
           path: |
