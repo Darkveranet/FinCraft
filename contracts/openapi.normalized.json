@@ -1,0 +1,584 @@
+{
+  "components": {
+    "schemas": {
+      "Client": {
+        "properties": {
+          "accountNo": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "officeId": {
+            "type": "integer"
+          },
+          "officeName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "ClientCreateRequest": {
+        "properties": {
+          "activationDate": {
+            "format": "date",
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "clientTypeId": {
+            "type": "integer"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "fullname": {
+            "type": "string"
+          },
+          "genderId": {
+            "type": "integer"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "legalFormId": {
+            "type": "integer"
+          },
+          "mobileNo": {
+            "type": "string"
+          },
+          "officeId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "officeId",
+          "legalFormId",
+          "activationDate"
+        ],
+        "type": "object"
+      },
+      "ClientPage": {
+        "properties": {
+          "pageItems": {
+            "items": {
+              "$ref": "#/components/schemas/Client"
+            },
+            "type": "array"
+          },
+          "totalFilteredRecords": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "ClientTemplate": {
+        "properties": {
+          "clientLegalFormOptions": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "clientTypeOptions": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "genderOptions": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "officeOptions": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "staffOptions": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "ClientUpdateRequest": {
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "mobileNo": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CommandResponse": {
+        "properties": {
+          "clientId": {
+            "type": "integer"
+          },
+          "officeId": {
+            "type": "integer"
+          },
+          "resourceId": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "LoanApplicationRequest": {
+        "properties": {
+          "amortizationType": {
+            "enum": [
+              0,
+              1
+            ],
+            "type": "integer"
+          },
+          "clientId": {
+            "type": "integer"
+          },
+          "expectedDisbursementDate": {
+            "format": "date",
+            "type": "string"
+          },
+          "interestRatePerPeriod": {
+            "type": "number"
+          },
+          "interestType": {
+            "enum": [
+              0,
+              1
+            ],
+            "type": "integer"
+          },
+          "loanTermFrequency": {
+            "type": "integer"
+          },
+          "loanTermFrequencyType": {
+            "type": "integer"
+          },
+          "numberOfRepayments": {
+            "type": "integer"
+          },
+          "principal": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "integer"
+          },
+          "submittedOnDate": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "clientId",
+          "productId",
+          "principal",
+          "loanTermFrequency",
+          "expectedDisbursementDate"
+        ],
+        "type": "object"
+      },
+      "LoanApprovalRequest": {
+        "properties": {
+          "approvedLoanAmount": {
+            "type": "number"
+          },
+          "approvedOnDate": {
+            "format": "date",
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "approvedOnDate"
+        ],
+        "type": "object"
+      },
+      "SavingsAccount": {
+        "properties": {
+          "accountNo": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "productId": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "SavingsApplicationRequest": {
+        "properties": {
+          "clientId": {
+            "type": "integer"
+          },
+          "nominalAnnualInterestRate": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "integer"
+          },
+          "submittedOnDate": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "clientId",
+          "productId",
+          "submittedOnDate"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Trimmed offline fallback so the api-automation pipeline is always runnable. Replace by setting FINERACT_SPEC_URL or FINERACT_BASE_URL, or by committing tools/api-automation/cache/fineract.openapi.json.",
+    "title": "Apache Fineract (sample subset)",
+    "version": "1.x"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/clients": {
+      "get": {
+        "operationId": "retrieveAllClients",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "officeId",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientPage"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "List clients",
+        "tags": [
+          "clients"
+        ]
+      },
+      "post": {
+        "operationId": "createClient",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "Create a client",
+        "tags": [
+          "clients"
+        ]
+      }
+    },
+    "/clients/template": {
+      "get": {
+        "operationId": "retrieveClientTemplate",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientTemplate"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "Client create/update template",
+        "tags": [
+          "clients"
+        ]
+      }
+    },
+    "/clients/{clientId}": {
+      "delete": {
+        "operationId": "deleteClient",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "tags": [
+          "clients"
+        ]
+      },
+      "get": {
+        "operationId": "retrieveOneClient",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "Retrieve a client",
+        "tags": [
+          "clients"
+        ]
+      },
+      "put": {
+        "operationId": "updateClient",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "tags": [
+          "clients"
+        ]
+      }
+    },
+    "/loans": {
+      "post": {
+        "operationId": "calculateLoanScheduleOrSubmitLoanApplication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanApplicationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "Submit a loan application",
+        "tags": [
+          "loans"
+        ]
+      }
+    },
+    "/loans/{loanId}?command=approve": {
+      "post": {
+        "operationId": "approveLoanApplication",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "loanId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanApprovalRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "Approve a loan",
+        "tags": [
+          "loans"
+        ]
+      }
+    },
+    "/savingsaccounts": {
+      "get": {
+        "operationId": "retrieveAllSavingsAccounts",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "pageItems": {
+                      "items": {
+                        "$ref": "#/components/schemas/SavingsAccount"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "summary": "List savings accounts",
+        "tags": [
+          "savings"
+        ]
+      },
+      "post": {
+        "operationId": "submitSavingsApplication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SavingsApplicationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "tags": [
+          "savings"
+        ]
+      }
+    }
+  }
+}

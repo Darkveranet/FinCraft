@@ -1,0 +1,473 @@
+{
+  "contracts": {
+    "approveLoanApplication": {
+      "method": "POST",
+      "path": "/loans/{loanId}?command=approve",
+      "pathParams": [
+        "loanId"
+      ],
+      "query": [],
+      "request": {
+        "fields": {
+          "approvedLoanAmount": {
+            "required": false,
+            "type": "number"
+          },
+          "approvedOnDate": {
+            "format": "date",
+            "required": true,
+            "type": "string"
+          },
+          "note": {
+            "required": false,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "requestRef": "#/components/schemas/LoanApprovalRequest",
+      "response": {
+        "fields": {
+          "clientId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "resourceId": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/CommandResponse",
+      "summary": "Approve a loan",
+      "tag": "loans"
+    },
+    "calculateLoanScheduleOrSubmitLoanApplication": {
+      "method": "POST",
+      "path": "/loans",
+      "pathParams": [],
+      "query": [],
+      "request": {
+        "fields": {
+          "amortizationType": {
+            "enum": [
+              0,
+              1
+            ],
+            "required": false,
+            "type": "integer"
+          },
+          "clientId": {
+            "required": true,
+            "type": "integer"
+          },
+          "expectedDisbursementDate": {
+            "format": "date",
+            "required": true,
+            "type": "string"
+          },
+          "interestRatePerPeriod": {
+            "required": false,
+            "type": "number"
+          },
+          "interestType": {
+            "enum": [
+              0,
+              1
+            ],
+            "required": false,
+            "type": "integer"
+          },
+          "loanTermFrequency": {
+            "required": true,
+            "type": "integer"
+          },
+          "loanTermFrequencyType": {
+            "required": false,
+            "type": "integer"
+          },
+          "numberOfRepayments": {
+            "required": false,
+            "type": "integer"
+          },
+          "principal": {
+            "required": true,
+            "type": "number"
+          },
+          "productId": {
+            "required": true,
+            "type": "integer"
+          },
+          "submittedOnDate": {
+            "format": "date",
+            "required": false,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "requestRef": "#/components/schemas/LoanApplicationRequest",
+      "response": {
+        "fields": {
+          "clientId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "resourceId": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/CommandResponse",
+      "summary": "Submit a loan application",
+      "tag": "loans"
+    },
+    "createClient": {
+      "method": "POST",
+      "path": "/clients",
+      "pathParams": [],
+      "query": [],
+      "request": {
+        "fields": {
+          "activationDate": {
+            "format": "date",
+            "required": true,
+            "type": "string"
+          },
+          "active": {
+            "required": false,
+            "type": "boolean"
+          },
+          "clientTypeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "firstname": {
+            "required": false,
+            "type": "string"
+          },
+          "fullname": {
+            "required": false,
+            "type": "string"
+          },
+          "genderId": {
+            "required": false,
+            "type": "integer"
+          },
+          "lastname": {
+            "required": false,
+            "type": "string"
+          },
+          "legalFormId": {
+            "required": true,
+            "type": "integer"
+          },
+          "mobileNo": {
+            "required": false,
+            "type": "string"
+          },
+          "officeId": {
+            "required": true,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "requestRef": "#/components/schemas/ClientCreateRequest",
+      "response": {
+        "fields": {
+          "clientId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "resourceId": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/CommandResponse",
+      "summary": "Create a client",
+      "tag": "clients"
+    },
+    "deleteClient": {
+      "method": "DELETE",
+      "path": "/clients/{clientId}",
+      "pathParams": [
+        "clientId"
+      ],
+      "query": [],
+      "request": null,
+      "requestRef": null,
+      "response": {
+        "fields": {
+          "clientId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "resourceId": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/CommandResponse",
+      "summary": "",
+      "tag": "clients"
+    },
+    "retrieveAllClients": {
+      "method": "GET",
+      "path": "/clients",
+      "pathParams": [],
+      "query": [
+        {
+          "name": "officeId",
+          "required": false,
+          "type": "integer"
+        },
+        {
+          "name": "limit",
+          "required": false,
+          "type": "integer"
+        }
+      ],
+      "request": null,
+      "requestRef": null,
+      "response": {
+        "fields": {
+          "pageItems": {
+            "required": false,
+            "type": "array"
+          },
+          "totalFilteredRecords": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/ClientPage",
+      "summary": "List clients",
+      "tag": "clients"
+    },
+    "retrieveAllSavingsAccounts": {
+      "method": "GET",
+      "path": "/savingsaccounts",
+      "pathParams": [],
+      "query": [],
+      "request": null,
+      "requestRef": null,
+      "response": {
+        "fields": {
+          "pageItems": {
+            "required": false,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": null,
+      "summary": "List savings accounts",
+      "tag": "savings"
+    },
+    "retrieveClientTemplate": {
+      "method": "GET",
+      "path": "/clients/template",
+      "pathParams": [],
+      "query": [],
+      "request": null,
+      "requestRef": null,
+      "response": {
+        "fields": {
+          "clientLegalFormOptions": {
+            "required": false,
+            "type": "array"
+          },
+          "clientTypeOptions": {
+            "required": false,
+            "type": "array"
+          },
+          "genderOptions": {
+            "required": false,
+            "type": "array"
+          },
+          "officeOptions": {
+            "required": false,
+            "type": "array"
+          },
+          "staffOptions": {
+            "required": false,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/ClientTemplate",
+      "summary": "Client create/update template",
+      "tag": "clients"
+    },
+    "retrieveOneClient": {
+      "method": "GET",
+      "path": "/clients/{clientId}",
+      "pathParams": [
+        "clientId"
+      ],
+      "query": [],
+      "request": null,
+      "requestRef": null,
+      "response": {
+        "fields": {
+          "accountNo": {
+            "required": false,
+            "type": "string"
+          },
+          "active": {
+            "required": false,
+            "type": "boolean"
+          },
+          "displayName": {
+            "required": false,
+            "type": "string"
+          },
+          "id": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeName": {
+            "required": false,
+            "type": "string"
+          },
+          "status": {
+            "required": false,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/Client",
+      "summary": "Retrieve a client",
+      "tag": "clients"
+    },
+    "submitSavingsApplication": {
+      "method": "POST",
+      "path": "/savingsaccounts",
+      "pathParams": [],
+      "query": [],
+      "request": {
+        "fields": {
+          "clientId": {
+            "required": true,
+            "type": "integer"
+          },
+          "nominalAnnualInterestRate": {
+            "required": false,
+            "type": "number"
+          },
+          "productId": {
+            "required": true,
+            "type": "integer"
+          },
+          "submittedOnDate": {
+            "format": "date",
+            "required": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "requestRef": "#/components/schemas/SavingsApplicationRequest",
+      "response": {
+        "fields": {
+          "clientId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "resourceId": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/CommandResponse",
+      "summary": "",
+      "tag": "savings"
+    },
+    "updateClient": {
+      "method": "PUT",
+      "path": "/clients/{clientId}",
+      "pathParams": [
+        "clientId"
+      ],
+      "query": [],
+      "request": {
+        "fields": {
+          "firstname": {
+            "required": false,
+            "type": "string"
+          },
+          "lastname": {
+            "required": false,
+            "type": "string"
+          },
+          "mobileNo": {
+            "required": false,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "requestRef": "#/components/schemas/ClientUpdateRequest",
+      "response": {
+        "fields": {
+          "clientId": {
+            "required": false,
+            "type": "integer"
+          },
+          "officeId": {
+            "required": false,
+            "type": "integer"
+          },
+          "resourceId": {
+            "required": false,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "responseRef": "#/components/schemas/CommandResponse",
+      "summary": "",
+      "tag": "clients"
+    }
+  },
+  "generatedAt": "2026-08-01T18:52:16.148Z"
+}

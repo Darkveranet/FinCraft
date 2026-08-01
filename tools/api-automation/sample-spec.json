@@ -1,0 +1,202 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Apache Fineract (sample subset)",
+    "version": "1.x",
+    "description": "Trimmed offline fallback so the api-automation pipeline is always runnable. Replace by setting FINERACT_SPEC_URL or FINERACT_BASE_URL, or by committing tools/api-automation/cache/fineract.openapi.json."
+  },
+  "paths": {
+    "/clients": {
+      "get": {
+        "operationId": "retrieveAllClients",
+        "tags": ["clients"],
+        "summary": "List clients",
+        "parameters": [
+          { "name": "officeId", "in": "query", "required": false, "schema": { "type": "integer" } },
+          { "name": "limit", "in": "query", "required": false, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ClientPage" } } } } }
+      },
+      "post": {
+        "operationId": "createClient",
+        "tags": ["clients"],
+        "summary": "Create a client",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ClientCreateRequest" } } } },
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CommandResponse" } } } } }
+      }
+    },
+    "/clients/template": {
+      "get": {
+        "operationId": "retrieveClientTemplate",
+        "tags": ["clients"],
+        "summary": "Client create/update template",
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ClientTemplate" } } } } }
+      }
+    },
+    "/clients/{clientId}": {
+      "get": {
+        "operationId": "retrieveOneClient",
+        "tags": ["clients"],
+        "summary": "Retrieve a client",
+        "parameters": [{ "name": "clientId", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Client" } } } } }
+      },
+      "put": {
+        "operationId": "updateClient",
+        "tags": ["clients"],
+        "parameters": [{ "name": "clientId", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ClientUpdateRequest" } } } },
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CommandResponse" } } } } }
+      },
+      "delete": {
+        "operationId": "deleteClient",
+        "tags": ["clients"],
+        "parameters": [{ "name": "clientId", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CommandResponse" } } } } }
+      }
+    },
+    "/loans": {
+      "post": {
+        "operationId": "calculateLoanScheduleOrSubmitLoanApplication",
+        "tags": ["loans"],
+        "summary": "Submit a loan application",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoanApplicationRequest" } } } },
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CommandResponse" } } } } }
+      }
+    },
+    "/loans/{loanId}?command=approve": {
+      "post": {
+        "operationId": "approveLoanApplication",
+        "tags": ["loans"],
+        "summary": "Approve a loan",
+        "parameters": [{ "name": "loanId", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoanApprovalRequest" } } } },
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CommandResponse" } } } } }
+      }
+    },
+    "/savingsaccounts": {
+      "get": {
+        "operationId": "retrieveAllSavingsAccounts",
+        "tags": ["savings"],
+        "summary": "List savings accounts",
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "type": "object", "properties": { "pageItems": { "type": "array", "items": { "$ref": "#/components/schemas/SavingsAccount" } } } } } } } }
+      },
+      "post": {
+        "operationId": "submitSavingsApplication",
+        "tags": ["savings"],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SavingsApplicationRequest" } } } },
+        "responses": { "200": { "description": "ok", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CommandResponse" } } } } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CommandResponse": {
+        "type": "object",
+        "properties": {
+          "officeId": { "type": "integer" },
+          "clientId": { "type": "integer" },
+          "resourceId": { "type": "integer" }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "accountNo": { "type": "string" },
+          "status": { "type": "object" },
+          "displayName": { "type": "string" },
+          "officeId": { "type": "integer" },
+          "officeName": { "type": "string" },
+          "active": { "type": "boolean" }
+        }
+      },
+      "ClientPage": {
+        "type": "object",
+        "properties": {
+          "totalFilteredRecords": { "type": "integer" },
+          "pageItems": { "type": "array", "items": { "$ref": "#/components/schemas/Client" } }
+        }
+      },
+      "ClientCreateRequest": {
+        "type": "object",
+        "required": ["officeId", "legalFormId", "activationDate"],
+        "properties": {
+          "officeId": { "type": "integer" },
+          "legalFormId": { "type": "integer" },
+          "firstname": { "type": "string" },
+          "lastname": { "type": "string" },
+          "fullname": { "type": "string" },
+          "mobileNo": { "type": "string" },
+          "active": { "type": "boolean" },
+          "activationDate": { "type": "string", "format": "date" },
+          "genderId": { "type": "integer" },
+          "clientTypeId": { "type": "integer" }
+        }
+      },
+      "ClientUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "firstname": { "type": "string" },
+          "lastname": { "type": "string" },
+          "mobileNo": { "type": "string" }
+        }
+      },
+      "ClientTemplate": {
+        "type": "object",
+        "properties": {
+          "officeOptions": { "type": "array", "items": { "type": "object" } },
+          "staffOptions": { "type": "array", "items": { "type": "object" } },
+          "genderOptions": { "type": "array", "items": { "type": "object" } },
+          "clientTypeOptions": { "type": "array", "items": { "type": "object" } },
+          "clientLegalFormOptions": { "type": "array", "items": { "type": "object" } }
+        }
+      },
+      "LoanApplicationRequest": {
+        "type": "object",
+        "required": ["clientId", "productId", "principal", "loanTermFrequency", "expectedDisbursementDate"],
+        "properties": {
+          "clientId": { "type": "integer" },
+          "productId": { "type": "integer" },
+          "principal": { "type": "number" },
+          "loanTermFrequency": { "type": "integer" },
+          "loanTermFrequencyType": { "type": "integer" },
+          "numberOfRepayments": { "type": "integer" },
+          "interestRatePerPeriod": { "type": "number" },
+          "amortizationType": { "type": "integer", "enum": [0, 1] },
+          "interestType": { "type": "integer", "enum": [0, 1] },
+          "expectedDisbursementDate": { "type": "string", "format": "date" },
+          "submittedOnDate": { "type": "string", "format": "date" }
+        }
+      },
+      "LoanApprovalRequest": {
+        "type": "object",
+        "required": ["approvedOnDate"],
+        "properties": {
+          "approvedOnDate": { "type": "string", "format": "date" },
+          "approvedLoanAmount": { "type": "number" },
+          "note": { "type": "string" }
+        }
+      },
+      "SavingsAccount": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "accountNo": { "type": "string" },
+          "clientId": { "type": "integer" },
+          "productId": { "type": "integer" }
+        }
+      },
+      "SavingsApplicationRequest": {
+        "type": "object",
+        "required": ["clientId", "productId", "submittedOnDate"],
+        "properties": {
+          "clientId": { "type": "integer" },
+          "productId": { "type": "integer" },
+          "submittedOnDate": { "type": "string", "format": "date" },
+          "nominalAnnualInterestRate": { "type": "number" }
+        }
+      }
+    }
+  }
+}

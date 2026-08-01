@@ -1,0 +1,136 @@
+name: API Contract Sync
+
+# Contract-Driven API Automation (see tools/api-automation/README.md).
+# Apache Fineract is the source of truth; this workflow regenerates the FinCraft
+# API client, payload contracts, runtime validators, payload builders, template
+# option maps and command aliases, then opens a PR. Breaking changes go to a
+# DRAFT PR with a review label; additive-only changes go to an auto-mergeable PR.
+on:
+  schedule:
+    # Weekly — Mondays 06:00 UTC.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      spec_url:
+        description: 'Optional OpenAPI spec URL (overrides FINERACT_SPEC_URL secret)'
+        required: false
+        type: string
+      image_ref:
+        description: 'Fineract image to read the spec from (no live instance needed).'
+        required: false
+        type: string
+        default: 'apache/fineract:latest'
+      force:
+        description: 'Ignore the digest short-circuit and regenerate regardless.'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: api-automation
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    name: Regenerate API contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      # The spec is a static file baked into the apache/fineract image, so it is
+      # read with a plain `docker cp` — no running Fineract, no database. A
+      # manifest-only lookup (no layers pulled) makes the common "nothing moved"
+      # run cost seconds.
+      - name: Resolve image digest
+        id: img
+        env:
+          IMAGE_REF: ${{ github.event.inputs.image_ref || 'apache/fineract:latest' }}
+        run: |
+          set -euo pipefail
+          DIGEST="$(docker buildx imagetools inspect "$IMAGE_REF" --format '{{.Manifest.Digest}}')"
+          echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
+          echo "Resolved $IMAGE_REF to $DIGEST"
+
+      # Same digest ⇒ bit-identical image ⇒ the spec inside cannot have changed.
+      - name: Short-circuit if the image has not moved
+        id: gate
+        env:
+          DIGEST: ${{ steps.img.outputs.digest }}
+          FORCE: ${{ github.event.inputs.force }}
+        run: |
+          set -euo pipefail
+          PREV="$(cat contracts/.image-digest 2>/dev/null || echo '')"
+          if [ "$FORCE" != "true" ] && [ -n "$PREV" ] && [ "$PREV" = "$DIGEST" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Image digest unchanged ($DIGEST) — nothing to do." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "$DIGEST" > contracts/.image-digest
+          fi
+
+      - name: Run contract-driven pipeline
+        id: pipeline
+        if: steps.gate.outputs.changed == 'true'
+        env:
+          # Resolution order (first hit wins): explicit spec URL → live base URL →
+          # Docker image (no instance needed) → committed cache → bundled sample.
+          FINERACT_SPEC_URL: ${{ github.event.inputs.spec_url || secrets.FINERACT_SPEC_URL }}
+          FINERACT_BASE_URL: ${{ secrets.FINERACT_BASE_URL }}
+          FINERACT_IMAGE: ${{ github.event.inputs.image_ref || 'apache/fineract:latest' }}
+        run: node tools/api-automation/run.mjs
+
+      - name: Validate generated modules parse
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          for f in js/api/generated/*.js; do
+            node --input-type=module -e "import('./$f').then(()=>console.log('ok: $f'))"
+          done
+
+      - name: Summarise diff into job log
+        if: always()
+        run: |
+          echo '### API Contract Diff' >> "$GITHUB_STEP_SUMMARY"
+          echo "breaking=${{ steps.pipeline.outputs.breaking }}" >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          cat contracts/diff-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      # --- Decision diamond: additive-only → auto-mergeable PR -----------------
+      - name: Create PR (additive — auto-merge)
+        if: steps.pipeline.outputs.breaking == 'false'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: bot/api-contract-sync
+          commit-message: 'chore(api): sync generated contracts (additive)'
+          title: 'chore(api): contract sync — additive changes'
+          body-path: contracts/diff-report.md
+          labels: |
+            api-contract-sync
+            auto-merge
+          delete-branch: true
+
+      # --- Decision diamond: breaking → DRAFT PR + review label ----------------
+      - name: Create PR (breaking — needs review)
+        if: steps.pipeline.outputs.breaking == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: bot/api-contract-sync-breaking
+          commit-message: 'chore(api)!: sync generated contracts (BREAKING)'
+          title: '🚨 chore(api)!: contract sync — BREAKING changes'
+          body-path: contracts/diff-report.md
+          draft: true
+          labels: |
+            api-contract-sync
+            breaking-change
+            needs-review
+          delete-branch: true
