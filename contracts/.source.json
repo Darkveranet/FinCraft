@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-01T19:40:37.950Z",
+  "fetchedAt": "2026-08-01T18:52:16.131Z",
   "openapi": "3.0.3",
-  "origin": "image:apache/fineract:latest"
+  "origin": "sample-spec.json"
 }

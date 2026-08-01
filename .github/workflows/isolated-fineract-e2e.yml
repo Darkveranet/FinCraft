@@ -3,10 +3,10 @@ name: Isolated Fineract Transactional E2E
 on:
   workflow_dispatch:
     inputs:
-      fineract_ref:
-        description: Apache Fineract git ref (release tag, commit, or develop)
+      fineract_image:
+        description: Fineract Docker image for the deployed container system
         required: true
-        default: develop
+        default: apache/fineract:latest
       suite:
         description: Playwright suite to execute
         required: true
@@ -30,7 +30,7 @@ env:
   FINERACT_PASS: password
   E2E_TARGET: isolated-ci
   ALLOW_TRANSACTIONAL_E2E: 'true'
-  FINERACT_REF: ${{ inputs.fineract_ref || 'develop' }}
+  FINERACT_IMAGE: ${{ inputs.fineract_image || 'apache/fineract:latest' }}
 
 jobs:
   transactional-e2e:
@@ -44,19 +44,11 @@ jobs:
       - name: Guard against shared or production target
         run: node scripts/e2e/guard-target.mjs
 
-      - name: Checkout Apache Fineract test stack
-        run: |
-          git clone --depth 1 --branch "$FINERACT_REF" https://github.com/apache/fineract.git "$RUNNER_TEMP/fineract" || {
-            git clone https://github.com/apache/fineract.git "$RUNNER_TEMP/fineract"
-            git -C "$RUNNER_TEMP/fineract" checkout "$FINERACT_REF"
-          }
-
-      - name: Start disposable PostgreSQL and Fineract
-        working-directory: ${{ runner.temp }}/fineract
-        run: docker compose -f docker-compose-postgresql.yml up -d
-
-      - name: Wait for Fineract readiness
-        run: scripts/e2e/wait-fineract.sh
+      # Boot the SAME deployed container system (Postgres + Fineract) used by
+      # tests.yml and the API-automation pipeline — no cloning apache/fineract,
+      # no second compose file. stack-up.sh also waits for actuator health.
+      - name: Boot deployed container system (Postgres + Fineract)
+        run: bash scripts/e2e/stack-up.sh
 
       - name: Set up Node
         uses: actions/setup-node@v7
@@ -161,11 +153,6 @@ jobs:
         if: ${{ inputs.suite != 'client' && inputs.suite != 'accounting' && inputs.suite != 'products' && inputs.suite != 'clients' && inputs.suite != 'groups-centers' && inputs.suite != 'savings' && inputs.suite != 'loans' && inputs.suite != 'fixed-deposits' && inputs.suite != 'recurring-deposits' && inputs.suite != 'accounting-advanced' && inputs.suite != 'fixed-deposits-extended' && inputs.suite != 'recurring-deposits-extended' && inputs.suite != 'taxation' && inputs.suite != 'reporting' && inputs.suite != 'accounting-completion' && inputs.suite != 'security' && inputs.suite != 'notifications' && inputs.suite != 'shares' && inputs.suite != 'savings-extended' && inputs.suite != 'loans-extended' && inputs.suite != 'settings' }}
         run: npx playwright test tests-e2e/isolated
 
-      - name: Export Fineract logs
-        if: always()
-        working-directory: ${{ runner.temp }}/fineract
-        run: docker compose -f docker-compose-postgresql.yml logs --no-color > "$GITHUB_WORKSPACE/fineract-containers.log" 2>&1 || true
-
       - name: Upload end-to-end evidence
         if: always()
         uses: actions/upload-artifact@v7
@@ -181,7 +168,8 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-      - name: Destroy disposable environment
+      # Exports container logs to fineract-containers.log, then destroys the
+      # deployed container system (and its volume). Same helper as tests.yml.
+      - name: Tear down deployed container system
         if: always()
-        working-directory: ${{ runner.temp }}/fineract
-        run: docker compose -f docker-compose-postgresql.yml down --volumes --remove-orphans || true
+        run: bash scripts/e2e/stack-down.sh fineract-containers.log

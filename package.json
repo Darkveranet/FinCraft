@@ -10,9 +10,15 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "e2e": "playwright test",
+    "e2e:up": "bash scripts/e2e/stack-up.sh",
+    "e2e:down": "bash scripts/e2e/stack-down.sh",
+    "e2e:container": "bash scripts/e2e/stack-up.sh && FINERACT_URL=https://127.0.0.1:8443 FINERACT_TENANT=default FINERACT_USER=mifos FINERACT_PASS=password playwright test; code=$?; bash scripts/e2e/stack-down.sh; exit $code",
     "verify": "npm run scan && npm test",
     "api:fetch": "node tools/api-automation/fetch-spec.mjs",
     "api:from-image": "FINERACT_IMAGE=${FINERACT_IMAGE:-apache/fineract:latest} node tools/api-automation/run.mjs",
+    "api:from-live": "bash tools/api-automation/live-run.sh",
+    "api:up": "npm run e2e:up",
+    "api:down": "npm run e2e:down",
     "api:normalize": "node tools/api-automation/normalize-spec.mjs",
     "api:generate": "node tools/api-automation/run.mjs --generate",
     "api:diff": "node tools/api-automation/diff-contracts.mjs",
@@ -20,7 +26,7 @@
   },
   "//devDependencies-note": "eslint, globals, prettier and @playwright/test are optional tooling. They are intentionally NOT declared here so `npm ci` stays in sync with the committed package-lock.json (which is what tests.yml relies on). Install locally with: npm i -D eslint globals prettier @playwright/test && npx playwright install chromium. CI (quality.yml) installs them on demand.",
   "devDependencies": {
-    "jsdom": "^30.0.1"
+    "jsdom": "^30.0.0"
   },
   "dependencies": {
     "acorn": "^8.18.0",

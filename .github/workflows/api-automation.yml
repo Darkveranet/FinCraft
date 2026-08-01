@@ -20,6 +20,12 @@ on:
         required: false
         type: string
         default: 'apache/fineract:latest'
+      source:
+        description: 'Where to read the spec from: image (fast, static docker cp) or live (boot Fineract + Postgres in Docker and read from the running instance).'
+        required: false
+        type: choice
+        default: image
+        options: [image, live]
       force:
         description: 'Ignore the digest short-circuit and regenerate regardless.'
         required: false
@@ -48,12 +54,21 @@ jobs:
 
       - run: npm ci
 
+      # ---------------------------------------------------------------------
+      # SOURCE = image (default) → static `docker cp` off the image, no boot.
+      # SOURCE = live            → boot Postgres + Fineract in Docker and read
+      #                            the spec from the running instance.
+      # Scheduled runs always use the fast `image` path.
+      # ---------------------------------------------------------------------
+
+      # --- IMAGE PATH -------------------------------------------------------
       # The spec is a static file baked into the apache/fineract image, so it is
       # read with a plain `docker cp` — no running Fineract, no database. A
       # manifest-only lookup (no layers pulled) makes the common "nothing moved"
       # run cost seconds.
       - name: Resolve image digest
         id: img
+        if: ${{ (github.event.inputs.source || 'image') == 'image' }}
         env:
           IMAGE_REF: ${{ github.event.inputs.image_ref || 'apache/fineract:latest' }}
         run: |
@@ -65,6 +80,7 @@ jobs:
       # Same digest ⇒ bit-identical image ⇒ the spec inside cannot have changed.
       - name: Short-circuit if the image has not moved
         id: gate
+        if: ${{ (github.event.inputs.source || 'image') == 'image' }}
         env:
           DIGEST: ${{ steps.img.outputs.digest }}
           FORCE: ${{ github.event.inputs.force }}
@@ -79,19 +95,44 @@ jobs:
             echo "$DIGEST" > contracts/.image-digest
           fi
 
+      # --- LIVE PATH --------------------------------------------------------
+      # Boot the SAME deployed container system (Postgres + Fineract) that
+      # tests.yml and isolated-fineract-e2e.yml use — one shared boot script,
+      # scripts/e2e/stack-up.sh — then read the spec from the running instance.
+      # Torn down in `always()` below.
+      - name: Boot deployed container system (Postgres + Fineract)
+        if: ${{ github.event.inputs.source == 'live' }}
+        env:
+          # stack-up.sh polls FINERACT_URL for actuator health.
+          FINERACT_URL: https://127.0.0.1:8443
+          WAIT_TRIES: '90'
+          WAIT_INTERVAL: '10'
+        run: bash scripts/e2e/stack-up.sh
+
       - name: Run contract-driven pipeline
         id: pipeline
-        if: steps.gate.outputs.changed == 'true'
+        # Run when: live mode, OR image mode with a moved digest.
+        if: ${{ github.event.inputs.source == 'live' || steps.gate.outputs.changed == 'true' }}
         env:
           # Resolution order (first hit wins): explicit spec URL → live base URL →
           # Docker image (no instance needed) → committed cache → bundled sample.
-          FINERACT_SPEC_URL: ${{ github.event.inputs.spec_url || secrets.FINERACT_SPEC_URL }}
-          FINERACT_BASE_URL: ${{ secrets.FINERACT_BASE_URL }}
-          FINERACT_IMAGE: ${{ github.event.inputs.image_ref || 'apache/fineract:latest' }}
+          # In live mode we pin FINERACT_BASE_URL at the local stack and disable
+          # TLS verification (self-signed cert on :8443).
+          FINERACT_SPEC_URL: ${{ github.event.inputs.source == 'live' && '' || (github.event.inputs.spec_url || secrets.FINERACT_SPEC_URL) }}
+          FINERACT_BASE_URL: ${{ github.event.inputs.source == 'live' && 'https://127.0.0.1:8443' || secrets.FINERACT_BASE_URL }}
+          FINERACT_IMAGE: ${{ github.event.inputs.source == 'live' && '' || (github.event.inputs.image_ref || 'apache/fineract:latest') }}
+          NODE_TLS_REJECT_UNAUTHORIZED: ${{ github.event.inputs.source == 'live' && '0' || '1' }}
         run: node tools/api-automation/run.mjs
 
+      # Exports container logs to fineract-live.log, then destroys the deployed
+      # container system (and its volume). Same shared helper as tests.yml and
+      # isolated-fineract-e2e.yml.
+      - name: Tear down deployed container system
+        if: ${{ always() && github.event.inputs.source == 'live' }}
+        run: bash scripts/e2e/stack-down.sh fineract-live.log
+
       - name: Validate generated modules parse
-        if: steps.gate.outputs.changed == 'true'
+        if: ${{ github.event.inputs.source == 'live' || steps.gate.outputs.changed == 'true' }}
         run: |
           for f in js/api/generated/*.js; do
             node --input-type=module -e "import('./$f').then(()=>console.log('ok: $f'))"
@@ -108,7 +149,7 @@ jobs:
       # --- Decision diamond: additive-only → auto-mergeable PR -----------------
       - name: Create PR (additive — auto-merge)
         if: steps.pipeline.outputs.breaking == 'false'
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v7
         with:
           branch: bot/api-contract-sync
           commit-message: 'chore(api): sync generated contracts (additive)'
@@ -122,7 +163,7 @@ jobs:
       # --- Decision diamond: breaking → DRAFT PR + review label ----------------
       - name: Create PR (breaking — needs review)
         if: steps.pipeline.outputs.breaking == 'true'
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v7
         with:
           branch: bot/api-contract-sync-breaking
           commit-message: 'chore(api)!: sync generated contracts (BREAKING)'

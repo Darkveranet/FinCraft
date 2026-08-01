@@ -69,6 +69,63 @@ npm run api:diff         # re-run breaking-change detection
 To pin a specific upstream, drop the real Fineract OpenAPI JSON into
 `cache/fineract.openapi.json` and commit it — CI then runs fully deterministically.
 
+## Run against a live Fineract (Docker + Postgres)
+
+The image path above reads the *static* spec baked into the image. If you want
+the spec from a **real, running** Fineract — the truly authoritative live
+surface (priority #2, `FINERACT_BASE_URL`) — stand up a disposable
+Postgres + Fineract stack and point the pipeline at it:
+
+```bash
+npm run api:from-live        # boot stack → wait healthy → run pipeline → tear down
+```
+
+That one-shot wraps `tools/api-automation/live-run.sh`, which is a thin wrapper
+around the **shared** stack helpers used by every test tier — so the
+API-automation live path, `tests.yml` and `isolated-fineract-e2e.yml` all boot
+the **exact same stack from one script** (`scripts/e2e/stack-up.sh` /
+`stack-down.sh`). It:
+
+1. `scripts/e2e/stack-up.sh` — brings up Postgres 16 + `apache/fineract:latest`
+   (from `docker-compose.fineract.yml`, wired with the same `deploy/init-db`
+   init script production uses) **and** polls `/fineract-provider/actuator/health`
+   until `UP`. The **first** cold boot runs Fineract's full Liquibase migration,
+   so allow a few minutes; warm re-runs are quick.
+2. Runs `run.mjs` with `FINERACT_BASE_URL=https://127.0.0.1:8443` and
+   `NODE_TLS_REJECT_UNAUTHORIZED=0` (the disposable server uses a self-signed
+   cert on :8443).
+3. `scripts/e2e/stack-down.sh` — exports container logs to `fineract-live.log`,
+   then tears the stack **and its volume** down on exit (`KEEP_UP=1` leaves it
+   running for debugging).
+
+Manual control if you'd rather drive it yourself:
+
+```bash
+npm run e2e:up               # bring the shared stack up (waits for health)
+FINERACT_BASE_URL=https://127.0.0.1:8443 NODE_TLS_REJECT_UNAUTHORIZED=0 \
+  node tools/api-automation/run.mjs
+npm run e2e:down             # bring it down + drop the volume
+```
+
+> `npm run api:up` / `api:down` remain as aliases of `e2e:up` / `e2e:down` for
+> muscle memory, but they drive the same shared helpers.
+
+Override defaults (image tags, throwaway passwords, wait timing) via
+`tools/api-automation/.env.fineract.example` → copy to `.env.fineract`.
+
+**Image vs. live — which to use?**
+
+| | `image` (default) | `live` |
+| --- | --- | --- |
+| Speed | Seconds (`docker cp`, no boot) | Minutes on first cold boot |
+| Needs a DB | No | Yes (Postgres, in-compose) |
+| Spec source | Static file in the image | Running instance's published spec |
+| Best for | Weekly CI, fast local regen | Verifying the live, deployed surface |
+
+In CI, `api-automation.yml` defaults to `image` (including the weekly schedule).
+Trigger a live run via **Run workflow → source: live**, which boots the same
+compose stack on the runner, reads the spec from it, then tears it down.
+
 ## Generated artefacts (do not hand-edit)
 
 Everything lands in `js/api/generated/` and re-exports from `index.js`:

@@ -42,20 +42,26 @@ jobs:
       - name: Run tests
         run: npm test
 
-  demo-e2e:
-    name: Playwright - live Fineract demo
+  container-e2e:
+    name: Playwright - deployed container system
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    # The public demo is shared and periodically reset. Keep runs serialized so
-    # this repository does not create avoidable load or race with itself.
+    timeout-minutes: 45
+    # Every push/PR runs the authenticated E2E suite against a self-contained,
+    # disposable Postgres + Fineract stack (the deployed container system),
+    # NOT the shared public demo — so runs are hermetic, writable and
+    # reproducible. Serialize per-ref so concurrent runs don't fight over the
+    # fixed host ports (5432/8443) on the runner.
     concurrency:
-      group: fincraft-fineract-demo-e2e
+      group: fincraft-container-e2e-${{ github.ref }}
       cancel-in-progress: false
     env:
-      FINERACT_URL: ${{ secrets.FINERACT_URL || 'https://apis.mifos.community' }}
-      FINERACT_TENANT: ${{ secrets.FINERACT_TENANT || 'default' }}
-      FINERACT_USER: ${{ secrets.FINERACT_USER || 'mifos' }}
-      FINERACT_PASS: ${{ secrets.FINERACT_PASS || 'password' }}
+      # Point every Fineract-touching spec at the local container stack.
+      FINERACT_URL: https://127.0.0.1:8443
+      FINERACT_TENANT: default
+      FINERACT_USER: mifos
+      FINERACT_PASS: password
+      # Pin the image here so it's the single knob for the whole suite.
+      FINERACT_IMAGE: apache/fineract:latest
       CI: 'true'
     steps:
       - name: Checkout
@@ -70,67 +76,31 @@ jobs:
       - name: Install application dependencies
         run: npm ci
 
-      # Resolve the public demo before downloading the browser. The Mifos
-      # community demo hostname can change, while self-hosted users normally
-      # provide FINERACT_URL as a repository secret.
-      - name: Resolve and verify live Fineract API
-        shell: bash
-        run: |
-          set -euo pipefail
-          auth="Basic $(printf '%s' "$FINERACT_USER:$FINERACT_PASS" | base64 -w0)"
-          configured="${FINERACT_URL%/}"
-          candidates=(
-            "$configured"
-            "https://demo.mifos.io"
-            "https://fineract-vm.apache.org"
-          )
-
-          : > /tmp/fineract-probe.log
-          resolved=""
-          for host in "${candidates[@]}"; do
-            # Skip duplicate fallback values.
-            grep -Fxq "$host" /tmp/fineract-hosts-seen 2>/dev/null && continue
-            echo "$host" >> /tmp/fineract-hosts-seen
-            endpoint="$host/fineract-provider/api/v1/offices"
-            code=$(curl --location --silent --show-error \
-              --connect-timeout 15 --max-time 45 \
-              -H "Fineract-Platform-TenantId: $FINERACT_TENANT" \
-              -H "Authorization: $auth" \
-              -H "Accept: application/json" \
-              -o /tmp/fineract-offices.json \
-              -w '%{http_code}' "$endpoint" || true)
-            printf '%s -> HTTP %s\n' "$endpoint" "$code" | tee -a /tmp/fineract-probe.log
-            if [[ "$code" =~ ^2 ]] && node -e               "const fs=require('fs'); const x=JSON.parse(fs.readFileSync('/tmp/fineract-offices.json','utf8')); if(!Array.isArray(x)) process.exit(1)"; then
-              resolved="$host"
-              break
-            fi
-          done
-
-          if [ -z "$resolved" ]; then
-            echo '::error::No compatible live Fineract API was reachable with the configured credentials.'
-            echo 'Set FINERACT_URL, FINERACT_TENANT, FINERACT_USER, and FINERACT_PASS repository secrets to a writable test tenant.'
-            cat /tmp/fineract-probe.log
-            exit 1
-          fi
-
-          echo "FINERACT_URL=$resolved" >> "$GITHUB_ENV"
-          echo "Resolved Fineract API host: $resolved"
+      # Boot the SAME deployed container system used by the isolated suite and
+      # the API-automation pipeline (single source of truth).
+      - name: Boot deployed container system (Postgres + Fineract)
+        run: bash scripts/e2e/stack-up.sh
 
       - name: Install Playwright
         run: |
           npm install --no-save @playwright/test
           npx playwright install --with-deps chromium
 
-      - name: Run authenticated read-only E2E suite
+      - name: Run authenticated E2E suite against the container stack
         run: npx playwright test tests-e2e/smoke.spec.mjs tests-e2e/demo-e2e.spec.mjs
+
+      - name: Tear down deployed container system
+        if: always()
+        run: bash scripts/e2e/stack-down.sh fineract-container-e2e.log
 
       - name: Upload Playwright evidence
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: fincraft-fineract-demo-playwright
+          name: fincraft-container-e2e-playwright
           path: |
             playwright-report/
             test-results/
+            fineract-container-e2e.log
           if-no-files-found: ignore
           retention-days: 14

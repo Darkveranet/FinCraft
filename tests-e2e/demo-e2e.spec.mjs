@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 const AUTH = {
-  url: process.env.FINERACT_URL || 'https://apis.mifos.community',
+  // Default to the deployed container system (scripts/e2e/stack-up.sh); env
+  // overrides it in CI. No shared public demo.
+  url: process.env.FINERACT_URL || 'https://127.0.0.1:8443',
   tenant: process.env.FINERACT_TENANT || 'default',
   user: process.env.FINERACT_USER || 'mifos',
   pass: process.env.FINERACT_PASS || 'password',
