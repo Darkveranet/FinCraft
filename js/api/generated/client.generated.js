@@ -9,36 +9,1903 @@
 // Each factory mirrors the curated js/api/*.js style: closures over `self`
 // (a FineractAPI instance) using the private _g/_p/_u/_d request verbs.
 
-export function makeClientsAPI(self) {
+export function makeAccountNumberFormatAPI(self) {
   return {
-    retrieveAllClients: (params) => self._g(`/clients`, params), // GET /clients
-    create: (body) => self._p(`/clients`, body), // POST /clients
-    retrieveOneClient: (clientId, params) => self._g(`/clients/${clientId}`, params), // GET /clients/{clientId}
-    update: (clientId, body) => self._u(`/clients/${clientId}`, body), // PUT /clients/{clientId}
-    delete: (clientId, body) => self._d(`/clients/${clientId}`, body), // DELETE /clients/{clientId}
-    retrieveTemplate: (params) => self._g(`/clients/template`, params), // GET /clients/template
+    retrieveAllAccountNumberFormats: (params) => self._g(`/v1/accountnumberformats`, params), // GET /v1/accountnumberformats
+    create: (body) => self._p(`/v1/accountnumberformats`, body), // POST /v1/accountnumberformats
+    retrieveOneAccountNumberFormat: (accountNumberFormatId, params) => self._g(`/v1/accountnumberformats/${accountNumberFormatId}`, params), // GET /v1/accountnumberformats/{accountNumberFormatId}
+    update: (accountNumberFormatId, body) => self._u(`/v1/accountnumberformats/${accountNumberFormatId}`, body), // PUT /v1/accountnumberformats/{accountNumberFormatId}
+    delete: (accountNumberFormatId, body) => self._d(`/v1/accountnumberformats/${accountNumberFormatId}`, body), // DELETE /v1/accountnumberformats/{accountNumberFormatId}
+    retrieveTemplateAccountNumberFormat: (params) => self._g(`/v1/accountnumberformats/template`, params), // GET /v1/accountnumberformats/template
+  };
+}
+
+export function makeAccountTransfersAPI(self) {
+  return {
+    retrieveAllAccountTransfers: (params) => self._g(`/v1/accounttransfers`, params), // GET /v1/accounttransfers
+    create: (body) => self._p(`/v1/accounttransfers`, body), // POST /v1/accounttransfers
+    operation: (accountTransferId, body) => self._p(`/v1/accounttransfers/${accountTransferId}`, body), // POST /v1/accounttransfers/{accountTransferId}
+    retrieveOneAccountTransfer: (transferId, params) => self._g(`/v1/accounttransfers/${transferId}`, params), // GET /v1/accounttransfers/{transferId}
+    refundByTransfer: (body) => self._p(`/v1/accounttransfers/refundByTransfer`, body), // POST /v1/accounttransfers/refundByTransfer
+    retrieveTemplateAccountTransfer: (params) => self._g(`/v1/accounttransfers/template`, params), // GET /v1/accounttransfers/template
+    retrieveTemplateRefundByTransfer: (params) => self._g(`/v1/accounttransfers/templateRefundByTransfer`, params), // GET /v1/accounttransfers/templateRefundByTransfer
+  };
+}
+
+export function makeAccountingClosureAPI(self) {
+  return {
+    retrieveAllGLClosures: (params) => self._g(`/v1/glclosures`, params), // GET /v1/glclosures
+    createGLClosure: (body) => self._p(`/v1/glclosures`, body), // POST /v1/glclosures
+    retrieveOneGLClosure: (glClosureId, params) => self._g(`/v1/glclosures/${glClosureId}`, params), // GET /v1/glclosures/{glClosureId}
+    updateGLClosure: (glClosureId, body) => self._u(`/v1/glclosures/${glClosureId}`, body), // PUT /v1/glclosures/{glClosureId}
+    deleteGLClosure: (glClosureId, body) => self._d(`/v1/glclosures/${glClosureId}`, body), // DELETE /v1/glclosures/{glClosureId}
+  };
+}
+
+export function makeAccountingRulesAPI(self) {
+  return {
+    retrieveAllAccountingRules: (params) => self._g(`/v1/accountingrules`, params), // GET /v1/accountingrules
+    create: (body) => self._p(`/v1/accountingrules`, body), // POST /v1/accountingrules
+    retrieveOneAccountingRule: (accountingRuleId, params) => self._g(`/v1/accountingrules/${accountingRuleId}`, params), // GET /v1/accountingrules/{accountingRuleId}
+    update: (accountingRuleId, body) => self._u(`/v1/accountingrules/${accountingRuleId}`, body), // PUT /v1/accountingrules/{accountingRuleId}
+    delete: (accountingRuleId, body) => self._d(`/v1/accountingrules/${accountingRuleId}`, body), // DELETE /v1/accountingrules/{accountingRuleId}
+    retrieveTemplateAccountingRule: (params) => self._g(`/v1/accountingrules/template`, params), // GET /v1/accountingrules/template
+  };
+}
+
+export function makeAdhocQueryApiAPI(self) {
+  return {
+    retrieveAll1: (params) => self._g(`/v1/adhocquery`, params), // GET /v1/adhocquery
+    createAdHocQuery: (body) => self._p(`/v1/adhocquery`, body), // POST /v1/adhocquery
+    retrieveAdHocQuery: (adHocId, params) => self._g(`/v1/adhocquery/${adHocId}`, params), // GET /v1/adhocquery/{adHocId}
+    update: (adHocId, body) => self._u(`/v1/adhocquery/${adHocId}`, body), // PUT /v1/adhocquery/{adHocId}
+    deleteAdHocQuery: (adHocId, body) => self._d(`/v1/adhocquery/${adHocId}`, body), // DELETE /v1/adhocquery/{adHocId}
+    template: (params) => self._g(`/v1/adhocquery/template`, params), // GET /v1/adhocquery/template
+  };
+}
+
+export function makeApplicationWadlAPI(self) {
+  return {
+    getWadl: (params) => self._g(`/application.wadl`, params), // GET /application.wadl
+    getExternalGrammar: (path, params) => self._g(`/application.wadl/${path}`, params), // GET /application.wadl/{path}
+  };
+}
+
+export function makeAuditsAPI(self) {
+  return {
+    retrieveEntries: (params) => self._g(`/v1/audits`, params), // GET /v1/audits
+    retrieveEntry: (auditId, params) => self._g(`/v1/audits/${auditId}`, params), // GET /v1/audits/{auditId}
+    retrieveSearchTemplate: (params) => self._g(`/v1/audits/searchtemplate`, params), // GET /v1/audits/searchtemplate
+  };
+}
+
+export function makeAuthenticationHTTPBasicAPI(self) {
+  return {
+    authenticate: (body) => self._p(`/v1/authentication`, body), // POST /v1/authentication
+  };
+}
+
+export function makeBatchAPIAPI(self) {
+  return {
+    handleBatchRequests: (body) => self._p(`/v1/batches`, body), // POST /v1/batches
+  };
+}
+
+export function makeBulkImportAPI(self) {
+  return {
+    retrieveImportDocuments: (params) => self._g(`/v1/imports`, params), // GET /v1/imports
+    getOutputTemplate: (params) => self._g(`/v1/imports/downloadOutputTemplate`, params), // GET /v1/imports/downloadOutputTemplate
+    retriveOutputTemplateLocation: (params) => self._g(`/v1/imports/getOutputTemplateLocation`, params), // GET /v1/imports/getOutputTemplateLocation
+  };
+}
+
+export function makeBulkLoansAPI(self) {
+  return {
+    loanReassignment: (body) => self._p(`/v1/loans/loanreassignment`, body), // POST /v1/loans/loanreassignment
+    loanReassignmentTemplate: (params) => self._g(`/v1/loans/loanreassignment/template`, params), // GET /v1/loans/loanreassignment/template
+  };
+}
+
+export function makeBusinessDateManagementAPI(self) {
+  return {
+    getBusinessDates: (params) => self._g(`/v1/businessdate`, params), // GET /v1/businessdate
+    updateBusinessDate: (body) => self._p(`/v1/businessdate`, body), // POST /v1/businessdate
+    getBusinessDate: (type, params) => self._g(`/v1/businessdate/${type}`, params), // GET /v1/businessdate/{type}
+  };
+}
+
+export function makeBusinessStepConfigurationAPI(self) {
+  return {
+    retrieveAllAvailableBusinessStep: (jobName, params) => self._g(`/v1/jobs/${jobName}/available-steps`, params), // GET /v1/jobs/{jobName}/available-steps
+    retrieveAllConfiguredBusinessStep: (jobName, params) => self._g(`/v1/jobs/${jobName}/steps`, params), // GET /v1/jobs/{jobName}/steps
+    updateJobBusinessStepConfig: (jobName, body) => self._u(`/v1/jobs/${jobName}/steps`, body), // PUT /v1/jobs/{jobName}/steps
+    retrieveAllConfiguredBusinessJobs: (params) => self._g(`/v1/jobs/names`, params), // GET /v1/jobs/names
+  };
+}
+
+export function makeCacheAPI(self) {
+  return {
+    retrieveAll2: (params) => self._g(`/v1/caches`, params), // GET /v1/caches
+    switchCache: (body) => self._u(`/v1/caches`, body), // PUT /v1/caches
+  };
+}
+
+export function makeCalendarAPI(self) {
+  return {
+    retrievesByEntityId: (entityType, entityId, params) => self._g(`/v1/${entityType}/${entityId}/calendars`, params), // GET /v1/{entityType}/{entityId}/calendars
+    create: (entityType, entityId, body) => self._p(`/v1/${entityType}/${entityId}/calendars`, body), // POST /v1/{entityType}/{entityId}/calendars
+    retrieve: (entityType, entityId, calendarId, params) => self._g(`/v1/${entityType}/${entityId}/calendars/${calendarId}`, params), // GET /v1/{entityType}/{entityId}/calendars/{calendarId}
+    update: (entityType, entityId, calendarId, body) => self._u(`/v1/${entityType}/${entityId}/calendars/${calendarId}`, body), // PUT /v1/{entityType}/{entityId}/calendars/{calendarId}
+    delete: (entityType, entityId, calendarId, body) => self._d(`/v1/${entityType}/${entityId}/calendars/${calendarId}`, body), // DELETE /v1/{entityType}/{entityId}/calendars/{calendarId}
+    retrieveTemplateCalendar: (entityType, entityId, params) => self._g(`/v1/${entityType}/${entityId}/calendars/template`, params), // GET /v1/{entityType}/{entityId}/calendars/template
+  };
+}
+
+export function makeCashierJournalsAPI(self) {
+  return {
+    retrieveAllCashierJournals: (params) => self._g(`/v1/cashiersjournal`, params), // GET /v1/cashiersjournal
+  };
+}
+
+export function makeCashiersAPI(self) {
+  return {
+    retrieveAllCashiers: (params) => self._g(`/v1/cashiers`, params), // GET /v1/cashiers
+  };
+}
+
+export function makeCentersAPI(self) {
+  return {
+    retrieveAllCenters: (params) => self._g(`/v1/centers`, params), // GET /v1/centers
+    create: (body) => self._p(`/v1/centers`, body), // POST /v1/centers
+    retrieveOneCenter: (centerId, params) => self._g(`/v1/centers/${centerId}`, params), // GET /v1/centers/{centerId}
+    update: (centerId, body) => self._u(`/v1/centers/${centerId}`, body), // PUT /v1/centers/{centerId}
+    handleCommandsCenter: (centerId, body) => self._p(`/v1/centers/${centerId}`, body), // POST /v1/centers/{centerId}
+    delete: (centerId, body) => self._d(`/v1/centers/${centerId}`, body), // DELETE /v1/centers/{centerId}
+    retrieveGroupAccountsCenter: (centerId, params) => self._g(`/v1/centers/${centerId}/accounts`, params), // GET /v1/centers/{centerId}/accounts
+    getBulkTemplateCenter: (params) => self._g(`/v1/centers/downloadtemplate`, params), // GET /v1/centers/downloadtemplate
+    retrieveTemplateCenter: (params) => self._g(`/v1/centers/template`, params), // GET /v1/centers/template
+    postBulkTemplateCenter: (body) => self._p(`/v1/centers/uploadtemplate`, body), // POST /v1/centers/uploadtemplate
+  };
+}
+
+export function makeChargesAPI(self) {
+  return {
+    retrieveAllCharges: (params) => self._g(`/v1/charges`, params), // GET /v1/charges
+    create: (body) => self._p(`/v1/charges`, body), // POST /v1/charges
+    retrieveOneCharge: (chargeId, params) => self._g(`/v1/charges/${chargeId}`, params), // GET /v1/charges/{chargeId}
+    update: (chargeId, body) => self._u(`/v1/charges/${chargeId}`, body), // PUT /v1/charges/{chargeId}
+    delete: (chargeId, body) => self._d(`/v1/charges/${chargeId}`, body), // DELETE /v1/charges/{chargeId}
+    retrieveTemplateCharge: (params) => self._g(`/v1/charges/template`, params), // GET /v1/charges/template
+  };
+}
+
+export function makeClientAPI(self) {
+  return {
+    retrieveAllClients: (params) => self._g(`/v1/clients`, params), // GET /v1/clients
+    create: (body) => self._p(`/v1/clients`, body), // POST /v1/clients
+    retrieveOneClient: (clientId, params) => self._g(`/v1/clients/${clientId}`, params), // GET /v1/clients/{clientId}
+    update: (clientId, body) => self._u(`/v1/clients/${clientId}`, body), // PUT /v1/clients/{clientId}
+    handleCommandClient: (clientId, body) => self._p(`/v1/clients/${clientId}`, body), // POST /v1/clients/{clientId}
+    delete: (clientId, body) => self._d(`/v1/clients/${clientId}`, body), // DELETE /v1/clients/{clientId}
+    retrieveAllClientAccounts: (clientId, params) => self._g(`/v1/clients/${clientId}/accounts`, params), // GET /v1/clients/{clientId}/accounts
+    retrieveObligeeDetails: (clientId, params) => self._g(`/v1/clients/${clientId}/obligeedetails`, params), // GET /v1/clients/{clientId}/obligeedetails
+    retrieveTransferTemplate: (clientId, params) => self._g(`/v1/clients/${clientId}/transferproposaldate`, params), // GET /v1/clients/{clientId}/transferproposaldate
+    getTemplate: (params) => self._g(`/v1/clients/downloadtemplate`, params), // GET /v1/clients/downloadtemplate
+    retrieveOneClientByExternalId: (externalId, params) => self._g(`/v1/clients/external-id/${externalId}`, params), // GET /v1/clients/external-id/{externalId}
+    updateByExternalId: (externalId, body) => self._u(`/v1/clients/external-id/${externalId}`, body), // PUT /v1/clients/external-id/{externalId}
+    handleCommandClientByExternalId: (externalId, body) => self._p(`/v1/clients/external-id/${externalId}`, body), // POST /v1/clients/external-id/{externalId}
+    deleteByExternalId: (externalId, body) => self._d(`/v1/clients/external-id/${externalId}`, body), // DELETE /v1/clients/external-id/{externalId}
+    retrieveAllClientAccountsByExternalId: (externalId, params) => self._g(`/v1/clients/external-id/${externalId}/accounts`, params), // GET /v1/clients/external-id/{externalId}/accounts
+    retrieveObligeeDetailsByExternalId: (externalId, params) => self._g(`/v1/clients/external-id/${externalId}/obligeedetails`, params), // GET /v1/clients/external-id/{externalId}/obligeedetails
+    retrieveTransferTemplateByExternalId: (externalId, params) => self._g(`/v1/clients/external-id/${externalId}/transferproposaldate`, params), // GET /v1/clients/external-id/{externalId}/transferproposaldate
+    retrieveTemplateClient: (params) => self._g(`/v1/clients/template`, params), // GET /v1/clients/template
+    postTemplate: (body) => self._p(`/v1/clients/uploadtemplate`, body), // POST /v1/clients/uploadtemplate
+  };
+}
+
+export function makeClientChargesAPI(self) {
+  return {
+    retrieveAllClientCharges: (clientId, params) => self._g(`/v1/clients/${clientId}/charges`, params), // GET /v1/clients/{clientId}/charges
+    create: (clientId, body) => self._p(`/v1/clients/${clientId}/charges`, body), // POST /v1/clients/{clientId}/charges
+    retrieveOneClientCharge: (clientId, chargeId, params) => self._g(`/v1/clients/${clientId}/charges/${chargeId}`, params), // GET /v1/clients/{clientId}/charges/{chargeId}
+    payOrWaiveClientCharge: (clientId, chargeId, body) => self._p(`/v1/clients/${clientId}/charges/${chargeId}`, body), // POST /v1/clients/{clientId}/charges/{chargeId}
+    delete: (clientId, chargeId, body) => self._d(`/v1/clients/${clientId}/charges/${chargeId}`, body), // DELETE /v1/clients/{clientId}/charges/{chargeId}
+    retrieveTemplateClientCharge: (clientId, params) => self._g(`/v1/clients/${clientId}/charges/template`, params), // GET /v1/clients/{clientId}/charges/template
+  };
+}
+
+export function makeClientCollateralManagementAPI(self) {
+  return {
+    getClientCollateralProducts: (clientId, params) => self._g(`/v1/clients/${clientId}/collaterals`, params), // GET /v1/clients/{clientId}/collaterals
+    addClientCollateral: (clientId, body) => self._p(`/v1/clients/${clientId}/collaterals`, body), // POST /v1/clients/{clientId}/collaterals
+    getClientCollateralData: (clientId, clientCollateralId, params) => self._g(`/v1/clients/${clientId}/collaterals/${clientCollateralId}`, params), // GET /v1/clients/{clientId}/collaterals/{clientCollateralId}
+    updateClientCollateral: (clientId, collateralId, body) => self._u(`/v1/clients/${clientId}/collaterals/${collateralId}`, body), // PUT /v1/clients/{clientId}/collaterals/{collateralId}
+    deleteClientCollateral: (clientId, collateralId, body) => self._d(`/v1/clients/${clientId}/collaterals/${collateralId}`, body), // DELETE /v1/clients/{clientId}/collaterals/{collateralId}
+    getClientCollateralTemplate: (clientId, params) => self._g(`/v1/clients/${clientId}/collaterals/template`, params), // GET /v1/clients/{clientId}/collaterals/template
+  };
+}
+
+export function makeClientFamilyMemberAPI(self) {
+  return {
+    retrieveAllClientFamilyMembers: (clientId, params) => self._g(`/v1/clients/${clientId}/familymembers`, params), // GET /v1/clients/{clientId}/familymembers
+    create: (clientId, body) => self._p(`/v1/clients/${clientId}/familymembers`, body), // POST /v1/clients/{clientId}/familymembers
+    retrieveOneClientFamilyMember: (clientId, familyMemberId, params) => self._g(`/v1/clients/${clientId}/familymembers/${familyMemberId}`, params), // GET /v1/clients/{clientId}/familymembers/{familyMemberId}
+    update: (clientId, familyMemberId, body) => self._u(`/v1/clients/${clientId}/familymembers/${familyMemberId}`, body), // PUT /v1/clients/{clientId}/familymembers/{familyMemberId}
+    delete: (clientId, familyMemberId, body) => self._d(`/v1/clients/${clientId}/familymembers/${familyMemberId}`, body), // DELETE /v1/clients/{clientId}/familymembers/{familyMemberId}
+    retrieveTemplateClientFamilyMember: (clientId, params) => self._g(`/v1/clients/${clientId}/familymembers/template`, params), // GET /v1/clients/{clientId}/familymembers/template
+  };
+}
+
+export function makeClientIdentifierAPI(self) {
+  return {
+    retrieveAllClientIdentifiers: (clientId, params) => self._g(`/v1/clients/${clientId}/identifiers`, params), // GET /v1/clients/{clientId}/identifiers
+    create: (clientId, body) => self._p(`/v1/clients/${clientId}/identifiers`, body), // POST /v1/clients/{clientId}/identifiers
+    retrieveOneClientIdentifier: (clientId, identifierId, params) => self._g(`/v1/clients/${clientId}/identifiers/${identifierId}`, params), // GET /v1/clients/{clientId}/identifiers/{identifierId}
+    update: (clientId, identifierId, body) => self._u(`/v1/clients/${clientId}/identifiers/${identifierId}`, body), // PUT /v1/clients/{clientId}/identifiers/{identifierId}
+    delete: (clientId, identifierId, body) => self._d(`/v1/clients/${clientId}/identifiers/${identifierId}`, body), // DELETE /v1/clients/{clientId}/identifiers/{identifierId}
+    retrieveTemplateClientIdentifier: (clientId, params) => self._g(`/v1/clients/${clientId}/identifiers/template`, params), // GET /v1/clients/{clientId}/identifiers/template
+  };
+}
+
+export function makeClientTransactionAPI(self) {
+  return {
+    retrieveAllClientTransactions: (clientId, params) => self._g(`/v1/clients/${clientId}/transactions`, params), // GET /v1/clients/{clientId}/transactions
+    retrieve: (clientId, transactionId, params) => self._g(`/v1/clients/${clientId}/transactions/${transactionId}`, params), // GET /v1/clients/{clientId}/transactions/{transactionId}
+    undoClientTransaction: (clientId, transactionId, body) => self._p(`/v1/clients/${clientId}/transactions/${transactionId}`, body), // POST /v1/clients/{clientId}/transactions/{transactionId}
+    retrieveByTransactionExternalId: (clientId, transactionExternalId, params) => self._g(`/v1/clients/${clientId}/transactions/external-id/${transactionExternalId}`, params), // GET /v1/clients/{clientId}/transactions/external-id/{transactionExternalId}
+    undoClientTransactionByTransactionExternalId: (clientId, transactionExternalId, body) => self._p(`/v1/clients/${clientId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/clients/{clientId}/transactions/external-id/{transactionExternalId}
+    retrieveAllClientTransactionsByClientExternalId: (clientExternalId, params) => self._g(`/v1/clients/external-id/${clientExternalId}/transactions`, params), // GET /v1/clients/external-id/{clientExternalId}/transactions
+    retrieveByClientExternalId: (clientExternalId, transactionId, params) => self._g(`/v1/clients/external-id/${clientExternalId}/transactions/${transactionId}`, params), // GET /v1/clients/external-id/{clientExternalId}/transactions/{transactionId}
+    undoClientTransactionByClientExternalId: (clientExternalId, transactionId, body) => self._p(`/v1/clients/external-id/${clientExternalId}/transactions/${transactionId}`, body), // POST /v1/clients/external-id/{clientExternalId}/transactions/{transactionId}
+    retrieveByClientAndTransactionExternalId: (clientExternalId, transactionExternalId, params) => self._g(`/v1/clients/external-id/${clientExternalId}/transactions/external-id/${transactionExternalId}`, params), // GET /v1/clients/external-id/{clientExternalId}/transactions/external-id/{transactionExternalId}
+    undoClientTransactionByClientAndTransactionExternalId: (clientExternalId, transactionExternalId, body) => self._p(`/v1/clients/external-id/${clientExternalId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/clients/external-id/{clientExternalId}/transactions/external-id/{transactionExternalId}
+  };
+}
+
+export function makeClientsAddressAPI(self) {
+  return {
+    retrieveAllClientAddresses: (clientid, params) => self._g(`/v1/client/${clientid}/addresses`, params), // GET /v1/client/{clientid}/addresses
+    updateClientAddress: (clientid, body) => self._u(`/v1/client/${clientid}/addresses`, body), // PUT /v1/client/{clientid}/addresses
+    createClientAddress: (clientid, body) => self._p(`/v1/client/${clientid}/addresses`, body), // POST /v1/client/{clientid}/addresses
+    retrieveTemplateClientAddress: (params) => self._g(`/v1/client/addresses/template`, params), // GET /v1/client/addresses/template
+  };
+}
+
+export function makeClientSearchV2API(self) {
+  return {
+    searchClientsByText: (body) => self._p(`/v2/clients/search`, body), // POST /v2/clients/search
+  };
+}
+
+export function makeCodeValuesAPI(self) {
+  return {
+    retrieveAllCodeValues: (codeId, params) => self._g(`/v1/codes/${codeId}/codevalues`, params), // GET /v1/codes/{codeId}/codevalues
+    create: (codeId, body) => self._p(`/v1/codes/${codeId}/codevalues`, body), // POST /v1/codes/{codeId}/codevalues
+    retrieve: (codeId, codeValueId, params) => self._g(`/v1/codes/${codeId}/codevalues/${codeValueId}`, params), // GET /v1/codes/{codeId}/codevalues/{codeValueId}
+    update: (codeId, codeValueId, body) => self._u(`/v1/codes/${codeId}/codevalues/${codeValueId}`, body), // PUT /v1/codes/{codeId}/codevalues/{codeValueId}
+    delete: (codeId, codeValueId, body) => self._d(`/v1/codes/${codeId}/codevalues/${codeValueId}`, body), // DELETE /v1/codes/{codeId}/codevalues/{codeValueId}
+    retrieveAllCodeValuesByCodeName: (codeName, params) => self._g(`/v1/codes/name/${codeName}/codevalues`, params), // GET /v1/codes/name/{codeName}/codevalues
+    createByCodeName: (codeName, body) => self._p(`/v1/codes/name/${codeName}/codevalues`, body), // POST /v1/codes/name/{codeName}/codevalues
+    retrieve1: (codeName, codeValueId, params) => self._g(`/v1/codes/name/${codeName}/codevalues/${codeValueId}`, params), // GET /v1/codes/name/{codeName}/codevalues/{codeValueId}
+    updateByCodeName: (codeName, codeValueId, body) => self._u(`/v1/codes/name/${codeName}/codevalues/${codeValueId}`, body), // PUT /v1/codes/name/{codeName}/codevalues/{codeValueId}
+    delete1: (codeName, codeValueId, body) => self._d(`/v1/codes/name/${codeName}/codevalues/${codeValueId}`, body), // DELETE /v1/codes/name/{codeName}/codevalues/{codeValueId}
+  };
+}
+
+export function makeCodesAPI(self) {
+  return {
+    retrieveAllCodes: (params) => self._g(`/v1/codes`, params), // GET /v1/codes
+    create: (body) => self._p(`/v1/codes`, body), // POST /v1/codes
+    retrieveOneCode: (codeId, params) => self._g(`/v1/codes/${codeId}`, params), // GET /v1/codes/{codeId}
+    update: (codeId, body) => self._u(`/v1/codes/${codeId}`, body), // PUT /v1/codes/{codeId}
+    delete: (codeId, body) => self._d(`/v1/codes/${codeId}`, body), // DELETE /v1/codes/{codeId}
+    retrieveOneCodeByName: (codeName, params) => self._g(`/v1/codes/name/${codeName}`, params), // GET /v1/codes/name/{codeName}
+  };
+}
+
+export function makeCollateralManagementAPI(self) {
+  return {
+    getAllCollaterals: (params) => self._g(`/v1/collateral-management`, params), // GET /v1/collateral-management
+    createCollateral1: (body) => self._p(`/v1/collateral-management`, body), // POST /v1/collateral-management
+    getCollateral: (collateralId, params) => self._g(`/v1/collateral-management/${collateralId}`, params), // GET /v1/collateral-management/{collateralId}
+    updateCollateral1: (collateralId, body) => self._u(`/v1/collateral-management/${collateralId}`, body), // PUT /v1/collateral-management/{collateralId}
+    deleteCollateral1: (collateralId, body) => self._d(`/v1/collateral-management/${collateralId}`, body), // DELETE /v1/collateral-management/{collateralId}
+    getCollateralTemplate: (params) => self._g(`/v1/collateral-management/template`, params), // GET /v1/collateral-management/template
+  };
+}
+
+export function makeCollectionSheetAPI(self) {
+  return {
+    generateCollectionSheet: (body) => self._p(`/v1/collectionsheet`, body), // POST /v1/collectionsheet
+  };
+}
+
+export function makeCreditBureauConfigurationAPI(self) {
+  return {
+    getCreditBureau: (params) => self._g(`/v1/CreditBureauConfiguration`, params), // GET /v1/CreditBureauConfiguration
+    getConfiguration: (organisationCreditBureauId, params) => self._g(`/v1/CreditBureauConfiguration/config/${organisationCreditBureauId}`, params), // GET /v1/CreditBureauConfiguration/config/{organisationCreditBureauId}
+    update: (configurationId, body) => self._u(`/v1/CreditBureauConfiguration/configuration/${configurationId}`, body), // PUT /v1/CreditBureauConfiguration/configuration/{configurationId}
+    create: (creditBureauId, body) => self._p(`/v1/CreditBureauConfiguration/configuration/${creditBureauId}`, body), // POST /v1/CreditBureauConfiguration/configuration/{creditBureauId}
+    fetchLoanProducts: (params) => self._g(`/v1/CreditBureauConfiguration/loanProduct`, params), // GET /v1/CreditBureauConfiguration/loanProduct
+    fetchMappingByLoanProductId: (loanProductId, params) => self._g(`/v1/CreditBureauConfiguration/loanProduct/${loanProductId}`, params), // GET /v1/CreditBureauConfiguration/loanProduct/{loanProductId}
+    getCreditBureauLoanProductMapping: (params) => self._g(`/v1/CreditBureauConfiguration/mappings`, params), // GET /v1/CreditBureauConfiguration/mappings
+    updateCreditBureauLoanProductMapping: (body) => self._u(`/v1/CreditBureauConfiguration/mappings`, body), // PUT /v1/CreditBureauConfiguration/mappings
+    createCreditBureauLoanProductMapping: (organisationCreditBureauId, body) => self._p(`/v1/CreditBureauConfiguration/mappings/${organisationCreditBureauId}`, body), // POST /v1/CreditBureauConfiguration/mappings/{organisationCreditBureauId}
+    getOrganisationCreditBureau: (params) => self._g(`/v1/CreditBureauConfiguration/organisationCreditBureau`, params), // GET /v1/CreditBureauConfiguration/organisationCreditBureau
+    updateCreditBureau: (body) => self._u(`/v1/CreditBureauConfiguration/organisationCreditBureau`, body), // PUT /v1/CreditBureauConfiguration/organisationCreditBureau
+    addOrganisationCreditBureau: (organisationCreditBureauId, body) => self._p(`/v1/CreditBureauConfiguration/organisationCreditBureau/${organisationCreditBureauId}`, body), // POST /v1/CreditBureauConfiguration/organisationCreditBureau/{organisationCreditBureauId}
+  };
+}
+
+export function makeCreditBureauIntegrationAPI(self) {
+  return {
+    addCreditReport: (body) => self._p(`/v1/creditBureauIntegration/addCreditReport`, body), // POST /v1/creditBureauIntegration/addCreditReport
+    fetchCreditReport: (body) => self._p(`/v1/creditBureauIntegration/creditReport`, body), // POST /v1/creditBureauIntegration/creditReport
+    getSavedCreditReport: (creditBureauId, params) => self._g(`/v1/creditBureauIntegration/creditReport/${creditBureauId}`, params), // GET /v1/creditBureauIntegration/creditReport/{creditBureauId}
+    deleteCreditReport: (creditBureauId, body) => self._d(`/v1/creditBureauIntegration/deleteCreditReport/${creditBureauId}`, body), // DELETE /v1/creditBureauIntegration/deleteCreditReport/{creditBureauId}
+    saveCreditReport: (body) => self._p(`/v1/creditBureauIntegration/saveCreditReport`, body), // POST /v1/creditBureauIntegration/saveCreditReport
+  };
+}
+
+export function makeCurrencyAPI(self) {
+  return {
+    retrieveCurrencies: (params) => self._g(`/v1/currencies`, params), // GET /v1/currencies
+    updateCurrencies: (body) => self._u(`/v1/currencies`, body), // PUT /v1/currencies
+  };
+}
+
+export function makeDataTablesAPI(self) {
+  return {
+    gets: (params) => self._g(`/v1/datatables`, params), // GET /v1/datatables
+    create: (body) => self._p(`/v1/datatables`, body), // POST /v1/datatables
+    get: (datatable, params) => self._g(`/v1/datatables/${datatable}`, params), // GET /v1/datatables/{datatable}
+    getEntries: (datatable, apptableId, params) => self._g(`/v1/datatables/${datatable}/${apptableId}`, params), // GET /v1/datatables/{datatable}/{apptableId}
+    updateEntryOnetoOne: (datatable, apptableId, body) => self._u(`/v1/datatables/${datatable}/${apptableId}`, body), // PUT /v1/datatables/{datatable}/{apptableId}
+    createEntry: (datatable, apptableId, body) => self._p(`/v1/datatables/${datatable}/${apptableId}`, body), // POST /v1/datatables/{datatable}/{apptableId}
+    deleteEntries: (datatable, apptableId, body) => self._d(`/v1/datatables/${datatable}/${apptableId}`, body), // DELETE /v1/datatables/{datatable}/{apptableId}
+    getManyEntry: (datatable, apptableId, datatableId, params) => self._g(`/v1/datatables/${datatable}/${apptableId}/${datatableId}`, params), // GET /v1/datatables/{datatable}/{apptableId}/{datatableId}
+    updateEntryOneToMany: (datatable, apptableId, datatableId, body) => self._u(`/v1/datatables/${datatable}/${apptableId}/${datatableId}`, body), // PUT /v1/datatables/{datatable}/{apptableId}/{datatableId}
+    deleteEntry: (datatable, apptableId, datatableId, body) => self._d(`/v1/datatables/${datatable}/${apptableId}/${datatableId}`, body), // DELETE /v1/datatables/{datatable}/{apptableId}/{datatableId}
+    queryValues: (datatable, params) => self._g(`/v1/datatables/${datatable}/query`, params), // GET /v1/datatables/{datatable}/query
+    advancedQuery: (datatable, body) => self._p(`/v1/datatables/${datatable}/query`, body), // POST /v1/datatables/{datatable}/query
+    update: (datatableName, body) => self._u(`/v1/datatables/${datatableName}`, body), // PUT /v1/datatables/{datatableName}
+    delete: (datatableName, body) => self._d(`/v1/datatables/${datatableName}`, body), // DELETE /v1/datatables/{datatableName}
+    deregisterDatatable: (datatable, body) => self._p(`/v1/datatables/deregister/${datatable}`, body), // POST /v1/datatables/deregister/{datatable}
+    registerDatatable: (datatable, apptable, body) => self._p(`/v1/datatables/register/${datatable}/${apptable}`, body), // POST /v1/datatables/register/{datatable}/{apptable}
+  };
+}
+
+export function makeDelinquencyRangeAndBucketsManagementAPI(self) {
+  return {
+    getBuckets: (params) => self._g(`/v1/delinquency/buckets`, params), // GET /v1/delinquency/buckets
+    createBucket: (body) => self._p(`/v1/delinquency/buckets`, body), // POST /v1/delinquency/buckets
+    getBucket: (delinquencyBucketId, params) => self._g(`/v1/delinquency/buckets/${delinquencyBucketId}`, params), // GET /v1/delinquency/buckets/{delinquencyBucketId}
+    updateBucket: (delinquencyBucketId, body) => self._u(`/v1/delinquency/buckets/${delinquencyBucketId}`, body), // PUT /v1/delinquency/buckets/{delinquencyBucketId}
+    deleteBucket: (delinquencyBucketId, body) => self._d(`/v1/delinquency/buckets/${delinquencyBucketId}`, body), // DELETE /v1/delinquency/buckets/{delinquencyBucketId}
+    getBucketTemplate: (params) => self._g(`/v1/delinquency/buckets/template`, params), // GET /v1/delinquency/buckets/template
+    getRanges: (params) => self._g(`/v1/delinquency/ranges`, params), // GET /v1/delinquency/ranges
+    createRange: (body) => self._p(`/v1/delinquency/ranges`, body), // POST /v1/delinquency/ranges
+    getRange: (delinquencyRangeId, params) => self._g(`/v1/delinquency/ranges/${delinquencyRangeId}`, params), // GET /v1/delinquency/ranges/{delinquencyRangeId}
+    updateRange: (delinquencyRangeId, body) => self._u(`/v1/delinquency/ranges/${delinquencyRangeId}`, body), // PUT /v1/delinquency/ranges/{delinquencyRangeId}
+    deleteRange: (delinquencyRangeId, body) => self._d(`/v1/delinquency/ranges/${delinquencyRangeId}`, body), // DELETE /v1/delinquency/ranges/{delinquencyRangeId}
+  };
+}
+
+export function makeDepositAccountOnHoldFundTransactionsAPI(self) {
+  return {
+    retrieveAllDepositAccountOnHoldFundTransactions: (savingsId, params) => self._g(`/v1/savingsaccounts/${savingsId}/onholdtransactions`, params), // GET /v1/savingsaccounts/{savingsId}/onholdtransactions
+  };
+}
+
+export function makeDocumentsAPI(self) {
+  return {
+    retrieveAllDocuments: (entityType, entityId, params) => self._g(`/v1/${entityType}/${entityId}/documents`, params), // GET /v1/{entityType}/{entityId}/documents
+    create: (entityType, entityId, body) => self._p(`/v1/${entityType}/${entityId}/documents`, body), // POST /v1/{entityType}/{entityId}/documents
+    get: (entityType, entityId, documentId, params) => self._g(`/v1/${entityType}/${entityId}/documents/${documentId}`, params), // GET /v1/{entityType}/{entityId}/documents/{documentId}
+    update: (entityType, entityId, documentId, body) => self._u(`/v1/${entityType}/${entityId}/documents/${documentId}`, body), // PUT /v1/{entityType}/{entityId}/documents/{documentId}
+    delete: (entityType, entityId, documentId, body) => self._d(`/v1/${entityType}/${entityId}/documents/${documentId}`, body), // DELETE /v1/{entityType}/{entityId}/documents/{documentId}
+    downloadFile: (entityType, entityId, documentId, params) => self._g(`/v1/${entityType}/${entityId}/documents/${documentId}/attachment`, params), // GET /v1/{entityType}/{entityId}/documents/{documentId}/attachment
+  };
+}
+
+export function makeEntityDataTableAPI(self) {
+  return {
+    retrieveAllEntityDatatableChecks: (params) => self._g(`/v1/entityDatatableChecks`, params), // GET /v1/entityDatatableChecks
+    createCheck: (body) => self._p(`/v1/entityDatatableChecks`, body), // POST /v1/entityDatatableChecks
+    deleteCheck: (entityDatatableCheckId, body) => self._d(`/v1/entityDatatableChecks/${entityDatatableCheckId}`, body), // DELETE /v1/entityDatatableChecks/{entityDatatableCheckId}
+    retrieveTemplateEntityDatatableChecks: (params) => self._g(`/v1/entityDatatableChecks/template`, params), // GET /v1/entityDatatableChecks/template
+  };
+}
+
+export function makeEntityFieldConfigurationAPI(self) {
+  return {
+    getAddresses: (entity, params) => self._g(`/v1/fieldconfiguration/${entity}`, params), // GET /v1/fieldconfiguration/{entity}
+  };
+}
+
+export function makeExternalAssetOwnerLoanProductAttributesAPI(self) {
+  return {
+    retrieveAllExternalAssetOwnerLoanProductAttributes: (loanProductId, params) => self._g(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes`, params), // GET /v1/external-asset-owners/loan-product/{loanProductId}/attributes
+    create: (loanProductId, body) => self._p(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes`, body), // POST /v1/external-asset-owners/loan-product/{loanProductId}/attributes
+    update: (loanProductId, id, body) => self._u(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes/${id}`, body), // PUT /v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}
+  };
+}
+
+export function makeExternalAssetOwnersAPI(self) {
+  return {
+    retrieves: (params) => self._g(`/v1/external-asset-owners`, params), // GET /v1/external-asset-owners
+    create: (body) => self._p(`/v1/external-asset-owners`, body), // POST /v1/external-asset-owners
+    getJournalEntriesOfOwner: (ownerExternalId, params) => self._g(`/v1/external-asset-owners/owners/external-id/${ownerExternalId}/journal-entries`, params), // GET /v1/external-asset-owners/owners/external-id/{ownerExternalId}/journal-entries
+    searchInvestorData: (body) => self._p(`/v1/external-asset-owners/search`, body), // POST /v1/external-asset-owners/search
+    getTransfers: (params) => self._g(`/v1/external-asset-owners/transfers`, params), // GET /v1/external-asset-owners/transfers
+    transferRequestWithId: (id, body) => self._p(`/v1/external-asset-owners/transfers/${id}`, body), // POST /v1/external-asset-owners/transfers/{id}
+    getJournalEntriesOfTransfer: (transferId, params) => self._g(`/v1/external-asset-owners/transfers/${transferId}/journal-entries`, params), // GET /v1/external-asset-owners/transfers/{transferId}/journal-entries
+    getActiveTransfer: (params) => self._g(`/v1/external-asset-owners/transfers/active-transfer`, params), // GET /v1/external-asset-owners/transfers/active-transfer
+    transferRequestWithIdByExternalId: (externalId, body) => self._p(`/v1/external-asset-owners/transfers/external-id/${externalId}`, body), // POST /v1/external-asset-owners/transfers/external-id/{externalId}
+    transferRequestWithLoanId: (loanId, body) => self._p(`/v1/external-asset-owners/transfers/loans/${loanId}`, body), // POST /v1/external-asset-owners/transfers/loans/{loanId}
+    transferRequestWithLoanExternalId: (loanExternalId, body) => self._p(`/v1/external-asset-owners/transfers/loans/external-id/${loanExternalId}`, body), // POST /v1/external-asset-owners/transfers/loans/external-id/{loanExternalId}
+  };
+}
+
+export function makeExternalEventConfigurationAPI(self) {
+  return {
+    gets: (params) => self._g(`/v1/externalevents/configuration`, params), // GET /v1/externalevents/configuration
+    updates: (body) => self._u(`/v1/externalevents/configuration`, body), // PUT /v1/externalevents/configuration
+  };
+}
+
+export function makeExternalServicesAPI(self) {
+  return {
+    retrievesConfiguration: (servicename, params) => self._g(`/v1/externalservice/${servicename}`, params), // GET /v1/externalservice/{servicename}
+    updatesConfiguration: (servicename, body) => self._u(`/v1/externalservice/${servicename}`, body), // PUT /v1/externalservice/{servicename}
+  };
+}
+
+export function makeFetchAuthenticatedUserDetailsAPI(self) {
+  return {
+    fetchAuthenticatedUserData: (params) => self._g(`/v1/userdetails`, params), // GET /v1/userdetails
+  };
+}
+
+export function makeFineractEntityAPI(self) {
+  return {
+    retrieveAll3: (params) => self._g(`/v1/entitytoentitymapping`, params), // GET /v1/entitytoentitymapping
+    retrieveOne: (mapId, params) => self._g(`/v1/entitytoentitymapping/${mapId}`, params), // GET /v1/entitytoentitymapping/{mapId}
+    updateMap: (mapId, body) => self._u(`/v1/entitytoentitymapping/${mapId}`, body), // PUT /v1/entitytoentitymapping/{mapId}
+    delete: (mapId, body) => self._d(`/v1/entitytoentitymapping/${mapId}`, body), // DELETE /v1/entitytoentitymapping/{mapId}
+    getEntityToEntityMappings: (mapId, fromId, toId, params) => self._g(`/v1/entitytoentitymapping/${mapId}/${fromId}/${toId}`, params), // GET /v1/entitytoentitymapping/{mapId}/{fromId}/{toId}
+    createMap: (relId, body) => self._p(`/v1/entitytoentitymapping/${relId}`, body), // POST /v1/entitytoentitymapping/{relId}
+  };
+}
+
+export function makeFixedDepositAccountAPI(self) {
+  return {
+    retrieveAllFixedDepositAccounts: (params) => self._g(`/v1/fixeddepositaccounts`, params), // GET /v1/fixeddepositaccounts
+    create: (body) => self._p(`/v1/fixeddepositaccounts`, body), // POST /v1/fixeddepositaccounts
+    retrieveOneFixedDepositAccount: (accountId, params) => self._g(`/v1/fixeddepositaccounts/${accountId}`, params), // GET /v1/fixeddepositaccounts/{accountId}
+    update: (accountId, body) => self._u(`/v1/fixeddepositaccounts/${accountId}`, body), // PUT /v1/fixeddepositaccounts/{accountId}
+    handleCommandsFixedDepositAccount: (accountId, body) => self._p(`/v1/fixeddepositaccounts/${accountId}`, body), // POST /v1/fixeddepositaccounts/{accountId}
+    delete: (accountId, body) => self._d(`/v1/fixeddepositaccounts/${accountId}`, body), // DELETE /v1/fixeddepositaccounts/{accountId}
+    accountClosureTemplate: (accountId, params) => self._g(`/v1/fixeddepositaccounts/${accountId}/template`, params), // GET /v1/fixeddepositaccounts/{accountId}/template
+    calculateFixedDepositInterest: (params) => self._g(`/v1/fixeddepositaccounts/calculate-fd-interest`, params), // GET /v1/fixeddepositaccounts/calculate-fd-interest
+    getFixedDepositTemplate: (params) => self._g(`/v1/fixeddepositaccounts/downloadtemplate`, params), // GET /v1/fixeddepositaccounts/downloadtemplate
+    retrieveTemplateFixedDepositAccount: (params) => self._g(`/v1/fixeddepositaccounts/template`, params), // GET /v1/fixeddepositaccounts/template
+    getFixedDepositTransactionTemplate: (params) => self._g(`/v1/fixeddepositaccounts/transaction/downloadtemplate`, params), // GET /v1/fixeddepositaccounts/transaction/downloadtemplate
+    postFixedDepositTransactionTemplate: (body) => self._p(`/v1/fixeddepositaccounts/transaction/uploadtemplate`, body), // POST /v1/fixeddepositaccounts/transaction/uploadtemplate
+    postFixedDepositTemplate: (body) => self._p(`/v1/fixeddepositaccounts/uploadtemplate`, body), // POST /v1/fixeddepositaccounts/uploadtemplate
+  };
+}
+
+export function makeFixedDepositAccountTransactionsAPI(self) {
+  return {
+    retrieveAllFixedDepositAccountTransactions: (fixedDepositAccountId, params) => self._g(`/v1/fixeddepositaccounts/${fixedDepositAccountId}/transactions`, params), // GET /v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions
+    transaction: (fixedDepositAccountId, body) => self._p(`/v1/fixeddepositaccounts/${fixedDepositAccountId}/transactions`, body), // POST /v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions
+    retrieveOneFixedDepositAccountTransaction: (fixedDepositAccountId, transactionId, params) => self._g(`/v1/fixeddepositaccounts/${fixedDepositAccountId}/transactions/${transactionId}`, params), // GET /v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}
+    handleCommandsFixedDepositAccountTransaction: (fixedDepositAccountId, transactionId, body) => self._p(`/v1/fixeddepositaccounts/${fixedDepositAccountId}/transactions/${transactionId}`, body), // POST /v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}
+    retrieveTemplateFixedDepositAccountTransaction: (fixedDepositAccountId, params) => self._g(`/v1/fixeddepositaccounts/${fixedDepositAccountId}/transactions/template`, params), // GET /v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/template
+  };
+}
+
+export function makeFixedDepositProductAPI(self) {
+  return {
+    retrieveAllFixedDepositProducts: (params) => self._g(`/v1/fixeddepositproducts`, params), // GET /v1/fixeddepositproducts
+    create: (body) => self._p(`/v1/fixeddepositproducts`, body), // POST /v1/fixeddepositproducts
+    retrieveOneFixedDepositProduct: (productId, params) => self._g(`/v1/fixeddepositproducts/${productId}`, params), // GET /v1/fixeddepositproducts/{productId}
+    update: (productId, body) => self._u(`/v1/fixeddepositproducts/${productId}`, body), // PUT /v1/fixeddepositproducts/{productId}
+    delete: (productId, body) => self._d(`/v1/fixeddepositproducts/${productId}`, body), // DELETE /v1/fixeddepositproducts/{productId}
+    retrieveTemplateFixedDepositProduct: (params) => self._g(`/v1/fixeddepositproducts/template`, params), // GET /v1/fixeddepositproducts/template
+  };
+}
+
+export function makeFloatingRatesAPI(self) {
+  return {
+    retrieveAllFloatingRates: (params) => self._g(`/v1/floatingrates`, params), // GET /v1/floatingrates
+    create: (body) => self._p(`/v1/floatingrates`, body), // POST /v1/floatingrates
+    retrieveOneFloatingRate: (floatingRateId, params) => self._g(`/v1/floatingrates/${floatingRateId}`, params), // GET /v1/floatingrates/{floatingRateId}
+    update: (floatingRateId, body) => self._u(`/v1/floatingrates/${floatingRateId}`, body), // PUT /v1/floatingrates/{floatingRateId}
+  };
+}
+
+export function makeFundsAPI(self) {
+  return {
+    retrieves: (params) => self._g(`/v1/funds`, params), // GET /v1/funds
+    create: (body) => self._p(`/v1/funds`, body), // POST /v1/funds
+    retrieve: (fundId, params) => self._g(`/v1/funds/${fundId}`, params), // GET /v1/funds/{fundId}
+    update: (fundId, body) => self._u(`/v1/funds/${fundId}`, body), // PUT /v1/funds/{fundId}
+  };
+}
+
+export function makeGeneralLedgerAccountAPI(self) {
+  return {
+    retrieveAllAccounts: (params) => self._g(`/v1/glaccounts`, params), // GET /v1/glaccounts
+    createGLAccount: (body) => self._p(`/v1/glaccounts`, body), // POST /v1/glaccounts
+    retreiveAccount: (glAccountId, params) => self._g(`/v1/glaccounts/${glAccountId}`, params), // GET /v1/glaccounts/{glAccountId}
+    updateGLAccount: (glAccountId, body) => self._u(`/v1/glaccounts/${glAccountId}`, body), // PUT /v1/glaccounts/{glAccountId}
+    deleteGLAccount: (glAccountId, body) => self._d(`/v1/glaccounts/${glAccountId}`, body), // DELETE /v1/glaccounts/{glAccountId}
+    getGlAccountsTemplate: (params) => self._g(`/v1/glaccounts/downloadtemplate`, params), // GET /v1/glaccounts/downloadtemplate
+    retrieveNewAccountDetails: (params) => self._g(`/v1/glaccounts/template`, params), // GET /v1/glaccounts/template
+    postGlAccountsTemplate: (body) => self._p(`/v1/glaccounts/uploadtemplate`, body), // POST /v1/glaccounts/uploadtemplate
+  };
+}
+
+export function makeGlobalConfigurationAPI(self) {
+  return {
+    retrieveConfiguration: (params) => self._g(`/v1/configurations`, params), // GET /v1/configurations
+    retrieveOneGlobalConfiguration: (configId, params) => self._g(`/v1/configurations/${configId}`, params), // GET /v1/configurations/{configId}
+    update: (configId, body) => self._u(`/v1/configurations/${configId}`, body), // PUT /v1/configurations/{configId}
+    updateConfigurationByName: (configName, body) => self._u(`/v1/configurations/name/${configName}`, body), // PUT /v1/configurations/name/{configName}
+    retrieveOneByName: (name, params) => self._g(`/v1/configurations/name/${name}`, params), // GET /v1/configurations/name/{name}
+  };
+}
+
+export function makeGroupsAPI(self) {
+  return {
+    retrieveAllGroups: (params) => self._g(`/v1/groups`, params), // GET /v1/groups
+    create: (body) => self._p(`/v1/groups`, body), // POST /v1/groups
+    retrieveOneGroup: (groupId, params) => self._g(`/v1/groups/${groupId}`, params), // GET /v1/groups/{groupId}
+    update: (groupId, body) => self._u(`/v1/groups/${groupId}`, body), // PUT /v1/groups/{groupId}
+    handleCommandsGroup: (groupId, body) => self._p(`/v1/groups/${groupId}`, body), // POST /v1/groups/{groupId}
+    delete: (groupId, body) => self._d(`/v1/groups/${groupId}`, body), // DELETE /v1/groups/{groupId}
+    retrieveAccountsGroup: (groupId, params) => self._g(`/v1/groups/${groupId}/accounts`, params), // GET /v1/groups/{groupId}/accounts
+    unassignLoanOfficerGroup: (groupId, body) => self._p(`/v1/groups/${groupId}/command/unassign_staff`, body), // POST /v1/groups/{groupId}/command/unassign_staff
+    retrieveGlimAccountsGroup: (groupId, params) => self._g(`/v1/groups/${groupId}/glimaccounts`, params), // GET /v1/groups/{groupId}/glimaccounts
+    retrieveGsimAccountsGroup: (groupId, params) => self._g(`/v1/groups/${groupId}/gsimaccounts`, params), // GET /v1/groups/{groupId}/gsimaccounts
+    getBulkTemplateGroup: (params) => self._g(`/v1/groups/downloadtemplate`, params), // GET /v1/groups/downloadtemplate
+    retrieveTemplateGroup: (params) => self._g(`/v1/groups/template`, params), // GET /v1/groups/template
+    postBulkTemplateGroup: (body) => self._p(`/v1/groups/uploadtemplate`, body), // POST /v1/groups/uploadtemplate
+  };
+}
+
+export function makeGroupsLevelAPI(self) {
+  return {
+    retrieveAllGroupLevels: (params) => self._g(`/v1/grouplevels`, params), // GET /v1/grouplevels
+  };
+}
+
+export function makeGuarantorsAPI(self) {
+  return {
+    retrieveDetails: (loanId, params) => self._g(`/v1/loans/${loanId}/guarantors`, params), // GET /v1/loans/{loanId}/guarantors
+    create: (loanId, body) => self._p(`/v1/loans/${loanId}/guarantors`, body), // POST /v1/loans/{loanId}/guarantors
+    retrieveDetails1: (loanId, guarantorId, params) => self._g(`/v1/loans/${loanId}/guarantors/${guarantorId}`, params), // GET /v1/loans/{loanId}/guarantors/{guarantorId}
+    update: (loanId, guarantorId, body) => self._u(`/v1/loans/${loanId}/guarantors/${guarantorId}`, body), // PUT /v1/loans/{loanId}/guarantors/{guarantorId}
+    delete: (loanId, guarantorId, body) => self._d(`/v1/loans/${loanId}/guarantors/${guarantorId}`, body), // DELETE /v1/loans/{loanId}/guarantors/{guarantorId}
+    accountsTemplate: (loanId, params) => self._g(`/v1/loans/${loanId}/guarantors/accounts/template`, params), // GET /v1/loans/{loanId}/guarantors/accounts/template
+    getTemplate: (loanId, params) => self._g(`/v1/loans/${loanId}/guarantors/downloadtemplate`, params), // GET /v1/loans/{loanId}/guarantors/downloadtemplate
+    newGuarantorTemplate: (loanId, params) => self._g(`/v1/loans/${loanId}/guarantors/template`, params), // GET /v1/loans/{loanId}/guarantors/template
+    postTemplate: (loanId, body) => self._p(`/v1/loans/${loanId}/guarantors/uploadtemplate`, body), // POST /v1/loans/{loanId}/guarantors/uploadtemplate
+  };
+}
+
+export function makeHolidaysAPI(self) {
+  return {
+    retrieveAllHolidays: (params) => self._g(`/v1/holidays`, params), // GET /v1/holidays
+    create: (body) => self._p(`/v1/holidays`, body), // POST /v1/holidays
+    retrieveOneHoliday: (holidayId, params) => self._g(`/v1/holidays/${holidayId}`, params), // GET /v1/holidays/{holidayId}
+    update: (holidayId, body) => self._u(`/v1/holidays/${holidayId}`, body), // PUT /v1/holidays/{holidayId}
+    handleCommandsHoliday: (holidayId, body) => self._p(`/v1/holidays/${holidayId}`, body), // POST /v1/holidays/{holidayId}
+    delete: (holidayId, body) => self._d(`/v1/holidays/${holidayId}`, body), // DELETE /v1/holidays/{holidayId}
+    retrieveRepaymentScheduleUpdationTyeOptions: (params) => self._g(`/v1/holidays/template`, params), // GET /v1/holidays/template
+  };
+}
+
+export function makeHooksAPI(self) {
+  return {
+    retrieveAllHooks: (params) => self._g(`/v1/hooks`, params), // GET /v1/hooks
+    create: (body) => self._p(`/v1/hooks`, body), // POST /v1/hooks
+    retrieveOneHook: (hookId, params) => self._g(`/v1/hooks/${hookId}`, params), // GET /v1/hooks/{hookId}
+    update: (hookId, body) => self._u(`/v1/hooks/${hookId}`, body), // PUT /v1/hooks/{hookId}
+    delete: (hookId, body) => self._d(`/v1/hooks/${hookId}`, body), // DELETE /v1/hooks/{hookId}
+    retrieveTemplateHook: (params) => self._g(`/v1/hooks/template`, params), // GET /v1/hooks/template
+  };
+}
+
+export function makeInlineJobAPI(self) {
+  return {
+    executeInlineJob: (jobName, body) => self._p(`/v1/jobs/${jobName}/inline`, body), // POST /v1/jobs/{jobName}/inline
+  };
+}
+
+export function makeInstanceModeAPI(self) {
+  return {
+    update: (body) => self._u(`/v1/instance-mode`, body), // PUT /v1/instance-mode
+  };
+}
+
+export function makeInterOperationAPI(self) {
+  return {
+    getAccountDetails: (accountId, params) => self._g(`/v1/interoperation/accounts/${accountId}`, params), // GET /v1/interoperation/accounts/{accountId}
+    getAccountIdentifiers: (accountId, params) => self._g(`/v1/interoperation/accounts/${accountId}/identifiers`, params), // GET /v1/interoperation/accounts/{accountId}/identifiers
+    getClientKyc: (accountId, params) => self._g(`/v1/interoperation/accounts/${accountId}/kyc`, params), // GET /v1/interoperation/accounts/{accountId}/kyc
+    getAccountTransactions: (accountId, params) => self._g(`/v1/interoperation/accounts/${accountId}/transactions`, params), // GET /v1/interoperation/accounts/{accountId}/transactions
+    health: (params) => self._g(`/v1/interoperation/health`, params), // GET /v1/interoperation/health
+    getAccountByIdentifier: (idType, idValue, params) => self._g(`/v1/interoperation/parties/${idType}/${idValue}`, params), // GET /v1/interoperation/parties/{idType}/{idValue}
+    registerAccountIdentifier: (idType, idValue, body) => self._p(`/v1/interoperation/parties/${idType}/${idValue}`, body), // POST /v1/interoperation/parties/{idType}/{idValue}
+    deleteAccountIdentifier: (idType, idValue, body) => self._d(`/v1/interoperation/parties/${idType}/${idValue}`, body), // DELETE /v1/interoperation/parties/{idType}/{idValue}
+    getAccountByIdentifier1: (idType, idValue, subIdOrType, params) => self._g(`/v1/interoperation/parties/${idType}/${idValue}/${subIdOrType}`, params), // GET /v1/interoperation/parties/{idType}/{idValue}/{subIdOrType}
+    registerAccountIdentifier1: (idType, idValue, subIdOrType, body) => self._p(`/v1/interoperation/parties/${idType}/${idValue}/${subIdOrType}`, body), // POST /v1/interoperation/parties/{idType}/{idValue}/{subIdOrType}
+    deleteAccountIdentifier1: (idType, idValue, subIdOrType, body) => self._d(`/v1/interoperation/parties/${idType}/${idValue}/${subIdOrType}`, body), // DELETE /v1/interoperation/parties/{idType}/{idValue}/{subIdOrType}
+    createQuote: (body) => self._p(`/v1/interoperation/quotes`, body), // POST /v1/interoperation/quotes
+    createTransactionRequest: (body) => self._p(`/v1/interoperation/requests`, body), // POST /v1/interoperation/requests
+    disburseLoan: (accountId, body) => self._p(`/v1/interoperation/transactions/${accountId}/disburse`, body), // POST /v1/interoperation/transactions/{accountId}/disburse
+    loanRepayment: (accountId, body) => self._p(`/v1/interoperation/transactions/${accountId}/loanrepayment`, body), // POST /v1/interoperation/transactions/{accountId}/loanrepayment
+    getQuote: (transactionCode, quoteCode, params) => self._g(`/v1/interoperation/transactions/${transactionCode}/quotes/${quoteCode}`, params), // GET /v1/interoperation/transactions/{transactionCode}/quotes/{quoteCode}
+    getTransactionRequest: (transactionCode, requestCode, params) => self._g(`/v1/interoperation/transactions/${transactionCode}/requests/${requestCode}`, params), // GET /v1/interoperation/transactions/{transactionCode}/requests/{requestCode}
+    getTransfer: (transactionCode, transferCode, params) => self._g(`/v1/interoperation/transactions/${transactionCode}/transfers/${transferCode}`, params), // GET /v1/interoperation/transactions/{transactionCode}/transfers/{transferCode}
+    performTransfer: (body) => self._p(`/v1/interoperation/transfers`, body), // POST /v1/interoperation/transfers
+  };
+}
+
+export function makeInterestRateChartAPI(self) {
+  return {
+    retrieveAllInterestRateCharts: (params) => self._g(`/v1/interestratecharts`, params), // GET /v1/interestratecharts
+    create: (body) => self._p(`/v1/interestratecharts`, body), // POST /v1/interestratecharts
+    retrieveOneInterestRateChart: (chartId, params) => self._g(`/v1/interestratecharts/${chartId}`, params), // GET /v1/interestratecharts/{chartId}
+    update: (chartId, body) => self._u(`/v1/interestratecharts/${chartId}`, body), // PUT /v1/interestratecharts/{chartId}
+    delete: (chartId, body) => self._d(`/v1/interestratecharts/${chartId}`, body), // DELETE /v1/interestratecharts/{chartId}
+    retrieveTemplateInterestRateChart: (params) => self._g(`/v1/interestratecharts/template`, params), // GET /v1/interestratecharts/template
+  };
+}
+
+export function makeInterestRateSlabAKAInterestBandsAPI(self) {
+  return {
+    retrieveAllInterestRateChartSlabs: (chartId, params) => self._g(`/v1/interestratecharts/${chartId}/chartslabs`, params), // GET /v1/interestratecharts/{chartId}/chartslabs
+    createInterestRateChartSlab: (chartId, body) => self._p(`/v1/interestratecharts/${chartId}/chartslabs`, body), // POST /v1/interestratecharts/{chartId}/chartslabs
+    retrieveOneInterestRateChartSlab: (chartId, chartSlabId, params) => self._g(`/v1/interestratecharts/${chartId}/chartslabs/${chartSlabId}`, params), // GET /v1/interestratecharts/{chartId}/chartslabs/{chartSlabId}
+    updateInterestRateChartSlab: (chartId, chartSlabId, body) => self._u(`/v1/interestratecharts/${chartId}/chartslabs/${chartSlabId}`, body), // PUT /v1/interestratecharts/{chartId}/chartslabs/{chartSlabId}
+    deleteInterestRateChartSlab: (chartId, chartSlabId, body) => self._d(`/v1/interestratecharts/${chartId}/chartslabs/${chartSlabId}`, body), // DELETE /v1/interestratecharts/{chartId}/chartslabs/{chartSlabId}
+    retrieveTemplateInterestRateChartSlab: (chartId, params) => self._g(`/v1/interestratecharts/${chartId}/chartslabs/template`, params), // GET /v1/interestratecharts/{chartId}/chartslabs/template
+  };
+}
+
+export function makeInternalCOBAPI(self) {
+  return {
+    updateLoanCobLastDate: (loanId, body) => self._p(`/v1/internal/cob/fast-forward-cob-date-of-loan/${loanId}`, body), // POST /v1/internal/cob/fast-forward-cob-date-of-loan/{loanId}
+    loanReprocess: (loanId, body) => self._p(`/v1/internal/cob/loan-reprocess/${loanId}`, body), // POST /v1/internal/cob/loan-reprocess/{loanId}
+    getCobPartitions: (partitionSize, params) => self._g(`/v1/internal/cob/partitions/${partitionSize}`, params), // GET /v1/internal/cob/partitions/{partitionSize}
+  };
+}
+
+export function makeJournalEntriesAPI(self) {
+  return {
+    retrieveAllJournalEntries: (params) => self._g(`/v1/journalentries`, params), // GET /v1/journalentries
+    createGLJournalEntry: (body) => self._p(`/v1/journalentries`, body), // POST /v1/journalentries
+    retrieveJournalEntryById: (journalEntryId, params) => self._g(`/v1/journalentries/${journalEntryId}`, params), // GET /v1/journalentries/{journalEntryId}
+    createReversalJournalEntry: (transactionId, body) => self._p(`/v1/journalentries/${transactionId}`, body), // POST /v1/journalentries/{transactionId}
+    getsTemplate: (params) => self._g(`/v1/journalentries/downloadtemplate`, params), // GET /v1/journalentries/downloadtemplate
+    retrieveOpeningBalance: (params) => self._g(`/v1/journalentries/openingbalance`, params), // GET /v1/journalentries/openingbalance
+    retrieves: (params) => self._g(`/v1/journalentries/provisioning`, params), // GET /v1/journalentries/provisioning
+    postsTemplate: (body) => self._p(`/v1/journalentries/uploadtemplate`, body), // POST /v1/journalentries/uploadtemplate
+  };
+}
+
+export function makeLikelihoodAPI(self) {
+  return {
+    retrieveAll5: (ppiName, params) => self._g(`/v1/likelihood/${ppiName}`, params), // GET /v1/likelihood/{ppiName}
+    retrieve1: (ppiName, likelihoodId, params) => self._g(`/v1/likelihood/${ppiName}/${likelihoodId}`, params), // GET /v1/likelihood/{ppiName}/{likelihoodId}
+    update2: (ppiName, likelihoodId, body) => self._u(`/v1/likelihood/${ppiName}/${likelihoodId}`, body), // PUT /v1/likelihood/{ppiName}/{likelihoodId}
+  };
+}
+
+export function makeListReportMailingJobHistoryAPI(self) {
+  return {
+    retrieveAllReportMailingJobRunHistory: (params) => self._g(`/v1/reportmailingjobrunhistory`, params), // GET /v1/reportmailingjobrunhistory
+  };
+}
+
+export function makeLoanAccountLockAPI(self) {
+  return {
+    placeLockOnLoanAccount: (loanId, lockOwner, body) => self._p(`/v1/internal/loans/${loanId}/place-lock/${lockOwner}`, body), // POST /v1/internal/loans/{loanId}/place-lock/{lockOwner}
+    retrieveLockedAccounts: (params) => self._g(`/v1/loans/locked`, params), // GET /v1/loans/locked
+  };
+}
+
+export function makeLoanBuyDownFeesAPI(self) {
+  return {
+    retrieveAmortizationDetails: (loanId, params) => self._g(`/v1/loans/${loanId}/buydown-fees`, params), // GET /v1/loans/{loanId}/buydown-fees
+    retrieveBuyDownFeesAllocationData: (loanId, loanTransactionId, params) => self._g(`/v1/loans/${loanId}/buydown-fees/${loanTransactionId}`, params), // GET /v1/loans/{loanId}/buydown-fees/{loanTransactionId}
+    getBuyDownFeesAllocationDataByTransactionExternalId: (loanId, loanTransactionExternalId, params) => self._g(`/v1/loans/${loanId}/buydown-fees/external-id/${loanTransactionExternalId}`, params), // GET /v1/loans/{loanId}/buydown-fees/external-id/{loanTransactionExternalId}
+    retrieveAmortizationDetailsByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/buydown-fees`, params), // GET /v1/loans/external-id/{loanExternalId}/buydown-fees
+    getBuyDownFeesAllocationDataByLoanExternalId: (loanExternalId, loanTransactionId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/buydown-fees/${loanTransactionId}`, params), // GET /v1/loans/external-id/{loanExternalId}/buydown-fees/{loanTransactionId}
+    getBuyDownFeesAllocationDataByExternalIds: (loanExternalId, loanTransactionExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/buydown-fees/external-id/${loanTransactionExternalId}`, params), // GET /v1/loans/external-id/{loanExternalId}/buydown-fees/external-id/{loanTransactionExternalId}
+  };
+}
+
+export function makeLoanCapitalizedIncomeAPI(self) {
+  return {
+    fetchCapitalizedIncomeDetails: (loanId, params) => self._g(`/v1/loans/${loanId}/capitalized-incomes`, params), // GET /v1/loans/{loanId}/capitalized-incomes
+    retrieveCapitalizedIncomeAllocationData: (loanId, loanTransactionId, params) => self._g(`/v1/loans/${loanId}/capitalized-incomes/${loanTransactionId}`, params), // GET /v1/loans/{loanId}/capitalized-incomes/{loanTransactionId}
+    getCapitalizedIncomeAllocationDataByTransactionExternalId: (loanId, loanTransactionExternalId, params) => self._g(`/v1/loans/${loanId}/capitalized-incomes/external-id/${loanTransactionExternalId}`, params), // GET /v1/loans/{loanId}/capitalized-incomes/external-id/{loanTransactionExternalId}
+    fetchLoanCapitalizedIncomeData: (loanId, params) => self._g(`/v1/loans/${loanId}/deferredincome`, params), // GET /v1/loans/{loanId}/deferredincome
+    fetchCapitalizedIncomeDetailsByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/capitalized-incomes`, params), // GET /v1/loans/external-id/{loanExternalId}/capitalized-incomes
+    getCapitalizedIncomeAllocationDataByLoanExternalId: (loanExternalId, loanTransactionId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/capitalized-incomes/${loanTransactionId}`, params), // GET /v1/loans/external-id/{loanExternalId}/capitalized-incomes/{loanTransactionId}
+    getCapitalizedIncomeAllocationDataByExternalIds: (loanExternalId, loanTransactionExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/capitalized-incomes/external-id/${loanTransactionExternalId}`, params), // GET /v1/loans/external-id/{loanExternalId}/capitalized-incomes/external-id/{loanTransactionExternalId}
+    fetchLoanCapitalizedIncomeDataByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/deferredincome`, params), // GET /v1/loans/external-id/{loanExternalId}/deferredincome
+  };
+}
+
+export function makeLoanChargesAPI(self) {
+  return {
+    retrieveAllLoanCharges: (loanId, params) => self._g(`/v1/loans/${loanId}/charges`, params), // GET /v1/loans/{loanId}/charges
+    createOrPayLoanCharge: (loanId, body) => self._p(`/v1/loans/${loanId}/charges`, body), // POST /v1/loans/{loanId}/charges
+    retrieveOneLoanCharge: (loanId, loanChargeId, params) => self._g(`/v1/loans/${loanId}/charges/${loanChargeId}`, params), // GET /v1/loans/{loanId}/charges/{loanChargeId}
+    update: (loanId, loanChargeId, body) => self._u(`/v1/loans/${loanId}/charges/${loanChargeId}`, body), // PUT /v1/loans/{loanId}/charges/{loanChargeId}
+    executeLoanChargeOnExistingCharge: (loanId, loanChargeId, body) => self._p(`/v1/loans/${loanId}/charges/${loanChargeId}`, body), // POST /v1/loans/{loanId}/charges/{loanChargeId}
+    delete: (loanId, loanChargeId, body) => self._d(`/v1/loans/${loanId}/charges/${loanChargeId}`, body), // DELETE /v1/loans/{loanId}/charges/{loanChargeId}
+    retrieveOneLoanChargeByChargeExternalId: (loanId, loanChargeExternalId, params) => self._g(`/v1/loans/${loanId}/charges/external-id/${loanChargeExternalId}`, params), // GET /v1/loans/{loanId}/charges/external-id/{loanChargeExternalId}
+    updateByChargeExternalId: (loanId, loanChargeExternalId, body) => self._u(`/v1/loans/${loanId}/charges/external-id/${loanChargeExternalId}`, body), // PUT /v1/loans/{loanId}/charges/external-id/{loanChargeExternalId}
+    executeLoanChargeByChargeExternalId: (loanId, loanChargeExternalId, body) => self._p(`/v1/loans/${loanId}/charges/external-id/${loanChargeExternalId}`, body), // POST /v1/loans/{loanId}/charges/external-id/{loanChargeExternalId}
+    deleteByChargeExternalId: (loanId, loanChargeExternalId, body) => self._d(`/v1/loans/${loanId}/charges/external-id/${loanChargeExternalId}`, body), // DELETE /v1/loans/{loanId}/charges/external-id/{loanChargeExternalId}
+    retrieveTemplateLoanCharge: (loanId, params) => self._g(`/v1/loans/${loanId}/charges/template`, params), // GET /v1/loans/{loanId}/charges/template
+    retrieveAllLoanChargesByLoanExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/charges`, params), // GET /v1/loans/external-id/{loanExternalId}/charges
+    executeLoanChargeByLoanExternalId: (loanExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/charges`, body), // POST /v1/loans/external-id/{loanExternalId}/charges
+    retrieveOneLoanChargeByLoanExternalId: (loanExternalId, loanChargeId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/charges/${loanChargeId}`, params), // GET /v1/loans/external-id/{loanExternalId}/charges/{loanChargeId}
+    updateByLoanExternalId: (loanExternalId, loanChargeId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/charges/${loanChargeId}`, body), // PUT /v1/loans/external-id/{loanExternalId}/charges/{loanChargeId}
+    executeLoanChargeByLoanExternalIdOnExistingCharge: (loanExternalId, loanChargeId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/charges/${loanChargeId}`, body), // POST /v1/loans/external-id/{loanExternalId}/charges/{loanChargeId}
+    deleteByLoanExternalId: (loanExternalId, loanChargeId, body) => self._d(`/v1/loans/external-id/${loanExternalId}/charges/${loanChargeId}`, body), // DELETE /v1/loans/external-id/{loanExternalId}/charges/{loanChargeId}
+    retrieveOneLoanChargeByLoanAndChargeExternalId: (loanExternalId, loanChargeExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/charges/external-id/${loanChargeExternalId}`, params), // GET /v1/loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}
+    updateByLoanAndChargeExternalId: (loanExternalId, loanChargeExternalId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/charges/external-id/${loanChargeExternalId}`, body), // PUT /v1/loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}
+    executeLoanChargeByLoanAndChargeExternalId: (loanExternalId, loanChargeExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/charges/external-id/${loanChargeExternalId}`, body), // POST /v1/loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}
+    deleteByLoanAndChargeExternalId: (loanExternalId, loanChargeExternalId, body) => self._d(`/v1/loans/external-id/${loanExternalId}/charges/external-id/${loanChargeExternalId}`, body), // DELETE /v1/loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}
+    retrieveTemplateLoanChargeByLoanExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/charges/template`, params), // GET /v1/loans/external-id/{loanExternalId}/charges/template
+  };
+}
+
+export function makeLoanCOBCatchUpAPI(self) {
+  return {
+    executeLoanCOBCatchUp: (body) => self._p(`/v1/loans/catch-up`, body), // POST /v1/loans/catch-up
+    isCatchUpRunning: (params) => self._g(`/v1/loans/is-catch-up-running`, params), // GET /v1/loans/is-catch-up-running
+    getOldestCOBProcessedLoan: (params) => self._g(`/v1/loans/oldest-cob-closed`, params), // GET /v1/loans/oldest-cob-closed
+  };
+}
+
+export function makeLoanCollateralAPI(self) {
+  return {
+    retrieveCollateralDetails: (loanId, params) => self._g(`/v1/loans/${loanId}/collaterals`, params), // GET /v1/loans/{loanId}/collaterals
+    createCollateral: (loanId, body) => self._p(`/v1/loans/${loanId}/collaterals`, body), // POST /v1/loans/{loanId}/collaterals
+    retrieveCollateralDetails1: (loanId, collateralId, params) => self._g(`/v1/loans/${loanId}/collaterals/${collateralId}`, params), // GET /v1/loans/{loanId}/collaterals/{collateralId}
+    updateCollateral: (loanId, collateralId, body) => self._u(`/v1/loans/${loanId}/collaterals/${collateralId}`, body), // PUT /v1/loans/{loanId}/collaterals/{collateralId}
+    deleteCollateral: (loanId, collateralId, body) => self._d(`/v1/loans/${loanId}/collaterals/${collateralId}`, body), // DELETE /v1/loans/{loanId}/collaterals/{collateralId}
+    newCollateralTemplate: (loanId, params) => self._g(`/v1/loans/${loanId}/collaterals/template`, params), // GET /v1/loans/{loanId}/collaterals/template
+  };
+}
+
+export function makeLoanCollateralManagementAPI(self) {
+  return {
+    getLoanCollateral: (collateralId, params) => self._g(`/v1/loan-collateral-management/${collateralId}`, params), // GET /v1/loan-collateral-management/{collateralId}
+    deleteLoanCollateral: (id, body) => self._d(`/v1/loan-collateral-management/${id}`, body), // DELETE /v1/loan-collateral-management/{id}
+  };
+}
+
+export function makeLoanDisbursementDetailsAPI(self) {
+  return {
+    retriveDetail: (loanId, disbursementId, params) => self._g(`/v1/loans/${loanId}/disbursements/${disbursementId}`, params), // GET /v1/loans/{loanId}/disbursements/{disbursementId}
+    updateDisbursementDate: (loanId, disbursementId, body) => self._u(`/v1/loans/${loanId}/disbursements/${disbursementId}`, body), // PUT /v1/loans/{loanId}/disbursements/{disbursementId}
+    addAndDeleteDisbursementDetail: (loanId, body) => self._u(`/v1/loans/${loanId}/disbursements/editDisbursements`, body), // PUT /v1/loans/{loanId}/disbursements/editDisbursements
+  };
+}
+
+export function makeLoanInterestPauseAPI(self) {
+  return {
+    retrieveAllLoanInterestPauses: (loanId, params) => self._g(`/v1/loans/${loanId}/interest-pauses`, params), // GET /v1/loans/{loanId}/interest-pauses
+    create: (loanId, body) => self._p(`/v1/loans/${loanId}/interest-pauses`, body), // POST /v1/loans/{loanId}/interest-pauses
+    update: (loanId, variationId, body) => self._u(`/v1/loans/${loanId}/interest-pauses/${variationId}`, body), // PUT /v1/loans/{loanId}/interest-pauses/{variationId}
+    delete: (loanId, variationId, body) => self._d(`/v1/loans/${loanId}/interest-pauses/${variationId}`, body), // DELETE /v1/loans/{loanId}/interest-pauses/{variationId}
+    retrieveAllLoanInterestPausesByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/interest-pauses`, params), // GET /v1/loans/external-id/{loanExternalId}/interest-pauses
+    createByExternalId: (loanExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/interest-pauses`, body), // POST /v1/loans/external-id/{loanExternalId}/interest-pauses
+    updateByExternalId: (loanExternalId, variationId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/interest-pauses/${variationId}`, body), // PUT /v1/loans/external-id/{loanExternalId}/interest-pauses/{variationId}
+    deleteByExternalId: (loanExternalId, variationId, body) => self._d(`/v1/loans/external-id/${loanExternalId}/interest-pauses/${variationId}`, body), // DELETE /v1/loans/external-id/{loanExternalId}/interest-pauses/{variationId}
+  };
+}
+
+export function makeLoanOriginatorsAPI(self) {
+  return {
+    retrieveAllLoanOriginators: (params) => self._g(`/v1/loan-originators`, params), // GET /v1/loan-originators
+    create: (body) => self._p(`/v1/loan-originators`, body), // POST /v1/loan-originators
+    retrieveOneLoanOriginator: (originatorId, params) => self._g(`/v1/loan-originators/${originatorId}`, params), // GET /v1/loan-originators/{originatorId}
+    update: (originatorId, body) => self._u(`/v1/loan-originators/${originatorId}`, body), // PUT /v1/loan-originators/{originatorId}
+    delete: (originatorId, body) => self._d(`/v1/loan-originators/${originatorId}`, body), // DELETE /v1/loan-originators/{originatorId}
+    retrieveByExternalId: (externalId, params) => self._g(`/v1/loan-originators/external-id/${externalId}`, params), // GET /v1/loan-originators/external-id/{externalId}
+    updateByExternalId: (externalId, body) => self._u(`/v1/loan-originators/external-id/${externalId}`, body), // PUT /v1/loan-originators/external-id/{externalId}
+    deleteByExternalId: (externalId, body) => self._d(`/v1/loan-originators/external-id/${externalId}`, body), // DELETE /v1/loan-originators/external-id/{externalId}
+    retrieveTemplate: (params) => self._g(`/v1/loan-originators/template`, params), // GET /v1/loan-originators/template
+    retrieveOriginatorsByLoanId: (loanId, params) => self._g(`/v1/loans/${loanId}/originators`, params), // GET /v1/loans/{loanId}/originators
+    attachOriginatorToLoan: (loanId, originatorId, body) => self._p(`/v1/loans/${loanId}/originators/${originatorId}`, body), // POST /v1/loans/{loanId}/originators/{originatorId}
+    detachOriginatorFromLoan: (loanId, originatorId, body) => self._d(`/v1/loans/${loanId}/originators/${originatorId}`, body), // DELETE /v1/loans/{loanId}/originators/{originatorId}
+    attachOriginatorToLoanByOriginatorExternalId: (loanId, originatorExternalId, body) => self._p(`/v1/loans/${loanId}/originators/external-id/${originatorExternalId}`, body), // POST /v1/loans/{loanId}/originators/external-id/{originatorExternalId}
+    detachOriginatorFromLoanByOriginatorExternalId: (loanId, originatorExternalId, body) => self._d(`/v1/loans/${loanId}/originators/external-id/${originatorExternalId}`, body), // DELETE /v1/loans/{loanId}/originators/external-id/{originatorExternalId}
+    retrieveOriginatorsByLoanExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/originators`, params), // GET /v1/loans/external-id/{loanExternalId}/originators
+    attachOriginatorToLoanByLoanExternalId: (loanExternalId, originatorId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/originators/${originatorId}`, body), // POST /v1/loans/external-id/{loanExternalId}/originators/{originatorId}
+    detachOriginatorFromLoanByLoanExternalId: (loanExternalId, originatorId, body) => self._d(`/v1/loans/external-id/${loanExternalId}/originators/${originatorId}`, body), // DELETE /v1/loans/external-id/{loanExternalId}/originators/{originatorId}
+    attachOriginatorToLoanByExternalIds: (loanExternalId, originatorExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/originators/external-id/${originatorExternalId}`, body), // POST /v1/loans/external-id/{loanExternalId}/originators/external-id/{originatorExternalId}
+    detachOriginatorFromLoanByExternalIds: (loanExternalId, originatorExternalId, body) => self._d(`/v1/loans/external-id/${loanExternalId}/originators/external-id/${originatorExternalId}`, body), // DELETE /v1/loans/external-id/{loanExternalId}/originators/external-id/{originatorExternalId}
+  };
+}
+
+export function makeLoanProductsAPI(self) {
+  return {
+    retrieveAllLoanProducts: (params) => self._g(`/v1/loanproducts`, params), // GET /v1/loanproducts
+    create: (body) => self._p(`/v1/loanproducts`, body), // POST /v1/loanproducts
+    retrieveOneLoanProduct: (productId, params) => self._g(`/v1/loanproducts/${productId}`, params), // GET /v1/loanproducts/{productId}
+    update: (productId, body) => self._u(`/v1/loanproducts/${productId}`, body), // PUT /v1/loanproducts/{productId}
+    retrieveDetailsByExternalId: (externalProductId, params) => self._g(`/v1/loanproducts/external-id/${externalProductId}`, params), // GET /v1/loanproducts/external-id/{externalProductId}
+    updateByExternalId: (externalProductId, body) => self._u(`/v1/loanproducts/external-id/${externalProductId}`, body), // PUT /v1/loanproducts/external-id/{externalProductId}
+    retrieveTemplateLoanProduct: (params) => self._g(`/v1/loanproducts/template`, params), // GET /v1/loanproducts/template
+  };
+}
+
+export function makeLoanProductsDetailsAPI(self) {
+  return {
+    retrieveAllLoanProductsDetails: (params) => self._g(`/v1/loanproducts/basic-details`, params), // GET /v1/loanproducts/basic-details
+  };
+}
+
+export function makeLoanReschedulingAPI(self) {
+  return {
+    handleCommandsLoanSchedule: (loanId, body) => self._p(`/v1/loans/${loanId}/schedule`, body), // POST /v1/loans/{loanId}/schedule
+  };
+}
+
+export function makeLoanTransactionsAPI(self) {
+  return {
+    retrieveAllLoanTransactions: (loanId, params) => self._g(`/v1/loans/${loanId}/transactions`, params), // GET /v1/loans/{loanId}/transactions
+    handleCommandsLoanTransaction: (loanId, body) => self._p(`/v1/loans/${loanId}/transactions`, body), // POST /v1/loans/{loanId}/transactions
+    retrieveOneLoanTransaction: (loanId, transactionId, params) => self._g(`/v1/loans/${loanId}/transactions/${transactionId}`, params), // GET /v1/loans/{loanId}/transactions/{transactionId}
+    undoWaiveChargeLoanTransaction: (loanId, transactionId, body) => self._u(`/v1/loans/${loanId}/transactions/${transactionId}`, body), // PUT /v1/loans/{loanId}/transactions/{transactionId}
+    adjustLoanTransaction: (loanId, transactionId, body) => self._p(`/v1/loans/${loanId}/transactions/${transactionId}`, body), // POST /v1/loans/{loanId}/transactions/{transactionId}
+    retrieveOneLoanTransactionByExternalId: (loanId, externalTransactionId, params) => self._g(`/v1/loans/${loanId}/transactions/external-id/${externalTransactionId}`, params), // GET /v1/loans/{loanId}/transactions/external-id/{externalTransactionId}
+    adjustLoanTransactionByTransactionExternalId: (loanId, externalTransactionId, body) => self._p(`/v1/loans/${loanId}/transactions/external-id/${externalTransactionId}`, body), // POST /v1/loans/{loanId}/transactions/external-id/{externalTransactionId}
+    undoWaiveChargeLoanTransactionByTransactionExternalId: (loanId, transactionExternalId, body) => self._u(`/v1/loans/${loanId}/transactions/external-id/${transactionExternalId}`, body), // PUT /v1/loans/{loanId}/transactions/external-id/{transactionExternalId}
+    previewReAgeLoanSchedule: (loanId, params) => self._g(`/v1/loans/${loanId}/transactions/reage-preview`, params), // GET /v1/loans/{loanId}/transactions/reage-preview
+    previewReAmortizeLoanSchedule: (loanId, params) => self._g(`/v1/loans/${loanId}/transactions/reamortization-preview`, params), // GET /v1/loans/{loanId}/transactions/reamortization-preview
+    retrieveTemplateLoanTransaction: (loanId, params) => self._g(`/v1/loans/${loanId}/transactions/template`, params), // GET /v1/loans/{loanId}/transactions/template
+    retrieveAllLoanTransactionsByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/transactions`, params), // GET /v1/loans/external-id/{loanExternalId}/transactions
+    handleCommandsLoanTransactionByLoanExternalId: (loanExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/transactions`, body), // POST /v1/loans/external-id/{loanExternalId}/transactions
+    retrieveOneLoanTransactionByLoanExternalId: (loanExternalId, transactionId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/transactions/${transactionId}`, params), // GET /v1/loans/external-id/{loanExternalId}/transactions/{transactionId}
+    undoWaiveChargeLoanTransactionByLoanExternalId: (loanExternalId, transactionId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/transactions/${transactionId}`, body), // PUT /v1/loans/external-id/{loanExternalId}/transactions/{transactionId}
+    adjustLoanTransactionByLoanExternalId: (loanExternalId, transactionId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/transactions/${transactionId}`, body), // POST /v1/loans/external-id/{loanExternalId}/transactions/{transactionId}
+    retrieveOneLoanTransactionByLoanExternalIdAndTransactionExternalId: (loanExternalId, externalTransactionId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/transactions/external-id/${externalTransactionId}`, params), // GET /v1/loans/external-id/{loanExternalId}/transactions/external-id/{externalTransactionId}
+    adjustLoanTransactionByLoanAndTransactionExternalId: (loanExternalId, externalTransactionId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/transactions/external-id/${externalTransactionId}`, body), // POST /v1/loans/external-id/{loanExternalId}/transactions/external-id/{externalTransactionId}
+    undoWaiveChargeLoanTransactionByLoanAndTransactionExternalId: (loanExternalId, transactionExternalId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/transactions/external-id/${transactionExternalId}`, body), // PUT /v1/loans/external-id/{loanExternalId}/transactions/external-id/{transactionExternalId}
+    previewReAgeLoanScheduleByLoanExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/transactions/reage-preview`, params), // GET /v1/loans/external-id/{loanExternalId}/transactions/reage-preview
+    previewReAmortizeLoanScheduleByLoanExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/transactions/reamortization-preview`, params), // GET /v1/loans/external-id/{loanExternalId}/transactions/reamortization-preview
+    retrieveTemplateLoanTransactionByLoanExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/transactions/template`, params), // GET /v1/loans/external-id/{loanExternalId}/transactions/template
   };
 }
 
 export function makeLoansAPI(self) {
   return {
-    calculateLoanScheduleOrSubmitLoanApplication: (body) => self._p(`/loans`, body), // POST /loans
-    approveLoanApplication: (loanId, body) => self._p(`/loans/${loanId}?command=approve`, body), // POST /loans/{loanId}?command=approve
+    retrieveAllLoans: (params) => self._g(`/v1/loans`, params), // GET /v1/loans
+    calculateOrSubmitLoanApplication: (body) => self._p(`/v1/loans`, body), // POST /v1/loans
+    retrieveOneLoan: (loanId, params) => self._g(`/v1/loans/${loanId}`, params), // GET /v1/loans/{loanId}
+    updateApplication: (loanId, body) => self._u(`/v1/loans/${loanId}`, body), // PUT /v1/loans/{loanId}
+    handleCommandsLoan: (loanId, body) => self._p(`/v1/loans/${loanId}`, body), // POST /v1/loans/{loanId}
+    deleteApplication: (loanId, body) => self._d(`/v1/loans/${loanId}`, body), // DELETE /v1/loans/{loanId}
+    retrieveApprovedAmountHistoryLoan: (loanId, params) => self._g(`/v1/loans/${loanId}/approved-amount`, params), // GET /v1/loans/{loanId}/approved-amount
+    updateApprovedAmountLoan: (loanId, body) => self._u(`/v1/loans/${loanId}/approved-amount`, body), // PUT /v1/loans/{loanId}/approved-amount
+    updateAvailableDisbursementAmountLoan: (loanId, body) => self._u(`/v1/loans/${loanId}/available-disbursement-amount`, body), // PUT /v1/loans/{loanId}/available-disbursement-amount
+    retrieveDelinquencyActionsLoan: (loanId, params) => self._g(`/v1/loans/${loanId}/delinquency-actions`, params), // GET /v1/loans/{loanId}/delinquency-actions
+    createDelinquencyActionLoan: (loanId, body) => self._p(`/v1/loans/${loanId}/delinquency-actions`, body), // POST /v1/loans/{loanId}/delinquency-actions
+    retrieveDelinquencyTagHistoryLoan: (loanId, params) => self._g(`/v1/loans/${loanId}/delinquencytags`, params), // GET /v1/loans/{loanId}/delinquencytags
+    retrieveApprovalTemplate: (loanId, params) => self._g(`/v1/loans/${loanId}/template`, params), // GET /v1/loans/{loanId}/template
+    getsTemplate: (params) => self._g(`/v1/loans/downloadtemplate`, params), // GET /v1/loans/downloadtemplate
+    retrieveOneLoanByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}`, params), // GET /v1/loans/external-id/{loanExternalId}
+    updateApplicationByExternalId: (loanExternalId, body) => self._u(`/v1/loans/external-id/${loanExternalId}`, body), // PUT /v1/loans/external-id/{loanExternalId}
+    handleCommandsLoanByExternalId: (loanExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}`, body), // POST /v1/loans/external-id/{loanExternalId}
+    deleteApplicationByExternalId: (loanExternalId, body) => self._d(`/v1/loans/external-id/${loanExternalId}`, body), // DELETE /v1/loans/external-id/{loanExternalId}
+    retrieveApprovedAmountHistoryLoanByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/approved-amount`, params), // GET /v1/loans/external-id/{loanExternalId}/approved-amount
+    updateApprovedAmountLoanByExternalId: (loanExternalId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/approved-amount`, body), // PUT /v1/loans/external-id/{loanExternalId}/approved-amount
+    updateAvailableDisbursementAmountLoanByExternalId: (loanExternalId, body) => self._u(`/v1/loans/external-id/${loanExternalId}/available-disbursement-amount`, body), // PUT /v1/loans/external-id/{loanExternalId}/available-disbursement-amount
+    retrieveDelinquencyActionsLoanByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/delinquency-actions`, params), // GET /v1/loans/external-id/{loanExternalId}/delinquency-actions
+    createDelinquencyActionLoanByExternalId: (loanExternalId, body) => self._p(`/v1/loans/external-id/${loanExternalId}/delinquency-actions`, body), // POST /v1/loans/external-id/{loanExternalId}/delinquency-actions
+    retrieveDelinquencyTagHistoryLoanByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/delinquencytags`, params), // GET /v1/loans/external-id/{loanExternalId}/delinquencytags
+    retrieveApprovalTemplateByExternalId: (loanExternalId, params) => self._g(`/v1/loans/external-id/${loanExternalId}/template`, params), // GET /v1/loans/external-id/{loanExternalId}/template
+    getGlimRepaymentTemplate: (glimId, params) => self._g(`/v1/loans/glimAccount/${glimId}`, params), // GET /v1/loans/glimAccount/{glimId}
+    handleCommandsGlimLoan: (glimId, body) => self._p(`/v1/loans/glimAccount/${glimId}`, body), // POST /v1/loans/glimAccount/{glimId}
+    getRepaymentTemplate: (params) => self._g(`/v1/loans/repayments/downloadtemplate`, params), // GET /v1/loans/repayments/downloadtemplate
+    postRepaymentTemplate: (body) => self._p(`/v1/loans/repayments/uploadtemplate`, body), // POST /v1/loans/repayments/uploadtemplate
+    retrieveTemplateLoan: (params) => self._g(`/v1/loans/template`, params), // GET /v1/loans/template
+    postTemplate: (body) => self._p(`/v1/loans/uploadtemplate`, body), // POST /v1/loans/uploadtemplate
   };
 }
 
-export function makeSavingsAPI(self) {
+export function makeLoansPointInTimeAPI(self) {
   return {
-    retrieveAllSavingsAccounts: (params) => self._g(`/savingsaccounts`, params), // GET /savingsaccounts
-    submitSavingsApplication: (body) => self._p(`/savingsaccounts`, body), // POST /savingsaccounts
+    retrieveLoanPointInTime: (loanId, params) => self._g(`/v1/loans/at-date/${loanId}`, params), // GET /v1/loans/at-date/{loanId}
+    retrieveLoanPointInTimeByExternalId: (loanExternalId, params) => self._g(`/v1/loans/at-date/external-id/${loanExternalId}`, params), // GET /v1/loans/at-date/external-id/{loanExternalId}
+    retrieve: (body) => self._p(`/v1/loans/at-date/search`, body), // POST /v1/loans/at-date/search
+    retrieveByExternalIds: (body) => self._p(`/v1/loans/at-date/search/external-id`, body), // POST /v1/loans/at-date/search/external-id
+  };
+}
+
+export function makeMakerCheckerOr4EyeFunctionalityAPI(self) {
+  return {
+    retrieveCommands: (params) => self._g(`/v1/makercheckers`, params), // GET /v1/makercheckers
+    approveMakerCheckerEntry: (auditId, body) => self._p(`/v1/makercheckers/${auditId}`, body), // POST /v1/makercheckers/{auditId}
+    deleteMakerCheckerEntry: (auditId, body) => self._d(`/v1/makercheckers/${auditId}`, body), // DELETE /v1/makercheckers/{auditId}
+    retrieveAuditSearchTemplate1: (params) => self._g(`/v1/makercheckers/searchtemplate`, params), // GET /v1/makercheckers/searchtemplate
+  };
+}
+
+export function makeMappingFinancialActivitiesToAccountsAPI(self) {
+  return {
+    retrieveAll: (params) => self._g(`/v1/financialactivityaccounts`, params), // GET /v1/financialactivityaccounts
+    createGLAccountMappingFinancialActivityAccount: (body) => self._p(`/v1/financialactivityaccounts`, body), // POST /v1/financialactivityaccounts
+    retreive: (mappingId, params) => self._g(`/v1/financialactivityaccounts/${mappingId}`, params), // GET /v1/financialactivityaccounts/{mappingId}
+    updateGLAccountMappingFinancialActivityAccount: (mappingId, body) => self._u(`/v1/financialactivityaccounts/${mappingId}`, body), // PUT /v1/financialactivityaccounts/{mappingId}
+    deleteGLAccountMappingFinancialActivityAccount: (mappingId, body) => self._d(`/v1/financialactivityaccounts/${mappingId}`, body), // DELETE /v1/financialactivityaccounts/{mappingId}
+    retrieveTemplate: (params) => self._g(`/v1/financialactivityaccounts/template`, params), // GET /v1/financialactivityaccounts/template
+  };
+}
+
+export function makeMeetingsAPI(self) {
+  return {
+    retrieveAllMeetings: (entityType, entityId, params) => self._g(`/v1/${entityType}/${entityId}/meetings`, params), // GET /v1/{entityType}/{entityId}/meetings
+    create: (entityType, entityId, body) => self._p(`/v1/${entityType}/${entityId}/meetings`, body), // POST /v1/{entityType}/{entityId}/meetings
+    retrieveOneMeeting: (entityType, entityId, meetingId, params) => self._g(`/v1/${entityType}/${entityId}/meetings/${meetingId}`, params), // GET /v1/{entityType}/{entityId}/meetings/{meetingId}
+    update: (entityType, entityId, meetingId, body) => self._u(`/v1/${entityType}/${entityId}/meetings/${meetingId}`, body), // PUT /v1/{entityType}/{entityId}/meetings/{meetingId}
+    updateAttendance: (entityType, entityId, meetingId, body) => self._p(`/v1/${entityType}/${entityId}/meetings/${meetingId}`, body), // POST /v1/{entityType}/{entityId}/meetings/{meetingId}
+    delete: (entityType, entityId, meetingId, body) => self._d(`/v1/${entityType}/${entityId}/meetings/${meetingId}`, body), // DELETE /v1/{entityType}/{entityId}/meetings/{meetingId}
+    retrieveTemplateMeeting: (entityType, entityId, params) => self._g(`/v1/${entityType}/${entityId}/meetings/template`, params), // GET /v1/{entityType}/{entityId}/meetings/template
+  };
+}
+
+export function makeMixMappingAPI(self) {
+  return {
+    retrieveMixTaxonomyMapping: (params) => self._g(`/v1/mixmapping`, params), // GET /v1/mixmapping
+    updateMixTaxonomyMapping: (body) => self._u(`/v1/mixmapping`, body), // PUT /v1/mixmapping
+  };
+}
+
+export function makeMixReportAPI(self) {
+  return {
+    retrieve: (params) => self._g(`/v1/mixreport`, params), // GET /v1/mixreport
+  };
+}
+
+export function makeMixTaxonomyAPI(self) {
+  return {
+    retrieveAllMixTaxonomies: (params) => self._g(`/v1/mixtaxonomy`, params), // GET /v1/mixtaxonomy
+  };
+}
+
+export function makeNotesAPI(self) {
+  return {
+    retrievesByResource: (resourceType, resourceId, params) => self._g(`/v1/${resourceType}/${resourceId}/notes`, params), // GET /v1/{resourceType}/{resourceId}/notes
+    addNewNote: (resourceType, resourceId, body) => self._p(`/v1/${resourceType}/${resourceId}/notes`, body), // POST /v1/{resourceType}/{resourceId}/notes
+    retrieve: (resourceType, resourceId, noteId, params) => self._g(`/v1/${resourceType}/${resourceId}/notes/${noteId}`, params), // GET /v1/{resourceType}/{resourceId}/notes/{noteId}
+    update: (resourceType, resourceId, noteId, body) => self._u(`/v1/${resourceType}/${resourceId}/notes/${noteId}`, body), // PUT /v1/{resourceType}/{resourceId}/notes/{noteId}
+    delete: (resourceType, resourceId, noteId, body) => self._d(`/v1/${resourceType}/${resourceId}/notes/${noteId}`, body), // DELETE /v1/{resourceType}/{resourceId}/notes/{noteId}
+  };
+}
+
+export function makeNotificationAPI(self) {
+  return {
+    getAllNotifications: (params) => self._g(`/v1/notifications`, params), // GET /v1/notifications
+    updateReadStatus: (body) => self._u(`/v1/notifications`, body), // PUT /v1/notifications
+  };
+}
+
+export function makeOfficesAPI(self) {
+  return {
+    retrieveAllOffices: (params) => self._g(`/v1/offices`, params), // GET /v1/offices
+    create: (body) => self._p(`/v1/offices`, body), // POST /v1/offices
+    retrieveOneOffice: (officeId, params) => self._g(`/v1/offices/${officeId}`, params), // GET /v1/offices/{officeId}
+    update: (officeId, body) => self._u(`/v1/offices/${officeId}`, body), // PUT /v1/offices/{officeId}
+    getTemplate: (params) => self._g(`/v1/offices/downloadtemplate`, params), // GET /v1/offices/downloadtemplate
+    retrieveOneOfficeByExternalId: (externalId, params) => self._g(`/v1/offices/external-id/${externalId}`, params), // GET /v1/offices/external-id/{externalId}
+    updateByExternalId: (externalId, body) => self._u(`/v1/offices/external-id/${externalId}`, body), // PUT /v1/offices/external-id/{externalId}
+    retrieveTemplateOffice: (params) => self._g(`/v1/offices/template`, params), // GET /v1/offices/template
+    postTemplate: (body) => self._p(`/v1/offices/uploadtemplate`, body), // POST /v1/offices/uploadtemplate
+  };
+}
+
+export function makePasswordManagementAPI(self) {
+  return {
+    forgotPassword: (body) => self._p(`/v1/password/forgot`, body), // POST /v1/password/forgot
+  };
+}
+
+export function makePasswordPreferencesAPI(self) {
+  return {
+    retrieveAllPasswordPreferences: (params) => self._g(`/v1/passwordpreferences`, params), // GET /v1/passwordpreferences
+    updates: (body) => self._u(`/v1/passwordpreferences`, body), // PUT /v1/passwordpreferences
+    retrieveTemplatePasswordPreferences: (params) => self._g(`/v1/passwordpreferences/template`, params), // GET /v1/passwordpreferences/template
+  };
+}
+
+export function makePaymentTypeAPI(self) {
+  return {
+    getAllPaymentTypes: (params) => self._g(`/v1/paymenttypes`, params), // GET /v1/paymenttypes
+    create: (body) => self._p(`/v1/paymenttypes`, body), // POST /v1/paymenttypes
+    retrieveOnePaymentType: (paymentTypeId, params) => self._g(`/v1/paymenttypes/${paymentTypeId}`, params), // GET /v1/paymenttypes/{paymentTypeId}
+    update: (paymentTypeId, body) => self._u(`/v1/paymenttypes/${paymentTypeId}`, body), // PUT /v1/paymenttypes/{paymentTypeId}
+    deleteCodePaymentType: (paymentTypeId, body) => self._d(`/v1/paymenttypes/${paymentTypeId}`, body), // DELETE /v1/paymenttypes/{paymentTypeId}
+  };
+}
+
+export function makePeriodicAccrualAccountingAPI(self) {
+  return {
+    executePeriodicAccrualAccounting: (body) => self._p(`/v1/runaccruals`, body), // POST /v1/runaccruals
+  };
+}
+
+export function makePermissionsAPI(self) {
+  return {
+    retrieveAllPermissions: (params) => self._g(`/v1/permissions`, params), // GET /v1/permissions
+    updates: (body) => self._u(`/v1/permissions`, body), // PUT /v1/permissions
+  };
+}
+
+export function makePovertyLineAPI(self) {
+  return {
+    retrieveAll6: (ppiName, params) => self._g(`/v1/povertyLine/${ppiName}`, params), // GET /v1/povertyLine/{ppiName}
+    retrieveAll7: (ppiName, likelihoodId, params) => self._g(`/v1/povertyLine/${ppiName}/${likelihoodId}`, params), // GET /v1/povertyLine/{ppiName}/{likelihoodId}
+  };
+}
+
+export function makeProductMixAPI(self) {
+  return {
+    retrieveTemplateProductMix: (productId, params) => self._g(`/v1/loanproducts/${productId}/productmix`, params), // GET /v1/loanproducts/{productId}/productmix
+    update: (productId, body) => self._u(`/v1/loanproducts/${productId}/productmix`, body), // PUT /v1/loanproducts/{productId}/productmix
+    create: (productId, body) => self._p(`/v1/loanproducts/${productId}/productmix`, body), // POST /v1/loanproducts/{productId}/productmix
+    delete: (productId, body) => self._d(`/v1/loanproducts/${productId}/productmix`, body), // DELETE /v1/loanproducts/{productId}/productmix
+  };
+}
+
+export function makeProductsAPI(self) {
+  return {
+    retrieveAllShareProducts: (type, params) => self._g(`/v1/products/${type}`, params), // GET /v1/products/{type}
+    createShareProduct: (type, body) => self._p(`/v1/products/${type}`, body), // POST /v1/products/{type}
+    retrieveOneShareProduct: (type, productId, params) => self._g(`/v1/products/${type}/${productId}`, params), // GET /v1/products/{type}/{productId}
+    updateShareProduct: (type, productId, body) => self._u(`/v1/products/${type}/${productId}`, body), // PUT /v1/products/{type}/{productId}
+    handleCommandsShareProduct: (type, productId, body) => self._p(`/v1/products/${type}/${productId}`, body), // POST /v1/products/{type}/{productId}
+    retrieveTemplateShareProduct: (type, params) => self._g(`/v1/products/${type}/template`, params), // GET /v1/products/{type}/template
+  };
+}
+
+export function makeProgressiveLoanAPI(self) {
+  return {
+    retrieveOneInternalProgressiveLoan: (loanId, params) => self._g(`/v1/internal/loan/progressive/${loanId}/model`, params), // GET /v1/internal/loan/progressive/{loanId}/model
+    updateInternalProgressiveLoan: (loanId, body) => self._p(`/v1/internal/loan/progressive/${loanId}/model`, body), // POST /v1/internal/loan/progressive/{loanId}/model
+    deleteInternalProgressiveLoan: (loanId, body) => self._d(`/v1/internal/loan/progressive/${loanId}/model`, body), // DELETE /v1/internal/loan/progressive/{loanId}/model
+  };
+}
+
+export function makeProvisioningCategoryAPI(self) {
+  return {
+    retrieveAll8: (params) => self._g(`/v1/provisioningcategory`, params), // GET /v1/provisioningcategory
+    create: (body) => self._p(`/v1/provisioningcategory`, body), // POST /v1/provisioningcategory
+    update: (categoryId, body) => self._u(`/v1/provisioningcategory/${categoryId}`, body), // PUT /v1/provisioningcategory/{categoryId}
+    delete: (categoryId, body) => self._d(`/v1/provisioningcategory/${categoryId}`, body), // DELETE /v1/provisioningcategory/{categoryId}
+  };
+}
+
+export function makeProvisioningCriteriaAPI(self) {
+  return {
+    retrieveAllProvisioningCriteria: (params) => self._g(`/v1/provisioningcriteria`, params), // GET /v1/provisioningcriteria
+    create: (body) => self._p(`/v1/provisioningcriteria`, body), // POST /v1/provisioningcriteria
+    retrieveOneProvisioningCriteria: (criteriaId, params) => self._g(`/v1/provisioningcriteria/${criteriaId}`, params), // GET /v1/provisioningcriteria/{criteriaId}
+    update: (criteriaId, body) => self._u(`/v1/provisioningcriteria/${criteriaId}`, body), // PUT /v1/provisioningcriteria/{criteriaId}
+    delete: (criteriaId, body) => self._d(`/v1/provisioningcriteria/${criteriaId}`, body), // DELETE /v1/provisioningcriteria/{criteriaId}
+    retrieveTemplate1: (params) => self._g(`/v1/provisioningcriteria/template`, params), // GET /v1/provisioningcriteria/template
+  };
+}
+
+export function makeProvisioningEntriesAPI(self) {
+  return {
+    retrieveAllProvisioningEntries: (params) => self._g(`/v1/provisioningentries`, params), // GET /v1/provisioningentries
+    creates: (body) => self._p(`/v1/provisioningentries`, body), // POST /v1/provisioningentries
+    retrieveOneProvisioningEntry: (entryId, params) => self._g(`/v1/provisioningentries/${entryId}`, params), // GET /v1/provisioningentries/{entryId}
+    modifyProvisioningEntry: (entryId, body) => self._p(`/v1/provisioningentries/${entryId}`, body), // POST /v1/provisioningentries/{entryId}
+    retrievesLoanProducts: (params) => self._g(`/v1/provisioningentries/entries`, params), // GET /v1/provisioningentries/entries
+  };
+}
+
+export function makeRateAPI(self) {
+  return {
+    retrieveAllRates: (params) => self._g(`/v1/rates`, params), // GET /v1/rates
+    create: (body) => self._p(`/v1/rates`, body), // POST /v1/rates
+    retrieveOneRate: (rateId, params) => self._g(`/v1/rates/${rateId}`, params), // GET /v1/rates/{rateId}
+    update: (rateId, body) => self._u(`/v1/rates/${rateId}`, body), // PUT /v1/rates/{rateId}
+  };
+}
+
+export function makeRecurringDepositAccountAPI(self) {
+  return {
+    retrieveAllRecurringDepositAccounts: (params) => self._g(`/v1/recurringdepositaccounts`, params), // GET /v1/recurringdepositaccounts
+    submitApplicationRecurringDepositAccount: (body) => self._p(`/v1/recurringdepositaccounts`, body), // POST /v1/recurringdepositaccounts
+    retrieveOneRecurringDepositAccount: (accountId, params) => self._g(`/v1/recurringdepositaccounts/${accountId}`, params), // GET /v1/recurringdepositaccounts/{accountId}
+    update: (accountId, body) => self._u(`/v1/recurringdepositaccounts/${accountId}`, body), // PUT /v1/recurringdepositaccounts/{accountId}
+    handleCommandsRecurringDepositAccount: (accountId, body) => self._p(`/v1/recurringdepositaccounts/${accountId}`, body), // POST /v1/recurringdepositaccounts/{accountId}
+    delete: (accountId, body) => self._d(`/v1/recurringdepositaccounts/${accountId}`, body), // DELETE /v1/recurringdepositaccounts/{accountId}
+    accountClosureTemplateRecurringDepositAccount: (accountId, params) => self._g(`/v1/recurringdepositaccounts/${accountId}/template`, params), // GET /v1/recurringdepositaccounts/{accountId}/template
+    getRecurringDepositTemplate: (params) => self._g(`/v1/recurringdepositaccounts/downloadtemplate`, params), // GET /v1/recurringdepositaccounts/downloadtemplate
+    retrieveTemplateRecurringDepositAccount: (params) => self._g(`/v1/recurringdepositaccounts/template`, params), // GET /v1/recurringdepositaccounts/template
+    getRecurringDepositTransactionTemplate: (params) => self._g(`/v1/recurringdepositaccounts/transactions/downloadtemplate`, params), // GET /v1/recurringdepositaccounts/transactions/downloadtemplate
+    postRecurringDepositTransactionsTemplate: (body) => self._p(`/v1/recurringdepositaccounts/transactions/uploadtemplate`, body), // POST /v1/recurringdepositaccounts/transactions/uploadtemplate
+    postRecurringDepositTemplate: (body) => self._p(`/v1/recurringdepositaccounts/uploadtemplate`, body), // POST /v1/recurringdepositaccounts/uploadtemplate
+  };
+}
+
+export function makeRecurringDepositAccountTransactionsAPI(self) {
+  return {
+    transactionRecurringDepositAccountTransaction: (recurringDepositAccountId, body) => self._p(`/v1/recurringdepositaccounts/${recurringDepositAccountId}/transactions`, body), // POST /v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions
+    retrieveOneRecurringDepositAccountTransaction: (recurringDepositAccountId, transactionId, params) => self._g(`/v1/recurringdepositaccounts/${recurringDepositAccountId}/transactions/${transactionId}`, params), // GET /v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/{transactionId}
+    handleCommandsRecurringDepositAccountTransaction: (recurringDepositAccountId, transactionId, body) => self._p(`/v1/recurringdepositaccounts/${recurringDepositAccountId}/transactions/${transactionId}`, body), // POST /v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/{transactionId}
+    retrieveTemplateRecurringDepositAccountTransaction: (recurringDepositAccountId, params) => self._g(`/v1/recurringdepositaccounts/${recurringDepositAccountId}/transactions/template`, params), // GET /v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/template
+  };
+}
+
+export function makeRecurringDepositProductAPI(self) {
+  return {
+    retrieveAllRecurringDepositProducts: (params) => self._g(`/v1/recurringdepositproducts`, params), // GET /v1/recurringdepositproducts
+    create: (body) => self._p(`/v1/recurringdepositproducts`, body), // POST /v1/recurringdepositproducts
+    retrieveOneRecurringDepositProduct: (productId, params) => self._g(`/v1/recurringdepositproducts/${productId}`, params), // GET /v1/recurringdepositproducts/{productId}
+    update: (productId, body) => self._u(`/v1/recurringdepositproducts/${productId}`, body), // PUT /v1/recurringdepositproducts/{productId}
+    delete: (productId, body) => self._d(`/v1/recurringdepositproducts/${productId}`, body), // DELETE /v1/recurringdepositproducts/{productId}
+    retrieveTemplateRecurringDepositProduct: (params) => self._g(`/v1/recurringdepositproducts/template`, params), // GET /v1/recurringdepositproducts/template
+  };
+}
+
+export function makeRepaymentWithPostDatedChecksAPI(self) {
+  return {
+    getPostDatedChecks: (loanId, params) => self._g(`/v1/loans/${loanId}/postdatedchecks`, params), // GET /v1/loans/{loanId}/postdatedchecks
+    getPostDatedCheck: (loanId, installmentId, params) => self._g(`/v1/loans/${loanId}/postdatedchecks/${installmentId}`, params), // GET /v1/loans/{loanId}/postdatedchecks/{installmentId}
+    updatePostDatedChecks: (loanId, postDatedCheckId, body) => self._u(`/v1/loans/${loanId}/postdatedchecks/${postDatedCheckId}`, body), // PUT /v1/loans/{loanId}/postdatedchecks/{postDatedCheckId}
+    deletePostDatedCheck: (loanId, postDatedCheckId, body) => self._d(`/v1/loans/${loanId}/postdatedchecks/${postDatedCheckId}`, body), // DELETE /v1/loans/{loanId}/postdatedchecks/{postDatedCheckId}
+  };
+}
+
+export function makeReportMailingJobsAPI(self) {
+  return {
+    retrieveAllReportMailingJobs: (params) => self._g(`/v1/reportmailingjobs`, params), // GET /v1/reportmailingjobs
+    create: (body) => self._p(`/v1/reportmailingjobs`, body), // POST /v1/reportmailingjobs
+    retrieveOneReportMailingJob: (entityId, params) => self._g(`/v1/reportmailingjobs/${entityId}`, params), // GET /v1/reportmailingjobs/{entityId}
+    update: (entityId, body) => self._u(`/v1/reportmailingjobs/${entityId}`, body), // PUT /v1/reportmailingjobs/{entityId}
+    delete: (entityId, body) => self._d(`/v1/reportmailingjobs/${entityId}`, body), // DELETE /v1/reportmailingjobs/{entityId}
+    retrieveTemplateReportMailingJob: (params) => self._g(`/v1/reportmailingjobs/template`, params), // GET /v1/reportmailingjobs/template
+  };
+}
+
+export function makeReportsAPI(self) {
+  return {
+    retrieveAllReports: (params) => self._g(`/v1/reports`, params), // GET /v1/reports
+    create: (body) => self._p(`/v1/reports`, body), // POST /v1/reports
+    retrieveOneReport: (id, params) => self._g(`/v1/reports/${id}`, params), // GET /v1/reports/{id}
+    update: (id, body) => self._u(`/v1/reports/${id}`, body), // PUT /v1/reports/{id}
+    delete: (id, body) => self._d(`/v1/reports/${id}`, body), // DELETE /v1/reports/{id}
+    retrieveTemplateReport: (params) => self._g(`/v1/reports/template`, params), // GET /v1/reports/template
+  };
+}
+
+export function makeRescheduleLoansAPI(self) {
+  return {
+    retrieveAllRescheduleLoans: (params) => self._g(`/v1/rescheduleloans`, params), // GET /v1/rescheduleloans
+    create: (body) => self._p(`/v1/rescheduleloans`, body), // POST /v1/rescheduleloans
+    retrieveOneRescheduleLoan: (scheduleId, params) => self._g(`/v1/rescheduleloans/${scheduleId}`, params), // GET /v1/rescheduleloans/{scheduleId}
+    update: (scheduleId, body) => self._p(`/v1/rescheduleloans/${scheduleId}`, body), // POST /v1/rescheduleloans/{scheduleId}
+    retrieveAllRescheduleLoanReasons: (params) => self._g(`/v1/rescheduleloans/template`, params), // GET /v1/rescheduleloans/template
+  };
+}
+
+export function makeRolesAPI(self) {
+  return {
+    retrieveAllRoles: (params) => self._g(`/v1/roles`, params), // GET /v1/roles
+    create: (body) => self._p(`/v1/roles`, body), // POST /v1/roles
+    retrieveOneRole: (roleId, params) => self._g(`/v1/roles/${roleId}`, params), // GET /v1/roles/{roleId}
+    update: (roleId, body) => self._u(`/v1/roles/${roleId}`, body), // PUT /v1/roles/{roleId}
+    handleCommandsRole: (roleId, body) => self._p(`/v1/roles/${roleId}`, body), // POST /v1/roles/{roleId}
+    delete: (roleId, body) => self._d(`/v1/roles/${roleId}`, body), // DELETE /v1/roles/{roleId}
+    retrievePermissions: (roleId, params) => self._g(`/v1/roles/${roleId}/permissions`, params), // GET /v1/roles/{roleId}/permissions
+    updatePermissions: (roleId, body) => self._u(`/v1/roles/${roleId}/permissions`, body), // PUT /v1/roles/{roleId}/permissions
+  };
+}
+
+export function makeRunReportsAPI(self) {
+  return {
+    get: (reportName, params) => self._g(`/v1/runreports/${reportName}`, params), // GET /v1/runreports/{reportName}
+    retrieveAllAvailableExports: (reportName, params) => self._g(`/v1/runreports/availableExports/${reportName}`, params), // GET /v1/runreports/availableExports/{reportName}
+  };
+}
+
+export function makeSavingsAccountAPI(self) {
+  return {
+    retrieveAllSavingsAccounts: (params) => self._g(`/v1/savingsaccounts`, params), // GET /v1/savingsaccounts
+    submitSavingsApplication: (body) => self._p(`/v1/savingsaccounts`, body), // POST /v1/savingsaccounts
+    retrieve: (accountId, params) => self._g(`/v1/savingsaccounts/${accountId}`, params), // GET /v1/savingsaccounts/{accountId}
+    update: (accountId, body) => self._u(`/v1/savingsaccounts/${accountId}`, body), // PUT /v1/savingsaccounts/{accountId}
+    handleCommandsSavingsAccount: (accountId, body) => self._p(`/v1/savingsaccounts/${accountId}`, body), // POST /v1/savingsaccounts/{accountId}
+    delete: (accountId, body) => self._d(`/v1/savingsaccounts/${accountId}`, body), // DELETE /v1/savingsaccounts/{accountId}
+    getSavingsTemplate: (params) => self._g(`/v1/savingsaccounts/downloadtemplate`, params), // GET /v1/savingsaccounts/downloadtemplate
+    retrieveByExternalId: (externalId, params) => self._g(`/v1/savingsaccounts/external-id/${externalId}`, params), // GET /v1/savingsaccounts/external-id/{externalId}
+    updateByExternalId: (externalId, body) => self._u(`/v1/savingsaccounts/external-id/${externalId}`, body), // PUT /v1/savingsaccounts/external-id/{externalId}
+    handleCommandsSavingsAccountByExternalId: (externalId, body) => self._p(`/v1/savingsaccounts/external-id/${externalId}`, body), // POST /v1/savingsaccounts/external-id/{externalId}
+    deleteByExternalId: (externalId, body) => self._d(`/v1/savingsaccounts/external-id/${externalId}`, body), // DELETE /v1/savingsaccounts/external-id/{externalId}
+    submitGSIMApplication: (body) => self._p(`/v1/savingsaccounts/gsim`, body), // POST /v1/savingsaccounts/gsim
+    updateGsim: (parentAccountId, body) => self._u(`/v1/savingsaccounts/gsim/${parentAccountId}`, body), // PUT /v1/savingsaccounts/gsim/{parentAccountId}
+    handleGSIMCommands: (parentAccountId, body) => self._p(`/v1/savingsaccounts/gsimcommands/${parentAccountId}`, body), // POST /v1/savingsaccounts/gsimcommands/{parentAccountId}
+    retrieveTemplate: (params) => self._g(`/v1/savingsaccounts/template`, params), // GET /v1/savingsaccounts/template
+    getSavingsTransactionTemplate: (params) => self._g(`/v1/savingsaccounts/transactions/downloadtemplate`, params), // GET /v1/savingsaccounts/transactions/downloadtemplate
+    postSavingsTransactionTemplate: (body) => self._p(`/v1/savingsaccounts/transactions/uploadtemplate`, body), // POST /v1/savingsaccounts/transactions/uploadtemplate
+    postSavingsTemplate: (body) => self._p(`/v1/savingsaccounts/uploadtemplate`, body), // POST /v1/savingsaccounts/uploadtemplate
+  };
+}
+
+export function makeSavingsAccountTransactionsAPI(self) {
+  return {
+    create: (savingsId, body) => self._p(`/v1/savingsaccounts/${savingsId}/transactions`, body), // POST /v1/savingsaccounts/{savingsId}/transactions
+    retrieveOneSavingsAccountTransaction: (savingsId, transactionId, params) => self._g(`/v1/savingsaccounts/${savingsId}/transactions/${transactionId}`, params), // GET /v1/savingsaccounts/{savingsId}/transactions/{transactionId}
+    adjustSavingsAccountTransaction: (savingsId, transactionId, body) => self._p(`/v1/savingsaccounts/${savingsId}/transactions/${transactionId}`, body), // POST /v1/savingsaccounts/{savingsId}/transactions/{transactionId}
+    retrieveOneSavingsAccountTransactionByExternalId: (savingsId, transactionExternalId, params) => self._g(`/v1/savingsaccounts/${savingsId}/transactions/external-id/${transactionExternalId}`, params), // GET /v1/savingsaccounts/{savingsId}/transactions/external-id/{transactionExternalId}
+    adjustSavingsAccountTransactionByExternalId: (savingsId, transactionExternalId, body) => self._p(`/v1/savingsaccounts/${savingsId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/savingsaccounts/{savingsId}/transactions/external-id/{transactionExternalId}
+    advancedQuerySavingsAccountTransactions: (savingsId, body) => self._p(`/v1/savingsaccounts/${savingsId}/transactions/query`, body), // POST /v1/savingsaccounts/{savingsId}/transactions/query
+    searchSavingsAccountTransactions: (savingsId, params) => self._g(`/v1/savingsaccounts/${savingsId}/transactions/search`, params), // GET /v1/savingsaccounts/{savingsId}/transactions/search
+    retrieveTemplateSavingsAccountTransaction: (savingsId, params) => self._g(`/v1/savingsaccounts/${savingsId}/transactions/template`, params), // GET /v1/savingsaccounts/{savingsId}/transactions/template
+    createBySavingsExternalId: (savingsExternalId, body) => self._p(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions`, body), // POST /v1/savingsaccounts/external-id/{savingsExternalId}/transactions
+    retrieveOneSavingsAccountTransactionBySavingsExternalId: (savingsExternalId, transactionId, params) => self._g(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/${transactionId}`, params), // GET /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/{transactionId}
+    adjustSavingsAccountTransactionBySavingsExternalId: (savingsExternalId, transactionId, body) => self._p(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/${transactionId}`, body), // POST /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/{transactionId}
+    retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId: (savingsExternalId, transactionExternalId, params) => self._g(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/external-id/${transactionExternalId}`, params), // GET /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/external-id/{transactionExternalId}
+    adjustSavingsAccountTransactionBySavingsAndTransactionExternalId: (savingsExternalId, transactionExternalId, body) => self._p(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/external-id/{transactionExternalId}
+    advancedQuerySavingsAccountTransactionsBySavingsExternalId: (savingsExternalId, body) => self._p(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/query`, body), // POST /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/query
+    searchSavingsAccountTransactionsBySavingsExternalId: (savingsExternalId, params) => self._g(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/search`, params), // GET /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/search
+    retrieveTemplateSavingsAccountTransactionBySavingsExternalId: (savingsExternalId, params) => self._g(`/v1/savingsaccounts/external-id/${savingsExternalId}/transactions/template`, params), // GET /v1/savingsaccounts/external-id/{savingsExternalId}/transactions/template
+  };
+}
+
+export function makeSavingsChargesAPI(self) {
+  return {
+    retrieveAllSavingsAccountCharges: (savingsAccountId, params) => self._g(`/v1/savingsaccounts/${savingsAccountId}/charges`, params), // GET /v1/savingsaccounts/{savingsAccountId}/charges
+    createSavingsAccountCharge: (savingsAccountId, body) => self._p(`/v1/savingsaccounts/${savingsAccountId}/charges`, body), // POST /v1/savingsaccounts/{savingsAccountId}/charges
+    retrieveOneSavingsAccountCharge: (savingsAccountId, savingsAccountChargeId, params) => self._g(`/v1/savingsaccounts/${savingsAccountId}/charges/${savingsAccountChargeId}`, params), // GET /v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}
+    updateSavingsAccountCharge: (savingsAccountId, savingsAccountChargeId, body) => self._u(`/v1/savingsaccounts/${savingsAccountId}/charges/${savingsAccountChargeId}`, body), // PUT /v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}
+    handleCommandsSavingsAccountCharge: (savingsAccountId, savingsAccountChargeId, body) => self._p(`/v1/savingsaccounts/${savingsAccountId}/charges/${savingsAccountChargeId}`, body), // POST /v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}
+    deleteSavingsAccountCharge: (savingsAccountId, savingsAccountChargeId, body) => self._d(`/v1/savingsaccounts/${savingsAccountId}/charges/${savingsAccountChargeId}`, body), // DELETE /v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}
+    retrieveTemplateSavingsAccountCharge: (savingsAccountId, params) => self._g(`/v1/savingsaccounts/${savingsAccountId}/charges/template`, params), // GET /v1/savingsaccounts/{savingsAccountId}/charges/template
+  };
+}
+
+export function makeSavingsProductAPI(self) {
+  return {
+    retrieveAllSavingsProducts: (params) => self._g(`/v1/savingsproducts`, params), // GET /v1/savingsproducts
+    create: (body) => self._p(`/v1/savingsproducts`, body), // POST /v1/savingsproducts
+    retrieveOneSavingsProduct: (productId, params) => self._g(`/v1/savingsproducts/${productId}`, params), // GET /v1/savingsproducts/{productId}
+    update: (productId, body) => self._u(`/v1/savingsproducts/${productId}`, body), // PUT /v1/savingsproducts/{productId}
+    delete: (productId, body) => self._d(`/v1/savingsproducts/${productId}`, body), // DELETE /v1/savingsproducts/{productId}
+    retrieveTemplateSavingsProduct: (params) => self._g(`/v1/savingsproducts/template`, params), // GET /v1/savingsproducts/template
+  };
+}
+
+export function makeSchedulerAPI(self) {
+  return {
+    retrieveStatus: (params) => self._g(`/v1/scheduler`, params), // GET /v1/scheduler
+    handleCommandsScheduler: (body) => self._p(`/v1/scheduler`, body), // POST /v1/scheduler
+  };
+}
+
+export function makeSCHEDULERJOBAPI(self) {
+  return {
+    retrieveAllSchedulerJobs: (params) => self._g(`/v1/jobs`, params), // GET /v1/jobs
+    retrieveOneSchedulerJob: (jobId, params) => self._g(`/v1/jobs/${jobId}`, params), // GET /v1/jobs/{jobId}
+    updateJobDetail: (jobId, body) => self._u(`/v1/jobs/${jobId}`, body), // PUT /v1/jobs/{jobId}
+    executeJob: (jobId, body) => self._p(`/v1/jobs/${jobId}`, body), // POST /v1/jobs/{jobId}
+    retrieveHistory: (jobId, params) => self._g(`/v1/jobs/${jobId}/runhistory`, params), // GET /v1/jobs/{jobId}/runhistory
+    retrieveByShortName: (shortName, params) => self._g(`/v1/jobs/short-name/${shortName}`, params), // GET /v1/jobs/short-name/{shortName}
+    updateJobDetailByShortName: (shortName, body) => self._u(`/v1/jobs/short-name/${shortName}`, body), // PUT /v1/jobs/short-name/{shortName}
+    executeJobByShortName: (shortName, body) => self._p(`/v1/jobs/short-name/${shortName}`, body), // POST /v1/jobs/short-name/{shortName}
+    retrieveHistoryByShortName: (shortName, params) => self._g(`/v1/jobs/short-name/${shortName}/runhistory`, params), // GET /v1/jobs/short-name/{shortName}/runhistory
+  };
+}
+
+export function makeScoreCardAPI(self) {
+  return {
+    findBySurvey: (surveyId, params) => self._g(`/v1/surveys/scorecards/${surveyId}`, params), // GET /v1/surveys/scorecards/{surveyId}
+    create: (surveyId, body) => self._p(`/v1/surveys/scorecards/${surveyId}`, body), // POST /v1/surveys/scorecards/{surveyId}
+    findBySurveyAndClient: (surveyId, clientId, params) => self._g(`/v1/surveys/scorecards/${surveyId}/clients/${clientId}`, params), // GET /v1/surveys/scorecards/{surveyId}/clients/{clientId}
+    findByClient: (clientId, params) => self._g(`/v1/surveys/scorecards/clients/${clientId}`, params), // GET /v1/surveys/scorecards/clients/{clientId}
+  };
+}
+
+export function makeSearchAPIAPI(self) {
+  return {
+    searchData: (params) => self._g(`/v1/search`, params), // GET /v1/search
+    advancedSearch: (body) => self._p(`/v1/search/advance`, body), // POST /v1/search/advance
+    retrieveAdHocSearchQueryTemplate: (params) => self._g(`/v1/search/template`, params), // GET /v1/search/template
+  };
+}
+
+export function makeSelfDividendAPI(self) {
+  return {
+    retrieveAllShareDividends: (productId, params) => self._g(`/v1/shareproduct/${productId}/dividend`, params), // GET /v1/shareproduct/{productId}/dividend
+    createShareDividend: (productId, body) => self._p(`/v1/shareproduct/${productId}/dividend`, body), // POST /v1/shareproduct/{productId}/dividend
+    retrieveOneShareDividend: (productId, dividendId, params) => self._g(`/v1/shareproduct/${productId}/dividend/${dividendId}`, params), // GET /v1/shareproduct/{productId}/dividend/{dividendId}
+    updateShareDividend: (productId, dividendId, body) => self._u(`/v1/shareproduct/${productId}/dividend/${dividendId}`, body), // PUT /v1/shareproduct/{productId}/dividend/{dividendId}
+    deleteShareDividend: (productId, dividendId, body) => self._d(`/v1/shareproduct/${productId}/dividend/${dividendId}`, body), // DELETE /v1/shareproduct/{productId}/dividend/{dividendId}
+  };
+}
+
+export function makeShareAccountAPI(self) {
+  return {
+    retrieveAllShareAccounts: (type, params) => self._g(`/v1/accounts/${type}`, params), // GET /v1/accounts/{type}
+    create: (type, body) => self._p(`/v1/accounts/${type}`, body), // POST /v1/accounts/{type}
+    retrieveOneShareAccount: (type, accountId, params) => self._g(`/v1/accounts/${type}/${accountId}`, params), // GET /v1/accounts/{type}/{accountId}
+    update: (type, accountId, body) => self._u(`/v1/accounts/${type}/${accountId}`, body), // PUT /v1/accounts/{type}/{accountId}
+    handleCommandsShareAccount: (type, accountId, body) => self._p(`/v1/accounts/${type}/${accountId}`, body), // POST /v1/accounts/{type}/{accountId}
+    getTemplate: (type, params) => self._g(`/v1/accounts/${type}/downloadtemplate`, params), // GET /v1/accounts/{type}/downloadtemplate
+    retrieveTemplateShareAccount: (type, params) => self._g(`/v1/accounts/${type}/template`, params), // GET /v1/accounts/{type}/template
+    postTemplate: (type, body) => self._p(`/v1/accounts/${type}/uploadtemplate`, body), // POST /v1/accounts/{type}/uploadtemplate
+  };
+}
+
+export function makeSMSAPI(self) {
+  return {
+    retrieveAllSms: (params) => self._g(`/v1/sms`, params), // GET /v1/sms
+    create: (body) => self._p(`/v1/sms`, body), // POST /v1/sms
+    retrieveAllSmsByStatus: (campaignId, params) => self._g(`/v1/sms/${campaignId}/messageByStatus`, params), // GET /v1/sms/{campaignId}/messageByStatus
+    retrieveOneSms: (resourceId, params) => self._g(`/v1/sms/${resourceId}`, params), // GET /v1/sms/{resourceId}
+    update: (resourceId, body) => self._u(`/v1/sms/${resourceId}`, body), // PUT /v1/sms/{resourceId}
+    delete: (resourceId, body) => self._d(`/v1/sms/${resourceId}`, body), // DELETE /v1/sms/{resourceId}
+  };
+}
+
+export function makeSPMAPILookUpTableAPI(self) {
+  return {
+    fetchLookupTables: (surveyId, params) => self._g(`/v1/surveys/${surveyId}/lookuptables`, params), // GET /v1/surveys/{surveyId}/lookuptables
+    createLookupTable: (surveyId, body) => self._p(`/v1/surveys/${surveyId}/lookuptables`, body), // POST /v1/surveys/{surveyId}/lookuptables
+    findLookupTable: (surveyId, key, params) => self._g(`/v1/surveys/${surveyId}/lookuptables/${key}`, params), // GET /v1/surveys/{surveyId}/lookuptables/{key}
+  };
+}
+
+export function makeSpmSurveysAPI(self) {
+  return {
+    fetchAllSurveys: (params) => self._g(`/v1/surveys`, params), // GET /v1/surveys
+    createSurvey: (body) => self._p(`/v1/surveys`, body), // POST /v1/surveys
+    findSurvey: (id, params) => self._g(`/v1/surveys/${id}`, params), // GET /v1/surveys/{id}
+    editSurvey: (id, body) => self._u(`/v1/surveys/${id}`, body), // PUT /v1/surveys/{id}
+    activateOrDeactivateSurvey: (id, body) => self._p(`/v1/surveys/${id}`, body), // POST /v1/surveys/{id}
+  };
+}
+
+export function makeStaffAPI(self) {
+  return {
+    retrieveAllStaff: (params) => self._g(`/v1/staff`, params), // GET /v1/staff
+    create: (body) => self._p(`/v1/staff`, body), // POST /v1/staff
+    retrieveOneStaff: (staffId, params) => self._g(`/v1/staff/${staffId}`, params), // GET /v1/staff/{staffId}
+    update: (staffId, body) => self._u(`/v1/staff/${staffId}`, body), // PUT /v1/staff/{staffId}
+    getBulkTemplateStaff: (params) => self._g(`/v1/staff/downloadtemplate`, params), // GET /v1/staff/downloadtemplate
+    postTemplate: (body) => self._p(`/v1/staff/uploadtemplate`, body), // POST /v1/staff/uploadtemplate
+  };
+}
+
+export function makeStandingInstructionsAPI(self) {
+  return {
+    retrieveAllStandingInstructions: (params) => self._g(`/v1/standinginstructions`, params), // GET /v1/standinginstructions
+    create: (body) => self._p(`/v1/standinginstructions`, body), // POST /v1/standinginstructions
+    retrieveOneStandingInstruction: (standingInstructionId, params) => self._g(`/v1/standinginstructions/${standingInstructionId}`, params), // GET /v1/standinginstructions/{standingInstructionId}
+    update: (standingInstructionId, body) => self._u(`/v1/standinginstructions/${standingInstructionId}`, body), // PUT /v1/standinginstructions/{standingInstructionId}
+    retrieveTemplateStandingInstruction: (params) => self._g(`/v1/standinginstructions/template`, params), // GET /v1/standinginstructions/template
+  };
+}
+
+export function makeStandingInstructionsHistoryAPI(self) {
+  return {
+    retrieveAllStandingInstructionHistory: (params) => self._g(`/v1/standinginstructionrunhistory`, params), // GET /v1/standinginstructionrunhistory
+  };
+}
+
+export function makeSurveyAPI(self) {
+  return {
+    retrieveAllSurveys: (params) => self._g(`/v1/survey`, params), // GET /v1/survey
+    retrieveOneSurvey: (surveyName, params) => self._g(`/v1/survey/${surveyName}`, params), // GET /v1/survey/{surveyName}
+    createEntry: (surveyName, apptableId, body) => self._p(`/v1/survey/${surveyName}/${apptableId}`, body), // POST /v1/survey/{surveyName}/{apptableId}
+    getClientSurveyOverview: (surveyName, clientId, params) => self._g(`/v1/survey/${surveyName}/${clientId}`, params), // GET /v1/survey/{surveyName}/{clientId}
+    getEntry: (surveyName, clientId, entryId, params) => self._g(`/v1/survey/${surveyName}/${clientId}/${entryId}`, params), // GET /v1/survey/{surveyName}/{clientId}/{entryId}
+    deleteDatatableEntries1: (surveyName, clientId, fulfilledId, body) => self._d(`/v1/survey/${surveyName}/${clientId}/${fulfilledId}`, body), // DELETE /v1/survey/{surveyName}/{clientId}/{fulfilledId}
+    register: (surveyName, apptable, body) => self._u(`/v1/survey/register/${surveyName}/${apptable}`, body), // PUT /v1/survey/register/{surveyName}/{apptable}
+  };
+}
+
+export function makeTaxComponentsAPI(self) {
+  return {
+    retrieveAllTaxComponents: (params) => self._g(`/v1/taxes/component`, params), // GET /v1/taxes/component
+    create: (body) => self._p(`/v1/taxes/component`, body), // POST /v1/taxes/component
+    retrieveOneTaxComponent: (taxComponentId, params) => self._g(`/v1/taxes/component/${taxComponentId}`, params), // GET /v1/taxes/component/{taxComponentId}
+    update: (taxComponentId, body) => self._u(`/v1/taxes/component/${taxComponentId}`, body), // PUT /v1/taxes/component/{taxComponentId}
+    retrieveTemplateTaxComponent: (params) => self._g(`/v1/taxes/component/template`, params), // GET /v1/taxes/component/template
+  };
+}
+
+export function makeTaxGroupAPI(self) {
+  return {
+    retrieveAllTaxGroups: (params) => self._g(`/v1/taxes/group`, params), // GET /v1/taxes/group
+    create: (body) => self._p(`/v1/taxes/group`, body), // POST /v1/taxes/group
+    retrieveOneTaxGroup: (taxGroupId, params) => self._g(`/v1/taxes/group/${taxGroupId}`, params), // GET /v1/taxes/group/{taxGroupId}
+    update: (taxGroupId, body) => self._u(`/v1/taxes/group/${taxGroupId}`, body), // PUT /v1/taxes/group/{taxGroupId}
+    retrieveTemplateTaxGroup: (params) => self._g(`/v1/taxes/group/template`, params), // GET /v1/taxes/group/template
+  };
+}
+
+export function makeTellerCashManagementAPI(self) {
+  return {
+    retrieveAllTellers: (params) => self._g(`/v1/tellers`, params), // GET /v1/tellers
+    createTeller: (body) => self._p(`/v1/tellers`, body), // POST /v1/tellers
+    retrieveOneTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}`, params), // GET /v1/tellers/{tellerId}
+    updateTeller: (tellerId, body) => self._u(`/v1/tellers/${tellerId}`, body), // PUT /v1/tellers/{tellerId}
+    deleteTeller: (tellerId, body) => self._d(`/v1/tellers/${tellerId}`, body), // DELETE /v1/tellers/{tellerId}
+    retrieveAllCashiersForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/cashiers`, params), // GET /v1/tellers/{tellerId}/cashiers
+    createCashierForTeller: (tellerId, body) => self._p(`/v1/tellers/${tellerId}/cashiers`, body), // POST /v1/tellers/{tellerId}/cashiers
+    retrieveOneCashierForTeller: (tellerId, cashierId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/${cashierId}`, params), // GET /v1/tellers/{tellerId}/cashiers/{cashierId}
+    updateCashierForTeller: (tellerId, cashierId, body) => self._u(`/v1/tellers/${tellerId}/cashiers/${cashierId}`, body), // PUT /v1/tellers/{tellerId}/cashiers/{cashierId}
+    deleteCashierForTeller: (tellerId, cashierId, body) => self._d(`/v1/tellers/${tellerId}/cashiers/${cashierId}`, body), // DELETE /v1/tellers/{tellerId}/cashiers/{cashierId}
+    allocateCashToCashier: (tellerId, cashierId, body) => self._p(`/v1/tellers/${tellerId}/cashiers/${cashierId}/allocate`, body), // POST /v1/tellers/{tellerId}/cashiers/{cashierId}/allocate
+    settleCashFromCashier: (tellerId, cashierId, body) => self._p(`/v1/tellers/${tellerId}/cashiers/${cashierId}/settle`, body), // POST /v1/tellers/{tellerId}/cashiers/{cashierId}/settle
+    retrieveCashierTransactionsWithSummary: (tellerId, cashierId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/${cashierId}/summaryandtransactions`, params), // GET /v1/tellers/{tellerId}/cashiers/{cashierId}/summaryandtransactions
+    retrieveCashierTransactions: (tellerId, cashierId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/${cashierId}/transactions`, params), // GET /v1/tellers/{tellerId}/cashiers/{cashierId}/transactions
+    retrieveTemplateCashierTransaction: (tellerId, cashierId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/${cashierId}/transactions/template`, params), // GET /v1/tellers/{tellerId}/cashiers/{cashierId}/transactions/template
+    retrieveCashierTemplateForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/template`, params), // GET /v1/tellers/{tellerId}/cashiers/template
+    retrieveAllJournalsForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/journals`, params), // GET /v1/tellers/{tellerId}/journals
+    retrieveAllTransactionsForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/transactions`, params), // GET /v1/tellers/{tellerId}/transactions
+    retrieveOneTransactionForTeller: (tellerId, transactionId, params) => self._g(`/v1/tellers/${tellerId}/transactions/${transactionId}`, params), // GET /v1/tellers/{tellerId}/transactions/{transactionId}
+  };
+}
+
+export function makeTemplatesAPI(self) {
+  return {
+    retrieveAllTemplates: (params) => self._g(`/v1/templates`, params), // GET /v1/templates
+    create: (body) => self._p(`/v1/templates`, body), // POST /v1/templates
+    retrieveOneTemplate: (templateId, params) => self._g(`/v1/templates/${templateId}`, params), // GET /v1/templates/{templateId}
+    saveTemplate: (templateId, body) => self._u(`/v1/templates/${templateId}`, body), // PUT /v1/templates/{templateId}
+    mergeTemplate: (templateId, body) => self._p(`/v1/templates/${templateId}`, body), // POST /v1/templates/{templateId}
+    delete: (templateId, body) => self._d(`/v1/templates/${templateId}`, body), // DELETE /v1/templates/{templateId}
+    retrieveById: (templateId, params) => self._g(`/v1/templates/${templateId}/template`, params), // GET /v1/templates/{templateId}/template
+    retrieveDetails: (params) => self._g(`/v1/templates/template`, params), // GET /v1/templates/template
+  };
+}
+
+export function makeTenantOIDCConfigurationAPI(self) {
+  return {
+    retrieve: (tenantId, params) => self._g(`/v1/tenants/${tenantId}/oidc-config`, params), // GET /v1/tenants/{tenantId}/oidc-config
+    update1: (tenantId, body) => self._u(`/v1/tenants/${tenantId}/oidc-config`, body), // PUT /v1/tenants/{tenantId}/oidc-config
+    create: (tenantId, body) => self._p(`/v1/tenants/${tenantId}/oidc-config`, body), // POST /v1/tenants/{tenantId}/oidc-config
+    delete1: (tenantId, body) => self._d(`/v1/tenants/${tenantId}/oidc-config`, body), // DELETE /v1/tenants/{tenantId}/oidc-config
+  };
+}
+
+export function makeTwoFactorAPI(self) {
+  return {
+    getOTPDeliveryMethods: (params) => self._g(`/v1/twofactor`, params), // GET /v1/twofactor
+    requestToken: (body) => self._p(`/v1/twofactor`, body), // POST /v1/twofactor
+    updateConfiguration: (body) => self._p(`/v1/twofactor/invalidate`, body), // POST /v1/twofactor/invalidate
+    validate: (body) => self._p(`/v1/twofactor/validate`, body), // POST /v1/twofactor/validate
+  };
+}
+
+export function makeUsersAPI(self) {
+  return {
+    retrieveAllUsers: (params) => self._g(`/v1/users`, params), // GET /v1/users
+    create: (body) => self._p(`/v1/users`, body), // POST /v1/users
+    retrieveOneUser: (userId, params) => self._g(`/v1/users/${userId}`, params), // GET /v1/users/{userId}
+    update: (userId, body) => self._u(`/v1/users/${userId}`, body), // PUT /v1/users/{userId}
+    delete: (userId, body) => self._d(`/v1/users/${userId}`, body), // DELETE /v1/users/{userId}
+    changePasswordUser: (userId, body) => self._p(`/v1/users/${userId}/pwd`, body), // POST /v1/users/{userId}/pwd
+    getBulkTemplateUser: (params) => self._g(`/v1/users/downloadtemplate`, params), // GET /v1/users/downloadtemplate
+    retrieveTemplateUser: (params) => self._g(`/v1/users/template`, params), // GET /v1/users/template
+    postBulkTemplateUser: (body) => self._p(`/v1/users/uploadtemplate`, body), // POST /v1/users/uploadtemplate
+  };
+}
+
+export function makeV1API(self) {
+  return {
+    retrieveImage: (entityType, entityId, params) => self._g(`/v1/${entityType}/${entityId}/images`, params), // GET /v1/{entityType}/{entityId}/images
+    updateImage1: (entityType, entityId, body) => self._u(`/v1/${entityType}/${entityId}/images`, body), // PUT /v1/{entityType}/{entityId}/images
+    createImage1: (entityType, entityId, body) => self._p(`/v1/${entityType}/${entityId}/images`, body), // POST /v1/{entityType}/{entityId}/images
+    deleteImage: (entityType, entityId, body) => self._d(`/v1/${entityType}/${entityId}/images`, body), // DELETE /v1/{entityType}/{entityId}/images
+    retrieveAllEmails: (params) => self._g(`/v1/email`, params), // GET /v1/email
+    createEmail: (body) => self._p(`/v1/email`, body), // POST /v1/email
+    retrieveOneEmail: (resourceId, params) => self._g(`/v1/email/${resourceId}`, params), // GET /v1/email/{resourceId}
+    updateEmail: (resourceId, body) => self._u(`/v1/email/${resourceId}`, body), // PUT /v1/email/{resourceId}
+    deleteEmail: (resourceId, body) => self._d(`/v1/email/${resourceId}`, body), // DELETE /v1/email/{resourceId}
+    retrieveAllEmailCampaigns: (params) => self._g(`/v1/email/campaign`, params), // GET /v1/email/campaign
+    createEmailCampaign: (body) => self._p(`/v1/email/campaign`, body), // POST /v1/email/campaign
+    retrieveOneEmailCampaign: (resourceId, params) => self._g(`/v1/email/campaign/${resourceId}`, params), // GET /v1/email/campaign/{resourceId}
+    updateEmailCampaign: (resourceId, body) => self._u(`/v1/email/campaign/${resourceId}`, body), // PUT /v1/email/campaign/{resourceId}
+    handleCommandsEmailCampaign: (resourceId, body) => self._p(`/v1/email/campaign/${resourceId}`, body), // POST /v1/email/campaign/{resourceId}
+    deleteEmailCampaign: (resourceId, body) => self._d(`/v1/email/campaign/${resourceId}`, body), // DELETE /v1/email/campaign/{resourceId}
+    previewEmailCampaign: (body) => self._p(`/v1/email/campaign/preview`, body), // POST /v1/email/campaign/preview
+    retrieveAllTemplatesEmailCampaign: (params) => self._g(`/v1/email/campaign/template`, params), // GET /v1/email/campaign/template
+    retrieveOneTemplateEmailCampaign: (resourceId, params) => self._g(`/v1/email/campaign/template/${resourceId}`, params), // GET /v1/email/campaign/template/{resourceId}
+    retrieveAllEmailConfigurations: (params) => self._g(`/v1/email/configuration`, params), // GET /v1/email/configuration
+    updateEmailConfiguration: (body) => self._u(`/v1/email/configuration`, body), // PUT /v1/email/configuration
+    retrieveFailedEmail: (params) => self._g(`/v1/email/failedEmail`, params), // GET /v1/email/failedEmail
+    retrieveAllEmailByStatus: (params) => self._g(`/v1/email/messageByStatus`, params), // GET /v1/email/messageByStatus
+    retrievePendingEmail: (params) => self._g(`/v1/email/pendingEmail`, params), // GET /v1/email/pendingEmail
+    retrieveSentEmail: (params) => self._g(`/v1/email/sentEmail`, params), // GET /v1/email/sentEmail
+    getInternalClientAuditFields: (clientId, params) => self._g(`/v1/internal/client/${clientId}/audit`, params), // GET /v1/internal/client/{clientId}/audit
+    updateInternalGlobalConfiguration: (configName, configValue, body) => self._u(`/v1/internal/configurations/name/${configName}/value/${configValue}`, body), // PUT /v1/internal/configurations/name/{configName}/value/{configValue}
+    getAllExternalEvents: (params) => self._g(`/v1/internal/externalevents`, params), // GET /v1/internal/externalevents
+    deleteAllExternalEvents: (body) => self._d(`/v1/internal/externalevents`, body), // DELETE /v1/internal/externalevents
+    getAdvancedPaymentAllocationRulesOfLoan: (loanId, params) => self._g(`/v1/internal/loan/${loanId}/advanced-payment-allocation-rules`, params), // GET /v1/internal/loan/{loanId}/advanced-payment-allocation-rules
+    getLoanAuditFields: (loanId, params) => self._g(`/v1/internal/loan/${loanId}/audit`, params), // GET /v1/internal/loan/{loanId}/audit
+    getLoanTransactionAuditFields: (loanId, transactionId, params) => self._g(`/v1/internal/loan/${loanId}/transaction/${transactionId}/audit`, params), // GET /v1/internal/loan/{loanId}/transaction/{transactionId}/audit
+    getMaxTransactionDateOfActiveLoans: (params) => self._g(`/v1/internal/loan/maxTransactionDateOfActiveLoan`, params), // GET /v1/internal/loan/maxTransactionDateOfActiveLoan
+    getLoansByStatus: (statusId, params) => self._g(`/v1/internal/loan/status/${statusId}`, params), // GET /v1/internal/loan/status/{statusId}
+    getSavingsAccountsByStatus: (statusId, params) => self._g(`/v1/internal/savingsaccounts/status/${statusId}`, params), // GET /v1/internal/savingsaccounts/status/{statusId}
+    retrieveOfficeTransactions: (params) => self._g(`/v1/officetransactions`, params), // GET /v1/officetransactions
+    transferMoneyFrom: (body) => self._p(`/v1/officetransactions`, body), // POST /v1/officetransactions
+    delete2: (transactionId, body) => self._d(`/v1/officetransactions/${transactionId}`, body), // DELETE /v1/officetransactions/{transactionId}
+    newOfficeTransactionDetails: (params) => self._g(`/v1/officetransactions/template`, params), // GET /v1/officetransactions/template
+    retrieveAllSmsCampaigns: (params) => self._g(`/v1/smscampaigns`, params), // GET /v1/smscampaigns
+    createSmsCampaign: (body) => self._p(`/v1/smscampaigns`, body), // POST /v1/smscampaigns
+    updateSmsCampaign: (campaignId, body) => self._u(`/v1/smscampaigns/${campaignId}`, body), // PUT /v1/smscampaigns/{campaignId}
+    handleCommandsSmsCampaign: (campaignId, body) => self._p(`/v1/smscampaigns/${campaignId}`, body), // POST /v1/smscampaigns/{campaignId}
+    deleteSmsCampaign: (campaignId, body) => self._d(`/v1/smscampaigns/${campaignId}`, body), // DELETE /v1/smscampaigns/{campaignId}
+    retrieveOneSmsCampaign: (resourceId, params) => self._g(`/v1/smscampaigns/${resourceId}`, params), // GET /v1/smscampaigns/{resourceId}
+    previewSmsCampaign: (body) => self._p(`/v1/smscampaigns/preview`, body), // POST /v1/smscampaigns/preview
+    retrieveTemplateSmsCampaign: (params) => self._g(`/v1/smscampaigns/template`, params), // GET /v1/smscampaigns/template
+    retrieveAll4: (params) => self._g(`/v1/twofactor/configure`, params), // GET /v1/twofactor/configure
+    updateConfiguration1: (body) => self._u(`/v1/twofactor/configure`, body), // PUT /v1/twofactor/configure
+  };
+}
+
+export function makeWorkingCapitalBreachAPI(self) {
+  return {
+    retrieveAllWorkingCapitalBreaches: (params) => self._g(`/v1/working-capital/breach/breaches`, params), // GET /v1/working-capital/breach/breaches
+    create: (body) => self._p(`/v1/working-capital/breach/breaches`, body), // POST /v1/working-capital/breach/breaches
+    retrieve: (breachId, params) => self._g(`/v1/working-capital/breach/breaches/${breachId}`, params), // GET /v1/working-capital/breach/breaches/{breachId}
+    update: (breachId, body) => self._u(`/v1/working-capital/breach/breaches/${breachId}`, body), // PUT /v1/working-capital/breach/breaches/{breachId}
+    delete: (breachId, body) => self._d(`/v1/working-capital/breach/breaches/${breachId}`, body), // DELETE /v1/working-capital/breach/breaches/{breachId}
+    retrieveTemplate: (params) => self._g(`/v1/working-capital/breach/template`, params), // GET /v1/working-capital/breach/template
+  };
+}
+
+export function makeWorkingCapitalLoanAccountLockAPI(self) {
+  return {
+    placeLockOnWorkingCapitalLoanAccount: (loanId, lockOwner, body) => self._p(`/v1/internal/working-capital-loans/${loanId}/place-lock/${lockOwner}`, body), // POST /v1/internal/working-capital-loans/{loanId}/place-lock/{lockOwner}
+  };
+}
+
+export function makeWorkingCapitalLoanBreachActionsAPI(self) {
+  return {
+    retrieveBreachActions: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/breach-actions`, params), // GET /v1/working-capital-loans/{loanId}/breach-actions
+    createBreachAction: (loanId, body) => self._p(`/v1/working-capital-loans/${loanId}/breach-actions`, body), // POST /v1/working-capital-loans/{loanId}/breach-actions
+    retrieveBreachActionsByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/breach-actions`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/breach-actions
+    createBreachActionByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/breach-actions`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/breach-actions
+  };
+}
+
+export function makeWorkingCapitalLoanBreachScheduleAPI(self) {
+  return {
+    retrieveBreachSchedule: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/breach-schedule`, params), // GET /v1/working-capital-loans/{loanId}/breach-schedule
+  };
+}
+
+export function makeWorkingCapitalLoanChargesAPI(self) {
+  return {
+    retrieveAllWorkingCapitalLoanChargesByLoanId: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/charges`, params), // GET /v1/working-capital-loans/{loanId}/charges
+    createLoanCharge: (loanId, body) => self._p(`/v1/working-capital-loans/${loanId}/charges`, body), // POST /v1/working-capital-loans/{loanId}/charges
+    retrieve: (loanId, loanChargeId, params) => self._g(`/v1/working-capital-loans/${loanId}/charges/${loanChargeId}`, params), // GET /v1/working-capital-loans/{loanId}/charges/{loanChargeId}
+    adjustLoanCharge: (loanId, loanChargeId, body) => self._p(`/v1/working-capital-loans/${loanId}/charges/${loanChargeId}`, body), // POST /v1/working-capital-loans/{loanId}/charges/{loanChargeId}
+    retrieveByChargeExternalId: (loanId, loanChargeExternalId, params) => self._g(`/v1/working-capital-loans/${loanId}/charges/external-id/${loanChargeExternalId}`, params), // GET /v1/working-capital-loans/{loanId}/charges/external-id/{loanChargeExternalId}
+    adjustLoanChargeByChargeExternalId: (loanId, loanChargeExternalId, body) => self._p(`/v1/working-capital-loans/${loanId}/charges/external-id/${loanChargeExternalId}`, body), // POST /v1/working-capital-loans/{loanId}/charges/external-id/{loanChargeExternalId}
+    retrieveTemplateWorkingCapitalLoanCharge: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/charges/template`, params), // GET /v1/working-capital-loans/{loanId}/charges/template
+    retrieveAllWorkingCapitalLoanChargesByLoanExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/charges`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/charges
+    executeWorkingCapitalLoanChargeByLoanExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/charges`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/charges
+    retrieveByLoanExternalId: (loanExternalId, loanChargeId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/charges/${loanChargeId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/charges/{loanChargeId}
+    adjustLoanChargeByLoanExternalId: (loanExternalId, loanChargeId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/charges/${loanChargeId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/charges/{loanChargeId}
+    retrieveByLoanAndChargeExternalId: (loanExternalId, loanChargeExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/charges/external-id/${loanChargeExternalId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}
+    adjustLoanChargeByLoanAndChargeExternalId: (loanExternalId, loanChargeExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/charges/external-id/${loanChargeExternalId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}
+    retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/charges/template`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/charges/template
+  };
+}
+
+export function makeWorkingCapitalLoanCOBCatchUpAPI(self) {
+  return {
+    executeLoanCOBCatchUp1: (body) => self._p(`/v1/working-capital-loans/catch-up`, body), // POST /v1/working-capital-loans/catch-up
+    isCatchUpRunning1: (params) => self._g(`/v1/working-capital-loans/is-catch-up-running`, params), // GET /v1/working-capital-loans/is-catch-up-running
+    getOldestCOBProcessedLoan1: (params) => self._g(`/v1/working-capital-loans/oldest-cob-closed`, params), // GET /v1/working-capital-loans/oldest-cob-closed
+  };
+}
+
+export function makeWorkingCapitalLoanDelinquencyActionsAPI(self) {
+  return {
+    retrieveDelinquencyActions: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/delinquency-actions`, params), // GET /v1/working-capital-loans/{loanId}/delinquency-actions
+    createDelinquencyAction: (loanId, body) => self._p(`/v1/working-capital-loans/${loanId}/delinquency-actions`, body), // POST /v1/working-capital-loans/{loanId}/delinquency-actions
+    retrieveDelinquencyActionsByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/delinquency-actions`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/delinquency-actions
+    createDelinquencyActionByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/delinquency-actions`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/delinquency-actions
+  };
+}
+
+export function makeWorkingCapitalLoanDelinquencyRangeScheduleAPI(self) {
+  return {
+    retrieveDelinquencyRangeSchedule: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/delinquency-range-schedule`, params), // GET /v1/working-capital-loans/{loanId}/delinquency-range-schedule
+  };
+}
+
+export function makeWorkingCapitalLoanInternalCOBApiAPI(self) {
+  return {
+    getLastCobRun: (body) => self._p(`/v1/internal/working-capital-loans/internal/lastCobRun`, body), // POST /v1/internal/working-capital-loans/internal/lastCobRun
+    deleteLastCobRun: (body) => self._d(`/v1/internal/working-capital-loans/internal/lastCobRun`, body), // DELETE /v1/internal/working-capital-loans/internal/lastCobRun
+  };
+}
+
+export function makeWorkingCapitalLoanNearBreachActionsAPI(self) {
+  return {
+    getsById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/near-breach-actions`, params), // GET /v1/working-capital-loans/{loanId}/near-breach-actions
+    createById: (loanId, body) => self._p(`/v1/working-capital-loans/${loanId}/near-breach-actions`, body), // POST /v1/working-capital-loans/{loanId}/near-breach-actions
+    getsByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/near-breach-actions`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/near-breach-actions
+    createByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/near-breach-actions`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/near-breach-actions
+  };
+}
+
+export function makeWorkingCapitalLoanOriginatorsAPI(self) {
+  return {
+    retrieveOriginatorsByWorkingCapitalLoanId: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/originators`, params), // GET /v1/working-capital-loans/{loanId}/originators
+    attachOriginatorToWorkingCapitalLoan: (loanId, originatorId, body) => self._p(`/v1/working-capital-loans/${loanId}/originators/${originatorId}`, body), // POST /v1/working-capital-loans/{loanId}/originators/{originatorId}
+    detachOriginatorFromWorkingCapitalLoan: (loanId, originatorId, body) => self._d(`/v1/working-capital-loans/${loanId}/originators/${originatorId}`, body), // DELETE /v1/working-capital-loans/{loanId}/originators/{originatorId}
+    attachOriginatorToWorkingCapitalLoanByOriginatorExternalId: (loanId, originatorExternalId, body) => self._p(`/v1/working-capital-loans/${loanId}/originators/external-id/${originatorExternalId}`, body), // POST /v1/working-capital-loans/{loanId}/originators/external-id/{originatorExternalId}
+    detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId: (loanId, originatorExternalId, body) => self._d(`/v1/working-capital-loans/${loanId}/originators/external-id/${originatorExternalId}`, body), // DELETE /v1/working-capital-loans/{loanId}/originators/external-id/{originatorExternalId}
+    retrieveOriginatorsByWorkingCapitalLoanExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/originators`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/originators
+    attachOriginatorToWorkingCapitalLoanByLoanExternalId: (loanExternalId, originatorId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/originators/${originatorId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/originators/{originatorId}
+    detachOriginatorFromWorkingCapitalLoanByLoanExternalId: (loanExternalId, originatorId, body) => self._d(`/v1/working-capital-loans/external-id/${loanExternalId}/originators/${originatorId}`, body), // DELETE /v1/working-capital-loans/external-id/{loanExternalId}/originators/{originatorId}
+    attachOriginatorToWorkingCapitalLoanByBothExternalIds: (loanExternalId, originatorExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/originators/external-id/${originatorExternalId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/originators/external-id/{originatorExternalId}
+    detachOriginatorFromWorkingCapitalLoanByBothExternalIds: (loanExternalId, originatorExternalId, body) => self._d(`/v1/working-capital-loans/external-id/${loanExternalId}/originators/external-id/${originatorExternalId}`, body), // DELETE /v1/working-capital-loans/external-id/{loanExternalId}/originators/external-id/{originatorExternalId}
+  };
+}
+
+export function makeWorkingCapitalLoanProductsAPI(self) {
+  return {
+    retrieveAllWorkingCapitalLoanProducts: (params) => self._g(`/v1/working-capital-loan-products`, params), // GET /v1/working-capital-loan-products
+    create: (body) => self._p(`/v1/working-capital-loan-products`, body), // POST /v1/working-capital-loan-products
+    retrieveOneWorkingCapitalLoanProduct: (productId, params) => self._g(`/v1/working-capital-loan-products/${productId}`, params), // GET /v1/working-capital-loan-products/{productId}
+    update: (productId, body) => self._u(`/v1/working-capital-loan-products/${productId}`, body), // PUT /v1/working-capital-loan-products/{productId}
+    delete: (productId, body) => self._d(`/v1/working-capital-loan-products/${productId}`, body), // DELETE /v1/working-capital-loan-products/{productId}
+    retrieveOneWorkingCapitalLoanProductByExternalId: (externalProductId, params) => self._g(`/v1/working-capital-loan-products/external-id/${externalProductId}`, params), // GET /v1/working-capital-loan-products/external-id/{externalProductId}
+    updateByExternalId: (externalProductId, body) => self._u(`/v1/working-capital-loan-products/external-id/${externalProductId}`, body), // PUT /v1/working-capital-loan-products/external-id/{externalProductId}
+    deleteByExternalId: (externalProductId, body) => self._d(`/v1/working-capital-loan-products/external-id/${externalProductId}`, body), // DELETE /v1/working-capital-loan-products/external-id/{externalProductId}
+    retrieveTemplateWorkingCapitalLoanProduct: (params) => self._g(`/v1/working-capital-loan-products/template`, params), // GET /v1/working-capital-loan-products/template
+  };
+}
+
+export function makeWorkingCapitalLoanTransactionsAPI(self) {
+  return {
+    retrieveWorkingCapitalLoanActionTemplate: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/template`, params), // GET /v1/working-capital-loans/{loanId}/template
+    retrievesById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/transactions`, params), // GET /v1/working-capital-loans/{loanId}/transactions
+    executeWorkingCapitalLoanTransactionById: (loanId, body) => self._p(`/v1/working-capital-loans/${loanId}/transactions`, body), // POST /v1/working-capital-loans/{loanId}/transactions
+    retrieveById: (loanId, transactionId, params) => self._g(`/v1/working-capital-loans/${loanId}/transactions/${transactionId}`, params), // GET /v1/working-capital-loans/{loanId}/transactions/{transactionId}
+    executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId: (loanId, transactionId, body) => self._p(`/v1/working-capital-loans/${loanId}/transactions/${transactionId}`, body), // POST /v1/working-capital-loans/{loanId}/transactions/{transactionId}
+    retrieveByExternalTransactionId: (loanId, externalTransactionId, params) => self._g(`/v1/working-capital-loans/${loanId}/transactions/external-id/${externalTransactionId}`, params), // GET /v1/working-capital-loans/{loanId}/transactions/external-id/{externalTransactionId}
+    executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId: (loanId, transactionExternalId, body) => self._p(`/v1/working-capital-loans/${loanId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/working-capital-loans/{loanId}/transactions/external-id/{transactionExternalId}
+    retrievesByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions
+    executeWorkingCapitalLoanTransactionByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/transactions
+    retrieveByExternalLoanIdAndTransactionId: (loanExternalId, transactionId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/${transactionId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions/{transactionId}
+    executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId: (loanExternalId, transactionId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/${transactionId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/transactions/{transactionId}
+    retrieveByExternalLoanIdAndExternalTransactionId: (loanExternalId, externalTransactionId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/external-id/${externalTransactionId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions/external-id/{externalTransactionId}
+    executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId: (loanExternalId, transactionExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/transactions/external-id/{transactionExternalId}
+  };
+}
+
+export function makeWorkingCapitalLoansAPI(self) {
+  return {
+    activateLoan: (loanId, body) => self._p(`/v1/internal/working-capital-loans/${loanId}/activate`, body), // POST /v1/internal/working-capital-loans/{loanId}/activate
+    generateAmortizationSchedule: (loanId, body) => self._p(`/v1/internal/working-capital-loans/${loanId}/amortization-schedule`, body), // POST /v1/internal/working-capital-loans/{loanId}/amortization-schedule
+    generateNextDelinquencyPeriod: (loanId, body) => self._p(`/v1/internal/working-capital-loans/${loanId}/generate-next-delinquency-period`, body), // POST /v1/internal/working-capital-loans/{loanId}/generate-next-delinquency-period
+    retrieveAllWorkingCapitalLoans: (params) => self._g(`/v1/working-capital-loans`, params), // GET /v1/working-capital-loans
+    submitWorkingCapitalLoanApplication: (body) => self._p(`/v1/working-capital-loans`, body), // POST /v1/working-capital-loans
+    retrieveById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}`, params), // GET /v1/working-capital-loans/{loanId}
+    modifyWorkingCapitalLoanApplicationById: (loanId, body) => self._u(`/v1/working-capital-loans/${loanId}`, body), // PUT /v1/working-capital-loans/{loanId}
+    stateTransitionWorkingCapitalLoanById: (loanId, body) => self._p(`/v1/working-capital-loans/${loanId}`, body), // POST /v1/working-capital-loans/{loanId}
+    deleteApplication: (loanId, body) => self._d(`/v1/working-capital-loans/${loanId}`, body), // DELETE /v1/working-capital-loans/{loanId}
+    retrieveAmortizationSchedule: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/amortization-schedule`, params), // GET /v1/working-capital-loans/{loanId}/amortization-schedule
+    getDelinquencyRangeScheduleTagHistoryById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/delinquencyrangetags`, params), // GET /v1/working-capital-loans/{loanId}/delinquencyrangetags
+    updateDiscountById: (loanId, body) => self._u(`/v1/working-capital-loans/${loanId}/discount`, body), // PUT /v1/working-capital-loans/{loanId}/discount
+    updateRateById: (loanId, body) => self._u(`/v1/working-capital-loans/${loanId}/payment-rate`, body), // PUT /v1/working-capital-loans/{loanId}/payment-rate
+    getRateChangeHistoryById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/rate-changes`, params), // GET /v1/working-capital-loans/{loanId}/rate-changes
+    getDelinquencyRangeScheduleTagHistoryByExternalId: (externalId, params) => self._g(`/v1/working-capital-loans/external-id/${externalId}/delinquencyrangetags`, params), // GET /v1/working-capital-loans/external-id/{externalId}/delinquencyrangetags
+    retrieveByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}
+    modifyWorkingCapitalLoanApplicationByExternalId: (loanExternalId, body) => self._u(`/v1/working-capital-loans/external-id/${loanExternalId}`, body), // PUT /v1/working-capital-loans/external-id/{loanExternalId}
+    stateTransitionWorkingCapitalLoanByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}
+    deleteApplicationByExternalId: (loanExternalId, body) => self._d(`/v1/working-capital-loans/external-id/${loanExternalId}`, body), // DELETE /v1/working-capital-loans/external-id/{loanExternalId}
+    updateDiscountByExternalId: (loanExternalId, body) => self._u(`/v1/working-capital-loans/external-id/${loanExternalId}/discount`, body), // PUT /v1/working-capital-loans/external-id/{loanExternalId}/discount
+    updateRateByExternalId: (loanExternalId, body) => self._u(`/v1/working-capital-loans/external-id/${loanExternalId}/payment-rate`, body), // PUT /v1/working-capital-loans/external-id/{loanExternalId}/payment-rate
+    getRateChangeHistoryByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/rate-changes`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/rate-changes
+    retrieveTemplate: (params) => self._g(`/v1/working-capital-loans/template`, params), // GET /v1/working-capital-loans/template
+  };
+}
+
+export function makeWorkingCapitalNearBreachAPI(self) {
+  return {
+    retrieveAllWorkingCapitalNearBreaches: (params) => self._g(`/v1/working-capital/near-breach`, params), // GET /v1/working-capital/near-breach
+    create: (body) => self._p(`/v1/working-capital/near-breach`, body), // POST /v1/working-capital/near-breach
+    retrieve: (breachId, params) => self._g(`/v1/working-capital/near-breach/${breachId}`, params), // GET /v1/working-capital/near-breach/{breachId}
+    update: (breachId, body) => self._u(`/v1/working-capital/near-breach/${breachId}`, body), // PUT /v1/working-capital/near-breach/{breachId}
+    delete: (breachId, body) => self._d(`/v1/working-capital/near-breach/${breachId}`, body), // DELETE /v1/working-capital/near-breach/{breachId}
+  };
+}
+
+export function makeWorkingDaysAPI(self) {
+  return {
+    retrieveAllWorkingDays: (params) => self._g(`/v1/workingdays`, params), // GET /v1/workingdays
+    update: (body) => self._u(`/v1/workingdays`, body), // PUT /v1/workingdays
+    retrieveTemplateWorkingDays: (params) => self._g(`/v1/workingdays/template`, params), // GET /v1/workingdays/template
   };
 }
 
 /** Resource-name → factory, for bulk mounting on a FineractAPI instance. */
 export const GENERATED_RESOURCES = {
-  clients: makeClientsAPI,
+  accountNumberFormat: makeAccountNumberFormatAPI,
+  accountTransfers: makeAccountTransfersAPI,
+  accountingClosure: makeAccountingClosureAPI,
+  accountingRules: makeAccountingRulesAPI,
+  adhocQueryApi: makeAdhocQueryApiAPI,
+  applicationWadl: makeApplicationWadlAPI,
+  audits: makeAuditsAPI,
+  authenticationHTTPBasic: makeAuthenticationHTTPBasicAPI,
+  batchAPI: makeBatchAPIAPI,
+  bulkImport: makeBulkImportAPI,
+  bulkLoans: makeBulkLoansAPI,
+  businessDateManagement: makeBusinessDateManagementAPI,
+  businessStepConfiguration: makeBusinessStepConfigurationAPI,
+  cache: makeCacheAPI,
+  calendar: makeCalendarAPI,
+  cashierJournals: makeCashierJournalsAPI,
+  cashiers: makeCashiersAPI,
+  centers: makeCentersAPI,
+  charges: makeChargesAPI,
+  client: makeClientAPI,
+  clientCharges: makeClientChargesAPI,
+  clientCollateralManagement: makeClientCollateralManagementAPI,
+  clientFamilyMember: makeClientFamilyMemberAPI,
+  clientIdentifier: makeClientIdentifierAPI,
+  clientTransaction: makeClientTransactionAPI,
+  clientsAddress: makeClientsAddressAPI,
+  clientSearchV2: makeClientSearchV2API,
+  codeValues: makeCodeValuesAPI,
+  codes: makeCodesAPI,
+  collateralManagement: makeCollateralManagementAPI,
+  collectionSheet: makeCollectionSheetAPI,
+  creditBureauConfiguration: makeCreditBureauConfigurationAPI,
+  creditBureauIntegration: makeCreditBureauIntegrationAPI,
+  currency: makeCurrencyAPI,
+  dataTables: makeDataTablesAPI,
+  delinquencyRangeAndBucketsManagement: makeDelinquencyRangeAndBucketsManagementAPI,
+  depositAccountOnHoldFundTransactions: makeDepositAccountOnHoldFundTransactionsAPI,
+  documents: makeDocumentsAPI,
+  entityDataTable: makeEntityDataTableAPI,
+  entityFieldConfiguration: makeEntityFieldConfigurationAPI,
+  externalAssetOwnerLoanProductAttributes: makeExternalAssetOwnerLoanProductAttributesAPI,
+  externalAssetOwners: makeExternalAssetOwnersAPI,
+  externalEventConfiguration: makeExternalEventConfigurationAPI,
+  externalServices: makeExternalServicesAPI,
+  fetchAuthenticatedUserDetails: makeFetchAuthenticatedUserDetailsAPI,
+  fineractEntity: makeFineractEntityAPI,
+  fixedDepositAccount: makeFixedDepositAccountAPI,
+  fixedDepositAccountTransactions: makeFixedDepositAccountTransactionsAPI,
+  fixedDepositProduct: makeFixedDepositProductAPI,
+  floatingRates: makeFloatingRatesAPI,
+  funds: makeFundsAPI,
+  generalLedgerAccount: makeGeneralLedgerAccountAPI,
+  globalConfiguration: makeGlobalConfigurationAPI,
+  groups: makeGroupsAPI,
+  groupsLevel: makeGroupsLevelAPI,
+  guarantors: makeGuarantorsAPI,
+  holidays: makeHolidaysAPI,
+  hooks: makeHooksAPI,
+  inlineJob: makeInlineJobAPI,
+  instanceMode: makeInstanceModeAPI,
+  interOperation: makeInterOperationAPI,
+  interestRateChart: makeInterestRateChartAPI,
+  interestRateSlabAKAInterestBands: makeInterestRateSlabAKAInterestBandsAPI,
+  internalCOB: makeInternalCOBAPI,
+  journalEntries: makeJournalEntriesAPI,
+  likelihood: makeLikelihoodAPI,
+  listReportMailingJobHistory: makeListReportMailingJobHistoryAPI,
+  loanAccountLock: makeLoanAccountLockAPI,
+  loanBuyDownFees: makeLoanBuyDownFeesAPI,
+  loanCapitalizedIncome: makeLoanCapitalizedIncomeAPI,
+  loanCharges: makeLoanChargesAPI,
+  loanCOBCatchUp: makeLoanCOBCatchUpAPI,
+  loanCollateral: makeLoanCollateralAPI,
+  loanCollateralManagement: makeLoanCollateralManagementAPI,
+  loanDisbursementDetails: makeLoanDisbursementDetailsAPI,
+  loanInterestPause: makeLoanInterestPauseAPI,
+  loanOriginators: makeLoanOriginatorsAPI,
+  loanProducts: makeLoanProductsAPI,
+  loanProductsDetails: makeLoanProductsDetailsAPI,
+  loanRescheduling: makeLoanReschedulingAPI,
+  loanTransactions: makeLoanTransactionsAPI,
   loans: makeLoansAPI,
-  savings: makeSavingsAPI,
+  loansPointInTime: makeLoansPointInTimeAPI,
+  makerCheckerOr4EyeFunctionality: makeMakerCheckerOr4EyeFunctionalityAPI,
+  mappingFinancialActivitiesToAccounts: makeMappingFinancialActivitiesToAccountsAPI,
+  meetings: makeMeetingsAPI,
+  mixMapping: makeMixMappingAPI,
+  mixReport: makeMixReportAPI,
+  mixTaxonomy: makeMixTaxonomyAPI,
+  notes: makeNotesAPI,
+  notification: makeNotificationAPI,
+  offices: makeOfficesAPI,
+  passwordManagement: makePasswordManagementAPI,
+  passwordPreferences: makePasswordPreferencesAPI,
+  paymentType: makePaymentTypeAPI,
+  periodicAccrualAccounting: makePeriodicAccrualAccountingAPI,
+  permissions: makePermissionsAPI,
+  povertyLine: makePovertyLineAPI,
+  productMix: makeProductMixAPI,
+  products: makeProductsAPI,
+  progressiveLoan: makeProgressiveLoanAPI,
+  provisioningCategory: makeProvisioningCategoryAPI,
+  provisioningCriteria: makeProvisioningCriteriaAPI,
+  provisioningEntries: makeProvisioningEntriesAPI,
+  rate: makeRateAPI,
+  recurringDepositAccount: makeRecurringDepositAccountAPI,
+  recurringDepositAccountTransactions: makeRecurringDepositAccountTransactionsAPI,
+  recurringDepositProduct: makeRecurringDepositProductAPI,
+  repaymentWithPostDatedChecks: makeRepaymentWithPostDatedChecksAPI,
+  reportMailingJobs: makeReportMailingJobsAPI,
+  reports: makeReportsAPI,
+  rescheduleLoans: makeRescheduleLoansAPI,
+  roles: makeRolesAPI,
+  runReports: makeRunReportsAPI,
+  savingsAccount: makeSavingsAccountAPI,
+  savingsAccountTransactions: makeSavingsAccountTransactionsAPI,
+  savingsCharges: makeSavingsChargesAPI,
+  savingsProduct: makeSavingsProductAPI,
+  scheduler: makeSchedulerAPI,
+  sCHEDULERJOB: makeSCHEDULERJOBAPI,
+  scoreCard: makeScoreCardAPI,
+  searchAPI: makeSearchAPIAPI,
+  selfDividend: makeSelfDividendAPI,
+  shareAccount: makeShareAccountAPI,
+  sMS: makeSMSAPI,
+  sPMAPILookUpTable: makeSPMAPILookUpTableAPI,
+  spmSurveys: makeSpmSurveysAPI,
+  staff: makeStaffAPI,
+  standingInstructions: makeStandingInstructionsAPI,
+  standingInstructionsHistory: makeStandingInstructionsHistoryAPI,
+  survey: makeSurveyAPI,
+  taxComponents: makeTaxComponentsAPI,
+  taxGroup: makeTaxGroupAPI,
+  tellerCashManagement: makeTellerCashManagementAPI,
+  templates: makeTemplatesAPI,
+  tenantOIDCConfiguration: makeTenantOIDCConfigurationAPI,
+  twoFactor: makeTwoFactorAPI,
+  users: makeUsersAPI,
+  v1: makeV1API,
+  workingCapitalBreach: makeWorkingCapitalBreachAPI,
+  workingCapitalLoanAccountLock: makeWorkingCapitalLoanAccountLockAPI,
+  workingCapitalLoanBreachActions: makeWorkingCapitalLoanBreachActionsAPI,
+  workingCapitalLoanBreachSchedule: makeWorkingCapitalLoanBreachScheduleAPI,
+  workingCapitalLoanCharges: makeWorkingCapitalLoanChargesAPI,
+  workingCapitalLoanCOBCatchUp: makeWorkingCapitalLoanCOBCatchUpAPI,
+  workingCapitalLoanDelinquencyActions: makeWorkingCapitalLoanDelinquencyActionsAPI,
+  workingCapitalLoanDelinquencyRangeSchedule: makeWorkingCapitalLoanDelinquencyRangeScheduleAPI,
+  workingCapitalLoanInternalCOBApi: makeWorkingCapitalLoanInternalCOBApiAPI,
+  workingCapitalLoanNearBreachActions: makeWorkingCapitalLoanNearBreachActionsAPI,
+  workingCapitalLoanOriginators: makeWorkingCapitalLoanOriginatorsAPI,
+  workingCapitalLoanProducts: makeWorkingCapitalLoanProductsAPI,
+  workingCapitalLoanTransactions: makeWorkingCapitalLoanTransactionsAPI,
+  workingCapitalLoans: makeWorkingCapitalLoansAPI,
+  workingCapitalNearBreach: makeWorkingCapitalNearBreachAPI,
+  workingDays: makeWorkingDaysAPI,
 };
 
 /** Attach every generated resource that is not already present on `api`. */
