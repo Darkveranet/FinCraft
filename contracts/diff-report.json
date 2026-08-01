@@ -1,11 +1,5003 @@
 {
-  "breaking": false,
-  "changes": [],
+  "breaking": true,
+  "changes": [
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "approveLoanApplication"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "calculateLoanScheduleOrSubmitLoanApplication"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveClientTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "accountClosureTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "accountClosureTemplateRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "accountsTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "accountTransferOperation"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "activateLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "activateOrDeactivateSurvey"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "addAndDeleteDisbursementDetail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "addClientCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "addCreditReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "addNewNote"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "addOrganisationCreditBureau"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanChargeByChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanTransactionByLoanAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanTransactionByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustLoanTransactionByTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "advancedQuery"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "advancedQuerySavingsAccountTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "advancedQuerySavingsAccountTransactionsBySavingsExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "advancedSearch"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "allocateCashToCashier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "approveMakerCheckerEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToLoanByExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToLoanByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToLoanByOriginatorExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToWorkingCapitalLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToWorkingCapitalLoanByBothExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToWorkingCapitalLoanByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "attachOriginatorToWorkingCapitalLoanByOriginatorExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "authenticate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "calculateFixedDepositInterest"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "changePasswordUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "create"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createAccountingRule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createAccountNumberFormat"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createAdHocQuery"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createBreachAction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createBreachActionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createBucket"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCalendar"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCashierForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createClientAddress"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createClientCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createClientFamilyMember"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createClientIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCode"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCodeValue"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCodeValueByCodeName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCollateral_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCreditBureauConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createCreditBureauLoanProductMapping"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDatatable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDatatableEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDelinquencyAction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDelinquencyActionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDelinquencyActionLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDelinquencyActionLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createDocument"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createEntityDatatableCheck"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createExternalAssetOwner"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createExternalAssetOwnerLoanProductAttribute"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createFloatingRate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createFund"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createGLAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createGLAccountMappingFinancialActivityAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createGLClosure"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createGLJournalEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createGuarantor"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createHoliday"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createHook"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createImage_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createInterestRateChart"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createInterestRateChartSlab"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createLoanInterestPause"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createLoanInterestPauseByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createLoanOriginator"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createLookupTable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createMap"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createMeeting"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createOffice"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createOrPayLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createPaymentType"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createProductMix"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createProvisioningCategory"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createProvisioningCriteria"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createProvisioningEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createQuote"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createRange"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createRate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createReportMailingJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createRescheduleLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createReversalJournalEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createRole"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSavingsAccountCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSavingsAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createScorecard"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createShareAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createShareDividend"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createShareProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSms"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createStaff"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createStandingInstruction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSurvey"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createSurveyEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createTaxComponent"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createTaxGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createTransactionRequest"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createWorkingCapitalBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanNearBreachActionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanNearBreachActionById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "createWorkingCapitalNearBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "delete"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "delete_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "delete_2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteAccountIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteAccountIdentifier_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteAccountingRule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteAccountNumberFormat"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteAdHocQuery"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteAllExternalEvents"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteBucket"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCalendar"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCashierForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteClientByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteClientCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteClientCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteClientFamilyMember"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteClientIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCode"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCodePaymentType"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCodeValue"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCodeValue_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCollateral_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteCreditReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteDatatable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteDatatableEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteDatatableEntries_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteDatatableEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteDocument"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteEntityDatatableCheck"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteFixedDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteFixedDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteGLAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteGLAccountMappingFinancialActivityAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteGLClosure"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteGuarantor"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteHoliday"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteHook"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteImage"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteInterestRateChart"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteInterestRateChartSlab"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteInternalProgressiveLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLastCobRun"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanApplication"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanApplicationByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanChargeByChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanInterestPause"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanInterestPauseByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteLoanOriginator"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteMakerCheckerEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteMeeting"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteNote"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deletePostDatedCheck"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteProductMix"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteProvisioningCategory"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteProvisioningCriteria"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteRange"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteRecurringDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteReportMailingJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteRole"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteSavingsAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteSavingsAccountByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteSavingsAccountCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteSavingsProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteShareDividend"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteSms"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteWorkingCapitalBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteWorkingCapitalLoanApplication"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteWorkingCapitalLoanApplicationByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteWorkingCapitalLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteWorkingCapitalNearBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deregisterDatatable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromLoanByExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromLoanByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromLoanByOriginatorExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromWorkingCapitalLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromWorkingCapitalLoanByBothExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromWorkingCapitalLoanByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "disburseLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "downloadFile"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "editSurvey"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeInlineJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeJobByShortName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanChargeByChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanChargeByLoanExternalIdOnExistingCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanChargeOnExistingCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanCOBCatchUp"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeLoanCOBCatchUp_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executePeriodicAccrualAccounting"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchAllSurveys"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchAuthenticatedUserData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchCapitalizedIncomeDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchCapitalizedIncomeDetailsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchCreditReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchLoanCapitalizedIncomeData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchLoanCapitalizedIncomeDataByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchLoanProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchLookupTables"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "fetchMappingByLoanProductId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "findByClient"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "findBySurvey"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "findBySurveyAndClient"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "findLookupTable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "findSurvey"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "forgotPassword"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "generateAmortizationSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "generateCollectionSheet"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "generateNextDelinquencyPeriod"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAccountByIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAccountByIdentifier_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAccountDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAccountIdentifiers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAccountTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getActiveTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAddresses"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAdvancedPaymentAllocationRulesOfLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAllCollaterals"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAllExternalEvents"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAllNotifications"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getAllPaymentTypes"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBucket"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBuckets"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBucketTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBulkTemplateCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBulkTemplateGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBulkTemplateStaff"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBulkTemplateUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBusinessDate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBusinessDates"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBuyDownFeesAllocationDataByExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBuyDownFeesAllocationDataByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getBuyDownFeesAllocationDataByTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCapitalizedIncomeAllocationDataByExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCapitalizedIncomeAllocationDataByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCapitalizedIncomeAllocationDataByTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getClientCollateralData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getClientCollateralProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getClientCollateralTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getClientKyc"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getClientSurveyOverview"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getClientTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCobPartitions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCollateralTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCreditBureau"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getCreditBureauLoanProductMapping"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDatatable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDatatableEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDatatableManyEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDatatables"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDelinquencyRangeScheduleTagHistoryByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDelinquencyRangeScheduleTagHistoryById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getDocument"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getEntityToEntityMappings"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getExternalEventConfigurations"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getExternalGrammar"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getFixedDepositTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getFixedDepositTransactionTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getGlAccountsTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getGlimRepaymentTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getGuarantorTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getInternalClientAuditFields"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getJournalEntriesOfOwner"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getJournalEntriesOfTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getJournalEntriesTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLastCobRun"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLoanAuditFields"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLoanCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLoanRepaymentTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLoansByStatus"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLoansTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getLoanTransactionAuditFields"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getMaxTransactionDateOfActiveLoans"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getOfficeTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getOldestCOBProcessedLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getOldestCOBProcessedLoan_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getOrganisationCreditBureau"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getOTPDeliveryMethods"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getOutputTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getPostDatedChecks"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getQuote"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getRange"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getRanges"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getRecurringDepositTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getRecurringDepositTransactionTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getSavedCreditReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getSavingsAccountsByStatus"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getSavingsTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getSavingsTransactionTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getShareAccountTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getSurveyEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getTransactionRequest"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getTransfers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWadl"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWorkingCapitalLoanNearBreachActionsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWorkingCapitalLoanNearBreachActionsById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWorkingCapitalLoanRateChangeHistoryByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWorkingCapitalLoanRateChangeHistoryById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleBatchRequests"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandClient"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandClientByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsGlimLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsHoliday"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsLoanSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsLoanTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsLoanTransactionByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsRole"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccountByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccountCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsScheduler"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsShareAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsShareProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleCommandsSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "health"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "isCatchUpRunning"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "isCatchUpRunning_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "loanReassignment"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "loanReassignmentTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "loanReprocess"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "mergeTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "modifyProvisioningEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "modifyWorkingCapitalLoanApplicationByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "modifyWorkingCapitalLoanApplicationById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "newCollateralTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "newGuarantorTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "newOfficeTransactionDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "payOrWaiveClientCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "performTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "placeLockOnLoanAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "placeLockOnWorkingCapitalLoanAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postBulkTemplateCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postBulkTemplateGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postBulkTemplateUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postClientTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postFixedDepositTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postFixedDepositTransactionTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postGlAccountsTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postGuarantorTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postJournalEntriesTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postLoanRepaymentTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postLoanTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postOfficeTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postRecurringDepositTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postRecurringDepositTransactionsTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postSavingsTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postSavingsTransactionTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postShareAccountTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "postTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "previewEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "previewReAgeLoanSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "previewReAgeLoanScheduleByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "previewReAmortizeLoanSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "previewReAmortizeLoanScheduleByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "previewSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "queryValues"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "register"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "registerAccountIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "registerAccountIdentifier_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "registerDatatable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "requestToken"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retreive"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retreiveAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieve"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieve_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAccountsGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAdHocQuery"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAdHocSearchQueryTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_3"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_4"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_5"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_6"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_7"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAll_8"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAccountingRules"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAccountNumberFormats"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAccounts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAccountTransfers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAvailableBusinessStep"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAvailableExports"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCashierJournals"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCashiers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCashiersForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCenters"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCharges"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientAccounts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientAccountsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientAddresses"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientCharges"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientFamilyMembers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientIdentifiers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllClientTransactionsByClientExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCodes"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCodeValues"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCodeValuesByCodeName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllConfiguredBusinessJobs"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllConfiguredBusinessStep"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllDepositAccountOnHoldFundTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllDocuments"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllEmailByStatus"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllEmailCampaigns"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllEmailConfigurations"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllEmails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllEntityDatatableChecks"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllExternalAssetOwnerLoanProductAttributes"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllFixedDepositAccounts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllFixedDepositAccountTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllFixedDepositProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllFloatingRates"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllGLClosures"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllGroupLevels"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllGroups"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllHolidays"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllHooks"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllInterestRateCharts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllInterestRateChartSlabs"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllJournalEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllJournalsForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanCharges"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanChargesByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanInterestPauses"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanInterestPausesByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanOriginators"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanProductsDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoans"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllLoanTransactionsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllMeetings"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllMixTaxonomies"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllOffices"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllPasswordPreferences"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllPermissions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllProvisioningCriteria"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllProvisioningEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRates"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRecurringDepositAccounts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRecurringDepositProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllReportMailingJobRunHistory"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllReportMailingJobs"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllReports"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRescheduleLoanReasons"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRescheduleLoans"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRoles"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSavingsAccountCharges"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSavingsProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSchedulerJobs"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllShareAccounts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllShareDividends"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllShareProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSms"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSmsByStatus"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSmsCampaigns"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllStaff"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllStandingInstructionHistory"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllStandingInstructions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllSurveys"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllTaxComponents"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllTaxGroups"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllTellers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllTemplates"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllTemplatesEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllTransactionsForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllUsers"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingCapitalBreaches"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingCapitalLoanChargesByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingCapitalLoanChargesByLoanId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingCapitalLoanProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingCapitalLoans"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingCapitalNearBreaches"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllWorkingDays"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAmortizationSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveApprovalTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveApprovalTemplateByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveApprovedAmountHistoryLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveApprovedAmountHistoryLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAuditEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAuditSearchTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAuditSearchTemplate_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveBreachActions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveBreachActionsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveBreachSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveBuyDownFeesAllocationData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveByShortName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCalendar"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCalendarsByEntityId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCapitalizedIncomeAllocationData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCashierTemplateForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCashierTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCashierTransactionsWithSummary"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientObligeeDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientObligeeDetailsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientTransactionByClientAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientTransactionByClientExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientTransactionByTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientTransferTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveClientTransferTemplateByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCodeValue"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCodeValue_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCollateralDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCollateralDetails_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCommands"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveCurrencies"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyActions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyActionsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyActionsLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyActionsLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyRangeSchedule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyTagHistoryLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveDelinquencyTagHistoryLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveExternalAssetOwners"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveExternalServicesConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveFailedEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveFund"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveFunds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveGlimAccountsGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveGroupAccountsCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveGsimAccountsGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveGuarantorDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveGuarantorDetails_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveHistory"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveHistoryByShortName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveImage"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveImportDocuments"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveJournalEntries"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveJournalEntryById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoanBuyDownFeeAmortizationDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoanBuyDownFeeAmortizationDetailsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoanOriginatorTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoanPointInTime"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoanPointInTimeByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoanProductDetailsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoansPointInTime"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLoansPointInTimeByExternalIds"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveLockedAccounts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveMixReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveMixTaxonomyMapping"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveNewAccountDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveNote"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveNotesByResource"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOfficeTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOne"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneAccountingRule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneAccountNumberFormat"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneAccountTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneByName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneCashierForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneClientByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneClientCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneClientFamilyMember"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneClientIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneCode"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneCodeByName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneFixedDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneFixedDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneFixedDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneFloatingRate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneGLClosure"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneGlobalConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneHoliday"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneHook"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneInterestRateChart"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneInterestRateChartSlab"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneInternalProgressiveLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanChargeByChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanOriginator"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanTransactionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanTransactionByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneLoanTransactionByLoanExternalIdAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneMeeting"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneOffice"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneOfficeByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOnePaymentType"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneProvisioningCriteria"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneProvisioningEntry"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneRate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneReportMailingJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneRescheduleLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneRole"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSavingsProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSchedulerJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneShareAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneShareDividend"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneShareProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSms"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneStaff"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneStandingInstruction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneSurvey"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneTaxComponent"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneTaxGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneTemplateEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneTransactionForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOpeningBalance"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOriginatorsByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOriginatorsByLoanId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOriginatorsByWorkingCapitalLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveOriginatorsByWorkingCapitalLoanId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrievePendingEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveProvisioningEntriesLoanProducts"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveRepaymentScheduleUpdationTyeOptions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveRolePermissions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveSavingsAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveSavingsAccountByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveSavingsAccountTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveSchedulerStatus"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveSentEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplate_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateAccountingRule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateAccountNumberFormat"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateAccountTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateCalendar"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateCashierTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateClient"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateClientAddress"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateClientCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateClientFamilyMember"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateClientIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateDetails"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateEntityDatatableChecks"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateFixedDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateFixedDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateFixedDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateHook"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateInterestRateChart"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateInterestRateChartSlab"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateLoanTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateLoanTransactionByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateMeeting"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateOffice"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplatePasswordPreferences"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateProductMix"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateRecurringDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateRecurringDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateRefundByTransfer"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateReportMailingJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateSavingsAccountCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateSavingsAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateSavingsProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateShareAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateShareProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateStandingInstruction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateTaxComponent"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateTaxGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingDays"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalBreachTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanActionTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalTransactionId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionsByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionsById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalNearBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retriveDetail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retriveOutputTemplateLocation"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "runReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "saveCreditReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "saveTemplate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "searchClientsByText"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "searchData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "searchInvestorData"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "searchSavingsAccountTransactions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "searchSavingsAccountTransactionsBySavingsExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "settleCashFromCashier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "stateTransitionWorkingCapitalLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "stateTransitionWorkingCapitalLoanById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "submitWorkingCapitalLoanApplication"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "switchCache"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "template"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transactionRecurringDepositAccountTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transferMoneyFrom"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transferRequestWithId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transferRequestWithIdByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transferRequestWithLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "transferRequestWithLoanId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "unassignLoanOfficerGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoClientTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoClientTransactionByClientAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoClientTransactionByClientExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoClientTransactionByTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoWaiveChargeLoanTransaction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoWaiveChargeLoanTransactionByLoanAndTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoWaiveChargeLoanTransactionByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "undoWaiveChargeLoanTransactionByTransactionExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "update"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "update_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "update_2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateAccountingRule"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateAccountNumberFormat"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateApprovedAmountLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateApprovedAmountLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateAvailableDisbursementAmountLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateAvailableDisbursementAmountLoanByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateBucket"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateBusinessDate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCalendar"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCashierForTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCenter"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateClientAddress"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateClientByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateClientCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateClientFamilyMember"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateClientIdentifier"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCode"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCodeValue"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCodeValueByCodeName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCollateral"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCollateral_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateConfiguration_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateConfigurationByName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCreditBureau"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCreditBureauConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCreditBureauLoanProductMapping"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateCurrencies"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateDatatable"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateDatatableEntryOneToMany"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateDatatableEntryOnetoOne"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateDocument"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateEmail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateEmailCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateEmailConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateExternalAssetOwnerLoanProductAttribute"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateExternalEventConfigurations"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateExternalServicesConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateFixedDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateFloatingRate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateFund"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGLAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGLAccountMappingFinancialActivityAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGLClosure"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGlobalConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateGuarantor"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateHoliday"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateHook"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateImage_1"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateInstanceMode"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateInterestRateChart"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateInterestRateChartSlab"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateInternalGlobalConfiguration"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateInternalProgressiveLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateJobBusinessStepConfig"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanApplication"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanApplicationByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanChargeByChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanChargeByLoanExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanCobLastDate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanInterestPause"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanInterestPauseByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanOriginator"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateLoanProductByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateMap"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateMeeting"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateMeetingAttendance"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateMixTaxonomyMapping"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateNote"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateNotificationReadStatus"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateOffice"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateOfficeByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updatePasswordPreferences"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updatePaymentType"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updatePermissions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updatePostDatedChecks"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateProductMix"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateProvisioningCategory"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateProvisioningCriteria"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRange"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRate"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRecurringDepositProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateReport"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateReportMailingJob"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRescheduleLoan"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRole"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateRolePermissions"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateSavingsAccountCharge"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateShareAccount"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateShareDividend"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateShareProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateSms"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateSmsCampaign"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateStaff"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateStandingInstruction"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateTaxComponent"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateTaxGroup"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateTeller"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateUser"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanDiscountByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanDiscountById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanRateByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanRateById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingCapitalNearBreach"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "updateWorkingDay"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "validate"
+    },
+    {
+      "field": "address",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "datatables",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "dateOfBirth",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "emailAddress",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "middlename",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "deleteClient"
+    },
+    {
+      "field": "totalFilteredRecords",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAllSavingsAccounts"
+    },
+    {
+      "field": "activationDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "emailAddress",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "firstname",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "groups",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "lastname",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "savingsProductId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "savingsProductName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "timeline",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitSavingsApplication"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitSavingsApplication"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitSavingsApplication"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "submitSavingsApplication"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClient"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClient"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateClient"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateClient"
+    }
+  ],
   "counts": {
-    "additive": 0,
-    "breaking": 0,
-    "total": 0
+    "additive": 989,
+    "breaking": 3,
+    "total": 992
   },
   "firstRun": false,
-  "generatedAt": "2026-08-01T18:52:16.148Z"
+  "generatedAt": "2026-08-01T20:51:32.459Z"
 }
