@@ -1,36 +1,19 @@
 {
-  "generatedAt": "2026-08-01T22:19:36.871Z",
+  "generatedAt": "2026-08-01T22:45:50.171Z",
   "meta": {
-    "origin": "sample-spec.json",
-    "sampleSpec": true,
-    "contractOps": 10,
+    "origin": "image:apache/fineract:latest",
+    "sampleSpec": false,
+    "contractOps": 965,
     "hwRoutes": 904,
     "hwFiles": 20
   },
   "summary": {
-    "matched": 10,
-    "mismatch": 1,
-    "unverified": 843,
-    "uncovered": 0
+    "matched": 0,
+    "mismatch": 0,
+    "unverified": 854,
+    "uncovered": 965
   },
-  "mismatch": [
-    {
-      "key": "GET /loans",
-      "file": "loans.js",
-      "line": 3,
-      "handwritten": {
-        "method": "GET",
-        "command": null
-      },
-      "contractCandidates": [
-        {
-          "operationId": "calculateLoanScheduleOrSubmitLoanApplication",
-          "method": "POST",
-          "command": null
-        }
-      ]
-    }
-  ],
+  "mismatch": [],
   "unverified": [
     {
       "key": "GET /journalentries",
@@ -1020,6 +1003,41 @@
       "method": "DELETE"
     },
     {
+      "key": "GET /clients",
+      "file": "clients.js",
+      "line": 5,
+      "rawPath": "/clients",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}",
+      "file": "clients.js",
+      "line": 6,
+      "rawPath": "/clients/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/template",
+      "file": "clients.js",
+      "line": 7,
+      "rawPath": "/clients/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients",
+      "file": "clients.js",
+      "line": 8,
+      "rawPath": "/clients",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /clients/{}",
+      "file": "clients.js",
+      "line": 9,
+      "rawPath": "/clients/${id}",
+      "method": "PUT"
+    },
+    {
       "key": "POST /clients/{}?command=activate",
       "file": "clients.js",
       "line": 10,
@@ -1193,6 +1211,13 @@
       "line": 34,
       "rawPath": "/clients/${id}?command=rejectTransfer",
       "method": "POST"
+    },
+    {
+      "key": "DELETE /clients/{}",
+      "file": "clients.js",
+      "line": 35,
+      "rawPath": "/clients/${id}",
+      "method": "DELETE"
     },
     {
       "key": "GET /clients/{}/accounts",
@@ -2399,6 +2424,13 @@
       "method": "POST"
     },
     {
+      "key": "GET /loans",
+      "file": "loans.js",
+      "line": 3,
+      "rawPath": "/loans",
+      "method": "GET"
+    },
+    {
       "key": "GET /loans/{}",
       "file": "loans.js",
       "line": 4,
@@ -2420,6 +2452,13 @@
       "method": "GET"
     },
     {
+      "key": "POST /loans",
+      "file": "loans.js",
+      "line": 8,
+      "rawPath": "/loans",
+      "method": "POST"
+    },
+    {
       "key": "PUT /loans/{}",
       "file": "loans.js",
       "line": 9,
@@ -2432,6 +2471,13 @@
       "line": 10,
       "rawPath": "/loans/${id}",
       "method": "DELETE"
+    },
+    {
+      "key": "POST /loans/{}?command=approve",
+      "file": "loans.js",
+      "line": 12,
+      "rawPath": "/loans/${id}?command=approve",
+      "method": "POST"
     },
     {
       "key": "POST /loans/{}?command=undoApproval",
@@ -4940,6 +4986,13 @@
       "method": "POST"
     },
     {
+      "key": "GET /savingsaccounts",
+      "file": "savings-deposits.js",
+      "line": 3,
+      "rawPath": "/savingsaccounts",
+      "method": "GET"
+    },
+    {
       "key": "GET /savingsaccounts/{}",
       "file": "savings-deposits.js",
       "line": 4,
@@ -4952,6 +5005,13 @@
       "line": 5,
       "rawPath": "/savingsaccounts/template",
       "method": "GET"
+    },
+    {
+      "key": "POST /savingsaccounts",
+      "file": "savings-deposits.js",
+      "line": 6,
+      "rawPath": "/savingsaccounts",
+      "method": "POST"
     },
     {
       "key": "POST /savingsaccounts/gsim",
@@ -5934,5 +5994,4831 @@
       "method": "GET"
     }
   ],
-  "uncovered": []
+  "uncovered": [
+    {
+      "key": "GET /v1/fixeddepositaccounts/{}/template",
+      "operationId": "accountClosureTemplate",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/{}/template",
+      "operationId": "accountClosureTemplateRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "GET /v1/loans/{}/guarantors/accounts/template",
+      "operationId": "accountsTemplate",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "POST /v1/accounttransfers/{}",
+      "operationId": "accountTransferOperation",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "POST /v1/internal/working-capital-loans/{}/activate",
+      "operationId": "activateLoan",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "POST /v1/surveys/{}",
+      "operationId": "activateOrDeactivateSurvey",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "key": "PUT /v1/loans/{}/disbursements/editDisbursements",
+      "operationId": "addAndDeleteDisbursementDetail",
+      "tag": "Loan Disbursement Details"
+    },
+    {
+      "key": "POST /v1/clients/{}/collaterals",
+      "operationId": "addClientCollateral",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "key": "POST /v1/creditBureauIntegration/addCreditReport",
+      "operationId": "addCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "key": "POST /v1/{}/{}/notes",
+      "operationId": "addNewNote",
+      "tag": "Notes"
+    },
+    {
+      "key": "POST /v1/CreditBureauConfiguration/organisationCreditBureau/{}",
+      "operationId": "addOrganisationCreditBureau",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/charges/{}",
+      "operationId": "adjustLoanCharge",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/charges/external-id/{}",
+      "operationId": "adjustLoanChargeByChargeExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/charges/external-id/{}",
+      "operationId": "adjustLoanChargeByLoanAndChargeExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/charges/{}",
+      "operationId": "adjustLoanChargeByLoanExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/{}/transactions/{}",
+      "operationId": "adjustLoanTransaction",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/transactions/external-id/{}",
+      "operationId": "adjustLoanTransactionByLoanAndTransactionExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/transactions/{}",
+      "operationId": "adjustLoanTransactionByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/loans/{}/transactions/external-id/{}",
+      "operationId": "adjustLoanTransactionByTransactionExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}/transactions/{}",
+      "operationId": "adjustSavingsAccountTransaction",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}/transactions/external-id/{}",
+      "operationId": "adjustSavingsAccountTransactionByExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/external-id/{}/transactions/external-id/{}",
+      "operationId": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/external-id/{}/transactions/{}",
+      "operationId": "adjustSavingsAccountTransactionBySavingsExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/datatables/{}/query",
+      "operationId": "advancedQuery",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}/transactions/query",
+      "operationId": "advancedQuerySavingsAccountTransactions",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/external-id/{}/transactions/query",
+      "operationId": "advancedQuerySavingsAccountTransactionsBySavingsExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/search/advance",
+      "operationId": "advancedSearch",
+      "tag": "Search API"
+    },
+    {
+      "key": "POST /v1/tellers/{}/cashiers/{}/allocate",
+      "operationId": "allocateCashToCashier",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "POST /v1/makercheckers/{}",
+      "operationId": "approveMakerCheckerEntry",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "key": "POST /v1/loans/{}/originators/{}",
+      "operationId": "attachOriginatorToLoan",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/originators/external-id/{}",
+      "operationId": "attachOriginatorToLoanByExternalIds",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/originators/{}",
+      "operationId": "attachOriginatorToLoanByLoanExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "POST /v1/loans/{}/originators/external-id/{}",
+      "operationId": "attachOriginatorToLoanByOriginatorExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/originators/{}",
+      "operationId": "attachOriginatorToWorkingCapitalLoan",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/originators/external-id/{}",
+      "operationId": "attachOriginatorToWorkingCapitalLoanByBothExternalIds",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/originators/{}",
+      "operationId": "attachOriginatorToWorkingCapitalLoanByLoanExternalId",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/originators/external-id/{}",
+      "operationId": "attachOriginatorToWorkingCapitalLoanByOriginatorExternalId",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "POST /v1/authentication",
+      "operationId": "authenticate",
+      "tag": "Authentication HTTP Basic"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/calculate-fd-interest",
+      "operationId": "calculateFixedDepositInterest",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "POST /v1/loans",
+      "operationId": "calculateOrSubmitLoanApplication",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/users/{}/pwd",
+      "operationId": "changePasswordUser",
+      "tag": "Users"
+    },
+    {
+      "key": "POST /v1/tenants/{}/oidc-config",
+      "operationId": "create",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "key": "POST /v1/accountingrules",
+      "operationId": "createAccountingRule",
+      "tag": "Accounting Rules"
+    },
+    {
+      "key": "POST /v1/accountnumberformats",
+      "operationId": "createAccountNumberFormat",
+      "tag": "Account number format"
+    },
+    {
+      "key": "POST /v1/accounttransfers",
+      "operationId": "createAccountTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "POST /v1/adhocquery",
+      "operationId": "createAdHocQuery",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/breach-actions",
+      "operationId": "createBreachAction",
+      "tag": "Working Capital Loan Breach Actions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/breach-actions",
+      "operationId": "createBreachActionByExternalId",
+      "tag": "Working Capital Loan Breach Actions"
+    },
+    {
+      "key": "POST /v1/delinquency/buckets",
+      "operationId": "createBucket",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "POST /v1/{}/{}/calendars",
+      "operationId": "createCalendar",
+      "tag": "Calendar"
+    },
+    {
+      "key": "POST /v1/tellers/{}/cashiers",
+      "operationId": "createCashierForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "POST /v1/centers",
+      "operationId": "createCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "POST /v1/charges",
+      "operationId": "createCharge",
+      "tag": "Charges"
+    },
+    {
+      "key": "POST /v1/clients",
+      "operationId": "createClient",
+      "tag": "Client"
+    },
+    {
+      "key": "POST /v1/client/{}/addresses",
+      "operationId": "createClientAddress",
+      "tag": "Clients Address"
+    },
+    {
+      "key": "POST /v1/clients/{}/charges",
+      "operationId": "createClientCharge",
+      "tag": "Client Charges"
+    },
+    {
+      "key": "POST /v1/clients/{}/familymembers",
+      "operationId": "createClientFamilyMember",
+      "tag": "Client Family Member"
+    },
+    {
+      "key": "POST /v1/clients/{}/identifiers",
+      "operationId": "createClientIdentifier",
+      "tag": "Client Identifier"
+    },
+    {
+      "key": "POST /v1/codes",
+      "operationId": "createCode",
+      "tag": "Codes"
+    },
+    {
+      "key": "POST /v1/codes/{}/codevalues",
+      "operationId": "createCodeValue",
+      "tag": "Code Values"
+    },
+    {
+      "key": "POST /v1/codes/name/{}/codevalues",
+      "operationId": "createCodeValueByCodeName",
+      "tag": "Code Values"
+    },
+    {
+      "key": "POST /v1/loans/{}/collaterals",
+      "operationId": "createCollateral",
+      "tag": "Loan Collateral"
+    },
+    {
+      "key": "POST /v1/collateral-management",
+      "operationId": "createCollateral_1",
+      "tag": "Collateral Management"
+    },
+    {
+      "key": "POST /v1/CreditBureauConfiguration/configuration/{}",
+      "operationId": "createCreditBureauConfiguration",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "POST /v1/CreditBureauConfiguration/mappings/{}",
+      "operationId": "createCreditBureauLoanProductMapping",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "POST /v1/datatables",
+      "operationId": "createDatatable",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "POST /v1/datatables/{}/{}",
+      "operationId": "createDatatableEntry",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/delinquency-actions",
+      "operationId": "createDelinquencyAction",
+      "tag": "Working Capital Loan Delinquency Actions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/delinquency-actions",
+      "operationId": "createDelinquencyActionByExternalId",
+      "tag": "Working Capital Loan Delinquency Actions"
+    },
+    {
+      "key": "POST /v1/loans/{}/delinquency-actions",
+      "operationId": "createDelinquencyActionLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/delinquency-actions",
+      "operationId": "createDelinquencyActionLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/{}/{}/documents",
+      "operationId": "createDocument",
+      "tag": "Documents"
+    },
+    {
+      "key": "POST /v1/email",
+      "operationId": "createEmail",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/email/campaign",
+      "operationId": "createEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/entityDatatableChecks",
+      "operationId": "createEntityDatatableCheck",
+      "tag": "Entity Data Table"
+    },
+    {
+      "key": "POST /v1/external-asset-owners",
+      "operationId": "createExternalAssetOwner",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "POST /v1/external-asset-owners/loan-product/{}/attributes",
+      "operationId": "createExternalAssetOwnerLoanProductAttribute",
+      "tag": "External Asset Owner Loan Product Attributes"
+    },
+    {
+      "key": "POST /v1/fixeddepositaccounts",
+      "operationId": "createFixedDepositAccount",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "POST /v1/fixeddepositproducts",
+      "operationId": "createFixedDepositProduct",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "key": "POST /v1/floatingrates",
+      "operationId": "createFloatingRate",
+      "tag": "Floating Rates"
+    },
+    {
+      "key": "POST /v1/funds",
+      "operationId": "createFund",
+      "tag": "Funds"
+    },
+    {
+      "key": "POST /v1/glaccounts",
+      "operationId": "createGLAccount",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "POST /v1/financialactivityaccounts",
+      "operationId": "createGLAccountMappingFinancialActivityAccount",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "key": "POST /v1/glclosures",
+      "operationId": "createGLClosure",
+      "tag": "Accounting Closure"
+    },
+    {
+      "key": "POST /v1/journalentries",
+      "operationId": "createGLJournalEntry",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "POST /v1/groups",
+      "operationId": "createGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "POST /v1/loans/{}/guarantors",
+      "operationId": "createGuarantor",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "POST /v1/holidays",
+      "operationId": "createHoliday",
+      "tag": "Holidays"
+    },
+    {
+      "key": "POST /v1/hooks",
+      "operationId": "createHook",
+      "tag": "Hooks"
+    },
+    {
+      "key": "POST /v1/{}/{}/images",
+      "operationId": "createImage_1",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/interestratecharts",
+      "operationId": "createInterestRateChart",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "key": "POST /v1/interestratecharts/{}/chartslabs",
+      "operationId": "createInterestRateChartSlab",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/charges",
+      "operationId": "createLoanCharge",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/{}/interest-pauses",
+      "operationId": "createLoanInterestPause",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/interest-pauses",
+      "operationId": "createLoanInterestPauseByExternalId",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "POST /v1/loan-originators",
+      "operationId": "createLoanOriginator",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "POST /v1/loanproducts",
+      "operationId": "createLoanProduct",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "POST /v1/surveys/{}/lookuptables",
+      "operationId": "createLookupTable",
+      "tag": "SPM API - LookUp Table"
+    },
+    {
+      "key": "POST /v1/entitytoentitymapping/{}",
+      "operationId": "createMap",
+      "tag": "Fineract Entity"
+    },
+    {
+      "key": "POST /v1/{}/{}/meetings",
+      "operationId": "createMeeting",
+      "tag": "Meetings"
+    },
+    {
+      "key": "POST /v1/offices",
+      "operationId": "createOffice",
+      "tag": "Offices"
+    },
+    {
+      "key": "POST /v1/loans/{}/charges",
+      "operationId": "createOrPayLoanCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/paymenttypes",
+      "operationId": "createPaymentType",
+      "tag": "Payment Type"
+    },
+    {
+      "key": "POST /v1/loanproducts/{}/productmix",
+      "operationId": "createProductMix",
+      "tag": "Product Mix"
+    },
+    {
+      "key": "POST /v1/provisioningcategory",
+      "operationId": "createProvisioningCategory",
+      "tag": "Provisioning Category"
+    },
+    {
+      "key": "POST /v1/provisioningcriteria",
+      "operationId": "createProvisioningCriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "key": "POST /v1/provisioningentries",
+      "operationId": "createProvisioningEntries",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "key": "POST /v1/interoperation/quotes",
+      "operationId": "createQuote",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "POST /v1/delinquency/ranges",
+      "operationId": "createRange",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "POST /v1/rates",
+      "operationId": "createRate",
+      "tag": "Rate"
+    },
+    {
+      "key": "POST /v1/recurringdepositproducts",
+      "operationId": "createRecurringDepositProduct",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "key": "POST /v1/reports",
+      "operationId": "createReport",
+      "tag": "Reports"
+    },
+    {
+      "key": "POST /v1/reportmailingjobs",
+      "operationId": "createReportMailingJob",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "key": "POST /v1/rescheduleloans",
+      "operationId": "createRescheduleLoan",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "key": "POST /v1/journalentries/{}",
+      "operationId": "createReversalJournalEntry",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "POST /v1/roles",
+      "operationId": "createRole",
+      "tag": "Roles"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}/charges",
+      "operationId": "createSavingsAccountCharge",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}/transactions",
+      "operationId": "createSavingsAccountTransaction",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/external-id/{}/transactions",
+      "operationId": "createSavingsAccountTransactionBySavingsExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/savingsproducts",
+      "operationId": "createSavingsProduct",
+      "tag": "Savings Product"
+    },
+    {
+      "key": "POST /v1/surveys/scorecards/{}",
+      "operationId": "createScorecard",
+      "tag": "Score Card"
+    },
+    {
+      "key": "POST /v1/accounts/{}",
+      "operationId": "createShareAccount",
+      "tag": "Share Account"
+    },
+    {
+      "key": "POST /v1/shareproduct/{}/dividend",
+      "operationId": "createShareDividend",
+      "tag": "Self Dividend"
+    },
+    {
+      "key": "POST /v1/products/{}",
+      "operationId": "createShareProduct",
+      "tag": "Products"
+    },
+    {
+      "key": "POST /v1/sms",
+      "operationId": "createSms",
+      "tag": "SMS"
+    },
+    {
+      "key": "POST /v1/smscampaigns",
+      "operationId": "createSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/staff",
+      "operationId": "createStaff",
+      "tag": "Staff"
+    },
+    {
+      "key": "POST /v1/standinginstructions",
+      "operationId": "createStandingInstruction",
+      "tag": "Standing Instructions"
+    },
+    {
+      "key": "POST /v1/surveys",
+      "operationId": "createSurvey",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "key": "POST /v1/survey/{}/{}",
+      "operationId": "createSurveyEntry",
+      "tag": "Survey"
+    },
+    {
+      "key": "POST /v1/taxes/component",
+      "operationId": "createTaxComponent",
+      "tag": "Tax Components"
+    },
+    {
+      "key": "POST /v1/taxes/group",
+      "operationId": "createTaxGroup",
+      "tag": "Tax Group"
+    },
+    {
+      "key": "POST /v1/tellers",
+      "operationId": "createTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "POST /v1/templates",
+      "operationId": "createTemplate",
+      "tag": "templates"
+    },
+    {
+      "key": "POST /v1/interoperation/requests",
+      "operationId": "createTransactionRequest",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "POST /v1/users",
+      "operationId": "createUser",
+      "tag": "Users"
+    },
+    {
+      "key": "POST /v1/working-capital/breach/breaches",
+      "operationId": "createWorkingCapitalBreach",
+      "tag": "Working Capital Breach"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/near-breach-actions",
+      "operationId": "createWorkingCapitalLoanNearBreachActionByExternalId",
+      "tag": "Working Capital Loan Near Breach Actions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/near-breach-actions",
+      "operationId": "createWorkingCapitalLoanNearBreachActionById",
+      "tag": "Working Capital Loan Near Breach Actions"
+    },
+    {
+      "key": "POST /v1/working-capital-loan-products",
+      "operationId": "createWorkingCapitalLoanProduct",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "POST /v1/working-capital/near-breach",
+      "operationId": "createWorkingCapitalNearBreach",
+      "tag": "Working Capital Near Breach"
+    },
+    {
+      "key": "DELETE /v1/entitytoentitymapping/{}",
+      "operationId": "delete",
+      "tag": "Fineract Entity"
+    },
+    {
+      "key": "DELETE /v1/tenants/{}/oidc-config",
+      "operationId": "delete_1",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "key": "DELETE /v1/officetransactions/{}",
+      "operationId": "delete_2",
+      "tag": null
+    },
+    {
+      "key": "DELETE /v1/interoperation/parties/{}/{}",
+      "operationId": "deleteAccountIdentifier",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "DELETE /v1/interoperation/parties/{}/{}/{}",
+      "operationId": "deleteAccountIdentifier_1",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "DELETE /v1/accountingrules/{}",
+      "operationId": "deleteAccountingRule",
+      "tag": "Accounting Rules"
+    },
+    {
+      "key": "DELETE /v1/accountnumberformats/{}",
+      "operationId": "deleteAccountNumberFormat",
+      "tag": "Account number format"
+    },
+    {
+      "key": "DELETE /v1/adhocquery/{}",
+      "operationId": "deleteAdHocQuery",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "key": "DELETE /v1/internal/externalevents",
+      "operationId": "deleteAllExternalEvents",
+      "tag": null
+    },
+    {
+      "key": "DELETE /v1/delinquency/buckets/{}",
+      "operationId": "deleteBucket",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "DELETE /v1/loan-originators/external-id/{}",
+      "operationId": "deleteByExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/{}/{}/calendars/{}",
+      "operationId": "deleteCalendar",
+      "tag": "Calendar"
+    },
+    {
+      "key": "DELETE /v1/tellers/{}/cashiers/{}",
+      "operationId": "deleteCashierForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "DELETE /v1/centers/{}",
+      "operationId": "deleteCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "DELETE /v1/charges/{}",
+      "operationId": "deleteCharge",
+      "tag": "Charges"
+    },
+    {
+      "key": "DELETE /v1/clients/{}",
+      "operationId": "deleteClient",
+      "tag": "Client"
+    },
+    {
+      "key": "DELETE /v1/clients/external-id/{}",
+      "operationId": "deleteClientByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "DELETE /v1/clients/{}/charges/{}",
+      "operationId": "deleteClientCharge",
+      "tag": "Client Charges"
+    },
+    {
+      "key": "DELETE /v1/clients/{}/collaterals/{}",
+      "operationId": "deleteClientCollateral",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "key": "DELETE /v1/clients/{}/familymembers/{}",
+      "operationId": "deleteClientFamilyMember",
+      "tag": "Client Family Member"
+    },
+    {
+      "key": "DELETE /v1/clients/{}/identifiers/{}",
+      "operationId": "deleteClientIdentifier",
+      "tag": "Client Identifier"
+    },
+    {
+      "key": "DELETE /v1/codes/{}",
+      "operationId": "deleteCode",
+      "tag": "Codes"
+    },
+    {
+      "key": "DELETE /v1/paymenttypes/{}",
+      "operationId": "deleteCodePaymentType",
+      "tag": "Payment Type"
+    },
+    {
+      "key": "DELETE /v1/codes/{}/codevalues/{}",
+      "operationId": "deleteCodeValue",
+      "tag": "Code Values"
+    },
+    {
+      "key": "DELETE /v1/codes/name/{}/codevalues/{}",
+      "operationId": "deleteCodeValue_1",
+      "tag": "Code Values"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/collaterals/{}",
+      "operationId": "deleteCollateral",
+      "tag": "Loan Collateral"
+    },
+    {
+      "key": "DELETE /v1/collateral-management/{}",
+      "operationId": "deleteCollateral_1",
+      "tag": "Collateral Management"
+    },
+    {
+      "key": "DELETE /v1/creditBureauIntegration/deleteCreditReport/{}",
+      "operationId": "deleteCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "key": "DELETE /v1/datatables/{}",
+      "operationId": "deleteDatatable",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "DELETE /v1/datatables/{}/{}",
+      "operationId": "deleteDatatableEntries",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "DELETE /v1/survey/{}/{}/{}",
+      "operationId": "deleteDatatableEntries_1",
+      "tag": "Survey"
+    },
+    {
+      "key": "DELETE /v1/datatables/{}/{}/{}",
+      "operationId": "deleteDatatableEntry",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "DELETE /v1/{}/{}/documents/{}",
+      "operationId": "deleteDocument",
+      "tag": "Documents"
+    },
+    {
+      "key": "DELETE /v1/email/{}",
+      "operationId": "deleteEmail",
+      "tag": null
+    },
+    {
+      "key": "DELETE /v1/email/campaign/{}",
+      "operationId": "deleteEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "DELETE /v1/entityDatatableChecks/{}",
+      "operationId": "deleteEntityDatatableCheck",
+      "tag": "Entity Data Table"
+    },
+    {
+      "key": "DELETE /v1/fixeddepositaccounts/{}",
+      "operationId": "deleteFixedDepositAccount",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "DELETE /v1/fixeddepositproducts/{}",
+      "operationId": "deleteFixedDepositProduct",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "key": "DELETE /v1/glaccounts/{}",
+      "operationId": "deleteGLAccount",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "DELETE /v1/financialactivityaccounts/{}",
+      "operationId": "deleteGLAccountMappingFinancialActivityAccount",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "key": "DELETE /v1/glclosures/{}",
+      "operationId": "deleteGLClosure",
+      "tag": "Accounting Closure"
+    },
+    {
+      "key": "DELETE /v1/groups/{}",
+      "operationId": "deleteGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/guarantors/{}",
+      "operationId": "deleteGuarantor",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "DELETE /v1/holidays/{}",
+      "operationId": "deleteHoliday",
+      "tag": "Holidays"
+    },
+    {
+      "key": "DELETE /v1/hooks/{}",
+      "operationId": "deleteHook",
+      "tag": "Hooks"
+    },
+    {
+      "key": "DELETE /v1/{}/{}/images",
+      "operationId": "deleteImage",
+      "tag": null
+    },
+    {
+      "key": "DELETE /v1/interestratecharts/{}",
+      "operationId": "deleteInterestRateChart",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "key": "DELETE /v1/interestratecharts/{}/chartslabs/{}",
+      "operationId": "deleteInterestRateChartSlab",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "key": "DELETE /v1/internal/loan/progressive/{}/model",
+      "operationId": "deleteInternalProgressiveLoan",
+      "tag": "Progressive Loan"
+    },
+    {
+      "key": "DELETE /v1/internal/working-capital-loans/internal/lastCobRun",
+      "operationId": "deleteLastCobRun",
+      "tag": "Working Capital Loan Internal COB Api"
+    },
+    {
+      "key": "DELETE /v1/loans/{}",
+      "operationId": "deleteLoanApplication",
+      "tag": "Loans"
+    },
+    {
+      "key": "DELETE /v1/loans/external-id/{}",
+      "operationId": "deleteLoanApplicationByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/charges/{}",
+      "operationId": "deleteLoanCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/charges/external-id/{}",
+      "operationId": "deleteLoanChargeByChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "DELETE /v1/loans/external-id/{}/charges/external-id/{}",
+      "operationId": "deleteLoanChargeByLoanAndChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "DELETE /v1/loans/external-id/{}/charges/{}",
+      "operationId": "deleteLoanChargeByLoanExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "DELETE /v1/loan-collateral-management/{}",
+      "operationId": "deleteLoanCollateral",
+      "tag": "Loan Collateral Management"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/interest-pauses/{}",
+      "operationId": "deleteLoanInterestPause",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "DELETE /v1/loans/external-id/{}/interest-pauses/{}",
+      "operationId": "deleteLoanInterestPauseByExternalId",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "DELETE /v1/loan-originators/{}",
+      "operationId": "deleteLoanOriginator",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/makercheckers/{}",
+      "operationId": "deleteMakerCheckerEntry",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "key": "DELETE /v1/{}/{}/meetings/{}",
+      "operationId": "deleteMeeting",
+      "tag": "Meetings"
+    },
+    {
+      "key": "DELETE /v1/{}/{}/notes/{}",
+      "operationId": "deleteNote",
+      "tag": "Notes"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/postdatedchecks/{}",
+      "operationId": "deletePostDatedCheck",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "key": "DELETE /v1/loanproducts/{}/productmix",
+      "operationId": "deleteProductMix",
+      "tag": "Product Mix"
+    },
+    {
+      "key": "DELETE /v1/provisioningcategory/{}",
+      "operationId": "deleteProvisioningCategory",
+      "tag": "Provisioning Category"
+    },
+    {
+      "key": "DELETE /v1/provisioningcriteria/{}",
+      "operationId": "deleteProvisioningCriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "key": "DELETE /v1/delinquency/ranges/{}",
+      "operationId": "deleteRange",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "DELETE /v1/recurringdepositaccounts/{}",
+      "operationId": "deleteRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "DELETE /v1/recurringdepositproducts/{}",
+      "operationId": "deleteRecurringDepositProduct",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "key": "DELETE /v1/reports/{}",
+      "operationId": "deleteReport",
+      "tag": "Reports"
+    },
+    {
+      "key": "DELETE /v1/reportmailingjobs/{}",
+      "operationId": "deleteReportMailingJob",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "key": "DELETE /v1/roles/{}",
+      "operationId": "deleteRole",
+      "tag": "Roles"
+    },
+    {
+      "key": "DELETE /v1/savingsaccounts/{}",
+      "operationId": "deleteSavingsAccount",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "DELETE /v1/savingsaccounts/external-id/{}",
+      "operationId": "deleteSavingsAccountByExternalId",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "DELETE /v1/savingsaccounts/{}/charges/{}",
+      "operationId": "deleteSavingsAccountCharge",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "DELETE /v1/savingsproducts/{}",
+      "operationId": "deleteSavingsProduct",
+      "tag": "Savings Product"
+    },
+    {
+      "key": "DELETE /v1/shareproduct/{}/dividend/{}",
+      "operationId": "deleteShareDividend",
+      "tag": "Self Dividend"
+    },
+    {
+      "key": "DELETE /v1/sms/{}",
+      "operationId": "deleteSms",
+      "tag": "SMS"
+    },
+    {
+      "key": "DELETE /v1/smscampaigns/{}",
+      "operationId": "deleteSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "DELETE /v1/tellers/{}",
+      "operationId": "deleteTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "DELETE /v1/templates/{}",
+      "operationId": "deleteTemplate",
+      "tag": "templates"
+    },
+    {
+      "key": "DELETE /v1/users/{}",
+      "operationId": "deleteUser",
+      "tag": "Users"
+    },
+    {
+      "key": "DELETE /v1/working-capital/breach/breaches/{}",
+      "operationId": "deleteWorkingCapitalBreach",
+      "tag": "Working Capital Breach"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loans/{}",
+      "operationId": "deleteWorkingCapitalLoanApplication",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loans/external-id/{}",
+      "operationId": "deleteWorkingCapitalLoanApplicationByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loan-products/{}",
+      "operationId": "deleteWorkingCapitalLoanProduct",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loan-products/external-id/{}",
+      "operationId": "deleteWorkingCapitalLoanProductByExternalId",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "DELETE /v1/working-capital/near-breach/{}",
+      "operationId": "deleteWorkingCapitalNearBreach",
+      "tag": "Working Capital Near Breach"
+    },
+    {
+      "key": "POST /v1/datatables/deregister/{}",
+      "operationId": "deregisterDatatable",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/originators/{}",
+      "operationId": "detachOriginatorFromLoan",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/loans/external-id/{}/originators/external-id/{}",
+      "operationId": "detachOriginatorFromLoanByExternalIds",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/loans/external-id/{}/originators/{}",
+      "operationId": "detachOriginatorFromLoanByLoanExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/loans/{}/originators/external-id/{}",
+      "operationId": "detachOriginatorFromLoanByOriginatorExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loans/{}/originators/{}",
+      "operationId": "detachOriginatorFromWorkingCapitalLoan",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loans/external-id/{}/originators/external-id/{}",
+      "operationId": "detachOriginatorFromWorkingCapitalLoanByBothExternalIds",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loans/external-id/{}/originators/{}",
+      "operationId": "detachOriginatorFromWorkingCapitalLoanByLoanExternalId",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "DELETE /v1/working-capital-loans/{}/originators/external-id/{}",
+      "operationId": "detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "POST /v1/interoperation/transactions/{}/disburse",
+      "operationId": "disburseLoan",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/{}/{}/documents/{}/attachment",
+      "operationId": "downloadFile",
+      "tag": "Documents"
+    },
+    {
+      "key": "PUT /v1/surveys/{}",
+      "operationId": "editSurvey",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "key": "POST /v1/jobs/{}/inline",
+      "operationId": "executeInlineJob",
+      "tag": "Inline Job"
+    },
+    {
+      "key": "POST /v1/jobs/{}",
+      "operationId": "executeJob",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "POST /v1/jobs/short-name/{}",
+      "operationId": "executeJobByShortName",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "POST /v1/loans/{}/charges/external-id/{}",
+      "operationId": "executeLoanChargeByChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/charges/external-id/{}",
+      "operationId": "executeLoanChargeByLoanAndChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/charges",
+      "operationId": "executeLoanChargeByLoanExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/charges/{}",
+      "operationId": "executeLoanChargeByLoanExternalIdOnExistingCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/{}/charges/{}",
+      "operationId": "executeLoanChargeOnExistingCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/loans/catch-up",
+      "operationId": "executeLoanCOBCatchUp",
+      "tag": "Loan COB Catch Up"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/catch-up",
+      "operationId": "executeLoanCOBCatchUp_1",
+      "tag": "Working Capital Loan COB Catch Up"
+    },
+    {
+      "key": "POST /v1/runaccruals",
+      "operationId": "executePeriodicAccrualAccounting",
+      "tag": "Periodic Accrual Accounting"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/charges",
+      "operationId": "executeWorkingCapitalLoanChargeByLoanExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/transactions",
+      "operationId": "executeWorkingCapitalLoanTransactionByExternalId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/transactions",
+      "operationId": "executeWorkingCapitalLoanTransactionById",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/transactions/external-id/{}",
+      "operationId": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}/transactions/{}",
+      "operationId": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/transactions/external-id/{}",
+      "operationId": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}/transactions/{}",
+      "operationId": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/surveys",
+      "operationId": "fetchAllSurveys",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "key": "GET /v1/userdetails",
+      "operationId": "fetchAuthenticatedUserData",
+      "tag": "Fetch authenticated user details"
+    },
+    {
+      "key": "GET /v1/loans/{}/capitalized-incomes",
+      "operationId": "fetchCapitalizedIncomeDetails",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/capitalized-incomes",
+      "operationId": "fetchCapitalizedIncomeDetailsByExternalId",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "POST /v1/creditBureauIntegration/creditReport",
+      "operationId": "fetchCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "key": "GET /v1/loans/{}/deferredincome",
+      "operationId": "fetchLoanCapitalizedIncomeData",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/deferredincome",
+      "operationId": "fetchLoanCapitalizedIncomeDataByExternalId",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/CreditBureauConfiguration/loanProduct",
+      "operationId": "fetchLoanProducts",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "GET /v1/surveys/{}/lookuptables",
+      "operationId": "fetchLookupTables",
+      "tag": "SPM API - LookUp Table"
+    },
+    {
+      "key": "GET /v1/CreditBureauConfiguration/loanProduct/{}",
+      "operationId": "fetchMappingByLoanProductId",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "GET /v1/surveys/scorecards/clients/{}",
+      "operationId": "findByClient",
+      "tag": "Score Card"
+    },
+    {
+      "key": "GET /v1/surveys/scorecards/{}",
+      "operationId": "findBySurvey",
+      "tag": "Score Card"
+    },
+    {
+      "key": "GET /v1/surveys/scorecards/{}/clients/{}",
+      "operationId": "findBySurveyAndClient",
+      "tag": "Score Card"
+    },
+    {
+      "key": "GET /v1/surveys/{}/lookuptables/{}",
+      "operationId": "findLookupTable",
+      "tag": "SPM API - LookUp Table"
+    },
+    {
+      "key": "GET /v1/surveys/{}",
+      "operationId": "findSurvey",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "key": "POST /v1/password/forgot",
+      "operationId": "forgotPassword",
+      "tag": "Password Management"
+    },
+    {
+      "key": "POST /v1/internal/working-capital-loans/{}/amortization-schedule",
+      "operationId": "generateAmortizationSchedule",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "POST /v1/collectionsheet",
+      "operationId": "generateCollectionSheet",
+      "tag": "Collection Sheet"
+    },
+    {
+      "key": "POST /v1/internal/working-capital-loans/{}/generate-next-delinquency-period",
+      "operationId": "generateNextDelinquencyPeriod",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/interoperation/parties/{}/{}",
+      "operationId": "getAccountByIdentifier",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/interoperation/parties/{}/{}/{}",
+      "operationId": "getAccountByIdentifier_1",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/interoperation/accounts/{}",
+      "operationId": "getAccountDetails",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/interoperation/accounts/{}/identifiers",
+      "operationId": "getAccountIdentifiers",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/interoperation/accounts/{}/transactions",
+      "operationId": "getAccountTransactions",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/external-asset-owners/transfers/active-transfer",
+      "operationId": "getActiveTransfer",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "GET /v1/fieldconfiguration/{}",
+      "operationId": "getAddresses",
+      "tag": "Entity Field Configuration"
+    },
+    {
+      "key": "GET /v1/internal/loan/{}/advanced-payment-allocation-rules",
+      "operationId": "getAdvancedPaymentAllocationRulesOfLoan",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/collateral-management",
+      "operationId": "getAllCollaterals",
+      "tag": "Collateral Management"
+    },
+    {
+      "key": "GET /v1/internal/externalevents",
+      "operationId": "getAllExternalEvents",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/notifications",
+      "operationId": "getAllNotifications",
+      "tag": "Notification"
+    },
+    {
+      "key": "GET /v1/paymenttypes",
+      "operationId": "getAllPaymentTypes",
+      "tag": "Payment Type"
+    },
+    {
+      "key": "GET /v1/delinquency/buckets/{}",
+      "operationId": "getBucket",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "GET /v1/delinquency/buckets",
+      "operationId": "getBuckets",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "GET /v1/delinquency/buckets/template",
+      "operationId": "getBucketTemplate",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "GET /v1/centers/downloadtemplate",
+      "operationId": "getBulkTemplateCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "GET /v1/groups/downloadtemplate",
+      "operationId": "getBulkTemplateGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/staff/downloadtemplate",
+      "operationId": "getBulkTemplateStaff",
+      "tag": "Staff"
+    },
+    {
+      "key": "GET /v1/users/downloadtemplate",
+      "operationId": "getBulkTemplateUser",
+      "tag": "Users"
+    },
+    {
+      "key": "GET /v1/businessdate/{}",
+      "operationId": "getBusinessDate",
+      "tag": "Business Date Management"
+    },
+    {
+      "key": "GET /v1/businessdate",
+      "operationId": "getBusinessDates",
+      "tag": "Business Date Management"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/buydown-fees/external-id/{}",
+      "operationId": "getBuyDownFeesAllocationDataByExternalIds",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/buydown-fees/{}",
+      "operationId": "getBuyDownFeesAllocationDataByLoanExternalId",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "key": "GET /v1/loans/{}/buydown-fees/external-id/{}",
+      "operationId": "getBuyDownFeesAllocationDataByTransactionExternalId",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/capitalized-incomes/external-id/{}",
+      "operationId": "getCapitalizedIncomeAllocationDataByExternalIds",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/capitalized-incomes/{}",
+      "operationId": "getCapitalizedIncomeAllocationDataByLoanExternalId",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/loans/{}/capitalized-incomes/external-id/{}",
+      "operationId": "getCapitalizedIncomeAllocationDataByTransactionExternalId",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/clients/{}/collaterals/{}",
+      "operationId": "getClientCollateralData",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "key": "GET /v1/clients/{}/collaterals",
+      "operationId": "getClientCollateralProducts",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "key": "GET /v1/clients/{}/collaterals/template",
+      "operationId": "getClientCollateralTemplate",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "key": "GET /v1/interoperation/accounts/{}/kyc",
+      "operationId": "getClientKyc",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/survey/{}/{}",
+      "operationId": "getClientSurveyOverview",
+      "tag": "Survey"
+    },
+    {
+      "key": "GET /v1/clients/downloadtemplate",
+      "operationId": "getClientTemplate",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/internal/cob/partitions/{}",
+      "operationId": "getCobPartitions",
+      "tag": "Internal COB"
+    },
+    {
+      "key": "GET /v1/collateral-management/{}",
+      "operationId": "getCollateral",
+      "tag": "Collateral Management"
+    },
+    {
+      "key": "GET /v1/collateral-management/template",
+      "operationId": "getCollateralTemplate",
+      "tag": "Collateral Management"
+    },
+    {
+      "key": "GET /v1/CreditBureauConfiguration/config/{}",
+      "operationId": "getConfiguration",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "GET /v1/CreditBureauConfiguration",
+      "operationId": "getCreditBureau",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "GET /v1/CreditBureauConfiguration/mappings",
+      "operationId": "getCreditBureauLoanProductMapping",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "GET /v1/datatables/{}",
+      "operationId": "getDatatable",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "GET /v1/datatables/{}/{}",
+      "operationId": "getDatatableEntries",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "GET /v1/datatables/{}/{}/{}",
+      "operationId": "getDatatableManyEntry",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "GET /v1/datatables",
+      "operationId": "getDatatables",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/delinquencyrangetags",
+      "operationId": "getDelinquencyRangeScheduleTagHistoryByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/delinquencyrangetags",
+      "operationId": "getDelinquencyRangeScheduleTagHistoryById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/{}/{}/documents/{}",
+      "operationId": "getDocument",
+      "tag": "Documents"
+    },
+    {
+      "key": "GET /v1/entitytoentitymapping/{}/{}/{}",
+      "operationId": "getEntityToEntityMappings",
+      "tag": "Fineract Entity"
+    },
+    {
+      "key": "GET /v1/externalevents/configuration",
+      "operationId": "getExternalEventConfigurations",
+      "tag": "External event configuration"
+    },
+    {
+      "key": "GET /application.wadl/{}",
+      "operationId": "getExternalGrammar",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/downloadtemplate",
+      "operationId": "getFixedDepositTemplate",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/transaction/downloadtemplate",
+      "operationId": "getFixedDepositTransactionTemplate",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "GET /v1/glaccounts/downloadtemplate",
+      "operationId": "getGlAccountsTemplate",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "GET /v1/loans/glimAccount/{}",
+      "operationId": "getGlimRepaymentTemplate",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/guarantors/downloadtemplate",
+      "operationId": "getGuarantorTemplate",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "GET /v1/internal/client/{}/audit",
+      "operationId": "getInternalClientAuditFields",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/external-asset-owners/owners/external-id/{}/journal-entries",
+      "operationId": "getJournalEntriesOfOwner",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "GET /v1/external-asset-owners/transfers/{}/journal-entries",
+      "operationId": "getJournalEntriesOfTransfer",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "GET /v1/journalentries/downloadtemplate",
+      "operationId": "getJournalEntriesTemplate",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "POST /v1/internal/working-capital-loans/internal/lastCobRun",
+      "operationId": "getLastCobRun",
+      "tag": "Working Capital Loan Internal COB Api"
+    },
+    {
+      "key": "GET /v1/internal/loan/{}/audit",
+      "operationId": "getLoanAuditFields",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/loan-collateral-management/{}",
+      "operationId": "getLoanCollateral",
+      "tag": "Loan Collateral Management"
+    },
+    {
+      "key": "GET /v1/loans/repayments/downloadtemplate",
+      "operationId": "getLoanRepaymentTemplate",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/internal/loan/status/{}",
+      "operationId": "getLoansByStatus",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/loans/downloadtemplate",
+      "operationId": "getLoansTemplate",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/internal/loan/{}/transaction/{}/audit",
+      "operationId": "getLoanTransactionAuditFields",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/internal/loan/maxTransactionDateOfActiveLoan",
+      "operationId": "getMaxTransactionDateOfActiveLoans",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/offices/downloadtemplate",
+      "operationId": "getOfficeTemplate",
+      "tag": "Offices"
+    },
+    {
+      "key": "GET /v1/loans/oldest-cob-closed",
+      "operationId": "getOldestCOBProcessedLoan",
+      "tag": "Loan COB Catch Up"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/oldest-cob-closed",
+      "operationId": "getOldestCOBProcessedLoan_1",
+      "tag": "Working Capital Loan COB Catch Up"
+    },
+    {
+      "key": "GET /v1/CreditBureauConfiguration/organisationCreditBureau",
+      "operationId": "getOrganisationCreditBureau",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "GET /v1/twofactor",
+      "operationId": "getOTPDeliveryMethods",
+      "tag": "Two Factor"
+    },
+    {
+      "key": "GET /v1/imports/downloadOutputTemplate",
+      "operationId": "getOutputTemplate",
+      "tag": "Bulk Import"
+    },
+    {
+      "key": "GET /v1/loans/{}/postdatedchecks/{}",
+      "operationId": "getPostDatedCheck",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "key": "GET /v1/loans/{}/postdatedchecks",
+      "operationId": "getPostDatedChecks",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "key": "GET /v1/interoperation/transactions/{}/quotes/{}",
+      "operationId": "getQuote",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/delinquency/ranges/{}",
+      "operationId": "getRange",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "GET /v1/delinquency/ranges",
+      "operationId": "getRanges",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/downloadtemplate",
+      "operationId": "getRecurringDepositTemplate",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/transactions/downloadtemplate",
+      "operationId": "getRecurringDepositTransactionTemplate",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "GET /v1/creditBureauIntegration/creditReport/{}",
+      "operationId": "getSavedCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "key": "GET /v1/internal/savingsaccounts/status/{}",
+      "operationId": "getSavingsAccountsByStatus",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/savingsaccounts/downloadtemplate",
+      "operationId": "getSavingsTemplate",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/transactions/downloadtemplate",
+      "operationId": "getSavingsTransactionTemplate",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/accounts/{}/downloadtemplate",
+      "operationId": "getShareAccountTemplate",
+      "tag": "Share Account"
+    },
+    {
+      "key": "GET /v1/survey/{}/{}/{}",
+      "operationId": "getSurveyEntry",
+      "tag": "Survey"
+    },
+    {
+      "key": "GET /v1/interoperation/transactions/{}/requests/{}",
+      "operationId": "getTransactionRequest",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/interoperation/transactions/{}/transfers/{}",
+      "operationId": "getTransfer",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/external-asset-owners/transfers",
+      "operationId": "getTransfers",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "GET /application.wadl",
+      "operationId": "getWadl",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/near-breach-actions",
+      "operationId": "getWorkingCapitalLoanNearBreachActionsByExternalId",
+      "tag": "Working Capital Loan Near Breach Actions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/near-breach-actions",
+      "operationId": "getWorkingCapitalLoanNearBreachActionsById",
+      "tag": "Working Capital Loan Near Breach Actions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/rate-changes",
+      "operationId": "getWorkingCapitalLoanRateChangeHistoryByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/rate-changes",
+      "operationId": "getWorkingCapitalLoanRateChangeHistoryById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "POST /v1/batches",
+      "operationId": "handleBatchRequests",
+      "tag": "Batch API"
+    },
+    {
+      "key": "POST /v1/clients/{}",
+      "operationId": "handleCommandClient",
+      "tag": "Client"
+    },
+    {
+      "key": "POST /v1/clients/external-id/{}",
+      "operationId": "handleCommandClientByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "POST /v1/centers/{}",
+      "operationId": "handleCommandsCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "POST /v1/email/campaign/{}",
+      "operationId": "handleCommandsEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/fixeddepositaccounts/{}",
+      "operationId": "handleCommandsFixedDepositAccount",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "POST /v1/fixeddepositaccounts/{}/transactions/{}",
+      "operationId": "handleCommandsFixedDepositAccountTransaction",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "key": "POST /v1/loans/glimAccount/{}",
+      "operationId": "handleCommandsGlimLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/groups/{}",
+      "operationId": "handleCommandsGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "POST /v1/holidays/{}",
+      "operationId": "handleCommandsHoliday",
+      "tag": "Holidays"
+    },
+    {
+      "key": "POST /v1/loans/{}",
+      "operationId": "handleCommandsLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}",
+      "operationId": "handleCommandsLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/loans/{}/schedule",
+      "operationId": "handleCommandsLoanSchedule",
+      "tag": "Loan Rescheduling"
+    },
+    {
+      "key": "POST /v1/loans/{}/transactions",
+      "operationId": "handleCommandsLoanTransaction",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/loans/external-id/{}/transactions",
+      "operationId": "handleCommandsLoanTransactionByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/recurringdepositaccounts/{}",
+      "operationId": "handleCommandsRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "POST /v1/recurringdepositaccounts/{}/transactions/{}",
+      "operationId": "handleCommandsRecurringDepositAccountTransaction",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "key": "POST /v1/roles/{}",
+      "operationId": "handleCommandsRole",
+      "tag": "Roles"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}",
+      "operationId": "handleCommandsSavingsAccount",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/external-id/{}",
+      "operationId": "handleCommandsSavingsAccountByExternalId",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/{}/charges/{}",
+      "operationId": "handleCommandsSavingsAccountCharge",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "POST /v1/scheduler",
+      "operationId": "handleCommandsScheduler",
+      "tag": "Scheduler"
+    },
+    {
+      "key": "POST /v1/accounts/{}/{}",
+      "operationId": "handleCommandsShareAccount",
+      "tag": "Share Account"
+    },
+    {
+      "key": "POST /v1/products/{}/{}",
+      "operationId": "handleCommandsShareProduct",
+      "tag": "Products"
+    },
+    {
+      "key": "POST /v1/smscampaigns/{}",
+      "operationId": "handleCommandsSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/savingsaccounts/gsimcommands/{}",
+      "operationId": "handleGSIMCommands",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/interoperation/health",
+      "operationId": "health",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "GET /v1/loans/is-catch-up-running",
+      "operationId": "isCatchUpRunning",
+      "tag": "Loan COB Catch Up"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/is-catch-up-running",
+      "operationId": "isCatchUpRunning_1",
+      "tag": "Working Capital Loan COB Catch Up"
+    },
+    {
+      "key": "POST /v1/loans/loanreassignment",
+      "operationId": "loanReassignment",
+      "tag": "Bulk Loans"
+    },
+    {
+      "key": "GET /v1/loans/loanreassignment/template",
+      "operationId": "loanReassignmentTemplate",
+      "tag": "Bulk Loans"
+    },
+    {
+      "key": "POST /v1/interoperation/transactions/{}/loanrepayment",
+      "operationId": "loanRepayment",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "POST /v1/internal/cob/loan-reprocess/{}",
+      "operationId": "loanReprocess",
+      "tag": "Internal COB"
+    },
+    {
+      "key": "POST /v1/templates/{}",
+      "operationId": "mergeTemplate",
+      "tag": "templates"
+    },
+    {
+      "key": "POST /v1/provisioningentries/{}",
+      "operationId": "modifyProvisioningEntry",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "key": "PUT /v1/working-capital-loans/external-id/{}",
+      "operationId": "modifyWorkingCapitalLoanApplicationByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "PUT /v1/working-capital-loans/{}",
+      "operationId": "modifyWorkingCapitalLoanApplicationById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/collaterals/template",
+      "operationId": "newCollateralTemplate",
+      "tag": "Loan Collateral"
+    },
+    {
+      "key": "GET /v1/loans/{}/guarantors/template",
+      "operationId": "newGuarantorTemplate",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "GET /v1/officetransactions/template",
+      "operationId": "newOfficeTransactionDetails",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/clients/{}/charges/{}",
+      "operationId": "payOrWaiveClientCharge",
+      "tag": "Client Charges"
+    },
+    {
+      "key": "POST /v1/interoperation/transfers",
+      "operationId": "performTransfer",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "POST /v1/internal/loans/{}/place-lock/{}",
+      "operationId": "placeLockOnLoanAccount",
+      "tag": "Loan Account Lock"
+    },
+    {
+      "key": "POST /v1/internal/working-capital-loans/{}/place-lock/{}",
+      "operationId": "placeLockOnWorkingCapitalLoanAccount",
+      "tag": "Working Capital Loan Account Lock"
+    },
+    {
+      "key": "POST /v1/centers/uploadtemplate",
+      "operationId": "postBulkTemplateCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "POST /v1/groups/uploadtemplate",
+      "operationId": "postBulkTemplateGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "POST /v1/users/uploadtemplate",
+      "operationId": "postBulkTemplateUser",
+      "tag": "Users"
+    },
+    {
+      "key": "POST /v1/clients/uploadtemplate",
+      "operationId": "postClientTemplate",
+      "tag": "Client"
+    },
+    {
+      "key": "POST /v1/fixeddepositaccounts/uploadtemplate",
+      "operationId": "postFixedDepositTemplate",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "POST /v1/fixeddepositaccounts/transaction/uploadtemplate",
+      "operationId": "postFixedDepositTransactionTemplate",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "POST /v1/glaccounts/uploadtemplate",
+      "operationId": "postGlAccountsTemplate",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "POST /v1/loans/{}/guarantors/uploadtemplate",
+      "operationId": "postGuarantorTemplate",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "POST /v1/journalentries/uploadtemplate",
+      "operationId": "postJournalEntriesTemplate",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "POST /v1/loans/repayments/uploadtemplate",
+      "operationId": "postLoanRepaymentTemplate",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/loans/uploadtemplate",
+      "operationId": "postLoanTemplate",
+      "tag": "Loans"
+    },
+    {
+      "key": "POST /v1/offices/uploadtemplate",
+      "operationId": "postOfficeTemplate",
+      "tag": "Offices"
+    },
+    {
+      "key": "POST /v1/recurringdepositaccounts/uploadtemplate",
+      "operationId": "postRecurringDepositTemplate",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "POST /v1/recurringdepositaccounts/transactions/uploadtemplate",
+      "operationId": "postRecurringDepositTransactionsTemplate",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/uploadtemplate",
+      "operationId": "postSavingsTemplate",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/transactions/uploadtemplate",
+      "operationId": "postSavingsTransactionTemplate",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "POST /v1/accounts/{}/uploadtemplate",
+      "operationId": "postShareAccountTemplate",
+      "tag": "Share Account"
+    },
+    {
+      "key": "POST /v1/staff/uploadtemplate",
+      "operationId": "postTemplate",
+      "tag": "Staff"
+    },
+    {
+      "key": "POST /v1/email/campaign/preview",
+      "operationId": "previewEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/loans/{}/transactions/reage-preview",
+      "operationId": "previewReAgeLoanSchedule",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/transactions/reage-preview",
+      "operationId": "previewReAgeLoanScheduleByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/{}/transactions/reamortization-preview",
+      "operationId": "previewReAmortizeLoanSchedule",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/transactions/reamortization-preview",
+      "operationId": "previewReAmortizeLoanScheduleByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "POST /v1/smscampaigns/preview",
+      "operationId": "previewSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/datatables/{}/query",
+      "operationId": "queryValues",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "POST /v1/accounttransfers/refundByTransfer",
+      "operationId": "refundByTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "PUT /v1/survey/register/{}/{}",
+      "operationId": "register",
+      "tag": "Survey"
+    },
+    {
+      "key": "POST /v1/interoperation/parties/{}/{}",
+      "operationId": "registerAccountIdentifier",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "POST /v1/interoperation/parties/{}/{}/{}",
+      "operationId": "registerAccountIdentifier_1",
+      "tag": "Inter Operation"
+    },
+    {
+      "key": "POST /v1/datatables/register/{}/{}",
+      "operationId": "registerDatatable",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "POST /v1/twofactor",
+      "operationId": "requestToken",
+      "tag": "Two Factor"
+    },
+    {
+      "key": "GET /v1/financialactivityaccounts/{}",
+      "operationId": "retreive",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "key": "GET /v1/glaccounts/{}",
+      "operationId": "retreiveAccount",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "GET /v1/tenants/{}/oidc-config",
+      "operationId": "retrieve",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "key": "GET /v1/likelihood/{}/{}",
+      "operationId": "retrieve_1",
+      "tag": "Likelihood"
+    },
+    {
+      "key": "GET /v1/groups/{}/accounts",
+      "operationId": "retrieveAccountsGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/adhocquery/{}",
+      "operationId": "retrieveAdHocQuery",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "key": "GET /v1/search/template",
+      "operationId": "retrieveAdHocSearchQueryTemplate",
+      "tag": "Search API"
+    },
+    {
+      "key": "GET /v1/financialactivityaccounts",
+      "operationId": "retrieveAll",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "key": "GET /v1/adhocquery",
+      "operationId": "retrieveAll_1",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "key": "GET /v1/caches",
+      "operationId": "retrieveAll_2",
+      "tag": "Cache"
+    },
+    {
+      "key": "GET /v1/entitytoentitymapping",
+      "operationId": "retrieveAll_3",
+      "tag": "Fineract Entity"
+    },
+    {
+      "key": "GET /v1/twofactor/configure",
+      "operationId": "retrieveAll_4",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/likelihood/{}",
+      "operationId": "retrieveAll_5",
+      "tag": "Likelihood"
+    },
+    {
+      "key": "GET /v1/povertyLine/{}",
+      "operationId": "retrieveAll_6",
+      "tag": "Poverty Line"
+    },
+    {
+      "key": "GET /v1/povertyLine/{}/{}",
+      "operationId": "retrieveAll_7",
+      "tag": "Poverty Line"
+    },
+    {
+      "key": "GET /v1/provisioningcategory",
+      "operationId": "retrieveAll_8",
+      "tag": "Provisioning Category"
+    },
+    {
+      "key": "GET /v1/accountingrules",
+      "operationId": "retrieveAllAccountingRules",
+      "tag": "Accounting Rules"
+    },
+    {
+      "key": "GET /v1/accountnumberformats",
+      "operationId": "retrieveAllAccountNumberFormats",
+      "tag": "Account number format"
+    },
+    {
+      "key": "GET /v1/glaccounts",
+      "operationId": "retrieveAllAccounts",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "GET /v1/accounttransfers",
+      "operationId": "retrieveAllAccountTransfers",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "GET /v1/jobs/{}/available-steps",
+      "operationId": "retrieveAllAvailableBusinessStep",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "key": "GET /v1/runreports/availableExports/{}",
+      "operationId": "retrieveAllAvailableExports",
+      "tag": "Run Reports"
+    },
+    {
+      "key": "GET /v1/cashiersjournal",
+      "operationId": "retrieveAllCashierJournals",
+      "tag": "Cashier Journals"
+    },
+    {
+      "key": "GET /v1/cashiers",
+      "operationId": "retrieveAllCashiers",
+      "tag": "Cashiers"
+    },
+    {
+      "key": "GET /v1/tellers/{}/cashiers",
+      "operationId": "retrieveAllCashiersForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/centers",
+      "operationId": "retrieveAllCenters",
+      "tag": "Centers"
+    },
+    {
+      "key": "GET /v1/charges",
+      "operationId": "retrieveAllCharges",
+      "tag": "Charges"
+    },
+    {
+      "key": "GET /v1/clients/{}/accounts",
+      "operationId": "retrieveAllClientAccounts",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}/accounts",
+      "operationId": "retrieveAllClientAccountsByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/client/{}/addresses",
+      "operationId": "retrieveAllClientAddresses",
+      "tag": "Clients Address"
+    },
+    {
+      "key": "GET /v1/clients/{}/charges",
+      "operationId": "retrieveAllClientCharges",
+      "tag": "Client Charges"
+    },
+    {
+      "key": "GET /v1/clients/{}/familymembers",
+      "operationId": "retrieveAllClientFamilyMembers",
+      "tag": "Client Family Member"
+    },
+    {
+      "key": "GET /v1/clients/{}/identifiers",
+      "operationId": "retrieveAllClientIdentifiers",
+      "tag": "Client Identifier"
+    },
+    {
+      "key": "GET /v1/clients",
+      "operationId": "retrieveAllClients",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/{}/transactions",
+      "operationId": "retrieveAllClientTransactions",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}/transactions",
+      "operationId": "retrieveAllClientTransactionsByClientExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "GET /v1/codes",
+      "operationId": "retrieveAllCodes",
+      "tag": "Codes"
+    },
+    {
+      "key": "GET /v1/codes/{}/codevalues",
+      "operationId": "retrieveAllCodeValues",
+      "tag": "Code Values"
+    },
+    {
+      "key": "GET /v1/codes/name/{}/codevalues",
+      "operationId": "retrieveAllCodeValuesByCodeName",
+      "tag": "Code Values"
+    },
+    {
+      "key": "GET /v1/jobs/names",
+      "operationId": "retrieveAllConfiguredBusinessJobs",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "key": "GET /v1/jobs/{}/steps",
+      "operationId": "retrieveAllConfiguredBusinessStep",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/onholdtransactions",
+      "operationId": "retrieveAllDepositAccountOnHoldFundTransactions",
+      "tag": "Deposit Account On Hold Fund Transactions"
+    },
+    {
+      "key": "GET /v1/{}/{}/documents",
+      "operationId": "retrieveAllDocuments",
+      "tag": "Documents"
+    },
+    {
+      "key": "GET /v1/email/messageByStatus",
+      "operationId": "retrieveAllEmailByStatus",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/email/campaign",
+      "operationId": "retrieveAllEmailCampaigns",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/email/configuration",
+      "operationId": "retrieveAllEmailConfigurations",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/email",
+      "operationId": "retrieveAllEmails",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/entityDatatableChecks",
+      "operationId": "retrieveAllEntityDatatableChecks",
+      "tag": "Entity Data Table"
+    },
+    {
+      "key": "GET /v1/external-asset-owners/loan-product/{}/attributes",
+      "operationId": "retrieveAllExternalAssetOwnerLoanProductAttributes",
+      "tag": "External Asset Owner Loan Product Attributes"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts",
+      "operationId": "retrieveAllFixedDepositAccounts",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/{}/transactions",
+      "operationId": "retrieveAllFixedDepositAccountTransactions",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "key": "GET /v1/fixeddepositproducts",
+      "operationId": "retrieveAllFixedDepositProducts",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "key": "GET /v1/floatingrates",
+      "operationId": "retrieveAllFloatingRates",
+      "tag": "Floating Rates"
+    },
+    {
+      "key": "GET /v1/glclosures",
+      "operationId": "retrieveAllGLClosures",
+      "tag": "Accounting Closure"
+    },
+    {
+      "key": "GET /v1/grouplevels",
+      "operationId": "retrieveAllGroupLevels",
+      "tag": "Groups Level"
+    },
+    {
+      "key": "GET /v1/groups",
+      "operationId": "retrieveAllGroups",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/holidays",
+      "operationId": "retrieveAllHolidays",
+      "tag": "Holidays"
+    },
+    {
+      "key": "GET /v1/hooks",
+      "operationId": "retrieveAllHooks",
+      "tag": "Hooks"
+    },
+    {
+      "key": "GET /v1/interestratecharts",
+      "operationId": "retrieveAllInterestRateCharts",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "key": "GET /v1/interestratecharts/{}/chartslabs",
+      "operationId": "retrieveAllInterestRateChartSlabs",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "key": "GET /v1/journalentries",
+      "operationId": "retrieveAllJournalEntries",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "GET /v1/tellers/{}/journals",
+      "operationId": "retrieveAllJournalsForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/loans/{}/charges",
+      "operationId": "retrieveAllLoanCharges",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/charges",
+      "operationId": "retrieveAllLoanChargesByLoanExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loans/{}/interest-pauses",
+      "operationId": "retrieveAllLoanInterestPauses",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/interest-pauses",
+      "operationId": "retrieveAllLoanInterestPausesByExternalId",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "GET /v1/loan-originators",
+      "operationId": "retrieveAllLoanOriginators",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "GET /v1/loanproducts",
+      "operationId": "retrieveAllLoanProducts",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "GET /v1/loanproducts/basic-details",
+      "operationId": "retrieveAllLoanProductsDetails",
+      "tag": "Loan Products Details"
+    },
+    {
+      "key": "GET /v1/loans",
+      "operationId": "retrieveAllLoans",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/transactions",
+      "operationId": "retrieveAllLoanTransactions",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/transactions",
+      "operationId": "retrieveAllLoanTransactionsByExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/{}/{}/meetings",
+      "operationId": "retrieveAllMeetings",
+      "tag": "Meetings"
+    },
+    {
+      "key": "GET /v1/mixtaxonomy",
+      "operationId": "retrieveAllMixTaxonomies",
+      "tag": "Mix Taxonomy"
+    },
+    {
+      "key": "GET /v1/offices",
+      "operationId": "retrieveAllOffices",
+      "tag": "Offices"
+    },
+    {
+      "key": "GET /v1/passwordpreferences",
+      "operationId": "retrieveAllPasswordPreferences",
+      "tag": "Password preferences"
+    },
+    {
+      "key": "GET /v1/permissions",
+      "operationId": "retrieveAllPermissions",
+      "tag": "Permissions"
+    },
+    {
+      "key": "GET /v1/provisioningcriteria",
+      "operationId": "retrieveAllProvisioningCriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "key": "GET /v1/provisioningentries",
+      "operationId": "retrieveAllProvisioningEntries",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "key": "GET /v1/rates",
+      "operationId": "retrieveAllRates",
+      "tag": "Rate"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts",
+      "operationId": "retrieveAllRecurringDepositAccounts",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "GET /v1/recurringdepositproducts",
+      "operationId": "retrieveAllRecurringDepositProducts",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "key": "GET /v1/reportmailingjobrunhistory",
+      "operationId": "retrieveAllReportMailingJobRunHistory",
+      "tag": "List Report Mailing Job History"
+    },
+    {
+      "key": "GET /v1/reportmailingjobs",
+      "operationId": "retrieveAllReportMailingJobs",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "key": "GET /v1/reports",
+      "operationId": "retrieveAllReports",
+      "tag": "Reports"
+    },
+    {
+      "key": "GET /v1/rescheduleloans/template",
+      "operationId": "retrieveAllRescheduleLoanReasons",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "key": "GET /v1/rescheduleloans",
+      "operationId": "retrieveAllRescheduleLoans",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "key": "GET /v1/roles",
+      "operationId": "retrieveAllRoles",
+      "tag": "Roles"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/charges",
+      "operationId": "retrieveAllSavingsAccountCharges",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "GET /v1/savingsaccounts",
+      "operationId": "retrieveAllSavingsAccounts",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/savingsproducts",
+      "operationId": "retrieveAllSavingsProducts",
+      "tag": "Savings Product"
+    },
+    {
+      "key": "GET /v1/jobs",
+      "operationId": "retrieveAllSchedulerJobs",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "GET /v1/accounts/{}",
+      "operationId": "retrieveAllShareAccounts",
+      "tag": "Share Account"
+    },
+    {
+      "key": "GET /v1/shareproduct/{}/dividend",
+      "operationId": "retrieveAllShareDividends",
+      "tag": "Self Dividend"
+    },
+    {
+      "key": "GET /v1/products/{}",
+      "operationId": "retrieveAllShareProducts",
+      "tag": "Products"
+    },
+    {
+      "key": "GET /v1/sms",
+      "operationId": "retrieveAllSms",
+      "tag": "SMS"
+    },
+    {
+      "key": "GET /v1/sms/{}/messageByStatus",
+      "operationId": "retrieveAllSmsByStatus",
+      "tag": "SMS"
+    },
+    {
+      "key": "GET /v1/smscampaigns",
+      "operationId": "retrieveAllSmsCampaigns",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/staff",
+      "operationId": "retrieveAllStaff",
+      "tag": "Staff"
+    },
+    {
+      "key": "GET /v1/standinginstructionrunhistory",
+      "operationId": "retrieveAllStandingInstructionHistory",
+      "tag": "Standing Instructions History"
+    },
+    {
+      "key": "GET /v1/standinginstructions",
+      "operationId": "retrieveAllStandingInstructions",
+      "tag": "Standing Instructions"
+    },
+    {
+      "key": "GET /v1/survey",
+      "operationId": "retrieveAllSurveys",
+      "tag": "Survey"
+    },
+    {
+      "key": "GET /v1/taxes/component",
+      "operationId": "retrieveAllTaxComponents",
+      "tag": "Tax Components"
+    },
+    {
+      "key": "GET /v1/taxes/group",
+      "operationId": "retrieveAllTaxGroups",
+      "tag": "Tax Group"
+    },
+    {
+      "key": "GET /v1/tellers",
+      "operationId": "retrieveAllTellers",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/templates",
+      "operationId": "retrieveAllTemplates",
+      "tag": "templates"
+    },
+    {
+      "key": "GET /v1/email/campaign/template",
+      "operationId": "retrieveAllTemplatesEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/tellers/{}/transactions",
+      "operationId": "retrieveAllTransactionsForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/users",
+      "operationId": "retrieveAllUsers",
+      "tag": "Users"
+    },
+    {
+      "key": "GET /v1/working-capital/breach/breaches",
+      "operationId": "retrieveAllWorkingCapitalBreaches",
+      "tag": "Working Capital Breach"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/charges",
+      "operationId": "retrieveAllWorkingCapitalLoanChargesByLoanExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/charges",
+      "operationId": "retrieveAllWorkingCapitalLoanChargesByLoanId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loan-products",
+      "operationId": "retrieveAllWorkingCapitalLoanProducts",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "GET /v1/working-capital-loans",
+      "operationId": "retrieveAllWorkingCapitalLoans",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/working-capital/near-breach",
+      "operationId": "retrieveAllWorkingCapitalNearBreaches",
+      "tag": "Working Capital Near Breach"
+    },
+    {
+      "key": "GET /v1/workingdays",
+      "operationId": "retrieveAllWorkingDays",
+      "tag": "Working days"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/amortization-schedule",
+      "operationId": "retrieveAmortizationSchedule",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/template",
+      "operationId": "retrieveApprovalTemplate",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/template",
+      "operationId": "retrieveApprovalTemplateByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/approved-amount",
+      "operationId": "retrieveApprovedAmountHistoryLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/approved-amount",
+      "operationId": "retrieveApprovedAmountHistoryLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/audits",
+      "operationId": "retrieveAuditEntries",
+      "tag": "Audits"
+    },
+    {
+      "key": "GET /v1/audits/{}",
+      "operationId": "retrieveAuditEntry",
+      "tag": "Audits"
+    },
+    {
+      "key": "GET /v1/audits/searchtemplate",
+      "operationId": "retrieveAuditSearchTemplate",
+      "tag": "Audits"
+    },
+    {
+      "key": "GET /v1/makercheckers/searchtemplate",
+      "operationId": "retrieveAuditSearchTemplate_1",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/breach-actions",
+      "operationId": "retrieveBreachActions",
+      "tag": "Working Capital Loan Breach Actions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/breach-actions",
+      "operationId": "retrieveBreachActionsByExternalId",
+      "tag": "Working Capital Loan Breach Actions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/breach-schedule",
+      "operationId": "retrieveBreachSchedule",
+      "tag": "Working Capital Loan Breach Schedule"
+    },
+    {
+      "key": "GET /v1/loans/{}/buydown-fees/{}",
+      "operationId": "retrieveBuyDownFeesAllocationData",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "key": "GET /v1/loan-originators/external-id/{}",
+      "operationId": "retrieveByExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "GET /v1/jobs/short-name/{}",
+      "operationId": "retrieveByShortName",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "GET /v1/{}/{}/calendars/{}",
+      "operationId": "retrieveCalendar",
+      "tag": "Calendar"
+    },
+    {
+      "key": "GET /v1/{}/{}/calendars",
+      "operationId": "retrieveCalendarsByEntityId",
+      "tag": "Calendar"
+    },
+    {
+      "key": "GET /v1/loans/{}/capitalized-incomes/{}",
+      "operationId": "retrieveCapitalizedIncomeAllocationData",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "key": "GET /v1/tellers/{}/cashiers/template",
+      "operationId": "retrieveCashierTemplateForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/tellers/{}/cashiers/{}/transactions",
+      "operationId": "retrieveCashierTransactions",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/tellers/{}/cashiers/{}/summaryandtransactions",
+      "operationId": "retrieveCashierTransactionsWithSummary",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/clients/{}/obligeedetails",
+      "operationId": "retrieveClientObligeeDetails",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}/obligeedetails",
+      "operationId": "retrieveClientObligeeDetailsByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/{}/transactions/{}",
+      "operationId": "retrieveClientTransaction",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}/transactions/external-id/{}",
+      "operationId": "retrieveClientTransactionByClientAndTransactionExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}/transactions/{}",
+      "operationId": "retrieveClientTransactionByClientExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "GET /v1/clients/{}/transactions/external-id/{}",
+      "operationId": "retrieveClientTransactionByTransactionExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "GET /v1/clients/{}/transferproposaldate",
+      "operationId": "retrieveClientTransferTemplate",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}/transferproposaldate",
+      "operationId": "retrieveClientTransferTemplateByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/codes/{}/codevalues/{}",
+      "operationId": "retrieveCodeValue",
+      "tag": "Code Values"
+    },
+    {
+      "key": "GET /v1/codes/name/{}/codevalues/{}",
+      "operationId": "retrieveCodeValue_1",
+      "tag": "Code Values"
+    },
+    {
+      "key": "GET /v1/loans/{}/collaterals",
+      "operationId": "retrieveCollateralDetails",
+      "tag": "Loan Collateral"
+    },
+    {
+      "key": "GET /v1/loans/{}/collaterals/{}",
+      "operationId": "retrieveCollateralDetails_1",
+      "tag": "Loan Collateral"
+    },
+    {
+      "key": "GET /v1/makercheckers",
+      "operationId": "retrieveCommands",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "key": "GET /v1/configurations",
+      "operationId": "retrieveConfiguration",
+      "tag": "Global Configuration"
+    },
+    {
+      "key": "GET /v1/currencies",
+      "operationId": "retrieveCurrencies",
+      "tag": "Currency"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/delinquency-actions",
+      "operationId": "retrieveDelinquencyActions",
+      "tag": "Working Capital Loan Delinquency Actions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/delinquency-actions",
+      "operationId": "retrieveDelinquencyActionsByExternalId",
+      "tag": "Working Capital Loan Delinquency Actions"
+    },
+    {
+      "key": "GET /v1/loans/{}/delinquency-actions",
+      "operationId": "retrieveDelinquencyActionsLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/delinquency-actions",
+      "operationId": "retrieveDelinquencyActionsLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/delinquency-range-schedule",
+      "operationId": "retrieveDelinquencyRangeSchedule",
+      "tag": "Working Capital Loan Delinquency Range Schedule"
+    },
+    {
+      "key": "GET /v1/loans/{}/delinquencytags",
+      "operationId": "retrieveDelinquencyTagHistoryLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/delinquencytags",
+      "operationId": "retrieveDelinquencyTagHistoryLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/external-asset-owners",
+      "operationId": "retrieveExternalAssetOwners",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "GET /v1/externalservice/{}",
+      "operationId": "retrieveExternalServicesConfiguration",
+      "tag": "External Services"
+    },
+    {
+      "key": "GET /v1/email/failedEmail",
+      "operationId": "retrieveFailedEmail",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/funds/{}",
+      "operationId": "retrieveFund",
+      "tag": "Funds"
+    },
+    {
+      "key": "GET /v1/funds",
+      "operationId": "retrieveFunds",
+      "tag": "Funds"
+    },
+    {
+      "key": "GET /v1/groups/{}/glimaccounts",
+      "operationId": "retrieveGlimAccountsGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/centers/{}/accounts",
+      "operationId": "retrieveGroupAccountsCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "GET /v1/groups/{}/gsimaccounts",
+      "operationId": "retrieveGsimAccountsGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/loans/{}/guarantors",
+      "operationId": "retrieveGuarantorDetails",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "GET /v1/loans/{}/guarantors/{}",
+      "operationId": "retrieveGuarantorDetails_1",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "GET /v1/jobs/{}/runhistory",
+      "operationId": "retrieveHistory",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "GET /v1/jobs/short-name/{}/runhistory",
+      "operationId": "retrieveHistoryByShortName",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "GET /v1/{}/{}/images",
+      "operationId": "retrieveImage",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/imports",
+      "operationId": "retrieveImportDocuments",
+      "tag": "Bulk Import"
+    },
+    {
+      "key": "GET /v1/journalentries/provisioning",
+      "operationId": "retrieveJournalEntries",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "GET /v1/journalentries/{}",
+      "operationId": "retrieveJournalEntryById",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "GET /v1/loans/{}/buydown-fees",
+      "operationId": "retrieveLoanBuyDownFeeAmortizationDetails",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/buydown-fees",
+      "operationId": "retrieveLoanBuyDownFeeAmortizationDetailsByExternalId",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "key": "GET /v1/loan-originators/template",
+      "operationId": "retrieveLoanOriginatorTemplate",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "GET /v1/loans/at-date/{}",
+      "operationId": "retrieveLoanPointInTime",
+      "tag": "LoansPointInTime"
+    },
+    {
+      "key": "GET /v1/loans/at-date/external-id/{}",
+      "operationId": "retrieveLoanPointInTimeByExternalId",
+      "tag": "LoansPointInTime"
+    },
+    {
+      "key": "GET /v1/loanproducts/external-id/{}",
+      "operationId": "retrieveLoanProductDetailsByExternalId",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "POST /v1/loans/at-date/search",
+      "operationId": "retrieveLoansPointInTime",
+      "tag": "LoansPointInTime"
+    },
+    {
+      "key": "POST /v1/loans/at-date/search/external-id",
+      "operationId": "retrieveLoansPointInTimeByExternalIds",
+      "tag": "LoansPointInTime"
+    },
+    {
+      "key": "GET /v1/loans/locked",
+      "operationId": "retrieveLockedAccounts",
+      "tag": "Loan Account Lock"
+    },
+    {
+      "key": "GET /v1/mixreport",
+      "operationId": "retrieveMixReport",
+      "tag": "Mix Report"
+    },
+    {
+      "key": "GET /v1/mixmapping",
+      "operationId": "retrieveMixTaxonomyMapping",
+      "tag": "Mix Mapping"
+    },
+    {
+      "key": "GET /v1/glaccounts/template",
+      "operationId": "retrieveNewAccountDetails",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "GET /v1/{}/{}/notes/{}",
+      "operationId": "retrieveNote",
+      "tag": "Notes"
+    },
+    {
+      "key": "GET /v1/{}/{}/notes",
+      "operationId": "retrieveNotesByResource",
+      "tag": "Notes"
+    },
+    {
+      "key": "GET /v1/officetransactions",
+      "operationId": "retrieveOfficeTransactions",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/entitytoentitymapping/{}",
+      "operationId": "retrieveOne",
+      "tag": "Fineract Entity"
+    },
+    {
+      "key": "GET /v1/accountingrules/{}",
+      "operationId": "retrieveOneAccountingRule",
+      "tag": "Accounting Rules"
+    },
+    {
+      "key": "GET /v1/accountnumberformats/{}",
+      "operationId": "retrieveOneAccountNumberFormat",
+      "tag": "Account number format"
+    },
+    {
+      "key": "GET /v1/accounttransfers/{}",
+      "operationId": "retrieveOneAccountTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "GET /v1/configurations/name/{}",
+      "operationId": "retrieveOneByName",
+      "tag": "Global Configuration"
+    },
+    {
+      "key": "GET /v1/tellers/{}/cashiers/{}",
+      "operationId": "retrieveOneCashierForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/centers/{}",
+      "operationId": "retrieveOneCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "GET /v1/charges/{}",
+      "operationId": "retrieveOneCharge",
+      "tag": "Charges"
+    },
+    {
+      "key": "GET /v1/clients/{}",
+      "operationId": "retrieveOneClient",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/external-id/{}",
+      "operationId": "retrieveOneClientByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/clients/{}/charges/{}",
+      "operationId": "retrieveOneClientCharge",
+      "tag": "Client Charges"
+    },
+    {
+      "key": "GET /v1/clients/{}/familymembers/{}",
+      "operationId": "retrieveOneClientFamilyMember",
+      "tag": "Client Family Member"
+    },
+    {
+      "key": "GET /v1/clients/{}/identifiers/{}",
+      "operationId": "retrieveOneClientIdentifier",
+      "tag": "Client Identifier"
+    },
+    {
+      "key": "GET /v1/codes/{}",
+      "operationId": "retrieveOneCode",
+      "tag": "Codes"
+    },
+    {
+      "key": "GET /v1/codes/name/{}",
+      "operationId": "retrieveOneCodeByName",
+      "tag": "Codes"
+    },
+    {
+      "key": "GET /v1/email/{}",
+      "operationId": "retrieveOneEmail",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/email/campaign/{}",
+      "operationId": "retrieveOneEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/{}",
+      "operationId": "retrieveOneFixedDepositAccount",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/{}/transactions/{}",
+      "operationId": "retrieveOneFixedDepositAccountTransaction",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "key": "GET /v1/fixeddepositproducts/{}",
+      "operationId": "retrieveOneFixedDepositProduct",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "key": "GET /v1/floatingrates/{}",
+      "operationId": "retrieveOneFloatingRate",
+      "tag": "Floating Rates"
+    },
+    {
+      "key": "GET /v1/glclosures/{}",
+      "operationId": "retrieveOneGLClosure",
+      "tag": "Accounting Closure"
+    },
+    {
+      "key": "GET /v1/configurations/{}",
+      "operationId": "retrieveOneGlobalConfiguration",
+      "tag": "Global Configuration"
+    },
+    {
+      "key": "GET /v1/groups/{}",
+      "operationId": "retrieveOneGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/holidays/{}",
+      "operationId": "retrieveOneHoliday",
+      "tag": "Holidays"
+    },
+    {
+      "key": "GET /v1/hooks/{}",
+      "operationId": "retrieveOneHook",
+      "tag": "Hooks"
+    },
+    {
+      "key": "GET /v1/interestratecharts/{}",
+      "operationId": "retrieveOneInterestRateChart",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "key": "GET /v1/interestratecharts/{}/chartslabs/{}",
+      "operationId": "retrieveOneInterestRateChartSlab",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "key": "GET /v1/internal/loan/progressive/{}/model",
+      "operationId": "retrieveOneInternalProgressiveLoan",
+      "tag": "Progressive Loan"
+    },
+    {
+      "key": "GET /v1/loans/{}",
+      "operationId": "retrieveOneLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}",
+      "operationId": "retrieveOneLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/charges/{}",
+      "operationId": "retrieveOneLoanCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loans/{}/charges/external-id/{}",
+      "operationId": "retrieveOneLoanChargeByChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/charges/external-id/{}",
+      "operationId": "retrieveOneLoanChargeByLoanAndChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/charges/{}",
+      "operationId": "retrieveOneLoanChargeByLoanExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loan-originators/{}",
+      "operationId": "retrieveOneLoanOriginator",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "GET /v1/loanproducts/{}",
+      "operationId": "retrieveOneLoanProduct",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "GET /v1/loans/{}/transactions/{}",
+      "operationId": "retrieveOneLoanTransaction",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/{}/transactions/external-id/{}",
+      "operationId": "retrieveOneLoanTransactionByExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/transactions/{}",
+      "operationId": "retrieveOneLoanTransactionByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/transactions/external-id/{}",
+      "operationId": "retrieveOneLoanTransactionByLoanExternalIdAndTransactionExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/{}/{}/meetings/{}",
+      "operationId": "retrieveOneMeeting",
+      "tag": "Meetings"
+    },
+    {
+      "key": "GET /v1/offices/{}",
+      "operationId": "retrieveOneOffice",
+      "tag": "Offices"
+    },
+    {
+      "key": "GET /v1/offices/external-id/{}",
+      "operationId": "retrieveOneOfficeByExternalId",
+      "tag": "Offices"
+    },
+    {
+      "key": "GET /v1/paymenttypes/{}",
+      "operationId": "retrieveOnePaymentType",
+      "tag": "Payment Type"
+    },
+    {
+      "key": "GET /v1/provisioningcriteria/{}",
+      "operationId": "retrieveOneProvisioningCriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "key": "GET /v1/provisioningentries/{}",
+      "operationId": "retrieveOneProvisioningEntry",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "key": "GET /v1/rates/{}",
+      "operationId": "retrieveOneRate",
+      "tag": "Rate"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/{}",
+      "operationId": "retrieveOneRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/{}/transactions/{}",
+      "operationId": "retrieveOneRecurringDepositAccountTransaction",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "key": "GET /v1/recurringdepositproducts/{}",
+      "operationId": "retrieveOneRecurringDepositProduct",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "key": "GET /v1/reports/{}",
+      "operationId": "retrieveOneReport",
+      "tag": "Reports"
+    },
+    {
+      "key": "GET /v1/reportmailingjobs/{}",
+      "operationId": "retrieveOneReportMailingJob",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "key": "GET /v1/rescheduleloans/{}",
+      "operationId": "retrieveOneRescheduleLoan",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "key": "GET /v1/roles/{}",
+      "operationId": "retrieveOneRole",
+      "tag": "Roles"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/charges/{}",
+      "operationId": "retrieveOneSavingsAccountCharge",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/transactions/{}",
+      "operationId": "retrieveOneSavingsAccountTransaction",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/transactions/external-id/{}",
+      "operationId": "retrieveOneSavingsAccountTransactionByExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/external-id/{}/transactions/external-id/{}",
+      "operationId": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/external-id/{}/transactions/{}",
+      "operationId": "retrieveOneSavingsAccountTransactionBySavingsExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsproducts/{}",
+      "operationId": "retrieveOneSavingsProduct",
+      "tag": "Savings Product"
+    },
+    {
+      "key": "GET /v1/jobs/{}",
+      "operationId": "retrieveOneSchedulerJob",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "GET /v1/accounts/{}/{}",
+      "operationId": "retrieveOneShareAccount",
+      "tag": "Share Account"
+    },
+    {
+      "key": "GET /v1/shareproduct/{}/dividend/{}",
+      "operationId": "retrieveOneShareDividend",
+      "tag": "Self Dividend"
+    },
+    {
+      "key": "GET /v1/products/{}/{}",
+      "operationId": "retrieveOneShareProduct",
+      "tag": "Products"
+    },
+    {
+      "key": "GET /v1/sms/{}",
+      "operationId": "retrieveOneSms",
+      "tag": "SMS"
+    },
+    {
+      "key": "GET /v1/smscampaigns/{}",
+      "operationId": "retrieveOneSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/staff/{}",
+      "operationId": "retrieveOneStaff",
+      "tag": "Staff"
+    },
+    {
+      "key": "GET /v1/standinginstructions/{}",
+      "operationId": "retrieveOneStandingInstruction",
+      "tag": "Standing Instructions"
+    },
+    {
+      "key": "GET /v1/survey/{}",
+      "operationId": "retrieveOneSurvey",
+      "tag": "Survey"
+    },
+    {
+      "key": "GET /v1/taxes/component/{}",
+      "operationId": "retrieveOneTaxComponent",
+      "tag": "Tax Components"
+    },
+    {
+      "key": "GET /v1/taxes/group/{}",
+      "operationId": "retrieveOneTaxGroup",
+      "tag": "Tax Group"
+    },
+    {
+      "key": "GET /v1/tellers/{}",
+      "operationId": "retrieveOneTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/templates/{}",
+      "operationId": "retrieveOneTemplate",
+      "tag": "templates"
+    },
+    {
+      "key": "GET /v1/email/campaign/template/{}",
+      "operationId": "retrieveOneTemplateEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/tellers/{}/transactions/{}",
+      "operationId": "retrieveOneTransactionForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/users/{}",
+      "operationId": "retrieveOneUser",
+      "tag": "Users"
+    },
+    {
+      "key": "GET /v1/working-capital-loan-products/{}",
+      "operationId": "retrieveOneWorkingCapitalLoanProduct",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "GET /v1/working-capital-loan-products/external-id/{}",
+      "operationId": "retrieveOneWorkingCapitalLoanProductByExternalId",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "GET /v1/journalentries/openingbalance",
+      "operationId": "retrieveOpeningBalance",
+      "tag": "Journal Entries"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/originators",
+      "operationId": "retrieveOriginatorsByLoanExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "GET /v1/loans/{}/originators",
+      "operationId": "retrieveOriginatorsByLoanId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/originators",
+      "operationId": "retrieveOriginatorsByWorkingCapitalLoanExternalId",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/originators",
+      "operationId": "retrieveOriginatorsByWorkingCapitalLoanId",
+      "tag": "Working Capital Loan Originators"
+    },
+    {
+      "key": "GET /v1/email/pendingEmail",
+      "operationId": "retrievePendingEmail",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/provisioningentries/entries",
+      "operationId": "retrieveProvisioningEntriesLoanProducts",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "key": "GET /v1/holidays/template",
+      "operationId": "retrieveRepaymentScheduleUpdationTyeOptions",
+      "tag": "Holidays"
+    },
+    {
+      "key": "GET /v1/roles/{}/permissions",
+      "operationId": "retrieveRolePermissions",
+      "tag": "Roles"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}",
+      "operationId": "retrieveSavingsAccount",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/external-id/{}",
+      "operationId": "retrieveSavingsAccountByExternalId",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/template",
+      "operationId": "retrieveSavingsAccountTemplate",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "GET /v1/scheduler",
+      "operationId": "retrieveSchedulerStatus",
+      "tag": "Scheduler"
+    },
+    {
+      "key": "GET /v1/email/sentEmail",
+      "operationId": "retrieveSentEmail",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/financialactivityaccounts/template",
+      "operationId": "retrieveTemplate",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "key": "GET /v1/provisioningcriteria/template",
+      "operationId": "retrieveTemplate_1",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "key": "GET /v1/accountingrules/template",
+      "operationId": "retrieveTemplateAccountingRule",
+      "tag": "Accounting Rules"
+    },
+    {
+      "key": "GET /v1/accountnumberformats/template",
+      "operationId": "retrieveTemplateAccountNumberFormat",
+      "tag": "Account number format"
+    },
+    {
+      "key": "GET /v1/accounttransfers/template",
+      "operationId": "retrieveTemplateAccountTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "GET /v1/templates/{}/template",
+      "operationId": "retrieveTemplateById",
+      "tag": "templates"
+    },
+    {
+      "key": "GET /v1/{}/{}/calendars/template",
+      "operationId": "retrieveTemplateCalendar",
+      "tag": "Calendar"
+    },
+    {
+      "key": "GET /v1/tellers/{}/cashiers/{}/transactions/template",
+      "operationId": "retrieveTemplateCashierTransaction",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "GET /v1/centers/template",
+      "operationId": "retrieveTemplateCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "GET /v1/charges/template",
+      "operationId": "retrieveTemplateCharge",
+      "tag": "Charges"
+    },
+    {
+      "key": "GET /v1/clients/template",
+      "operationId": "retrieveTemplateClient",
+      "tag": "Client"
+    },
+    {
+      "key": "GET /v1/client/addresses/template",
+      "operationId": "retrieveTemplateClientAddress",
+      "tag": "Clients Address"
+    },
+    {
+      "key": "GET /v1/clients/{}/charges/template",
+      "operationId": "retrieveTemplateClientCharge",
+      "tag": "Client Charges"
+    },
+    {
+      "key": "GET /v1/clients/{}/familymembers/template",
+      "operationId": "retrieveTemplateClientFamilyMember",
+      "tag": "Client Family Member"
+    },
+    {
+      "key": "GET /v1/clients/{}/identifiers/template",
+      "operationId": "retrieveTemplateClientIdentifier",
+      "tag": "Client Identifier"
+    },
+    {
+      "key": "GET /v1/templates/template",
+      "operationId": "retrieveTemplateDetails",
+      "tag": "templates"
+    },
+    {
+      "key": "GET /v1/entityDatatableChecks/template",
+      "operationId": "retrieveTemplateEntityDatatableChecks",
+      "tag": "Entity Data Table"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/template",
+      "operationId": "retrieveTemplateFixedDepositAccount",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "GET /v1/fixeddepositaccounts/{}/transactions/template",
+      "operationId": "retrieveTemplateFixedDepositAccountTransaction",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "key": "GET /v1/fixeddepositproducts/template",
+      "operationId": "retrieveTemplateFixedDepositProduct",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "key": "GET /v1/groups/template",
+      "operationId": "retrieveTemplateGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "GET /v1/hooks/template",
+      "operationId": "retrieveTemplateHook",
+      "tag": "Hooks"
+    },
+    {
+      "key": "GET /v1/interestratecharts/template",
+      "operationId": "retrieveTemplateInterestRateChart",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "key": "GET /v1/interestratecharts/{}/chartslabs/template",
+      "operationId": "retrieveTemplateInterestRateChartSlab",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "key": "GET /v1/loans/template",
+      "operationId": "retrieveTemplateLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "GET /v1/loans/{}/charges/template",
+      "operationId": "retrieveTemplateLoanCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/charges/template",
+      "operationId": "retrieveTemplateLoanChargeByLoanExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "GET /v1/loanproducts/template",
+      "operationId": "retrieveTemplateLoanProduct",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "GET /v1/loans/{}/transactions/template",
+      "operationId": "retrieveTemplateLoanTransaction",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/loans/external-id/{}/transactions/template",
+      "operationId": "retrieveTemplateLoanTransactionByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "GET /v1/{}/{}/meetings/template",
+      "operationId": "retrieveTemplateMeeting",
+      "tag": "Meetings"
+    },
+    {
+      "key": "GET /v1/offices/template",
+      "operationId": "retrieveTemplateOffice",
+      "tag": "Offices"
+    },
+    {
+      "key": "GET /v1/passwordpreferences/template",
+      "operationId": "retrieveTemplatePasswordPreferences",
+      "tag": "Password preferences"
+    },
+    {
+      "key": "GET /v1/loanproducts/{}/productmix",
+      "operationId": "retrieveTemplateProductMix",
+      "tag": "Product Mix"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/template",
+      "operationId": "retrieveTemplateRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "GET /v1/recurringdepositaccounts/{}/transactions/template",
+      "operationId": "retrieveTemplateRecurringDepositAccountTransaction",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "key": "GET /v1/recurringdepositproducts/template",
+      "operationId": "retrieveTemplateRecurringDepositProduct",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "key": "GET /v1/accounttransfers/templateRefundByTransfer",
+      "operationId": "retrieveTemplateRefundByTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "key": "GET /v1/reports/template",
+      "operationId": "retrieveTemplateReport",
+      "tag": "Reports"
+    },
+    {
+      "key": "GET /v1/reportmailingjobs/template",
+      "operationId": "retrieveTemplateReportMailingJob",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/charges/template",
+      "operationId": "retrieveTemplateSavingsAccountCharge",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/transactions/template",
+      "operationId": "retrieveTemplateSavingsAccountTransaction",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/external-id/{}/transactions/template",
+      "operationId": "retrieveTemplateSavingsAccountTransactionBySavingsExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsproducts/template",
+      "operationId": "retrieveTemplateSavingsProduct",
+      "tag": "Savings Product"
+    },
+    {
+      "key": "GET /v1/accounts/{}/template",
+      "operationId": "retrieveTemplateShareAccount",
+      "tag": "Share Account"
+    },
+    {
+      "key": "GET /v1/products/{}/template",
+      "operationId": "retrieveTemplateShareProduct",
+      "tag": "Products"
+    },
+    {
+      "key": "GET /v1/smscampaigns/template",
+      "operationId": "retrieveTemplateSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "GET /v1/standinginstructions/template",
+      "operationId": "retrieveTemplateStandingInstruction",
+      "tag": "Standing Instructions"
+    },
+    {
+      "key": "GET /v1/taxes/component/template",
+      "operationId": "retrieveTemplateTaxComponent",
+      "tag": "Tax Components"
+    },
+    {
+      "key": "GET /v1/taxes/group/template",
+      "operationId": "retrieveTemplateTaxGroup",
+      "tag": "Tax Group"
+    },
+    {
+      "key": "GET /v1/users/template",
+      "operationId": "retrieveTemplateUser",
+      "tag": "Users"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/charges/template",
+      "operationId": "retrieveTemplateWorkingCapitalLoanCharge",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/charges/template",
+      "operationId": "retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loan-products/template",
+      "operationId": "retrieveTemplateWorkingCapitalLoanProduct",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "GET /v1/workingdays/template",
+      "operationId": "retrieveTemplateWorkingDays",
+      "tag": "Working days"
+    },
+    {
+      "key": "GET /v1/working-capital/breach/breaches/{}",
+      "operationId": "retrieveWorkingCapitalBreach",
+      "tag": "Working Capital Breach"
+    },
+    {
+      "key": "GET /v1/working-capital/breach/template",
+      "operationId": "retrieveWorkingCapitalBreachTemplate",
+      "tag": "Working Capital Breach"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/template",
+      "operationId": "retrieveWorkingCapitalLoanActionTemplate",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}",
+      "operationId": "retrieveWorkingCapitalLoanByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}",
+      "operationId": "retrieveWorkingCapitalLoanById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/charges/{}",
+      "operationId": "retrieveWorkingCapitalLoanCharge",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/charges/external-id/{}",
+      "operationId": "retrieveWorkingCapitalLoanChargeByChargeExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/charges/external-id/{}",
+      "operationId": "retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/charges/{}",
+      "operationId": "retrieveWorkingCapitalLoanChargeByLoanExternalId",
+      "tag": "Working Capital Loan Charges"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/template",
+      "operationId": "retrieveWorkingCapitalLoanTemplate",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/transactions/external-id/{}",
+      "operationId": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/transactions/{}",
+      "operationId": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/transactions/external-id/{}",
+      "operationId": "retrieveWorkingCapitalLoanTransactionByExternalTransactionId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/transactions/{}",
+      "operationId": "retrieveWorkingCapitalLoanTransactionById",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/external-id/{}/transactions",
+      "operationId": "retrieveWorkingCapitalLoanTransactionsByExternalId",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital-loans/{}/transactions",
+      "operationId": "retrieveWorkingCapitalLoanTransactionsById",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "key": "GET /v1/working-capital/near-breach/{}",
+      "operationId": "retrieveWorkingCapitalNearBreach",
+      "tag": "Working Capital Near Breach"
+    },
+    {
+      "key": "GET /v1/loans/{}/disbursements/{}",
+      "operationId": "retriveDetail",
+      "tag": "Loan Disbursement Details"
+    },
+    {
+      "key": "GET /v1/imports/getOutputTemplateLocation",
+      "operationId": "retriveOutputTemplateLocation",
+      "tag": "Bulk Import"
+    },
+    {
+      "key": "GET /v1/runreports/{}",
+      "operationId": "runReport",
+      "tag": "Run Reports"
+    },
+    {
+      "key": "POST /v1/creditBureauIntegration/saveCreditReport",
+      "operationId": "saveCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "key": "PUT /v1/templates/{}",
+      "operationId": "saveTemplate",
+      "tag": "templates"
+    },
+    {
+      "key": "POST /v2/clients/search",
+      "operationId": "searchClientsByText",
+      "tag": "ClientSearchV2"
+    },
+    {
+      "key": "GET /v1/search",
+      "operationId": "searchData",
+      "tag": "Search API"
+    },
+    {
+      "key": "POST /v1/external-asset-owners/search",
+      "operationId": "searchInvestorData",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/{}/transactions/search",
+      "operationId": "searchSavingsAccountTransactions",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "GET /v1/savingsaccounts/external-id/{}/transactions/search",
+      "operationId": "searchSavingsAccountTransactionsBySavingsExternalId",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "key": "POST /v1/tellers/{}/cashiers/{}/settle",
+      "operationId": "settleCashFromCashier",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/external-id/{}",
+      "operationId": "stateTransitionWorkingCapitalLoanByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "POST /v1/working-capital-loans/{}",
+      "operationId": "stateTransitionWorkingCapitalLoanById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "POST /v1/recurringdepositaccounts",
+      "operationId": "submitApplicationRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "POST /v1/savingsaccounts/gsim",
+      "operationId": "submitGSIMApplication",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "POST /v1/savingsaccounts",
+      "operationId": "submitSavingsApplication",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "POST /v1/working-capital-loans",
+      "operationId": "submitWorkingCapitalLoanApplication",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "PUT /v1/caches",
+      "operationId": "switchCache",
+      "tag": "Cache"
+    },
+    {
+      "key": "GET /v1/adhocquery/template",
+      "operationId": "template",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "key": "POST /v1/fixeddepositaccounts/{}/transactions",
+      "operationId": "transaction",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "key": "POST /v1/recurringdepositaccounts/{}/transactions",
+      "operationId": "transactionRecurringDepositAccountTransaction",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "key": "POST /v1/officetransactions",
+      "operationId": "transferMoneyFrom",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/external-asset-owners/transfers/{}",
+      "operationId": "transferRequestWithId",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "POST /v1/external-asset-owners/transfers/external-id/{}",
+      "operationId": "transferRequestWithIdByExternalId",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "POST /v1/external-asset-owners/transfers/loans/external-id/{}",
+      "operationId": "transferRequestWithLoanExternalId",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "POST /v1/external-asset-owners/transfers/loans/{}",
+      "operationId": "transferRequestWithLoanId",
+      "tag": "External Asset Owners"
+    },
+    {
+      "key": "POST /v1/groups/{}/command/unassign_staff",
+      "operationId": "unassignLoanOfficerGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "POST /v1/clients/{}/transactions/{}",
+      "operationId": "undoClientTransaction",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "POST /v1/clients/external-id/{}/transactions/external-id/{}",
+      "operationId": "undoClientTransactionByClientAndTransactionExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "POST /v1/clients/external-id/{}/transactions/{}",
+      "operationId": "undoClientTransactionByClientExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "POST /v1/clients/{}/transactions/external-id/{}",
+      "operationId": "undoClientTransactionByTransactionExternalId",
+      "tag": "Client Transaction"
+    },
+    {
+      "key": "PUT /v1/loans/{}/transactions/{}",
+      "operationId": "undoWaiveChargeLoanTransaction",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/transactions/external-id/{}",
+      "operationId": "undoWaiveChargeLoanTransactionByLoanAndTransactionExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/transactions/{}",
+      "operationId": "undoWaiveChargeLoanTransactionByLoanExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "PUT /v1/loans/{}/transactions/external-id/{}",
+      "operationId": "undoWaiveChargeLoanTransactionByTransactionExternalId",
+      "tag": "Loan Transactions"
+    },
+    {
+      "key": "PUT /v1/adhocquery/{}",
+      "operationId": "update",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "key": "PUT /v1/tenants/{}/oidc-config",
+      "operationId": "update_1",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "key": "PUT /v1/likelihood/{}/{}",
+      "operationId": "update_2",
+      "tag": "Likelihood"
+    },
+    {
+      "key": "PUT /v1/accountingrules/{}",
+      "operationId": "updateAccountingRule",
+      "tag": "Accounting Rules"
+    },
+    {
+      "key": "PUT /v1/accountnumberformats/{}",
+      "operationId": "updateAccountNumberFormat",
+      "tag": "Account number format"
+    },
+    {
+      "key": "PUT /v1/loans/{}/approved-amount",
+      "operationId": "updateApprovedAmountLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/approved-amount",
+      "operationId": "updateApprovedAmountLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "PUT /v1/loans/{}/available-disbursement-amount",
+      "operationId": "updateAvailableDisbursementAmountLoan",
+      "tag": "Loans"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/available-disbursement-amount",
+      "operationId": "updateAvailableDisbursementAmountLoanByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "PUT /v1/delinquency/buckets/{}",
+      "operationId": "updateBucket",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "POST /v1/businessdate",
+      "operationId": "updateBusinessDate",
+      "tag": "Business Date Management"
+    },
+    {
+      "key": "PUT /v1/loan-originators/external-id/{}",
+      "operationId": "updateByExternalId",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "PUT /v1/{}/{}/calendars/{}",
+      "operationId": "updateCalendar",
+      "tag": "Calendar"
+    },
+    {
+      "key": "PUT /v1/tellers/{}/cashiers/{}",
+      "operationId": "updateCashierForTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "PUT /v1/centers/{}",
+      "operationId": "updateCenter",
+      "tag": "Centers"
+    },
+    {
+      "key": "PUT /v1/charges/{}",
+      "operationId": "updateCharge",
+      "tag": "Charges"
+    },
+    {
+      "key": "PUT /v1/clients/{}",
+      "operationId": "updateClient",
+      "tag": "Client"
+    },
+    {
+      "key": "PUT /v1/client/{}/addresses",
+      "operationId": "updateClientAddress",
+      "tag": "Clients Address"
+    },
+    {
+      "key": "PUT /v1/clients/external-id/{}",
+      "operationId": "updateClientByExternalId",
+      "tag": "Client"
+    },
+    {
+      "key": "PUT /v1/clients/{}/collaterals/{}",
+      "operationId": "updateClientCollateral",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "key": "PUT /v1/clients/{}/familymembers/{}",
+      "operationId": "updateClientFamilyMember",
+      "tag": "Client Family Member"
+    },
+    {
+      "key": "PUT /v1/clients/{}/identifiers/{}",
+      "operationId": "updateClientIdentifier",
+      "tag": "Client Identifier"
+    },
+    {
+      "key": "PUT /v1/codes/{}",
+      "operationId": "updateCode",
+      "tag": "Codes"
+    },
+    {
+      "key": "PUT /v1/codes/{}/codevalues/{}",
+      "operationId": "updateCodeValue",
+      "tag": "Code Values"
+    },
+    {
+      "key": "PUT /v1/codes/name/{}/codevalues/{}",
+      "operationId": "updateCodeValueByCodeName",
+      "tag": "Code Values"
+    },
+    {
+      "key": "PUT /v1/loans/{}/collaterals/{}",
+      "operationId": "updateCollateral",
+      "tag": "Loan Collateral"
+    },
+    {
+      "key": "PUT /v1/collateral-management/{}",
+      "operationId": "updateCollateral_1",
+      "tag": "Collateral Management"
+    },
+    {
+      "key": "POST /v1/twofactor/invalidate",
+      "operationId": "updateConfiguration",
+      "tag": "Two Factor"
+    },
+    {
+      "key": "PUT /v1/twofactor/configure",
+      "operationId": "updateConfiguration_1",
+      "tag": null
+    },
+    {
+      "key": "PUT /v1/configurations/name/{}",
+      "operationId": "updateConfigurationByName",
+      "tag": "Global Configuration"
+    },
+    {
+      "key": "PUT /v1/CreditBureauConfiguration/organisationCreditBureau",
+      "operationId": "updateCreditBureau",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "PUT /v1/CreditBureauConfiguration/configuration/{}",
+      "operationId": "updateCreditBureauConfiguration",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "PUT /v1/CreditBureauConfiguration/mappings",
+      "operationId": "updateCreditBureauLoanProductMapping",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "key": "PUT /v1/currencies",
+      "operationId": "updateCurrencies",
+      "tag": "Currency"
+    },
+    {
+      "key": "PUT /v1/datatables/{}",
+      "operationId": "updateDatatable",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "PUT /v1/datatables/{}/{}/{}",
+      "operationId": "updateDatatableEntryOneToMany",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "PUT /v1/datatables/{}/{}",
+      "operationId": "updateDatatableEntryOnetoOne",
+      "tag": "Data Tables"
+    },
+    {
+      "key": "PUT /v1/loans/{}/disbursements/{}",
+      "operationId": "updateDisbursementDate",
+      "tag": "Loan Disbursement Details"
+    },
+    {
+      "key": "PUT /v1/{}/{}/documents/{}",
+      "operationId": "updateDocument",
+      "tag": "Documents"
+    },
+    {
+      "key": "PUT /v1/email/{}",
+      "operationId": "updateEmail",
+      "tag": null
+    },
+    {
+      "key": "PUT /v1/email/campaign/{}",
+      "operationId": "updateEmailCampaign",
+      "tag": null
+    },
+    {
+      "key": "PUT /v1/email/configuration",
+      "operationId": "updateEmailConfiguration",
+      "tag": null
+    },
+    {
+      "key": "PUT /v1/external-asset-owners/loan-product/{}/attributes/{}",
+      "operationId": "updateExternalAssetOwnerLoanProductAttribute",
+      "tag": "External Asset Owner Loan Product Attributes"
+    },
+    {
+      "key": "PUT /v1/externalevents/configuration",
+      "operationId": "updateExternalEventConfigurations",
+      "tag": "External event configuration"
+    },
+    {
+      "key": "PUT /v1/externalservice/{}",
+      "operationId": "updateExternalServicesConfiguration",
+      "tag": "External Services"
+    },
+    {
+      "key": "PUT /v1/fixeddepositaccounts/{}",
+      "operationId": "updateFixedDepositAccount",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "key": "PUT /v1/fixeddepositproducts/{}",
+      "operationId": "updateFixedDepositProduct",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "key": "PUT /v1/floatingrates/{}",
+      "operationId": "updateFloatingRate",
+      "tag": "Floating Rates"
+    },
+    {
+      "key": "PUT /v1/funds/{}",
+      "operationId": "updateFund",
+      "tag": "Funds"
+    },
+    {
+      "key": "PUT /v1/glaccounts/{}",
+      "operationId": "updateGLAccount",
+      "tag": "General Ledger Account"
+    },
+    {
+      "key": "PUT /v1/financialactivityaccounts/{}",
+      "operationId": "updateGLAccountMappingFinancialActivityAccount",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "key": "PUT /v1/glclosures/{}",
+      "operationId": "updateGLClosure",
+      "tag": "Accounting Closure"
+    },
+    {
+      "key": "PUT /v1/configurations/{}",
+      "operationId": "updateGlobalConfiguration",
+      "tag": "Global Configuration"
+    },
+    {
+      "key": "PUT /v1/groups/{}",
+      "operationId": "updateGroup",
+      "tag": "Groups"
+    },
+    {
+      "key": "PUT /v1/savingsaccounts/gsim/{}",
+      "operationId": "updateGsim",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "PUT /v1/loans/{}/guarantors/{}",
+      "operationId": "updateGuarantor",
+      "tag": "Guarantors"
+    },
+    {
+      "key": "PUT /v1/holidays/{}",
+      "operationId": "updateHoliday",
+      "tag": "Holidays"
+    },
+    {
+      "key": "PUT /v1/hooks/{}",
+      "operationId": "updateHook",
+      "tag": "Hooks"
+    },
+    {
+      "key": "PUT /v1/{}/{}/images",
+      "operationId": "updateImage_1",
+      "tag": null
+    },
+    {
+      "key": "PUT /v1/instance-mode",
+      "operationId": "updateInstanceMode",
+      "tag": "Instance Mode"
+    },
+    {
+      "key": "PUT /v1/interestratecharts/{}",
+      "operationId": "updateInterestRateChart",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "key": "PUT /v1/interestratecharts/{}/chartslabs/{}",
+      "operationId": "updateInterestRateChartSlab",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "key": "PUT /v1/internal/configurations/name/{}/value/{}",
+      "operationId": "updateInternalGlobalConfiguration",
+      "tag": null
+    },
+    {
+      "key": "POST /v1/internal/loan/progressive/{}/model",
+      "operationId": "updateInternalProgressiveLoan",
+      "tag": "Progressive Loan"
+    },
+    {
+      "key": "PUT /v1/jobs/{}/steps",
+      "operationId": "updateJobBusinessStepConfig",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "key": "PUT /v1/jobs/{}",
+      "operationId": "updateJobDetail",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "PUT /v1/jobs/short-name/{}",
+      "operationId": "updateJobDetailByShortName",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "key": "PUT /v1/loans/{}",
+      "operationId": "updateLoanApplication",
+      "tag": "Loans"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}",
+      "operationId": "updateLoanApplicationByExternalId",
+      "tag": "Loans"
+    },
+    {
+      "key": "PUT /v1/loans/{}/charges/{}",
+      "operationId": "updateLoanCharge",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "PUT /v1/loans/{}/charges/external-id/{}",
+      "operationId": "updateLoanChargeByChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/charges/external-id/{}",
+      "operationId": "updateLoanChargeByLoanAndChargeExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/charges/{}",
+      "operationId": "updateLoanChargeByLoanExternalId",
+      "tag": "Loan Charges"
+    },
+    {
+      "key": "POST /v1/internal/cob/fast-forward-cob-date-of-loan/{}",
+      "operationId": "updateLoanCobLastDate",
+      "tag": "Internal COB"
+    },
+    {
+      "key": "PUT /v1/loans/{}/interest-pauses/{}",
+      "operationId": "updateLoanInterestPause",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "PUT /v1/loans/external-id/{}/interest-pauses/{}",
+      "operationId": "updateLoanInterestPauseByExternalId",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "key": "PUT /v1/loan-originators/{}",
+      "operationId": "updateLoanOriginator",
+      "tag": "Loan Originators"
+    },
+    {
+      "key": "PUT /v1/loanproducts/{}",
+      "operationId": "updateLoanProduct",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "PUT /v1/loanproducts/external-id/{}",
+      "operationId": "updateLoanProductByExternalId",
+      "tag": "Loan Products"
+    },
+    {
+      "key": "PUT /v1/entitytoentitymapping/{}",
+      "operationId": "updateMap",
+      "tag": "Fineract Entity"
+    },
+    {
+      "key": "PUT /v1/{}/{}/meetings/{}",
+      "operationId": "updateMeeting",
+      "tag": "Meetings"
+    },
+    {
+      "key": "POST /v1/{}/{}/meetings/{}",
+      "operationId": "updateMeetingAttendance",
+      "tag": "Meetings"
+    },
+    {
+      "key": "PUT /v1/mixmapping",
+      "operationId": "updateMixTaxonomyMapping",
+      "tag": "Mix Mapping"
+    },
+    {
+      "key": "PUT /v1/{}/{}/notes/{}",
+      "operationId": "updateNote",
+      "tag": "Notes"
+    },
+    {
+      "key": "PUT /v1/notifications",
+      "operationId": "updateNotificationReadStatus",
+      "tag": "Notification"
+    },
+    {
+      "key": "PUT /v1/offices/{}",
+      "operationId": "updateOffice",
+      "tag": "Offices"
+    },
+    {
+      "key": "PUT /v1/offices/external-id/{}",
+      "operationId": "updateOfficeByExternalId",
+      "tag": "Offices"
+    },
+    {
+      "key": "PUT /v1/passwordpreferences",
+      "operationId": "updatePasswordPreferences",
+      "tag": "Password preferences"
+    },
+    {
+      "key": "PUT /v1/paymenttypes/{}",
+      "operationId": "updatePaymentType",
+      "tag": "Payment Type"
+    },
+    {
+      "key": "PUT /v1/permissions",
+      "operationId": "updatePermissions",
+      "tag": "Permissions"
+    },
+    {
+      "key": "PUT /v1/loans/{}/postdatedchecks/{}",
+      "operationId": "updatePostDatedChecks",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "key": "PUT /v1/loanproducts/{}/productmix",
+      "operationId": "updateProductMix",
+      "tag": "Product Mix"
+    },
+    {
+      "key": "PUT /v1/provisioningcategory/{}",
+      "operationId": "updateProvisioningCategory",
+      "tag": "Provisioning Category"
+    },
+    {
+      "key": "PUT /v1/provisioningcriteria/{}",
+      "operationId": "updateProvisioningCriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "key": "PUT /v1/delinquency/ranges/{}",
+      "operationId": "updateRange",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "key": "PUT /v1/rates/{}",
+      "operationId": "updateRate",
+      "tag": "Rate"
+    },
+    {
+      "key": "PUT /v1/recurringdepositaccounts/{}",
+      "operationId": "updateRecurringDepositAccount",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "key": "PUT /v1/recurringdepositproducts/{}",
+      "operationId": "updateRecurringDepositProduct",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "key": "PUT /v1/reports/{}",
+      "operationId": "updateReport",
+      "tag": "Reports"
+    },
+    {
+      "key": "PUT /v1/reportmailingjobs/{}",
+      "operationId": "updateReportMailingJob",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "key": "POST /v1/rescheduleloans/{}",
+      "operationId": "updateRescheduleLoan",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "key": "PUT /v1/roles/{}",
+      "operationId": "updateRole",
+      "tag": "Roles"
+    },
+    {
+      "key": "PUT /v1/roles/{}/permissions",
+      "operationId": "updateRolePermissions",
+      "tag": "Roles"
+    },
+    {
+      "key": "PUT /v1/savingsaccounts/{}",
+      "operationId": "updateSavingsAccount",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "PUT /v1/savingsaccounts/external-id/{}",
+      "operationId": "updateSavingsAccountByExternalId",
+      "tag": "Savings Account"
+    },
+    {
+      "key": "PUT /v1/savingsaccounts/{}/charges/{}",
+      "operationId": "updateSavingsAccountCharge",
+      "tag": "Savings Charges"
+    },
+    {
+      "key": "PUT /v1/savingsproducts/{}",
+      "operationId": "updateSavingsProduct",
+      "tag": "Savings Product"
+    },
+    {
+      "key": "PUT /v1/accounts/{}/{}",
+      "operationId": "updateShareAccount",
+      "tag": "Share Account"
+    },
+    {
+      "key": "PUT /v1/shareproduct/{}/dividend/{}",
+      "operationId": "updateShareDividend",
+      "tag": "Self Dividend"
+    },
+    {
+      "key": "PUT /v1/products/{}/{}",
+      "operationId": "updateShareProduct",
+      "tag": "Products"
+    },
+    {
+      "key": "PUT /v1/sms/{}",
+      "operationId": "updateSms",
+      "tag": "SMS"
+    },
+    {
+      "key": "PUT /v1/smscampaigns/{}",
+      "operationId": "updateSmsCampaign",
+      "tag": null
+    },
+    {
+      "key": "PUT /v1/staff/{}",
+      "operationId": "updateStaff",
+      "tag": "Staff"
+    },
+    {
+      "key": "PUT /v1/standinginstructions/{}",
+      "operationId": "updateStandingInstruction",
+      "tag": "Standing Instructions"
+    },
+    {
+      "key": "PUT /v1/taxes/component/{}",
+      "operationId": "updateTaxComponent",
+      "tag": "Tax Components"
+    },
+    {
+      "key": "PUT /v1/taxes/group/{}",
+      "operationId": "updateTaxGroup",
+      "tag": "Tax Group"
+    },
+    {
+      "key": "PUT /v1/tellers/{}",
+      "operationId": "updateTeller",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "key": "PUT /v1/users/{}",
+      "operationId": "updateUser",
+      "tag": "Users"
+    },
+    {
+      "key": "PUT /v1/working-capital/breach/breaches/{}",
+      "operationId": "updateWorkingCapitalBreach",
+      "tag": "Working Capital Breach"
+    },
+    {
+      "key": "PUT /v1/working-capital-loans/external-id/{}/discount",
+      "operationId": "updateWorkingCapitalLoanDiscountByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "PUT /v1/working-capital-loans/{}/discount",
+      "operationId": "updateWorkingCapitalLoanDiscountById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "PUT /v1/working-capital-loan-products/{}",
+      "operationId": "updateWorkingCapitalLoanProduct",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "PUT /v1/working-capital-loan-products/external-id/{}",
+      "operationId": "updateWorkingCapitalLoanProductByExternalId",
+      "tag": "Working Capital Loan Products"
+    },
+    {
+      "key": "PUT /v1/working-capital-loans/external-id/{}/payment-rate",
+      "operationId": "updateWorkingCapitalLoanRateByExternalId",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "PUT /v1/working-capital-loans/{}/payment-rate",
+      "operationId": "updateWorkingCapitalLoanRateById",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "key": "PUT /v1/working-capital/near-breach/{}",
+      "operationId": "updateWorkingCapitalNearBreach",
+      "tag": "Working Capital Near Breach"
+    },
+    {
+      "key": "PUT /v1/workingdays",
+      "operationId": "updateWorkingDay",
+      "tag": "Working days"
+    },
+    {
+      "key": "POST /v1/twofactor/validate",
+      "operationId": "validate",
+      "tag": "Two Factor"
+    }
+  ]
 }
