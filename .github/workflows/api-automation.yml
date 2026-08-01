@@ -171,7 +171,7 @@ jobs:
       # --- Decision diamond: additive-only → auto-mergeable PR -----------------
       - name: Create PR (additive — auto-merge)
         if: steps.pipeline.outputs.breaking == 'false'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: bot/api-contract-sync
           commit-message: 'chore(api): sync generated contracts (additive)'
@@ -185,7 +185,7 @@ jobs:
       # --- Decision diamond: breaking → DRAFT PR + review label ----------------
       - name: Create PR (breaking — needs review)
         if: steps.pipeline.outputs.breaking == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: bot/api-contract-sync-breaking
           commit-message: 'chore(api)!: sync generated contracts (BREAKING)'
