@@ -144,6 +144,34 @@ Intermediate contract state lives in `contracts/`:
 (+ `validation-report.json`, `diff-report.{json,md}`). The **snapshot** is what the
 next run diffs against, so keep it committed.
 
+## Hand-written ↔ contract drift report (`api-drift.mjs`)
+
+The contract sync above diffs the spec *against its own previous snapshot*. A
+separate question is: **where do the 24 curated `js/api/*.js` wrappers disagree
+with the generated contract?** `api-drift.mjs` answers it — it statically pulls
+every `self._g/_p/_u/_d('/route')` call out of the hand-written modules and diffs
+them against `CONTRACTS`:
+
+```bash
+npm run api:drift          # writes contracts/api-drift.{json,md}, prints the table
+npm run api:drift:strict   # non-zero exit if any 🔴 method/command mismatch
+```
+
+| Bucket | Meaning |
+| --- | --- |
+| ✅ Matched | wrapper route backed by a contract op |
+| 🔴 Mismatch | same endpoint + command, **wrong HTTP method** — a real bug |
+| 🟡 Unverified | wrapper route with no contract op (wrong route, or op absent from this spec) |
+| ⚪ Uncovered | contract op no wrapper calls yet (UI gap) |
+
+> The 🟡/⚪ buckets are only meaningful once the pipeline has generated against
+> the **full** Fineract surface (Phase 1). Against the bundled sample spec the
+> report header says so and only 🔴 Mismatch is actionable. See
+> [MIGRATION-PLAN.md](./MIGRATION-PLAN.md).
+
+In CI (`api-automation.yml`) the drift report is built after generation, appended
+to the job summary, and attached to the contract-sync PR body.
+
 ## Wiring into the app (UI layer — you build)
 
 ```js

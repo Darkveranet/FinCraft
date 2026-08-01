@@ -94,6 +94,27 @@ lives here. Convert each unchecked box into a GitHub issue using
 
 ---
 
+## 0b. API migration — hand-written → contract-driven (in progress)
+
+Full phased plan: **`tools/api-automation/MIGRATION-PLAN.md`**.
+
+- [x] **Phase 2 — drift report built (2026-07-29).** `tools/api-automation/api-drift.mjs`
+      diffs the 24 curated `js/api/*.js` wrappers against generated `CONTRACTS`
+      (Matched / 🔴 Mismatch / 🟡 Unverified / ⚪ Uncovered). `npm run api:drift`
+      (+ `api:drift:strict`). Wired into `api-automation.yml`: appended to the job
+      summary and the sync-PR body.
+- [ ] **Phase 1 — generate against the REAL spec.** Run **API Contract Sync**
+      (Actions → Run workflow → `image` or `live`) so `js/api/generated/*` and
+      `contracts/*` reflect the full Fineract surface instead of the 6-path
+      sample. Merge the PR to commit the real contract. *Needs Docker → runs in
+      GitHub Actions, not locally.* **This is the immediate next action.**
+- [ ] **Phase 2b — burn down the drift backlog.** After Phase 1 lands, work the
+      🔴 Mismatch then 🟡 Unverified list from `contracts/api-drift.md`.
+- [ ] **Phase 3 — auto-generate E2E tests** from the contract, run against the
+      shared disposable Postgres + Fineract stack (`scripts/e2e/stack-up.sh`).
+- [ ] **Phase 4 — CI gates:** flip `api:drift:strict` on for Mismatch + require
+      generated E2E green.
+
 ## 1. Deferred API modules (not implemented)
 
 - [ ] **Working Capital Loans** — 9 backend resource classes, ~150 methods (the

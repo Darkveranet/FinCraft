@@ -1,0 +1,5938 @@
+{
+  "generatedAt": "2026-08-01T22:19:36.871Z",
+  "meta": {
+    "origin": "sample-spec.json",
+    "sampleSpec": true,
+    "contractOps": 10,
+    "hwRoutes": 904,
+    "hwFiles": 20
+  },
+  "summary": {
+    "matched": 10,
+    "mismatch": 1,
+    "unverified": 843,
+    "uncovered": 0
+  },
+  "mismatch": [
+    {
+      "key": "GET /loans",
+      "file": "loans.js",
+      "line": 3,
+      "handwritten": {
+        "method": "GET",
+        "command": null
+      },
+      "contractCandidates": [
+        {
+          "operationId": "calculateLoanScheduleOrSubmitLoanApplication",
+          "method": "POST",
+          "command": null
+        }
+      ]
+    }
+  ],
+  "unverified": [
+    {
+      "key": "GET /journalentries",
+      "file": "accounting.js",
+      "line": 3,
+      "rawPath": "/journalentries",
+      "method": "GET"
+    },
+    {
+      "key": "GET /journalentries/{}",
+      "file": "accounting.js",
+      "line": 4,
+      "rawPath": "/journalentries/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /journalentries/provisioning",
+      "file": "accounting.js",
+      "line": 5,
+      "rawPath": "/journalentries/provisioning",
+      "method": "GET"
+    },
+    {
+      "key": "GET /journalentries/openingbalance",
+      "file": "accounting.js",
+      "line": 6,
+      "rawPath": "/journalentries/openingbalance",
+      "method": "GET"
+    },
+    {
+      "key": "POST /journalentries",
+      "file": "accounting.js",
+      "line": 7,
+      "rawPath": "/journalentries",
+      "method": "POST"
+    },
+    {
+      "key": "POST /journalentries/{}?command=reverse",
+      "file": "accounting.js",
+      "line": 8,
+      "rawPath": "/journalentries/${txId}?command=reverse",
+      "method": "POST"
+    },
+    {
+      "key": "GET /glaccounts",
+      "file": "accounting.js",
+      "line": 14,
+      "rawPath": "/glaccounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /glaccounts/{}",
+      "file": "accounting.js",
+      "line": 15,
+      "rawPath": "/glaccounts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /glaccounts/template",
+      "file": "accounting.js",
+      "line": 16,
+      "rawPath": "/glaccounts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /glaccounts",
+      "file": "accounting.js",
+      "line": 17,
+      "rawPath": "/glaccounts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /glaccounts/{}",
+      "file": "accounting.js",
+      "line": 18,
+      "rawPath": "/glaccounts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /glaccounts/{}",
+      "file": "accounting.js",
+      "line": 19,
+      "rawPath": "/glaccounts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /glclosures",
+      "file": "accounting.js",
+      "line": 48,
+      "rawPath": "/glclosures",
+      "method": "GET"
+    },
+    {
+      "key": "GET /glclosures/{}",
+      "file": "accounting.js",
+      "line": 49,
+      "rawPath": "/glclosures/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /glclosures",
+      "file": "accounting.js",
+      "line": 50,
+      "rawPath": "/glclosures",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /glclosures/{}",
+      "file": "accounting.js",
+      "line": 51,
+      "rawPath": "/glclosures/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /glclosures/{}",
+      "file": "accounting.js",
+      "line": 52,
+      "rawPath": "/glclosures/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /accountingrules",
+      "file": "accounting.js",
+      "line": 58,
+      "rawPath": "/accountingrules",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accountingrules/{}",
+      "file": "accounting.js",
+      "line": 59,
+      "rawPath": "/accountingrules/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accountingrules/template",
+      "file": "accounting.js",
+      "line": 60,
+      "rawPath": "/accountingrules/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /accountingrules",
+      "file": "accounting.js",
+      "line": 61,
+      "rawPath": "/accountingrules",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /accountingrules/{}",
+      "file": "accounting.js",
+      "line": 62,
+      "rawPath": "/accountingrules/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /accountingrules/{}",
+      "file": "accounting.js",
+      "line": 63,
+      "rawPath": "/accountingrules/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /provisioningentries",
+      "file": "accounting.js",
+      "line": 69,
+      "rawPath": "/provisioningentries",
+      "method": "GET"
+    },
+    {
+      "key": "GET /provisioningentries/entries",
+      "file": "accounting.js",
+      "line": 70,
+      "rawPath": "/provisioningentries/entries",
+      "method": "GET"
+    },
+    {
+      "key": "GET /provisioningentries/{}",
+      "file": "accounting.js",
+      "line": 71,
+      "rawPath": "/provisioningentries/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /provisioningcriteria",
+      "file": "accounting.js",
+      "line": 72,
+      "rawPath": "/provisioningcriteria",
+      "method": "GET"
+    },
+    {
+      "key": "GET /provisioningcriteria/template",
+      "file": "accounting.js",
+      "line": 73,
+      "rawPath": "/provisioningcriteria/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /provisioningcriteria/{}",
+      "file": "accounting.js",
+      "line": 74,
+      "rawPath": "/provisioningcriteria/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /provisioningcriteria",
+      "file": "accounting.js",
+      "line": 75,
+      "rawPath": "/provisioningcriteria",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /provisioningcriteria/{}",
+      "file": "accounting.js",
+      "line": 76,
+      "rawPath": "/provisioningcriteria/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /provisioningcriteria/{}",
+      "file": "accounting.js",
+      "line": 77,
+      "rawPath": "/provisioningcriteria/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /provisioningentries",
+      "file": "accounting.js",
+      "line": 78,
+      "rawPath": "/provisioningentries",
+      "method": "POST"
+    },
+    {
+      "key": "POST /provisioningentries/{}?command=createjournalentry",
+      "file": "accounting.js",
+      "line": 79,
+      "rawPath": "/provisioningentries/${id}?command=createjournalentry",
+      "method": "POST"
+    },
+    {
+      "key": "POST /provisioningentries/{}?command=recreateprovisioningentry",
+      "file": "accounting.js",
+      "line": 80,
+      "rawPath": "/provisioningentries/${id}?command=recreateprovisioningentry",
+      "method": "POST"
+    },
+    {
+      "key": "GET /provisioningcategory",
+      "file": "accounting.js",
+      "line": 86,
+      "rawPath": "/provisioningcategory",
+      "method": "GET"
+    },
+    {
+      "key": "POST /provisioningcategory",
+      "file": "accounting.js",
+      "line": 87,
+      "rawPath": "/provisioningcategory",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /provisioningcategory/{}",
+      "file": "accounting.js",
+      "line": 88,
+      "rawPath": "/provisioningcategory/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /provisioningcategory/{}",
+      "file": "accounting.js",
+      "line": 89,
+      "rawPath": "/provisioningcategory/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /runaccruals",
+      "file": "accounting.js",
+      "line": 95,
+      "rawPath": "/runaccruals",
+      "method": "POST"
+    },
+    {
+      "key": "POST /journalentries?command=defineOpeningBalance",
+      "file": "accounting.js",
+      "line": 101,
+      "rawPath": "/journalentries?command=defineOpeningBalance",
+      "method": "POST"
+    },
+    {
+      "key": "GET /financialactivityaccounts",
+      "file": "accounting.js",
+      "line": 107,
+      "rawPath": "/financialactivityaccounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /financialactivityaccounts/{}",
+      "file": "accounting.js",
+      "line": 108,
+      "rawPath": "/financialactivityaccounts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /financialactivityaccounts/template",
+      "file": "accounting.js",
+      "line": 109,
+      "rawPath": "/financialactivityaccounts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /financialactivityaccounts",
+      "file": "accounting.js",
+      "line": 110,
+      "rawPath": "/financialactivityaccounts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /financialactivityaccounts/{}",
+      "file": "accounting.js",
+      "line": 111,
+      "rawPath": "/financialactivityaccounts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /financialactivityaccounts/{}",
+      "file": "accounting.js",
+      "line": 112,
+      "rawPath": "/financialactivityaccounts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /taxes/component",
+      "file": "accounting.js",
+      "line": 118,
+      "rawPath": "/taxes/component",
+      "method": "GET"
+    },
+    {
+      "key": "GET /taxes/component/{}",
+      "file": "accounting.js",
+      "line": 119,
+      "rawPath": "/taxes/component/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /taxes/component/template",
+      "file": "accounting.js",
+      "line": 120,
+      "rawPath": "/taxes/component/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /taxes/component",
+      "file": "accounting.js",
+      "line": 121,
+      "rawPath": "/taxes/component",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /taxes/component/{}",
+      "file": "accounting.js",
+      "line": 122,
+      "rawPath": "/taxes/component/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /taxes/group",
+      "file": "accounting.js",
+      "line": 128,
+      "rawPath": "/taxes/group",
+      "method": "GET"
+    },
+    {
+      "key": "GET /taxes/group/{}",
+      "file": "accounting.js",
+      "line": 129,
+      "rawPath": "/taxes/group/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /taxes/group/template",
+      "file": "accounting.js",
+      "line": 130,
+      "rawPath": "/taxes/group/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /taxes/group",
+      "file": "accounting.js",
+      "line": 131,
+      "rawPath": "/taxes/group",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /taxes/group/{}",
+      "file": "accounting.js",
+      "line": 132,
+      "rawPath": "/taxes/group/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /users",
+      "file": "admin.js",
+      "line": 3,
+      "rawPath": "/users",
+      "method": "GET"
+    },
+    {
+      "key": "GET /users/{}",
+      "file": "admin.js",
+      "line": 4,
+      "rawPath": "/users/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /users/template",
+      "file": "admin.js",
+      "line": 5,
+      "rawPath": "/users/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /users",
+      "file": "admin.js",
+      "line": 6,
+      "rawPath": "/users",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /users/{}",
+      "file": "admin.js",
+      "line": 7,
+      "rawPath": "/users/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /users/{}",
+      "file": "admin.js",
+      "line": 8,
+      "rawPath": "/users/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /roles",
+      "file": "admin.js",
+      "line": 14,
+      "rawPath": "/roles",
+      "method": "GET"
+    },
+    {
+      "key": "GET /roles/{}",
+      "file": "admin.js",
+      "line": 15,
+      "rawPath": "/roles/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /roles",
+      "file": "admin.js",
+      "line": 16,
+      "rawPath": "/roles",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /roles/{}",
+      "file": "admin.js",
+      "line": 17,
+      "rawPath": "/roles/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /roles/{}",
+      "file": "admin.js",
+      "line": 18,
+      "rawPath": "/roles/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /roles/{}?command=enable",
+      "file": "admin.js",
+      "line": 19,
+      "rawPath": "/roles/${id}?command=enable",
+      "method": "POST"
+    },
+    {
+      "key": "POST /roles/{}?command=disable",
+      "file": "admin.js",
+      "line": 20,
+      "rawPath": "/roles/${id}?command=disable",
+      "method": "POST"
+    },
+    {
+      "key": "GET /roles/{}/permissions",
+      "file": "admin.js",
+      "line": 21,
+      "rawPath": "/roles/${id}/permissions",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /roles/{}/permissions",
+      "file": "admin.js",
+      "line": 22,
+      "rawPath": "/roles/${id}/permissions",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /permissions",
+      "file": "admin.js",
+      "line": 28,
+      "rawPath": "/permissions",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /permissions",
+      "file": "admin.js",
+      "line": 29,
+      "rawPath": "/permissions",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /jobs",
+      "file": "admin.js",
+      "line": 35,
+      "rawPath": "/jobs",
+      "method": "GET"
+    },
+    {
+      "key": "GET /jobs/{}",
+      "file": "admin.js",
+      "line": 36,
+      "rawPath": "/jobs/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /jobs/{}",
+      "file": "admin.js",
+      "line": 37,
+      "rawPath": "/jobs/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /jobs/{}?command=executeJob",
+      "file": "admin.js",
+      "line": 38,
+      "rawPath": "/jobs/${id}?command=executeJob",
+      "method": "POST"
+    },
+    {
+      "key": "GET /jobs/{}/runhistory",
+      "file": "admin.js",
+      "line": 39,
+      "rawPath": "/jobs/${id}/runhistory",
+      "method": "GET"
+    },
+    {
+      "key": "GET /jobs/names",
+      "file": "admin.js",
+      "line": 40,
+      "rawPath": "/jobs/names",
+      "method": "GET"
+    },
+    {
+      "key": "GET /jobs/{}/available-steps",
+      "file": "admin.js",
+      "line": 41,
+      "rawPath": "/jobs/${encodeURIComponent(jobName)}/available-steps",
+      "method": "GET"
+    },
+    {
+      "key": "GET /jobs/{}/steps",
+      "file": "admin.js",
+      "line": 42,
+      "rawPath": "/jobs/${encodeURIComponent(jobName)}/steps",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /jobs/{}/steps",
+      "file": "admin.js",
+      "line": 43,
+      "rawPath": "/jobs/${encodeURIComponent(jobName)}/steps",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /jobs/{}/inline",
+      "file": "admin.js",
+      "line": 44,
+      "rawPath": "/jobs/${encodeURIComponent(jobName)}/inline",
+      "method": "POST"
+    },
+    {
+      "key": "GET /jobs/short-name/{}",
+      "file": "admin.js",
+      "line": 45,
+      "rawPath": "/jobs/short-name/${encodeURIComponent(shortName)}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /jobs/short-name/{}",
+      "file": "admin.js",
+      "line": 46,
+      "rawPath": "/jobs/short-name/${encodeURIComponent(shortName)}",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /jobs/short-name/{}",
+      "file": "admin.js",
+      "line": 47,
+      "rawPath": "/jobs/short-name/${encodeURIComponent(shortName)}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /jobs/short-name/{}/runhistory",
+      "file": "admin.js",
+      "line": 48,
+      "rawPath": "/jobs/short-name/${encodeURIComponent(shortName)}/runhistory",
+      "method": "GET"
+    },
+    {
+      "key": "GET /audits",
+      "file": "admin.js",
+      "line": 54,
+      "rawPath": "/audits",
+      "method": "GET"
+    },
+    {
+      "key": "GET /audits/{}",
+      "file": "admin.js",
+      "line": 55,
+      "rawPath": "/audits/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /audits/searchtemplate",
+      "file": "admin.js",
+      "line": 56,
+      "rawPath": "/audits/searchtemplate",
+      "method": "GET"
+    },
+    {
+      "key": "GET /makercheckers",
+      "file": "admin.js",
+      "line": 62,
+      "rawPath": "/makercheckers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /makercheckers/searchtemplate",
+      "file": "admin.js",
+      "line": 63,
+      "rawPath": "/makercheckers/searchtemplate",
+      "method": "GET"
+    },
+    {
+      "key": "POST /makercheckers/{}?command=approve",
+      "file": "admin.js",
+      "line": 64,
+      "rawPath": "/makercheckers/${id}?command=approve",
+      "method": "POST"
+    },
+    {
+      "key": "POST /makercheckers/{}?command=reject",
+      "file": "admin.js",
+      "line": 65,
+      "rawPath": "/makercheckers/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "DELETE /makercheckers/{}",
+      "file": "admin.js",
+      "line": 66,
+      "rawPath": "/makercheckers/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /configurations",
+      "file": "admin.js",
+      "line": 72,
+      "rawPath": "/configurations",
+      "method": "GET"
+    },
+    {
+      "key": "GET /configurations/name/{}",
+      "file": "admin.js",
+      "line": 73,
+      "rawPath": "/configurations/name/${name}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /configurations/{}",
+      "file": "admin.js",
+      "line": 74,
+      "rawPath": "/configurations/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /configurations/{}",
+      "file": "admin.js",
+      "line": 75,
+      "rawPath": "/configurations/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "PUT /configurations/name/{}",
+      "file": "admin.js",
+      "line": 76,
+      "rawPath": "/configurations/name/${name}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /caches",
+      "file": "admin.js",
+      "line": 77,
+      "rawPath": "/caches",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /caches",
+      "file": "admin.js",
+      "line": 78,
+      "rawPath": "/caches",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /surveys",
+      "file": "admin.js",
+      "line": 88,
+      "rawPath": "/surveys",
+      "method": "GET"
+    },
+    {
+      "key": "GET /surveys/{}",
+      "file": "admin.js",
+      "line": 89,
+      "rawPath": "/surveys/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /surveys",
+      "file": "admin.js",
+      "line": 90,
+      "rawPath": "/surveys",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /surveys/{}",
+      "file": "admin.js",
+      "line": 91,
+      "rawPath": "/surveys/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /surveys/{}?command=activate",
+      "file": "admin.js",
+      "line": 92,
+      "rawPath": "/surveys/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /surveys/{}?command=deactivate",
+      "file": "admin.js",
+      "line": 93,
+      "rawPath": "/surveys/${id}?command=deactivate",
+      "method": "POST"
+    },
+    {
+      "key": "GET /entitytoentitymapping",
+      "file": "admin.js",
+      "line": 99,
+      "rawPath": "/entitytoentitymapping",
+      "method": "GET"
+    },
+    {
+      "key": "GET /entitytoentitymapping/{}",
+      "file": "admin.js",
+      "line": 100,
+      "rawPath": "/entitytoentitymapping/${mappingTypeId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /entitytoentitymapping/{}/{}/{}",
+      "file": "admin.js",
+      "line": 101,
+      "rawPath": "/entitytoentitymapping/${mapId}/${fromId}/${toId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /entitytoentitymapping/{}",
+      "file": "admin.js",
+      "line": 102,
+      "rawPath": "/entitytoentitymapping/${relId}",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /entitytoentitymapping/{}",
+      "file": "admin.js",
+      "line": 103,
+      "rawPath": "/entitytoentitymapping/${mappingTypeId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /entitytoentitymapping/{}",
+      "file": "admin.js",
+      "line": 104,
+      "rawPath": "/entitytoentitymapping/${mapId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /scheduler",
+      "file": "admin.js",
+      "line": 110,
+      "rawPath": "/scheduler",
+      "method": "GET"
+    },
+    {
+      "key": "POST /scheduler?command=start",
+      "file": "admin.js",
+      "line": 111,
+      "rawPath": "/scheduler?command=start",
+      "method": "POST"
+    },
+    {
+      "key": "POST /scheduler?command=stop",
+      "file": "admin.js",
+      "line": 112,
+      "rawPath": "/scheduler?command=stop",
+      "method": "POST"
+    },
+    {
+      "key": "POST /scheduler",
+      "file": "admin.js",
+      "line": 113,
+      "rawPath": "/scheduler?command=${encodeURIComponent(command)}",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /instance-mode",
+      "file": "admin.js",
+      "line": 119,
+      "rawPath": "/instance-mode",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /fieldconfiguration/{}",
+      "file": "admin.js",
+      "line": 125,
+      "rawPath": "/fieldconfiguration/${encodeURIComponent(entity)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accountnumberformats",
+      "file": "admin.js",
+      "line": 131,
+      "rawPath": "/accountnumberformats",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accountnumberformats/{}",
+      "file": "admin.js",
+      "line": 132,
+      "rawPath": "/accountnumberformats/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accountnumberformats/template",
+      "file": "admin.js",
+      "line": 133,
+      "rawPath": "/accountnumberformats/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /accountnumberformats",
+      "file": "admin.js",
+      "line": 134,
+      "rawPath": "/accountnumberformats",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /accountnumberformats/{}",
+      "file": "admin.js",
+      "line": 135,
+      "rawPath": "/accountnumberformats/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /accountnumberformats/{}",
+      "file": "admin.js",
+      "line": 136,
+      "rawPath": "/accountnumberformats/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /userdetails",
+      "file": "auth-account.js",
+      "line": 3,
+      "rawPath": "/userdetails",
+      "method": "GET"
+    },
+    {
+      "key": "POST /password/forgot",
+      "file": "auth-account.js",
+      "line": 9,
+      "rawPath": "/password/forgot",
+      "method": "POST"
+    },
+    {
+      "key": "POST /users/{}/pwd",
+      "file": "auth-account.js",
+      "line": 10,
+      "rawPath": "/users/${userId}/pwd",
+      "method": "POST"
+    },
+    {
+      "key": "GET /passwordpreferences",
+      "file": "auth-account.js",
+      "line": 11,
+      "rawPath": "/passwordpreferences",
+      "method": "GET"
+    },
+    {
+      "key": "GET /passwordpreferences/template",
+      "file": "auth-account.js",
+      "line": 12,
+      "rawPath": "/passwordpreferences/template",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /passwordpreferences",
+      "file": "auth-account.js",
+      "line": 13,
+      "rawPath": "/passwordpreferences",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /twofactor",
+      "file": "auth-account.js",
+      "line": 19,
+      "rawPath": "/twofactor",
+      "method": "GET"
+    },
+    {
+      "key": "POST /twofactor/invalidate",
+      "file": "auth-account.js",
+      "line": 22,
+      "rawPath": "/twofactor/invalidate",
+      "method": "POST"
+    },
+    {
+      "key": "GET /twofactor/configure",
+      "file": "auth-account.js",
+      "line": 24,
+      "rawPath": "/twofactor/configure",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /twofactor/configure",
+      "file": "auth-account.js",
+      "line": 25,
+      "rawPath": "/twofactor/configure",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /tenants/{}/oidc-config",
+      "file": "auth-account.js",
+      "line": 32,
+      "rawPath": "/tenants/${tenantId}/oidc-config",
+      "method": "GET"
+    },
+    {
+      "key": "POST /tenants/{}/oidc-config",
+      "file": "auth-account.js",
+      "line": 33,
+      "rawPath": "/tenants/${tenantId}/oidc-config",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /tenants/{}/oidc-config",
+      "file": "auth-account.js",
+      "line": 34,
+      "rawPath": "/tenants/${tenantId}/oidc-config",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /tenants/{}/oidc-config",
+      "file": "auth-account.js",
+      "line": 35,
+      "rawPath": "/tenants/${tenantId}/oidc-config",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /clients/{}?command=activate",
+      "file": "clients.js",
+      "line": 10,
+      "rawPath": "/clients/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=close",
+      "file": "clients.js",
+      "line": 11,
+      "rawPath": "/clients/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=reject",
+      "file": "clients.js",
+      "line": 12,
+      "rawPath": "/clients/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=withdraw",
+      "file": "clients.js",
+      "line": 13,
+      "rawPath": "/clients/${id}?command=withdraw",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=withdrawTransfer",
+      "file": "clients.js",
+      "line": 14,
+      "rawPath": "/clients/${id}?command=withdrawTransfer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=assignStaff",
+      "file": "clients.js",
+      "line": 15,
+      "rawPath": "/clients/${id}?command=assignStaff",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=unassignStaff",
+      "file": "clients.js",
+      "line": 16,
+      "rawPath": "/clients/${id}?command=unassignStaff",
+      "method": "POST"
+    },
+    {
+      "key": "GET /clients/{}/collaterals",
+      "file": "clients.js",
+      "line": 17,
+      "rawPath": "/clients/${id}/collaterals",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/collaterals/{}",
+      "file": "clients.js",
+      "line": 18,
+      "rawPath": "/clients/${id}/collaterals/${ccId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/collaterals/template",
+      "file": "clients.js",
+      "line": 19,
+      "rawPath": "/clients/${id}/collaterals/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients/{}/collaterals",
+      "file": "clients.js",
+      "line": 20,
+      "rawPath": "/clients/${id}/collaterals",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /clients/{}/collaterals/{}",
+      "file": "clients.js",
+      "line": 21,
+      "rawPath": "/clients/${id}/collaterals/${ccId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /clients/{}/collaterals/{}",
+      "file": "clients.js",
+      "line": 22,
+      "rawPath": "/clients/${id}/collaterals/${ccId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /clients/{}/transactions",
+      "file": "clients.js",
+      "line": 23,
+      "rawPath": "/clients/${id}/transactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/transactions/{}",
+      "file": "clients.js",
+      "line": 24,
+      "rawPath": "/clients/${id}/transactions/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients/{}/transactions/{}?command=undo",
+      "file": "clients.js",
+      "line": 25,
+      "rawPath": "/clients/${id}/transactions/${txId}?command=undo",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}/charges/{}?command=waive",
+      "file": "clients.js",
+      "line": 26,
+      "rawPath": "/clients/${id}/charges/${chargeId}?command=waive",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}/charges/{}?command=paycharge",
+      "file": "clients.js",
+      "line": 27,
+      "rawPath": "/clients/${id}/charges/${chargeId}?command=paycharge",
+      "method": "POST"
+    },
+    {
+      "key": "DELETE /clients/{}/charges/{}",
+      "file": "clients.js",
+      "line": 28,
+      "rawPath": "/clients/${id}/charges/${chargeId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /clients/{}/charges/template",
+      "file": "clients.js",
+      "line": 29,
+      "rawPath": "/clients/${id}/charges/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/charges/{}",
+      "file": "clients.js",
+      "line": 30,
+      "rawPath": "/clients/${id}/charges/${chargeId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients/{}?command=reactivate",
+      "file": "clients.js",
+      "line": 31,
+      "rawPath": "/clients/${id}?command=reactivate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=proposeTransfer",
+      "file": "clients.js",
+      "line": 32,
+      "rawPath": "/clients/${id}?command=proposeTransfer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=acceptTransfer",
+      "file": "clients.js",
+      "line": 33,
+      "rawPath": "/clients/${id}?command=acceptTransfer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /clients/{}?command=rejectTransfer",
+      "file": "clients.js",
+      "line": 34,
+      "rawPath": "/clients/${id}?command=rejectTransfer",
+      "method": "POST"
+    },
+    {
+      "key": "GET /clients/{}/accounts",
+      "file": "clients.js",
+      "line": 36,
+      "rawPath": "/clients/${id}/accounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/charges",
+      "file": "clients.js",
+      "line": 37,
+      "rawPath": "/clients/${id}/charges",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients/{}/charges",
+      "file": "clients.js",
+      "line": 38,
+      "rawPath": "/clients/${id}/charges",
+      "method": "POST"
+    },
+    {
+      "key": "GET /clients/{}/identifiers",
+      "file": "clients.js",
+      "line": 39,
+      "rawPath": "/clients/${id}/identifiers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/identifiers/template",
+      "file": "clients.js",
+      "line": 40,
+      "rawPath": "/clients/${id}/identifiers/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/identifiers/{}",
+      "file": "clients.js",
+      "line": 41,
+      "rawPath": "/clients/${id}/identifiers/${iid}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients/{}/identifiers",
+      "file": "clients.js",
+      "line": 42,
+      "rawPath": "/clients/${id}/identifiers",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /clients/{}/identifiers/{}",
+      "file": "clients.js",
+      "line": 43,
+      "rawPath": "/clients/${id}/identifiers/${iid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /clients/{}/identifiers/{}",
+      "file": "clients.js",
+      "line": 44,
+      "rawPath": "/clients/${id}/identifiers/${iid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /client/{}/addresses",
+      "file": "clients.js",
+      "line": 45,
+      "rawPath": "/client/${id}/addresses",
+      "method": "GET"
+    },
+    {
+      "key": "POST /client/{}/addresses",
+      "file": "clients.js",
+      "line": 46,
+      "rawPath": "/client/${id}/addresses?type=${body.addressTypeId}",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /client/{}/addresses",
+      "file": "clients.js",
+      "line": 47,
+      "rawPath": "/client/${id}/addresses",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /client/addresses/template",
+      "file": "clients.js",
+      "line": 48,
+      "rawPath": "/client/addresses/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/familymembers",
+      "file": "clients.js",
+      "line": 49,
+      "rawPath": "/clients/${id}/familymembers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/familymembers/template",
+      "file": "clients.js",
+      "line": 50,
+      "rawPath": "/clients/${id}/familymembers/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/familymembers/{}",
+      "file": "clients.js",
+      "line": 51,
+      "rawPath": "/clients/${id}/familymembers/${mid}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /clients/{}/familymembers",
+      "file": "clients.js",
+      "line": 52,
+      "rawPath": "/clients/${id}/familymembers",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /clients/{}/familymembers/{}",
+      "file": "clients.js",
+      "line": 53,
+      "rawPath": "/clients/${id}/familymembers/${mid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /clients/{}/familymembers/{}",
+      "file": "clients.js",
+      "line": 54,
+      "rawPath": "/clients/${id}/familymembers/${mid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /clients/{}/obligeedetails",
+      "file": "clients.js",
+      "line": 55,
+      "rawPath": "/clients/${id}/obligeedetails",
+      "method": "GET"
+    },
+    {
+      "key": "GET /clients/{}/transferproposaldate",
+      "file": "clients.js",
+      "line": 56,
+      "rawPath": "/clients/${id}/transferproposaldate",
+      "method": "GET"
+    },
+    {
+      "key": "GET /CreditBureauConfiguration",
+      "file": "credit-bureau.js",
+      "line": 3,
+      "rawPath": "/CreditBureauConfiguration",
+      "method": "GET"
+    },
+    {
+      "key": "GET /CreditBureauConfiguration/organisationCreditBureau",
+      "file": "credit-bureau.js",
+      "line": 4,
+      "rawPath": "/CreditBureauConfiguration/organisationCreditBureau",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /CreditBureauConfiguration/organisationCreditBureau",
+      "file": "credit-bureau.js",
+      "line": 5,
+      "rawPath": "/CreditBureauConfiguration/organisationCreditBureau",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /CreditBureauConfiguration/organisationCreditBureau/{}",
+      "file": "credit-bureau.js",
+      "line": 7,
+      "rawPath": "/CreditBureauConfiguration/organisationCreditBureau/${organisationCreditBureauId}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /CreditBureauConfiguration/config/{}",
+      "file": "credit-bureau.js",
+      "line": 9,
+      "rawPath": "/CreditBureauConfiguration/config/${organisationCreditBureauId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /CreditBureauConfiguration/configuration/{}",
+      "file": "credit-bureau.js",
+      "line": 10,
+      "rawPath": "/CreditBureauConfiguration/configuration/${creditBureauId}",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /CreditBureauConfiguration/configuration/{}",
+      "file": "credit-bureau.js",
+      "line": 11,
+      "rawPath": "/CreditBureauConfiguration/configuration/${configurationId}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /CreditBureauConfiguration/loanProduct",
+      "file": "credit-bureau.js",
+      "line": 13,
+      "rawPath": "/CreditBureauConfiguration/loanProduct",
+      "method": "GET"
+    },
+    {
+      "key": "GET /CreditBureauConfiguration/loanProduct/{}",
+      "file": "credit-bureau.js",
+      "line": 14,
+      "rawPath": "/CreditBureauConfiguration/loanProduct/${loanProductId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /CreditBureauConfiguration/mappings",
+      "file": "credit-bureau.js",
+      "line": 15,
+      "rawPath": "/CreditBureauConfiguration/mappings",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /CreditBureauConfiguration/mappings",
+      "file": "credit-bureau.js",
+      "line": 16,
+      "rawPath": "/CreditBureauConfiguration/mappings",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /CreditBureauConfiguration/mappings/{}",
+      "file": "credit-bureau.js",
+      "line": 18,
+      "rawPath": "/CreditBureauConfiguration/mappings/${organisationCreditBureauId}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /creditBureauIntegration/creditReport",
+      "file": "credit-bureau.js",
+      "line": 24,
+      "rawPath": "/creditBureauIntegration/creditReport",
+      "method": "POST"
+    },
+    {
+      "key": "POST /creditBureauIntegration/addCreditReport",
+      "file": "credit-bureau.js",
+      "line": 25,
+      "rawPath": "/creditBureauIntegration/addCreditReport",
+      "method": "POST"
+    },
+    {
+      "key": "POST /creditBureauIntegration/saveCreditReport",
+      "file": "credit-bureau.js",
+      "line": 26,
+      "rawPath": "/creditBureauIntegration/saveCreditReport",
+      "method": "POST"
+    },
+    {
+      "key": "GET /creditBureauIntegration/creditReport/{}",
+      "file": "credit-bureau.js",
+      "line": 27,
+      "rawPath": "/creditBureauIntegration/creditReport/${creditBureauId}",
+      "method": "GET"
+    },
+    {
+      "key": "DELETE /creditBureauIntegration/deleteCreditReport/{}",
+      "file": "credit-bureau.js",
+      "line": 28,
+      "rawPath": "/creditBureauIntegration/deleteCreditReport/${creditBureauId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /groups",
+      "file": "groups-centers.js",
+      "line": 3,
+      "rawPath": "/groups",
+      "method": "GET"
+    },
+    {
+      "key": "GET /groups/{}",
+      "file": "groups-centers.js",
+      "line": 4,
+      "rawPath": "/groups/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /groups/template",
+      "file": "groups-centers.js",
+      "line": 5,
+      "rawPath": "/groups/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /groups",
+      "file": "groups-centers.js",
+      "line": 6,
+      "rawPath": "/groups",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /groups/{}",
+      "file": "groups-centers.js",
+      "line": 7,
+      "rawPath": "/groups/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /groups/{}?command=activate",
+      "file": "groups-centers.js",
+      "line": 8,
+      "rawPath": "/groups/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=close",
+      "file": "groups-centers.js",
+      "line": 9,
+      "rawPath": "/groups/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=assignStaff",
+      "file": "groups-centers.js",
+      "line": 10,
+      "rawPath": "/groups/${id}?command=assignStaff",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=unassignStaff",
+      "file": "groups-centers.js",
+      "line": 11,
+      "rawPath": "/groups/${id}?command=unassignStaff",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}/command/unassign_staff",
+      "file": "groups-centers.js",
+      "line": 12,
+      "rawPath": "/groups/${id}/command/unassign_staff",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=assignRole",
+      "file": "groups-centers.js",
+      "line": 13,
+      "rawPath": "/groups/${id}?command=assignRole",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=updateRole",
+      "file": "groups-centers.js",
+      "line": 14,
+      "rawPath": "/groups/${id}?command=updateRole&roleId=${rid}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=unassignRole",
+      "file": "groups-centers.js",
+      "line": 15,
+      "rawPath": "/groups/${id}?command=unassignRole&roleId=${rid}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=associateClients",
+      "file": "groups-centers.js",
+      "line": 16,
+      "rawPath": "/groups/${id}?command=associateClients",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=disassociateClients",
+      "file": "groups-centers.js",
+      "line": 17,
+      "rawPath": "/groups/${id}?command=disassociateClients",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=transferClients",
+      "file": "groups-centers.js",
+      "line": 18,
+      "rawPath": "/groups/${id}?command=transferClients",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=generateCollectionSheet",
+      "file": "groups-centers.js",
+      "line": 19,
+      "rawPath": "/groups/${id}?command=generateCollectionSheet",
+      "method": "POST"
+    },
+    {
+      "key": "POST /groups/{}?command=saveCollectionSheet",
+      "file": "groups-centers.js",
+      "line": 20,
+      "rawPath": "/groups/${id}?command=saveCollectionSheet",
+      "method": "POST"
+    },
+    {
+      "key": "GET /groups/{}/accounts",
+      "file": "groups-centers.js",
+      "line": 21,
+      "rawPath": "/groups/${id}/accounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /groups/{}/glimaccounts",
+      "file": "groups-centers.js",
+      "line": 22,
+      "rawPath": "/groups/${id}/glimaccounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /groups/{}/gsimaccounts",
+      "file": "groups-centers.js",
+      "line": 23,
+      "rawPath": "/groups/${id}/gsimaccounts",
+      "method": "GET"
+    },
+    {
+      "key": "DELETE /groups/{}",
+      "file": "groups-centers.js",
+      "line": 24,
+      "rawPath": "/groups/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /centers",
+      "file": "groups-centers.js",
+      "line": 30,
+      "rawPath": "/centers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /centers/{}",
+      "file": "groups-centers.js",
+      "line": 31,
+      "rawPath": "/centers/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /centers/template",
+      "file": "groups-centers.js",
+      "line": 32,
+      "rawPath": "/centers/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /centers",
+      "file": "groups-centers.js",
+      "line": 33,
+      "rawPath": "/centers",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /centers/{}",
+      "file": "groups-centers.js",
+      "line": 34,
+      "rawPath": "/centers/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /centers/{}",
+      "file": "groups-centers.js",
+      "line": 35,
+      "rawPath": "/centers/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /centers/{}?command=activate",
+      "file": "groups-centers.js",
+      "line": 36,
+      "rawPath": "/centers/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /centers/{}?command=close",
+      "file": "groups-centers.js",
+      "line": 37,
+      "rawPath": "/centers/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /centers/{}?command=associateGroups",
+      "file": "groups-centers.js",
+      "line": 38,
+      "rawPath": "/centers/${id}?command=associateGroups",
+      "method": "POST"
+    },
+    {
+      "key": "POST /centers/{}?command=disassociateGroups",
+      "file": "groups-centers.js",
+      "line": 39,
+      "rawPath": "/centers/${id}?command=disassociateGroups",
+      "method": "POST"
+    },
+    {
+      "key": "POST /centers/{}?command=generateCollectionSheet",
+      "file": "groups-centers.js",
+      "line": 40,
+      "rawPath": "/centers/${id}?command=generateCollectionSheet",
+      "method": "POST"
+    },
+    {
+      "key": "POST /centers/{}?command=saveCollectionSheet",
+      "file": "groups-centers.js",
+      "line": 41,
+      "rawPath": "/centers/${id}?command=saveCollectionSheet",
+      "method": "POST"
+    },
+    {
+      "key": "GET /centers/{}/accounts",
+      "file": "groups-centers.js",
+      "line": 42,
+      "rawPath": "/centers/${id}/accounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/calendars",
+      "file": "groups-centers.js",
+      "line": 48,
+      "rawPath": "/${entityType}/${entityId}/calendars",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/calendars/{}",
+      "file": "groups-centers.js",
+      "line": 49,
+      "rawPath": "/${entityType}/${entityId}/calendars/${calendarId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/calendars/template",
+      "file": "groups-centers.js",
+      "line": 50,
+      "rawPath": "/${entityType}/${entityId}/calendars/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /{}/{}/calendars",
+      "file": "groups-centers.js",
+      "line": 51,
+      "rawPath": "/${entityType}/${entityId}/calendars",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /{}/{}/calendars/{}",
+      "file": "groups-centers.js",
+      "line": 52,
+      "rawPath": "/${entityType}/${entityId}/calendars/${calendarId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /{}/{}/calendars/{}",
+      "file": "groups-centers.js",
+      "line": 53,
+      "rawPath": "/${entityType}/${entityId}/calendars/${calendarId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /{}/{}/meetings",
+      "file": "groups-centers.js",
+      "line": 59,
+      "rawPath": "/${entityType}/${entityId}/meetings",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/meetings/{}",
+      "file": "groups-centers.js",
+      "line": 60,
+      "rawPath": "/${entityType}/${entityId}/meetings/${meetingId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/meetings/template",
+      "file": "groups-centers.js",
+      "line": 61,
+      "rawPath": "/${entityType}/${entityId}/meetings/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /{}/{}/meetings",
+      "file": "groups-centers.js",
+      "line": 62,
+      "rawPath": "/${entityType}/${entityId}/meetings",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /{}/{}/meetings/{}",
+      "file": "groups-centers.js",
+      "line": 63,
+      "rawPath": "/${entityType}/${entityId}/meetings/${meetingId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /{}/{}/meetings/{}",
+      "file": "groups-centers.js",
+      "line": 64,
+      "rawPath": "/${entityType}/${entityId}/meetings/${meetingId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /{}/{}/meetings/{}?command=saveOrUpdateAttendance",
+      "file": "groups-centers.js",
+      "line": 66,
+      "rawPath": "/${entityType}/${entityId}/meetings/${meetingId}?command=saveOrUpdateAttendance",
+      "method": "POST"
+    },
+    {
+      "key": "GET /grouplevels",
+      "file": "groups-centers.js",
+      "line": 72,
+      "rawPath": "/grouplevels",
+      "method": "GET"
+    },
+    {
+      "key": "GET /notifications",
+      "file": "integrations.js",
+      "line": 3,
+      "rawPath": "/notifications",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /notifications",
+      "file": "integrations.js",
+      "line": 4,
+      "rawPath": "/notifications",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /hooks",
+      "file": "integrations.js",
+      "line": 10,
+      "rawPath": "/hooks",
+      "method": "GET"
+    },
+    {
+      "key": "GET /hooks/{}",
+      "file": "integrations.js",
+      "line": 11,
+      "rawPath": "/hooks/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /hooks/template",
+      "file": "integrations.js",
+      "line": 12,
+      "rawPath": "/hooks/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /hooks",
+      "file": "integrations.js",
+      "line": 13,
+      "rawPath": "/hooks",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /hooks/{}",
+      "file": "integrations.js",
+      "line": 14,
+      "rawPath": "/hooks/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /hooks/{}",
+      "file": "integrations.js",
+      "line": 15,
+      "rawPath": "/hooks/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /externalservice/SMS",
+      "file": "integrations.js",
+      "line": 21,
+      "rawPath": "/externalservice/SMS",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /externalservice/SMS",
+      "file": "integrations.js",
+      "line": 21,
+      "rawPath": "/externalservice/SMS",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /externalservice/SMTP",
+      "file": "integrations.js",
+      "line": 22,
+      "rawPath": "/externalservice/SMTP",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /externalservice/SMTP",
+      "file": "integrations.js",
+      "line": 22,
+      "rawPath": "/externalservice/SMTP",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /externalservice/S3",
+      "file": "integrations.js",
+      "line": 24,
+      "rawPath": "/externalservice/S3",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /externalservice/S3",
+      "file": "integrations.js",
+      "line": 24,
+      "rawPath": "/externalservice/S3",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /externalservice/NOTIFICATION",
+      "file": "integrations.js",
+      "line": 25,
+      "rawPath": "/externalservice/NOTIFICATION",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /externalservice/NOTIFICATION",
+      "file": "integrations.js",
+      "line": 25,
+      "rawPath": "/externalservice/NOTIFICATION",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /externalevents/configuration",
+      "file": "integrations.js",
+      "line": 31,
+      "rawPath": "/externalevents/configuration",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /externalevents/configuration",
+      "file": "integrations.js",
+      "line": 32,
+      "rawPath": "/externalevents/configuration",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /smscampaigns",
+      "file": "integrations.js",
+      "line": 38,
+      "rawPath": "/smscampaigns",
+      "method": "GET"
+    },
+    {
+      "key": "GET /smscampaigns/{}",
+      "file": "integrations.js",
+      "line": 39,
+      "rawPath": "/smscampaigns/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /smscampaigns/template",
+      "file": "integrations.js",
+      "line": 40,
+      "rawPath": "/smscampaigns/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /smscampaigns",
+      "file": "integrations.js",
+      "line": 41,
+      "rawPath": "/smscampaigns",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /smscampaigns/{}",
+      "file": "integrations.js",
+      "line": 42,
+      "rawPath": "/smscampaigns/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /smscampaigns/{}",
+      "file": "integrations.js",
+      "line": 43,
+      "rawPath": "/smscampaigns/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /smscampaigns/{}?command=activate",
+      "file": "integrations.js",
+      "line": 44,
+      "rawPath": "/smscampaigns/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /smscampaigns/{}?command=close",
+      "file": "integrations.js",
+      "line": 45,
+      "rawPath": "/smscampaigns/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /smscampaigns/{}?command=reactivate",
+      "file": "integrations.js",
+      "line": 46,
+      "rawPath": "/smscampaigns/${id}?command=reactivate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /smscampaigns/preview",
+      "file": "integrations.js",
+      "line": 47,
+      "rawPath": "/smscampaigns/preview",
+      "method": "POST"
+    },
+    {
+      "key": "GET /sms",
+      "file": "integrations.js",
+      "line": 53,
+      "rawPath": "/sms",
+      "method": "GET"
+    },
+    {
+      "key": "GET /sms/{}",
+      "file": "integrations.js",
+      "line": 54,
+      "rawPath": "/sms/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /sms",
+      "file": "integrations.js",
+      "line": 55,
+      "rawPath": "/sms",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /sms/{}",
+      "file": "integrations.js",
+      "line": 56,
+      "rawPath": "/sms/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /sms/{}",
+      "file": "integrations.js",
+      "line": 57,
+      "rawPath": "/sms/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /sms/{}/messageByStatus",
+      "file": "integrations.js",
+      "line": 58,
+      "rawPath": "/sms/${campaignId}/messageByStatus",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email",
+      "file": "integrations.js",
+      "line": 64,
+      "rawPath": "/email",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/{}",
+      "file": "integrations.js",
+      "line": 65,
+      "rawPath": "/email/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /email",
+      "file": "integrations.js",
+      "line": 66,
+      "rawPath": "/email",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /email/{}",
+      "file": "integrations.js",
+      "line": 67,
+      "rawPath": "/email/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /email/{}",
+      "file": "integrations.js",
+      "line": 68,
+      "rawPath": "/email/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /email/pendingEmail",
+      "file": "integrations.js",
+      "line": 69,
+      "rawPath": "/email/pendingEmail",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/sentEmail",
+      "file": "integrations.js",
+      "line": 70,
+      "rawPath": "/email/sentEmail",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/failedEmail",
+      "file": "integrations.js",
+      "line": 71,
+      "rawPath": "/email/failedEmail",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/messageByStatus",
+      "file": "integrations.js",
+      "line": 72,
+      "rawPath": "/email/messageByStatus",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/campaign",
+      "file": "integrations.js",
+      "line": 78,
+      "rawPath": "/email/campaign",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/campaign/{}",
+      "file": "integrations.js",
+      "line": 79,
+      "rawPath": "/email/campaign/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/campaign/template",
+      "file": "integrations.js",
+      "line": 80,
+      "rawPath": "/email/campaign/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /email/campaign/template/{}",
+      "file": "integrations.js",
+      "line": 81,
+      "rawPath": "/email/campaign/template/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /email/campaign",
+      "file": "integrations.js",
+      "line": 82,
+      "rawPath": "/email/campaign",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /email/campaign/{}",
+      "file": "integrations.js",
+      "line": 83,
+      "rawPath": "/email/campaign/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /email/campaign/{}",
+      "file": "integrations.js",
+      "line": 84,
+      "rawPath": "/email/campaign/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /email/campaign/{}",
+      "file": "integrations.js",
+      "line": 85,
+      "rawPath": "/email/campaign/${id}?command=${command}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /email/campaign/{}?command=activate",
+      "file": "integrations.js",
+      "line": 86,
+      "rawPath": "/email/campaign/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /email/campaign/{}?command=close",
+      "file": "integrations.js",
+      "line": 87,
+      "rawPath": "/email/campaign/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /email/campaign/{}?command=reactivate",
+      "file": "integrations.js",
+      "line": 88,
+      "rawPath": "/email/campaign/${id}?command=reactivate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /email/campaign/preview",
+      "file": "integrations.js",
+      "line": 89,
+      "rawPath": "/email/campaign/preview",
+      "method": "POST"
+    },
+    {
+      "key": "GET /email/configuration",
+      "file": "integrations.js",
+      "line": 95,
+      "rawPath": "/email/configuration",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /email/configuration",
+      "file": "integrations.js",
+      "line": 96,
+      "rawPath": "/email/configuration",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /interestratecharts",
+      "file": "interest-rate-charts.js",
+      "line": 3,
+      "rawPath": "/interestratecharts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interestratecharts/{}",
+      "file": "interest-rate-charts.js",
+      "line": 4,
+      "rawPath": "/interestratecharts/${chartId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interestratecharts/template",
+      "file": "interest-rate-charts.js",
+      "line": 5,
+      "rawPath": "/interestratecharts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /interestratecharts",
+      "file": "interest-rate-charts.js",
+      "line": 6,
+      "rawPath": "/interestratecharts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /interestratecharts/{}",
+      "file": "interest-rate-charts.js",
+      "line": 7,
+      "rawPath": "/interestratecharts/${chartId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /interestratecharts/{}",
+      "file": "interest-rate-charts.js",
+      "line": 8,
+      "rawPath": "/interestratecharts/${chartId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /interestratecharts/{}/chartslabs",
+      "file": "interest-rate-charts.js",
+      "line": 10,
+      "rawPath": "/interestratecharts/${chartId}/chartslabs",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interestratecharts/{}/chartslabs/template",
+      "file": "interest-rate-charts.js",
+      "line": 11,
+      "rawPath": "/interestratecharts/${chartId}/chartslabs/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interestratecharts/{}/chartslabs/{}",
+      "file": "interest-rate-charts.js",
+      "line": 12,
+      "rawPath": "/interestratecharts/${chartId}/chartslabs/${slabId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /interestratecharts/{}/chartslabs",
+      "file": "interest-rate-charts.js",
+      "line": 13,
+      "rawPath": "/interestratecharts/${chartId}/chartslabs",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /interestratecharts/{}/chartslabs/{}",
+      "file": "interest-rate-charts.js",
+      "line": 14,
+      "rawPath": "/interestratecharts/${chartId}/chartslabs/${slabId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /interestratecharts/{}/chartslabs/{}",
+      "file": "interest-rate-charts.js",
+      "line": 15,
+      "rawPath": "/interestratecharts/${chartId}/chartslabs/${slabId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /interoperation/health",
+      "file": "interoperation.js",
+      "line": 3,
+      "rawPath": "/interoperation/health",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/accounts/{}",
+      "file": "interoperation.js",
+      "line": 5,
+      "rawPath": "/interoperation/accounts/${accountId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/accounts/{}/identifiers",
+      "file": "interoperation.js",
+      "line": 6,
+      "rawPath": "/interoperation/accounts/${accountId}/identifiers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/accounts/{}/kyc",
+      "file": "interoperation.js",
+      "line": 7,
+      "rawPath": "/interoperation/accounts/${accountId}/kyc",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/accounts/{}/transactions",
+      "file": "interoperation.js",
+      "line": 8,
+      "rawPath": "/interoperation/accounts/${accountId}/transactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/parties/{}/{}${subIdOrType ",
+      "file": "interoperation.js",
+      "line": 11,
+      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? ",
+      "method": "GET"
+    },
+    {
+      "key": "POST /interoperation/parties/{}/{}${subIdOrType ",
+      "file": "interoperation.js",
+      "line": 13,
+      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? ",
+      "method": "POST"
+    },
+    {
+      "key": "DELETE /interoperation/parties/{}/{}${subIdOrType ",
+      "file": "interoperation.js",
+      "line": 15,
+      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? ",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /interoperation/quotes",
+      "file": "interoperation.js",
+      "line": 17,
+      "rawPath": "/interoperation/quotes",
+      "method": "POST"
+    },
+    {
+      "key": "POST /interoperation/requests",
+      "file": "interoperation.js",
+      "line": 18,
+      "rawPath": "/interoperation/requests",
+      "method": "POST"
+    },
+    {
+      "key": "POST /interoperation/transfers",
+      "file": "interoperation.js",
+      "line": 19,
+      "rawPath": "/interoperation/transfers",
+      "method": "POST"
+    },
+    {
+      "key": "GET /interoperation/transactions/{}/quotes/{}",
+      "file": "interoperation.js",
+      "line": 21,
+      "rawPath": "/interoperation/transactions/${encodeURIComponent(transactionCode)}/quotes/${encodeURIComponent(quoteCode)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/transactions/{}/requests/{}",
+      "file": "interoperation.js",
+      "line": 22,
+      "rawPath": "/interoperation/transactions/${encodeURIComponent(transactionCode)}/requests/${encodeURIComponent(requestCode)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /interoperation/transactions/{}/transfers/{}",
+      "file": "interoperation.js",
+      "line": 23,
+      "rawPath": "/interoperation/transactions/${encodeURIComponent(transactionCode)}/transfers/${encodeURIComponent(transferCode)}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /interoperation/transactions/{}/disburse",
+      "file": "interoperation.js",
+      "line": 25,
+      "rawPath": "/interoperation/transactions/${accountId}/disburse",
+      "method": "POST"
+    },
+    {
+      "key": "POST /interoperation/transactions/{}/loanrepayment",
+      "file": "interoperation.js",
+      "line": 26,
+      "rawPath": "/interoperation/transactions/${accountId}/loanrepayment",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}",
+      "file": "loans.js",
+      "line": 4,
+      "rawPath": "/loans/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/template",
+      "file": "loans.js",
+      "line": 6,
+      "rawPath": "/loans/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/template",
+      "file": "loans.js",
+      "line": 7,
+      "rawPath": "/loans/${id}/template",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /loans/{}",
+      "file": "loans.js",
+      "line": 9,
+      "rawPath": "/loans/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loans/{}",
+      "file": "loans.js",
+      "line": 10,
+      "rawPath": "/loans/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /loans/{}?command=undoApproval",
+      "file": "loans.js",
+      "line": 13,
+      "rawPath": "/loans/${id}?command=undoApproval",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=reject",
+      "file": "loans.js",
+      "line": 14,
+      "rawPath": "/loans/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=withdrawnByApplicant",
+      "file": "loans.js",
+      "line": 15,
+      "rawPath": "/loans/${id}?command=withdrawnByApplicant",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=disburse",
+      "file": "loans.js",
+      "line": 16,
+      "rawPath": "/loans/${id}?command=disburse",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=disburseToSavings",
+      "file": "loans.js",
+      "line": 17,
+      "rawPath": "/loans/${id}?command=disburseToSavings",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=undoDisbursal",
+      "file": "loans.js",
+      "line": 18,
+      "rawPath": "/loans/${id}?command=undoDisbursal",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=writeoff",
+      "file": "loans.js",
+      "line": 19,
+      "rawPath": "/loans/${id}/transactions?command=writeoff",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=charge",
+      "file": "loans.js",
+      "line": 20,
+      "rawPath": "/loans/${id}/transactions?command=charge-off",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=undo",
+      "file": "loans.js",
+      "line": 21,
+      "rawPath": "/loans/${id}/transactions?command=undo-charge-off",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=close",
+      "file": "loans.js",
+      "line": 22,
+      "rawPath": "/loans/${id}/transactions?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=foreclosure",
+      "file": "loans.js",
+      "line": 24,
+      "rawPath": "/loans/${id}/transactions?command=foreclosure",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=reAge",
+      "file": "loans.js",
+      "line": 25,
+      "rawPath": "/loans/${id}/transactions?command=reAge",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/transactions/reage-preview",
+      "file": "loans.js",
+      "line": 26,
+      "rawPath": "/loans/${id}/transactions/reage-preview",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=undoReAge",
+      "file": "loans.js",
+      "line": 27,
+      "rawPath": "/loans/${id}/transactions?command=undoReAge",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=reAmortize",
+      "file": "loans.js",
+      "line": 28,
+      "rawPath": "/loans/${id}/transactions?command=reAmortize",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/transactions/reamortization-preview",
+      "file": "loans.js",
+      "line": 29,
+      "rawPath": "/loans/${id}/transactions/reamortization-preview",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=undoReAmortize",
+      "file": "loans.js",
+      "line": 30,
+      "rawPath": "/loans/${id}/transactions?command=undoReAmortize",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/transactions/template",
+      "file": "loans.js",
+      "line": 31,
+      "rawPath": "/loans/${id}/transactions/template",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /loans/{}?command=markAsFraud",
+      "file": "loans.js",
+      "line": 32,
+      "rawPath": "/loans/${id}?command=markAsFraud",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /loans/{}?command=recoverGuarantees",
+      "file": "loans.js",
+      "line": 33,
+      "rawPath": "/loans/${id}?command=recoverGuarantees",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=assignLoanOfficer",
+      "file": "loans.js",
+      "line": 34,
+      "rawPath": "/loans/${id}?command=assignLoanOfficer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}?command=unassignLoanOfficer",
+      "file": "loans.js",
+      "line": 35,
+      "rawPath": "/loans/${id}?command=unassignLoanOfficer",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/transactions",
+      "file": "loans.js",
+      "line": 37,
+      "rawPath": "/loans/${id}/transactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/transactions/{}",
+      "file": "loans.js",
+      "line": 38,
+      "rawPath": "/loans/${id}/transactions/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=repayment",
+      "file": "loans.js",
+      "line": 39,
+      "rawPath": "/loans/${id}/transactions?command=repayment",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=prepayLoan",
+      "file": "loans.js",
+      "line": 40,
+      "rawPath": "/loans/${id}/transactions?command=prepayLoan",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=downPayment",
+      "file": "loans.js",
+      "line": 41,
+      "rawPath": "/loans/${id}/transactions?command=downPayment",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=recoverypayment",
+      "file": "loans.js",
+      "line": 42,
+      "rawPath": "/loans/${id}/transactions?command=recoverypayment",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=goodwillCredit",
+      "file": "loans.js",
+      "line": 43,
+      "rawPath": "/loans/${id}/transactions?command=goodwillCredit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=creditBalanceRefund",
+      "file": "loans.js",
+      "line": 44,
+      "rawPath": "/loans/${id}/transactions?command=creditBalanceRefund",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=chargeRefund",
+      "file": "loans.js",
+      "line": 45,
+      "rawPath": "/loans/${id}/transactions?command=chargeRefund",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=interestPaymentWaiver",
+      "file": "loans.js",
+      "line": 46,
+      "rawPath": "/loans/${id}/transactions?command=interestPaymentWaiver",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=merchantIssuedRefund",
+      "file": "loans.js",
+      "line": 47,
+      "rawPath": "/loans/${id}/transactions?command=merchantIssuedRefund",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=payoutRefund",
+      "file": "loans.js",
+      "line": 48,
+      "rawPath": "/loans/${id}/transactions?command=payoutRefund",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=refundByCash",
+      "file": "loans.js",
+      "line": 49,
+      "rawPath": "/loans/${id}/transactions?command=refundByCash",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=refundByTransfer",
+      "file": "loans.js",
+      "line": 50,
+      "rawPath": "/loans/${id}/transactions?command=refundByTransfer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions?command=waiveinterest",
+      "file": "loans.js",
+      "line": 51,
+      "rawPath": "/loans/${id}/transactions?command=waiveinterest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions/{}?command=chargeback",
+      "file": "loans.js",
+      "line": 52,
+      "rawPath": "/loans/${id}/transactions/${txId}?command=chargeback",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions/{}?command=reverse",
+      "file": "loans.js",
+      "line": 53,
+      "rawPath": "/loans/${id}/transactions/${txId}?command=reverse",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions/{}?command=undo",
+      "file": "loans.js",
+      "line": 54,
+      "rawPath": "/loans/${id}/transactions/${txId}?command=undo",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/transactions/{}?command=adjust",
+      "file": "loans.js",
+      "line": 55,
+      "rawPath": "/loans/${id}/transactions/${txId}?command=adjust",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loans/{}/transactions/{}",
+      "file": "loans.js",
+      "line": 56,
+      "rawPath": "/loans/${id}/transactions/${txId}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /loans/{}/schedule?command=calculateLoanSchedule",
+      "file": "loans.js",
+      "line": 61,
+      "rawPath": "/loans/${id}/schedule?command=calculateLoanSchedule",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/schedule?command=updateSchedule",
+      "file": "loans.js",
+      "line": 62,
+      "rawPath": "/loans/${id}/schedule?command=updateSchedule",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/charges",
+      "file": "loans.js",
+      "line": 64,
+      "rawPath": "/loans/${id}/charges",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/charges/template",
+      "file": "loans.js",
+      "line": 65,
+      "rawPath": "/loans/${id}/charges/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/charges/{}",
+      "file": "loans.js",
+      "line": 66,
+      "rawPath": "/loans/${id}/charges/${cid}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /loans/{}/charges/{}",
+      "file": "loans.js",
+      "line": 67,
+      "rawPath": "/loans/${id}/charges/${cid}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /loans/{}/charges/{}?command=waive",
+      "file": "loans.js",
+      "line": 68,
+      "rawPath": "/loans/${id}/charges/${cid}?command=waive",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/charges/{}?command=paycharge",
+      "file": "loans.js",
+      "line": 69,
+      "rawPath": "/loans/${id}/charges/${cid}?command=paycharge",
+      "method": "POST"
+    },
+    {
+      "key": "POST /loans/{}/charges/{}?command=adjustment",
+      "file": "loans.js",
+      "line": 70,
+      "rawPath": "/loans/${id}/charges/${cid}?command=adjustment",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/charges",
+      "file": "loans.js",
+      "line": 71,
+      "rawPath": "/loans/${id}/charges",
+      "method": "GET"
+    },
+    {
+      "key": "DELETE /loans/{}/charges/{}",
+      "file": "loans.js",
+      "line": 72,
+      "rawPath": "/loans/${id}/charges/${cid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loans/{}/collaterals",
+      "file": "loans.js",
+      "line": 74,
+      "rawPath": "/loans/${id}/collaterals",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/glimAccount/{}",
+      "file": "loans.js",
+      "line": 75,
+      "rawPath": "/loans/glimAccount/${glimId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/glimAccount/{}",
+      "file": "loans.js",
+      "line": 76,
+      "rawPath": "/loans/glimAccount/${glimId}?command=${command}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/collaterals/template",
+      "file": "loans.js",
+      "line": 77,
+      "rawPath": "/loans/${id}/collaterals/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/collaterals/{}",
+      "file": "loans.js",
+      "line": 78,
+      "rawPath": "/loans/${id}/collaterals/${cid}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/collaterals",
+      "file": "loans.js",
+      "line": 79,
+      "rawPath": "/loans/${id}/collaterals",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loans/{}/collaterals/{}",
+      "file": "loans.js",
+      "line": 80,
+      "rawPath": "/loans/${id}/collaterals/${cid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loans/{}/collaterals/{}",
+      "file": "loans.js",
+      "line": 81,
+      "rawPath": "/loans/${id}/collaterals/${cid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loans/{}/guarantors",
+      "file": "loans.js",
+      "line": 83,
+      "rawPath": "/loans/${id}/guarantors",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/guarantors/template",
+      "file": "loans.js",
+      "line": 84,
+      "rawPath": "/loans/${id}/guarantors/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/guarantors/{}",
+      "file": "loans.js",
+      "line": 85,
+      "rawPath": "/loans/${id}/guarantors/${gid}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/guarantors/accounts/template",
+      "file": "loans.js",
+      "line": 86,
+      "rawPath": "/loans/${id}/guarantors/accounts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/guarantors",
+      "file": "loans.js",
+      "line": 87,
+      "rawPath": "/loans/${id}/guarantors",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loans/{}/guarantors/{}",
+      "file": "loans.js",
+      "line": 88,
+      "rawPath": "/loans/${id}/guarantors/${gid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loans/{}/guarantors/{}",
+      "file": "loans.js",
+      "line": 89,
+      "rawPath": "/loans/${id}/guarantors/${gid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loans/{}/disbursements/{}",
+      "file": "loans.js",
+      "line": 91,
+      "rawPath": "/loans/${id}/disbursements/${disbId}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /loans/{}/disbursements/{}",
+      "file": "loans.js",
+      "line": 92,
+      "rawPath": "/loans/${id}/disbursements/${disbId}",
+      "method": "PUT"
+    },
+    {
+      "key": "PUT /loans/{}/disbursements/editDisbursements",
+      "file": "loans.js",
+      "line": 93,
+      "rawPath": "/loans/${id}/disbursements/editDisbursements",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /loans/{}/delinquency-actions",
+      "file": "loans.js",
+      "line": 95,
+      "rawPath": "/loans/${id}/delinquency-actions",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/delinquency-actions",
+      "file": "loans.js",
+      "line": 96,
+      "rawPath": "/loans/${id}/delinquency-actions",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/delinquencytags",
+      "file": "loans.js",
+      "line": 97,
+      "rawPath": "/loans/${id}/delinquencytags",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/approved-amount",
+      "file": "loans.js",
+      "line": 99,
+      "rawPath": "/loans/${id}/approved-amount",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /loans/{}/approved-amount",
+      "file": "loans.js",
+      "line": 100,
+      "rawPath": "/loans/${id}/approved-amount",
+      "method": "PUT"
+    },
+    {
+      "key": "PUT /loans/{}/available-disbursement-amount",
+      "file": "loans.js",
+      "line": 101,
+      "rawPath": "/loans/${id}/available-disbursement-amount",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /loans/{}/interest-pauses",
+      "file": "loans.js",
+      "line": 105,
+      "rawPath": "/loans/${id}/interest-pauses",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/interest-pauses",
+      "file": "loans.js",
+      "line": 106,
+      "rawPath": "/loans/${id}/interest-pauses",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loans/{}/interest-pauses/{}",
+      "file": "loans.js",
+      "line": 107,
+      "rawPath": "/loans/${id}/interest-pauses/${vid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loans/{}/interest-pauses/{}",
+      "file": "loans.js",
+      "line": 108,
+      "rawPath": "/loans/${id}/interest-pauses/${vid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loans/{}/buydown-fees",
+      "file": "loans.js",
+      "line": 110,
+      "rawPath": "/loans/${id}/buydown-fees",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/buydown-fees/{}",
+      "file": "loans.js",
+      "line": 111,
+      "rawPath": "/loans/${id}/buydown-fees/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/capitalized-incomes",
+      "file": "loans.js",
+      "line": 112,
+      "rawPath": "/loans/${id}/capitalized-incomes",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/deferredincome",
+      "file": "loans.js",
+      "line": 113,
+      "rawPath": "/loans/${id}/deferredincome",
+      "method": "GET"
+    },
+    {
+      "key": "GET /rescheduleloans/template",
+      "file": "loans.js",
+      "line": 115,
+      "rawPath": "/rescheduleloans/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /rescheduleloans",
+      "file": "loans.js",
+      "line": 116,
+      "rawPath": "/rescheduleloans",
+      "method": "POST"
+    },
+    {
+      "key": "GET /rescheduleloans",
+      "file": "loans.js",
+      "line": 117,
+      "rawPath": "/rescheduleloans",
+      "method": "GET"
+    },
+    {
+      "key": "GET /rescheduleloans/{}",
+      "file": "loans.js",
+      "line": 118,
+      "rawPath": "/rescheduleloans/${schedId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /rescheduleloans/{}?command=approve",
+      "file": "loans.js",
+      "line": 119,
+      "rawPath": "/rescheduleloans/${id}?command=approve",
+      "method": "POST"
+    },
+    {
+      "key": "POST /rescheduleloans/{}?command=reject",
+      "file": "loans.js",
+      "line": 120,
+      "rawPath": "/rescheduleloans/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/postdatedchecks",
+      "file": "loans.js",
+      "line": 122,
+      "rawPath": "/loans/${id}/postdatedchecks",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/{}/postdatedchecks/{}",
+      "file": "loans.js",
+      "line": 123,
+      "rawPath": "/loans/${id}/postdatedchecks/${instId}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /loans/{}/postdatedchecks/{}",
+      "file": "loans.js",
+      "line": 125,
+      "rawPath": "/loans/${id}/postdatedchecks/${pdcId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loans/{}/postdatedchecks/{}",
+      "file": "loans.js",
+      "line": 126,
+      "rawPath": "/loans/${id}/postdatedchecks/${pdcId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /external-asset-owners/transfers",
+      "file": "loans.js",
+      "line": 128,
+      "rawPath": "/external-asset-owners/transfers",
+      "method": "GET"
+    },
+    {
+      "key": "POST /external-asset-owners/transfers/loans/{}",
+      "file": "loans.js",
+      "line": 129,
+      "rawPath": "/external-asset-owners/transfers/loans/${id}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/originators",
+      "file": "loans.js",
+      "line": 132,
+      "rawPath": "/loans/${id}/originators",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}/originators/{}",
+      "file": "loans.js",
+      "line": 134,
+      "rawPath": "/loans/${id}/originators/${originatorId}",
+      "method": "POST"
+    },
+    {
+      "key": "DELETE /loans/{}/originators/{}",
+      "file": "loans.js",
+      "line": 135,
+      "rawPath": "/loans/${id}/originators/${originatorId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /loans/loanreassignment",
+      "file": "loans.js",
+      "line": 137,
+      "rawPath": "/loans/loanreassignment",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/loanreassignment/template",
+      "file": "loans.js",
+      "line": 138,
+      "rawPath": "/loans/loanreassignment/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/at-date/{}",
+      "file": "loans.js",
+      "line": 140,
+      "rawPath": "/loans/at-date/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/catch-up",
+      "file": "loans.js",
+      "line": 144,
+      "rawPath": "/loans/catch-up",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/is-catch-up-running",
+      "file": "loans.js",
+      "line": 145,
+      "rawPath": "/loans/is-catch-up-running",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/oldest-cob-closed",
+      "file": "loans.js",
+      "line": 146,
+      "rawPath": "/loans/oldest-cob-closed",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loans/locked",
+      "file": "loans.js",
+      "line": 147,
+      "rawPath": "/loans/locked",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/at-date/search",
+      "file": "loans.js",
+      "line": 148,
+      "rawPath": "/loans/at-date/search",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loans/{}/capitalized-incomes/{}",
+      "file": "loans.js",
+      "line": 150,
+      "rawPath": "/loans/${id}/capitalized-incomes/${loanTransactionId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loans/{}",
+      "file": "loans.js",
+      "line": 151,
+      "rawPath": "/loans/${id}?command=${cmd}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /loan-collateral-management/{}",
+      "file": "loans.js",
+      "line": 157,
+      "rawPath": "/loan-collateral-management/${collateralId}",
+      "method": "GET"
+    },
+    {
+      "key": "DELETE /loan-collateral-management/{}",
+      "file": "loans.js",
+      "line": 158,
+      "rawPath": "/loan-collateral-management/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /delinquency/buckets",
+      "file": "loans.js",
+      "line": 164,
+      "rawPath": "/delinquency/buckets",
+      "method": "GET"
+    },
+    {
+      "key": "GET /delinquency/buckets/template",
+      "file": "loans.js",
+      "line": 165,
+      "rawPath": "/delinquency/buckets/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /delinquency/buckets/{}",
+      "file": "loans.js",
+      "line": 166,
+      "rawPath": "/delinquency/buckets/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /delinquency/buckets",
+      "file": "loans.js",
+      "line": 167,
+      "rawPath": "/delinquency/buckets",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /delinquency/buckets/{}",
+      "file": "loans.js",
+      "line": 168,
+      "rawPath": "/delinquency/buckets/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /delinquency/buckets/{}",
+      "file": "loans.js",
+      "line": 169,
+      "rawPath": "/delinquency/buckets/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /delinquency/ranges",
+      "file": "loans.js",
+      "line": 170,
+      "rawPath": "/delinquency/ranges",
+      "method": "GET"
+    },
+    {
+      "key": "GET /delinquency/ranges/{}",
+      "file": "loans.js",
+      "line": 171,
+      "rawPath": "/delinquency/ranges/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /delinquency/ranges",
+      "file": "loans.js",
+      "line": 172,
+      "rawPath": "/delinquency/ranges",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /delinquency/ranges/{}",
+      "file": "loans.js",
+      "line": 173,
+      "rawPath": "/delinquency/ranges/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /delinquency/ranges/{}",
+      "file": "loans.js",
+      "line": 174,
+      "rawPath": "/delinquency/ranges/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loan-originators",
+      "file": "loans.js",
+      "line": 181,
+      "rawPath": "/loan-originators",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loan-originators/{}",
+      "file": "loans.js",
+      "line": 182,
+      "rawPath": "/loan-originators/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loan-originators/template",
+      "file": "loans.js",
+      "line": 183,
+      "rawPath": "/loan-originators/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loan-originators",
+      "file": "loans.js",
+      "line": 184,
+      "rawPath": "/loan-originators",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loan-originators/{}",
+      "file": "loans.js",
+      "line": 185,
+      "rawPath": "/loan-originators/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loan-originators/{}",
+      "file": "loans.js",
+      "line": 186,
+      "rawPath": "/loan-originators/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /external-asset-owners",
+      "file": "loans.js",
+      "line": 192,
+      "rawPath": "/external-asset-owners",
+      "method": "GET"
+    },
+    {
+      "key": "POST /external-asset-owners",
+      "file": "loans.js",
+      "line": 193,
+      "rawPath": "/external-asset-owners",
+      "method": "POST"
+    },
+    {
+      "key": "GET /external-asset-owners/transfers/{}/journal-entries",
+      "file": "loans.js",
+      "line": 194,
+      "rawPath": "/external-asset-owners/transfers/${transferId}/journal-entries",
+      "method": "GET"
+    },
+    {
+      "key": "GET /external-asset-owners/owners/external-id/{}/journal-entries",
+      "file": "loans.js",
+      "line": 195,
+      "rawPath": "/external-asset-owners/owners/external-id/${ownerExternalId}/journal-entries",
+      "method": "GET"
+    },
+    {
+      "key": "GET /external-asset-owners/transfers/active-transfer",
+      "file": "loans.js",
+      "line": 197,
+      "rawPath": "/external-asset-owners/transfers/active-transfer",
+      "method": "GET"
+    },
+    {
+      "key": "GET /external-asset-owners/loan-product/{}/attributes",
+      "file": "loans.js",
+      "line": 198,
+      "rawPath": "/external-asset-owners/loan-product/${loanProductId}/attributes",
+      "method": "GET"
+    },
+    {
+      "key": "POST /external-asset-owners/loan-product/{}/attributes",
+      "file": "loans.js",
+      "line": 199,
+      "rawPath": "/external-asset-owners/loan-product/${loanProductId}/attributes",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /external-asset-owners/loan-product/{}/attributes/{}",
+      "file": "loans.js",
+      "line": 200,
+      "rawPath": "/external-asset-owners/loan-product/${loanProductId}/attributes/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /external-asset-owners/transfers/{}",
+      "file": "loans.js",
+      "line": 201,
+      "rawPath": "/external-asset-owners/transfers/${id}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /external-asset-owners/search",
+      "file": "loans.js",
+      "line": 202,
+      "rawPath": "/external-asset-owners/search",
+      "method": "POST"
+    },
+    {
+      "key": "GET /collateral-management",
+      "file": "loans.js",
+      "line": 208,
+      "rawPath": "/collateral-management",
+      "method": "GET"
+    },
+    {
+      "key": "GET /collateral-management/{}",
+      "file": "loans.js",
+      "line": 209,
+      "rawPath": "/collateral-management/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /collateral-management/template",
+      "file": "loans.js",
+      "line": 210,
+      "rawPath": "/collateral-management/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /collateral-management",
+      "file": "loans.js",
+      "line": 211,
+      "rawPath": "/collateral-management",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /collateral-management/{}",
+      "file": "loans.js",
+      "line": 212,
+      "rawPath": "/collateral-management/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /collateral-management/{}",
+      "file": "loans.js",
+      "line": 213,
+      "rawPath": "/collateral-management/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /charges",
+      "file": "misc.js",
+      "line": 3,
+      "rawPath": "/charges",
+      "method": "GET"
+    },
+    {
+      "key": "GET /charges/{}",
+      "file": "misc.js",
+      "line": 10,
+      "rawPath": "/charges/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /charges/template",
+      "file": "misc.js",
+      "line": 11,
+      "rawPath": "/charges/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /charges",
+      "file": "misc.js",
+      "line": 12,
+      "rawPath": "/charges",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /charges/{}",
+      "file": "misc.js",
+      "line": 13,
+      "rawPath": "/charges/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /charges/{}",
+      "file": "misc.js",
+      "line": 14,
+      "rawPath": "/charges/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /templates",
+      "file": "misc.js",
+      "line": 20,
+      "rawPath": "/templates",
+      "method": "GET"
+    },
+    {
+      "key": "GET /templates/{}",
+      "file": "misc.js",
+      "line": 21,
+      "rawPath": "/templates/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /templates/template",
+      "file": "misc.js",
+      "line": 22,
+      "rawPath": "/templates/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /templates/{}/template",
+      "file": "misc.js",
+      "line": 23,
+      "rawPath": "/templates/${id}/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /templates",
+      "file": "misc.js",
+      "line": 24,
+      "rawPath": "/templates",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /templates/{}",
+      "file": "misc.js",
+      "line": 25,
+      "rawPath": "/templates/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /templates/{}",
+      "file": "misc.js",
+      "line": 26,
+      "rawPath": "/templates/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /templates/{}",
+      "file": "misc.js",
+      "line": 27,
+      "rawPath": "/templates/${id}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /self/userdetails",
+      "file": "misc.js",
+      "line": 33,
+      "rawPath": "/self/userdetails",
+      "method": "GET"
+    },
+    {
+      "key": "POST /self/registration",
+      "file": "misc.js",
+      "line": 34,
+      "rawPath": "/self/registration",
+      "method": "POST"
+    },
+    {
+      "key": "POST /self/registration/user",
+      "file": "misc.js",
+      "line": 35,
+      "rawPath": "/self/registration/user",
+      "method": "POST"
+    },
+    {
+      "key": "POST /self/registration/resetpassword",
+      "file": "misc.js",
+      "line": 36,
+      "rawPath": "/self/registration/resetpassword",
+      "method": "POST"
+    },
+    {
+      "key": "GET /self/beneficiaries/tpt",
+      "file": "misc.js",
+      "line": 37,
+      "rawPath": "/self/beneficiaries/tpt",
+      "method": "GET"
+    },
+    {
+      "key": "POST /self/beneficiaries/tpt",
+      "file": "misc.js",
+      "line": 38,
+      "rawPath": "/self/beneficiaries/tpt",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /self/beneficiaries/tpt/{}",
+      "file": "misc.js",
+      "line": 39,
+      "rawPath": "/self/beneficiaries/tpt/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /self/beneficiaries/tpt/{}",
+      "file": "misc.js",
+      "line": 40,
+      "rawPath": "/self/beneficiaries/tpt/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /search",
+      "file": "misc.js",
+      "line": 47,
+      "rawPath": "/search",
+      "method": "GET"
+    },
+    {
+      "key": "POST /search/advance",
+      "file": "misc.js",
+      "line": 48,
+      "rawPath": "/search/advance",
+      "method": "POST"
+    },
+    {
+      "key": "GET /search/template",
+      "file": "misc.js",
+      "line": 49,
+      "rawPath": "/search/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/documents",
+      "file": "misc.js",
+      "line": 77,
+      "rawPath": "/${entityType}/${entityId}/documents",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/documents/{}",
+      "file": "misc.js",
+      "line": 78,
+      "rawPath": "/${entityType}/${entityId}/documents/${docId}",
+      "method": "GET"
+    },
+    {
+      "key": "DELETE /{}/{}/documents/{}",
+      "file": "misc.js",
+      "line": 82,
+      "rawPath": "/${entityType}/${entityId}/documents/${docId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "DELETE /{}/{}/images",
+      "file": "misc.js",
+      "line": 91,
+      "rawPath": "/${entityType}/${entityId}/images",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /{}/{}/notes",
+      "file": "misc.js",
+      "line": 97,
+      "rawPath": "/${entityType}/${entityId}/notes",
+      "method": "GET"
+    },
+    {
+      "key": "GET /{}/{}/notes/{}",
+      "file": "misc.js",
+      "line": 98,
+      "rawPath": "/${entityType}/${entityId}/notes/${noteId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /{}/{}/notes",
+      "file": "misc.js",
+      "line": 99,
+      "rawPath": "/${entityType}/${entityId}/notes",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /{}/{}/notes/{}",
+      "file": "misc.js",
+      "line": 100,
+      "rawPath": "/${entityType}/${entityId}/notes/${noteId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /{}/{}/notes/{}",
+      "file": "misc.js",
+      "line": 101,
+      "rawPath": "/${entityType}/${entityId}/notes/${noteId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /accounttransfers",
+      "file": "misc.js",
+      "line": 107,
+      "rawPath": "/accounttransfers",
+      "method": "GET"
+    },
+    {
+      "key": "POST /accounttransfers",
+      "file": "misc.js",
+      "line": 108,
+      "rawPath": "/accounttransfers",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounttransfers/refundByTransfer",
+      "file": "misc.js",
+      "line": 109,
+      "rawPath": "/accounttransfers/refundByTransfer",
+      "method": "POST"
+    },
+    {
+      "key": "GET /accounttransfers/templateRefundByTransfer",
+      "file": "misc.js",
+      "line": 110,
+      "rawPath": "/accounttransfers/templateRefundByTransfer",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accounttransfers/template",
+      "file": "misc.js",
+      "line": 111,
+      "rawPath": "/accounttransfers/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accounttransfers/{}",
+      "file": "misc.js",
+      "line": 112,
+      "rawPath": "/accounttransfers/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /accounttransfers/{}",
+      "file": "misc.js",
+      "line": 113,
+      "rawPath": "/accounttransfers/${id}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /standinginstructions",
+      "file": "misc.js",
+      "line": 119,
+      "rawPath": "/standinginstructions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /standinginstructions/{}",
+      "file": "misc.js",
+      "line": 120,
+      "rawPath": "/standinginstructions/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /standinginstructions/template",
+      "file": "misc.js",
+      "line": 121,
+      "rawPath": "/standinginstructions/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /standinginstructions",
+      "file": "misc.js",
+      "line": 122,
+      "rawPath": "/standinginstructions",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /standinginstructions/{}",
+      "file": "misc.js",
+      "line": 123,
+      "rawPath": "/standinginstructions/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /standinginstructionrunhistory",
+      "file": "misc.js",
+      "line": 124,
+      "rawPath": "/standinginstructionrunhistory",
+      "method": "GET"
+    },
+    {
+      "key": "GET /businessdate",
+      "file": "misc.js",
+      "line": 145,
+      "rawPath": "/businessdate",
+      "method": "GET"
+    },
+    {
+      "key": "GET /businessdate/{}",
+      "file": "misc.js",
+      "line": 146,
+      "rawPath": "/businessdate/${type}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /businessdate",
+      "file": "misc.js",
+      "line": 147,
+      "rawPath": "/businessdate",
+      "method": "POST"
+    },
+    {
+      "key": "GET /imports",
+      "file": "misc.js",
+      "line": 157,
+      "rawPath": "/imports",
+      "method": "GET"
+    },
+    {
+      "key": "GET /imports/getOutputTemplateLocation",
+      "file": "misc.js",
+      "line": 158,
+      "rawPath": "/imports/getOutputTemplateLocation",
+      "method": "GET"
+    },
+    {
+      "key": "GET /mixtaxonomy",
+      "file": "mix-xbrl.js",
+      "line": 3,
+      "rawPath": "/mixtaxonomy",
+      "method": "GET"
+    },
+    {
+      "key": "GET /mixmapping",
+      "file": "mix-xbrl.js",
+      "line": 4,
+      "rawPath": "/mixmapping",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /mixmapping",
+      "file": "mix-xbrl.js",
+      "line": 5,
+      "rawPath": "/mixmapping",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /mixreport",
+      "file": "mix-xbrl.js",
+      "line": 6,
+      "rawPath": "/mixreport",
+      "method": "GET"
+    },
+    {
+      "key": "GET /officetransactions",
+      "file": "office-transactions.js",
+      "line": 3,
+      "rawPath": "/officetransactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /officetransactions/template",
+      "file": "office-transactions.js",
+      "line": 4,
+      "rawPath": "/officetransactions/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /officetransactions",
+      "file": "office-transactions.js",
+      "line": 5,
+      "rawPath": "/officetransactions",
+      "method": "POST"
+    },
+    {
+      "key": "DELETE /officetransactions/{}",
+      "file": "office-transactions.js",
+      "line": 6,
+      "rawPath": "/officetransactions/${transactionId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /offices",
+      "file": "organization.js",
+      "line": 3,
+      "rawPath": "/offices",
+      "method": "GET"
+    },
+    {
+      "key": "GET /offices/{}",
+      "file": "organization.js",
+      "line": 4,
+      "rawPath": "/offices/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /offices/template",
+      "file": "organization.js",
+      "line": 5,
+      "rawPath": "/offices/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /offices",
+      "file": "organization.js",
+      "line": 6,
+      "rawPath": "/offices",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /offices/{}",
+      "file": "organization.js",
+      "line": 7,
+      "rawPath": "/offices/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /staff",
+      "file": "organization.js",
+      "line": 13,
+      "rawPath": "/staff",
+      "method": "GET"
+    },
+    {
+      "key": "GET /staff/{}",
+      "file": "organization.js",
+      "line": 14,
+      "rawPath": "/staff/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /staff",
+      "file": "organization.js",
+      "line": 15,
+      "rawPath": "/staff",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /staff/{}",
+      "file": "organization.js",
+      "line": 16,
+      "rawPath": "/staff/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /tellers",
+      "file": "organization.js",
+      "line": 22,
+      "rawPath": "/tellers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /cashiers",
+      "file": "organization.js",
+      "line": 23,
+      "rawPath": "/cashiers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}",
+      "file": "organization.js",
+      "line": 24,
+      "rawPath": "/tellers/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /tellers",
+      "file": "organization.js",
+      "line": 25,
+      "rawPath": "/tellers",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /tellers/{}",
+      "file": "organization.js",
+      "line": 26,
+      "rawPath": "/tellers/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /tellers/{}",
+      "file": "organization.js",
+      "line": 27,
+      "rawPath": "/tellers/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /tellers/{}/cashiers",
+      "file": "organization.js",
+      "line": 28,
+      "rawPath": "/tellers/${id}/cashiers",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/cashiers/{}",
+      "file": "organization.js",
+      "line": 29,
+      "rawPath": "/tellers/${id}/cashiers/${cid}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/cashiers/template",
+      "file": "organization.js",
+      "line": 30,
+      "rawPath": "/tellers/${id}/cashiers/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /tellers/{}/cashiers",
+      "file": "organization.js",
+      "line": 31,
+      "rawPath": "/tellers/${id}/cashiers",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /tellers/{}/cashiers/{}",
+      "file": "organization.js",
+      "line": 32,
+      "rawPath": "/tellers/${id}/cashiers/${cid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /tellers/{}/cashiers/{}",
+      "file": "organization.js",
+      "line": 33,
+      "rawPath": "/tellers/${id}/cashiers/${cid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /tellers/{}/cashiers/{}/settle",
+      "file": "organization.js",
+      "line": 34,
+      "rawPath": "/tellers/${id}/cashiers/${cid}/settle",
+      "method": "POST"
+    },
+    {
+      "key": "POST /tellers/{}/cashiers/{}/allocate",
+      "file": "organization.js",
+      "line": 35,
+      "rawPath": "/tellers/${id}/cashiers/${cid}/allocate",
+      "method": "POST"
+    },
+    {
+      "key": "GET /tellers/{}/cashiers/{}/transactions",
+      "file": "organization.js",
+      "line": 36,
+      "rawPath": "/tellers/${id}/cashiers/${cid}/transactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/cashiers/{}/summaryandtransactions",
+      "file": "organization.js",
+      "line": 37,
+      "rawPath": "/tellers/${id}/cashiers/${cid}/summaryandtransactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/cashiers/{}/transactions/template",
+      "file": "organization.js",
+      "line": 38,
+      "rawPath": "/tellers/${id}/cashiers/${cid}/transactions/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/transactions",
+      "file": "organization.js",
+      "line": 39,
+      "rawPath": "/tellers/${id}/transactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/transactions/{}",
+      "file": "organization.js",
+      "line": 40,
+      "rawPath": "/tellers/${id}/transactions/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /tellers/{}/journals",
+      "file": "organization.js",
+      "line": 41,
+      "rawPath": "/tellers/${id}/journals",
+      "method": "GET"
+    },
+    {
+      "key": "GET /cashiersjournal",
+      "file": "organization.js",
+      "line": 47,
+      "rawPath": "/cashiersjournal",
+      "method": "GET"
+    },
+    {
+      "key": "GET /holidays",
+      "file": "organization.js",
+      "line": 53,
+      "rawPath": "/holidays",
+      "method": "GET"
+    },
+    {
+      "key": "GET /holidays/{}",
+      "file": "organization.js",
+      "line": 54,
+      "rawPath": "/holidays/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /holidays/template",
+      "file": "organization.js",
+      "line": 55,
+      "rawPath": "/holidays/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /holidays",
+      "file": "organization.js",
+      "line": 56,
+      "rawPath": "/holidays",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /holidays/{}",
+      "file": "organization.js",
+      "line": 57,
+      "rawPath": "/holidays/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /holidays/{}",
+      "file": "organization.js",
+      "line": 58,
+      "rawPath": "/holidays/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /holidays/{}?command=activate",
+      "file": "organization.js",
+      "line": 59,
+      "rawPath": "/holidays/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "GET /workingdays",
+      "file": "organization.js",
+      "line": 64,
+      "rawPath": "/workingdays",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /workingdays",
+      "file": "organization.js",
+      "line": 64,
+      "rawPath": "/workingdays",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /workingdays/template",
+      "file": "organization.js",
+      "line": 64,
+      "rawPath": "/workingdays/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /funds",
+      "file": "organization.js",
+      "line": 69,
+      "rawPath": "/funds",
+      "method": "GET"
+    },
+    {
+      "key": "GET /funds/{}",
+      "file": "organization.js",
+      "line": 70,
+      "rawPath": "/funds/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /funds",
+      "file": "organization.js",
+      "line": 71,
+      "rawPath": "/funds",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /funds/{}",
+      "file": "organization.js",
+      "line": 72,
+      "rawPath": "/funds/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /codes",
+      "file": "organization.js",
+      "line": 78,
+      "rawPath": "/codes",
+      "method": "GET"
+    },
+    {
+      "key": "GET /codes/{}",
+      "file": "organization.js",
+      "line": 79,
+      "rawPath": "/codes/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /codes/name/{}",
+      "file": "organization.js",
+      "line": 80,
+      "rawPath": "/codes/name/${name}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /codes",
+      "file": "organization.js",
+      "line": 81,
+      "rawPath": "/codes",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /codes/{}",
+      "file": "organization.js",
+      "line": 82,
+      "rawPath": "/codes/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /codes/{}",
+      "file": "organization.js",
+      "line": 83,
+      "rawPath": "/codes/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /codes/{}/codevalues",
+      "file": "organization.js",
+      "line": 84,
+      "rawPath": "/codes/${id}/codevalues",
+      "method": "GET"
+    },
+    {
+      "key": "GET /codes/{}/codevalues/{}",
+      "file": "organization.js",
+      "line": 85,
+      "rawPath": "/codes/${id}/codevalues/${vid}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /codes/{}/codevalues",
+      "file": "organization.js",
+      "line": 86,
+      "rawPath": "/codes/${id}/codevalues",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /codes/{}/codevalues/{}",
+      "file": "organization.js",
+      "line": 87,
+      "rawPath": "/codes/${id}/codevalues/${vid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /codes/{}/codevalues/{}",
+      "file": "organization.js",
+      "line": 88,
+      "rawPath": "/codes/${id}/codevalues/${vid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /codes/name/{}/codevalues",
+      "file": "organization.js",
+      "line": 89,
+      "rawPath": "/codes/name/${name}/codevalues",
+      "method": "GET"
+    },
+    {
+      "key": "GET /codes/name/{}/codevalues/{}",
+      "file": "organization.js",
+      "line": 90,
+      "rawPath": "/codes/name/${name}/codevalues/${vid}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /codes/name/{}/codevalues",
+      "file": "organization.js",
+      "line": 91,
+      "rawPath": "/codes/name/${name}/codevalues",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /codes/name/{}/codevalues/{}",
+      "file": "organization.js",
+      "line": 92,
+      "rawPath": "/codes/name/${name}/codevalues/${vid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /codes/name/{}/codevalues/{}",
+      "file": "organization.js",
+      "line": 93,
+      "rawPath": "/codes/name/${name}/codevalues/${vid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /currencies",
+      "file": "organization.js",
+      "line": 99,
+      "rawPath": "/currencies",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /currencies",
+      "file": "organization.js",
+      "line": 102,
+      "rawPath": "/currencies",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /paymenttypes",
+      "file": "organization.js",
+      "line": 108,
+      "rawPath": "/paymenttypes",
+      "method": "GET"
+    },
+    {
+      "key": "GET /paymenttypes/{}",
+      "file": "organization.js",
+      "line": 109,
+      "rawPath": "/paymenttypes/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /paymenttypes",
+      "file": "organization.js",
+      "line": 110,
+      "rawPath": "/paymenttypes",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /paymenttypes/{}",
+      "file": "organization.js",
+      "line": 111,
+      "rawPath": "/paymenttypes/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /paymenttypes/{}",
+      "file": "organization.js",
+      "line": 112,
+      "rawPath": "/paymenttypes/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loanproducts",
+      "file": "products.js",
+      "line": 3,
+      "rawPath": "/loanproducts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loanproducts/basic-details",
+      "file": "products.js",
+      "line": 4,
+      "rawPath": "/loanproducts/basic-details",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loanproducts/{}",
+      "file": "products.js",
+      "line": 5,
+      "rawPath": "/loanproducts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /loanproducts/template",
+      "file": "products.js",
+      "line": 6,
+      "rawPath": "/loanproducts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loanproducts",
+      "file": "products.js",
+      "line": 7,
+      "rawPath": "/loanproducts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loanproducts/{}",
+      "file": "products.js",
+      "line": 8,
+      "rawPath": "/loanproducts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /savingsproducts",
+      "file": "products.js",
+      "line": 14,
+      "rawPath": "/savingsproducts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsproducts/{}",
+      "file": "products.js",
+      "line": 15,
+      "rawPath": "/savingsproducts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsproducts/template",
+      "file": "products.js",
+      "line": 16,
+      "rawPath": "/savingsproducts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /savingsproducts",
+      "file": "products.js",
+      "line": 17,
+      "rawPath": "/savingsproducts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /savingsproducts/{}",
+      "file": "products.js",
+      "line": 18,
+      "rawPath": "/savingsproducts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /savingsproducts/{}",
+      "file": "products.js",
+      "line": 19,
+      "rawPath": "/savingsproducts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /products/share",
+      "file": "products.js",
+      "line": 25,
+      "rawPath": "/products/share",
+      "method": "GET"
+    },
+    {
+      "key": "GET /products/share/{}",
+      "file": "products.js",
+      "line": 26,
+      "rawPath": "/products/share/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /products/share/template",
+      "file": "products.js",
+      "line": 27,
+      "rawPath": "/products/share/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /products/share",
+      "file": "products.js",
+      "line": 28,
+      "rawPath": "/products/share",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /products/share/{}",
+      "file": "products.js",
+      "line": 29,
+      "rawPath": "/products/share/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /products/{}/{}",
+      "file": "products.js",
+      "line": 31,
+      "rawPath": "/products/${encodeURIComponent(type)}/${productId}?command=${encodeURIComponent(cmd)}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /fixeddepositproducts",
+      "file": "products.js",
+      "line": 37,
+      "rawPath": "/fixeddepositproducts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositproducts/{}",
+      "file": "products.js",
+      "line": 38,
+      "rawPath": "/fixeddepositproducts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositproducts/template",
+      "file": "products.js",
+      "line": 39,
+      "rawPath": "/fixeddepositproducts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /fixeddepositproducts",
+      "file": "products.js",
+      "line": 40,
+      "rawPath": "/fixeddepositproducts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /fixeddepositproducts/{}",
+      "file": "products.js",
+      "line": 41,
+      "rawPath": "/fixeddepositproducts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /fixeddepositproducts/{}",
+      "file": "products.js",
+      "line": 42,
+      "rawPath": "/fixeddepositproducts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /recurringdepositproducts",
+      "file": "products.js",
+      "line": 48,
+      "rawPath": "/recurringdepositproducts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /recurringdepositproducts/{}",
+      "file": "products.js",
+      "line": 49,
+      "rawPath": "/recurringdepositproducts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /recurringdepositproducts/template",
+      "file": "products.js",
+      "line": 50,
+      "rawPath": "/recurringdepositproducts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /recurringdepositproducts",
+      "file": "products.js",
+      "line": 51,
+      "rawPath": "/recurringdepositproducts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /recurringdepositproducts/{}",
+      "file": "products.js",
+      "line": 52,
+      "rawPath": "/recurringdepositproducts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /recurringdepositproducts/{}",
+      "file": "products.js",
+      "line": 53,
+      "rawPath": "/recurringdepositproducts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /loanproducts/{}/productmix",
+      "file": "products.js",
+      "line": 60,
+      "rawPath": "/loanproducts/${id}/productmix",
+      "method": "GET"
+    },
+    {
+      "key": "POST /loanproducts/{}/productmix",
+      "file": "products.js",
+      "line": 62,
+      "rawPath": "/loanproducts/${id}/productmix",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /loanproducts/{}/productmix",
+      "file": "products.js",
+      "line": 63,
+      "rawPath": "/loanproducts/${id}/productmix",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /loanproducts/{}/productmix",
+      "file": "products.js",
+      "line": 64,
+      "rawPath": "/loanproducts/${id}/productmix",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /floatingrates",
+      "file": "products.js",
+      "line": 70,
+      "rawPath": "/floatingrates",
+      "method": "GET"
+    },
+    {
+      "key": "GET /floatingrates/{}",
+      "file": "products.js",
+      "line": 71,
+      "rawPath": "/floatingrates/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /floatingrates",
+      "file": "products.js",
+      "line": 72,
+      "rawPath": "/floatingrates",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /floatingrates/{}",
+      "file": "products.js",
+      "line": 73,
+      "rawPath": "/floatingrates/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /rates",
+      "file": "products.js",
+      "line": 79,
+      "rawPath": "/rates",
+      "method": "GET"
+    },
+    {
+      "key": "GET /rates/{}",
+      "file": "products.js",
+      "line": 80,
+      "rawPath": "/rates/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /rates",
+      "file": "products.js",
+      "line": 81,
+      "rawPath": "/rates",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /rates/{}",
+      "file": "products.js",
+      "line": 82,
+      "rawPath": "/rates/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /reportmailingjobs",
+      "file": "report-mailing.js",
+      "line": 3,
+      "rawPath": "/reportmailingjobs",
+      "method": "GET"
+    },
+    {
+      "key": "GET /reportmailingjobs/{}",
+      "file": "report-mailing.js",
+      "line": 4,
+      "rawPath": "/reportmailingjobs/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /reportmailingjobs/template",
+      "file": "report-mailing.js",
+      "line": 5,
+      "rawPath": "/reportmailingjobs/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /reportmailingjobs",
+      "file": "report-mailing.js",
+      "line": 6,
+      "rawPath": "/reportmailingjobs",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /reportmailingjobs/{}",
+      "file": "report-mailing.js",
+      "line": 7,
+      "rawPath": "/reportmailingjobs/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /reportmailingjobs/{}",
+      "file": "report-mailing.js",
+      "line": 8,
+      "rawPath": "/reportmailingjobs/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /reportmailingjobrunhistory",
+      "file": "report-mailing.js",
+      "line": 9,
+      "rawPath": "/reportmailingjobrunhistory",
+      "method": "GET"
+    },
+    {
+      "key": "GET /reports",
+      "file": "reports.js",
+      "line": 3,
+      "rawPath": "/reports",
+      "method": "GET"
+    },
+    {
+      "key": "GET /reports/template",
+      "file": "reports.js",
+      "line": 4,
+      "rawPath": "/reports/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /reports/{}",
+      "file": "reports.js",
+      "line": 5,
+      "rawPath": "/reports/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /reports",
+      "file": "reports.js",
+      "line": 6,
+      "rawPath": "/reports",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /reports/{}",
+      "file": "reports.js",
+      "line": 7,
+      "rawPath": "/reports/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /reports/{}",
+      "file": "reports.js",
+      "line": 8,
+      "rawPath": "/reports/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /runreports/{}",
+      "file": "reports.js",
+      "line": 14,
+      "rawPath": "/runreports/${encodeURIComponent(name)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /runreports/availableExports/{}",
+      "file": "reports.js",
+      "line": 16,
+      "rawPath": "/runreports/availableExports/${encodeURIComponent(name)}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /collectionsheet",
+      "file": "reports.js",
+      "line": 22,
+      "rawPath": "/collectionsheet",
+      "method": "POST"
+    },
+    {
+      "key": "POST /collectionsheet?command=saveCollectionSheet",
+      "file": "reports.js",
+      "line": 23,
+      "rawPath": "/collectionsheet?command=saveCollectionSheet",
+      "method": "POST"
+    },
+    {
+      "key": "GET /adhocquery",
+      "file": "reports.js",
+      "line": 29,
+      "rawPath": "/adhocquery",
+      "method": "GET"
+    },
+    {
+      "key": "GET /adhocquery/template",
+      "file": "reports.js",
+      "line": 30,
+      "rawPath": "/adhocquery/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /adhocquery/{}",
+      "file": "reports.js",
+      "line": 31,
+      "rawPath": "/adhocquery/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /adhocquery",
+      "file": "reports.js",
+      "line": 32,
+      "rawPath": "/adhocquery",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /adhocquery/{}",
+      "file": "reports.js",
+      "line": 33,
+      "rawPath": "/adhocquery/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /adhocquery/{}",
+      "file": "reports.js",
+      "line": 34,
+      "rawPath": "/adhocquery/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /adhocquery?command=execute",
+      "file": "reports.js",
+      "line": 35,
+      "rawPath": "/adhocquery?command=execute",
+      "method": "POST"
+    },
+    {
+      "key": "GET /entityDatatableChecks",
+      "file": "reports.js",
+      "line": 41,
+      "rawPath": "/entityDatatableChecks",
+      "method": "GET"
+    },
+    {
+      "key": "GET /entityDatatableChecks/template",
+      "file": "reports.js",
+      "line": 42,
+      "rawPath": "/entityDatatableChecks/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /entityDatatableChecks",
+      "file": "reports.js",
+      "line": 43,
+      "rawPath": "/entityDatatableChecks",
+      "method": "POST"
+    },
+    {
+      "key": "DELETE /entityDatatableChecks/{}",
+      "file": "reports.js",
+      "line": 44,
+      "rawPath": "/entityDatatableChecks/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /datatables",
+      "file": "reports.js",
+      "line": 50,
+      "rawPath": "/datatables",
+      "method": "GET"
+    },
+    {
+      "key": "GET /datatables/{}",
+      "file": "reports.js",
+      "line": 51,
+      "rawPath": "/datatables/${name}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /datatables/register/{}/{}",
+      "file": "reports.js",
+      "line": 52,
+      "rawPath": "/datatables/register/${name}/${app}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /datatables/deregister/{}",
+      "file": "reports.js",
+      "line": 53,
+      "rawPath": "/datatables/deregister/${name}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /datatables/{}/{}",
+      "file": "reports.js",
+      "line": 54,
+      "rawPath": "/datatables/${name}/${entityId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /datatables",
+      "file": "reports.js",
+      "line": 55,
+      "rawPath": "/datatables",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /datatables/{}",
+      "file": "reports.js",
+      "line": 56,
+      "rawPath": "/datatables/${name}",
+      "method": "PUT"
+    },
+    {
+      "key": "PUT /datatables/{}/{}",
+      "file": "reports.js",
+      "line": 57,
+      "rawPath": "/datatables/${name}/${eid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /datatables/{}/{}",
+      "file": "reports.js",
+      "line": 58,
+      "rawPath": "/datatables/${name}/${eid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "DELETE /datatables/{}",
+      "file": "reports.js",
+      "line": 59,
+      "rawPath": "/datatables/${name}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /datatables/{}/{}",
+      "file": "reports.js",
+      "line": 61,
+      "rawPath": "/datatables/${name}/${entityId}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /datatables/{}/{}/{}",
+      "file": "reports.js",
+      "line": 62,
+      "rawPath": "/datatables/${name}/${entityId}/${datatableId}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /datatables/{}/{}/{}",
+      "file": "reports.js",
+      "line": 63,
+      "rawPath": "/datatables/${name}/${entityId}/${datatableId}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /datatables/{}/{}/{}",
+      "file": "reports.js",
+      "line": 64,
+      "rawPath": "/datatables/${name}/${entityId}/${datatableId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /datatables/{}/query",
+      "file": "reports.js",
+      "line": 66,
+      "rawPath": "/datatables/${name}/query",
+      "method": "GET"
+    },
+    {
+      "key": "POST /datatables/{}/query",
+      "file": "reports.js",
+      "line": 67,
+      "rawPath": "/datatables/${name}/query",
+      "method": "POST"
+    },
+    {
+      "key": "GET /savingsaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 4,
+      "rawPath": "/savingsaccounts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsaccounts/template",
+      "file": "savings-deposits.js",
+      "line": 5,
+      "rawPath": "/savingsaccounts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /savingsaccounts/gsim",
+      "file": "savings-deposits.js",
+      "line": 7,
+      "rawPath": "/savingsaccounts/gsim",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /savingsaccounts/gsim/{}",
+      "file": "savings-deposits.js",
+      "line": 8,
+      "rawPath": "/savingsaccounts/gsim/${parentAccountId}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /savingsaccounts/gsimcommands/{}",
+      "file": "savings-deposits.js",
+      "line": 9,
+      "rawPath": "/savingsaccounts/gsimcommands/${parentAccountId}?command=${command}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=approve",
+      "file": "savings-deposits.js",
+      "line": 10,
+      "rawPath": "/savingsaccounts/${id}?command=approve",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=undoapproval",
+      "file": "savings-deposits.js",
+      "line": 11,
+      "rawPath": "/savingsaccounts/${id}?command=undoapproval",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=reject",
+      "file": "savings-deposits.js",
+      "line": 12,
+      "rawPath": "/savingsaccounts/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=withdrawnByApplicant",
+      "file": "savings-deposits.js",
+      "line": 13,
+      "rawPath": "/savingsaccounts/${id}?command=withdrawnByApplicant",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions?command=withdrawal",
+      "file": "savings-deposits.js",
+      "line": 14,
+      "rawPath": "/savingsaccounts/${id}/transactions?command=withdrawal",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=activate",
+      "file": "savings-deposits.js",
+      "line": 15,
+      "rawPath": "/savingsaccounts/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions?command=deposit",
+      "file": "savings-deposits.js",
+      "line": 16,
+      "rawPath": "/savingsaccounts/${id}/transactions?command=deposit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions?command=holdAmount",
+      "file": "savings-deposits.js",
+      "line": 17,
+      "rawPath": "/savingsaccounts/${id}/transactions?command=holdAmount",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions/{}?command=releaseAmount",
+      "file": "savings-deposits.js",
+      "line": 18,
+      "rawPath": "/savingsaccounts/${id}/transactions/${txId}?command=releaseAmount",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions/{}?command=reverse",
+      "file": "savings-deposits.js",
+      "line": 19,
+      "rawPath": "/savingsaccounts/${id}/transactions/${txId}?command=reverse",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=close",
+      "file": "savings-deposits.js",
+      "line": 20,
+      "rawPath": "/savingsaccounts/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=postInterest",
+      "file": "savings-deposits.js",
+      "line": 21,
+      "rawPath": "/savingsaccounts/${id}?command=postInterest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=calculateInterest",
+      "file": "savings-deposits.js",
+      "line": 22,
+      "rawPath": "/savingsaccounts/${id}?command=calculateInterest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=block",
+      "file": "savings-deposits.js",
+      "line": 23,
+      "rawPath": "/savingsaccounts/${id}?command=block",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=unblock",
+      "file": "savings-deposits.js",
+      "line": 24,
+      "rawPath": "/savingsaccounts/${id}?command=unblock",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=blockDebit",
+      "file": "savings-deposits.js",
+      "line": 25,
+      "rawPath": "/savingsaccounts/${id}?command=blockDebit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=unblockDebit",
+      "file": "savings-deposits.js",
+      "line": 26,
+      "rawPath": "/savingsaccounts/${id}?command=unblockDebit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=blockCredit",
+      "file": "savings-deposits.js",
+      "line": 27,
+      "rawPath": "/savingsaccounts/${id}?command=blockCredit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=unblockCredit",
+      "file": "savings-deposits.js",
+      "line": 28,
+      "rawPath": "/savingsaccounts/${id}?command=unblockCredit",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /savingsaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 29,
+      "rawPath": "/savingsaccounts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /savingsaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 30,
+      "rawPath": "/savingsaccounts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=applyAnnualFees",
+      "file": "savings-deposits.js",
+      "line": 31,
+      "rawPath": "/savingsaccounts/${id}?command=applyAnnualFees",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=postInterestAsOn",
+      "file": "savings-deposits.js",
+      "line": 32,
+      "rawPath": "/savingsaccounts/${id}?command=postInterestAsOn",
+      "method": "POST"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/onholdtransactions",
+      "file": "savings-deposits.js",
+      "line": 33,
+      "rawPath": "/savingsaccounts/${id}/onholdtransactions",
+      "method": "GET"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=assignSavingsOfficer",
+      "file": "savings-deposits.js",
+      "line": 34,
+      "rawPath": "/savingsaccounts/${id}?command=assignSavingsOfficer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}?command=unassignSavingsOfficer",
+      "file": "savings-deposits.js",
+      "line": 35,
+      "rawPath": "/savingsaccounts/${id}?command=unassignSavingsOfficer",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 36,
+      "rawPath": "/savingsaccounts/${id}?command=${cmd}",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/charges/{}?command=waive",
+      "file": "savings-deposits.js",
+      "line": 37,
+      "rawPath": "/savingsaccounts/${id}/charges/${cid}?command=waive",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/charges/{}?command=paycharge",
+      "file": "savings-deposits.js",
+      "line": 38,
+      "rawPath": "/savingsaccounts/${id}/charges/${cid}?command=paycharge",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/charges/{}?command=inactivate",
+      "file": "savings-deposits.js",
+      "line": 39,
+      "rawPath": "/savingsaccounts/${id}/charges/${cid}?command=inactivate",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /savingsaccounts/{}/charges/{}",
+      "file": "savings-deposits.js",
+      "line": 40,
+      "rawPath": "/savingsaccounts/${id}/charges/${cid}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /savingsaccounts/{}/charges/{}",
+      "file": "savings-deposits.js",
+      "line": 41,
+      "rawPath": "/savingsaccounts/${id}/charges/${cid}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions/{}?command=modify",
+      "file": "savings-deposits.js",
+      "line": 42,
+      "rawPath": "/savingsaccounts/${id}/transactions/${txId}?command=modify",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions/{}?command=undo",
+      "file": "savings-deposits.js",
+      "line": 43,
+      "rawPath": "/savingsaccounts/${id}/transactions/${txId}?command=undo",
+      "method": "POST"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/charges",
+      "file": "savings-deposits.js",
+      "line": 44,
+      "rawPath": "/savingsaccounts/${id}/charges",
+      "method": "POST"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/charges/template",
+      "file": "savings-deposits.js",
+      "line": 45,
+      "rawPath": "/savingsaccounts/${id}/charges/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/charges/{}",
+      "file": "savings-deposits.js",
+      "line": 46,
+      "rawPath": "/savingsaccounts/${id}/charges/${cid}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/charges",
+      "file": "savings-deposits.js",
+      "line": 47,
+      "rawPath": "/savingsaccounts/${id}/charges",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/transactions/template",
+      "file": "savings-deposits.js",
+      "line": 50,
+      "rawPath": "/savingsaccounts/${id}/transactions/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/transactions/{}",
+      "file": "savings-deposits.js",
+      "line": 51,
+      "rawPath": "/savingsaccounts/${id}/transactions/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /savingsaccounts/{}/transactions/search",
+      "file": "savings-deposits.js",
+      "line": 52,
+      "rawPath": "/savingsaccounts/${id}/transactions/search",
+      "method": "GET"
+    },
+    {
+      "key": "POST /savingsaccounts/{}/transactions/query",
+      "file": "savings-deposits.js",
+      "line": 53,
+      "rawPath": "/savingsaccounts/${id}/transactions/query",
+      "method": "POST"
+    },
+    {
+      "key": "GET /fixeddepositaccounts",
+      "file": "savings-deposits.js",
+      "line": 59,
+      "rawPath": "/fixeddepositaccounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 60,
+      "rawPath": "/fixeddepositaccounts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/template",
+      "file": "savings-deposits.js",
+      "line": 61,
+      "rawPath": "/fixeddepositaccounts/template",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/calculate-fd-interest",
+      "file": "savings-deposits.js",
+      "line": 62,
+      "rawPath": "/fixeddepositaccounts/calculate-fd-interest",
+      "method": "GET"
+    },
+    {
+      "key": "POST /fixeddepositaccounts",
+      "file": "savings-deposits.js",
+      "line": 63,
+      "rawPath": "/fixeddepositaccounts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /fixeddepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 64,
+      "rawPath": "/fixeddepositaccounts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /fixeddepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 65,
+      "rawPath": "/fixeddepositaccounts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=approve",
+      "file": "savings-deposits.js",
+      "line": 67,
+      "rawPath": "/fixeddepositaccounts/${id}?command=approve",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=undoapproval",
+      "file": "savings-deposits.js",
+      "line": 68,
+      "rawPath": "/fixeddepositaccounts/${id}?command=undoapproval",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=reject",
+      "file": "savings-deposits.js",
+      "line": 69,
+      "rawPath": "/fixeddepositaccounts/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=withdrawnByApplicant",
+      "file": "savings-deposits.js",
+      "line": 70,
+      "rawPath": "/fixeddepositaccounts/${id}?command=withdrawnByApplicant",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=activate",
+      "file": "savings-deposits.js",
+      "line": 71,
+      "rawPath": "/fixeddepositaccounts/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=prematureClose",
+      "file": "savings-deposits.js",
+      "line": 72,
+      "rawPath": "/fixeddepositaccounts/${id}?command=prematureClose",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=close",
+      "file": "savings-deposits.js",
+      "line": 73,
+      "rawPath": "/fixeddepositaccounts/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/{}/template",
+      "file": "savings-deposits.js",
+      "line": 75,
+      "rawPath": "/fixeddepositaccounts/${id}/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=calculateInterest",
+      "file": "savings-deposits.js",
+      "line": 79,
+      "rawPath": "/fixeddepositaccounts/${id}?command=calculateInterest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}?command=postInterest",
+      "file": "savings-deposits.js",
+      "line": 80,
+      "rawPath": "/fixeddepositaccounts/${id}?command=postInterest",
+      "method": "POST"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/{}/transactions",
+      "file": "savings-deposits.js",
+      "line": 82,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/{}/transactions/{}",
+      "file": "savings-deposits.js",
+      "line": 83,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /fixeddepositaccounts/{}/transactions/template",
+      "file": "savings-deposits.js",
+      "line": 84,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}/transactions?command=deposit",
+      "file": "savings-deposits.js",
+      "line": 85,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions?command=deposit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}/transactions?command=withdrawal",
+      "file": "savings-deposits.js",
+      "line": 86,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions?command=withdrawal",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}/transactions?command=interest",
+      "file": "savings-deposits.js",
+      "line": 87,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions?command=interest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}/transactions?command=prematureClose",
+      "file": "savings-deposits.js",
+      "line": 88,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions?command=prematureClose",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}/transactions/{}?command=adjust",
+      "file": "savings-deposits.js",
+      "line": 89,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions/${txId}?command=adjust",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}/transactions/{}?command=undo",
+      "file": "savings-deposits.js",
+      "line": 90,
+      "rawPath": "/fixeddepositaccounts/${id}/transactions/${txId}?command=undo",
+      "method": "POST"
+    },
+    {
+      "key": "POST /fixeddepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 102,
+      "rawPath": "/fixeddepositaccounts/${id}?command=${cmd}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /recurringdepositaccounts",
+      "file": "savings-deposits.js",
+      "line": 108,
+      "rawPath": "/recurringdepositaccounts",
+      "method": "GET"
+    },
+    {
+      "key": "GET /recurringdepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 109,
+      "rawPath": "/recurringdepositaccounts/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /recurringdepositaccounts/template",
+      "file": "savings-deposits.js",
+      "line": 110,
+      "rawPath": "/recurringdepositaccounts/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /recurringdepositaccounts",
+      "file": "savings-deposits.js",
+      "line": 111,
+      "rawPath": "/recurringdepositaccounts",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /recurringdepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 112,
+      "rawPath": "/recurringdepositaccounts/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /recurringdepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 113,
+      "rawPath": "/recurringdepositaccounts/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=approve",
+      "file": "savings-deposits.js",
+      "line": 115,
+      "rawPath": "/recurringdepositaccounts/${id}?command=approve",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=undoapproval",
+      "file": "savings-deposits.js",
+      "line": 116,
+      "rawPath": "/recurringdepositaccounts/${id}?command=undoapproval",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=reject",
+      "file": "savings-deposits.js",
+      "line": 117,
+      "rawPath": "/recurringdepositaccounts/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=withdrawnByApplicant",
+      "file": "savings-deposits.js",
+      "line": 118,
+      "rawPath": "/recurringdepositaccounts/${id}?command=withdrawnByApplicant",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=activate",
+      "file": "savings-deposits.js",
+      "line": 119,
+      "rawPath": "/recurringdepositaccounts/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=prematureClose",
+      "file": "savings-deposits.js",
+      "line": 120,
+      "rawPath": "/recurringdepositaccounts/${id}?command=prematureClose",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=updateDepositAmount",
+      "file": "savings-deposits.js",
+      "line": 121,
+      "rawPath": "/recurringdepositaccounts/${id}?command=updateDepositAmount",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=close",
+      "file": "savings-deposits.js",
+      "line": 122,
+      "rawPath": "/recurringdepositaccounts/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "GET /recurringdepositaccounts/{}/template",
+      "file": "savings-deposits.js",
+      "line": 124,
+      "rawPath": "/recurringdepositaccounts/${id}/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=calculateInterest",
+      "file": "savings-deposits.js",
+      "line": 128,
+      "rawPath": "/recurringdepositaccounts/${id}?command=calculateInterest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}?command=postInterest",
+      "file": "savings-deposits.js",
+      "line": 129,
+      "rawPath": "/recurringdepositaccounts/${id}?command=postInterest",
+      "method": "POST"
+    },
+    {
+      "key": "GET /recurringdepositaccounts/{}/transactions/{}",
+      "file": "savings-deposits.js",
+      "line": 132,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions/${txId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /recurringdepositaccounts/{}/transactions/template",
+      "file": "savings-deposits.js",
+      "line": 133,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}/transactions?command=deposit",
+      "file": "savings-deposits.js",
+      "line": 134,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions?command=deposit",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}/transactions?command=withdrawal",
+      "file": "savings-deposits.js",
+      "line": 135,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions?command=withdrawal",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}/transactions?command=interest",
+      "file": "savings-deposits.js",
+      "line": 136,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions?command=interest",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}/transactions?command=prematureClose",
+      "file": "savings-deposits.js",
+      "line": 137,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions?command=prematureClose",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}/transactions/{}?command=adjust",
+      "file": "savings-deposits.js",
+      "line": 138,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions/${txId}?command=adjust",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}/transactions/{}?command=undo",
+      "file": "savings-deposits.js",
+      "line": 139,
+      "rawPath": "/recurringdepositaccounts/${id}/transactions/${txId}?command=undo",
+      "method": "POST"
+    },
+    {
+      "key": "POST /recurringdepositaccounts/{}",
+      "file": "savings-deposits.js",
+      "line": 151,
+      "rawPath": "/recurringdepositaccounts/${id}?command=${cmd}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /accounts/share",
+      "file": "shares.js",
+      "line": 3,
+      "rawPath": "/accounts/share",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accounts/share/{}",
+      "file": "shares.js",
+      "line": 4,
+      "rawPath": "/accounts/share/${id}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /accounts/share/template",
+      "file": "shares.js",
+      "line": 5,
+      "rawPath": "/accounts/share/template",
+      "method": "GET"
+    },
+    {
+      "key": "POST /accounts/share",
+      "file": "shares.js",
+      "line": 6,
+      "rawPath": "/accounts/share",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /accounts/share/{}",
+      "file": "shares.js",
+      "line": 7,
+      "rawPath": "/accounts/share/${id}",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /accounts/share/{}",
+      "file": "shares.js",
+      "line": 8,
+      "rawPath": "/accounts/share/${id}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=approve",
+      "file": "shares.js",
+      "line": 10,
+      "rawPath": "/accounts/share/${id}?command=approve",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=undoapproval",
+      "file": "shares.js",
+      "line": 11,
+      "rawPath": "/accounts/share/${id}?command=undoapproval",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=reject",
+      "file": "shares.js",
+      "line": 12,
+      "rawPath": "/accounts/share/${id}?command=reject",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=withdrawnByApplicant",
+      "file": "shares.js",
+      "line": 13,
+      "rawPath": "/accounts/share/${id}?command=withdrawnByApplicant",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=activate",
+      "file": "shares.js",
+      "line": 14,
+      "rawPath": "/accounts/share/${id}?command=activate",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=close",
+      "file": "shares.js",
+      "line": 15,
+      "rawPath": "/accounts/share/${id}?command=close",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=applyadditionalshares",
+      "file": "shares.js",
+      "line": 17,
+      "rawPath": "/accounts/share/${id}?command=applyadditionalshares",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=redeemshares",
+      "file": "shares.js",
+      "line": 18,
+      "rawPath": "/accounts/share/${id}?command=redeemshares",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=approveshare",
+      "file": "shares.js",
+      "line": 20,
+      "rawPath": "/accounts/share/${id}?command=approveshare",
+      "method": "POST"
+    },
+    {
+      "key": "POST /accounts/share/{}?command=rejectshare",
+      "file": "shares.js",
+      "line": 21,
+      "rawPath": "/accounts/share/${id}?command=rejectshare",
+      "method": "POST"
+    },
+    {
+      "key": "GET /shareproduct/{}/dividend",
+      "file": "shares.js",
+      "line": 23,
+      "rawPath": "/shareproduct/${productId}/dividend",
+      "method": "GET"
+    },
+    {
+      "key": "GET /shareproduct/{}/dividend/{}",
+      "file": "shares.js",
+      "line": 24,
+      "rawPath": "/shareproduct/${productId}/dividend/${divId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /shareproduct/{}/dividend",
+      "file": "shares.js",
+      "line": 25,
+      "rawPath": "/shareproduct/${productId}/dividend",
+      "method": "POST"
+    },
+    {
+      "key": "PUT /shareproduct/{}/dividend/{}",
+      "file": "shares.js",
+      "line": 26,
+      "rawPath": "/shareproduct/${productId}/dividend/${divId}",
+      "method": "PUT"
+    },
+    {
+      "key": "PUT /shareproduct/{}/dividend/{}?command=approve",
+      "file": "shares.js",
+      "line": 27,
+      "rawPath": "/shareproduct/${productId}/dividend/${divId}?command=approve",
+      "method": "PUT"
+    },
+    {
+      "key": "DELETE /shareproduct/{}/dividend/{}",
+      "file": "shares.js",
+      "line": 28,
+      "rawPath": "/shareproduct/${productId}/dividend/${divId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "POST /accounts/share/{}",
+      "file": "shares.js",
+      "line": 30,
+      "rawPath": "/accounts/share/${id}?command=${cmd}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /surveys/scorecards/clients/{}",
+      "file": "social-performance.js",
+      "line": 3,
+      "rawPath": "/surveys/scorecards/clients/${clientId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /surveys/scorecards/{}",
+      "file": "social-performance.js",
+      "line": 4,
+      "rawPath": "/surveys/scorecards/${surveyId}",
+      "method": "GET"
+    },
+    {
+      "key": "POST /surveys/scorecards/{}",
+      "file": "social-performance.js",
+      "line": 5,
+      "rawPath": "/surveys/scorecards/${surveyId}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /surveys/scorecards/{}/clients/{}",
+      "file": "social-performance.js",
+      "line": 6,
+      "rawPath": "/surveys/scorecards/${surveyId}/clients/${clientId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /surveys/{}/lookuptables",
+      "file": "social-performance.js",
+      "line": 7,
+      "rawPath": "/surveys/${surveyId}/lookuptables",
+      "method": "GET"
+    },
+    {
+      "key": "POST /surveys/{}/lookuptables",
+      "file": "social-performance.js",
+      "line": 8,
+      "rawPath": "/surveys/${surveyId}/lookuptables",
+      "method": "POST"
+    },
+    {
+      "key": "GET /surveys/{}/lookuptables/{}",
+      "file": "social-performance.js",
+      "line": 9,
+      "rawPath": "/surveys/${surveyId}/lookuptables/${encodeURIComponent(key)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /survey",
+      "file": "social-performance.js",
+      "line": 15,
+      "rawPath": "/survey",
+      "method": "GET"
+    },
+    {
+      "key": "GET /survey/{}",
+      "file": "social-performance.js",
+      "line": 16,
+      "rawPath": "/survey/${encodeURIComponent(surveyName)}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /survey/register/{}/{}",
+      "file": "social-performance.js",
+      "line": 17,
+      "rawPath": "/survey/register/${encodeURIComponent(surveyName)}/${encodeURIComponent(apptable)}",
+      "method": "PUT"
+    },
+    {
+      "key": "POST /survey/{}/{}",
+      "file": "social-performance.js",
+      "line": 18,
+      "rawPath": "/survey/${encodeURIComponent(surveyName)}/${apptableId}",
+      "method": "POST"
+    },
+    {
+      "key": "GET /survey/{}/{}",
+      "file": "social-performance.js",
+      "line": 19,
+      "rawPath": "/survey/${encodeURIComponent(surveyName)}/${clientId}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /survey/{}/{}/{}",
+      "file": "social-performance.js",
+      "line": 20,
+      "rawPath": "/survey/${encodeURIComponent(surveyName)}/${clientId}/${entryId}",
+      "method": "GET"
+    },
+    {
+      "key": "DELETE /survey/{}/{}/{}",
+      "file": "social-performance.js",
+      "line": 21,
+      "rawPath": "/survey/${encodeURIComponent(surveyName)}/${clientId}/${fulfilledId}",
+      "method": "DELETE"
+    },
+    {
+      "key": "GET /likelihood/{}",
+      "file": "social-performance.js",
+      "line": 27,
+      "rawPath": "/likelihood/${encodeURIComponent(ppiName)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /likelihood/{}/{}",
+      "file": "social-performance.js",
+      "line": 28,
+      "rawPath": "/likelihood/${encodeURIComponent(ppiName)}/${likelihoodId}",
+      "method": "GET"
+    },
+    {
+      "key": "PUT /likelihood/{}/{}",
+      "file": "social-performance.js",
+      "line": 29,
+      "rawPath": "/likelihood/${encodeURIComponent(ppiName)}/${likelihoodId}",
+      "method": "PUT"
+    },
+    {
+      "key": "GET /povertyLine/{}",
+      "file": "social-performance.js",
+      "line": 35,
+      "rawPath": "/povertyLine/${encodeURIComponent(ppiName)}",
+      "method": "GET"
+    },
+    {
+      "key": "GET /povertyLine/{}/{}",
+      "file": "social-performance.js",
+      "line": 36,
+      "rawPath": "/povertyLine/${encodeURIComponent(ppiName)}/${likelihoodId}",
+      "method": "GET"
+    }
+  ],
+  "uncovered": []
+}

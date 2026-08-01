@@ -138,6 +138,28 @@ jobs:
             node --input-type=module -e "import('./$f').then(()=>console.log('ok: $f'))"
           done
 
+      # Phase 2 of the API migration: diff the 24 curated js/api/*.js wrappers
+      # against the freshly-generated contract surface. Fineract is the source of
+      # truth, so this is the punch-list of where hand-written routes are wrong
+      # (method/command mismatch) or missing (uncovered operations). It appends
+      # its own Markdown to $GITHUB_STEP_SUMMARY. Non-fatal by design: run vs the
+      # full real spec here, the counts are the real migration backlog.
+      - name: Build hand-written ↔ contract drift report
+        if: ${{ github.event.inputs.source == 'live' || steps.gate.outputs.changed == 'true' }}
+        run: node tools/api-automation/api-drift.mjs
+
+      # Combined PR body = contract diff (spec-over-time) + API drift (code-vs-spec).
+      - name: Assemble PR body
+        if: ${{ github.event.inputs.source == 'live' || steps.gate.outputs.changed == 'true' }}
+        run: |
+          {
+            cat contracts/diff-report.md
+            echo ''
+            echo '---'
+            echo ''
+            cat contracts/api-drift.md
+          } > contracts/pr-body.md
+
       - name: Summarise diff into job log
         if: always()
         run: |
@@ -154,7 +176,7 @@ jobs:
           branch: bot/api-contract-sync
           commit-message: 'chore(api): sync generated contracts (additive)'
           title: 'chore(api): contract sync — additive changes'
-          body-path: contracts/diff-report.md
+          body-path: contracts/pr-body.md
           labels: |
             api-contract-sync
             auto-merge
@@ -168,7 +190,7 @@ jobs:
           branch: bot/api-contract-sync-breaking
           commit-message: 'chore(api)!: sync generated contracts (BREAKING)'
           title: '🚨 chore(api)!: contract sync — BREAKING changes'
-          body-path: contracts/diff-report.md
+          body-path: contracts/pr-body.md
           draft: true
           labels: |
             api-contract-sync
