@@ -7,96 +7,5197 @@
 
 /* eslint-disable */
 const RULES = {
-  "createClient": {
+  "createAccountingRule": {
+    "required": [],
+    "types": {
+      "accountToCredit": "integer",
+      "accountToDebit": "integer",
+      "description": "string",
+      "name": "string",
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateAccountingRule": {
+    "required": [],
+    "types": {
+      "accountToCredit": "integer",
+      "accountToDebit": "integer",
+      "description": "string",
+      "name": "string",
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createAccountNumberFormat": {
+    "required": [],
+    "types": {
+      "accountType": "integer",
+      "prefixType": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateAccountNumberFormat": {
+    "required": [],
+    "types": {
+      "prefixType": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createShareAccount": {
+    "required": [],
+    "types": {
+      "allowDividendCalculationForInactiveClients": "string",
+      "applicationDate": "string",
+      "approvedDate": "string",
+      "charges": "array",
+      "clientId": "integer",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "digitsAfterDecimal": "integer",
+      "externalId": "string",
+      "id": "integer",
+      "inMultiplesOf": "string",
+      "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "string",
+      "minimumActivePeriod": "integer",
+      "minimumActivePeriodFrequencyType": "string",
+      "numberOfShares": "integer",
+      "productId": "integer",
+      "purchasedDate": "string",
+      "requestedShares": "integer",
+      "savingsAccountId": "integer",
+      "submittedDate": "string",
+      "unitPrice": "number"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postShareAccountTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateShareAccount": {
+    "required": [],
+    "types": {
+      "applicationDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "requestedShares": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsShareAccount": {
+    "required": [],
+    "types": {
+      "requestedShares": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createAccountTransfer": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "fromAccountId": "string",
+      "fromAccountType": "string",
+      "fromClientId": "string",
+      "fromOfficeId": "string",
+      "locale": "string",
+      "toAccountId": "string",
+      "toAccountType": "string",
+      "toClientId": "string",
+      "toOfficeId": "string",
+      "transferAmount": "string",
+      "transferDate": "string",
+      "transferDescription": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "refundByTransfer": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "fromAccountId": "string",
+      "fromAccountType": "string",
+      "fromClientId": "string",
+      "fromOfficeId": "string",
+      "locale": "string",
+      "toAccountId": "string",
+      "toAccountType": "string",
+      "toClientId": "string",
+      "toOfficeId": "string",
+      "transferAmount": "string",
+      "transferDate": "string",
+      "transferDescription": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createAdHocQuery": {
+    "required": [],
+    "types": {
+      "email": "string",
+      "id": "integer",
+      "isActive": "boolean",
+      "name": "string",
+      "query": "string",
+      "reportRunEvery": "integer",
+      "reportRunFrequency": "integer",
+      "tableFields": "string",
+      "tableName": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "update": {
+    "required": [],
+    "types": {
+      "email": "string",
+      "id": "integer",
+      "isActive": "boolean",
+      "name": "string",
+      "query": "string",
+      "reportRunEvery": "integer",
+      "reportRunFrequency": "integer",
+      "tableFields": "string",
+      "tableName": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "authenticate": {
     "required": [
-      "officeId",
-      "legalFormId",
-      "activationDate"
+      "password",
+      "username"
     ],
+    "types": {
+      "password": "string",
+      "username": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateBusinessDate": {
+    "required": [
+      "date",
+      "dateFormat",
+      "locale",
+      "type"
+    ],
+    "types": {
+      "date": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "type": "string"
+    },
+    "enums": {
+      "type": [
+        "BUSINESS_DATE",
+        "COB_DATE"
+      ]
+    },
+    "hasDate": true
+  },
+  "switchCache": {
+    "required": [
+      "cacheType"
+    ],
+    "types": {
+      "cacheType": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCenter": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "name": "string",
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postBulkTemplateCenter": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCenter": {
+    "required": [],
+    "types": {
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsCenter": {
+    "required": [],
+    "types": {
+      "closureDate": "string",
+      "closureReasonId": "integer",
+      "dateFormat": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createCharge": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "amount": "number",
+      "chargeAppliesTo": "integer",
+      "chargeCalculationType": "integer",
+      "chargePaymentMode": "integer",
+      "chargeTimeType": "integer",
+      "currencyCode": "string",
+      "enablePaymentType": "boolean",
+      "feeFrequency": "string",
+      "feeInterval": "string",
+      "feeOnMonthDay": "string",
+      "locale": "string",
+      "maxCap": "number",
+      "minCap": "number",
+      "monthDayFormat": "string",
+      "name": "string",
+      "paymentTypeId": "integer",
+      "penalty": "boolean",
+      "taxGroupId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCharge": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "amount": "number",
+      "chargeAppliesTo": "integer",
+      "chargeCalculationType": "integer",
+      "chargePaymentMode": "integer",
+      "chargeTimeType": "integer",
+      "currencyCode": "string",
+      "enablePaymentType": "boolean",
+      "feeFrequency": "string",
+      "feeInterval": "string",
+      "feeOnMonthDay": "string",
+      "locale": "string",
+      "maxCap": "number",
+      "minCap": "number",
+      "monthDayFormat": "string",
+      "name": "string",
+      "paymentTypeId": "integer",
+      "penalty": "boolean",
+      "taxGroupId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateClientAddress": {
+    "required": [],
+    "types": {
+      "addressId": "integer",
+      "addressLine1": "string",
+      "addressLine2": "string",
+      "addressLine3": "string",
+      "addressTypeId": "integer",
+      "city": "string",
+      "countryId": "integer",
+      "countyDistrict": "string",
+      "createdBy": "string",
+      "createdOn": "string",
+      "isActive": "boolean",
+      "latitude": "number",
+      "longitude": "number",
+      "postalCode": "string",
+      "stateProvinceId": "integer",
+      "townVillage": "string",
+      "updatedBy": "string",
+      "updatedOn": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createClientAddress": {
+    "required": [],
+    "types": {
+      "addressId": "integer",
+      "addressLine1": "string",
+      "addressLine2": "string",
+      "addressLine3": "string",
+      "addressTypeId": "integer",
+      "city": "string",
+      "countryId": "integer",
+      "countyDistrict": "string",
+      "createdBy": "string",
+      "createdOn": "string",
+      "isActive": "boolean",
+      "latitude": "number",
+      "longitude": "number",
+      "postalCode": "string",
+      "stateProvinceId": "integer",
+      "townVillage": "string",
+      "updatedBy": "string",
+      "updatedOn": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createClient": {
+    "required": [],
     "types": {
       "activationDate": "string",
       "active": "boolean",
-      "clientTypeId": "integer",
+      "address": "array",
+      "datatables": "array",
+      "dateFormat": "string",
+      "dateOfBirth": "string",
+      "emailAddress": "string",
+      "externalId": "string",
       "firstname": "string",
       "fullname": "string",
-      "genderId": "integer",
+      "groupId": "integer",
       "lastname": "string",
       "legalFormId": "integer",
+      "locale": "string",
+      "middlename": "string",
+      "mobileNo": "string",
+      "officeId": "integer",
+      "submittedOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateClientByExternalId": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "firstname": "string",
+      "lastname": "string",
+      "resourceExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandClientByExternalId": {
+    "required": [],
+    "types": {
+      "activationDate": "string",
+      "closureDate": "string",
+      "closureReasonId": "integer",
+      "dateFormat": "string",
+      "locale": "string",
+      "reactivationDate": "string",
+      "rejectionDate": "string",
+      "rejectionReasonId": "integer",
+      "reopenedDate": "string",
+      "withdrawalDate": "string",
+      "withdrawalReasonId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postClientTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateClient": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "firstname": "string",
+      "lastname": "string",
+      "resourceExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandClient": {
+    "required": [],
+    "types": {
+      "activationDate": "string",
+      "closureDate": "string",
+      "closureReasonId": "integer",
+      "dateFormat": "string",
+      "locale": "string",
+      "reactivationDate": "string",
+      "rejectionDate": "string",
+      "rejectionReasonId": "integer",
+      "reopenedDate": "string",
+      "withdrawalDate": "string",
+      "withdrawalReasonId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createClientCharge": {
+    "required": [],
+    "types": {
+      "amount": "integer",
+      "chargeId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "payOrWaiveClientCharge": {
+    "required": [],
+    "types": {
+      "amount": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "addClientCollateral": {
+    "required": [],
+    "types": {
+      "collateralId": "integer",
+      "locale": "string",
+      "quantity": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateClientCollateral": {
+    "required": [],
+    "types": {
+      "locale": "string",
+      "quantity": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createClientFamilyMember": {
+    "required": [],
+    "types": {
+      "age": "integer",
+      "clientId": "integer",
+      "dateFormat": "string",
+      "dateOfBirth": "string",
+      "familyMembers": "string",
+      "firstName": "string",
+      "genderId": "integer",
+      "id": "integer",
+      "isDependent": "boolean",
+      "lastName": "string",
+      "locale": "string",
+      "maritalStatusId": "integer",
+      "middleName": "string",
+      "mobileNumber": "string",
+      "professionId": "integer",
+      "qualification": "string",
+      "relationshipId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateClientFamilyMember": {
+    "required": [],
+    "types": {
+      "age": "integer",
+      "clientId": "integer",
+      "dateFormat": "string",
+      "dateOfBirth": "string",
+      "familyMembers": "string",
+      "firstName": "string",
+      "genderId": "integer",
+      "id": "integer",
+      "isDependent": "boolean",
+      "lastName": "string",
+      "locale": "string",
+      "maritalStatusId": "integer",
+      "middleName": "string",
+      "mobileNumber": "string",
+      "professionId": "integer",
+      "qualification": "string",
+      "relationshipId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createClientIdentifier": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "documentKey": "string",
+      "documentTypeId": "integer",
+      "status": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateClientIdentifier": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "documentKey": "string",
+      "documentTypeId": "integer",
+      "status": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCode": {
+    "required": [],
+    "types": {
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCodeValueByCodeName": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "isActive": "boolean",
+      "name": "string",
+      "position": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCodeValueByCodeName": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "isActive": "boolean",
+      "name": "string",
+      "position": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCode": {
+    "required": [],
+    "types": {
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCodeValue": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "isActive": "boolean",
+      "name": "string",
+      "position": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCodeValue": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "isActive": "boolean",
+      "name": "string",
+      "position": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCollateral_1": {
+    "required": [
+      "basePrice",
+      "currency",
+      "locale",
+      "name",
+      "pctToBase",
+      "quality",
+      "unitType"
+    ],
+    "types": {
+      "basePrice": "number",
+      "currency": "string",
+      "locale": "string",
+      "name": "string",
+      "pctToBase": "number",
+      "quality": "string",
+      "unitType": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCollateral_1": {
+    "required": [],
+    "types": {
+      "basePrice": "number",
+      "currency": "string",
+      "locale": "string",
+      "name": "string",
+      "pctToBase": "number",
+      "quality": "string",
+      "unitType": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "generateCollectionSheet": {
+    "required": [],
+    "types": {
+      "actualDisbursementDate": "string",
+      "bulkDisbursementTransactions": "object",
+      "dateFormat": "string",
+      "locale": "string",
+      "officeId": "integer",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateConfigurationByName": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "dateValue": "string",
+      "enabled": "boolean",
+      "locale": "string",
+      "stringValue": "string",
+      "value": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateGlobalConfiguration": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "dateValue": "string",
+      "enabled": "boolean",
+      "locale": "string",
+      "stringValue": "string",
+      "value": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "addCreditReport": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "fetchCreditReport": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCurrencies": {
+    "required": [
+      "currencies"
+    ],
+    "types": {
+      "currencies": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createDatatable": {
+    "required": [
+      "apptableName",
+      "columns",
+      "datatableName"
+    ],
+    "types": {
+      "apptableName": "string",
+      "columns": "array",
+      "datatableName": "string",
+      "entitySubType": "string",
+      "multiRow": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "registerDatatable": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "updateDatatable": {
+    "required": [],
+    "types": {
+      "addColumns": "array",
+      "apptableName": "string",
+      "changeColumns": "array",
+      "dropColumns": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "advancedQuery": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "dateTimeFormat": "string",
+      "locale": "string",
+      "localeObject": "object",
+      "page": "integer",
+      "request": "object",
+      "size": "integer",
+      "sorts": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createBucket": {
+    "required": [],
+    "types": {
+      "bucketType": "string",
+      "minimumPaymentPeriodAndRule": "object",
+      "name": "string",
+      "ranges": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateBucket": {
+    "required": [],
+    "types": {
+      "bucketType": "string",
+      "minimumPaymentPeriodAndRule": "object",
+      "name": "string",
+      "ranges": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createRange": {
+    "required": [],
+    "types": {
+      "classification": "string",
+      "locale": "string",
+      "maximumAgeDays": "integer",
+      "minimumAgeDays": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateRange": {
+    "required": [],
+    "types": {
+      "classification": "string",
+      "locale": "string",
+      "maximumAgeDays": "integer",
+      "minimumAgeDays": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createEntityDatatableCheck": {
+    "required": [],
+    "types": {
+      "datatableName": "string",
+      "entity": "string",
+      "productId": "integer",
+      "status": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createExternalAssetOwner": {
+    "required": [],
+    "types": {
+      "ownerExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createExternalAssetOwnerLoanProductAttribute": {
+    "required": [],
+    "types": {
+      "attributeKey": "string",
+      "attributeValue": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateExternalAssetOwnerLoanProductAttribute": {
+    "required": [],
+    "types": {
+      "attributeKey": "string",
+      "attributeValue": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "searchInvestorData": {
+    "required": [],
+    "types": {
+      "page": "integer",
+      "request": "object",
+      "size": "integer",
+      "sorts": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "transferRequestWithLoanExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "ownerExternalId": "string",
+      "purchasePriceRatio": "string",
+      "settlementDate": "string",
+      "transferExternalGroupId": "string",
+      "transferExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "transferRequestWithLoanId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "ownerExternalId": "string",
+      "purchasePriceRatio": "string",
+      "settlementDate": "string",
+      "transferExternalGroupId": "string",
+      "transferExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateExternalEventConfigurations": {
+    "required": [
+      "externalEventConfigurations"
+    ],
+    "types": {
+      "externalEventConfigurations": "object"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateExternalServicesConfiguration": {
+    "required": [],
+    "types": {
+      "password": "string",
+      "username": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createGLAccountMappingFinancialActivityAccount": {
+    "required": [],
+    "types": {
+      "financialActivityId": "integer",
+      "glAccountId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateGLAccountMappingFinancialActivityAccount": {
+    "required": [],
+    "types": {
+      "financialActivityId": "integer",
+      "glAccountId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createFixedDepositAccount": {
+    "required": [],
+    "types": {
+      "clientId": "integer",
+      "dateFormat": "string",
+      "depositAmount": "number",
+      "depositPeriod": "integer",
+      "depositPeriodFrequencyId": "integer",
+      "locale": "string",
+      "productId": "integer",
+      "submittedOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postFixedDepositTransactionTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postFixedDepositTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateFixedDepositAccount": {
+    "required": [],
+    "types": {
+      "depositAmount": "number",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsFixedDepositAccount": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsFixedDepositAccountTransaction": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "note": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createFixedDepositProduct": {
+    "required": [],
+    "types": {
+      "accountingRule": "integer",
+      "charts": "array",
+      "currencyCode": "string",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "inMultiplesOf": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
+      "locale": "string",
+      "maxDepositTerm": "integer",
+      "maxDepositTermTypeId": "integer",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer",
+      "name": "string",
+      "preClosurePenalApplicable": "boolean",
+      "preClosurePenalInterest": "number",
+      "preClosurePenalInterestOnTypeId": "integer",
+      "shortName": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateFixedDepositProduct": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "locale": "string",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createFloatingRate": {
+    "required": [],
+    "types": {
+      "isActive": "boolean",
+      "isBaseLendingRate": "boolean",
+      "name": "string",
+      "ratePeriods": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateFloatingRate": {
+    "required": [],
+    "types": {
+      "isActive": "boolean",
+      "isBaseLendingRate": "boolean",
+      "name": "string",
+      "ratePeriods": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createFund": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateFund": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createGLAccount": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "glCode": "string",
+      "manualEntriesAllowed": "boolean",
+      "name": "string",
+      "parentId": "integer",
+      "tagId": "integer",
+      "type": "integer",
+      "usage": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postGlAccountsTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateGLAccount": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "disabled": "boolean",
+      "glCode": "string",
+      "manualEntriesAllowed": "boolean",
+      "name": "string",
+      "parentId": "integer",
+      "tagId": "integer",
+      "type": "integer",
+      "usage": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createGLClosure": {
+    "required": [],
+    "types": {
+      "closingDate": "string",
+      "comments": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateGLClosure": {
+    "required": [],
+    "types": {
+      "comments": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createGroup": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "name": "string",
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postBulkTemplateGroup": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateGroup": {
+    "required": [],
+    "types": {
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsGroup": {
+    "required": [],
+    "types": {
+      "clients": "array",
+      "destinationGroupId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "unassignLoanOfficerGroup": {
+    "required": [],
+    "types": {
+      "staffId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createHoliday": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "description": "string",
+      "fromDate": "string",
+      "locale": "string",
+      "name": "string",
+      "offices": "array",
+      "repaymentsRescheduledTo": "string",
+      "reschedulingType": "integer",
+      "toDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateHoliday": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsHoliday": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "createHook": {
+    "required": [],
+    "types": {
+      "config": "object",
+      "displayName": "string",
+      "events": "array",
+      "isActive": "boolean",
+      "name": "string",
+      "templateId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateHook": {
+    "required": [],
+    "types": {
+      "config": "object",
+      "displayName": "string",
+      "events": "array",
+      "id": "integer",
+      "isActive": "boolean",
+      "name": "string",
+      "templateId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateInstanceMode": {
+    "required": [
+      "batchManagerEnabled",
+      "batchWorkerEnabled",
+      "readEnabled",
+      "writeEnabled"
+    ],
+    "types": {
+      "batchManagerEnabled": "boolean",
+      "batchWorkerEnabled": "boolean",
+      "readEnabled": "boolean",
+      "writeEnabled": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createInterestRateChart": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "description": "string",
+      "fromDate": "string",
+      "locale": "string",
+      "name": "string",
+      "type": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateInterestRateChart": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createInterestRateChartSlab": {
+    "required": [],
+    "types": {
+      "amountRangeFrom": "number",
+      "amountRangeTo": "number",
+      "annualInterestRate": "number",
+      "chartSlabId": "integer",
+      "currencyCode": "string",
+      "description": "string",
+      "fromPeriod": "integer",
+      "incentives": "array",
+      "locale": "string",
+      "periodType": "integer",
+      "toPeriod": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateInterestRateChartSlab": {
+    "required": [],
+    "types": {
+      "amountRangeFrom": "number",
+      "amountRangeTo": "number",
+      "annualInterestRate": "number",
+      "currencyCode": "string",
+      "description": "string",
+      "fromPeriod": "integer",
+      "incentives": "array",
+      "locale": "string",
+      "periodType": "integer",
+      "toPeriod": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "placeLockOnLoanAccount": {
+    "required": [],
+    "types": {
+      "cobBusinessDate": "string",
+      "error": "string",
+      "nullCobBusinessDate": "boolean"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "generateAmortizationSchedule": {
+    "required": [],
+    "types": {
+      "discountFeeAmount": "number",
+      "expectedDisbursementDate": "string",
+      "netDisbursementAmount": "number",
+      "npvDayCount": "integer",
+      "periodPaymentRate": "number",
+      "totalPaymentVolume": "number"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "placeLockOnWorkingCapitalLoanAccount": {
+    "required": [],
+    "types": {
+      "cobBusinessDate": "string",
+      "error": "string",
+      "nullCobBusinessDate": "boolean"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "registerAccountIdentifier": {
+    "required": [
+      "accountId",
+      "idType",
+      "idValue"
+    ],
+    "types": {
+      "accountId": "string",
+      "idType": "string",
+      "idValue": "string",
+      "subIdOrType": "string"
+    },
+    "enums": {
+      "idType": [
+        "MSISDN",
+        "EMAIL",
+        "PERSONAL_ID",
+        "BUSINESS",
+        "DEVICE",
+        "ACCOUNT_ID",
+        "IBAN",
+        "ALIAS",
+        "BBAN"
+      ]
+    },
+    "hasDate": false
+  },
+  "deleteAccountIdentifier": {
+    "required": [
+      "accountId",
+      "idType",
+      "idValue"
+    ],
+    "types": {
+      "accountId": "string",
+      "idType": "string",
+      "idValue": "string",
+      "subIdOrType": "string"
+    },
+    "enums": {
+      "idType": [
+        "MSISDN",
+        "EMAIL",
+        "PERSONAL_ID",
+        "BUSINESS",
+        "DEVICE",
+        "ACCOUNT_ID",
+        "IBAN",
+        "ALIAS",
+        "BBAN"
+      ]
+    },
+    "hasDate": false
+  },
+  "registerAccountIdentifier_1": {
+    "required": [
+      "accountId",
+      "idType",
+      "idValue"
+    ],
+    "types": {
+      "accountId": "string",
+      "idType": "string",
+      "idValue": "string",
+      "subIdOrType": "string"
+    },
+    "enums": {
+      "idType": [
+        "MSISDN",
+        "EMAIL",
+        "PERSONAL_ID",
+        "BUSINESS",
+        "DEVICE",
+        "ACCOUNT_ID",
+        "IBAN",
+        "ALIAS",
+        "BBAN"
+      ]
+    },
+    "hasDate": false
+  },
+  "deleteAccountIdentifier_1": {
+    "required": [
+      "accountId",
+      "idType",
+      "idValue"
+    ],
+    "types": {
+      "accountId": "string",
+      "idType": "string",
+      "idValue": "string",
+      "subIdOrType": "string"
+    },
+    "enums": {
+      "idType": [
+        "MSISDN",
+        "EMAIL",
+        "PERSONAL_ID",
+        "BUSINESS",
+        "DEVICE",
+        "ACCOUNT_ID",
+        "IBAN",
+        "ALIAS",
+        "BBAN"
+      ]
+    },
+    "hasDate": false
+  },
+  "createQuote": {
+    "required": [
+      "accountId",
+      "amount",
+      "amountType",
+      "quoteCode",
+      "transactionCode",
+      "transactionRole"
+    ],
+    "types": {
+      "accountId": "string",
+      "amount": "object",
+      "amountType": "string",
+      "expiration": "string",
+      "expirationLocalDate": "string",
+      "extensionList": "array",
+      "fees": "object",
+      "geoCode": "object",
+      "note": "string",
+      "quoteCode": "string",
+      "requestCode": "string",
+      "transactionCode": "string",
+      "transactionRole": "string",
+      "transactionType": "object"
+    },
+    "enums": {
+      "amountType": [
+        "SEND",
+        "RECEIVE"
+      ],
+      "transactionRole": [
+        "PAYER",
+        "PAYEE"
+      ]
+    },
+    "hasDate": true
+  },
+  "createTransactionRequest": {
+    "required": [
+      "accountId",
+      "amount",
+      "transactionCode",
+      "transactionRole"
+    ],
+    "types": {
+      "accountId": "string",
+      "amount": "object",
+      "expiration": "string",
+      "expirationLocalDate": "string",
+      "extensionList": "array",
+      "geoCode": "object",
+      "note": "string",
+      "requestCode": "string",
+      "transactionCode": "string",
+      "transactionRole": "string",
+      "transactionType": "object"
+    },
+    "enums": {
+      "transactionRole": [
+        "PAYER",
+        "PAYEE"
+      ]
+    },
+    "hasDate": true
+  },
+  "performTransfer": {
+    "required": [
+      "accountId",
+      "amount",
+      "transactionCode",
+      "transactionRole",
+      "transferCode"
+    ],
+    "types": {
+      "accountId": "string",
+      "amount": "object",
+      "expiration": "string",
+      "expirationLocalDate": "string",
+      "extensionList": "array",
+      "fspCommission": "object",
+      "fspFee": "object",
+      "geoCode": "object",
+      "note": "string",
+      "requestCode": "string",
+      "transactionCode": "string",
+      "transactionRole": "string",
+      "transactionType": "object",
+      "transferCode": "string"
+    },
+    "enums": {
+      "transactionRole": [
+        "PAYER",
+        "PAYEE"
+      ]
+    },
+    "hasDate": true
+  },
+  "updateJobDetailByShortName": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "cronExpression": "string",
+      "displayName": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeJobByShortName": {
+    "required": [],
+    "types": {
+      "jobParameters": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateJobDetail": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "cronExpression": "string",
+      "displayName": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeJob": {
+    "required": [],
+    "types": {
+      "jobParameters": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeInlineJob": {
+    "required": [],
+    "types": {
+      "loanIds": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateJobBusinessStepConfig": {
+    "required": [],
+    "types": {
+      "businessSteps": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createGLJournalEntry": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "accountingRuleId": "integer",
+      "amount": "number",
+      "bankNumber": "string",
+      "checkNumber": "string",
+      "comments": "string",
+      "credits": "array",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "debits": "array",
+      "externalAssetOwner": "string",
+      "locale": "string",
+      "officeId": "integer",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "referenceNumber": "string",
+      "routingCode": "string",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postJournalEntriesTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createReversalJournalEntry": {
+    "required": [],
+    "types": {
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createLoanOriginator": {
+    "required": [
+      "name"
+    ],
+    "types": {
+      "channelTypeId": "integer",
+      "externalId": "string",
+      "name": "string",
+      "originatorTypeId": "integer",
+      "status": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateByExternalId": {
+    "required": [],
+    "types": {
+      "channelTypeId": "integer",
+      "name": "string",
+      "originatorTypeId": "integer",
+      "status": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateLoanOriginator": {
+    "required": [],
+    "types": {
+      "channelTypeId": "integer",
+      "name": "string",
+      "originatorTypeId": "integer",
+      "status": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createLoanProduct": {
+    "required": [],
+    "types": {
+      "accountMovesOutOfNPAOnlyOnArrearsCompletion": "boolean",
+      "accountingRule": "integer",
+      "allowApprovedDisbursedAmountsOverApplied": "boolean",
+      "allowAttributeOverrides": "object",
+      "allowCompoundingOnEod": "boolean",
+      "allowFullTermForTranche": "boolean",
+      "allowPartialPeriodInterestCalculation": "boolean",
+      "allowVariableInstallments": "boolean",
+      "amortizationType": "integer",
+      "buyDownExpenseAccountId": "integer",
+      "buyDownFeeCalculationType": "string",
+      "buyDownFeeIncomeType": "string",
+      "buyDownFeeStrategy": "string",
+      "buydownfeeClassificationToIncomeAccountMappings": "array",
+      "canDefineInstallmentAmount": "boolean",
+      "canUseForTopup": "boolean",
+      "capitalizedIncomeCalculationType": "string",
+      "capitalizedIncomeClassificationToIncomeAccountMappings": "array",
+      "capitalizedIncomeStrategy": "string",
+      "capitalizedIncomeType": "string",
+      "chargeOffBehaviour": "string",
+      "chargeOffExpenseAccountId": "integer",
+      "chargeOffFraudExpenseAccountId": "integer",
+      "chargeOffReasonToExpenseAccountMappings": "array",
+      "charges": "array",
+      "closeDate": "string",
+      "creditAllocation": "array",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "daysInMonthType": "integer",
+      "daysInYearCustomStrategy": "string",
+      "daysInYearType": "integer",
+      "deferredIncomeLiabilityAccountId": "integer",
+      "delinquencyBucketId": "integer",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "disallowExpectedDisbursements": "boolean",
+      "disallowInterestCalculationOnPastDue": "boolean",
+      "disbursedAmountPercentageForDownPayment": "number",
+      "dueDaysForRepaymentEvent": "integer",
+      "enableAccrualActivityPosting": "boolean",
+      "enableAutoRepaymentForDownPayment": "boolean",
+      "enableBuyDownFee": "boolean",
+      "enableDownPayment": "boolean",
+      "enableIncomeCapitalization": "boolean",
+      "enableInstallmentLevelDelinquency": "boolean",
+      "externalId": "string",
+      "feeToIncomeAccountMappings": "array",
+      "fixedLength": "integer",
+      "fixedPrincipalPercentagePerInstallment": "number",
+      "fundId": "integer",
+      "fundSourceAccountId": "integer",
+      "goodwillCreditAccountId": "integer",
+      "graceOnArrearsAgeing": "integer",
+      "graceOnInterestPayment": "integer",
+      "graceOnPrincipalPayment": "integer",
+      "holdGuaranteeFunds": "boolean",
+      "inArrearsTolerance": "integer",
+      "inMultiplesOf": "integer",
+      "includeInBorrowerCycle": "boolean",
+      "incomeFromBuyDownAccountId": "integer",
+      "incomeFromCapitalizationAccountId": "integer",
+      "incomeFromChargeOffFeesAccountId": "integer",
+      "incomeFromChargeOffInterestAccountId": "integer",
+      "incomeFromChargeOffPenaltyAccountId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromGoodwillCreditFeesAccountId": "integer",
+      "incomeFromGoodwillCreditInterestAccountId": "integer",
+      "incomeFromGoodwillCreditPenaltyAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "incomeFromRecoveryAccountId": "integer",
+      "installmentAmountInMultiplesOf": "integer",
+      "interestCalculationPeriodType": "integer",
+      "interestOnLoanAccountId": "integer",
+      "interestRateFrequencyType": "integer",
+      "interestRatePerPeriod": "number",
+      "interestRateVariationsForBorrowerCycle": "array",
+      "interestRecalculationCompoundingMethod": "integer",
+      "interestRecognitionOnDisbursementDate": "boolean",
+      "interestType": "integer",
+      "isArrearsBasedOnOriginalSchedule": "boolean",
+      "isCompoundingToBePostedAsTransaction": "boolean",
+      "isEqualAmortization": "boolean",
+      "isInterestRecalculationEnabled": "boolean",
+      "isLinkedToFloatingInterestRates": "boolean",
+      "loanPortfolioAccountId": "integer",
+      "loanScheduleProcessingType": "string",
+      "loanScheduleType": "string",
+      "locale": "string",
+      "maxInterestRatePerPeriod": "number",
+      "maxNumberOfRepayments": "integer",
+      "maxPrincipal": "number",
+      "maxTrancheCount": "integer",
+      "merchantBuyDownFee": "boolean",
+      "minInterestRatePerPeriod": "number",
+      "minNumberOfRepayments": "integer",
+      "minPrincipal": "number",
+      "minimumDaysBetweenDisbursalAndFirstRepayment": "integer",
+      "multiDisburseLoan": "boolean",
+      "name": "string",
+      "numberOfRepaymentVariationsForBorrowerCycle": "array",
+      "numberOfRepayments": "integer",
+      "outstandingLoanBalance": "number",
+      "overAppliedCalculationType": "string",
+      "overAppliedNumber": "integer",
+      "overDueDaysForRepaymentEvent": "integer",
+      "overdueDaysForNPA": "integer",
+      "overpaymentLiabilityAccountId": "integer",
+      "paymentAllocation": "array",
+      "paymentChannelToFundSourceMappings": "array",
+      "penaltyToIncomeAccountMappings": "array",
+      "preClosureInterestCalculationStrategy": "integer",
+      "principal": "number",
+      "principalThresholdForLastInstallment": "integer",
+      "principalVariationsForBorrowerCycle": "array",
+      "rates": "array",
+      "recalculationCompoundingFrequencyInterval": "integer",
+      "recalculationCompoundingFrequencyOnDayType": "integer",
+      "recalculationCompoundingFrequencyType": "integer",
+      "recalculationRestFrequencyInterval": "integer",
+      "recalculationRestFrequencyType": "integer",
+      "receivableFeeAccountId": "integer",
+      "receivableInterestAccountId": "integer",
+      "receivablePenaltyAccountId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "integer",
+      "repaymentStartDateType": "integer",
+      "rescheduleStrategyMethod": "integer",
+      "shortName": "string",
+      "startDate": "string",
+      "supportedInterestRefundTypes": "array",
+      "transactionProcessingStrategyCode": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "useBorrowerCycle": "boolean",
+      "writeOffAccountId": "integer",
+      "writeOffReasonsToExpenseMappings": "array"
+    },
+    "enums": {
+      "buyDownFeeCalculationType": [
+        "FLAT"
+      ],
+      "buyDownFeeIncomeType": [
+        "FEE",
+        "INTEREST"
+      ],
+      "buyDownFeeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeCalculationType": [
+        "FLAT"
+      ],
+      "capitalizedIncomeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeType": [
+        "FEE",
+        "INTEREST"
+      ]
+    },
+    "hasDate": true
+  },
+  "updateLoanProductByExternalId": {
+    "required": [],
+    "types": {
+      "accountMovesOutOfNPAOnlyOnArrearsCompletion": "boolean",
+      "accountingRule": "integer",
+      "allowApprovedDisbursedAmountsOverApplied": "boolean",
+      "allowAttributeOverrides": "object",
+      "allowCompoundingOnEod": "boolean",
+      "allowFullTermForTranche": "boolean",
+      "allowPartialPeriodInterestCalculation": "boolean",
+      "allowVariableInstallments": "boolean",
+      "amortizationType": "integer",
+      "buyDownExpenseAccountId": "integer",
+      "buyDownFeeCalculationType": "string",
+      "buyDownFeeIncomeType": "string",
+      "buyDownFeeStrategy": "string",
+      "buydownfeeClassificationToIncomeAccountMappings": "array",
+      "canDefineInstallmentAmount": "boolean",
+      "canUseForTopup": "boolean",
+      "capitalizedIncomeCalculationType": "string",
+      "capitalizedIncomeClassificationToIncomeAccountMappings": "array",
+      "capitalizedIncomeStrategy": "string",
+      "capitalizedIncomeType": "string",
+      "chargeOffBehaviour": "string",
+      "chargeOffExpenseAccountId": "integer",
+      "chargeOffFraudExpenseAccountId": "integer",
+      "chargeOffReasonToExpenseAccountMappings": "array",
+      "charges": "array",
+      "closeDate": "string",
+      "creditAllocation": "array",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "daysInMonthType": "integer",
+      "daysInYearCustomStrategy": "string",
+      "daysInYearType": "integer",
+      "deferredIncomeLiabilityAccountId": "integer",
+      "delinquencyBucketId": "integer",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "disallowExpectedDisbursements": "boolean",
+      "disallowInterestCalculationOnPastDue": "boolean",
+      "disbursedAmountPercentageForDownPayment": "number",
+      "dueDaysForRepaymentEvent": "integer",
+      "enableAccrualActivityPosting": "boolean",
+      "enableAutoRepaymentForDownPayment": "boolean",
+      "enableBuyDownFee": "boolean",
+      "enableDownPayment": "boolean",
+      "enableIncomeCapitalization": "boolean",
+      "enableInstallmentLevelDelinquency": "boolean",
+      "feeToIncomeAccountMappings": "array",
+      "fixedLength": "integer",
+      "fixedPrincipalPercentagePerInstallment": "number",
+      "fundId": "integer",
+      "fundSourceAccountId": "integer",
+      "goodwillCreditAccountId": "integer",
+      "graceOnArrearsAgeing": "integer",
+      "graceOnInterestPayment": "integer",
+      "graceOnPrincipalPayment": "integer",
+      "holdGuaranteeFunds": "boolean",
+      "inArrearsTolerance": "integer",
+      "inMultiplesOf": "integer",
+      "includeInBorrowerCycle": "boolean",
+      "incomeFromBuyDownAccountId": "integer",
+      "incomeFromCapitalizationAccountId": "integer",
+      "incomeFromChargeOffFeesAccountId": "integer",
+      "incomeFromChargeOffInterestAccountId": "integer",
+      "incomeFromChargeOffPenaltyAccountId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromGoodwillCreditFeesAccountId": "integer",
+      "incomeFromGoodwillCreditInterestAccountId": "integer",
+      "incomeFromGoodwillCreditPenaltyAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "incomeFromRecoveryAccountId": "integer",
+      "installmentAmountInMultiplesOf": "integer",
+      "interestCalculationPeriodType": "integer",
+      "interestOnLoanAccountId": "integer",
+      "interestRateFrequencyType": "integer",
+      "interestRatePerPeriod": "number",
+      "interestRateVariationsForBorrowerCycle": "array",
+      "interestRecalculationCompoundingMethod": "integer",
+      "interestRecognitionOnDisbursementDate": "boolean",
+      "interestType": "integer",
+      "isArrearsBasedOnOriginalSchedule": "boolean",
+      "isCompoundingToBePostedAsTransaction": "boolean",
+      "isEqualAmortization": "boolean",
+      "isInterestRecalculationEnabled": "boolean",
+      "isLinkedToFloatingInterestRates": "boolean",
+      "loanPortfolioAccountId": "integer",
+      "loanScheduleProcessingType": "string",
+      "loanScheduleType": "string",
+      "locale": "string",
+      "maxInterestRatePerPeriod": "number",
+      "maxNumberOfRepayments": "integer",
+      "maxPrincipal": "number",
+      "maxTrancheCount": "integer",
+      "merchantBuyDownFee": "boolean",
+      "minInterestRatePerPeriod": "number",
+      "minNumberOfRepayments": "integer",
+      "minPrincipal": "number",
+      "minimumDaysBetweenDisbursalAndFirstRepayment": "integer",
+      "multiDisburseLoan": "boolean",
+      "name": "string",
+      "numberOfRepaymentVariationsForBorrowerCycle": "array",
+      "numberOfRepayments": "integer",
+      "outstandingLoanBalance": "number",
+      "overAppliedCalculationType": "string",
+      "overAppliedNumber": "integer",
+      "overDueDaysForRepaymentEvent": "integer",
+      "overdueDaysForNPA": "integer",
+      "overpaymentLiabilityAccountId": "integer",
+      "paymentAllocation": "array",
+      "paymentChannelToFundSourceMappings": "array",
+      "penaltyToIncomeAccountMappings": "array",
+      "preClosureInterestCalculationStrategy": "integer",
+      "principal": "number",
+      "principalThresholdForLastInstallment": "integer",
+      "principalVariationsForBorrowerCycle": "array",
+      "rates": "array",
+      "recalculationCompoundingFrequencyInterval": "integer",
+      "recalculationCompoundingFrequencyOnDayType": "integer",
+      "recalculationCompoundingFrequencyType": "integer",
+      "recalculationRestFrequencyInterval": "integer",
+      "recalculationRestFrequencyType": "integer",
+      "receivableFeeAccountId": "integer",
+      "receivableInterestAccountId": "integer",
+      "receivablePenaltyAccountId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "integer",
+      "repaymentStartDateType": "integer",
+      "rescheduleStrategyMethod": "integer",
+      "shortName": "string",
+      "startDate": "string",
+      "supportedInterestRefundTypes": "array",
+      "transactionProcessingStrategyCode": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "useBorrowerCycle": "boolean",
+      "writeOffAccountId": "integer",
+      "writeOffReasonsToExpenseMappings": "array"
+    },
+    "enums": {
+      "buyDownFeeCalculationType": [
+        "FLAT"
+      ],
+      "buyDownFeeIncomeType": [
+        "FEE",
+        "INTEREST"
+      ],
+      "buyDownFeeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeCalculationType": [
+        "FLAT"
+      ],
+      "capitalizedIncomeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeType": [
+        "FEE",
+        "INTEREST"
+      ]
+    },
+    "hasDate": true
+  },
+  "updateLoanProduct": {
+    "required": [],
+    "types": {
+      "accountMovesOutOfNPAOnlyOnArrearsCompletion": "boolean",
+      "accountingRule": "integer",
+      "allowApprovedDisbursedAmountsOverApplied": "boolean",
+      "allowAttributeOverrides": "object",
+      "allowCompoundingOnEod": "boolean",
+      "allowFullTermForTranche": "boolean",
+      "allowPartialPeriodInterestCalculation": "boolean",
+      "allowVariableInstallments": "boolean",
+      "amortizationType": "integer",
+      "buyDownExpenseAccountId": "integer",
+      "buyDownFeeCalculationType": "string",
+      "buyDownFeeIncomeType": "string",
+      "buyDownFeeStrategy": "string",
+      "buydownfeeClassificationToIncomeAccountMappings": "array",
+      "canDefineInstallmentAmount": "boolean",
+      "canUseForTopup": "boolean",
+      "capitalizedIncomeCalculationType": "string",
+      "capitalizedIncomeClassificationToIncomeAccountMappings": "array",
+      "capitalizedIncomeStrategy": "string",
+      "capitalizedIncomeType": "string",
+      "chargeOffBehaviour": "string",
+      "chargeOffExpenseAccountId": "integer",
+      "chargeOffFraudExpenseAccountId": "integer",
+      "chargeOffReasonToExpenseAccountMappings": "array",
+      "charges": "array",
+      "closeDate": "string",
+      "creditAllocation": "array",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "daysInMonthType": "integer",
+      "daysInYearCustomStrategy": "string",
+      "daysInYearType": "integer",
+      "deferredIncomeLiabilityAccountId": "integer",
+      "delinquencyBucketId": "integer",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "disallowExpectedDisbursements": "boolean",
+      "disallowInterestCalculationOnPastDue": "boolean",
+      "disbursedAmountPercentageForDownPayment": "number",
+      "dueDaysForRepaymentEvent": "integer",
+      "enableAccrualActivityPosting": "boolean",
+      "enableAutoRepaymentForDownPayment": "boolean",
+      "enableBuyDownFee": "boolean",
+      "enableDownPayment": "boolean",
+      "enableIncomeCapitalization": "boolean",
+      "enableInstallmentLevelDelinquency": "boolean",
+      "feeToIncomeAccountMappings": "array",
+      "fixedLength": "integer",
+      "fixedPrincipalPercentagePerInstallment": "number",
+      "fundId": "integer",
+      "fundSourceAccountId": "integer",
+      "goodwillCreditAccountId": "integer",
+      "graceOnArrearsAgeing": "integer",
+      "graceOnInterestPayment": "integer",
+      "graceOnPrincipalPayment": "integer",
+      "holdGuaranteeFunds": "boolean",
+      "inArrearsTolerance": "integer",
+      "inMultiplesOf": "integer",
+      "includeInBorrowerCycle": "boolean",
+      "incomeFromBuyDownAccountId": "integer",
+      "incomeFromCapitalizationAccountId": "integer",
+      "incomeFromChargeOffFeesAccountId": "integer",
+      "incomeFromChargeOffInterestAccountId": "integer",
+      "incomeFromChargeOffPenaltyAccountId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromGoodwillCreditFeesAccountId": "integer",
+      "incomeFromGoodwillCreditInterestAccountId": "integer",
+      "incomeFromGoodwillCreditPenaltyAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "incomeFromRecoveryAccountId": "integer",
+      "installmentAmountInMultiplesOf": "integer",
+      "interestCalculationPeriodType": "integer",
+      "interestOnLoanAccountId": "integer",
+      "interestRateFrequencyType": "integer",
+      "interestRatePerPeriod": "number",
+      "interestRateVariationsForBorrowerCycle": "array",
+      "interestRecalculationCompoundingMethod": "integer",
+      "interestRecognitionOnDisbursementDate": "boolean",
+      "interestType": "integer",
+      "isArrearsBasedOnOriginalSchedule": "boolean",
+      "isCompoundingToBePostedAsTransaction": "boolean",
+      "isEqualAmortization": "boolean",
+      "isInterestRecalculationEnabled": "boolean",
+      "isLinkedToFloatingInterestRates": "boolean",
+      "loanPortfolioAccountId": "integer",
+      "loanScheduleProcessingType": "string",
+      "loanScheduleType": "string",
+      "locale": "string",
+      "maxInterestRatePerPeriod": "number",
+      "maxNumberOfRepayments": "integer",
+      "maxPrincipal": "number",
+      "maxTrancheCount": "integer",
+      "merchantBuyDownFee": "boolean",
+      "minInterestRatePerPeriod": "number",
+      "minNumberOfRepayments": "integer",
+      "minPrincipal": "number",
+      "minimumDaysBetweenDisbursalAndFirstRepayment": "integer",
+      "multiDisburseLoan": "boolean",
+      "name": "string",
+      "numberOfRepaymentVariationsForBorrowerCycle": "array",
+      "numberOfRepayments": "integer",
+      "outstandingLoanBalance": "number",
+      "overAppliedCalculationType": "string",
+      "overAppliedNumber": "integer",
+      "overDueDaysForRepaymentEvent": "integer",
+      "overdueDaysForNPA": "integer",
+      "overpaymentLiabilityAccountId": "integer",
+      "paymentAllocation": "array",
+      "paymentChannelToFundSourceMappings": "array",
+      "penaltyToIncomeAccountMappings": "array",
+      "preClosureInterestCalculationStrategy": "integer",
+      "principal": "number",
+      "principalThresholdForLastInstallment": "integer",
+      "principalVariationsForBorrowerCycle": "array",
+      "rates": "array",
+      "recalculationCompoundingFrequencyInterval": "integer",
+      "recalculationCompoundingFrequencyOnDayType": "integer",
+      "recalculationCompoundingFrequencyType": "integer",
+      "recalculationRestFrequencyInterval": "integer",
+      "recalculationRestFrequencyType": "integer",
+      "receivableFeeAccountId": "integer",
+      "receivableInterestAccountId": "integer",
+      "receivablePenaltyAccountId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "integer",
+      "repaymentStartDateType": "integer",
+      "rescheduleStrategyMethod": "integer",
+      "shortName": "string",
+      "startDate": "string",
+      "supportedInterestRefundTypes": "array",
+      "transactionProcessingStrategyCode": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "useBorrowerCycle": "boolean",
+      "writeOffAccountId": "integer",
+      "writeOffReasonsToExpenseMappings": "array"
+    },
+    "enums": {
+      "buyDownFeeCalculationType": [
+        "FLAT"
+      ],
+      "buyDownFeeIncomeType": [
+        "FEE",
+        "INTEREST"
+      ],
+      "buyDownFeeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeCalculationType": [
+        "FLAT"
+      ],
+      "capitalizedIncomeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeType": [
+        "FEE",
+        "INTEREST"
+      ]
+    },
+    "hasDate": true
+  },
+  "updateProductMix": {
+    "required": [
+      "restrictedProducts"
+    ],
+    "types": {
+      "productId": "integer",
+      "restrictedProducts": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createProductMix": {
+    "required": [
+      "restrictedProducts"
+    ],
+    "types": {
+      "productId": "integer",
+      "restrictedProducts": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "calculateOrSubmitLoanApplication": {
+    "required": [],
+    "types": {
+      "allowFullTermForTranche": "boolean",
+      "amortizationType": "integer",
+      "buyDownFeeCalculationType": "string",
+      "buyDownFeeIncomeType": "string",
+      "buyDownFeeStrategy": "string",
+      "capitalizedIncomeCalculationType": "string",
+      "capitalizedIncomeStrategy": "string",
+      "capitalizedIncomeType": "object",
+      "charges": "array",
+      "clientId": "integer",
+      "datatables": "array",
+      "dateFormat": "string",
+      "daysInYearCustomStrategy": "string",
+      "daysInYearType": "integer",
+      "disbursedAmountPercentageForDownPayment": "number",
+      "disbursementData": "array",
+      "enableAutoRepaymentForDownPayment": "boolean",
+      "enableBuyDownFee": "boolean",
+      "enableDownPayment": "boolean",
+      "enableIncomeCapitalization": "boolean",
+      "enableInstallmentLevelDelinquency": "boolean",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fixedEmiAmount": "number",
+      "fixedLength": "integer",
+      "fixedPrincipalPercentagePerInstallment": "number",
+      "graceOnArrearsAgeing": "integer",
+      "graceOnInterestCharged": "integer",
+      "graceOnInterestPayment": "integer",
+      "graceOnPrincipalPayment": "integer",
+      "inArrearsTolerance": "number",
+      "interestCalculationPeriodType": "integer",
+      "interestRateFrequencyType": "integer",
+      "interestRatePerPeriod": "number",
+      "interestRecognitionOnDisbursementDate": "boolean",
+      "interestType": "integer",
+      "linkAccountId": "integer",
+      "loanScheduleProcessingType": "string",
+      "loanTermFrequency": "integer",
+      "loanTermFrequencyType": "integer",
+      "loanType": "string",
+      "locale": "string",
+      "maxOutstandingLoanBalance": "number",
+      "numberOfRepayments": "integer",
+      "originators": "array",
+      "principal": "number",
+      "productId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "integer",
+      "repaymentStartDateType": "integer",
+      "repaymentsStartingFromDate": "string",
+      "submittedOnDate": "string",
+      "transactionProcessingStrategyCode": "string"
+    },
+    "enums": {
+      "buyDownFeeCalculationType": [
+        "FLAT"
+      ],
+      "buyDownFeeIncomeType": [
+        "FEE",
+        "INTEREST"
+      ],
+      "buyDownFeeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "capitalizedIncomeCalculationType": [
+        "FLAT"
+      ],
+      "capitalizedIncomeStrategy": [
+        "EQUAL_AMORTIZATION"
+      ],
+      "daysInYearCustomStrategy": [
+        "FULL_LEAP_YEAR, FEB_29_PERIOD_ONLY"
+      ]
+    },
+    "hasDate": true
+  },
+  "retrieveLoansPointInTime": {
+    "required": [],
+    "types": {
+      "date": "object",
+      "dateFormat": "string",
+      "loanIds": "array",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "retrieveLoansPointInTimeByExternalIds": {
+    "required": [],
+    "types": {
+      "date": "object",
+      "dateFormat": "string",
+      "externalIds": "array",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanApplicationByExternalId": {
+    "required": [],
+    "types": {
+      "allowFullTermForTranche": "boolean",
+      "amortizationType": "integer",
+      "charges": "array",
+      "clientId": "integer",
+      "collateral": "array",
+      "createStandingInstructionAtDisbursement": "boolean",
+      "dateFormat": "string",
+      "disbursedAmountPercentageForDownPayment": "number",
+      "disbursementData": "array",
+      "enableAutoRepaymentForDownPayment": "boolean",
+      "enableDownPayment": "boolean",
+      "enableInstallmentLevelDelinquency": "boolean",
+      "expectedDisbursementDate": "string",
+      "fixedLength": "integer",
+      "fixedPrincipalPercentagePerInstallment": "number",
+      "fraud": "boolean",
+      "graceOnArrearsAgeing": "integer",
+      "interestCalculationPeriodType": "integer",
+      "interestChargedFromDate": "string",
+      "interestRateFrequencyType": "integer",
+      "interestRatePerPeriod": "number",
+      "interestRecognitionOnDisbursementDate": "boolean",
+      "interestType": "integer",
+      "isEqualAmortization": "boolean",
+      "isTopup": "boolean",
+      "linkAccountId": "integer",
+      "loanIdToClose": "integer",
+      "loanScheduleProcessingType": "string",
+      "loanTermFrequency": "integer",
+      "loanTermFrequencyType": "integer",
+      "loanType": "string",
+      "locale": "string",
+      "maxOutstandingLoanBalance": "integer",
+      "numberOfRepayments": "integer",
+      "principal": "integer",
+      "productId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyDayOfWeekType": "integer",
+      "repaymentFrequencyNthDayType": "integer",
+      "repaymentFrequencyType": "integer",
+      "repaymentsStartingFromDate": "string",
+      "submittedOnDate": "string",
+      "transactionProcessingStrategyCode": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsLoanByExternalId": {
+    "required": [],
+    "types": {
+      "actualDisbursementDate": "string",
+      "adjustRepaymentDate": "string",
+      "approvedLoanAmount": "number",
+      "approvedOnDate": "string",
+      "assignmentDate": "string",
+      "dateFormat": "string",
+      "disbursementData": "array",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fixedEmiAmount": "number",
+      "fromLoanOfficerId": "integer",
+      "locale": "string",
+      "note": "string",
+      "originators": "array",
+      "paymentTypeId": "integer",
+      "rejectedOnDate": "string",
+      "toLoanOfficerId": "integer",
+      "transactionAmount": "number",
+      "unassignedDate": "string",
+      "withdrawnOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateApprovedAmountLoanByExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateAvailableDisbursementAmountLoanByExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeLoanChargeByLoanExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "chargeId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanChargeByLoanAndChargeExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeLoanChargeByLoanAndChargeExternalId": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "amount": "number",
+      "bankNumber": "string",
+      "chargeId": "integer",
+      "checkNumber": "string",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "installmentNumber": "integer",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanChargeByLoanExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeLoanChargeByLoanExternalIdOnExistingCharge": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "amount": "number",
+      "bankNumber": "string",
+      "chargeId": "integer",
+      "checkNumber": "string",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "installmentNumber": "integer",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createDelinquencyActionLoanByExternalId": {
+    "required": [],
+    "types": {
+      "action": "string",
+      "dateFormat": "string",
+      "endDate": "string",
+      "locale": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createLoanInterestPauseByExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "endDate": "string",
+      "locale": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanInterestPauseByExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "endDate": "string",
+      "locale": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsLoanTransactionByLoanExternalId": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "chargeOffReasonId": "integer",
+      "checkNumber": "string",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "frequencyNumber": "integer",
+      "frequencyType": "string",
+      "interestRefundCalculation": "boolean",
+      "loanChargeId": "integer",
+      "locale": "string",
+      "note": "string",
+      "numberOfInstallments": "integer",
+      "paymentTypeId": "integer",
+      "reAgeInterestHandling": "string",
+      "reAmortizationInterestHandling": "string",
+      "reasonCodeValueId": "integer",
+      "receiptNumber": "string",
+      "reversalExternalId": "string",
+      "routingCode": "string",
+      "startDate": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "writeoffReasonId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "adjustLoanTransactionByLoanAndTransactionExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "undoWaiveChargeLoanTransactionByLoanAndTransactionExternalId": {
+    "required": [],
+    "types": {
+      "id": "integer",
+      "loanId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "undoWaiveChargeLoanTransactionByLoanExternalId": {
+    "required": [],
+    "types": {
+      "id": "integer",
+      "loanId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "adjustLoanTransactionByLoanExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsGlimLoan": {
+    "required": [],
+    "types": {
+      "actualDisbursementDate": "string",
+      "adjustRepaymentDate": "string",
+      "approvedLoanAmount": "number",
+      "approvedOnDate": "string",
+      "assignmentDate": "string",
+      "dateFormat": "string",
+      "disbursementData": "array",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fixedEmiAmount": "number",
+      "fromLoanOfficerId": "integer",
+      "locale": "string",
+      "note": "string",
+      "originators": "array",
+      "paymentTypeId": "integer",
+      "rejectedOnDate": "string",
+      "toLoanOfficerId": "integer",
+      "transactionAmount": "number",
+      "unassignedDate": "string",
+      "withdrawnOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postLoanRepaymentTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postLoanTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateLoanApplication": {
+    "required": [],
+    "types": {
+      "allowFullTermForTranche": "boolean",
+      "amortizationType": "integer",
+      "charges": "array",
+      "clientId": "integer",
+      "collateral": "array",
+      "createStandingInstructionAtDisbursement": "boolean",
+      "dateFormat": "string",
+      "disbursedAmountPercentageForDownPayment": "number",
+      "disbursementData": "array",
+      "enableAutoRepaymentForDownPayment": "boolean",
+      "enableDownPayment": "boolean",
+      "enableInstallmentLevelDelinquency": "boolean",
+      "expectedDisbursementDate": "string",
+      "fixedLength": "integer",
+      "fixedPrincipalPercentagePerInstallment": "number",
+      "fraud": "boolean",
+      "graceOnArrearsAgeing": "integer",
+      "interestCalculationPeriodType": "integer",
+      "interestChargedFromDate": "string",
+      "interestRateFrequencyType": "integer",
+      "interestRatePerPeriod": "number",
+      "interestRecognitionOnDisbursementDate": "boolean",
+      "interestType": "integer",
+      "isEqualAmortization": "boolean",
+      "isTopup": "boolean",
+      "linkAccountId": "integer",
+      "loanIdToClose": "integer",
+      "loanScheduleProcessingType": "string",
+      "loanTermFrequency": "integer",
+      "loanTermFrequencyType": "integer",
+      "loanType": "string",
+      "locale": "string",
+      "maxOutstandingLoanBalance": "integer",
+      "numberOfRepayments": "integer",
+      "principal": "integer",
+      "productId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyDayOfWeekType": "integer",
+      "repaymentFrequencyNthDayType": "integer",
+      "repaymentFrequencyType": "integer",
+      "repaymentsStartingFromDate": "string",
+      "submittedOnDate": "string",
+      "transactionProcessingStrategyCode": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsLoan": {
+    "required": [],
+    "types": {
+      "actualDisbursementDate": "string",
+      "adjustRepaymentDate": "string",
+      "approvedLoanAmount": "number",
+      "approvedOnDate": "string",
+      "assignmentDate": "string",
+      "dateFormat": "string",
+      "disbursementData": "array",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fixedEmiAmount": "number",
+      "fromLoanOfficerId": "integer",
+      "locale": "string",
+      "note": "string",
+      "originators": "array",
+      "paymentTypeId": "integer",
+      "rejectedOnDate": "string",
+      "toLoanOfficerId": "integer",
+      "transactionAmount": "number",
+      "unassignedDate": "string",
+      "withdrawnOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateApprovedAmountLoan": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateAvailableDisbursementAmountLoan": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createOrPayLoanCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "chargeId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanChargeByChargeExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeLoanChargeByChargeExternalId": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "amount": "number",
+      "bankNumber": "string",
+      "chargeId": "integer",
+      "checkNumber": "string",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "installmentNumber": "integer",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeLoanChargeOnExistingCharge": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "amount": "number",
+      "bankNumber": "string",
+      "chargeId": "integer",
+      "checkNumber": "string",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "installmentNumber": "integer",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createCollateral": {
+    "required": [],
+    "types": {
+      "collateralTypeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCollateral": {
+    "required": [],
+    "types": {
+      "description": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createDelinquencyActionLoan": {
+    "required": [],
+    "types": {
+      "action": "string",
+      "dateFormat": "string",
+      "endDate": "string",
+      "locale": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "addAndDeleteDisbursementDetail": {
+    "required": [],
+    "types": {
+      "approvedLoanAmount": "number",
+      "dateFormat": "string",
+      "disbursementData": "array",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createGuarantor": {
+    "required": [],
+    "types": {
+      "addressLine1": "string",
+      "addressLine2": "string",
+      "amount": "number",
+      "city": "string",
+      "clientRelationshipTypeId": "integer",
+      "comment": "string",
+      "country": "string",
+      "dateFormat": "string",
+      "dob": "string",
+      "entityId": "integer",
+      "firstname": "string",
+      "guarantorTypeId": "integer",
+      "housePhoneNumber": "string",
+      "lastname": "string",
+      "locale": "string",
+      "mobileNumber": "string",
+      "savingsId": "integer",
+      "state": "string",
+      "zip": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postGuarantorTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateGuarantor": {
+    "required": [],
+    "types": {
+      "addressLine1": "string",
+      "addressLine2": "string",
+      "amount": "number",
+      "city": "string",
+      "clientRelationshipTypeId": "integer",
+      "comment": "string",
+      "country": "string",
+      "dateFormat": "string",
+      "dob": "string",
+      "entityId": "integer",
+      "firstname": "string",
+      "guarantorTypeId": "integer",
+      "housePhoneNumber": "string",
+      "lastname": "string",
+      "locale": "string",
+      "mobileNumber": "string",
+      "savingsId": "integer",
+      "state": "string",
+      "zip": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createLoanInterestPause": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "endDate": "string",
+      "locale": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateLoanInterestPause": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "endDate": "string",
+      "locale": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updatePostDatedChecks": {
+    "required": [],
+    "types": {
+      "accountNo": "integer",
+      "amount": "number",
+      "date": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "name": "string",
+      "repaymentDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsLoanSchedule": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsLoanTransaction": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "chargeOffReasonId": "integer",
+      "checkNumber": "string",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "frequencyNumber": "integer",
+      "frequencyType": "string",
+      "interestRefundCalculation": "boolean",
+      "loanChargeId": "integer",
+      "locale": "string",
+      "note": "string",
+      "numberOfInstallments": "integer",
+      "paymentTypeId": "integer",
+      "reAgeInterestHandling": "string",
+      "reAmortizationInterestHandling": "string",
+      "reasonCodeValueId": "integer",
+      "receiptNumber": "string",
+      "reversalExternalId": "string",
+      "routingCode": "string",
+      "startDate": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "writeoffReasonId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "adjustLoanTransactionByTransactionExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "undoWaiveChargeLoanTransactionByTransactionExternalId": {
+    "required": [],
+    "types": {
+      "id": "integer",
+      "loanId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "undoWaiveChargeLoanTransaction": {
+    "required": [],
+    "types": {
+      "id": "integer",
+      "loanId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "adjustLoanTransaction": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateMixTaxonomyMapping": {
+    "required": [],
+    "types": {
+      "config": "string",
+      "currency": "string",
+      "id": "integer",
+      "identifier": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createOffice": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "name": "string",
+      "openingDate": "string",
+      "parentId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateOfficeByExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "name": "string",
+      "openingDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postOfficeTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateOffice": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "name": "string",
+      "openingDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "forgotPassword": {
+    "required": [],
+    "types": {
+      "email": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updatePasswordPreferences": {
+    "required": [],
+    "types": {
+      "validationPolicyId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createPaymentType": {
+    "required": [
+      "isSystemDefined",
+      "name"
+    ],
+    "types": {
+      "codeName": "string",
+      "description": "string",
+      "isCashPayment": "boolean",
+      "isSystemDefined": "boolean",
+      "name": "string",
+      "position": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updatePaymentType": {
+    "required": [
+      "isSystemDefined",
+      "name"
+    ],
+    "types": {
+      "codeName": "string",
+      "description": "string",
+      "isCashPayment": "boolean",
+      "isSystemDefined": "boolean",
+      "name": "string",
+      "position": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updatePermissions": {
+    "required": [],
+    "types": {
+      "permissions": "object"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createShareProduct": {
+    "required": [],
+    "types": {
+      "accountingRule": "integer",
+      "allowDividendCalculationForInactiveClients": "boolean",
+      "chargesSelected": "array",
+      "currencyCode": "string",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "inMultiplesOf": "integer",
+      "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "marketPricePeriods": "array",
+      "maximumShares": "integer",
+      "minimumActivePeriodForDividends": "integer",
+      "minimumShares": "integer",
+      "minimumactiveperiodFrequencyType": "integer",
+      "name": "string",
+      "nominalShares": "integer",
+      "sharesIssued": "integer",
+      "shortName": "string",
+      "totalShares": "integer",
+      "unitPrice": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateShareProduct": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "locale": "string",
+      "unitPrice": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createProvisioningCriteria": {
+    "required": [],
+    "types": {
+      "criteriaName": "string",
+      "loanProducts": "array",
+      "provisioningcriteria": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateProvisioningCriteria": {
+    "required": [],
+    "types": {
+      "criteriaName": "string",
+      "loanProducts": "array",
+      "provisioningcriteria": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createProvisioningEntries": {
+    "required": [],
+    "types": {
+      "createjournalentries": "boolean",
+      "date": "string",
+      "dateFormat": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "modifyProvisioningEntry": {
+    "required": [],
+    "types": {
+      "command": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createRate": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "locale": "string",
+      "name": "string",
+      "percentage": "number",
+      "productApply": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateRate": {
+    "required": [],
+    "types": {
+      "active": "boolean",
+      "locale": "string",
+      "name": "string",
+      "percentage": "number",
+      "productApply": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "submitApplicationRecurringDepositAccount": {
+    "required": [],
+    "types": {
+      "clientId": "integer",
+      "dateFormat": "string",
+      "depositAmount": "number",
+      "depositPeriod": "integer",
+      "depositPeriodFrequencyId": "integer",
+      "isCalendarInherited": "boolean",
+      "locale": "string",
+      "mandatoryRecommendedDepositAmount": "integer",
+      "productId": "integer",
+      "recurringFrequency": "integer",
+      "recurringFrequencyType": "integer",
+      "submittedOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "postRecurringDepositTransactionsTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postRecurringDepositTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateRecurringDepositAccount": {
+    "required": [],
+    "types": {
+      "depositAmount": "integer",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsRecurringDepositAccount": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "transactionRecurringDepositAccountTransaction": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "checkNumber": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsRecurringDepositAccountTransaction": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "checkNumber": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createRecurringDepositProduct": {
+    "required": [],
+    "types": {
+      "accountingRule": "integer",
+      "charts": "array",
+      "currencyCode": "string",
+      "depositAmount": "integer",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "inMultiplesOf": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
+      "locale": "string",
+      "maxDepositAmount": "integer",
+      "maxDepositTerm": "integer",
+      "maxDepositTermTypeId": "integer",
+      "minDepositAmount": "integer",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer",
+      "name": "string",
+      "preClosurePenalApplicable": "boolean",
+      "preClosurePenalInterest": "number",
+      "preClosurePenalInterestOnTypeId": "integer",
+      "shortName": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateRecurringDepositProduct": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "locale": "string",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createReportMailingJob": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "description": "string",
+      "emailMessage": "string",
+      "emailRecipients": "string",
+      "emailSubject": "string",
+      "isActive": "boolean",
+      "locale": "string",
+      "name": "string",
+      "recurrence": "string",
+      "startDateTime": "string",
+      "stretchyReportId": "integer",
+      "stretchyReportParamMap": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateReportMailingJob": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "startDateTime": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createReport": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "reportCategory": "string",
+      "reportName": "string",
+      "reportParameters": "array",
+      "reportSql": "string",
+      "reportSubType": "string",
+      "reportType": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateReport": {
+    "required": [],
+    "types": {
+      "reportName": "string",
+      "reportParameters": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createRescheduleLoan": {
+    "required": [],
+    "types": {
+      "adjustedDueDate": "string",
+      "dateFormat": "string",
+      "emi": "number",
+      "endDate": "string",
+      "extraTerms": "integer",
+      "graceOnInterest": "integer",
+      "graceOnPrincipal": "integer",
+      "loanId": "integer",
+      "locale": "string",
+      "newInterestRate": "number",
+      "rescheduleFromDate": "string",
+      "rescheduleReasonComment": "string",
+      "rescheduleReasonId": "integer",
+      "submittedOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateRescheduleLoan": {
+    "required": [],
+    "types": {
+      "approvedOnDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "rejectedOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createRole": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateRole": {
+    "required": [],
+    "types": {
+      "description": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateRolePermissions": {
+    "required": [],
+    "types": {
+      "permissions": "object"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executePeriodicAccrualAccounting": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "tillDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "submitSavingsApplication": {
+    "required": [],
+    "types": {
+      "clientId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "productId": "integer",
+      "submittedOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateSavingsAccountByExternalId": {
+    "required": [],
+    "types": {
+      "locale": "string",
+      "nominalAnnualInterestRate": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsSavingsAccountByExternalId": {
+    "required": [],
+    "types": {
+      "activatedOnDate": "string",
+      "approvedOnDate": "string",
+      "closedOnDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "rejectedOnDate": "string",
+      "withdrawBalance": "boolean",
+      "withdrawnOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createSavingsAccountTransactionBySavingsExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "isPostInterestAsOn": "boolean",
+      "lienAllowed": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "reasonForBlock": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "isBulk": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "advancedQuerySavingsAccountTransactionsBySavingsExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "dateTimeFormat": "string",
+      "locale": "string",
+      "localeObject": "object",
+      "page": "integer",
+      "request": "object",
+      "size": "integer",
+      "sorts": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "adjustSavingsAccountTransactionBySavingsExternalId": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "isBulk": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postSavingsTransactionTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postSavingsTemplate": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateSavingsAccount": {
+    "required": [],
+    "types": {
+      "locale": "string",
+      "nominalAnnualInterestRate": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleCommandsSavingsAccount": {
+    "required": [],
+    "types": {
+      "activatedOnDate": "string",
+      "approvedOnDate": "string",
+      "closedOnDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "rejectedOnDate": "string",
+      "withdrawBalance": "boolean",
+      "withdrawnOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createSavingsAccountCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "chargeId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateSavingsAccountCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsSavingsAccountCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createSavingsAccountTransaction": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "externalId": "string",
+      "isPostInterestAsOn": "boolean",
+      "lienAllowed": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "reasonForBlock": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "adjustSavingsAccountTransactionByExternalId": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "isBulk": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "advancedQuerySavingsAccountTransactions": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "dateTimeFormat": "string",
+      "locale": "string",
+      "localeObject": "object",
+      "page": "integer",
+      "request": "object",
+      "size": "integer",
+      "sorts": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "adjustSavingsAccountTransaction": {
+    "required": [],
+    "types": {
+      "externalId": "string",
+      "isBulk": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createSavingsProduct": {
+    "required": [],
+    "types": {
+      "accountMappingForPayment": "string",
+      "accountingRule": "integer",
+      "allowOverdraft": "boolean",
+      "charges": "array",
+      "currencyCode": "string",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "enforceMinRequiredBalance": "boolean",
+      "inMultiplesOf": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
+      "isDormancyTrackingActive": "boolean",
+      "locale": "string",
+      "minRequiredOpeningBalance": "number",
+      "name": "string",
+      "nominalAnnualInterestRate": "number",
+      "shortName": "string",
+      "withHoldTax": "boolean",
+      "withdrawalFeeForTransfers": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateSavingsProduct": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "interestRate": "number",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "advancedSearch": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "includeOutStandingAmountPercentage": "boolean",
+      "includeOutstandingAmount": "boolean",
+      "loanDateOption": "string",
+      "loanFromDate": "string",
+      "loanToDate": "string",
+      "locale": "string",
+      "maxOutstandingAmount": "integer",
+      "minOutstandingAmount": "integer",
+      "outStandingAmountPercentage": "integer",
+      "outStandingAmountPercentageCondition": "string",
+      "outstandingAmountCondition": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createSms": {
+    "required": [],
+    "types": {
+      "campaignId": "integer",
+      "clientId": "integer",
+      "groupId": "integer",
+      "message": "string",
+      "staffId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateSms": {
+    "required": [],
+    "types": {
+      "message": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createSmsCampaign": {
+    "required": [],
+    "types": {
+      "actionName": "string",
+      "cacheResource": "boolean",
+      "changePasswordOperation": "boolean",
+      "clientId": "integer",
+      "commandId": "integer",
+      "create": "boolean",
+      "createDatatable": "boolean",
+      "creditBureauId": "integer",
+      "currencyResource": "boolean",
+      "datatableResource": "boolean",
+      "delete": "boolean",
+      "deleteDatatable": "boolean",
+      "deleteMultiple": "boolean",
+      "deleteOneToOne": "boolean",
+      "deleteOperation": "boolean",
+      "entityId": "integer",
+      "entityName": "string",
+      "fullFilSurvey": "boolean",
+      "groupId": "integer",
+      "href": "string",
+      "idempotencyKey": "string",
+      "interestPauseCreateResource": "boolean",
+      "interestPauseDeleteResource": "boolean",
+      "interestPauseResource": "boolean",
+      "interestPauseUpdateResource": "boolean",
+      "jobName": "string",
+      "json": "string",
+      "loanDisburseDetailResource": "boolean",
+      "loanExternalId": "object",
+      "loanId": "integer",
+      "noteResource": "boolean",
+      "officeId": "integer",
+      "organisationCreditBureauId": "integer",
+      "passwordPreferencesResource": "boolean",
+      "permissionResource": "boolean",
+      "productId": "integer",
+      "registerDatatable": "boolean",
+      "registerSurvey": "boolean",
+      "sanitizeJsonKeys": "array",
+      "savingsId": "integer",
+      "subentityId": "integer",
+      "surveyResource": "boolean",
+      "taskPermissionName": "string",
+      "templateId": "integer",
+      "transactionId": "string",
+      "update": "boolean",
+      "updateDatatable": "boolean",
+      "updateDisbursementDate": "boolean",
+      "updateMultiple": "boolean",
+      "updateOneToOne": "boolean",
+      "updateOperation": "boolean",
+      "userResource": "boolean",
+      "workingDaysResource": "boolean"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "previewSmsCampaign": {
+    "required": [],
+    "types": {
+      "message": "string",
+      "paramValue": "object"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateSmsCampaign": {
+    "required": [],
+    "types": {
+      "actionName": "string",
+      "cacheResource": "boolean",
+      "changePasswordOperation": "boolean",
+      "clientId": "integer",
+      "commandId": "integer",
+      "create": "boolean",
+      "createDatatable": "boolean",
+      "creditBureauId": "integer",
+      "currencyResource": "boolean",
+      "datatableResource": "boolean",
+      "delete": "boolean",
+      "deleteDatatable": "boolean",
+      "deleteMultiple": "boolean",
+      "deleteOneToOne": "boolean",
+      "deleteOperation": "boolean",
+      "entityId": "integer",
+      "entityName": "string",
+      "fullFilSurvey": "boolean",
+      "groupId": "integer",
+      "href": "string",
+      "idempotencyKey": "string",
+      "interestPauseCreateResource": "boolean",
+      "interestPauseDeleteResource": "boolean",
+      "interestPauseResource": "boolean",
+      "interestPauseUpdateResource": "boolean",
+      "jobName": "string",
+      "json": "string",
+      "loanDisburseDetailResource": "boolean",
+      "loanExternalId": "object",
+      "loanId": "integer",
+      "noteResource": "boolean",
+      "officeId": "integer",
+      "organisationCreditBureauId": "integer",
+      "passwordPreferencesResource": "boolean",
+      "permissionResource": "boolean",
+      "productId": "integer",
+      "registerDatatable": "boolean",
+      "registerSurvey": "boolean",
+      "sanitizeJsonKeys": "array",
+      "savingsId": "integer",
+      "subentityId": "integer",
+      "surveyResource": "boolean",
+      "taskPermissionName": "string",
+      "templateId": "integer",
+      "transactionId": "string",
+      "update": "boolean",
+      "updateDatatable": "boolean",
+      "updateDisbursementDate": "boolean",
+      "updateMultiple": "boolean",
+      "updateOneToOne": "boolean",
+      "updateOperation": "boolean",
+      "userResource": "boolean",
+      "workingDaysResource": "boolean"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createStaff": {
+    "required": [
+      "firstname",
+      "lastname",
+      "officeId"
+    ],
+    "types": {
+      "dateFormat": "string",
+      "emailAddress": "string",
+      "externalId": "string",
+      "firstname": "string",
+      "forceStatus": "boolean",
+      "isActive": "boolean",
+      "isLoanOfficer": "boolean",
+      "joiningDate": "string",
+      "lastname": "string",
+      "locale": "string",
       "mobileNo": "string",
       "officeId": "integer"
     },
     "enums": {},
     "hasDate": true
   },
-  "updateClient": {
+  "postTemplate": {
     "required": [],
     "types": {
-      "firstname": "string",
-      "lastname": "string",
-      "mobileNo": "string"
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
     },
     "enums": {},
     "hasDate": false
   },
-  "calculateLoanScheduleOrSubmitLoanApplication": {
-    "required": [
-      "clientId",
-      "productId",
-      "principal",
-      "loanTermFrequency",
-      "expectedDisbursementDate"
-    ],
+  "updateStaff": {
+    "required": [],
     "types": {
-      "amortizationType": "integer",
+      "emailAddress": "string",
+      "externalId": "string",
+      "firstname": "string",
+      "forceStatus": "boolean",
+      "isActive": "boolean",
+      "isLoanOfficer": "boolean",
+      "joiningDate": "string",
+      "lastname": "string",
+      "mobileNo": "string",
+      "officeId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createStandingInstruction": {
+    "required": [],
+    "types": {
+      "amount": "string",
+      "dateFormat": "string",
+      "fromAccountId": "string",
+      "fromAccountType": "string",
+      "fromClientId": "string",
+      "fromOfficeId": "string",
+      "instructionType": "string",
+      "locale": "string",
+      "monthDayFormat": "string",
+      "name": "string",
+      "priority": "string",
+      "recurrenceFrequency": "string",
+      "recurrenceInterval": "string",
+      "recurrenceOnMonthDay": "string",
+      "recurrenceType": "string",
+      "status": "string",
+      "toAccountId": "string",
+      "toAccountType": "string",
+      "toClientId": "string",
+      "toOfficeId": "string",
+      "transferType": "string",
+      "validFrom": "string",
+      "validTill": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateStandingInstruction": {
+    "required": [],
+    "types": {
+      "amount": "string",
+      "dateFormat": "string",
+      "instructionType": "string",
+      "locale": "string",
+      "monthDayFormat": "string",
+      "name": "string",
+      "priority": "string",
+      "recurrenceFrequency": "string",
+      "recurrenceInterval": "string",
+      "recurrenceOnMonthDay": "string",
+      "recurrenceType": "string",
+      "status": "string",
+      "validFrom": "string",
+      "validTill": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createSurveyEntry": {
+    "required": [],
+    "types": {
+      "date": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "ppi_businessoccupation_cd_q3_businessoccupation": "integer",
+      "ppi_floortype_cd_q5_floortype": "integer",
+      "ppi_fryingpans_cd_q10_fryingpans": "integer",
+      "ppi_habitablerooms_cd_q4_habitablerooms": "integer",
+      "ppi_highestschool_cd_q2_highestschool": "integer",
+      "ppi_household_members_cd_q1_householdmembers": "integer",
+      "ppi_irons_cd_q7_irons": "integer",
+      "ppi_lightingsource_cd_q6_lightingsource": "integer",
+      "ppi_mosquitonets_cd_q8_mosquitonets": "integer",
+      "ppi_towels_cd_q9_towels": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createSurvey": {
+    "required": [],
+    "types": {
+      "componentDatas": "array",
+      "countryCode": "string",
+      "description": "string",
+      "id": "integer",
+      "key": "string",
+      "name": "string",
+      "questionDatas": "array",
+      "validFrom": "string",
+      "validTo": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createScorecard": {
+    "required": [],
+    "types": {
       "clientId": "integer",
-      "expectedDisbursementDate": "string",
-      "interestRatePerPeriod": "number",
-      "interestType": "integer",
-      "loanTermFrequency": "integer",
-      "loanTermFrequencyType": "integer",
-      "numberOfRepayments": "integer",
-      "principal": "number",
-      "productId": "integer",
-      "submittedOnDate": "string"
+      "id": "integer",
+      "scorecardValues": "array",
+      "surveyId": "integer",
+      "surveyName": "string",
+      "userId": "integer",
+      "username": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "editSurvey": {
+    "required": [],
+    "types": {
+      "componentDatas": "array",
+      "countryCode": "string",
+      "description": "string",
+      "id": "integer",
+      "key": "string",
+      "name": "string",
+      "questionDatas": "array",
+      "validFrom": "string",
+      "validTo": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createLookupTable": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "entries": "array",
+      "key": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createTaxComponent": {
+    "required": [],
+    "types": {
+      "creditAccountId": "integer",
+      "creditAccountType": "integer",
+      "dateFormat": "string",
+      "debitAccountId": "integer",
+      "debitAccountType": "integer",
+      "locale": "string",
+      "name": "string",
+      "percentage": "number",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateTaxComponent": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "name": "string",
+      "percentage": "number",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createTaxGroup": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "name": "string",
+      "taxComponents": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateTaxGroup": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "name": "string",
+      "taxComponents": "array"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createTeller": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "description": "string",
+      "locale": "string",
+      "name": "string",
+      "officeId": "integer",
+      "startDate": "string",
+      "status": "string"
     },
     "enums": {
-      "amortizationType": [
-        0,
-        1
-      ],
-      "interestType": [
-        0,
-        1
+      "status": [
+        "INVALID",
+        "PENDING",
+        "ACTIVE",
+        "INACTIVE",
+        "CLOSED"
       ]
     },
     "hasDate": true
   },
-  "approveLoanApplication": {
-    "required": [
-      "approvedOnDate"
-    ],
+  "updateTeller": {
+    "required": [],
     "types": {
-      "approvedLoanAmount": "number",
-      "approvedOnDate": "string",
-      "note": "string"
+      "dateFormat": "string",
+      "description": "string",
+      "endDate": "string",
+      "locale": "string",
+      "name": "string",
+      "officeId": "integer",
+      "startDate": "string",
+      "status": "string"
+    },
+    "enums": {
+      "status": [
+        "INVALID",
+        "PENDING",
+        "ACTIVE",
+        "INACTIVE",
+        "CLOSED"
+      ]
+    },
+    "hasDate": true
+  },
+  "createCashierForTeller": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "description": "string",
+      "endDate": "string",
+      "isFullDay": "boolean",
+      "locale": "string",
+      "staffId": "integer",
+      "startDate": "string"
     },
     "enums": {},
     "hasDate": true
   },
-  "submitSavingsApplication": {
-    "required": [
-      "clientId",
-      "productId",
-      "submittedOnDate"
-    ],
+  "updateCashierForTeller": {
+    "required": [],
     "types": {
-      "clientId": "integer",
-      "nominalAnnualInterestRate": "number",
-      "productId": "integer",
-      "submittedOnDate": "string"
+      "dateFormat": "string",
+      "description": "string",
+      "endDate": "string",
+      "isFullDay": "boolean",
+      "locale": "string",
+      "staffId": "integer",
+      "startDate": "string"
     },
     "enums": {},
     "hasDate": true
+  },
+  "allocateCashToCashier": {
+    "required": [],
+    "types": {
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "txnAmount": "number",
+      "txnDate": "string",
+      "txnNote": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "settleCashFromCashier": {
+    "required": [],
+    "types": {
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "txnAmount": "number",
+      "txnDate": "string",
+      "txnNote": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createTemplate": {
+    "required": [],
+    "types": {
+      "entity": "integer",
+      "name": "string",
+      "text": "string",
+      "type": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "saveTemplate": {
+    "required": [
+      "id"
+    ],
+    "types": {
+      "entity": "integer",
+      "id": "integer",
+      "mappers": "array",
+      "name": "string",
+      "text": "string",
+      "type": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "mergeTemplate": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "createUser": {
+    "required": [],
+    "types": {
+      "clients": "array",
+      "email": "string",
+      "firstname": "string",
+      "isLoginRetriesEnabled": "boolean",
+      "isPasswordResetAllowed": "boolean",
+      "lastname": "string",
+      "officeId": "integer",
+      "password": "string",
+      "passwordNeverExpires": "boolean",
+      "repeatPassword": "string",
+      "roles": "array",
+      "sendPasswordToEmail": "boolean",
+      "staffId": "integer",
+      "username": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "postBulkTemplateUser": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "locale": "string",
+      "uploadedInputStream": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateUser": {
+    "required": [],
+    "types": {
+      "clients": "array",
+      "email": "string",
+      "firstname": "string",
+      "isLoginRetriesEnabled": "boolean",
+      "isPasswordResetAllowed": "boolean",
+      "lastname": "string",
+      "officeId": "integer",
+      "password": "string",
+      "repeatPassword": "string",
+      "roles": "array",
+      "sendPasswordToEmail": "boolean",
+      "staffId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "changePasswordUser": {
+    "required": [],
+    "types": {
+      "password": "string",
+      "repeatPassword": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createWorkingCapitalLoanProduct": {
+    "required": [],
+    "types": {
+      "accountingRule": "string",
+      "allowAttributeOverrides": "object",
+      "amortizationType": "string",
+      "breachGraceDays": "integer",
+      "breachId": "integer",
+      "breachStartType": "string",
+      "chargeOffExpenseAccountId": "integer",
+      "chargeOffFraudExpenseAccountId": "integer",
+      "chargeOffReasonToExpenseAccountMappings": "array",
+      "closeDate": "string",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "deferredIncomeLiabilityAccountId": "integer",
+      "delinquencyBucketId": "integer",
+      "delinquencyGraceDays": "integer",
+      "delinquencyStartType": "string",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "discount": "number",
+      "externalId": "string",
+      "feeToIncomeAccountMappings": "array",
+      "fundId": "integer",
+      "fundSourceAccountId": "integer",
+      "goodwillCreditAccountId": "integer",
+      "inMultiplesOf": "integer",
+      "incomeFromChargeOffFeesAccountId": "integer",
+      "incomeFromChargeOffPenaltyAccountId": "integer",
+      "incomeFromDiscountFeeAccountId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromGoodwillCreditFeesAccountId": "integer",
+      "incomeFromGoodwillCreditPenaltyAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "incomeFromRecoveryAccountId": "integer",
+      "loanPortfolioAccountId": "integer",
+      "locale": "string",
+      "maxPeriodPaymentRate": "number",
+      "maxPrincipal": "number",
+      "minPeriodPaymentRate": "number",
+      "minPrincipal": "number",
+      "name": "string",
+      "nearBreachId": "integer",
+      "npvDayCount": "integer",
+      "overpaymentLiabilityAccountId": "integer",
+      "paymentAllocation": "array",
+      "paymentChannelToFundSourceMappings": "array",
+      "penaltyToIncomeAccountMappings": "array",
+      "periodPaymentRate": "number",
+      "principal": "number",
+      "receivableFeeAccountId": "integer",
+      "receivablePenaltyAccountId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "string",
+      "shortName": "string",
+      "startDate": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "writeOffAccountId": "integer",
+      "writeOffReasonsToExpenseMappings": "array"
+    },
+    "enums": {
+      "accountingRule": [
+        "NONE",
+        "ACC_DEF_REV_AM"
+      ],
+      "amortizationType": [
+        "EIR",
+        "FLAT"
+      ],
+      "repaymentFrequencyType": [
+        "DAYS",
+        "MONTHS",
+        "YEARS"
+      ]
+    },
+    "hasDate": true
+  },
+  "updateWorkingCapitalLoanProductByExternalId": {
+    "required": [],
+    "types": {
+      "accountingRule": "string",
+      "allowAttributeOverrides": "object",
+      "amortizationType": "string",
+      "breachGraceDays": "integer",
+      "breachId": "integer",
+      "breachStartType": "string",
+      "chargeOffExpenseAccountId": "integer",
+      "chargeOffFraudExpenseAccountId": "integer",
+      "chargeOffReasonToExpenseAccountMappings": "array",
+      "closeDate": "string",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "deferredIncomeLiabilityAccountId": "integer",
+      "delinquencyBucketId": "integer",
+      "delinquencyGraceDays": "integer",
+      "delinquencyStartType": "string",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "discount": "number",
+      "externalId": "string",
+      "feeToIncomeAccountMappings": "array",
+      "fundId": "integer",
+      "fundSourceAccountId": "integer",
+      "goodwillCreditAccountId": "integer",
+      "inMultiplesOf": "integer",
+      "incomeFromChargeOffFeesAccountId": "integer",
+      "incomeFromChargeOffPenaltyAccountId": "integer",
+      "incomeFromDiscountFeeAccountId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromGoodwillCreditFeesAccountId": "integer",
+      "incomeFromGoodwillCreditPenaltyAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "incomeFromRecoveryAccountId": "integer",
+      "loanPortfolioAccountId": "integer",
+      "locale": "string",
+      "maxPeriodPaymentRate": "number",
+      "maxPrincipal": "number",
+      "minPeriodPaymentRate": "number",
+      "minPrincipal": "number",
+      "name": "string",
+      "nearBreachId": "integer",
+      "npvDayCount": "integer",
+      "overpaymentLiabilityAccountId": "integer",
+      "paymentAllocation": "array",
+      "paymentChannelToFundSourceMappings": "array",
+      "penaltyToIncomeAccountMappings": "array",
+      "periodPaymentRate": "number",
+      "principal": "number",
+      "receivableFeeAccountId": "integer",
+      "receivablePenaltyAccountId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "string",
+      "shortName": "string",
+      "startDate": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "writeOffAccountId": "integer",
+      "writeOffReasonsToExpenseMappings": "array"
+    },
+    "enums": {
+      "accountingRule": [
+        "NONE",
+        "ACC_DEF_REV_AM"
+      ],
+      "amortizationType": [
+        "EIR",
+        "FLAT"
+      ],
+      "repaymentFrequencyType": [
+        "DAYS",
+        "MONTHS",
+        "YEARS"
+      ]
+    },
+    "hasDate": true
+  },
+  "updateWorkingCapitalLoanProduct": {
+    "required": [],
+    "types": {
+      "accountingRule": "string",
+      "allowAttributeOverrides": "object",
+      "amortizationType": "string",
+      "breachGraceDays": "integer",
+      "breachId": "integer",
+      "breachStartType": "string",
+      "chargeOffExpenseAccountId": "integer",
+      "chargeOffFraudExpenseAccountId": "integer",
+      "chargeOffReasonToExpenseAccountMappings": "array",
+      "closeDate": "string",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "deferredIncomeLiabilityAccountId": "integer",
+      "delinquencyBucketId": "integer",
+      "delinquencyGraceDays": "integer",
+      "delinquencyStartType": "string",
+      "description": "string",
+      "digitsAfterDecimal": "integer",
+      "discount": "number",
+      "externalId": "string",
+      "feeToIncomeAccountMappings": "array",
+      "fundId": "integer",
+      "fundSourceAccountId": "integer",
+      "goodwillCreditAccountId": "integer",
+      "inMultiplesOf": "integer",
+      "incomeFromChargeOffFeesAccountId": "integer",
+      "incomeFromChargeOffPenaltyAccountId": "integer",
+      "incomeFromDiscountFeeAccountId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromGoodwillCreditFeesAccountId": "integer",
+      "incomeFromGoodwillCreditPenaltyAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "incomeFromRecoveryAccountId": "integer",
+      "loanPortfolioAccountId": "integer",
+      "locale": "string",
+      "maxPeriodPaymentRate": "number",
+      "maxPrincipal": "number",
+      "minPeriodPaymentRate": "number",
+      "minPrincipal": "number",
+      "name": "string",
+      "nearBreachId": "integer",
+      "npvDayCount": "integer",
+      "overpaymentLiabilityAccountId": "integer",
+      "paymentAllocation": "array",
+      "paymentChannelToFundSourceMappings": "array",
+      "penaltyToIncomeAccountMappings": "array",
+      "periodPaymentRate": "number",
+      "principal": "number",
+      "receivableFeeAccountId": "integer",
+      "receivablePenaltyAccountId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "string",
+      "shortName": "string",
+      "startDate": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "writeOffAccountId": "integer",
+      "writeOffReasonsToExpenseMappings": "array"
+    },
+    "enums": {
+      "accountingRule": [
+        "NONE",
+        "ACC_DEF_REV_AM"
+      ],
+      "amortizationType": [
+        "EIR",
+        "FLAT"
+      ],
+      "repaymentFrequencyType": [
+        "DAYS",
+        "MONTHS",
+        "YEARS"
+      ]
+    },
+    "hasDate": true
+  },
+  "submitWorkingCapitalLoanApplication": {
+    "required": [
+      "clientId",
+      "principalAmount",
+      "productId"
+    ],
+    "types": {
+      "accountNo": "string",
+      "breachGraceDays": "integer",
+      "breachId": "integer",
+      "breachStartType": "string",
+      "clientId": "integer",
+      "dateFormat": "string",
+      "delinquencyBucketId": "integer",
+      "delinquencyGraceDays": "integer",
+      "delinquencyStartType": "string",
+      "discount": "number",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fundId": "integer",
+      "locale": "string",
+      "nearBreachId": "integer",
+      "originators": "array",
+      "paymentAllocation": "array",
+      "periodPaymentRate": "number",
+      "principalAmount": "number",
+      "productId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "string",
+      "submittedOnDate": "string",
+      "submittedOnNote": "string",
+      "totalPaymentVolume": "number"
+    },
+    "enums": {
+      "repaymentFrequencyType": [
+        "DAYS",
+        "MONTHS",
+        "YEARS"
+      ]
+    },
+    "hasDate": true
+  },
+  "modifyWorkingCapitalLoanApplicationByExternalId": {
+    "required": [],
+    "types": {
+      "accountNo": "string",
+      "breachGraceDays": "integer",
+      "breachId": "integer",
+      "breachStartType": "string",
+      "clientId": "integer",
+      "dateFormat": "string",
+      "delinquencyBucketId": "integer",
+      "delinquencyGraceDays": "integer",
+      "delinquencyStartType": "string",
+      "discount": "number",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fundId": "integer",
+      "locale": "string",
+      "nearBreachId": "integer",
+      "paymentAllocation": "array",
+      "periodPaymentRate": "number",
+      "principalAmount": "number",
+      "productId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "string",
+      "submittedOnDate": "string",
+      "submittedOnNote": "string",
+      "totalPaymentVolume": "number"
+    },
+    "enums": {
+      "repaymentFrequencyType": [
+        "DAYS",
+        "MONTHS",
+        "YEARS"
+      ]
+    },
+    "hasDate": true
+  },
+  "stateTransitionWorkingCapitalLoanByExternalId": {
+    "required": [],
+    "types": {
+      "actualDisbursementDate": "string",
+      "approvedLoanAmount": "number",
+      "approvedOnDate": "string",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "discountAmount": "number",
+      "discountExternalId": "string",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "rejectedOnDate": "string",
+      "transactionAmount": "number"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createBreachActionByExternalId": {
+    "required": [],
+    "types": {
+      "action": "string",
+      "dateFormat": "string",
+      "endDate": "string",
+      "frequency": "integer",
+      "frequencyType": "string",
+      "locale": "string",
+      "minimumPayment": "number",
+      "minimumPaymentType": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeWorkingCapitalLoanChargeByLoanExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "chargeId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "adjustLoanChargeByLoanAndChargeExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "adjustLoanChargeByLoanExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createDelinquencyActionByExternalId": {
+    "required": [],
+    "types": {
+      "action": "string",
+      "dateFormat": "string",
+      "endDate": "string",
+      "frequency": "integer",
+      "frequencyType": "string",
+      "locale": "string",
+      "minimumPayment": "number",
+      "minimumPaymentType": "string",
+      "startDate": "string",
+      "startNewPeriod": "boolean"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateWorkingCapitalLoanDiscountByExternalId": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "discountAmount": "number",
+      "locale": "string",
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createWorkingCapitalLoanNearBreachActionByExternalId": {
+    "required": [
+      "action",
+      "nearBreachFrequency",
+      "nearBreachFrequencyType",
+      "nearBreachThreshold"
+    ],
+    "types": {
+      "action": "string",
+      "locale": "string",
+      "nearBreachFrequency": "integer",
+      "nearBreachFrequencyType": "string",
+      "nearBreachThreshold": "number"
+    },
+    "enums": {
+      "action": [
+        "RESCHEDULE"
+      ],
+      "nearBreachFrequencyType": [
+        "DAYS",
+        "WEEKS",
+        "MONTHS"
+      ]
+    },
+    "hasDate": false
+  },
+  "updateWorkingCapitalLoanRateByExternalId": {
+    "required": [],
+    "types": {
+      "locale": "string",
+      "note": "string",
+      "periodPaymentRate": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeWorkingCapitalLoanTransactionByExternalId": {
+    "required": [],
+    "types": {
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "relatedResourceId": "integer",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId": {
+    "required": [],
+    "types": {
+      "reversalExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId": {
+    "required": [],
+    "types": {
+      "reversalExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "modifyWorkingCapitalLoanApplicationById": {
+    "required": [],
+    "types": {
+      "accountNo": "string",
+      "breachGraceDays": "integer",
+      "breachId": "integer",
+      "breachStartType": "string",
+      "clientId": "integer",
+      "dateFormat": "string",
+      "delinquencyBucketId": "integer",
+      "delinquencyGraceDays": "integer",
+      "delinquencyStartType": "string",
+      "discount": "number",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "fundId": "integer",
+      "locale": "string",
+      "nearBreachId": "integer",
+      "paymentAllocation": "array",
+      "periodPaymentRate": "number",
+      "principalAmount": "number",
+      "productId": "integer",
+      "repaymentEvery": "integer",
+      "repaymentFrequencyType": "string",
+      "submittedOnDate": "string",
+      "submittedOnNote": "string",
+      "totalPaymentVolume": "number"
+    },
+    "enums": {
+      "repaymentFrequencyType": [
+        "DAYS",
+        "MONTHS",
+        "YEARS"
+      ]
+    },
+    "hasDate": true
+  },
+  "stateTransitionWorkingCapitalLoanById": {
+    "required": [],
+    "types": {
+      "actualDisbursementDate": "string",
+      "approvedLoanAmount": "number",
+      "approvedOnDate": "string",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "discountAmount": "number",
+      "discountExternalId": "string",
+      "expectedDisbursementDate": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "rejectedOnDate": "string",
+      "transactionAmount": "number"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createBreachAction": {
+    "required": [],
+    "types": {
+      "action": "string",
+      "dateFormat": "string",
+      "endDate": "string",
+      "frequency": "integer",
+      "frequencyType": "string",
+      "locale": "string",
+      "minimumPayment": "number",
+      "minimumPaymentType": "string",
+      "startDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createLoanCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "chargeId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "locale": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "adjustLoanChargeByChargeExternalId": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "adjustLoanCharge": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createDelinquencyAction": {
+    "required": [],
+    "types": {
+      "action": "string",
+      "dateFormat": "string",
+      "endDate": "string",
+      "frequency": "integer",
+      "frequencyType": "string",
+      "locale": "string",
+      "minimumPayment": "number",
+      "minimumPaymentType": "string",
+      "startDate": "string",
+      "startNewPeriod": "boolean"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateWorkingCapitalLoanDiscountById": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "discountAmount": "number",
+      "locale": "string",
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createWorkingCapitalLoanNearBreachActionById": {
+    "required": [
+      "action",
+      "nearBreachFrequency",
+      "nearBreachFrequencyType",
+      "nearBreachThreshold"
+    ],
+    "types": {
+      "action": "string",
+      "locale": "string",
+      "nearBreachFrequency": "integer",
+      "nearBreachFrequencyType": "string",
+      "nearBreachThreshold": "number"
+    },
+    "enums": {
+      "action": [
+        "RESCHEDULE"
+      ],
+      "nearBreachFrequencyType": [
+        "DAYS",
+        "WEEKS",
+        "MONTHS"
+      ]
+    },
+    "hasDate": false
+  },
+  "updateWorkingCapitalLoanRateById": {
+    "required": [],
+    "types": {
+      "locale": "string",
+      "note": "string",
+      "periodPaymentRate": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeWorkingCapitalLoanTransactionById": {
+    "required": [],
+    "types": {
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "relatedResourceId": "integer",
+      "transactionAmount": "number",
+      "transactionDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId": {
+    "required": [],
+    "types": {
+      "reversalExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId": {
+    "required": [],
+    "types": {
+      "reversalExternalId": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createWorkingCapitalBreach": {
+    "required": [],
+    "types": {
+      "breachAmount": "number",
+      "breachAmountCalculationType": "string",
+      "breachFrequency": "integer",
+      "breachFrequencyType": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateWorkingCapitalBreach": {
+    "required": [],
+    "types": {
+      "breachAmount": "number",
+      "breachAmountCalculationType": "string",
+      "breachFrequency": "integer",
+      "breachFrequencyType": "string",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createWorkingCapitalNearBreach": {
+    "required": [],
+    "types": {
+      "nearBreachFrequency": "integer",
+      "nearBreachFrequencyType": "string",
+      "nearBreachName": "string",
+      "nearBreachThreshold": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateWorkingCapitalNearBreach": {
+    "required": [],
+    "types": {
+      "nearBreachFrequency": "integer",
+      "nearBreachFrequencyType": "string",
+      "nearBreachName": "string",
+      "nearBreachThreshold": "number"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateWorkingDay": {
+    "required": [],
+    "types": {
+      "extendTermForDailyRepayments": "boolean",
+      "extendTermForRepaymentsOnHolidays": "boolean",
+      "recurrence": "string",
+      "repaymentRescheduleType": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCalendar": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "frequency": "string",
+      "interval": "string",
+      "locale": "string",
+      "repeating": "string",
+      "repeatsOnDay": "string",
+      "startDate": "string",
+      "title": "string",
+      "typeId": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createDocument": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "file": "object",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateDocument": {
+    "required": [],
+    "types": {
+      "description": "string",
+      "file": "object",
+      "name": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateImage_1": {
+    "required": [],
+    "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "createImage_1": {
+    "required": [],
+    "types": {
+      "file": "object"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createMeeting": {
+    "required": [
+      "calendarId",
+      "dateFormat",
+      "locale",
+      "meetingDate"
+    ],
+    "types": {
+      "calendarId": "integer",
+      "clientsAttendance": "array",
+      "dateFormat": "string",
+      "locale": "string",
+      "meetingDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateMeeting": {
+    "required": [
+      "calendarId",
+      "dateFormat",
+      "locale",
+      "meetingDate"
+    ],
+    "types": {
+      "calendarId": "integer",
+      "clientsAttendance": "array",
+      "dateFormat": "string",
+      "locale": "string",
+      "meetingDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "updateMeetingAttendance": {
+    "required": [],
+    "types": {
+      "attendanceType": "integer",
+      "id": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "addNewNote": {
+    "required": [
+      "note"
+    ],
+    "types": {
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateNote": {
+    "required": [
+      "note"
+    ],
+    "types": {
+      "note": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "searchClientsByText": {
+    "required": [],
+    "types": {
+      "page": "integer",
+      "request": "object",
+      "size": "integer",
+      "sorts": "array"
+    },
+    "enums": {},
+    "hasDate": false
   }
 };
 
