@@ -1,6 +1,6 @@
 # Contract Diff Report
 
-_Generated 2026-08-01T22:45:49.670Z_
+_Generated 2026-08-02T07:54:58.344Z_
 
 **Result:** ✅ Additive only — safe to auto-merge
 
@@ -12,425 +12,336 @@ _Generated 2026-08-01T22:45:49.670Z_
 
 # FinCraft — Hand-written API ↔ Contract Drift
 
-_Generated 2026-08-01T22:45:50.173Z_
+_Generated 2026-08-02T07:54:58.826Z_
 
-Contract source: **image:apache/fineract:latest** · contract operations: **965** · hand-written routes: **904** (across 20 modules)
+Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **904** (711 unique endpoints, 20 modules)
 
 | Bucket | Count | Meaning |
 |---|---:|---|
-| ✅ Matched | 0 | hand-written route backed by a contract op |
-| 🔴 Mismatch | 0 | same path, **wrong method/command** — likely a bug |
-| 🟡 Unverified | 854 | hand-written route with no contract op (wrong route, or op absent from this spec) |
-| ⚪ Uncovered | 965 | contract op no UI route calls yet |
+| ✅ Matched | 680 | endpoint (method+path) backed by a contract op |
+| 🔴 Mismatch | 0 | same path, **wrong HTTP method** — a bug |
+| 🟡 Unverified | 31 | hand-written path absent from the contract |
+| ⚪ Uncovered | 285 | contract op no UI route reaches (backlog) |
+| ⚙️ Dynamic | 0 | unresolved dynamic path (skipped) |
 
-## 🟡 Unverified hand-written routes (854)
+## 🟡 Unverified (31)
 
-| Route | Location |
-|---|---|
-| `GET /journalentries` | accounting.js:3 |
-| `GET /journalentries/{}` | accounting.js:4 |
-| `GET /journalentries/provisioning` | accounting.js:5 |
-| `GET /journalentries/openingbalance` | accounting.js:6 |
-| `POST /journalentries` | accounting.js:7 |
-| `POST /journalentries/{}?command=reverse` | accounting.js:8 |
-| `GET /glaccounts` | accounting.js:14 |
-| `GET /glaccounts/{}` | accounting.js:15 |
-| `GET /glaccounts/template` | accounting.js:16 |
-| `POST /glaccounts` | accounting.js:17 |
-| `PUT /glaccounts/{}` | accounting.js:18 |
-| `DELETE /glaccounts/{}` | accounting.js:19 |
-| `GET /glclosures` | accounting.js:48 |
-| `GET /glclosures/{}` | accounting.js:49 |
-| `POST /glclosures` | accounting.js:50 |
-| `PUT /glclosures/{}` | accounting.js:51 |
-| `DELETE /glclosures/{}` | accounting.js:52 |
-| `GET /accountingrules` | accounting.js:58 |
-| `GET /accountingrules/{}` | accounting.js:59 |
-| `GET /accountingrules/template` | accounting.js:60 |
-| `POST /accountingrules` | accounting.js:61 |
-| `PUT /accountingrules/{}` | accounting.js:62 |
-| `DELETE /accountingrules/{}` | accounting.js:63 |
-| `GET /provisioningentries` | accounting.js:69 |
-| `GET /provisioningentries/entries` | accounting.js:70 |
-| `GET /provisioningentries/{}` | accounting.js:71 |
-| `GET /provisioningcriteria` | accounting.js:72 |
-| `GET /provisioningcriteria/template` | accounting.js:73 |
-| `GET /provisioningcriteria/{}` | accounting.js:74 |
-| `POST /provisioningcriteria` | accounting.js:75 |
-| `PUT /provisioningcriteria/{}` | accounting.js:76 |
-| `DELETE /provisioningcriteria/{}` | accounting.js:77 |
-| `POST /provisioningentries` | accounting.js:78 |
-| `POST /provisioningentries/{}?command=createjournalentry` | accounting.js:79 |
-| `POST /provisioningentries/{}?command=recreateprovisioningentry` | accounting.js:80 |
-| `GET /provisioningcategory` | accounting.js:86 |
-| `POST /provisioningcategory` | accounting.js:87 |
-| `PUT /provisioningcategory/{}` | accounting.js:88 |
-| `DELETE /provisioningcategory/{}` | accounting.js:89 |
-| `POST /runaccruals` | accounting.js:95 |
-| `POST /journalentries?command=defineOpeningBalance` | accounting.js:101 |
-| `GET /financialactivityaccounts` | accounting.js:107 |
-| `GET /financialactivityaccounts/{}` | accounting.js:108 |
-| `GET /financialactivityaccounts/template` | accounting.js:109 |
-| `POST /financialactivityaccounts` | accounting.js:110 |
-| `PUT /financialactivityaccounts/{}` | accounting.js:111 |
-| `DELETE /financialactivityaccounts/{}` | accounting.js:112 |
-| `GET /taxes/component` | accounting.js:118 |
-| `GET /taxes/component/{}` | accounting.js:119 |
-| `GET /taxes/component/template` | accounting.js:120 |
-| `POST /taxes/component` | accounting.js:121 |
-| `PUT /taxes/component/{}` | accounting.js:122 |
-| `GET /taxes/group` | accounting.js:128 |
-| `GET /taxes/group/{}` | accounting.js:129 |
-| `GET /taxes/group/template` | accounting.js:130 |
-| `POST /taxes/group` | accounting.js:131 |
-| `PUT /taxes/group/{}` | accounting.js:132 |
-| `GET /users` | admin.js:3 |
-| `GET /users/{}` | admin.js:4 |
-| `GET /users/template` | admin.js:5 |
-| `POST /users` | admin.js:6 |
-| `PUT /users/{}` | admin.js:7 |
-| `DELETE /users/{}` | admin.js:8 |
-| `GET /roles` | admin.js:14 |
-| `GET /roles/{}` | admin.js:15 |
-| `POST /roles` | admin.js:16 |
-| `PUT /roles/{}` | admin.js:17 |
-| `DELETE /roles/{}` | admin.js:18 |
-| `POST /roles/{}?command=enable` | admin.js:19 |
-| `POST /roles/{}?command=disable` | admin.js:20 |
-| `GET /roles/{}/permissions` | admin.js:21 |
-| `PUT /roles/{}/permissions` | admin.js:22 |
-| `GET /permissions` | admin.js:28 |
-| `PUT /permissions` | admin.js:29 |
-| `GET /jobs` | admin.js:35 |
-| `GET /jobs/{}` | admin.js:36 |
-| `PUT /jobs/{}` | admin.js:37 |
-| `POST /jobs/{}?command=executeJob` | admin.js:38 |
-| `GET /jobs/{}/runhistory` | admin.js:39 |
-| `GET /jobs/names` | admin.js:40 |
-| `GET /jobs/{}/available-steps` | admin.js:41 |
-| `GET /jobs/{}/steps` | admin.js:42 |
-| `PUT /jobs/{}/steps` | admin.js:43 |
-| `POST /jobs/{}/inline` | admin.js:44 |
-| `GET /jobs/short-name/{}` | admin.js:45 |
-| `POST /jobs/short-name/{}` | admin.js:46 |
-| `PUT /jobs/short-name/{}` | admin.js:47 |
-| `GET /jobs/short-name/{}/runhistory` | admin.js:48 |
-| `GET /audits` | admin.js:54 |
-| `GET /audits/{}` | admin.js:55 |
-| `GET /audits/searchtemplate` | admin.js:56 |
-| `GET /makercheckers` | admin.js:62 |
-| `GET /makercheckers/searchtemplate` | admin.js:63 |
-| `POST /makercheckers/{}?command=approve` | admin.js:64 |
-| `POST /makercheckers/{}?command=reject` | admin.js:65 |
-| `DELETE /makercheckers/{}` | admin.js:66 |
-| `GET /configurations` | admin.js:72 |
-| `GET /configurations/name/{}` | admin.js:73 |
-| `GET /configurations/{}` | admin.js:74 |
-| `PUT /configurations/{}` | admin.js:75 |
-| `PUT /configurations/name/{}` | admin.js:76 |
-| `GET /caches` | admin.js:77 |
-| `PUT /caches` | admin.js:78 |
-| `GET /surveys` | admin.js:88 |
-| `GET /surveys/{}` | admin.js:89 |
-| `POST /surveys` | admin.js:90 |
-| `PUT /surveys/{}` | admin.js:91 |
-| `POST /surveys/{}?command=activate` | admin.js:92 |
-| `POST /surveys/{}?command=deactivate` | admin.js:93 |
-| `GET /entitytoentitymapping` | admin.js:99 |
-| `GET /entitytoentitymapping/{}` | admin.js:100 |
-| `GET /entitytoentitymapping/{}/{}/{}` | admin.js:101 |
-| `POST /entitytoentitymapping/{}` | admin.js:102 |
-| `PUT /entitytoentitymapping/{}` | admin.js:103 |
-| `DELETE /entitytoentitymapping/{}` | admin.js:104 |
-| `GET /scheduler` | admin.js:110 |
-| `POST /scheduler?command=start` | admin.js:111 |
-| `POST /scheduler?command=stop` | admin.js:112 |
-| `POST /scheduler` | admin.js:113 |
-| `PUT /instance-mode` | admin.js:119 |
-| `GET /fieldconfiguration/{}` | admin.js:125 |
-| `GET /accountnumberformats` | admin.js:131 |
-| `GET /accountnumberformats/{}` | admin.js:132 |
-| `GET /accountnumberformats/template` | admin.js:133 |
-| `POST /accountnumberformats` | admin.js:134 |
-| `PUT /accountnumberformats/{}` | admin.js:135 |
-| `DELETE /accountnumberformats/{}` | admin.js:136 |
-| `GET /userdetails` | auth-account.js:3 |
-| `POST /password/forgot` | auth-account.js:9 |
-| `POST /users/{}/pwd` | auth-account.js:10 |
-| `GET /passwordpreferences` | auth-account.js:11 |
-| `GET /passwordpreferences/template` | auth-account.js:12 |
-| `PUT /passwordpreferences` | auth-account.js:13 |
-| `GET /twofactor` | auth-account.js:19 |
-| `POST /twofactor/invalidate` | auth-account.js:22 |
-| `GET /twofactor/configure` | auth-account.js:24 |
-| `PUT /twofactor/configure` | auth-account.js:25 |
-| `GET /tenants/{}/oidc-config` | auth-account.js:32 |
-| `POST /tenants/{}/oidc-config` | auth-account.js:33 |
-| `PUT /tenants/{}/oidc-config` | auth-account.js:34 |
-| `DELETE /tenants/{}/oidc-config` | auth-account.js:35 |
-| `GET /clients` | clients.js:5 |
-| `GET /clients/{}` | clients.js:6 |
-| `GET /clients/template` | clients.js:7 |
-| `POST /clients` | clients.js:8 |
-| `PUT /clients/{}` | clients.js:9 |
-| `POST /clients/{}?command=activate` | clients.js:10 |
-| `POST /clients/{}?command=close` | clients.js:11 |
-| `POST /clients/{}?command=reject` | clients.js:12 |
-| `POST /clients/{}?command=withdraw` | clients.js:13 |
-| `POST /clients/{}?command=withdrawTransfer` | clients.js:14 |
-| `POST /clients/{}?command=assignStaff` | clients.js:15 |
-| `POST /clients/{}?command=unassignStaff` | clients.js:16 |
-| `GET /clients/{}/collaterals` | clients.js:17 |
-| `GET /clients/{}/collaterals/{}` | clients.js:18 |
-| `GET /clients/{}/collaterals/template` | clients.js:19 |
-| `POST /clients/{}/collaterals` | clients.js:20 |
-| `PUT /clients/{}/collaterals/{}` | clients.js:21 |
-| `DELETE /clients/{}/collaterals/{}` | clients.js:22 |
-| `GET /clients/{}/transactions` | clients.js:23 |
-| `GET /clients/{}/transactions/{}` | clients.js:24 |
-| `POST /clients/{}/transactions/{}?command=undo` | clients.js:25 |
-| `POST /clients/{}/charges/{}?command=waive` | clients.js:26 |
-| `POST /clients/{}/charges/{}?command=paycharge` | clients.js:27 |
-| `DELETE /clients/{}/charges/{}` | clients.js:28 |
-| `GET /clients/{}/charges/template` | clients.js:29 |
-| `GET /clients/{}/charges/{}` | clients.js:30 |
-| `POST /clients/{}?command=reactivate` | clients.js:31 |
-| `POST /clients/{}?command=proposeTransfer` | clients.js:32 |
-| `POST /clients/{}?command=acceptTransfer` | clients.js:33 |
-| `POST /clients/{}?command=rejectTransfer` | clients.js:34 |
-| `DELETE /clients/{}` | clients.js:35 |
-| `GET /clients/{}/accounts` | clients.js:36 |
-| `GET /clients/{}/charges` | clients.js:37 |
-| `POST /clients/{}/charges` | clients.js:38 |
-| `GET /clients/{}/identifiers` | clients.js:39 |
-| `GET /clients/{}/identifiers/template` | clients.js:40 |
-| `GET /clients/{}/identifiers/{}` | clients.js:41 |
-| `POST /clients/{}/identifiers` | clients.js:42 |
-| `PUT /clients/{}/identifiers/{}` | clients.js:43 |
-| `DELETE /clients/{}/identifiers/{}` | clients.js:44 |
-| `GET /client/{}/addresses` | clients.js:45 |
-| `POST /client/{}/addresses` | clients.js:46 |
-| `PUT /client/{}/addresses` | clients.js:47 |
-| `GET /client/addresses/template` | clients.js:48 |
-| `GET /clients/{}/familymembers` | clients.js:49 |
-| `GET /clients/{}/familymembers/template` | clients.js:50 |
-| `GET /clients/{}/familymembers/{}` | clients.js:51 |
-| `POST /clients/{}/familymembers` | clients.js:52 |
-| `PUT /clients/{}/familymembers/{}` | clients.js:53 |
-| `DELETE /clients/{}/familymembers/{}` | clients.js:54 |
-| `GET /clients/{}/obligeedetails` | clients.js:55 |
-| `GET /clients/{}/transferproposaldate` | clients.js:56 |
-| `GET /CreditBureauConfiguration` | credit-bureau.js:3 |
-| `GET /CreditBureauConfiguration/organisationCreditBureau` | credit-bureau.js:4 |
-| `PUT /CreditBureauConfiguration/organisationCreditBureau` | credit-bureau.js:5 |
-| `POST /CreditBureauConfiguration/organisationCreditBureau/{}` | credit-bureau.js:7 |
-| `GET /CreditBureauConfiguration/config/{}` | credit-bureau.js:9 |
-| `POST /CreditBureauConfiguration/configuration/{}` | credit-bureau.js:10 |
-| `PUT /CreditBureauConfiguration/configuration/{}` | credit-bureau.js:11 |
-| …and 654 more | |
+- `GET /externalservice/SMS` (integrations.js:21)
+- `PUT /externalservice/SMS` (integrations.js:21)
+- `GET /externalservice/SMTP` (integrations.js:22)
+- `PUT /externalservice/SMTP` (integrations.js:22)
+- `GET /externalservice/S3` (integrations.js:24)
+- `PUT /externalservice/S3` (integrations.js:24)
+- `GET /externalservice/NOTIFICATION` (integrations.js:25)
+- `PUT /externalservice/NOTIFICATION` (integrations.js:25)
+- `GET /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:11)
+- `POST /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:13)
+- `DELETE /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:15)
+- `GET /self/userdetails` (misc.js:33)
+- `POST /self/registration` (misc.js:34)
+- `POST /self/registration/user` (misc.js:35)
+- `POST /self/registration/resetpassword` (misc.js:36)
+- `GET /self/beneficiaries/tpt` (misc.js:37)
+- `POST /self/beneficiaries/tpt` (misc.js:38)
+- `PUT /self/beneficiaries/tpt/{}` (misc.js:39)
+- `DELETE /self/beneficiaries/tpt/{}` (misc.js:40)
+- `GET /products/share` (products.js:25)
+- `GET /products/share/{}` (products.js:26)
+- `GET /products/share/template` (products.js:27)
+- `POST /products/share` (products.js:28)
+- `PUT /products/share/{}` (products.js:29)
+- `GET /accounts/share` (shares.js:3)
+- `GET /accounts/share/{}` (shares.js:4)
+- `GET /accounts/share/template` (shares.js:5)
+- `POST /accounts/share` (shares.js:6)
+- `PUT /accounts/share/{}` (shares.js:7)
+- `DELETE /accounts/share/{}` (shares.js:8)
+- `POST /accounts/share/{}` (shares.js:10)
 
-## ⚪ Uncovered contract operations (965)
+## ⚪ Uncovered (285)
 
-| Operation | Route |
-|---|---|
-| accountClosureTemplate | `GET /v1/fixeddepositaccounts/{}/template` |
-| accountClosureTemplateRecurringDepositAccount | `GET /v1/recurringdepositaccounts/{}/template` |
-| accountsTemplate | `GET /v1/loans/{}/guarantors/accounts/template` |
-| accountTransferOperation | `POST /v1/accounttransfers/{}` |
-| activateLoan | `POST /v1/internal/working-capital-loans/{}/activate` |
-| activateOrDeactivateSurvey | `POST /v1/surveys/{}` |
-| addAndDeleteDisbursementDetail | `PUT /v1/loans/{}/disbursements/editDisbursements` |
-| addClientCollateral | `POST /v1/clients/{}/collaterals` |
-| addCreditReport | `POST /v1/creditBureauIntegration/addCreditReport` |
-| addNewNote | `POST /v1/{}/{}/notes` |
-| addOrganisationCreditBureau | `POST /v1/CreditBureauConfiguration/organisationCreditBureau/{}` |
-| adjustLoanCharge | `POST /v1/working-capital-loans/{}/charges/{}` |
-| adjustLoanChargeByChargeExternalId | `POST /v1/working-capital-loans/{}/charges/external-id/{}` |
-| adjustLoanChargeByLoanAndChargeExternalId | `POST /v1/working-capital-loans/external-id/{}/charges/external-id/{}` |
-| adjustLoanChargeByLoanExternalId | `POST /v1/working-capital-loans/external-id/{}/charges/{}` |
-| adjustLoanTransaction | `POST /v1/loans/{}/transactions/{}` |
-| adjustLoanTransactionByLoanAndTransactionExternalId | `POST /v1/loans/external-id/{}/transactions/external-id/{}` |
-| adjustLoanTransactionByLoanExternalId | `POST /v1/loans/external-id/{}/transactions/{}` |
-| adjustLoanTransactionByTransactionExternalId | `POST /v1/loans/{}/transactions/external-id/{}` |
-| adjustSavingsAccountTransaction | `POST /v1/savingsaccounts/{}/transactions/{}` |
-| adjustSavingsAccountTransactionByExternalId | `POST /v1/savingsaccounts/{}/transactions/external-id/{}` |
-| adjustSavingsAccountTransactionBySavingsAndTransactionExternalId | `POST /v1/savingsaccounts/external-id/{}/transactions/external-id/{}` |
-| adjustSavingsAccountTransactionBySavingsExternalId | `POST /v1/savingsaccounts/external-id/{}/transactions/{}` |
-| advancedQuery | `POST /v1/datatables/{}/query` |
-| advancedQuerySavingsAccountTransactions | `POST /v1/savingsaccounts/{}/transactions/query` |
-| advancedQuerySavingsAccountTransactionsBySavingsExternalId | `POST /v1/savingsaccounts/external-id/{}/transactions/query` |
-| advancedSearch | `POST /v1/search/advance` |
-| allocateCashToCashier | `POST /v1/tellers/{}/cashiers/{}/allocate` |
-| approveMakerCheckerEntry | `POST /v1/makercheckers/{}` |
-| attachOriginatorToLoan | `POST /v1/loans/{}/originators/{}` |
-| attachOriginatorToLoanByExternalIds | `POST /v1/loans/external-id/{}/originators/external-id/{}` |
-| attachOriginatorToLoanByLoanExternalId | `POST /v1/loans/external-id/{}/originators/{}` |
-| attachOriginatorToLoanByOriginatorExternalId | `POST /v1/loans/{}/originators/external-id/{}` |
-| attachOriginatorToWorkingCapitalLoan | `POST /v1/working-capital-loans/{}/originators/{}` |
-| attachOriginatorToWorkingCapitalLoanByBothExternalIds | `POST /v1/working-capital-loans/external-id/{}/originators/external-id/{}` |
-| attachOriginatorToWorkingCapitalLoanByLoanExternalId | `POST /v1/working-capital-loans/external-id/{}/originators/{}` |
-| attachOriginatorToWorkingCapitalLoanByOriginatorExternalId | `POST /v1/working-capital-loans/{}/originators/external-id/{}` |
-| authenticate | `POST /v1/authentication` |
-| calculateFixedDepositInterest | `GET /v1/fixeddepositaccounts/calculate-fd-interest` |
-| calculateOrSubmitLoanApplication | `POST /v1/loans` |
-| changePasswordUser | `POST /v1/users/{}/pwd` |
-| create | `POST /v1/tenants/{}/oidc-config` |
-| createAccountingRule | `POST /v1/accountingrules` |
-| createAccountNumberFormat | `POST /v1/accountnumberformats` |
-| createAccountTransfer | `POST /v1/accounttransfers` |
-| createAdHocQuery | `POST /v1/adhocquery` |
-| createBreachAction | `POST /v1/working-capital-loans/{}/breach-actions` |
-| createBreachActionByExternalId | `POST /v1/working-capital-loans/external-id/{}/breach-actions` |
-| createBucket | `POST /v1/delinquency/buckets` |
-| createCalendar | `POST /v1/{}/{}/calendars` |
-| createCashierForTeller | `POST /v1/tellers/{}/cashiers` |
-| createCenter | `POST /v1/centers` |
-| createCharge | `POST /v1/charges` |
-| createClient | `POST /v1/clients` |
-| createClientAddress | `POST /v1/client/{}/addresses` |
-| createClientCharge | `POST /v1/clients/{}/charges` |
-| createClientFamilyMember | `POST /v1/clients/{}/familymembers` |
-| createClientIdentifier | `POST /v1/clients/{}/identifiers` |
-| createCode | `POST /v1/codes` |
-| createCodeValue | `POST /v1/codes/{}/codevalues` |
-| createCodeValueByCodeName | `POST /v1/codes/name/{}/codevalues` |
-| createCollateral | `POST /v1/loans/{}/collaterals` |
-| createCollateral_1 | `POST /v1/collateral-management` |
-| createCreditBureauConfiguration | `POST /v1/CreditBureauConfiguration/configuration/{}` |
-| createCreditBureauLoanProductMapping | `POST /v1/CreditBureauConfiguration/mappings/{}` |
-| createDatatable | `POST /v1/datatables` |
-| createDatatableEntry | `POST /v1/datatables/{}/{}` |
-| createDelinquencyAction | `POST /v1/working-capital-loans/{}/delinquency-actions` |
-| createDelinquencyActionByExternalId | `POST /v1/working-capital-loans/external-id/{}/delinquency-actions` |
-| createDelinquencyActionLoan | `POST /v1/loans/{}/delinquency-actions` |
-| createDelinquencyActionLoanByExternalId | `POST /v1/loans/external-id/{}/delinquency-actions` |
-| createDocument | `POST /v1/{}/{}/documents` |
-| createEmail | `POST /v1/email` |
-| createEmailCampaign | `POST /v1/email/campaign` |
-| createEntityDatatableCheck | `POST /v1/entityDatatableChecks` |
-| createExternalAssetOwner | `POST /v1/external-asset-owners` |
-| createExternalAssetOwnerLoanProductAttribute | `POST /v1/external-asset-owners/loan-product/{}/attributes` |
-| createFixedDepositAccount | `POST /v1/fixeddepositaccounts` |
-| createFixedDepositProduct | `POST /v1/fixeddepositproducts` |
-| createFloatingRate | `POST /v1/floatingrates` |
-| createFund | `POST /v1/funds` |
-| createGLAccount | `POST /v1/glaccounts` |
-| createGLAccountMappingFinancialActivityAccount | `POST /v1/financialactivityaccounts` |
-| createGLClosure | `POST /v1/glclosures` |
-| createGLJournalEntry | `POST /v1/journalentries` |
-| createGroup | `POST /v1/groups` |
-| createGuarantor | `POST /v1/loans/{}/guarantors` |
-| createHoliday | `POST /v1/holidays` |
-| createHook | `POST /v1/hooks` |
-| createImage_1 | `POST /v1/{}/{}/images` |
-| createInterestRateChart | `POST /v1/interestratecharts` |
-| createInterestRateChartSlab | `POST /v1/interestratecharts/{}/chartslabs` |
-| createLoanCharge | `POST /v1/working-capital-loans/{}/charges` |
-| createLoanInterestPause | `POST /v1/loans/{}/interest-pauses` |
-| createLoanInterestPauseByExternalId | `POST /v1/loans/external-id/{}/interest-pauses` |
-| createLoanOriginator | `POST /v1/loan-originators` |
-| createLoanProduct | `POST /v1/loanproducts` |
-| createLookupTable | `POST /v1/surveys/{}/lookuptables` |
-| createMap | `POST /v1/entitytoentitymapping/{}` |
-| createMeeting | `POST /v1/{}/{}/meetings` |
-| createOffice | `POST /v1/offices` |
-| createOrPayLoanCharge | `POST /v1/loans/{}/charges` |
-| createPaymentType | `POST /v1/paymenttypes` |
-| createProductMix | `POST /v1/loanproducts/{}/productmix` |
-| createProvisioningCategory | `POST /v1/provisioningcategory` |
-| createProvisioningCriteria | `POST /v1/provisioningcriteria` |
-| createProvisioningEntries | `POST /v1/provisioningentries` |
-| createQuote | `POST /v1/interoperation/quotes` |
-| createRange | `POST /v1/delinquency/ranges` |
-| createRate | `POST /v1/rates` |
-| createRecurringDepositProduct | `POST /v1/recurringdepositproducts` |
-| createReport | `POST /v1/reports` |
-| createReportMailingJob | `POST /v1/reportmailingjobs` |
-| createRescheduleLoan | `POST /v1/rescheduleloans` |
-| createReversalJournalEntry | `POST /v1/journalentries/{}` |
-| createRole | `POST /v1/roles` |
-| createSavingsAccountCharge | `POST /v1/savingsaccounts/{}/charges` |
-| createSavingsAccountTransaction | `POST /v1/savingsaccounts/{}/transactions` |
-| createSavingsAccountTransactionBySavingsExternalId | `POST /v1/savingsaccounts/external-id/{}/transactions` |
-| createSavingsProduct | `POST /v1/savingsproducts` |
-| createScorecard | `POST /v1/surveys/scorecards/{}` |
-| createShareAccount | `POST /v1/accounts/{}` |
-| createShareDividend | `POST /v1/shareproduct/{}/dividend` |
-| createShareProduct | `POST /v1/products/{}` |
-| createSms | `POST /v1/sms` |
-| createSmsCampaign | `POST /v1/smscampaigns` |
-| createStaff | `POST /v1/staff` |
-| createStandingInstruction | `POST /v1/standinginstructions` |
-| createSurvey | `POST /v1/surveys` |
-| createSurveyEntry | `POST /v1/survey/{}/{}` |
-| createTaxComponent | `POST /v1/taxes/component` |
-| createTaxGroup | `POST /v1/taxes/group` |
-| createTeller | `POST /v1/tellers` |
-| createTemplate | `POST /v1/templates` |
-| createTransactionRequest | `POST /v1/interoperation/requests` |
-| createUser | `POST /v1/users` |
-| createWorkingCapitalBreach | `POST /v1/working-capital/breach/breaches` |
-| createWorkingCapitalLoanNearBreachActionByExternalId | `POST /v1/working-capital-loans/external-id/{}/near-breach-actions` |
-| createWorkingCapitalLoanNearBreachActionById | `POST /v1/working-capital-loans/{}/near-breach-actions` |
-| createWorkingCapitalLoanProduct | `POST /v1/working-capital-loan-products` |
-| createWorkingCapitalNearBreach | `POST /v1/working-capital/near-breach` |
-| delete | `DELETE /v1/entitytoentitymapping/{}` |
-| delete_1 | `DELETE /v1/tenants/{}/oidc-config` |
-| delete_2 | `DELETE /v1/officetransactions/{}` |
-| deleteAccountIdentifier | `DELETE /v1/interoperation/parties/{}/{}` |
-| deleteAccountIdentifier_1 | `DELETE /v1/interoperation/parties/{}/{}/{}` |
-| deleteAccountingRule | `DELETE /v1/accountingrules/{}` |
-| deleteAccountNumberFormat | `DELETE /v1/accountnumberformats/{}` |
-| deleteAdHocQuery | `DELETE /v1/adhocquery/{}` |
-| deleteAllExternalEvents | `DELETE /v1/internal/externalevents` |
-| deleteBucket | `DELETE /v1/delinquency/buckets/{}` |
-| deleteByExternalId | `DELETE /v1/loan-originators/external-id/{}` |
-| deleteCalendar | `DELETE /v1/{}/{}/calendars/{}` |
-| deleteCashierForTeller | `DELETE /v1/tellers/{}/cashiers/{}` |
-| deleteCenter | `DELETE /v1/centers/{}` |
-| deleteCharge | `DELETE /v1/charges/{}` |
-| deleteClient | `DELETE /v1/clients/{}` |
-| deleteClientByExternalId | `DELETE /v1/clients/external-id/{}` |
-| deleteClientCharge | `DELETE /v1/clients/{}/charges/{}` |
-| deleteClientCollateral | `DELETE /v1/clients/{}/collaterals/{}` |
-| deleteClientFamilyMember | `DELETE /v1/clients/{}/familymembers/{}` |
-| deleteClientIdentifier | `DELETE /v1/clients/{}/identifiers/{}` |
-| deleteCode | `DELETE /v1/codes/{}` |
-| deleteCodePaymentType | `DELETE /v1/paymenttypes/{}` |
-| deleteCodeValue | `DELETE /v1/codes/{}/codevalues/{}` |
-| deleteCodeValue_1 | `DELETE /v1/codes/name/{}/codevalues/{}` |
-| deleteCollateral | `DELETE /v1/loans/{}/collaterals/{}` |
-| deleteCollateral_1 | `DELETE /v1/collateral-management/{}` |
-| deleteCreditReport | `DELETE /v1/creditBureauIntegration/deleteCreditReport/{}` |
-| deleteDatatable | `DELETE /v1/datatables/{}` |
-| deleteDatatableEntries | `DELETE /v1/datatables/{}/{}` |
-| deleteDatatableEntries_1 | `DELETE /v1/survey/{}/{}/{}` |
-| deleteDatatableEntry | `DELETE /v1/datatables/{}/{}/{}` |
-| deleteDocument | `DELETE /v1/{}/{}/documents/{}` |
-| deleteEmail | `DELETE /v1/email/{}` |
-| deleteEmailCampaign | `DELETE /v1/email/campaign/{}` |
-| deleteEntityDatatableCheck | `DELETE /v1/entityDatatableChecks/{}` |
-| deleteFixedDepositAccount | `DELETE /v1/fixeddepositaccounts/{}` |
-| deleteFixedDepositProduct | `DELETE /v1/fixeddepositproducts/{}` |
-| deleteGLAccount | `DELETE /v1/glaccounts/{}` |
-| deleteGLAccountMappingFinancialActivityAccount | `DELETE /v1/financialactivityaccounts/{}` |
-| deleteGLClosure | `DELETE /v1/glclosures/{}` |
-| deleteGroup | `DELETE /v1/groups/{}` |
-| deleteGuarantor | `DELETE /v1/loans/{}/guarantors/{}` |
-| deleteHoliday | `DELETE /v1/holidays/{}` |
-| deleteHook | `DELETE /v1/hooks/{}` |
-| deleteImage | `DELETE /v1/{}/{}/images` |
-| deleteInterestRateChart | `DELETE /v1/interestratecharts/{}` |
-| deleteInterestRateChartSlab | `DELETE /v1/interestratecharts/{}/chartslabs/{}` |
-| deleteInternalProgressiveLoan | `DELETE /v1/internal/loan/progressive/{}/model` |
-| deleteLastCobRun | `DELETE /v1/internal/working-capital-loans/internal/lastCobRun` |
-| deleteLoanApplication | `DELETE /v1/loans/{}` |
-| deleteLoanApplicationByExternalId | `DELETE /v1/loans/external-id/{}` |
-| deleteLoanCharge | `DELETE /v1/loans/{}/charges/{}` |
-| deleteLoanChargeByChargeExternalId | `DELETE /v1/loans/{}/charges/external-id/{}` |
-| deleteLoanChargeByLoanAndChargeExternalId | `DELETE /v1/loans/external-id/{}/charges/external-id/{}` |
-| deleteLoanChargeByLoanExternalId | `DELETE /v1/loans/external-id/{}/charges/{}` |
-| deleteLoanCollateral | `DELETE /v1/loan-collateral-management/{}` |
-| deleteLoanInterestPause | `DELETE /v1/loans/{}/interest-pauses/{}` |
-| deleteLoanInterestPauseByExternalId | `DELETE /v1/loans/external-id/{}/interest-pauses/{}` |
-| …and 765 more | |
+- activateLoan — `POST /internal/working-capital-loans/{}/activate`
+- adjustLoanCharge — `POST /working-capital-loans/{}/charges/{}`
+- adjustLoanChargeByChargeExternalId — `POST /working-capital-loans/{}/charges/external-id/{}`
+- adjustLoanChargeByLoanAndChargeExternalId — `POST /working-capital-loans/external-id/{}/charges/external-id/{}`
+- adjustLoanChargeByLoanExternalId — `POST /working-capital-loans/external-id/{}/charges/{}`
+- adjustLoanTransactionByLoanAndTransactionExternalId — `POST /loans/external-id/{}/transactions/external-id/{}`
+- adjustLoanTransactionByLoanExternalId — `POST /loans/external-id/{}/transactions/{}`
+- adjustLoanTransactionByTransactionExternalId — `POST /loans/{}/transactions/external-id/{}`
+- adjustSavingsAccountTransactionByExternalId — `POST /savingsaccounts/{}/transactions/external-id/{}`
+- adjustSavingsAccountTransactionBySavingsAndTransactionExternalId — `POST /savingsaccounts/external-id/{}/transactions/external-id/{}`
+- adjustSavingsAccountTransactionBySavingsExternalId — `POST /savingsaccounts/external-id/{}/transactions/{}`
+- advancedQuerySavingsAccountTransactionsBySavingsExternalId — `POST /savingsaccounts/external-id/{}/transactions/query`
+- attachOriginatorToLoanByExternalIds — `POST /loans/external-id/{}/originators/external-id/{}`
+- attachOriginatorToLoanByLoanExternalId — `POST /loans/external-id/{}/originators/{}`
+- attachOriginatorToLoanByOriginatorExternalId — `POST /loans/{}/originators/external-id/{}`
+- attachOriginatorToWorkingCapitalLoan — `POST /working-capital-loans/{}/originators/{}`
+- attachOriginatorToWorkingCapitalLoanByBothExternalIds — `POST /working-capital-loans/external-id/{}/originators/external-id/{}`
+- attachOriginatorToWorkingCapitalLoanByLoanExternalId — `POST /working-capital-loans/external-id/{}/originators/{}`
+- attachOriginatorToWorkingCapitalLoanByOriginatorExternalId — `POST /working-capital-loans/{}/originators/external-id/{}`
+- authenticate — `POST /authentication`
+- createBreachAction — `POST /working-capital-loans/{}/breach-actions`
+- createBreachActionByExternalId — `POST /working-capital-loans/external-id/{}/breach-actions`
+- createDelinquencyAction — `POST /working-capital-loans/{}/delinquency-actions`
+- createDelinquencyActionByExternalId — `POST /working-capital-loans/external-id/{}/delinquency-actions`
+- createDelinquencyActionLoanByExternalId — `POST /loans/external-id/{}/delinquency-actions`
+- createDocument — `POST /{}/{}/documents`
+- createImage_1 — `POST /{}/{}/images`
+- createLoanCharge — `POST /working-capital-loans/{}/charges`
+- createLoanInterestPauseByExternalId — `POST /loans/external-id/{}/interest-pauses`
+- createSavingsAccountTransactionBySavingsExternalId — `POST /savingsaccounts/external-id/{}/transactions`
+- createShareAccount — `POST /accounts/{}`
+- createShareProduct — `POST /products/{}`
+- createWorkingCapitalBreach — `POST /working-capital/breach/breaches`
+- createWorkingCapitalLoanNearBreachActionByExternalId — `POST /working-capital-loans/external-id/{}/near-breach-actions`
+- createWorkingCapitalLoanNearBreachActionById — `POST /working-capital-loans/{}/near-breach-actions`
+- createWorkingCapitalLoanProduct — `POST /working-capital-loan-products`
+- createWorkingCapitalNearBreach — `POST /working-capital/near-breach`
+- deleteAccountIdentifier — `DELETE /interoperation/parties/{}/{}`
+- deleteAccountIdentifier_1 — `DELETE /interoperation/parties/{}/{}/{}`
+- deleteAllExternalEvents — `DELETE /internal/externalevents`
+- deleteByExternalId — `DELETE /loan-originators/external-id/{}`
+- deleteClientByExternalId — `DELETE /clients/external-id/{}`
+- deleteInternalProgressiveLoan — `DELETE /internal/loan/progressive/{}/model`
+- deleteLastCobRun — `DELETE /internal/working-capital-loans/internal/lastCobRun`
+- deleteLoanApplicationByExternalId — `DELETE /loans/external-id/{}`
+- deleteLoanChargeByChargeExternalId — `DELETE /loans/{}/charges/external-id/{}`
+- deleteLoanChargeByLoanAndChargeExternalId — `DELETE /loans/external-id/{}/charges/external-id/{}`
+- deleteLoanChargeByLoanExternalId — `DELETE /loans/external-id/{}/charges/{}`
+- deleteLoanInterestPauseByExternalId — `DELETE /loans/external-id/{}/interest-pauses/{}`
+- deleteSavingsAccountByExternalId — `DELETE /savingsaccounts/external-id/{}`
+- deleteWorkingCapitalBreach — `DELETE /working-capital/breach/breaches/{}`
+- deleteWorkingCapitalLoanApplication — `DELETE /working-capital-loans/{}`
+- deleteWorkingCapitalLoanApplicationByExternalId — `DELETE /working-capital-loans/external-id/{}`
+- deleteWorkingCapitalLoanProduct — `DELETE /working-capital-loan-products/{}`
+- deleteWorkingCapitalLoanProductByExternalId — `DELETE /working-capital-loan-products/external-id/{}`
+- deleteWorkingCapitalNearBreach — `DELETE /working-capital/near-breach/{}`
+- detachOriginatorFromLoanByExternalIds — `DELETE /loans/external-id/{}/originators/external-id/{}`
+- detachOriginatorFromLoanByLoanExternalId — `DELETE /loans/external-id/{}/originators/{}`
+- detachOriginatorFromLoanByOriginatorExternalId — `DELETE /loans/{}/originators/external-id/{}`
+- detachOriginatorFromWorkingCapitalLoan — `DELETE /working-capital-loans/{}/originators/{}`
+- detachOriginatorFromWorkingCapitalLoanByBothExternalIds — `DELETE /working-capital-loans/external-id/{}/originators/external-id/{}`
+- detachOriginatorFromWorkingCapitalLoanByLoanExternalId — `DELETE /working-capital-loans/external-id/{}/originators/{}`
+- detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId — `DELETE /working-capital-loans/{}/originators/external-id/{}`
+- downloadFile — `GET /{}/{}/documents/{}/attachment`
+- executeLoanChargeByChargeExternalId — `POST /loans/{}/charges/external-id/{}`
+- executeLoanChargeByLoanAndChargeExternalId — `POST /loans/external-id/{}/charges/external-id/{}`
+- executeLoanChargeByLoanExternalId — `POST /loans/external-id/{}/charges`
+- executeLoanChargeByLoanExternalIdOnExistingCharge — `POST /loans/external-id/{}/charges/{}`
+- executeLoanCOBCatchUp_1 — `POST /working-capital-loans/catch-up`
+- executeWorkingCapitalLoanChargeByLoanExternalId — `POST /working-capital-loans/external-id/{}/charges`
+- executeWorkingCapitalLoanTransactionByExternalId — `POST /working-capital-loans/external-id/{}/transactions`
+- executeWorkingCapitalLoanTransactionById — `POST /working-capital-loans/{}/transactions`
+- executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId — `POST /working-capital-loans/external-id/{}/transactions/external-id/{}`
+- executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId — `POST /working-capital-loans/external-id/{}/transactions/{}`
+- executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId — `POST /working-capital-loans/{}/transactions/external-id/{}`
+- executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId — `POST /working-capital-loans/{}/transactions/{}`
+- fetchCapitalizedIncomeDetailsByExternalId — `GET /loans/external-id/{}/capitalized-incomes`
+- fetchLoanCapitalizedIncomeDataByExternalId — `GET /loans/external-id/{}/deferredincome`
+- generateAmortizationSchedule — `POST /internal/working-capital-loans/{}/amortization-schedule`
+- generateNextDelinquencyPeriod — `POST /internal/working-capital-loans/{}/generate-next-delinquency-period`
+- getAccountByIdentifier — `GET /interoperation/parties/{}/{}`
+- getAccountByIdentifier_1 — `GET /interoperation/parties/{}/{}/{}`
+- getAdvancedPaymentAllocationRulesOfLoan — `GET /internal/loan/{}/advanced-payment-allocation-rules`
+- getAllExternalEvents — `GET /internal/externalevents`
+- getBulkTemplateCenter — `GET /centers/downloadtemplate`
+- getBulkTemplateGroup — `GET /groups/downloadtemplate`
+- getBulkTemplateStaff — `GET /staff/downloadtemplate`
+- getBulkTemplateUser — `GET /users/downloadtemplate`
+- getBuyDownFeesAllocationDataByExternalIds — `GET /loans/external-id/{}/buydown-fees/external-id/{}`
+- getBuyDownFeesAllocationDataByLoanExternalId — `GET /loans/external-id/{}/buydown-fees/{}`
+- getBuyDownFeesAllocationDataByTransactionExternalId — `GET /loans/{}/buydown-fees/external-id/{}`
+- getCapitalizedIncomeAllocationDataByExternalIds — `GET /loans/external-id/{}/capitalized-incomes/external-id/{}`
+- getCapitalizedIncomeAllocationDataByLoanExternalId — `GET /loans/external-id/{}/capitalized-incomes/{}`
+- getCapitalizedIncomeAllocationDataByTransactionExternalId — `GET /loans/{}/capitalized-incomes/external-id/{}`
+- getClientTemplate — `GET /clients/downloadtemplate`
+- getCobPartitions — `GET /internal/cob/partitions/{}`
+- getDelinquencyRangeScheduleTagHistoryByExternalId — `GET /working-capital-loans/external-id/{}/delinquencyrangetags`
+- getDelinquencyRangeScheduleTagHistoryById — `GET /working-capital-loans/{}/delinquencyrangetags`
+- getExternalGrammar — `GET /application.wadl/{}`
+- getFixedDepositTemplate — `GET /fixeddepositaccounts/downloadtemplate`
+- getFixedDepositTransactionTemplate — `GET /fixeddepositaccounts/transaction/downloadtemplate`
+- getGlAccountsTemplate — `GET /glaccounts/downloadtemplate`
+- getGuarantorTemplate — `GET /loans/{}/guarantors/downloadtemplate`
+- getInternalClientAuditFields — `GET /internal/client/{}/audit`
+- getJournalEntriesTemplate — `GET /journalentries/downloadtemplate`
+- getLastCobRun — `POST /internal/working-capital-loans/internal/lastCobRun`
+- getLoanAuditFields — `GET /internal/loan/{}/audit`
+- getLoanRepaymentTemplate — `GET /loans/repayments/downloadtemplate`
+- getLoansByStatus — `GET /internal/loan/status/{}`
+- getLoansTemplate — `GET /loans/downloadtemplate`
+- getLoanTransactionAuditFields — `GET /internal/loan/{}/transaction/{}/audit`
+- getMaxTransactionDateOfActiveLoans — `GET /internal/loan/maxTransactionDateOfActiveLoan`
+- getOfficeTemplate — `GET /offices/downloadtemplate`
+- getOldestCOBProcessedLoan_1 — `GET /working-capital-loans/oldest-cob-closed`
+- getOutputTemplate — `GET /imports/downloadOutputTemplate`
+- getRecurringDepositTemplate — `GET /recurringdepositaccounts/downloadtemplate`
+- getRecurringDepositTransactionTemplate — `GET /recurringdepositaccounts/transactions/downloadtemplate`
+- getSavingsAccountsByStatus — `GET /internal/savingsaccounts/status/{}`
+- getSavingsTemplate — `GET /savingsaccounts/downloadtemplate`
+- getSavingsTransactionTemplate — `GET /savingsaccounts/transactions/downloadtemplate`
+- getShareAccountTemplate — `GET /accounts/{}/downloadtemplate`
+- getWadl — `GET /application.wadl`
+- getWorkingCapitalLoanNearBreachActionsByExternalId — `GET /working-capital-loans/external-id/{}/near-breach-actions`
+- getWorkingCapitalLoanNearBreachActionsById — `GET /working-capital-loans/{}/near-breach-actions`
+- getWorkingCapitalLoanRateChangeHistoryByExternalId — `GET /working-capital-loans/external-id/{}/rate-changes`
+- getWorkingCapitalLoanRateChangeHistoryById — `GET /working-capital-loans/{}/rate-changes`
+- handleBatchRequests — `POST /batches`
+- handleCommandClientByExternalId — `POST /clients/external-id/{}`
+- handleCommandsLoanByExternalId — `POST /loans/external-id/{}`
+- handleCommandsLoanTransactionByLoanExternalId — `POST /loans/external-id/{}/transactions`
+- handleCommandsSavingsAccountByExternalId — `POST /savingsaccounts/external-id/{}`
+- handleCommandsShareAccount — `POST /accounts/{}/{}`
+- isCatchUpRunning_1 — `GET /working-capital-loans/is-catch-up-running`
+- loanReprocess — `POST /internal/cob/loan-reprocess/{}`
+- modifyWorkingCapitalLoanApplicationByExternalId — `PUT /working-capital-loans/external-id/{}`
+- modifyWorkingCapitalLoanApplicationById — `PUT /working-capital-loans/{}`
+- placeLockOnLoanAccount — `POST /internal/loans/{}/place-lock/{}`
+- placeLockOnWorkingCapitalLoanAccount — `POST /internal/working-capital-loans/{}/place-lock/{}`
+- postBulkTemplateCenter — `POST /centers/uploadtemplate`
+- postBulkTemplateGroup — `POST /groups/uploadtemplate`
+- postBulkTemplateUser — `POST /users/uploadtemplate`
+- postClientTemplate — `POST /clients/uploadtemplate`
+- postFixedDepositTemplate — `POST /fixeddepositaccounts/uploadtemplate`
+- postFixedDepositTransactionTemplate — `POST /fixeddepositaccounts/transaction/uploadtemplate`
+- postGlAccountsTemplate — `POST /glaccounts/uploadtemplate`
+- postGuarantorTemplate — `POST /loans/{}/guarantors/uploadtemplate`
+- postJournalEntriesTemplate — `POST /journalentries/uploadtemplate`
+- postLoanRepaymentTemplate — `POST /loans/repayments/uploadtemplate`
+- postLoanTemplate — `POST /loans/uploadtemplate`
+- postOfficeTemplate — `POST /offices/uploadtemplate`
+- postRecurringDepositTemplate — `POST /recurringdepositaccounts/uploadtemplate`
+- postRecurringDepositTransactionsTemplate — `POST /recurringdepositaccounts/transactions/uploadtemplate`
+- postSavingsTemplate — `POST /savingsaccounts/uploadtemplate`
+- postSavingsTransactionTemplate — `POST /savingsaccounts/transactions/uploadtemplate`
+- postShareAccountTemplate — `POST /accounts/{}/uploadtemplate`
+- postTemplate — `POST /staff/uploadtemplate`
+- previewReAgeLoanScheduleByLoanExternalId — `GET /loans/external-id/{}/transactions/reage-preview`
+- previewReAmortizeLoanScheduleByLoanExternalId — `GET /loans/external-id/{}/transactions/reamortization-preview`
+- registerAccountIdentifier — `POST /interoperation/parties/{}/{}`
+- registerAccountIdentifier_1 — `POST /interoperation/parties/{}/{}/{}`
+- requestToken — `POST /twofactor`
+- retrieveAllClientAccountsByExternalId — `GET /clients/external-id/{}/accounts`
+- retrieveAllClientTransactionsByClientExternalId — `GET /clients/external-id/{}/transactions`
+- retrieveAllLoanChargesByLoanExternalId — `GET /loans/external-id/{}/charges`
+- retrieveAllLoanInterestPausesByExternalId — `GET /loans/external-id/{}/interest-pauses`
+- retrieveAllLoanTransactionsByExternalId — `GET /loans/external-id/{}/transactions`
+- retrieveAllShareAccounts — `GET /accounts/{}`
+- retrieveAllShareProducts — `GET /products/{}`
+- retrieveAllWorkingCapitalBreaches — `GET /working-capital/breach/breaches`
+- retrieveAllWorkingCapitalLoanChargesByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges`
+- retrieveAllWorkingCapitalLoanChargesByLoanId — `GET /working-capital-loans/{}/charges`
+- retrieveAllWorkingCapitalLoanProducts — `GET /working-capital-loan-products`
+- retrieveAllWorkingCapitalLoans — `GET /working-capital-loans`
+- retrieveAllWorkingCapitalNearBreaches — `GET /working-capital/near-breach`
+- retrieveAmortizationSchedule — `GET /working-capital-loans/{}/amortization-schedule`
+- retrieveApprovalTemplateByExternalId — `GET /loans/external-id/{}/template`
+- retrieveApprovedAmountHistoryLoanByExternalId — `GET /loans/external-id/{}/approved-amount`
+- retrieveBreachActions — `GET /working-capital-loans/{}/breach-actions`
+- retrieveBreachActionsByExternalId — `GET /working-capital-loans/external-id/{}/breach-actions`
+- retrieveBreachSchedule — `GET /working-capital-loans/{}/breach-schedule`
+- retrieveByExternalId — `GET /loan-originators/external-id/{}`
+- retrieveClientObligeeDetailsByExternalId — `GET /clients/external-id/{}/obligeedetails`
+- retrieveClientTransactionByClientAndTransactionExternalId — `GET /clients/external-id/{}/transactions/external-id/{}`
+- retrieveClientTransactionByClientExternalId — `GET /clients/external-id/{}/transactions/{}`
+- retrieveClientTransactionByTransactionExternalId — `GET /clients/{}/transactions/external-id/{}`
+- retrieveClientTransferTemplateByExternalId — `GET /clients/external-id/{}/transferproposaldate`
+- retrieveDelinquencyActions — `GET /working-capital-loans/{}/delinquency-actions`
+- retrieveDelinquencyActionsByExternalId — `GET /working-capital-loans/external-id/{}/delinquency-actions`
+- retrieveDelinquencyActionsLoanByExternalId — `GET /loans/external-id/{}/delinquency-actions`
+- retrieveDelinquencyRangeSchedule — `GET /working-capital-loans/{}/delinquency-range-schedule`
+- retrieveDelinquencyTagHistoryLoanByExternalId — `GET /loans/external-id/{}/delinquencytags`
+- retrieveExternalServicesConfiguration — `GET /externalservice/{}`
+- retrieveImage — `GET /{}/{}/images`
+- retrieveLoanBuyDownFeeAmortizationDetailsByExternalId — `GET /loans/external-id/{}/buydown-fees`
+- retrieveLoanPointInTimeByExternalId — `GET /loans/at-date/external-id/{}`
+- retrieveLoanProductDetailsByExternalId — `GET /loanproducts/external-id/{}`
+- retrieveLoansPointInTimeByExternalIds — `POST /loans/at-date/search/external-id`
+- retrieveOneClientByExternalId — `GET /clients/external-id/{}`
+- retrieveOneInternalProgressiveLoan — `GET /internal/loan/progressive/{}/model`
+- retrieveOneLoanByExternalId — `GET /loans/external-id/{}`
+- retrieveOneLoanChargeByChargeExternalId — `GET /loans/{}/charges/external-id/{}`
+- retrieveOneLoanChargeByLoanAndChargeExternalId — `GET /loans/external-id/{}/charges/external-id/{}`
+- retrieveOneLoanChargeByLoanExternalId — `GET /loans/external-id/{}/charges/{}`
+- retrieveOneLoanTransactionByExternalId — `GET /loans/{}/transactions/external-id/{}`
+- retrieveOneLoanTransactionByLoanExternalId — `GET /loans/external-id/{}/transactions/{}`
+- retrieveOneLoanTransactionByLoanExternalIdAndTransactionExternalId — `GET /loans/external-id/{}/transactions/external-id/{}`
+- retrieveOneOfficeByExternalId — `GET /offices/external-id/{}`
+- retrieveOneSavingsAccountTransactionByExternalId — `GET /savingsaccounts/{}/transactions/external-id/{}`
+- retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId — `GET /savingsaccounts/external-id/{}/transactions/external-id/{}`
+- retrieveOneSavingsAccountTransactionBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/{}`
+- retrieveOneShareAccount — `GET /accounts/{}/{}`
+- retrieveOneShareProduct — `GET /products/{}/{}`
+- retrieveOneWorkingCapitalLoanProduct — `GET /working-capital-loan-products/{}`
+- retrieveOneWorkingCapitalLoanProductByExternalId — `GET /working-capital-loan-products/external-id/{}`
+- retrieveOriginatorsByLoanExternalId — `GET /loans/external-id/{}/originators`
+- retrieveOriginatorsByWorkingCapitalLoanExternalId — `GET /working-capital-loans/external-id/{}/originators`
+- retrieveOriginatorsByWorkingCapitalLoanId — `GET /working-capital-loans/{}/originators`
+- retrieveSavingsAccountByExternalId — `GET /savingsaccounts/external-id/{}`
+- retrieveTemplateLoanChargeByLoanExternalId — `GET /loans/external-id/{}/charges/template`
+- retrieveTemplateLoanTransactionByLoanExternalId — `GET /loans/external-id/{}/transactions/template`
+- retrieveTemplateSavingsAccountTransactionBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/template`
+- retrieveTemplateShareAccount — `GET /accounts/{}/template`
+- retrieveTemplateShareProduct — `GET /products/{}/template`
+- retrieveTemplateWorkingCapitalLoanCharge — `GET /working-capital-loans/{}/charges/template`
+- retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges/template`
+- retrieveTemplateWorkingCapitalLoanProduct — `GET /working-capital-loan-products/template`
+- retrieveWorkingCapitalBreach — `GET /working-capital/breach/breaches/{}`
+- retrieveWorkingCapitalBreachTemplate — `GET /working-capital/breach/template`
+- retrieveWorkingCapitalLoanActionTemplate — `GET /working-capital-loans/{}/template`
+- retrieveWorkingCapitalLoanByExternalId — `GET /working-capital-loans/external-id/{}`
+- retrieveWorkingCapitalLoanById — `GET /working-capital-loans/{}`
+- retrieveWorkingCapitalLoanCharge — `GET /working-capital-loans/{}/charges/{}`
+- retrieveWorkingCapitalLoanChargeByChargeExternalId — `GET /working-capital-loans/{}/charges/external-id/{}`
+- retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId — `GET /working-capital-loans/external-id/{}/charges/external-id/{}`
+- retrieveWorkingCapitalLoanChargeByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges/{}`
+- retrieveWorkingCapitalLoanTemplate — `GET /working-capital-loans/template`
+- retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId — `GET /working-capital-loans/external-id/{}/transactions/external-id/{}`
+- retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId — `GET /working-capital-loans/external-id/{}/transactions/{}`
+- retrieveWorkingCapitalLoanTransactionByExternalTransactionId — `GET /working-capital-loans/{}/transactions/external-id/{}`
+- retrieveWorkingCapitalLoanTransactionById — `GET /working-capital-loans/{}/transactions/{}`
+- retrieveWorkingCapitalLoanTransactionsByExternalId — `GET /working-capital-loans/external-id/{}/transactions`
+- retrieveWorkingCapitalLoanTransactionsById — `GET /working-capital-loans/{}/transactions`
+- retrieveWorkingCapitalNearBreach — `GET /working-capital/near-breach/{}`
+- searchClientsByText — `POST /clients/search`
+- searchSavingsAccountTransactionsBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/search`
+- stateTransitionWorkingCapitalLoanByExternalId — `POST /working-capital-loans/external-id/{}`
+- stateTransitionWorkingCapitalLoanById — `POST /working-capital-loans/{}`
+- submitWorkingCapitalLoanApplication — `POST /working-capital-loans`
+- transferRequestWithIdByExternalId — `POST /external-asset-owners/transfers/external-id/{}`
+- transferRequestWithLoanExternalId — `POST /external-asset-owners/transfers/loans/external-id/{}`
+- undoClientTransactionByClientAndTransactionExternalId — `POST /clients/external-id/{}/transactions/external-id/{}`
+- undoClientTransactionByClientExternalId — `POST /clients/external-id/{}/transactions/{}`
+- undoClientTransactionByTransactionExternalId — `POST /clients/{}/transactions/external-id/{}`
+- undoWaiveChargeLoanTransactionByLoanAndTransactionExternalId — `PUT /loans/external-id/{}/transactions/external-id/{}`
+- undoWaiveChargeLoanTransactionByLoanExternalId — `PUT /loans/external-id/{}/transactions/{}`
+- undoWaiveChargeLoanTransactionByTransactionExternalId — `PUT /loans/{}/transactions/external-id/{}`
+- updateApprovedAmountLoanByExternalId — `PUT /loans/external-id/{}/approved-amount`
+- updateAvailableDisbursementAmountLoanByExternalId — `PUT /loans/external-id/{}/available-disbursement-amount`
+- updateByExternalId — `PUT /loan-originators/external-id/{}`
+- updateClientByExternalId — `PUT /clients/external-id/{}`
+- updateDocument — `PUT /{}/{}/documents/{}`
+- updateExternalServicesConfiguration — `PUT /externalservice/{}`
+- updateImage_1 — `PUT /{}/{}/images`
+- updateInternalGlobalConfiguration — `PUT /internal/configurations/name/{}/value/{}`
+- updateInternalProgressiveLoan — `POST /internal/loan/progressive/{}/model`
+- updateLoanApplicationByExternalId — `PUT /loans/external-id/{}`
+- updateLoanChargeByChargeExternalId — `PUT /loans/{}/charges/external-id/{}`
+- updateLoanChargeByLoanAndChargeExternalId — `PUT /loans/external-id/{}/charges/external-id/{}`
+- updateLoanChargeByLoanExternalId — `PUT /loans/external-id/{}/charges/{}`
+- updateLoanCobLastDate — `POST /internal/cob/fast-forward-cob-date-of-loan/{}`
+- updateLoanInterestPauseByExternalId — `PUT /loans/external-id/{}/interest-pauses/{}`
+- updateLoanProductByExternalId — `PUT /loanproducts/external-id/{}`
+- updateOfficeByExternalId — `PUT /offices/external-id/{}`
+- updateSavingsAccountByExternalId — `PUT /savingsaccounts/external-id/{}`
+- updateShareAccount — `PUT /accounts/{}/{}`
+- updateShareProduct — `PUT /products/{}/{}`
+- updateWorkingCapitalBreach — `PUT /working-capital/breach/breaches/{}`
+- updateWorkingCapitalLoanDiscountByExternalId — `PUT /working-capital-loans/external-id/{}/discount`
+- updateWorkingCapitalLoanDiscountById — `PUT /working-capital-loans/{}/discount`
+- updateWorkingCapitalLoanProduct — `PUT /working-capital-loan-products/{}`
+- updateWorkingCapitalLoanProductByExternalId — `PUT /working-capital-loan-products/external-id/{}`
+- updateWorkingCapitalLoanRateByExternalId — `PUT /working-capital-loans/external-id/{}/payment-rate`
+- updateWorkingCapitalLoanRateById — `PUT /working-capital-loans/{}/payment-rate`
+- updateWorkingCapitalNearBreach — `PUT /working-capital/near-breach/{}`
+- validate — `POST /twofactor/validate`
