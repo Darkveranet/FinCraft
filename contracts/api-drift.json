@@ -1,206 +1,77 @@
 {
-  "generatedAt": "2026-08-02T07:54:58.825Z",
+  "generatedAt": "2026-08-02T10:45:01.811Z",
   "meta": {
     "origin": "image:apache/fineract:latest",
     "contractOps": 965,
     "hwRoutes": 904,
-    "hwEndpoints": 711,
+    "hwEndpoints": 708,
     "hwFiles": 20
   },
   "summary": {
-    "matched": 680,
+    "matched": 699,
     "mismatch": 0,
-    "unverified": 31,
-    "uncovered": 285,
-    "dynamic": 0
+    "unverified": 0,
+    "external": 9,
+    "uncovered": 272,
+    "dynamic": 3,
+    "literalParam": 19
   },
   "mismatch": [],
-  "unverified": [
-    {
-      "key": "GET /externalservice/SMS",
-      "file": "integrations.js",
-      "line": 21,
-      "rawPath": "/externalservice/SMS"
-    },
-    {
-      "key": "PUT /externalservice/SMS",
-      "file": "integrations.js",
-      "line": 21,
-      "rawPath": "/externalservice/SMS"
-    },
-    {
-      "key": "GET /externalservice/SMTP",
-      "file": "integrations.js",
-      "line": 22,
-      "rawPath": "/externalservice/SMTP"
-    },
-    {
-      "key": "PUT /externalservice/SMTP",
-      "file": "integrations.js",
-      "line": 22,
-      "rawPath": "/externalservice/SMTP"
-    },
-    {
-      "key": "GET /externalservice/S3",
-      "file": "integrations.js",
-      "line": 24,
-      "rawPath": "/externalservice/S3"
-    },
-    {
-      "key": "PUT /externalservice/S3",
-      "file": "integrations.js",
-      "line": 24,
-      "rawPath": "/externalservice/S3"
-    },
-    {
-      "key": "GET /externalservice/NOTIFICATION",
-      "file": "integrations.js",
-      "line": 25,
-      "rawPath": "/externalservice/NOTIFICATION"
-    },
-    {
-      "key": "PUT /externalservice/NOTIFICATION",
-      "file": "integrations.js",
-      "line": 25,
-      "rawPath": "/externalservice/NOTIFICATION"
-    },
-    {
-      "key": "GET /interoperation/parties/{}/{}${subIdOrType ",
-      "file": "interoperation.js",
-      "line": 11,
-      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? "
-    },
-    {
-      "key": "POST /interoperation/parties/{}/{}${subIdOrType ",
-      "file": "interoperation.js",
-      "line": 13,
-      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? "
-    },
-    {
-      "key": "DELETE /interoperation/parties/{}/{}${subIdOrType ",
-      "file": "interoperation.js",
-      "line": 15,
-      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? "
-    },
+  "unverified": [],
+  "external": [
     {
       "key": "GET /self/userdetails",
       "file": "misc.js",
       "line": 33,
-      "rawPath": "/self/userdetails"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "POST /self/registration",
       "file": "misc.js",
       "line": 34,
-      "rawPath": "/self/registration"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "POST /self/registration/user",
       "file": "misc.js",
       "line": 35,
-      "rawPath": "/self/registration/user"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "POST /self/registration/resetpassword",
       "file": "misc.js",
       "line": 36,
-      "rawPath": "/self/registration/resetpassword"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "GET /self/beneficiaries/tpt",
       "file": "misc.js",
       "line": 37,
-      "rawPath": "/self/beneficiaries/tpt"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "POST /self/beneficiaries/tpt",
       "file": "misc.js",
       "line": 38,
-      "rawPath": "/self/beneficiaries/tpt"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "PUT /self/beneficiaries/tpt/{}",
       "file": "misc.js",
       "line": 39,
-      "rawPath": "/self/beneficiaries/tpt/${id}"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "DELETE /self/beneficiaries/tpt/{}",
       "file": "misc.js",
       "line": 40,
-      "rawPath": "/self/beneficiaries/tpt/${id}"
-    },
-    {
-      "key": "GET /products/share",
-      "file": "products.js",
-      "line": 25,
-      "rawPath": "/products/share"
-    },
-    {
-      "key": "GET /products/share/{}",
-      "file": "products.js",
-      "line": 26,
-      "rawPath": "/products/share/${id}"
-    },
-    {
-      "key": "GET /products/share/template",
-      "file": "products.js",
-      "line": 27,
-      "rawPath": "/products/share/template"
-    },
-    {
-      "key": "POST /products/share",
-      "file": "products.js",
-      "line": 28,
-      "rawPath": "/products/share"
-    },
-    {
-      "key": "PUT /products/share/{}",
-      "file": "products.js",
-      "line": 29,
-      "rawPath": "/products/share/${id}"
-    },
-    {
-      "key": "GET /accounts/share",
-      "file": "shares.js",
-      "line": 3,
-      "rawPath": "/accounts/share"
-    },
-    {
-      "key": "GET /accounts/share/{}",
-      "file": "shares.js",
-      "line": 4,
-      "rawPath": "/accounts/share/${id}"
-    },
-    {
-      "key": "GET /accounts/share/template",
-      "file": "shares.js",
-      "line": 5,
-      "rawPath": "/accounts/share/template"
-    },
-    {
-      "key": "POST /accounts/share",
-      "file": "shares.js",
-      "line": 6,
-      "rawPath": "/accounts/share"
-    },
-    {
-      "key": "PUT /accounts/share/{}",
-      "file": "shares.js",
-      "line": 7,
-      "rawPath": "/accounts/share/${id}"
+      "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
     },
     {
       "key": "DELETE /accounts/share/{}",
       "file": "shares.js",
       "line": 8,
-      "rawPath": "/accounts/share/${id}"
-    },
-    {
-      "key": "POST /accounts/share/{}",
-      "file": "shares.js",
-      "line": 10,
-      "rawPath": "/accounts/share/${id}?command=approve"
+      "reason": "Fineract's contract has GET/POST/PUT (and a generic POST command handler) at /v1/accounts/{type}/{accountId} for share accounts, but no DELETE operation at all. shares.js:delete() targets a real endpoint with no contract-side support — likely returns 405/404 in practice; worth confirming against a live Fineract instance and possibly removing the UI action. Verified 2026-08-02 against the real contract."
     }
   ],
   "uncovered": [
@@ -443,22 +314,6 @@
       "key": "POST /savingsaccounts/external-id/{}/transactions",
       "canonPath": "/savingsaccounts/external-id/{}/transactions",
       "tag": "Savings Account Transactions"
-    },
-    {
-      "operationId": "createShareAccount",
-      "method": "POST",
-      "rawPath": "/v1/accounts/{type}",
-      "key": "POST /accounts/{}",
-      "canonPath": "/accounts/{}",
-      "tag": "Share Account"
-    },
-    {
-      "operationId": "createShareProduct",
-      "method": "POST",
-      "rawPath": "/v1/products/{type}",
-      "key": "POST /products/{}",
-      "canonPath": "/products/{}",
-      "tag": "Products"
     },
     {
       "operationId": "createWorkingCapitalBreach",
@@ -1253,14 +1108,6 @@
       "tag": "Savings Account"
     },
     {
-      "operationId": "handleCommandsShareAccount",
-      "method": "POST",
-      "rawPath": "/v1/accounts/{type}/{accountId}",
-      "key": "POST /accounts/{}/{}",
-      "canonPath": "/accounts/{}/{}",
-      "tag": "Share Account"
-    },
-    {
       "operationId": "isCatchUpRunning_1",
       "method": "GET",
       "rawPath": "/v1/working-capital-loans/is-catch-up-running",
@@ -1533,22 +1380,6 @@
       "tag": "Loan Transactions"
     },
     {
-      "operationId": "retrieveAllShareAccounts",
-      "method": "GET",
-      "rawPath": "/v1/accounts/{type}",
-      "key": "GET /accounts/{}",
-      "canonPath": "/accounts/{}",
-      "tag": "Share Account"
-    },
-    {
-      "operationId": "retrieveAllShareProducts",
-      "method": "GET",
-      "rawPath": "/v1/products/{type}",
-      "key": "GET /products/{}",
-      "canonPath": "/products/{}",
-      "tag": "Products"
-    },
-    {
       "operationId": "retrieveAllWorkingCapitalBreaches",
       "method": "GET",
       "rawPath": "/v1/working-capital/breach/breaches",
@@ -1733,14 +1564,6 @@
       "tag": "Loans"
     },
     {
-      "operationId": "retrieveExternalServicesConfiguration",
-      "method": "GET",
-      "rawPath": "/v1/externalservice/{servicename}",
-      "key": "GET /externalservice/{}",
-      "canonPath": "/externalservice/{}",
-      "tag": "External Services"
-    },
-    {
       "operationId": "retrieveImage",
       "method": "GET",
       "rawPath": "/v1/{entityType}/{entityId}/images",
@@ -1885,22 +1708,6 @@
       "tag": "Savings Account Transactions"
     },
     {
-      "operationId": "retrieveOneShareAccount",
-      "method": "GET",
-      "rawPath": "/v1/accounts/{type}/{accountId}",
-      "key": "GET /accounts/{}/{}",
-      "canonPath": "/accounts/{}/{}",
-      "tag": "Share Account"
-    },
-    {
-      "operationId": "retrieveOneShareProduct",
-      "method": "GET",
-      "rawPath": "/v1/products/{type}/{productId}",
-      "key": "GET /products/{}/{}",
-      "canonPath": "/products/{}/{}",
-      "tag": "Products"
-    },
-    {
       "operationId": "retrieveOneWorkingCapitalLoanProduct",
       "method": "GET",
       "rawPath": "/v1/working-capital-loan-products/{productId}",
@@ -1971,22 +1778,6 @@
       "key": "GET /savingsaccounts/external-id/{}/transactions/template",
       "canonPath": "/savingsaccounts/external-id/{}/transactions/template",
       "tag": "Savings Account Transactions"
-    },
-    {
-      "operationId": "retrieveTemplateShareAccount",
-      "method": "GET",
-      "rawPath": "/v1/accounts/{type}/template",
-      "key": "GET /accounts/{}/template",
-      "canonPath": "/accounts/{}/template",
-      "tag": "Share Account"
-    },
-    {
-      "operationId": "retrieveTemplateShareProduct",
-      "method": "GET",
-      "rawPath": "/v1/products/{type}/template",
-      "key": "GET /products/{}/template",
-      "canonPath": "/products/{}/template",
-      "tag": "Products"
     },
     {
       "operationId": "retrieveTemplateWorkingCapitalLoanCharge",
@@ -2293,14 +2084,6 @@
       "tag": "Documents"
     },
     {
-      "operationId": "updateExternalServicesConfiguration",
-      "method": "PUT",
-      "rawPath": "/v1/externalservice/{servicename}",
-      "key": "PUT /externalservice/{}",
-      "canonPath": "/externalservice/{}",
-      "tag": "External Services"
-    },
-    {
       "operationId": "updateImage_1",
       "method": "PUT",
       "rawPath": "/v1/{entityType}/{entityId}/images",
@@ -2397,22 +2180,6 @@
       "tag": "Savings Account"
     },
     {
-      "operationId": "updateShareAccount",
-      "method": "PUT",
-      "rawPath": "/v1/accounts/{type}/{accountId}",
-      "key": "PUT /accounts/{}/{}",
-      "canonPath": "/accounts/{}/{}",
-      "tag": "Share Account"
-    },
-    {
-      "operationId": "updateShareProduct",
-      "method": "PUT",
-      "rawPath": "/v1/products/{type}/{productId}",
-      "key": "PUT /products/{}/{}",
-      "canonPath": "/products/{}/{}",
-      "tag": "Products"
-    },
-    {
       "operationId": "updateWorkingCapitalBreach",
       "method": "PUT",
       "rawPath": "/v1/working-capital/breach/breaches/{breachId}",
@@ -2485,5 +2252,152 @@
       "tag": "Two Factor"
     }
   ],
-  "dynamic": []
+  "dynamic": [
+    {
+      "method": "GET",
+      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}",
+      "key": "GET /interoperation/parties/{}/{}${subIdOrType ",
+      "canonPath": "/interoperation/parties/{}/{}${subIdOrType ",
+      "command": null,
+      "dynamic": true,
+      "file": "interoperation.js",
+      "line": 11
+    },
+    {
+      "method": "POST",
+      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}",
+      "key": "POST /interoperation/parties/{}/{}${subIdOrType ",
+      "canonPath": "/interoperation/parties/{}/{}${subIdOrType ",
+      "command": null,
+      "dynamic": true,
+      "file": "interoperation.js",
+      "line": 13
+    },
+    {
+      "method": "DELETE",
+      "rawPath": "/interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}",
+      "key": "DELETE /interoperation/parties/{}/{}${subIdOrType ",
+      "canonPath": "/interoperation/parties/{}/{}${subIdOrType ",
+      "command": null,
+      "dynamic": true,
+      "file": "interoperation.js",
+      "line": 15
+    }
+  ],
+  "literalParam": [
+    {
+      "key": "GET /externalservice/SMS",
+      "file": "integrations.js",
+      "line": 21,
+      "operationId": "retrieveExternalServicesConfiguration"
+    },
+    {
+      "key": "PUT /externalservice/SMS",
+      "file": "integrations.js",
+      "line": 21,
+      "operationId": "updateExternalServicesConfiguration"
+    },
+    {
+      "key": "GET /externalservice/SMTP",
+      "file": "integrations.js",
+      "line": 22,
+      "operationId": "retrieveExternalServicesConfiguration"
+    },
+    {
+      "key": "PUT /externalservice/SMTP",
+      "file": "integrations.js",
+      "line": 22,
+      "operationId": "updateExternalServicesConfiguration"
+    },
+    {
+      "key": "GET /externalservice/S3",
+      "file": "integrations.js",
+      "line": 24,
+      "operationId": "retrieveExternalServicesConfiguration"
+    },
+    {
+      "key": "PUT /externalservice/S3",
+      "file": "integrations.js",
+      "line": 24,
+      "operationId": "updateExternalServicesConfiguration"
+    },
+    {
+      "key": "GET /externalservice/NOTIFICATION",
+      "file": "integrations.js",
+      "line": 25,
+      "operationId": "retrieveExternalServicesConfiguration"
+    },
+    {
+      "key": "PUT /externalservice/NOTIFICATION",
+      "file": "integrations.js",
+      "line": 25,
+      "operationId": "updateExternalServicesConfiguration"
+    },
+    {
+      "key": "GET /products/share",
+      "file": "products.js",
+      "line": 25,
+      "operationId": "retrieveAllShareProducts"
+    },
+    {
+      "key": "GET /products/share/{}",
+      "file": "products.js",
+      "line": 26,
+      "operationId": "retrieveOneShareProduct"
+    },
+    {
+      "key": "GET /products/share/template",
+      "file": "products.js",
+      "line": 27,
+      "operationId": "retrieveTemplateShareProduct"
+    },
+    {
+      "key": "POST /products/share",
+      "file": "products.js",
+      "line": 28,
+      "operationId": "createShareProduct"
+    },
+    {
+      "key": "PUT /products/share/{}",
+      "file": "products.js",
+      "line": 29,
+      "operationId": "updateShareProduct"
+    },
+    {
+      "key": "GET /accounts/share",
+      "file": "shares.js",
+      "line": 3,
+      "operationId": "retrieveAllShareAccounts"
+    },
+    {
+      "key": "GET /accounts/share/{}",
+      "file": "shares.js",
+      "line": 4,
+      "operationId": "retrieveOneShareAccount"
+    },
+    {
+      "key": "GET /accounts/share/template",
+      "file": "shares.js",
+      "line": 5,
+      "operationId": "retrieveTemplateShareAccount"
+    },
+    {
+      "key": "POST /accounts/share",
+      "file": "shares.js",
+      "line": 6,
+      "operationId": "createShareAccount"
+    },
+    {
+      "key": "PUT /accounts/share/{}",
+      "file": "shares.js",
+      "line": 7,
+      "operationId": "updateShareAccount"
+    },
+    {
+      "key": "POST /accounts/share/{}",
+      "file": "shares.js",
+      "line": 10,
+      "operationId": "handleCommandsShareAccount"
+    }
+  ]
 }

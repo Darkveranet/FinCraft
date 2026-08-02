@@ -9,7 +9,7 @@ test.describe.serial('isolated Fineract: real client lifecycle', () => {
     const externalId = `FC-E2E-${runId}`;
     const created = await fineract(request,'POST','/clients',{
       officeId, firstname:'FinCraft', lastname:`E2E ${runId}`.slice(0,45), externalId,
-      active:true, activationDate:date(), dateFormat:'dd MM yyyy', locale:'en'
+      legalFormId:1, active:true, activationDate:date(), dateFormat:'dd MM yyyy', locale:'en'
     });
     clientId = created.clientId || created.resourceId;
     expect(clientId).toBeTruthy();

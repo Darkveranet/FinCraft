@@ -14,6 +14,6 @@ test('FinCraft route registry renders every authorized module against isolated F
   const errors=[]; page.on('pageerror',e=>errors.push(e.message)); await login(page);
   const routes=await page.evaluate(async()=>{const r=await import('/js/router.js');return Object.entries(r.PAGE_REGISTRY).filter(([,d])=>r.isAllowed(d)).map(([k])=>k)});
   expect(routes.length).toBeGreaterThan(20);
-  for (const route of routes) await test.step(route,async()=>{location.hash; await page.evaluate(r=>location.hash=`#${r}`,route); await expect(page.locator('#contentArea')).toBeVisible(); await page.waitForTimeout(150);});
+  for (const route of routes) await test.step(route,async()=>{await page.evaluate(r=>location.hash=`#${r}`,route); await expect(page.locator('#contentArea')).toBeVisible(); await page.waitForTimeout(150);});
   expect(errors).toEqual([]);
 });

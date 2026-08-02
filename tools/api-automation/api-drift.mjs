@@ -69,18 +69,55 @@ function canonPath(raw) {
 // Match key intentionally EXCLUDES command (Fineract uses generic handlers).
 const keyOf = (method, canon) => `${method} ${canon.path}`;
 
+/** Read a backtick template-literal argument starting at `start` (just past the
+ *  opening backtick), tracking `${ ... }` nesting depth so a backtick that
+ *  appears INSIDE a `${...}` substitution (e.g. a nested template literal in a
+ *  ternary: `${cond ? `/${x}` : ''}`) does not prematurely terminate the
+ *  match. Returns the literal text (with ${...} left intact) or null if
+ *  unterminated. */
+function readBacktickLiteral(src, start) {
+  let i = start;
+  let depth = 0;
+  while (i < src.length) {
+    const ch = src[i];
+    if (ch === '\\') { i += 2; continue; }
+    if (depth === 0 && ch === '`') return src.slice(start, i);
+    if (ch === '$' && src[i + 1] === '{') { depth++; i += 2; continue; }
+    if (depth > 0 && ch === '}') { depth--; i += 1; continue; }
+    i += 1;
+  }
+  return null;
+}
+
+/** Read a single/double-quoted string argument starting at `start`. */
+function readSimpleString(src, start, quote) {
+  let i = start;
+  while (i < src.length) {
+    const ch = src[i];
+    if (ch === '\\') { i += 2; continue; }
+    if (ch === quote) return src.slice(start, i);
+    i += 1;
+  }
+  return null;
+}
+
 function extractHandwritten() {
   const routes = [];
   const files = fs.readdirSync(API_DIR)
     .filter((f) => f.endsWith('.js') && !SKIP_FILES.has(f))
     .filter((f) => fs.statSync(path.join(API_DIR, f)).isFile());
-  const call = /self\.(_[gpud])\(\s*(['"`])([^'"`]*?)\2/g;
+  const callHead = /self\.(_[gpud])\(\s*(['"`])/g;
   for (const file of files) {
     const src = fs.readFileSync(path.join(API_DIR, file), 'utf8');
     let m;
-    while ((m = call.exec(src)) !== null) {
+    while ((m = callHead.exec(src)) !== null) {
       const method = VERB[m[1]];
-      const rawPath = m[3];
+      const quote = m[2];
+      const argStart = m.index + m[0].length;
+      const rawPath = quote === '`'
+        ? readBacktickLiteral(src, argStart)
+        : readSimpleString(src, argStart, quote);
+      if (rawPath == null) continue; // unterminated — skip rather than mis-report
       if (!rawPath.startsWith('/')) continue;
       const canon = canonPath(rawPath);
       const line = src.slice(0, m.index).split('\n').length;
@@ -112,6 +149,37 @@ async function loadContracts() {
   return out;
 }
 
+/** Load the intended-external allowlist: routes we've explicitly verified are
+ *  absent from THIS contract on purpose (a different Fineract API surface,
+ *  e.g. the Self-Service API, or an undocumented-in-spec area like Share
+ *  accounts). Each entry needs a reason — no blanket suppression. */
+function loadExternalAllowlist() {
+  const p = path.join(__dirname, 'external-routes.json');
+  if (!fs.existsSync(p)) return [];
+  const list = JSON.parse(fs.readFileSync(p, 'utf8'));
+  return list.map((e) => ({ ...e, re: new RegExp('^' + e.pattern + '$') }));
+}
+
+/** For an unresolved hand-written route, try wildcarding exactly one static
+ *  path segment at a time and see if that resolves to a real contract key.
+ *  Handles cases like `/externalservice/SMS` being a literal call into a
+ *  contract op whose path is actually `/externalservice/{servicename}` — the
+ *  hand-written code passes a concrete value instead of a variable, so the
+ *  normal `${...}` -> `{}` collapse never fires. Only accepted when exactly
+ *  one wildcard variant matches, to avoid ambiguous false positives. */
+function findLiteralParamMatch(r, ctByKey) {
+  const segments = r.canonPath.split('/');
+  const hits = [];
+  for (let i = 0; i < segments.length; i++) {
+    if (segments[i] === '{}' || segments[i] === '') continue;
+    const variant = [...segments];
+    variant[i] = '{}';
+    const candidateKey = `${r.method} ${variant.join('/')}`;
+    if (ctByKey.has(candidateKey)) hits.push(ctByKey.get(candidateKey));
+  }
+  return hits.length === 1 ? hits[0] : null;
+}
+
 function diff(handwritten, contracts) {
   const ctByKey = new Map(contracts.map((c) => [c.key, c]));
   const ctByPath = new Map();
@@ -119,10 +187,13 @@ function diff(handwritten, contracts) {
     if (!ctByPath.has(c.canonPath)) ctByPath.set(c.canonPath, []);
     ctByPath.get(c.canonPath).push(c);
   }
+  const externalAllowlist = loadExternalAllowlist();
 
   const matched = new Set();      // hw method+path keys that hit a contract op
+  const literalParam = [];        // matched, but only via a wildcarded literal segment
   const mismatch = [];
   const unverified = [];
+  const external = [];
   const dynamic = [];
   const seenHwKeys = new Set();
 
@@ -133,6 +204,14 @@ function diff(handwritten, contracts) {
 
     if (ctByKey.has(r.key)) { matched.add(r.key); continue; }
 
+    const literalHit = findLiteralParamMatch(r, ctByKey);
+    if (literalHit) {
+      matched.add(r.key);
+      seenHwKeys.add(literalHit.key); // mark the contract op's real key covered too, else it double-counts as Uncovered
+      literalParam.push({ key: r.key, file: r.file, line: r.line, operationId: literalHit.operationId });
+      continue;
+    }
+
     const samePath = ctByPath.get(r.canonPath);
     if (samePath && samePath.length) {
       mismatch.push({
@@ -140,6 +219,12 @@ function diff(handwritten, contracts) {
         handwrittenMethod: r.method,
         contractCandidates: samePath.map((c) => ({ operationId: c.operationId, method: c.method })),
       });
+      continue;
+    }
+
+    const allow = externalAllowlist.find((e) => e.re.test(r.key));
+    if (allow) {
+      external.push({ key: r.key, file: r.file, line: r.line, reason: allow.reason });
     } else {
       unverified.push({ key: r.key, file: r.file, line: r.line, rawPath: r.rawPath });
     }
@@ -149,7 +234,7 @@ function diff(handwritten, contracts) {
 
   return {
     matched: [...matched],
-    mismatch, unverified, uncovered, dynamic,
+    literalParam, mismatch, unverified, external, uncovered, dynamic,
   };
 }
 
@@ -161,9 +246,24 @@ function toMarkdown(res, meta) {
   L.push('| Bucket | Count | Meaning |', '|---|---:|---|');
   L.push(`| ✅ Matched | ${res.matched.length} | endpoint (method+path) backed by a contract op |`);
   L.push(`| 🔴 Mismatch | ${res.mismatch.length} | same path, **wrong HTTP method** — a bug |`);
-  L.push(`| 🟡 Unverified | ${res.unverified.length} | hand-written path absent from the contract |`);
+  L.push(`| 🟡 Unverified | ${res.unverified.length} | hand-written path absent from the contract, unexplained |`);
+  L.push(`| ⚫ External | ${res.external.length} | absent from this contract, explicitly allowlisted (see reason) |`);
   L.push(`| ⚪ Uncovered | ${res.uncovered.length} | contract op no UI route reaches (backlog) |`);
   L.push(`| ⚙️ Dynamic | ${res.dynamic.length} | unresolved dynamic path (skipped) |`, '');
+  if (res.literalParam.length) {
+    const distinctOps = new Set(res.literalParam.map((l) => l.operationId)).size;
+    const extra = res.literalParam.length - distinctOps;
+    L.push(`_${res.literalParam.length} of the Matched routes only matched via a wildcarded literal ` +
+           `path segment (e.g. \`/externalservice/SMS\` against contract op \`/externalservice/{servicename}\`) ` +
+           `— code-quality note, not a drift bug; see "Matched via literal segment" below._`, '');
+    L.push(`_Note: Matched counts hand-written endpoints, not distinct contract ops, so ` +
+           `Matched + Uncovered will exceed total contract ops by **${extra}** — that's ${res.literalParam.length} ` +
+           `hand-written routes collapsing onto only ${distinctOps} distinct contract ops (e.g. 4 literal ` +
+           `\`externalservice/*\` routes all hit the same parameterized op). ` +
+           `Distinct contract ops actually covered = ${meta.contractOps} − ${res.uncovered.length} = ` +
+           `${meta.contractOps - res.uncovered.length}; the identity that always holds is ` +
+           `Matched + External + Unverified = unique hand-written endpoints (${meta.hwEndpoints})._`, '');
+  }
 
   const section = (title, rows, render) => {
     if (!rows.length) return;
@@ -176,8 +276,11 @@ function toMarkdown(res, meta) {
     (m) => `- \`${m.key}\` (${m.file}:${m.line}) → contract has ` +
            m.contractCandidates.map((c) => `\`${c.method}\` (${c.operationId})`).join(', '));
   section('🟡 Unverified', res.unverified, (u) => `- \`${u.key}\` (${u.file}:${u.line})`);
+  section('⚫ External (allowlisted)', res.external, (e) => `- \`${e.key}\` (${e.file}:${e.line}) — ${e.reason}`);
   section('⚪ Uncovered', res.uncovered, (u) => `- ${u.operationId} — \`${u.key}\``);
   section('⚙️ Dynamic', res.dynamic, (d) => `- \`${d.method} ${d.rawPath}\` (${d.file}:${d.line})`);
+  section('🔎 Matched via literal segment (code-quality note)', res.literalParam,
+    (l) => `- \`${l.key}\` (${l.file}:${l.line}) → ${l.operationId}`);
   return L.join('\n');
 }
 
@@ -199,11 +302,12 @@ async function main() {
     generatedAt: new Date().toISOString(), meta,
     summary: {
       matched: res.matched.length, mismatch: res.mismatch.length,
-      unverified: res.unverified.length, uncovered: res.uncovered.length,
-      dynamic: res.dynamic.length,
+      unverified: res.unverified.length, external: res.external.length,
+      uncovered: res.uncovered.length, dynamic: res.dynamic.length,
+      literalParam: res.literalParam.length,
     },
-    mismatch: res.mismatch, unverified: res.unverified,
-    uncovered: res.uncovered, dynamic: res.dynamic,
+    mismatch: res.mismatch, unverified: res.unverified, external: res.external,
+    uncovered: res.uncovered, dynamic: res.dynamic, literalParam: res.literalParam,
   };
 
   fs.mkdirSync(OUT_DIR, { recursive: true });

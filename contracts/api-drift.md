@@ -1,52 +1,35 @@
 # FinCraft — Hand-written API ↔ Contract Drift
 
-_Generated 2026-08-02T07:54:58.826Z_
+_Generated 2026-08-02T10:45:01.812Z_
 
-Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **904** (711 unique endpoints, 20 modules)
+Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **904** (708 unique endpoints, 20 modules)
 
 | Bucket | Count | Meaning |
 |---|---:|---|
-| ✅ Matched | 680 | endpoint (method+path) backed by a contract op |
+| ✅ Matched | 699 | endpoint (method+path) backed by a contract op |
 | 🔴 Mismatch | 0 | same path, **wrong HTTP method** — a bug |
-| 🟡 Unverified | 31 | hand-written path absent from the contract |
-| ⚪ Uncovered | 285 | contract op no UI route reaches (backlog) |
-| ⚙️ Dynamic | 0 | unresolved dynamic path (skipped) |
+| 🟡 Unverified | 0 | hand-written path absent from the contract, unexplained |
+| ⚫ External | 9 | absent from this contract, explicitly allowlisted (see reason) |
+| ⚪ Uncovered | 272 | contract op no UI route reaches (backlog) |
+| ⚙️ Dynamic | 3 | unresolved dynamic path (skipped) |
 
-## 🟡 Unverified (31)
+_19 of the Matched routes only matched via a wildcarded literal path segment (e.g. `/externalservice/SMS` against contract op `/externalservice/{servicename}`) — code-quality note, not a drift bug; see "Matched via literal segment" below._
 
-- `GET /externalservice/SMS` (integrations.js:21)
-- `PUT /externalservice/SMS` (integrations.js:21)
-- `GET /externalservice/SMTP` (integrations.js:22)
-- `PUT /externalservice/SMTP` (integrations.js:22)
-- `GET /externalservice/S3` (integrations.js:24)
-- `PUT /externalservice/S3` (integrations.js:24)
-- `GET /externalservice/NOTIFICATION` (integrations.js:25)
-- `PUT /externalservice/NOTIFICATION` (integrations.js:25)
-- `GET /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:11)
-- `POST /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:13)
-- `DELETE /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:15)
-- `GET /self/userdetails` (misc.js:33)
-- `POST /self/registration` (misc.js:34)
-- `POST /self/registration/user` (misc.js:35)
-- `POST /self/registration/resetpassword` (misc.js:36)
-- `GET /self/beneficiaries/tpt` (misc.js:37)
-- `POST /self/beneficiaries/tpt` (misc.js:38)
-- `PUT /self/beneficiaries/tpt/{}` (misc.js:39)
-- `DELETE /self/beneficiaries/tpt/{}` (misc.js:40)
-- `GET /products/share` (products.js:25)
-- `GET /products/share/{}` (products.js:26)
-- `GET /products/share/template` (products.js:27)
-- `POST /products/share` (products.js:28)
-- `PUT /products/share/{}` (products.js:29)
-- `GET /accounts/share` (shares.js:3)
-- `GET /accounts/share/{}` (shares.js:4)
-- `GET /accounts/share/template` (shares.js:5)
-- `POST /accounts/share` (shares.js:6)
-- `PUT /accounts/share/{}` (shares.js:7)
-- `DELETE /accounts/share/{}` (shares.js:8)
-- `POST /accounts/share/{}` (shares.js:10)
+_Note: Matched counts hand-written endpoints, not distinct contract ops, so Matched + Uncovered will exceed total contract ops by **6** — that's 19 hand-written routes collapsing onto only 13 distinct contract ops (e.g. 4 literal `externalservice/*` routes all hit the same parameterized op). Distinct contract ops actually covered = 965 − 272 = 693; the identity that always holds is Matched + External + Unverified = unique hand-written endpoints (708)._
 
-## ⚪ Uncovered (285)
+## ⚫ External (allowlisted) (9)
+
+- `GET /self/userdetails` (misc.js:33) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/registration` (misc.js:34) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/registration/user` (misc.js:35) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/registration/resetpassword` (misc.js:36) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `GET /self/beneficiaries/tpt` (misc.js:37) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/beneficiaries/tpt` (misc.js:38) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `PUT /self/beneficiaries/tpt/{}` (misc.js:39) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `DELETE /self/beneficiaries/tpt/{}` (misc.js:40) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `DELETE /accounts/share/{}` (shares.js:8) — Fineract's contract has GET/POST/PUT (and a generic POST command handler) at /v1/accounts/{type}/{accountId} for share accounts, but no DELETE operation at all. shares.js:delete() targets a real endpoint with no contract-side support — likely returns 405/404 in practice; worth confirming against a live Fineract instance and possibly removing the UI action. Verified 2026-08-02 against the real contract.
+
+## ⚪ Uncovered (272)
 
 - activateLoan — `POST /internal/working-capital-loans/{}/activate`
 - adjustLoanCharge — `POST /working-capital-loans/{}/charges/{}`
@@ -78,8 +61,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - createLoanCharge — `POST /working-capital-loans/{}/charges`
 - createLoanInterestPauseByExternalId — `POST /loans/external-id/{}/interest-pauses`
 - createSavingsAccountTransactionBySavingsExternalId — `POST /savingsaccounts/external-id/{}/transactions`
-- createShareAccount — `POST /accounts/{}`
-- createShareProduct — `POST /products/{}`
 - createWorkingCapitalBreach — `POST /working-capital/breach/breaches`
 - createWorkingCapitalLoanNearBreachActionByExternalId — `POST /working-capital-loans/external-id/{}/near-breach-actions`
 - createWorkingCapitalLoanNearBreachActionById — `POST /working-capital-loans/{}/near-breach-actions`
@@ -179,7 +160,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - handleCommandsLoanByExternalId — `POST /loans/external-id/{}`
 - handleCommandsLoanTransactionByLoanExternalId — `POST /loans/external-id/{}/transactions`
 - handleCommandsSavingsAccountByExternalId — `POST /savingsaccounts/external-id/{}`
-- handleCommandsShareAccount — `POST /accounts/{}/{}`
 - isCatchUpRunning_1 — `GET /working-capital-loans/is-catch-up-running`
 - loanReprocess — `POST /internal/cob/loan-reprocess/{}`
 - modifyWorkingCapitalLoanApplicationByExternalId — `PUT /working-capital-loans/external-id/{}`
@@ -214,8 +194,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - retrieveAllLoanChargesByLoanExternalId — `GET /loans/external-id/{}/charges`
 - retrieveAllLoanInterestPausesByExternalId — `GET /loans/external-id/{}/interest-pauses`
 - retrieveAllLoanTransactionsByExternalId — `GET /loans/external-id/{}/transactions`
-- retrieveAllShareAccounts — `GET /accounts/{}`
-- retrieveAllShareProducts — `GET /products/{}`
 - retrieveAllWorkingCapitalBreaches — `GET /working-capital/breach/breaches`
 - retrieveAllWorkingCapitalLoanChargesByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges`
 - retrieveAllWorkingCapitalLoanChargesByLoanId — `GET /working-capital-loans/{}/charges`
@@ -239,7 +217,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - retrieveDelinquencyActionsLoanByExternalId — `GET /loans/external-id/{}/delinquency-actions`
 - retrieveDelinquencyRangeSchedule — `GET /working-capital-loans/{}/delinquency-range-schedule`
 - retrieveDelinquencyTagHistoryLoanByExternalId — `GET /loans/external-id/{}/delinquencytags`
-- retrieveExternalServicesConfiguration — `GET /externalservice/{}`
 - retrieveImage — `GET /{}/{}/images`
 - retrieveLoanBuyDownFeeAmortizationDetailsByExternalId — `GET /loans/external-id/{}/buydown-fees`
 - retrieveLoanPointInTimeByExternalId — `GET /loans/at-date/external-id/{}`
@@ -258,8 +235,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - retrieveOneSavingsAccountTransactionByExternalId — `GET /savingsaccounts/{}/transactions/external-id/{}`
 - retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId — `GET /savingsaccounts/external-id/{}/transactions/external-id/{}`
 - retrieveOneSavingsAccountTransactionBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/{}`
-- retrieveOneShareAccount — `GET /accounts/{}/{}`
-- retrieveOneShareProduct — `GET /products/{}/{}`
 - retrieveOneWorkingCapitalLoanProduct — `GET /working-capital-loan-products/{}`
 - retrieveOneWorkingCapitalLoanProductByExternalId — `GET /working-capital-loan-products/external-id/{}`
 - retrieveOriginatorsByLoanExternalId — `GET /loans/external-id/{}/originators`
@@ -269,8 +244,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - retrieveTemplateLoanChargeByLoanExternalId — `GET /loans/external-id/{}/charges/template`
 - retrieveTemplateLoanTransactionByLoanExternalId — `GET /loans/external-id/{}/transactions/template`
 - retrieveTemplateSavingsAccountTransactionBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/template`
-- retrieveTemplateShareAccount — `GET /accounts/{}/template`
-- retrieveTemplateShareProduct — `GET /products/{}/template`
 - retrieveTemplateWorkingCapitalLoanCharge — `GET /working-capital-loans/{}/charges/template`
 - retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges/template`
 - retrieveTemplateWorkingCapitalLoanProduct — `GET /working-capital-loan-products/template`
@@ -309,7 +282,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - updateByExternalId — `PUT /loan-originators/external-id/{}`
 - updateClientByExternalId — `PUT /clients/external-id/{}`
 - updateDocument — `PUT /{}/{}/documents/{}`
-- updateExternalServicesConfiguration — `PUT /externalservice/{}`
 - updateImage_1 — `PUT /{}/{}/images`
 - updateInternalGlobalConfiguration — `PUT /internal/configurations/name/{}/value/{}`
 - updateInternalProgressiveLoan — `POST /internal/loan/progressive/{}/model`
@@ -322,8 +294,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - updateLoanProductByExternalId — `PUT /loanproducts/external-id/{}`
 - updateOfficeByExternalId — `PUT /offices/external-id/{}`
 - updateSavingsAccountByExternalId — `PUT /savingsaccounts/external-id/{}`
-- updateShareAccount — `PUT /accounts/{}/{}`
-- updateShareProduct — `PUT /products/{}/{}`
 - updateWorkingCapitalBreach — `PUT /working-capital/breach/breaches/{}`
 - updateWorkingCapitalLoanDiscountByExternalId — `PUT /working-capital-loans/external-id/{}/discount`
 - updateWorkingCapitalLoanDiscountById — `PUT /working-capital-loans/{}/discount`
@@ -333,3 +303,31 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - updateWorkingCapitalLoanRateById — `PUT /working-capital-loans/{}/payment-rate`
 - updateWorkingCapitalNearBreach — `PUT /working-capital/near-breach/{}`
 - validate — `POST /twofactor/validate`
+
+## ⚙️ Dynamic (3)
+
+- `GET /interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}` (interoperation.js:11)
+- `POST /interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}` (interoperation.js:13)
+- `DELETE /interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}` (interoperation.js:15)
+
+## 🔎 Matched via literal segment (code-quality note) (19)
+
+- `GET /externalservice/SMS` (integrations.js:21) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/SMS` (integrations.js:21) → updateExternalServicesConfiguration
+- `GET /externalservice/SMTP` (integrations.js:22) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/SMTP` (integrations.js:22) → updateExternalServicesConfiguration
+- `GET /externalservice/S3` (integrations.js:24) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/S3` (integrations.js:24) → updateExternalServicesConfiguration
+- `GET /externalservice/NOTIFICATION` (integrations.js:25) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/NOTIFICATION` (integrations.js:25) → updateExternalServicesConfiguration
+- `GET /products/share` (products.js:25) → retrieveAllShareProducts
+- `GET /products/share/{}` (products.js:26) → retrieveOneShareProduct
+- `GET /products/share/template` (products.js:27) → retrieveTemplateShareProduct
+- `POST /products/share` (products.js:28) → createShareProduct
+- `PUT /products/share/{}` (products.js:29) → updateShareProduct
+- `GET /accounts/share` (shares.js:3) → retrieveAllShareAccounts
+- `GET /accounts/share/{}` (shares.js:4) → retrieveOneShareAccount
+- `GET /accounts/share/template` (shares.js:5) → retrieveTemplateShareAccount
+- `POST /accounts/share` (shares.js:6) → createShareAccount
+- `PUT /accounts/share/{}` (shares.js:7) → updateShareAccount
+- `POST /accounts/share/{}` (shares.js:10) → handleCommandsShareAccount

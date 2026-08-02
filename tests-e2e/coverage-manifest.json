@@ -122,6 +122,14 @@
       "transactional": false,
       "note": "Lifecycle expansion tracked explicitly; route and API readiness run on every isolated CI execution."
     },
+    "operation-runner": {
+      "apiFiles": [
+        "operation-runner.js"
+      ],
+      "coverage": "route-and-contract",
+      "transactional": true,
+      "note": "Generic contract-driven executor behind the command palette (⌘K); can invoke GET/POST/PUT/DELETE against any generated operation, including uncovered/write ops, so it is treated as transactional pending dedicated lifecycle coverage."
+    },
     "organization": {
       "apiFiles": [
         "organization.js"
