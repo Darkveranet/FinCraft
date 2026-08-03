@@ -1,23 +1,23 @@
 # FinCraft — Hand-written API ↔ Contract Drift
 
-_Generated 2026-08-02T11:21:28.025Z_
+_Generated 2026-08-03T08:34:46.142Z_
 
-Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **904** (708 unique endpoints, 20 modules)
+Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **916** (720 unique endpoints, 20 modules)
 
 | Bucket | Count | Meaning |
 |---|---:|---|
-| ✅ Matched | 699 | endpoint (method+path) backed by a contract op |
+| ✅ Matched | 709 | endpoint (method+path) backed by a contract op |
 | 🔴 Mismatch | 0 | same path, **wrong HTTP method** — a bug |
 | 🟡 Unverified | 0 | hand-written path absent from the contract, unexplained |
-| ⚫ External | 9 | absent from this contract, explicitly allowlisted (see reason) |
-| ⚪ Uncovered | 272 | contract op no UI route reaches (backlog) |
+| ⚫ External | 11 | absent from this contract, explicitly allowlisted (see reason) |
+| ⚪ Uncovered | 262 | contract op no UI route reaches (backlog) |
 | ⚙️ Dynamic | 3 | unresolved dynamic path (skipped) |
 
 _19 of the Matched routes only matched via a wildcarded literal path segment (e.g. `/externalservice/SMS` against contract op `/externalservice/{servicename}`) — code-quality note, not a drift bug; see "Matched via literal segment" below._
 
-_Note: Matched counts hand-written endpoints, not distinct contract ops, so Matched + Uncovered will exceed total contract ops by **6** — that's 19 hand-written routes collapsing onto only 13 distinct contract ops (e.g. 4 literal `externalservice/*` routes all hit the same parameterized op). Distinct contract ops actually covered = 965 − 272 = 693; the identity that always holds is Matched + External + Unverified = unique hand-written endpoints (708)._
+_Note: Matched counts hand-written endpoints, not distinct contract ops, so Matched + Uncovered will exceed total contract ops by **6** — that's 19 hand-written routes collapsing onto only 13 distinct contract ops (e.g. 4 literal `externalservice/*` routes all hit the same parameterized op). Distinct contract ops actually covered = 965 − 262 = 703; the identity that always holds is Matched + External + Unverified = unique hand-written endpoints (720)._
 
-## ⚫ External (allowlisted) (9)
+## ⚫ External (allowlisted) (11)
 
 - `GET /self/userdetails` (misc.js:33) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
 - `POST /self/registration` (misc.js:34) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
@@ -27,9 +27,11 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - `POST /self/beneficiaries/tpt` (misc.js:38) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
 - `PUT /self/beneficiaries/tpt/{}` (misc.js:39) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
 - `DELETE /self/beneficiaries/tpt/{}` (misc.js:40) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `GET /{}/downloadtemplate` (misc.js:155) — Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4.
+- `POST /{}/uploadtemplate` (misc.js:156) — Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4.
 - `DELETE /accounts/share/{}` (shares.js:8) — Fineract's contract has GET/POST/PUT (and a generic POST command handler) at /v1/accounts/{type}/{accountId} for share accounts, but no DELETE operation at all. shares.js:delete() targets a real endpoint with no contract-side support — likely returns 405/404 in practice; worth confirming against a live Fineract instance and possibly removing the UI action. Verified 2026-08-02 against the real contract.
 
-## ⚪ Uncovered (272)
+## ⚪ Uncovered (262)
 
 - activateLoan — `POST /internal/working-capital-loans/{}/activate`
 - adjustLoanCharge — `POST /working-capital-loans/{}/charges/{}`
@@ -56,8 +58,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - createDelinquencyAction — `POST /working-capital-loans/{}/delinquency-actions`
 - createDelinquencyActionByExternalId — `POST /working-capital-loans/external-id/{}/delinquency-actions`
 - createDelinquencyActionLoanByExternalId — `POST /loans/external-id/{}/delinquency-actions`
-- createDocument — `POST /{}/{}/documents`
-- createImage_1 — `POST /{}/{}/images`
 - createLoanCharge — `POST /working-capital-loans/{}/charges`
 - createLoanInterestPauseByExternalId — `POST /loans/external-id/{}/interest-pauses`
 - createSavingsAccountTransactionBySavingsExternalId — `POST /savingsaccounts/external-id/{}/transactions`
@@ -92,7 +92,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - detachOriginatorFromWorkingCapitalLoanByBothExternalIds — `DELETE /working-capital-loans/external-id/{}/originators/external-id/{}`
 - detachOriginatorFromWorkingCapitalLoanByLoanExternalId — `DELETE /working-capital-loans/external-id/{}/originators/{}`
 - detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId — `DELETE /working-capital-loans/{}/originators/external-id/{}`
-- downloadFile — `GET /{}/{}/documents/{}/attachment`
 - executeLoanChargeByChargeExternalId — `POST /loans/{}/charges/external-id/{}`
 - executeLoanChargeByLoanAndChargeExternalId — `POST /loans/external-id/{}/charges/external-id/{}`
 - executeLoanChargeByLoanExternalId — `POST /loans/external-id/{}/charges`
@@ -143,7 +142,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - getMaxTransactionDateOfActiveLoans — `GET /internal/loan/maxTransactionDateOfActiveLoan`
 - getOfficeTemplate — `GET /offices/downloadtemplate`
 - getOldestCOBProcessedLoan_1 — `GET /working-capital-loans/oldest-cob-closed`
-- getOutputTemplate — `GET /imports/downloadOutputTemplate`
 - getRecurringDepositTemplate — `GET /recurringdepositaccounts/downloadtemplate`
 - getRecurringDepositTransactionTemplate — `GET /recurringdepositaccounts/transactions/downloadtemplate`
 - getSavingsAccountsByStatus — `GET /internal/savingsaccounts/status/{}`
@@ -155,7 +153,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - getWorkingCapitalLoanNearBreachActionsById — `GET /working-capital-loans/{}/near-breach-actions`
 - getWorkingCapitalLoanRateChangeHistoryByExternalId — `GET /working-capital-loans/external-id/{}/rate-changes`
 - getWorkingCapitalLoanRateChangeHistoryById — `GET /working-capital-loans/{}/rate-changes`
-- handleBatchRequests — `POST /batches`
 - handleCommandClientByExternalId — `POST /clients/external-id/{}`
 - handleCommandsLoanByExternalId — `POST /loans/external-id/{}`
 - handleCommandsLoanTransactionByLoanExternalId — `POST /loans/external-id/{}/transactions`
@@ -188,7 +185,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - previewReAmortizeLoanScheduleByLoanExternalId — `GET /loans/external-id/{}/transactions/reamortization-preview`
 - registerAccountIdentifier — `POST /interoperation/parties/{}/{}`
 - registerAccountIdentifier_1 — `POST /interoperation/parties/{}/{}/{}`
-- requestToken — `POST /twofactor`
 - retrieveAllClientAccountsByExternalId — `GET /clients/external-id/{}/accounts`
 - retrieveAllClientTransactionsByClientExternalId — `GET /clients/external-id/{}/transactions`
 - retrieveAllLoanChargesByLoanExternalId — `GET /loans/external-id/{}/charges`
@@ -217,7 +213,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - retrieveDelinquencyActionsLoanByExternalId — `GET /loans/external-id/{}/delinquency-actions`
 - retrieveDelinquencyRangeSchedule — `GET /working-capital-loans/{}/delinquency-range-schedule`
 - retrieveDelinquencyTagHistoryLoanByExternalId — `GET /loans/external-id/{}/delinquencytags`
-- retrieveImage — `GET /{}/{}/images`
 - retrieveLoanBuyDownFeeAmortizationDetailsByExternalId — `GET /loans/external-id/{}/buydown-fees`
 - retrieveLoanPointInTimeByExternalId — `GET /loans/at-date/external-id/{}`
 - retrieveLoanProductDetailsByExternalId — `GET /loanproducts/external-id/{}`
@@ -281,8 +276,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - updateAvailableDisbursementAmountLoanByExternalId — `PUT /loans/external-id/{}/available-disbursement-amount`
 - updateByExternalId — `PUT /loan-originators/external-id/{}`
 - updateClientByExternalId — `PUT /clients/external-id/{}`
-- updateDocument — `PUT /{}/{}/documents/{}`
-- updateImage_1 — `PUT /{}/{}/images`
 - updateInternalGlobalConfiguration — `PUT /internal/configurations/name/{}/value/{}`
 - updateInternalProgressiveLoan — `POST /internal/loan/progressive/{}/model`
 - updateLoanApplicationByExternalId — `PUT /loans/external-id/{}`
@@ -302,7 +295,6 @@ _Note: Matched counts hand-written endpoints, not distinct contract ops, so Matc
 - updateWorkingCapitalLoanRateByExternalId — `PUT /working-capital-loans/external-id/{}/payment-rate`
 - updateWorkingCapitalLoanRateById — `PUT /working-capital-loans/{}/payment-rate`
 - updateWorkingCapitalNearBreach — `PUT /working-capital/near-breach/{}`
-- validate — `POST /twofactor/validate`
 
 ## ⚙️ Dynamic (3)
 

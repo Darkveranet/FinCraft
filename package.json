@@ -24,6 +24,8 @@
     "api:diff": "node tools/api-automation/diff-contracts.mjs",
     "api:drift": "node tools/api-automation/api-drift.mjs",
     "api:drift:strict": "node tools/api-automation/api-drift.mjs --strict",
+    "api:e2e-gen": "node tools/api-automation/generate-e2e.mjs",
+    "api:field-parity": "node tools/api-automation/field-parity.mjs",
     "api:all": "node tools/api-automation/run.mjs"
   },
   "//devDependencies-note": "eslint, globals, prettier and @playwright/test are optional tooling. They are intentionally NOT declared here so `npm ci` stays in sync with the committed package-lock.json (which is what tests.yml relies on). Install locally with: npm i -D eslint globals prettier @playwright/test && npx playwright install chromium. CI (quality.yml) installs them on demand.",

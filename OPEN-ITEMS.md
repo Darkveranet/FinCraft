@@ -43,9 +43,17 @@ lives here. Convert each unchecked box into a GitHub issue using
       (template-driven, blank ⇒ product default) to the savings new-account
       wizard (`js/pages/savings/new.js`). This is the one genuine *account-level*
       tax gap; FD/RD inherit tax config from the product.
-- [x] **Interoperation API — COMPLETE (verified 2026-07-28).** `js/api/interoperation.js`
-      (health, accounts, parties, quotes, requests, transfers, disburse/repayment)
-      + `js/pages/interoperation.js` + router entry + `api.interoperation` wiring.
+- [x] **Interoperation API — COMPLETE (verified 2026-07-28, re-verified 2026-08-02).**
+      `js/api/interoperation.js` (health, accounts, parties, quotes, requests,
+      transfers, disburse/repayment) + `js/pages/interoperation.js` + router entry
+      + `api.interoperation` wiring. Note on the drift report: `getParty` /
+      `registerParty` / `deleteParty` build a dynamic path
+      (`/interoperation/parties/{idType}/{idValue}[/{subIdOrType}]`) that the
+      drift tool can't statically verify, so it skips them into the "dynamic"
+      bucket. The contract's `getAccountByIdentifier` / `registerAccountIdentifier`
+      / `deleteAccountIdentifier` (+ sub-type variants) that show as "uncovered"
+      in `contracts/api-drift.md` are these SAME endpoints under Fineract's own
+      operationId naming — confirmed by comparing paths directly, not a real gap.
 - [x] **Credit Bureau integration — COMPLETE (verified 2026-07-28).**
       `js/api/credit-bureau.js` (`CreditBureauConfiguration` config/mappings +
       `creditBureauIntegration` report fetch/save/delete) + `js/pages/credit-bureau.js`
@@ -103,24 +111,98 @@ Full phased plan: **`tools/api-automation/MIGRATION-PLAN.md`**.
       (Matched / 🔴 Mismatch / 🟡 Unverified / ⚪ Uncovered). `npm run api:drift`
       (+ `api:drift:strict`). Wired into `api-automation.yml`: appended to the job
       summary and the sync-PR body.
-- [ ] **Phase 1 — generate against the REAL spec.** Run **API Contract Sync**
-      (Actions → Run workflow → `image` or `live`) so `js/api/generated/*` and
-      `contracts/*` reflect the full Fineract surface instead of the 6-path
-      sample. Merge the PR to commit the real contract. *Needs Docker → runs in
-      GitHub Actions, not locally.* **This is the immediate next action.**
-- [ ] **Phase 2b — burn down the drift backlog.** After Phase 1 lands, work the
-      🔴 Mismatch then 🟡 Unverified list from `contracts/api-drift.md`.
-- [ ] **Phase 3 — auto-generate E2E tests** from the contract, run against the
-      shared disposable Postgres + Fineract stack (`scripts/e2e/stack-up.sh`).
+- [x] **Phase 1 — generate against the REAL spec.** Merged; `contracts/*` and
+      `js/api/generated/*` reflect the real Fineract surface (965 ops, 600 paths,
+      1467 schemas), not the 6-path sample.
+- [x] **Phase 2 — drift report built (2026-07-29), hardened (2026-08-02).**
+      `tools/api-automation/api-drift.mjs` diffs the 20 curated `js/api/*.js`
+      wrappers against generated `CONTRACTS` (✅ Matched / 🔴 Mismatch /
+      🟡 Unverified / ⚫ External / ⚪ Uncovered / ⚙️ Dynamic). `npm run api:drift`
+      (+ `api:drift:strict`, currently 0 Mismatch — passing). 2026-08-02 fixes:
+      (a) nested-template-literal parsing (was truncating `interoperation`
+      routes into false "unverified"); (b) `self._req(...)` calls now scanned —
+      previously invisible to the tool (twofactor, batches, documents, images,
+      bulk-import templates — ~14 routes); (c) literal-path-segment fallback
+      matching for routes that call a parameterized contract op with a hardcoded
+      value (e.g. `/externalservice/SMS` → `/externalservice/{servicename}`) —
+      19 routes, see `tools/api-automation/external-routes.json` and the
+      "Matched via literal segment" section of `contracts/api-drift.md` for the
+      full list. Current state: 709 matched, 0 mismatch, 0 unverified,
+      11 external (allowlisted, reasons in `external-routes.json`), 262
+      uncovered, 3 dynamic (skipped, manually re-verified — see §0 interoperation
+      note above). Triage of the 262 uncovered ops: see §0c below.
+- [ ] **Phase 2b — burn down the drift backlog.** 🔴 Mismatch is already 0.
+      Remaining: work the "build"-flagged items in §0c below.
+- [~] **Phase 3 — auto-generate E2E tests from the contract (partial, 2026-08-02).**
+      `tools/api-automation/generate-e2e.mjs` (`npm run api:e2e-gen`) generates
+      `tests-e2e/generated/read-smoke.spec.mjs` (153 zero-path-param matched GET
+      ops — route-drift smoke coverage) and `required-field-validation.spec.mjs`
+      (13 zero-path-param matched write ops with contract-declared required
+      fields). Structurally validated via `playwright test --list` (96 tests,
+      both files parse and collect correctly) — not yet run against a live
+      stack (no Docker in this environment). Deliberately does NOT attempt
+      happy-path CREATE flows or param-taking GETs — see
+      `tests-e2e/generated/README.md` for why. Remaining for "done": run once
+      against `scripts/e2e/stack-up.sh` in CI to confirm green, then wire into
+      the regular `npm run e2e` pass (already auto-discovered by
+      `playwright.config.mjs`'s `testDir`, no config change needed).
 - [ ] **Phase 4 — CI gates:** flip `api:drift:strict` on for Mismatch + require
       generated E2E green.
 
+## 0c. Uncovered contract operations — triage (2026-08-02, 262 total)
+
+Full per-op detail: `contracts/api-drift.md` (⚪ Uncovered section). Grouped here
+by what to actually do about each bucket — do not treat this as "262 bugs."
+
+- [ ] **Working Capital Loans (100 ops).** Superset of the §1 estimate — the
+      real contract count (base ops + `external-id` twins) is **100**, not ~53.
+      Still explicitly deferred; see §1. Update §1's count when scoping.
+- **External-ID twins outside Working Capital (99 ops)** — `loans`,
+      `savingsaccounts`, `clients`, `fixeddepositaccounts`,
+      `recurringdepositaccounts`, `loan-originators`, `external-asset-owners`.
+      Fineract exposes most write/read operations twice: once by internal
+      numeric ID, once by `external-id/{externalId}` for external-system
+      integration. FinCraft's UI navigates by internal ID everywhere today.
+      → **Recommend won't-do by default** — only build a specific twin if a
+      concrete external-integration need shows up (e.g. a partner system that
+      only knows its own external ID for a record). Re-flagging all 99
+      individually every audit isn't useful; this line item is the record.
+- **`/internal/*` endpoints (23 ops)** — Fineract's own COB/audit/debug surface:
+      loan lock/unlock, progressive-loan internal model, audit-trail fields,
+      external-events replay, COB partitions/fast-forward, status-by-code
+      lookups. Not part of normal back-office banking flows.
+      → **Recommend won't-do** unless/until there's a scoped "ops console" epic;
+      don't build piecemeal.
+- **Bulk-import per-entity templates (~30 ops)** — `centers`, `groups`, `staff`,
+      `users`, `clients`, `fixeddepositaccounts` (account + transaction),
+      `glaccounts`, loan guarantors, `journalentries`, loan repayments, `loans`,
+      `offices`, `recurringdepositaccounts` (account + transaction),
+      `savingsaccounts` (account + transaction), share accounts. The generic
+      mechanism already exists (`misc.js: makeBulkImportsAPI`, `template(entity)`
+      / `upload(entity)`) — this is the same gap as existing §4, now with the
+      exact entity list instead of "~15". → Merge into §4, wire the missing
+      dropdown entries.
+- **`searchClientsByText` (1 op, `POST /clients/search`)** — server-side text
+      search, not currently wired (client list likely does client-side
+      filtering today). → **Candidate to build** — real UX win on large client
+      bases; low complexity (one endpoint, one search box).
+- **`authenticate` (1 op, `POST /authentication`)** — token-issuing endpoint.
+      FinCraft's current auth (`js/auth-basic.js`, `js/auth-oidc.js`) uses HTTP
+      Basic auth headers / OIDC bearer tokens directly, not this endpoint.
+      → **Recommend won't-do** unless a future flow specifically needs a
+      Fineract-issued auth token; confirm against `auth-basic.js` before closing.
+- **`getWadl` / `getExternalGrammar` (2 ops, `/application.wadl*`)** — Fineract's
+      own machine-readable API-description document (WADL format), not a
+      business operation. → **Won't-do**, not applicable to the UI.
+
 ## 1. Deferred API modules (not implemented)
 
-- [ ] **Working Capital Loans** — 9 backend resource classes, ~150 methods (the
-      coverage-gap audit counts **53 operations** for the loan surface). Explicitly
-      deferred / excluded by request. No `js/api/**` wrapper, no page. (Confirmed
-      still absent 2026-07-28 — no file/page/reference anywhere in the codebase.)
+- [ ] **Working Capital Loans** — 9 backend resource classes, ~150 methods.
+      Real contract count as of 2026-08-02: **100 operations** (see §0c for the
+      breakdown including external-id twins; supersedes the earlier ~53
+      estimate). Explicitly deferred / excluded by request. No `js/api/**`
+      wrapper, no page. (Confirmed still absent 2026-07-28 — no file/page/
+      reference anywhere in the codebase.)
       → If on the roadmap, size it and schedule; if not, mark **won't-do** so it
       stops being re-flagged by every audit.
 
@@ -135,10 +217,32 @@ production-verified until diffed.**
 - [ ] **`js/api/integrations.js`** — status *Mixed* (SMS / Email / Hooks
       spot-checked; notifications & externalEvents are Full). Diff the
       SMS/Email/Hooks surface.
-- [ ] **`js/api/misc.js` (self-service section)** — status *Unconfirmable*.
-      Confirm the self-service route surface against the spec.
+- [x] **`js/api/misc.js` (self-service section)** — was *Unconfirmable*, now
+      confirmed 2026-08-02: all 8 `/self/*` routes checked directly against the
+      real 965-op contract — zero `/self` paths exist anywhere in it. This is
+      Fineract's separate Self-Service API surface (different app/spec
+      entirely), not a gap in FinCraft. See
+      `tools/api-automation/external-routes.json`.
 
 ## 3. Field parity — remaining (verify, mostly product-level / config)
+
+**2026-08-02: now a re-runnable report, not a one-off manual dump.**
+`tools/api-automation/field-parity.mjs` (`npm run api:field-parity`, writes
+`contracts/field-parity.md`) — deliberately NOT wired into `npm run verify` or
+any CI gate; see the script header for why a naive field-count is noisy
+(counts every schema field including ones that are legitimately product-level,
+deprecated, or backend-only). Current run: 217 matched CREATE/UPDATE ops,
+1570 non-boilerplate fields, 336 flagged as candidates (not confirmed gaps).
+
+This run quantitatively confirms the earlier manual read below: `Client` is
+7% missing (matches "account-level parity is essentially complete"), while
+`Loan Products` is 40% missing (108 of 267 fields — matches "these are product-
+level fields, not account-wizard fields"). New signal worth a look that wasn't
+called out before: `Inter Operation` (46%), `Search API` (100% — may just be
+query filters with no 1:1 UI field), `Survey` (91%), `Instance Mode` (100% —
+plausibly not wired to a settings page at all). Full per-operation detail in
+`contracts/field-parity.md`; re-run periodically as the contract or UI changes,
+skim rather than treat as a checklist to zero out.
 
 The raw token-based gap dump (`products` 166, `system` 62, `admin` 61,
 `integrations` 61 "missing" fields) is **largely false positives**: it counts
@@ -162,9 +266,14 @@ Modules 1–7 + the savings tax fix. Remaining items to actually verify:
 
 ## 4. Bulk import coverage
 
-- [ ] ~15 importable Fineract resources beyond `BULK_IMPORT_ENTITIES` have no
-      download/upload dropdown entry. The generic `makeBulkImportsAPI` already
-      works — just needs dropdown entries in `js/ui/modal-dropdowns.js`.
+- [ ] Importable Fineract resources beyond `BULK_IMPORT_ENTITIES` with no
+      download/upload dropdown entry — precise list from the 2026-08-02 drift
+      triage (see §0c): `centers`, `groups`, `staff`, `users`, `clients`,
+      `fixeddepositaccounts` (account + transaction), `glaccounts`, loan
+      guarantors, `journalentries`, loan repayments, `loans`, `offices`,
+      `recurringdepositaccounts` (account + transaction), `savingsaccounts`
+      (account + transaction), share accounts. The generic `makeBulkImportsAPI`
+      already works — just needs dropdown entries in `js/ui/modal-dropdowns.js`.
 - [ ] Groups/Centers bulk template download/upload
       (`js/api/groups-centers.js`) was excluded from that module's audit — wire
       or explicitly defer.

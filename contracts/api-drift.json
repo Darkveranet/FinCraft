@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-08-02T11:21:28.024Z",
+  "generatedAt": "2026-08-03T08:34:46.137Z",
   "meta": {
     "origin": "image:apache/fineract:latest",
     "contractOps": 965,
-    "hwRoutes": 904,
-    "hwEndpoints": 708,
+    "hwRoutes": 916,
+    "hwEndpoints": 720,
     "hwFiles": 20
   },
   "summary": {
-    "matched": 699,
+    "matched": 709,
     "mismatch": 0,
     "unverified": 0,
-    "external": 9,
-    "uncovered": 272,
+    "external": 11,
+    "uncovered": 262,
     "dynamic": 3,
     "literalParam": 19
   },
@@ -66,6 +66,18 @@
       "file": "misc.js",
       "line": 40,
       "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
+    },
+    {
+      "key": "GET /{}/downloadtemplate",
+      "file": "misc.js",
+      "line": 155,
+      "reason": "Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4."
+    },
+    {
+      "key": "POST /{}/uploadtemplate",
+      "file": "misc.js",
+      "line": 156,
+      "reason": "Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4."
     },
     {
       "key": "DELETE /accounts/share/{}",
@@ -274,22 +286,6 @@
       "key": "POST /loans/external-id/{}/delinquency-actions",
       "canonPath": "/loans/external-id/{}/delinquency-actions",
       "tag": "Loans"
-    },
-    {
-      "operationId": "createDocument",
-      "method": "POST",
-      "rawPath": "/v1/{entityType}/{entityId}/documents",
-      "key": "POST /{}/{}/documents",
-      "canonPath": "/{}/{}/documents",
-      "tag": "Documents"
-    },
-    {
-      "operationId": "createImage_1",
-      "method": "POST",
-      "rawPath": "/v1/{entityType}/{entityId}/images",
-      "key": "POST /{}/{}/images",
-      "canonPath": "/{}/{}/images",
-      "tag": null
     },
     {
       "operationId": "createLoanCharge",
@@ -562,14 +558,6 @@
       "key": "DELETE /working-capital-loans/{}/originators/external-id/{}",
       "canonPath": "/working-capital-loans/{}/originators/external-id/{}",
       "tag": "Working Capital Loan Originators"
-    },
-    {
-      "operationId": "downloadFile",
-      "method": "GET",
-      "rawPath": "/v1/{entityType}/{entityId}/documents/{documentId}/attachment",
-      "key": "GET /{}/{}/documents/{}/attachment",
-      "canonPath": "/{}/{}/documents/{}/attachment",
-      "tag": "Documents"
     },
     {
       "operationId": "executeLoanChargeByChargeExternalId",
@@ -972,14 +960,6 @@
       "tag": "Working Capital Loan COB Catch Up"
     },
     {
-      "operationId": "getOutputTemplate",
-      "method": "GET",
-      "rawPath": "/v1/imports/downloadOutputTemplate",
-      "key": "GET /imports/downloadOutputTemplate",
-      "canonPath": "/imports/downloadOutputTemplate",
-      "tag": "Bulk Import"
-    },
-    {
       "operationId": "getRecurringDepositTemplate",
       "method": "GET",
       "rawPath": "/v1/recurringdepositaccounts/downloadtemplate",
@@ -1066,14 +1046,6 @@
       "key": "GET /working-capital-loans/{}/rate-changes",
       "canonPath": "/working-capital-loans/{}/rate-changes",
       "tag": "Working Capital Loans"
-    },
-    {
-      "operationId": "handleBatchRequests",
-      "method": "POST",
-      "rawPath": "/v1/batches",
-      "key": "POST /batches",
-      "canonPath": "/batches",
-      "tag": "Batch API"
     },
     {
       "operationId": "handleCommandClientByExternalId",
@@ -1332,14 +1304,6 @@
       "tag": "Inter Operation"
     },
     {
-      "operationId": "requestToken",
-      "method": "POST",
-      "rawPath": "/v1/twofactor",
-      "key": "POST /twofactor",
-      "canonPath": "/twofactor",
-      "tag": "Two Factor"
-    },
-    {
       "operationId": "retrieveAllClientAccountsByExternalId",
       "method": "GET",
       "rawPath": "/v1/clients/external-id/{externalId}/accounts",
@@ -1562,14 +1526,6 @@
       "key": "GET /loans/external-id/{}/delinquencytags",
       "canonPath": "/loans/external-id/{}/delinquencytags",
       "tag": "Loans"
-    },
-    {
-      "operationId": "retrieveImage",
-      "method": "GET",
-      "rawPath": "/v1/{entityType}/{entityId}/images",
-      "key": "GET /{}/{}/images",
-      "canonPath": "/{}/{}/images",
-      "tag": null
     },
     {
       "operationId": "retrieveLoanBuyDownFeeAmortizationDetailsByExternalId",
@@ -2076,22 +2032,6 @@
       "tag": "Client"
     },
     {
-      "operationId": "updateDocument",
-      "method": "PUT",
-      "rawPath": "/v1/{entityType}/{entityId}/documents/{documentId}",
-      "key": "PUT /{}/{}/documents/{}",
-      "canonPath": "/{}/{}/documents/{}",
-      "tag": "Documents"
-    },
-    {
-      "operationId": "updateImage_1",
-      "method": "PUT",
-      "rawPath": "/v1/{entityType}/{entityId}/images",
-      "key": "PUT /{}/{}/images",
-      "canonPath": "/{}/{}/images",
-      "tag": null
-    },
-    {
       "operationId": "updateInternalGlobalConfiguration",
       "method": "PUT",
       "rawPath": "/v1/internal/configurations/name/{configName}/value/{configValue}",
@@ -2242,14 +2182,6 @@
       "key": "PUT /working-capital/near-breach/{}",
       "canonPath": "/working-capital/near-breach/{}",
       "tag": "Working Capital Near Breach"
-    },
-    {
-      "operationId": "validate",
-      "method": "POST",
-      "rawPath": "/v1/twofactor/validate",
-      "key": "POST /twofactor/validate",
-      "canonPath": "/twofactor/validate",
-      "tag": "Two Factor"
     }
   ],
   "dynamic": [
@@ -2398,6 +2330,5632 @@
       "file": "shares.js",
       "line": 10,
       "operationId": "handleCommandsShareAccount"
+    }
+  ],
+  "matchedOps": [
+    {
+      "operationId": "accountClosureTemplate",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/{accountId}/template",
+      "key": "GET /fixeddepositaccounts/{}/template",
+      "canonPath": "/fixeddepositaccounts/{}/template",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "accountClosureTemplateRecurringDepositAccount",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositaccounts/{accountId}/template",
+      "key": "GET /recurringdepositaccounts/{}/template",
+      "canonPath": "/recurringdepositaccounts/{}/template",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "accountsTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/guarantors/accounts/template",
+      "key": "GET /loans/{}/guarantors/accounts/template",
+      "canonPath": "/loans/{}/guarantors/accounts/template",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "accountTransferOperation",
+      "method": "POST",
+      "rawPath": "/v1/accounttransfers/{accountTransferId}",
+      "key": "POST /accounttransfers/{}",
+      "canonPath": "/accounttransfers/{}",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "activateOrDeactivateSurvey",
+      "method": "POST",
+      "rawPath": "/v1/surveys/{id}",
+      "key": "POST /surveys/{}",
+      "canonPath": "/surveys/{}",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "operationId": "addAndDeleteDisbursementDetail",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/disbursements/editDisbursements",
+      "key": "PUT /loans/{}/disbursements/editDisbursements",
+      "canonPath": "/loans/{}/disbursements/editDisbursements",
+      "tag": "Loan Disbursement Details"
+    },
+    {
+      "operationId": "addClientCollateral",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}/collaterals",
+      "key": "POST /clients/{}/collaterals",
+      "canonPath": "/clients/{}/collaterals",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "operationId": "addCreditReport",
+      "method": "POST",
+      "rawPath": "/v1/creditBureauIntegration/addCreditReport",
+      "key": "POST /creditBureauIntegration/addCreditReport",
+      "canonPath": "/creditBureauIntegration/addCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "operationId": "addNewNote",
+      "method": "POST",
+      "rawPath": "/v1/{resourceType}/{resourceId}/notes",
+      "key": "POST /{}/{}/notes",
+      "canonPath": "/{}/{}/notes",
+      "tag": "Notes"
+    },
+    {
+      "operationId": "addOrganisationCreditBureau",
+      "method": "POST",
+      "rawPath": "/v1/CreditBureauConfiguration/organisationCreditBureau/{organisationCreditBureauId}",
+      "key": "POST /CreditBureauConfiguration/organisationCreditBureau/{}",
+      "canonPath": "/CreditBureauConfiguration/organisationCreditBureau/{}",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "adjustLoanTransaction",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/transactions/{transactionId}",
+      "key": "POST /loans/{}/transactions/{}",
+      "canonPath": "/loans/{}/transactions/{}",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "adjustSavingsAccountTransaction",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/transactions/{transactionId}",
+      "key": "POST /savingsaccounts/{}/transactions/{}",
+      "canonPath": "/savingsaccounts/{}/transactions/{}",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "operationId": "advancedQuery",
+      "method": "POST",
+      "rawPath": "/v1/datatables/{datatable}/query",
+      "key": "POST /datatables/{}/query",
+      "canonPath": "/datatables/{}/query",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "advancedQuerySavingsAccountTransactions",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/transactions/query",
+      "key": "POST /savingsaccounts/{}/transactions/query",
+      "canonPath": "/savingsaccounts/{}/transactions/query",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "operationId": "advancedSearch",
+      "method": "POST",
+      "rawPath": "/v1/search/advance",
+      "key": "POST /search/advance",
+      "canonPath": "/search/advance",
+      "tag": "Search API"
+    },
+    {
+      "operationId": "allocateCashToCashier",
+      "method": "POST",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}/allocate",
+      "key": "POST /tellers/{}/cashiers/{}/allocate",
+      "canonPath": "/tellers/{}/cashiers/{}/allocate",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "approveMakerCheckerEntry",
+      "method": "POST",
+      "rawPath": "/v1/makercheckers/{auditId}",
+      "key": "POST /makercheckers/{}",
+      "canonPath": "/makercheckers/{}",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "operationId": "attachOriginatorToLoan",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/originators/{originatorId}",
+      "key": "POST /loans/{}/originators/{}",
+      "canonPath": "/loans/{}/originators/{}",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "calculateFixedDepositInterest",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/calculate-fd-interest",
+      "key": "GET /fixeddepositaccounts/calculate-fd-interest",
+      "canonPath": "/fixeddepositaccounts/calculate-fd-interest",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "calculateOrSubmitLoanApplication",
+      "method": "POST",
+      "rawPath": "/v1/loans",
+      "key": "POST /loans",
+      "canonPath": "/loans",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "changePasswordUser",
+      "method": "POST",
+      "rawPath": "/v1/users/{userId}/pwd",
+      "key": "POST /users/{}/pwd",
+      "canonPath": "/users/{}/pwd",
+      "tag": "Users"
+    },
+    {
+      "operationId": "create",
+      "method": "POST",
+      "rawPath": "/v1/tenants/{tenantId}/oidc-config",
+      "key": "POST /tenants/{}/oidc-config",
+      "canonPath": "/tenants/{}/oidc-config",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "operationId": "createAccountingRule",
+      "method": "POST",
+      "rawPath": "/v1/accountingrules",
+      "key": "POST /accountingrules",
+      "canonPath": "/accountingrules",
+      "tag": "Accounting Rules"
+    },
+    {
+      "operationId": "createAccountNumberFormat",
+      "method": "POST",
+      "rawPath": "/v1/accountnumberformats",
+      "key": "POST /accountnumberformats",
+      "canonPath": "/accountnumberformats",
+      "tag": "Account number format"
+    },
+    {
+      "operationId": "createAccountTransfer",
+      "method": "POST",
+      "rawPath": "/v1/accounttransfers",
+      "key": "POST /accounttransfers",
+      "canonPath": "/accounttransfers",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "createAdHocQuery",
+      "method": "POST",
+      "rawPath": "/v1/adhocquery",
+      "key": "POST /adhocquery",
+      "canonPath": "/adhocquery",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "operationId": "createBucket",
+      "method": "POST",
+      "rawPath": "/v1/delinquency/buckets",
+      "key": "POST /delinquency/buckets",
+      "canonPath": "/delinquency/buckets",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "createCalendar",
+      "method": "POST",
+      "rawPath": "/v1/{entityType}/{entityId}/calendars",
+      "key": "POST /{}/{}/calendars",
+      "canonPath": "/{}/{}/calendars",
+      "tag": "Calendar"
+    },
+    {
+      "operationId": "createCashierForTeller",
+      "method": "POST",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers",
+      "key": "POST /tellers/{}/cashiers",
+      "canonPath": "/tellers/{}/cashiers",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "createCenter",
+      "method": "POST",
+      "rawPath": "/v1/centers",
+      "key": "POST /centers",
+      "canonPath": "/centers",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "createCharge",
+      "method": "POST",
+      "rawPath": "/v1/charges",
+      "key": "POST /charges",
+      "canonPath": "/charges",
+      "tag": "Charges"
+    },
+    {
+      "operationId": "createClient",
+      "method": "POST",
+      "rawPath": "/v1/clients",
+      "key": "POST /clients",
+      "canonPath": "/clients",
+      "tag": "Client"
+    },
+    {
+      "operationId": "createClientAddress",
+      "method": "POST",
+      "rawPath": "/v1/client/{clientid}/addresses",
+      "key": "POST /client/{}/addresses",
+      "canonPath": "/client/{}/addresses",
+      "tag": "Clients Address"
+    },
+    {
+      "operationId": "createClientCharge",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}/charges",
+      "key": "POST /clients/{}/charges",
+      "canonPath": "/clients/{}/charges",
+      "tag": "Client Charges"
+    },
+    {
+      "operationId": "createClientFamilyMember",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}/familymembers",
+      "key": "POST /clients/{}/familymembers",
+      "canonPath": "/clients/{}/familymembers",
+      "tag": "Client Family Member"
+    },
+    {
+      "operationId": "createClientIdentifier",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}/identifiers",
+      "key": "POST /clients/{}/identifiers",
+      "canonPath": "/clients/{}/identifiers",
+      "tag": "Client Identifier"
+    },
+    {
+      "operationId": "createCode",
+      "method": "POST",
+      "rawPath": "/v1/codes",
+      "key": "POST /codes",
+      "canonPath": "/codes",
+      "tag": "Codes"
+    },
+    {
+      "operationId": "createCodeValue",
+      "method": "POST",
+      "rawPath": "/v1/codes/{codeId}/codevalues",
+      "key": "POST /codes/{}/codevalues",
+      "canonPath": "/codes/{}/codevalues",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "createCodeValueByCodeName",
+      "method": "POST",
+      "rawPath": "/v1/codes/name/{codeName}/codevalues",
+      "key": "POST /codes/name/{}/codevalues",
+      "canonPath": "/codes/name/{}/codevalues",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "createCollateral",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/collaterals",
+      "key": "POST /loans/{}/collaterals",
+      "canonPath": "/loans/{}/collaterals",
+      "tag": "Loan Collateral"
+    },
+    {
+      "operationId": "createCollateral_1",
+      "method": "POST",
+      "rawPath": "/v1/collateral-management",
+      "key": "POST /collateral-management",
+      "canonPath": "/collateral-management",
+      "tag": "Collateral Management"
+    },
+    {
+      "operationId": "createCreditBureauConfiguration",
+      "method": "POST",
+      "rawPath": "/v1/CreditBureauConfiguration/configuration/{creditBureauId}",
+      "key": "POST /CreditBureauConfiguration/configuration/{}",
+      "canonPath": "/CreditBureauConfiguration/configuration/{}",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "createCreditBureauLoanProductMapping",
+      "method": "POST",
+      "rawPath": "/v1/CreditBureauConfiguration/mappings/{organisationCreditBureauId}",
+      "key": "POST /CreditBureauConfiguration/mappings/{}",
+      "canonPath": "/CreditBureauConfiguration/mappings/{}",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "createDatatable",
+      "method": "POST",
+      "rawPath": "/v1/datatables",
+      "key": "POST /datatables",
+      "canonPath": "/datatables",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "createDatatableEntry",
+      "method": "POST",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}",
+      "key": "POST /datatables/{}/{}",
+      "canonPath": "/datatables/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "createDelinquencyActionLoan",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/delinquency-actions",
+      "key": "POST /loans/{}/delinquency-actions",
+      "canonPath": "/loans/{}/delinquency-actions",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "createDocument",
+      "method": "POST",
+      "rawPath": "/v1/{entityType}/{entityId}/documents",
+      "key": "POST /{}/{}/documents",
+      "canonPath": "/{}/{}/documents",
+      "tag": "Documents"
+    },
+    {
+      "operationId": "createEmail",
+      "method": "POST",
+      "rawPath": "/v1/email",
+      "key": "POST /email",
+      "canonPath": "/email",
+      "tag": null
+    },
+    {
+      "operationId": "createEmailCampaign",
+      "method": "POST",
+      "rawPath": "/v1/email/campaign",
+      "key": "POST /email/campaign",
+      "canonPath": "/email/campaign",
+      "tag": null
+    },
+    {
+      "operationId": "createEntityDatatableCheck",
+      "method": "POST",
+      "rawPath": "/v1/entityDatatableChecks",
+      "key": "POST /entityDatatableChecks",
+      "canonPath": "/entityDatatableChecks",
+      "tag": "Entity Data Table"
+    },
+    {
+      "operationId": "createExternalAssetOwner",
+      "method": "POST",
+      "rawPath": "/v1/external-asset-owners",
+      "key": "POST /external-asset-owners",
+      "canonPath": "/external-asset-owners",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "createExternalAssetOwnerLoanProductAttribute",
+      "method": "POST",
+      "rawPath": "/v1/external-asset-owners/loan-product/{loanProductId}/attributes",
+      "key": "POST /external-asset-owners/loan-product/{}/attributes",
+      "canonPath": "/external-asset-owners/loan-product/{}/attributes",
+      "tag": "External Asset Owner Loan Product Attributes"
+    },
+    {
+      "operationId": "createFixedDepositAccount",
+      "method": "POST",
+      "rawPath": "/v1/fixeddepositaccounts",
+      "key": "POST /fixeddepositaccounts",
+      "canonPath": "/fixeddepositaccounts",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "createFixedDepositProduct",
+      "method": "POST",
+      "rawPath": "/v1/fixeddepositproducts",
+      "key": "POST /fixeddepositproducts",
+      "canonPath": "/fixeddepositproducts",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "operationId": "createFloatingRate",
+      "method": "POST",
+      "rawPath": "/v1/floatingrates",
+      "key": "POST /floatingrates",
+      "canonPath": "/floatingrates",
+      "tag": "Floating Rates"
+    },
+    {
+      "operationId": "createFund",
+      "method": "POST",
+      "rawPath": "/v1/funds",
+      "key": "POST /funds",
+      "canonPath": "/funds",
+      "tag": "Funds"
+    },
+    {
+      "operationId": "createGLAccount",
+      "method": "POST",
+      "rawPath": "/v1/glaccounts",
+      "key": "POST /glaccounts",
+      "canonPath": "/glaccounts",
+      "tag": "General Ledger Account"
+    },
+    {
+      "operationId": "createGLAccountMappingFinancialActivityAccount",
+      "method": "POST",
+      "rawPath": "/v1/financialactivityaccounts",
+      "key": "POST /financialactivityaccounts",
+      "canonPath": "/financialactivityaccounts",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "operationId": "createGLClosure",
+      "method": "POST",
+      "rawPath": "/v1/glclosures",
+      "key": "POST /glclosures",
+      "canonPath": "/glclosures",
+      "tag": "Accounting Closure"
+    },
+    {
+      "operationId": "createGLJournalEntry",
+      "method": "POST",
+      "rawPath": "/v1/journalentries",
+      "key": "POST /journalentries",
+      "canonPath": "/journalentries",
+      "tag": "Journal Entries"
+    },
+    {
+      "operationId": "createGroup",
+      "method": "POST",
+      "rawPath": "/v1/groups",
+      "key": "POST /groups",
+      "canonPath": "/groups",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "createGuarantor",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/guarantors",
+      "key": "POST /loans/{}/guarantors",
+      "canonPath": "/loans/{}/guarantors",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "createHoliday",
+      "method": "POST",
+      "rawPath": "/v1/holidays",
+      "key": "POST /holidays",
+      "canonPath": "/holidays",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "createHook",
+      "method": "POST",
+      "rawPath": "/v1/hooks",
+      "key": "POST /hooks",
+      "canonPath": "/hooks",
+      "tag": "Hooks"
+    },
+    {
+      "operationId": "createImage_1",
+      "method": "POST",
+      "rawPath": "/v1/{entityType}/{entityId}/images",
+      "key": "POST /{}/{}/images",
+      "canonPath": "/{}/{}/images",
+      "tag": null
+    },
+    {
+      "operationId": "createInterestRateChart",
+      "method": "POST",
+      "rawPath": "/v1/interestratecharts",
+      "key": "POST /interestratecharts",
+      "canonPath": "/interestratecharts",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "operationId": "createInterestRateChartSlab",
+      "method": "POST",
+      "rawPath": "/v1/interestratecharts/{chartId}/chartslabs",
+      "key": "POST /interestratecharts/{}/chartslabs",
+      "canonPath": "/interestratecharts/{}/chartslabs",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "operationId": "createLoanInterestPause",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/interest-pauses",
+      "key": "POST /loans/{}/interest-pauses",
+      "canonPath": "/loans/{}/interest-pauses",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "operationId": "createLoanOriginator",
+      "method": "POST",
+      "rawPath": "/v1/loan-originators",
+      "key": "POST /loan-originators",
+      "canonPath": "/loan-originators",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "createLoanProduct",
+      "method": "POST",
+      "rawPath": "/v1/loanproducts",
+      "key": "POST /loanproducts",
+      "canonPath": "/loanproducts",
+      "tag": "Loan Products"
+    },
+    {
+      "operationId": "createLookupTable",
+      "method": "POST",
+      "rawPath": "/v1/surveys/{surveyId}/lookuptables",
+      "key": "POST /surveys/{}/lookuptables",
+      "canonPath": "/surveys/{}/lookuptables",
+      "tag": "SPM API - LookUp Table"
+    },
+    {
+      "operationId": "createMap",
+      "method": "POST",
+      "rawPath": "/v1/entitytoentitymapping/{relId}",
+      "key": "POST /entitytoentitymapping/{}",
+      "canonPath": "/entitytoentitymapping/{}",
+      "tag": "Fineract Entity"
+    },
+    {
+      "operationId": "createMeeting",
+      "method": "POST",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings",
+      "key": "POST /{}/{}/meetings",
+      "canonPath": "/{}/{}/meetings",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "createOffice",
+      "method": "POST",
+      "rawPath": "/v1/offices",
+      "key": "POST /offices",
+      "canonPath": "/offices",
+      "tag": "Offices"
+    },
+    {
+      "operationId": "createOrPayLoanCharge",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/charges",
+      "key": "POST /loans/{}/charges",
+      "canonPath": "/loans/{}/charges",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "createPaymentType",
+      "method": "POST",
+      "rawPath": "/v1/paymenttypes",
+      "key": "POST /paymenttypes",
+      "canonPath": "/paymenttypes",
+      "tag": "Payment Type"
+    },
+    {
+      "operationId": "createProductMix",
+      "method": "POST",
+      "rawPath": "/v1/loanproducts/{productId}/productmix",
+      "key": "POST /loanproducts/{}/productmix",
+      "canonPath": "/loanproducts/{}/productmix",
+      "tag": "Product Mix"
+    },
+    {
+      "operationId": "createProvisioningCategory",
+      "method": "POST",
+      "rawPath": "/v1/provisioningcategory",
+      "key": "POST /provisioningcategory",
+      "canonPath": "/provisioningcategory",
+      "tag": "Provisioning Category"
+    },
+    {
+      "operationId": "createProvisioningCriteria",
+      "method": "POST",
+      "rawPath": "/v1/provisioningcriteria",
+      "key": "POST /provisioningcriteria",
+      "canonPath": "/provisioningcriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "operationId": "createProvisioningEntries",
+      "method": "POST",
+      "rawPath": "/v1/provisioningentries",
+      "key": "POST /provisioningentries",
+      "canonPath": "/provisioningentries",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "operationId": "createQuote",
+      "method": "POST",
+      "rawPath": "/v1/interoperation/quotes",
+      "key": "POST /interoperation/quotes",
+      "canonPath": "/interoperation/quotes",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "createRange",
+      "method": "POST",
+      "rawPath": "/v1/delinquency/ranges",
+      "key": "POST /delinquency/ranges",
+      "canonPath": "/delinquency/ranges",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "createRate",
+      "method": "POST",
+      "rawPath": "/v1/rates",
+      "key": "POST /rates",
+      "canonPath": "/rates",
+      "tag": "Rate"
+    },
+    {
+      "operationId": "createRecurringDepositProduct",
+      "method": "POST",
+      "rawPath": "/v1/recurringdepositproducts",
+      "key": "POST /recurringdepositproducts",
+      "canonPath": "/recurringdepositproducts",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "operationId": "createReport",
+      "method": "POST",
+      "rawPath": "/v1/reports",
+      "key": "POST /reports",
+      "canonPath": "/reports",
+      "tag": "Reports"
+    },
+    {
+      "operationId": "createReportMailingJob",
+      "method": "POST",
+      "rawPath": "/v1/reportmailingjobs",
+      "key": "POST /reportmailingjobs",
+      "canonPath": "/reportmailingjobs",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "operationId": "createRescheduleLoan",
+      "method": "POST",
+      "rawPath": "/v1/rescheduleloans",
+      "key": "POST /rescheduleloans",
+      "canonPath": "/rescheduleloans",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "operationId": "createReversalJournalEntry",
+      "method": "POST",
+      "rawPath": "/v1/journalentries/{transactionId}",
+      "key": "POST /journalentries/{}",
+      "canonPath": "/journalentries/{}",
+      "tag": "Journal Entries"
+    },
+    {
+      "operationId": "createRole",
+      "method": "POST",
+      "rawPath": "/v1/roles",
+      "key": "POST /roles",
+      "canonPath": "/roles",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "createSavingsAccountCharge",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges",
+      "key": "POST /savingsaccounts/{}/charges",
+      "canonPath": "/savingsaccounts/{}/charges",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "createSavingsAccountTransaction",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/transactions",
+      "key": "POST /savingsaccounts/{}/transactions",
+      "canonPath": "/savingsaccounts/{}/transactions",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "operationId": "createSavingsProduct",
+      "method": "POST",
+      "rawPath": "/v1/savingsproducts",
+      "key": "POST /savingsproducts",
+      "canonPath": "/savingsproducts",
+      "tag": "Savings Product"
+    },
+    {
+      "operationId": "createScorecard",
+      "method": "POST",
+      "rawPath": "/v1/surveys/scorecards/{surveyId}",
+      "key": "POST /surveys/scorecards/{}",
+      "canonPath": "/surveys/scorecards/{}",
+      "tag": "Score Card"
+    },
+    {
+      "operationId": "createShareAccount",
+      "method": "POST",
+      "rawPath": "/v1/accounts/{type}",
+      "key": "POST /accounts/{}",
+      "canonPath": "/accounts/{}",
+      "tag": "Share Account"
+    },
+    {
+      "operationId": "createShareDividend",
+      "method": "POST",
+      "rawPath": "/v1/shareproduct/{productId}/dividend",
+      "key": "POST /shareproduct/{}/dividend",
+      "canonPath": "/shareproduct/{}/dividend",
+      "tag": "Self Dividend"
+    },
+    {
+      "operationId": "createShareProduct",
+      "method": "POST",
+      "rawPath": "/v1/products/{type}",
+      "key": "POST /products/{}",
+      "canonPath": "/products/{}",
+      "tag": "Products"
+    },
+    {
+      "operationId": "createSms",
+      "method": "POST",
+      "rawPath": "/v1/sms",
+      "key": "POST /sms",
+      "canonPath": "/sms",
+      "tag": "SMS"
+    },
+    {
+      "operationId": "createSmsCampaign",
+      "method": "POST",
+      "rawPath": "/v1/smscampaigns",
+      "key": "POST /smscampaigns",
+      "canonPath": "/smscampaigns",
+      "tag": null
+    },
+    {
+      "operationId": "createStaff",
+      "method": "POST",
+      "rawPath": "/v1/staff",
+      "key": "POST /staff",
+      "canonPath": "/staff",
+      "tag": "Staff"
+    },
+    {
+      "operationId": "createStandingInstruction",
+      "method": "POST",
+      "rawPath": "/v1/standinginstructions",
+      "key": "POST /standinginstructions",
+      "canonPath": "/standinginstructions",
+      "tag": "Standing Instructions"
+    },
+    {
+      "operationId": "createSurvey",
+      "method": "POST",
+      "rawPath": "/v1/surveys",
+      "key": "POST /surveys",
+      "canonPath": "/surveys",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "operationId": "createSurveyEntry",
+      "method": "POST",
+      "rawPath": "/v1/survey/{surveyName}/{apptableId}",
+      "key": "POST /survey/{}/{}",
+      "canonPath": "/survey/{}/{}",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "createTaxComponent",
+      "method": "POST",
+      "rawPath": "/v1/taxes/component",
+      "key": "POST /taxes/component",
+      "canonPath": "/taxes/component",
+      "tag": "Tax Components"
+    },
+    {
+      "operationId": "createTaxGroup",
+      "method": "POST",
+      "rawPath": "/v1/taxes/group",
+      "key": "POST /taxes/group",
+      "canonPath": "/taxes/group",
+      "tag": "Tax Group"
+    },
+    {
+      "operationId": "createTeller",
+      "method": "POST",
+      "rawPath": "/v1/tellers",
+      "key": "POST /tellers",
+      "canonPath": "/tellers",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "createTemplate",
+      "method": "POST",
+      "rawPath": "/v1/templates",
+      "key": "POST /templates",
+      "canonPath": "/templates",
+      "tag": "templates"
+    },
+    {
+      "operationId": "createTransactionRequest",
+      "method": "POST",
+      "rawPath": "/v1/interoperation/requests",
+      "key": "POST /interoperation/requests",
+      "canonPath": "/interoperation/requests",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "createUser",
+      "method": "POST",
+      "rawPath": "/v1/users",
+      "key": "POST /users",
+      "canonPath": "/users",
+      "tag": "Users"
+    },
+    {
+      "operationId": "delete",
+      "method": "DELETE",
+      "rawPath": "/v1/entitytoentitymapping/{mapId}",
+      "key": "DELETE /entitytoentitymapping/{}",
+      "canonPath": "/entitytoentitymapping/{}",
+      "tag": "Fineract Entity"
+    },
+    {
+      "operationId": "delete_1",
+      "method": "DELETE",
+      "rawPath": "/v1/tenants/{tenantId}/oidc-config",
+      "key": "DELETE /tenants/{}/oidc-config",
+      "canonPath": "/tenants/{}/oidc-config",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "operationId": "delete_2",
+      "method": "DELETE",
+      "rawPath": "/v1/officetransactions/{transactionId}",
+      "key": "DELETE /officetransactions/{}",
+      "canonPath": "/officetransactions/{}",
+      "tag": null
+    },
+    {
+      "operationId": "deleteAccountingRule",
+      "method": "DELETE",
+      "rawPath": "/v1/accountingrules/{accountingRuleId}",
+      "key": "DELETE /accountingrules/{}",
+      "canonPath": "/accountingrules/{}",
+      "tag": "Accounting Rules"
+    },
+    {
+      "operationId": "deleteAccountNumberFormat",
+      "method": "DELETE",
+      "rawPath": "/v1/accountnumberformats/{accountNumberFormatId}",
+      "key": "DELETE /accountnumberformats/{}",
+      "canonPath": "/accountnumberformats/{}",
+      "tag": "Account number format"
+    },
+    {
+      "operationId": "deleteAdHocQuery",
+      "method": "DELETE",
+      "rawPath": "/v1/adhocquery/{adHocId}",
+      "key": "DELETE /adhocquery/{}",
+      "canonPath": "/adhocquery/{}",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "operationId": "deleteBucket",
+      "method": "DELETE",
+      "rawPath": "/v1/delinquency/buckets/{delinquencyBucketId}",
+      "key": "DELETE /delinquency/buckets/{}",
+      "canonPath": "/delinquency/buckets/{}",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "deleteCalendar",
+      "method": "DELETE",
+      "rawPath": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "key": "DELETE /{}/{}/calendars/{}",
+      "canonPath": "/{}/{}/calendars/{}",
+      "tag": "Calendar"
+    },
+    {
+      "operationId": "deleteCashierForTeller",
+      "method": "DELETE",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}",
+      "key": "DELETE /tellers/{}/cashiers/{}",
+      "canonPath": "/tellers/{}/cashiers/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "deleteCenter",
+      "method": "DELETE",
+      "rawPath": "/v1/centers/{centerId}",
+      "key": "DELETE /centers/{}",
+      "canonPath": "/centers/{}",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "deleteCharge",
+      "method": "DELETE",
+      "rawPath": "/v1/charges/{chargeId}",
+      "key": "DELETE /charges/{}",
+      "canonPath": "/charges/{}",
+      "tag": "Charges"
+    },
+    {
+      "operationId": "deleteClient",
+      "method": "DELETE",
+      "rawPath": "/v1/clients/{clientId}",
+      "key": "DELETE /clients/{}",
+      "canonPath": "/clients/{}",
+      "tag": "Client"
+    },
+    {
+      "operationId": "deleteClientCharge",
+      "method": "DELETE",
+      "rawPath": "/v1/clients/{clientId}/charges/{chargeId}",
+      "key": "DELETE /clients/{}/charges/{}",
+      "canonPath": "/clients/{}/charges/{}",
+      "tag": "Client Charges"
+    },
+    {
+      "operationId": "deleteClientCollateral",
+      "method": "DELETE",
+      "rawPath": "/v1/clients/{clientId}/collaterals/{collateralId}",
+      "key": "DELETE /clients/{}/collaterals/{}",
+      "canonPath": "/clients/{}/collaterals/{}",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "operationId": "deleteClientFamilyMember",
+      "method": "DELETE",
+      "rawPath": "/v1/clients/{clientId}/familymembers/{familyMemberId}",
+      "key": "DELETE /clients/{}/familymembers/{}",
+      "canonPath": "/clients/{}/familymembers/{}",
+      "tag": "Client Family Member"
+    },
+    {
+      "operationId": "deleteClientIdentifier",
+      "method": "DELETE",
+      "rawPath": "/v1/clients/{clientId}/identifiers/{identifierId}",
+      "key": "DELETE /clients/{}/identifiers/{}",
+      "canonPath": "/clients/{}/identifiers/{}",
+      "tag": "Client Identifier"
+    },
+    {
+      "operationId": "deleteCode",
+      "method": "DELETE",
+      "rawPath": "/v1/codes/{codeId}",
+      "key": "DELETE /codes/{}",
+      "canonPath": "/codes/{}",
+      "tag": "Codes"
+    },
+    {
+      "operationId": "deleteCodePaymentType",
+      "method": "DELETE",
+      "rawPath": "/v1/paymenttypes/{paymentTypeId}",
+      "key": "DELETE /paymenttypes/{}",
+      "canonPath": "/paymenttypes/{}",
+      "tag": "Payment Type"
+    },
+    {
+      "operationId": "deleteCodeValue",
+      "method": "DELETE",
+      "rawPath": "/v1/codes/{codeId}/codevalues/{codeValueId}",
+      "key": "DELETE /codes/{}/codevalues/{}",
+      "canonPath": "/codes/{}/codevalues/{}",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "deleteCodeValue_1",
+      "method": "DELETE",
+      "rawPath": "/v1/codes/name/{codeName}/codevalues/{codeValueId}",
+      "key": "DELETE /codes/name/{}/codevalues/{}",
+      "canonPath": "/codes/name/{}/codevalues/{}",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "deleteCollateral",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}/collaterals/{collateralId}",
+      "key": "DELETE /loans/{}/collaterals/{}",
+      "canonPath": "/loans/{}/collaterals/{}",
+      "tag": "Loan Collateral"
+    },
+    {
+      "operationId": "deleteCollateral_1",
+      "method": "DELETE",
+      "rawPath": "/v1/collateral-management/{collateralId}",
+      "key": "DELETE /collateral-management/{}",
+      "canonPath": "/collateral-management/{}",
+      "tag": "Collateral Management"
+    },
+    {
+      "operationId": "deleteCreditReport",
+      "method": "DELETE",
+      "rawPath": "/v1/creditBureauIntegration/deleteCreditReport/{creditBureauId}",
+      "key": "DELETE /creditBureauIntegration/deleteCreditReport/{}",
+      "canonPath": "/creditBureauIntegration/deleteCreditReport/{}",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "operationId": "deleteDatatable",
+      "method": "DELETE",
+      "rawPath": "/v1/datatables/{datatableName}",
+      "key": "DELETE /datatables/{}",
+      "canonPath": "/datatables/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "deleteDatatableEntries",
+      "method": "DELETE",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}",
+      "key": "DELETE /datatables/{}/{}",
+      "canonPath": "/datatables/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "deleteDatatableEntries_1",
+      "method": "DELETE",
+      "rawPath": "/v1/survey/{surveyName}/{clientId}/{fulfilledId}",
+      "key": "DELETE /survey/{}/{}/{}",
+      "canonPath": "/survey/{}/{}/{}",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "deleteDatatableEntry",
+      "method": "DELETE",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}/{datatableId}",
+      "key": "DELETE /datatables/{}/{}/{}",
+      "canonPath": "/datatables/{}/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "deleteDocument",
+      "method": "DELETE",
+      "rawPath": "/v1/{entityType}/{entityId}/documents/{documentId}",
+      "key": "DELETE /{}/{}/documents/{}",
+      "canonPath": "/{}/{}/documents/{}",
+      "tag": "Documents"
+    },
+    {
+      "operationId": "deleteEmail",
+      "method": "DELETE",
+      "rawPath": "/v1/email/{resourceId}",
+      "key": "DELETE /email/{}",
+      "canonPath": "/email/{}",
+      "tag": null
+    },
+    {
+      "operationId": "deleteEmailCampaign",
+      "method": "DELETE",
+      "rawPath": "/v1/email/campaign/{resourceId}",
+      "key": "DELETE /email/campaign/{}",
+      "canonPath": "/email/campaign/{}",
+      "tag": null
+    },
+    {
+      "operationId": "deleteEntityDatatableCheck",
+      "method": "DELETE",
+      "rawPath": "/v1/entityDatatableChecks/{entityDatatableCheckId}",
+      "key": "DELETE /entityDatatableChecks/{}",
+      "canonPath": "/entityDatatableChecks/{}",
+      "tag": "Entity Data Table"
+    },
+    {
+      "operationId": "deleteFixedDepositAccount",
+      "method": "DELETE",
+      "rawPath": "/v1/fixeddepositaccounts/{accountId}",
+      "key": "DELETE /fixeddepositaccounts/{}",
+      "canonPath": "/fixeddepositaccounts/{}",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "deleteFixedDepositProduct",
+      "method": "DELETE",
+      "rawPath": "/v1/fixeddepositproducts/{productId}",
+      "key": "DELETE /fixeddepositproducts/{}",
+      "canonPath": "/fixeddepositproducts/{}",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "operationId": "deleteGLAccount",
+      "method": "DELETE",
+      "rawPath": "/v1/glaccounts/{glAccountId}",
+      "key": "DELETE /glaccounts/{}",
+      "canonPath": "/glaccounts/{}",
+      "tag": "General Ledger Account"
+    },
+    {
+      "operationId": "deleteGLAccountMappingFinancialActivityAccount",
+      "method": "DELETE",
+      "rawPath": "/v1/financialactivityaccounts/{mappingId}",
+      "key": "DELETE /financialactivityaccounts/{}",
+      "canonPath": "/financialactivityaccounts/{}",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "operationId": "deleteGLClosure",
+      "method": "DELETE",
+      "rawPath": "/v1/glclosures/{glClosureId}",
+      "key": "DELETE /glclosures/{}",
+      "canonPath": "/glclosures/{}",
+      "tag": "Accounting Closure"
+    },
+    {
+      "operationId": "deleteGroup",
+      "method": "DELETE",
+      "rawPath": "/v1/groups/{groupId}",
+      "key": "DELETE /groups/{}",
+      "canonPath": "/groups/{}",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "deleteGuarantor",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}/guarantors/{guarantorId}",
+      "key": "DELETE /loans/{}/guarantors/{}",
+      "canonPath": "/loans/{}/guarantors/{}",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "deleteHoliday",
+      "method": "DELETE",
+      "rawPath": "/v1/holidays/{holidayId}",
+      "key": "DELETE /holidays/{}",
+      "canonPath": "/holidays/{}",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "deleteHook",
+      "method": "DELETE",
+      "rawPath": "/v1/hooks/{hookId}",
+      "key": "DELETE /hooks/{}",
+      "canonPath": "/hooks/{}",
+      "tag": "Hooks"
+    },
+    {
+      "operationId": "deleteImage",
+      "method": "DELETE",
+      "rawPath": "/v1/{entityType}/{entityId}/images",
+      "key": "DELETE /{}/{}/images",
+      "canonPath": "/{}/{}/images",
+      "tag": null
+    },
+    {
+      "operationId": "deleteInterestRateChart",
+      "method": "DELETE",
+      "rawPath": "/v1/interestratecharts/{chartId}",
+      "key": "DELETE /interestratecharts/{}",
+      "canonPath": "/interestratecharts/{}",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "operationId": "deleteInterestRateChartSlab",
+      "method": "DELETE",
+      "rawPath": "/v1/interestratecharts/{chartId}/chartslabs/{chartSlabId}",
+      "key": "DELETE /interestratecharts/{}/chartslabs/{}",
+      "canonPath": "/interestratecharts/{}/chartslabs/{}",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "operationId": "deleteLoanApplication",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}",
+      "key": "DELETE /loans/{}",
+      "canonPath": "/loans/{}",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "deleteLoanCharge",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}/charges/{loanChargeId}",
+      "key": "DELETE /loans/{}/charges/{}",
+      "canonPath": "/loans/{}/charges/{}",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "deleteLoanCollateral",
+      "method": "DELETE",
+      "rawPath": "/v1/loan-collateral-management/{id}",
+      "key": "DELETE /loan-collateral-management/{}",
+      "canonPath": "/loan-collateral-management/{}",
+      "tag": "Loan Collateral Management"
+    },
+    {
+      "operationId": "deleteLoanInterestPause",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}/interest-pauses/{variationId}",
+      "key": "DELETE /loans/{}/interest-pauses/{}",
+      "canonPath": "/loans/{}/interest-pauses/{}",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "operationId": "deleteLoanOriginator",
+      "method": "DELETE",
+      "rawPath": "/v1/loan-originators/{originatorId}",
+      "key": "DELETE /loan-originators/{}",
+      "canonPath": "/loan-originators/{}",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "deleteMakerCheckerEntry",
+      "method": "DELETE",
+      "rawPath": "/v1/makercheckers/{auditId}",
+      "key": "DELETE /makercheckers/{}",
+      "canonPath": "/makercheckers/{}",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "operationId": "deleteMeeting",
+      "method": "DELETE",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings/{meetingId}",
+      "key": "DELETE /{}/{}/meetings/{}",
+      "canonPath": "/{}/{}/meetings/{}",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "deleteNote",
+      "method": "DELETE",
+      "rawPath": "/v1/{resourceType}/{resourceId}/notes/{noteId}",
+      "key": "DELETE /{}/{}/notes/{}",
+      "canonPath": "/{}/{}/notes/{}",
+      "tag": "Notes"
+    },
+    {
+      "operationId": "deletePostDatedCheck",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}/postdatedchecks/{postDatedCheckId}",
+      "key": "DELETE /loans/{}/postdatedchecks/{}",
+      "canonPath": "/loans/{}/postdatedchecks/{}",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "operationId": "deleteProductMix",
+      "method": "DELETE",
+      "rawPath": "/v1/loanproducts/{productId}/productmix",
+      "key": "DELETE /loanproducts/{}/productmix",
+      "canonPath": "/loanproducts/{}/productmix",
+      "tag": "Product Mix"
+    },
+    {
+      "operationId": "deleteProvisioningCategory",
+      "method": "DELETE",
+      "rawPath": "/v1/provisioningcategory/{categoryId}",
+      "key": "DELETE /provisioningcategory/{}",
+      "canonPath": "/provisioningcategory/{}",
+      "tag": "Provisioning Category"
+    },
+    {
+      "operationId": "deleteProvisioningCriteria",
+      "method": "DELETE",
+      "rawPath": "/v1/provisioningcriteria/{criteriaId}",
+      "key": "DELETE /provisioningcriteria/{}",
+      "canonPath": "/provisioningcriteria/{}",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "operationId": "deleteRange",
+      "method": "DELETE",
+      "rawPath": "/v1/delinquency/ranges/{delinquencyRangeId}",
+      "key": "DELETE /delinquency/ranges/{}",
+      "canonPath": "/delinquency/ranges/{}",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "deleteRecurringDepositAccount",
+      "method": "DELETE",
+      "rawPath": "/v1/recurringdepositaccounts/{accountId}",
+      "key": "DELETE /recurringdepositaccounts/{}",
+      "canonPath": "/recurringdepositaccounts/{}",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "deleteRecurringDepositProduct",
+      "method": "DELETE",
+      "rawPath": "/v1/recurringdepositproducts/{productId}",
+      "key": "DELETE /recurringdepositproducts/{}",
+      "canonPath": "/recurringdepositproducts/{}",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "operationId": "deleteReport",
+      "method": "DELETE",
+      "rawPath": "/v1/reports/{id}",
+      "key": "DELETE /reports/{}",
+      "canonPath": "/reports/{}",
+      "tag": "Reports"
+    },
+    {
+      "operationId": "deleteReportMailingJob",
+      "method": "DELETE",
+      "rawPath": "/v1/reportmailingjobs/{entityId}",
+      "key": "DELETE /reportmailingjobs/{}",
+      "canonPath": "/reportmailingjobs/{}",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "operationId": "deleteRole",
+      "method": "DELETE",
+      "rawPath": "/v1/roles/{roleId}",
+      "key": "DELETE /roles/{}",
+      "canonPath": "/roles/{}",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "deleteSavingsAccount",
+      "method": "DELETE",
+      "rawPath": "/v1/savingsaccounts/{accountId}",
+      "key": "DELETE /savingsaccounts/{}",
+      "canonPath": "/savingsaccounts/{}",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "deleteSavingsAccountCharge",
+      "method": "DELETE",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "key": "DELETE /savingsaccounts/{}/charges/{}",
+      "canonPath": "/savingsaccounts/{}/charges/{}",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "deleteSavingsProduct",
+      "method": "DELETE",
+      "rawPath": "/v1/savingsproducts/{productId}",
+      "key": "DELETE /savingsproducts/{}",
+      "canonPath": "/savingsproducts/{}",
+      "tag": "Savings Product"
+    },
+    {
+      "operationId": "deleteShareDividend",
+      "method": "DELETE",
+      "rawPath": "/v1/shareproduct/{productId}/dividend/{dividendId}",
+      "key": "DELETE /shareproduct/{}/dividend/{}",
+      "canonPath": "/shareproduct/{}/dividend/{}",
+      "tag": "Self Dividend"
+    },
+    {
+      "operationId": "deleteSms",
+      "method": "DELETE",
+      "rawPath": "/v1/sms/{resourceId}",
+      "key": "DELETE /sms/{}",
+      "canonPath": "/sms/{}",
+      "tag": "SMS"
+    },
+    {
+      "operationId": "deleteSmsCampaign",
+      "method": "DELETE",
+      "rawPath": "/v1/smscampaigns/{campaignId}",
+      "key": "DELETE /smscampaigns/{}",
+      "canonPath": "/smscampaigns/{}",
+      "tag": null
+    },
+    {
+      "operationId": "deleteTeller",
+      "method": "DELETE",
+      "rawPath": "/v1/tellers/{tellerId}",
+      "key": "DELETE /tellers/{}",
+      "canonPath": "/tellers/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "deleteTemplate",
+      "method": "DELETE",
+      "rawPath": "/v1/templates/{templateId}",
+      "key": "DELETE /templates/{}",
+      "canonPath": "/templates/{}",
+      "tag": "templates"
+    },
+    {
+      "operationId": "deleteUser",
+      "method": "DELETE",
+      "rawPath": "/v1/users/{userId}",
+      "key": "DELETE /users/{}",
+      "canonPath": "/users/{}",
+      "tag": "Users"
+    },
+    {
+      "operationId": "deregisterDatatable",
+      "method": "POST",
+      "rawPath": "/v1/datatables/deregister/{datatable}",
+      "key": "POST /datatables/deregister/{}",
+      "canonPath": "/datatables/deregister/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "detachOriginatorFromLoan",
+      "method": "DELETE",
+      "rawPath": "/v1/loans/{loanId}/originators/{originatorId}",
+      "key": "DELETE /loans/{}/originators/{}",
+      "canonPath": "/loans/{}/originators/{}",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "disburseLoan",
+      "method": "POST",
+      "rawPath": "/v1/interoperation/transactions/{accountId}/disburse",
+      "key": "POST /interoperation/transactions/{}/disburse",
+      "canonPath": "/interoperation/transactions/{}/disburse",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "downloadFile",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/documents/{documentId}/attachment",
+      "key": "GET /{}/{}/documents/{}/attachment",
+      "canonPath": "/{}/{}/documents/{}/attachment",
+      "tag": "Documents"
+    },
+    {
+      "operationId": "editSurvey",
+      "method": "PUT",
+      "rawPath": "/v1/surveys/{id}",
+      "key": "PUT /surveys/{}",
+      "canonPath": "/surveys/{}",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "operationId": "executeInlineJob",
+      "method": "POST",
+      "rawPath": "/v1/jobs/{jobName}/inline",
+      "key": "POST /jobs/{}/inline",
+      "canonPath": "/jobs/{}/inline",
+      "tag": "Inline Job"
+    },
+    {
+      "operationId": "executeJob",
+      "method": "POST",
+      "rawPath": "/v1/jobs/{jobId}",
+      "key": "POST /jobs/{}",
+      "canonPath": "/jobs/{}",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "executeJobByShortName",
+      "method": "POST",
+      "rawPath": "/v1/jobs/short-name/{shortName}",
+      "key": "POST /jobs/short-name/{}",
+      "canonPath": "/jobs/short-name/{}",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "executeLoanChargeOnExistingCharge",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/charges/{loanChargeId}",
+      "key": "POST /loans/{}/charges/{}",
+      "canonPath": "/loans/{}/charges/{}",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "executeLoanCOBCatchUp",
+      "method": "POST",
+      "rawPath": "/v1/loans/catch-up",
+      "key": "POST /loans/catch-up",
+      "canonPath": "/loans/catch-up",
+      "tag": "Loan COB Catch Up"
+    },
+    {
+      "operationId": "executePeriodicAccrualAccounting",
+      "method": "POST",
+      "rawPath": "/v1/runaccruals",
+      "key": "POST /runaccruals",
+      "canonPath": "/runaccruals",
+      "tag": "Periodic Accrual Accounting"
+    },
+    {
+      "operationId": "fetchAllSurveys",
+      "method": "GET",
+      "rawPath": "/v1/surveys",
+      "key": "GET /surveys",
+      "canonPath": "/surveys",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "operationId": "fetchAuthenticatedUserData",
+      "method": "GET",
+      "rawPath": "/v1/userdetails",
+      "key": "GET /userdetails",
+      "canonPath": "/userdetails",
+      "tag": "Fetch authenticated user details"
+    },
+    {
+      "operationId": "fetchCapitalizedIncomeDetails",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/capitalized-incomes",
+      "key": "GET /loans/{}/capitalized-incomes",
+      "canonPath": "/loans/{}/capitalized-incomes",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "operationId": "fetchCreditReport",
+      "method": "POST",
+      "rawPath": "/v1/creditBureauIntegration/creditReport",
+      "key": "POST /creditBureauIntegration/creditReport",
+      "canonPath": "/creditBureauIntegration/creditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "operationId": "fetchLoanCapitalizedIncomeData",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/deferredincome",
+      "key": "GET /loans/{}/deferredincome",
+      "canonPath": "/loans/{}/deferredincome",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "operationId": "fetchLoanProducts",
+      "method": "GET",
+      "rawPath": "/v1/CreditBureauConfiguration/loanProduct",
+      "key": "GET /CreditBureauConfiguration/loanProduct",
+      "canonPath": "/CreditBureauConfiguration/loanProduct",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "fetchLookupTables",
+      "method": "GET",
+      "rawPath": "/v1/surveys/{surveyId}/lookuptables",
+      "key": "GET /surveys/{}/lookuptables",
+      "canonPath": "/surveys/{}/lookuptables",
+      "tag": "SPM API - LookUp Table"
+    },
+    {
+      "operationId": "fetchMappingByLoanProductId",
+      "method": "GET",
+      "rawPath": "/v1/CreditBureauConfiguration/loanProduct/{loanProductId}",
+      "key": "GET /CreditBureauConfiguration/loanProduct/{}",
+      "canonPath": "/CreditBureauConfiguration/loanProduct/{}",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "findByClient",
+      "method": "GET",
+      "rawPath": "/v1/surveys/scorecards/clients/{clientId}",
+      "key": "GET /surveys/scorecards/clients/{}",
+      "canonPath": "/surveys/scorecards/clients/{}",
+      "tag": "Score Card"
+    },
+    {
+      "operationId": "findBySurvey",
+      "method": "GET",
+      "rawPath": "/v1/surveys/scorecards/{surveyId}",
+      "key": "GET /surveys/scorecards/{}",
+      "canonPath": "/surveys/scorecards/{}",
+      "tag": "Score Card"
+    },
+    {
+      "operationId": "findBySurveyAndClient",
+      "method": "GET",
+      "rawPath": "/v1/surveys/scorecards/{surveyId}/clients/{clientId}",
+      "key": "GET /surveys/scorecards/{}/clients/{}",
+      "canonPath": "/surveys/scorecards/{}/clients/{}",
+      "tag": "Score Card"
+    },
+    {
+      "operationId": "findLookupTable",
+      "method": "GET",
+      "rawPath": "/v1/surveys/{surveyId}/lookuptables/{key}",
+      "key": "GET /surveys/{}/lookuptables/{}",
+      "canonPath": "/surveys/{}/lookuptables/{}",
+      "tag": "SPM API - LookUp Table"
+    },
+    {
+      "operationId": "findSurvey",
+      "method": "GET",
+      "rawPath": "/v1/surveys/{id}",
+      "key": "GET /surveys/{}",
+      "canonPath": "/surveys/{}",
+      "tag": "Spm-Surveys"
+    },
+    {
+      "operationId": "forgotPassword",
+      "method": "POST",
+      "rawPath": "/v1/password/forgot",
+      "key": "POST /password/forgot",
+      "canonPath": "/password/forgot",
+      "tag": "Password Management"
+    },
+    {
+      "operationId": "generateCollectionSheet",
+      "method": "POST",
+      "rawPath": "/v1/collectionsheet",
+      "key": "POST /collectionsheet",
+      "canonPath": "/collectionsheet",
+      "tag": "Collection Sheet"
+    },
+    {
+      "operationId": "getAccountDetails",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/accounts/{accountId}",
+      "key": "GET /interoperation/accounts/{}",
+      "canonPath": "/interoperation/accounts/{}",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getAccountIdentifiers",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/accounts/{accountId}/identifiers",
+      "key": "GET /interoperation/accounts/{}/identifiers",
+      "canonPath": "/interoperation/accounts/{}/identifiers",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getAccountTransactions",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/accounts/{accountId}/transactions",
+      "key": "GET /interoperation/accounts/{}/transactions",
+      "canonPath": "/interoperation/accounts/{}/transactions",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getActiveTransfer",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners/transfers/active-transfer",
+      "key": "GET /external-asset-owners/transfers/active-transfer",
+      "canonPath": "/external-asset-owners/transfers/active-transfer",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "getAddresses",
+      "method": "GET",
+      "rawPath": "/v1/fieldconfiguration/{entity}",
+      "key": "GET /fieldconfiguration/{}",
+      "canonPath": "/fieldconfiguration/{}",
+      "tag": "Entity Field Configuration"
+    },
+    {
+      "operationId": "getAllCollaterals",
+      "method": "GET",
+      "rawPath": "/v1/collateral-management",
+      "key": "GET /collateral-management",
+      "canonPath": "/collateral-management",
+      "tag": "Collateral Management"
+    },
+    {
+      "operationId": "getAllNotifications",
+      "method": "GET",
+      "rawPath": "/v1/notifications",
+      "key": "GET /notifications",
+      "canonPath": "/notifications",
+      "tag": "Notification"
+    },
+    {
+      "operationId": "getAllPaymentTypes",
+      "method": "GET",
+      "rawPath": "/v1/paymenttypes",
+      "key": "GET /paymenttypes",
+      "canonPath": "/paymenttypes",
+      "tag": "Payment Type"
+    },
+    {
+      "operationId": "getBucket",
+      "method": "GET",
+      "rawPath": "/v1/delinquency/buckets/{delinquencyBucketId}",
+      "key": "GET /delinquency/buckets/{}",
+      "canonPath": "/delinquency/buckets/{}",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "getBuckets",
+      "method": "GET",
+      "rawPath": "/v1/delinquency/buckets",
+      "key": "GET /delinquency/buckets",
+      "canonPath": "/delinquency/buckets",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "getBucketTemplate",
+      "method": "GET",
+      "rawPath": "/v1/delinquency/buckets/template",
+      "key": "GET /delinquency/buckets/template",
+      "canonPath": "/delinquency/buckets/template",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "getBusinessDate",
+      "method": "GET",
+      "rawPath": "/v1/businessdate/{type}",
+      "key": "GET /businessdate/{}",
+      "canonPath": "/businessdate/{}",
+      "tag": "Business Date Management"
+    },
+    {
+      "operationId": "getBusinessDates",
+      "method": "GET",
+      "rawPath": "/v1/businessdate",
+      "key": "GET /businessdate",
+      "canonPath": "/businessdate",
+      "tag": "Business Date Management"
+    },
+    {
+      "operationId": "getClientCollateralData",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/collaterals/{clientCollateralId}",
+      "key": "GET /clients/{}/collaterals/{}",
+      "canonPath": "/clients/{}/collaterals/{}",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "operationId": "getClientCollateralProducts",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/collaterals",
+      "key": "GET /clients/{}/collaterals",
+      "canonPath": "/clients/{}/collaterals",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "operationId": "getClientCollateralTemplate",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/collaterals/template",
+      "key": "GET /clients/{}/collaterals/template",
+      "canonPath": "/clients/{}/collaterals/template",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "operationId": "getClientKyc",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/accounts/{accountId}/kyc",
+      "key": "GET /interoperation/accounts/{}/kyc",
+      "canonPath": "/interoperation/accounts/{}/kyc",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getClientSurveyOverview",
+      "method": "GET",
+      "rawPath": "/v1/survey/{surveyName}/{clientId}",
+      "key": "GET /survey/{}/{}",
+      "canonPath": "/survey/{}/{}",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "getCollateral",
+      "method": "GET",
+      "rawPath": "/v1/collateral-management/{collateralId}",
+      "key": "GET /collateral-management/{}",
+      "canonPath": "/collateral-management/{}",
+      "tag": "Collateral Management"
+    },
+    {
+      "operationId": "getCollateralTemplate",
+      "method": "GET",
+      "rawPath": "/v1/collateral-management/template",
+      "key": "GET /collateral-management/template",
+      "canonPath": "/collateral-management/template",
+      "tag": "Collateral Management"
+    },
+    {
+      "operationId": "getConfiguration",
+      "method": "GET",
+      "rawPath": "/v1/CreditBureauConfiguration/config/{organisationCreditBureauId}",
+      "key": "GET /CreditBureauConfiguration/config/{}",
+      "canonPath": "/CreditBureauConfiguration/config/{}",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "getCreditBureau",
+      "method": "GET",
+      "rawPath": "/v1/CreditBureauConfiguration",
+      "key": "GET /CreditBureauConfiguration",
+      "canonPath": "/CreditBureauConfiguration",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "getCreditBureauLoanProductMapping",
+      "method": "GET",
+      "rawPath": "/v1/CreditBureauConfiguration/mappings",
+      "key": "GET /CreditBureauConfiguration/mappings",
+      "canonPath": "/CreditBureauConfiguration/mappings",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "getDatatable",
+      "method": "GET",
+      "rawPath": "/v1/datatables/{datatable}",
+      "key": "GET /datatables/{}",
+      "canonPath": "/datatables/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "getDatatableEntries",
+      "method": "GET",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}",
+      "key": "GET /datatables/{}/{}",
+      "canonPath": "/datatables/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "getDatatableManyEntry",
+      "method": "GET",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}/{datatableId}",
+      "key": "GET /datatables/{}/{}/{}",
+      "canonPath": "/datatables/{}/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "getDatatables",
+      "method": "GET",
+      "rawPath": "/v1/datatables",
+      "key": "GET /datatables",
+      "canonPath": "/datatables",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "getDocument",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/documents/{documentId}",
+      "key": "GET /{}/{}/documents/{}",
+      "canonPath": "/{}/{}/documents/{}",
+      "tag": "Documents"
+    },
+    {
+      "operationId": "getEntityToEntityMappings",
+      "method": "GET",
+      "rawPath": "/v1/entitytoentitymapping/{mapId}/{fromId}/{toId}",
+      "key": "GET /entitytoentitymapping/{}/{}/{}",
+      "canonPath": "/entitytoentitymapping/{}/{}/{}",
+      "tag": "Fineract Entity"
+    },
+    {
+      "operationId": "getExternalEventConfigurations",
+      "method": "GET",
+      "rawPath": "/v1/externalevents/configuration",
+      "key": "GET /externalevents/configuration",
+      "canonPath": "/externalevents/configuration",
+      "tag": "External event configuration"
+    },
+    {
+      "operationId": "getGlimRepaymentTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loans/glimAccount/{glimId}",
+      "key": "GET /loans/glimAccount/{}",
+      "canonPath": "/loans/glimAccount/{}",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "getJournalEntriesOfOwner",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners/owners/external-id/{ownerExternalId}/journal-entries",
+      "key": "GET /external-asset-owners/owners/external-id/{}/journal-entries",
+      "canonPath": "/external-asset-owners/owners/external-id/{}/journal-entries",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "getJournalEntriesOfTransfer",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners/transfers/{transferId}/journal-entries",
+      "key": "GET /external-asset-owners/transfers/{}/journal-entries",
+      "canonPath": "/external-asset-owners/transfers/{}/journal-entries",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "getLoanCollateral",
+      "method": "GET",
+      "rawPath": "/v1/loan-collateral-management/{collateralId}",
+      "key": "GET /loan-collateral-management/{}",
+      "canonPath": "/loan-collateral-management/{}",
+      "tag": "Loan Collateral Management"
+    },
+    {
+      "operationId": "getOldestCOBProcessedLoan",
+      "method": "GET",
+      "rawPath": "/v1/loans/oldest-cob-closed",
+      "key": "GET /loans/oldest-cob-closed",
+      "canonPath": "/loans/oldest-cob-closed",
+      "tag": "Loan COB Catch Up"
+    },
+    {
+      "operationId": "getOrganisationCreditBureau",
+      "method": "GET",
+      "rawPath": "/v1/CreditBureauConfiguration/organisationCreditBureau",
+      "key": "GET /CreditBureauConfiguration/organisationCreditBureau",
+      "canonPath": "/CreditBureauConfiguration/organisationCreditBureau",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "getOTPDeliveryMethods",
+      "method": "GET",
+      "rawPath": "/v1/twofactor",
+      "key": "GET /twofactor",
+      "canonPath": "/twofactor",
+      "tag": "Two Factor"
+    },
+    {
+      "operationId": "getOutputTemplate",
+      "method": "GET",
+      "rawPath": "/v1/imports/downloadOutputTemplate",
+      "key": "GET /imports/downloadOutputTemplate",
+      "canonPath": "/imports/downloadOutputTemplate",
+      "tag": "Bulk Import"
+    },
+    {
+      "operationId": "getPostDatedCheck",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/postdatedchecks/{installmentId}",
+      "key": "GET /loans/{}/postdatedchecks/{}",
+      "canonPath": "/loans/{}/postdatedchecks/{}",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "operationId": "getPostDatedChecks",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/postdatedchecks",
+      "key": "GET /loans/{}/postdatedchecks",
+      "canonPath": "/loans/{}/postdatedchecks",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "operationId": "getQuote",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/transactions/{transactionCode}/quotes/{quoteCode}",
+      "key": "GET /interoperation/transactions/{}/quotes/{}",
+      "canonPath": "/interoperation/transactions/{}/quotes/{}",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getRange",
+      "method": "GET",
+      "rawPath": "/v1/delinquency/ranges/{delinquencyRangeId}",
+      "key": "GET /delinquency/ranges/{}",
+      "canonPath": "/delinquency/ranges/{}",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "getRanges",
+      "method": "GET",
+      "rawPath": "/v1/delinquency/ranges",
+      "key": "GET /delinquency/ranges",
+      "canonPath": "/delinquency/ranges",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "getSavedCreditReport",
+      "method": "GET",
+      "rawPath": "/v1/creditBureauIntegration/creditReport/{creditBureauId}",
+      "key": "GET /creditBureauIntegration/creditReport/{}",
+      "canonPath": "/creditBureauIntegration/creditReport/{}",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "operationId": "getSurveyEntry",
+      "method": "GET",
+      "rawPath": "/v1/survey/{surveyName}/{clientId}/{entryId}",
+      "key": "GET /survey/{}/{}/{}",
+      "canonPath": "/survey/{}/{}/{}",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "getTransactionRequest",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/transactions/{transactionCode}/requests/{requestCode}",
+      "key": "GET /interoperation/transactions/{}/requests/{}",
+      "canonPath": "/interoperation/transactions/{}/requests/{}",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getTransfer",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/transactions/{transactionCode}/transfers/{transferCode}",
+      "key": "GET /interoperation/transactions/{}/transfers/{}",
+      "canonPath": "/interoperation/transactions/{}/transfers/{}",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "getTransfers",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners/transfers",
+      "key": "GET /external-asset-owners/transfers",
+      "canonPath": "/external-asset-owners/transfers",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "handleBatchRequests",
+      "method": "POST",
+      "rawPath": "/v1/batches",
+      "key": "POST /batches",
+      "canonPath": "/batches",
+      "tag": "Batch API"
+    },
+    {
+      "operationId": "handleCommandClient",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}",
+      "key": "POST /clients/{}",
+      "canonPath": "/clients/{}",
+      "tag": "Client"
+    },
+    {
+      "operationId": "handleCommandsCenter",
+      "method": "POST",
+      "rawPath": "/v1/centers/{centerId}",
+      "key": "POST /centers/{}",
+      "canonPath": "/centers/{}",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "handleCommandsEmailCampaign",
+      "method": "POST",
+      "rawPath": "/v1/email/campaign/{resourceId}",
+      "key": "POST /email/campaign/{}",
+      "canonPath": "/email/campaign/{}",
+      "tag": null
+    },
+    {
+      "operationId": "handleCommandsFixedDepositAccount",
+      "method": "POST",
+      "rawPath": "/v1/fixeddepositaccounts/{accountId}",
+      "key": "POST /fixeddepositaccounts/{}",
+      "canonPath": "/fixeddepositaccounts/{}",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "handleCommandsFixedDepositAccountTransaction",
+      "method": "POST",
+      "rawPath": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}",
+      "key": "POST /fixeddepositaccounts/{}/transactions/{}",
+      "canonPath": "/fixeddepositaccounts/{}/transactions/{}",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "operationId": "handleCommandsGlimLoan",
+      "method": "POST",
+      "rawPath": "/v1/loans/glimAccount/{glimId}",
+      "key": "POST /loans/glimAccount/{}",
+      "canonPath": "/loans/glimAccount/{}",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "handleCommandsGroup",
+      "method": "POST",
+      "rawPath": "/v1/groups/{groupId}",
+      "key": "POST /groups/{}",
+      "canonPath": "/groups/{}",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "handleCommandsHoliday",
+      "method": "POST",
+      "rawPath": "/v1/holidays/{holidayId}",
+      "key": "POST /holidays/{}",
+      "canonPath": "/holidays/{}",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "handleCommandsLoan",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}",
+      "key": "POST /loans/{}",
+      "canonPath": "/loans/{}",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "handleCommandsLoanSchedule",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/schedule",
+      "key": "POST /loans/{}/schedule",
+      "canonPath": "/loans/{}/schedule",
+      "tag": "Loan Rescheduling"
+    },
+    {
+      "operationId": "handleCommandsLoanTransaction",
+      "method": "POST",
+      "rawPath": "/v1/loans/{loanId}/transactions",
+      "key": "POST /loans/{}/transactions",
+      "canonPath": "/loans/{}/transactions",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "handleCommandsRecurringDepositAccount",
+      "method": "POST",
+      "rawPath": "/v1/recurringdepositaccounts/{accountId}",
+      "key": "POST /recurringdepositaccounts/{}",
+      "canonPath": "/recurringdepositaccounts/{}",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "handleCommandsRecurringDepositAccountTransaction",
+      "method": "POST",
+      "rawPath": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/{transactionId}",
+      "key": "POST /recurringdepositaccounts/{}/transactions/{}",
+      "canonPath": "/recurringdepositaccounts/{}/transactions/{}",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "operationId": "handleCommandsRole",
+      "method": "POST",
+      "rawPath": "/v1/roles/{roleId}",
+      "key": "POST /roles/{}",
+      "canonPath": "/roles/{}",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "handleCommandsSavingsAccount",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/{accountId}",
+      "key": "POST /savingsaccounts/{}",
+      "canonPath": "/savingsaccounts/{}",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "handleCommandsSavingsAccountCharge",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "key": "POST /savingsaccounts/{}/charges/{}",
+      "canonPath": "/savingsaccounts/{}/charges/{}",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "handleCommandsScheduler",
+      "method": "POST",
+      "rawPath": "/v1/scheduler",
+      "key": "POST /scheduler",
+      "canonPath": "/scheduler",
+      "tag": "Scheduler"
+    },
+    {
+      "operationId": "handleCommandsShareAccount",
+      "method": "POST",
+      "rawPath": "/v1/accounts/{type}/{accountId}",
+      "key": "POST /accounts/{}/{}",
+      "canonPath": "/accounts/{}/{}",
+      "tag": "Share Account"
+    },
+    {
+      "operationId": "handleCommandsShareProduct",
+      "method": "POST",
+      "rawPath": "/v1/products/{type}/{productId}",
+      "key": "POST /products/{}/{}",
+      "canonPath": "/products/{}/{}",
+      "tag": "Products"
+    },
+    {
+      "operationId": "handleCommandsSmsCampaign",
+      "method": "POST",
+      "rawPath": "/v1/smscampaigns/{campaignId}",
+      "key": "POST /smscampaigns/{}",
+      "canonPath": "/smscampaigns/{}",
+      "tag": null
+    },
+    {
+      "operationId": "handleGSIMCommands",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/gsimcommands/{parentAccountId}",
+      "key": "POST /savingsaccounts/gsimcommands/{}",
+      "canonPath": "/savingsaccounts/gsimcommands/{}",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "health",
+      "method": "GET",
+      "rawPath": "/v1/interoperation/health",
+      "key": "GET /interoperation/health",
+      "canonPath": "/interoperation/health",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "isCatchUpRunning",
+      "method": "GET",
+      "rawPath": "/v1/loans/is-catch-up-running",
+      "key": "GET /loans/is-catch-up-running",
+      "canonPath": "/loans/is-catch-up-running",
+      "tag": "Loan COB Catch Up"
+    },
+    {
+      "operationId": "loanReassignment",
+      "method": "POST",
+      "rawPath": "/v1/loans/loanreassignment",
+      "key": "POST /loans/loanreassignment",
+      "canonPath": "/loans/loanreassignment",
+      "tag": "Bulk Loans"
+    },
+    {
+      "operationId": "loanReassignmentTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loans/loanreassignment/template",
+      "key": "GET /loans/loanreassignment/template",
+      "canonPath": "/loans/loanreassignment/template",
+      "tag": "Bulk Loans"
+    },
+    {
+      "operationId": "loanRepayment",
+      "method": "POST",
+      "rawPath": "/v1/interoperation/transactions/{accountId}/loanrepayment",
+      "key": "POST /interoperation/transactions/{}/loanrepayment",
+      "canonPath": "/interoperation/transactions/{}/loanrepayment",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "mergeTemplate",
+      "method": "POST",
+      "rawPath": "/v1/templates/{templateId}",
+      "key": "POST /templates/{}",
+      "canonPath": "/templates/{}",
+      "tag": "templates"
+    },
+    {
+      "operationId": "modifyProvisioningEntry",
+      "method": "POST",
+      "rawPath": "/v1/provisioningentries/{entryId}",
+      "key": "POST /provisioningentries/{}",
+      "canonPath": "/provisioningentries/{}",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "operationId": "newCollateralTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/collaterals/template",
+      "key": "GET /loans/{}/collaterals/template",
+      "canonPath": "/loans/{}/collaterals/template",
+      "tag": "Loan Collateral"
+    },
+    {
+      "operationId": "newGuarantorTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/guarantors/template",
+      "key": "GET /loans/{}/guarantors/template",
+      "canonPath": "/loans/{}/guarantors/template",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "newOfficeTransactionDetails",
+      "method": "GET",
+      "rawPath": "/v1/officetransactions/template",
+      "key": "GET /officetransactions/template",
+      "canonPath": "/officetransactions/template",
+      "tag": null
+    },
+    {
+      "operationId": "payOrWaiveClientCharge",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}/charges/{chargeId}",
+      "key": "POST /clients/{}/charges/{}",
+      "canonPath": "/clients/{}/charges/{}",
+      "tag": "Client Charges"
+    },
+    {
+      "operationId": "performTransfer",
+      "method": "POST",
+      "rawPath": "/v1/interoperation/transfers",
+      "key": "POST /interoperation/transfers",
+      "canonPath": "/interoperation/transfers",
+      "tag": "Inter Operation"
+    },
+    {
+      "operationId": "previewEmailCampaign",
+      "method": "POST",
+      "rawPath": "/v1/email/campaign/preview",
+      "key": "POST /email/campaign/preview",
+      "canonPath": "/email/campaign/preview",
+      "tag": null
+    },
+    {
+      "operationId": "previewReAgeLoanSchedule",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/transactions/reage-preview",
+      "key": "GET /loans/{}/transactions/reage-preview",
+      "canonPath": "/loans/{}/transactions/reage-preview",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "previewReAmortizeLoanSchedule",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/transactions/reamortization-preview",
+      "key": "GET /loans/{}/transactions/reamortization-preview",
+      "canonPath": "/loans/{}/transactions/reamortization-preview",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "previewSmsCampaign",
+      "method": "POST",
+      "rawPath": "/v1/smscampaigns/preview",
+      "key": "POST /smscampaigns/preview",
+      "canonPath": "/smscampaigns/preview",
+      "tag": null
+    },
+    {
+      "operationId": "queryValues",
+      "method": "GET",
+      "rawPath": "/v1/datatables/{datatable}/query",
+      "key": "GET /datatables/{}/query",
+      "canonPath": "/datatables/{}/query",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "refundByTransfer",
+      "method": "POST",
+      "rawPath": "/v1/accounttransfers/refundByTransfer",
+      "key": "POST /accounttransfers/refundByTransfer",
+      "canonPath": "/accounttransfers/refundByTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "register",
+      "method": "PUT",
+      "rawPath": "/v1/survey/register/{surveyName}/{apptable}",
+      "key": "PUT /survey/register/{}/{}",
+      "canonPath": "/survey/register/{}/{}",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "registerDatatable",
+      "method": "POST",
+      "rawPath": "/v1/datatables/register/{datatable}/{apptable}",
+      "key": "POST /datatables/register/{}/{}",
+      "canonPath": "/datatables/register/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "requestToken",
+      "method": "POST",
+      "rawPath": "/v1/twofactor",
+      "key": "POST /twofactor",
+      "canonPath": "/twofactor",
+      "tag": "Two Factor"
+    },
+    {
+      "operationId": "retreive",
+      "method": "GET",
+      "rawPath": "/v1/financialactivityaccounts/{mappingId}",
+      "key": "GET /financialactivityaccounts/{}",
+      "canonPath": "/financialactivityaccounts/{}",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "operationId": "retreiveAccount",
+      "method": "GET",
+      "rawPath": "/v1/glaccounts/{glAccountId}",
+      "key": "GET /glaccounts/{}",
+      "canonPath": "/glaccounts/{}",
+      "tag": "General Ledger Account"
+    },
+    {
+      "operationId": "retrieve",
+      "method": "GET",
+      "rawPath": "/v1/tenants/{tenantId}/oidc-config",
+      "key": "GET /tenants/{}/oidc-config",
+      "canonPath": "/tenants/{}/oidc-config",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "operationId": "retrieve_1",
+      "method": "GET",
+      "rawPath": "/v1/likelihood/{ppiName}/{likelihoodId}",
+      "key": "GET /likelihood/{}/{}",
+      "canonPath": "/likelihood/{}/{}",
+      "tag": "Likelihood"
+    },
+    {
+      "operationId": "retrieveAccountsGroup",
+      "method": "GET",
+      "rawPath": "/v1/groups/{groupId}/accounts",
+      "key": "GET /groups/{}/accounts",
+      "canonPath": "/groups/{}/accounts",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "retrieveAdHocQuery",
+      "method": "GET",
+      "rawPath": "/v1/adhocquery/{adHocId}",
+      "key": "GET /adhocquery/{}",
+      "canonPath": "/adhocquery/{}",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "operationId": "retrieveAdHocSearchQueryTemplate",
+      "method": "GET",
+      "rawPath": "/v1/search/template",
+      "key": "GET /search/template",
+      "canonPath": "/search/template",
+      "tag": "Search API"
+    },
+    {
+      "operationId": "retrieveAll",
+      "method": "GET",
+      "rawPath": "/v1/financialactivityaccounts",
+      "key": "GET /financialactivityaccounts",
+      "canonPath": "/financialactivityaccounts",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "operationId": "retrieveAll_1",
+      "method": "GET",
+      "rawPath": "/v1/adhocquery",
+      "key": "GET /adhocquery",
+      "canonPath": "/adhocquery",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "operationId": "retrieveAll_2",
+      "method": "GET",
+      "rawPath": "/v1/caches",
+      "key": "GET /caches",
+      "canonPath": "/caches",
+      "tag": "Cache"
+    },
+    {
+      "operationId": "retrieveAll_3",
+      "method": "GET",
+      "rawPath": "/v1/entitytoentitymapping",
+      "key": "GET /entitytoentitymapping",
+      "canonPath": "/entitytoentitymapping",
+      "tag": "Fineract Entity"
+    },
+    {
+      "operationId": "retrieveAll_4",
+      "method": "GET",
+      "rawPath": "/v1/twofactor/configure",
+      "key": "GET /twofactor/configure",
+      "canonPath": "/twofactor/configure",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAll_5",
+      "method": "GET",
+      "rawPath": "/v1/likelihood/{ppiName}",
+      "key": "GET /likelihood/{}",
+      "canonPath": "/likelihood/{}",
+      "tag": "Likelihood"
+    },
+    {
+      "operationId": "retrieveAll_6",
+      "method": "GET",
+      "rawPath": "/v1/povertyLine/{ppiName}",
+      "key": "GET /povertyLine/{}",
+      "canonPath": "/povertyLine/{}",
+      "tag": "Poverty Line"
+    },
+    {
+      "operationId": "retrieveAll_7",
+      "method": "GET",
+      "rawPath": "/v1/povertyLine/{ppiName}/{likelihoodId}",
+      "key": "GET /povertyLine/{}/{}",
+      "canonPath": "/povertyLine/{}/{}",
+      "tag": "Poverty Line"
+    },
+    {
+      "operationId": "retrieveAll_8",
+      "method": "GET",
+      "rawPath": "/v1/provisioningcategory",
+      "key": "GET /provisioningcategory",
+      "canonPath": "/provisioningcategory",
+      "tag": "Provisioning Category"
+    },
+    {
+      "operationId": "retrieveAllAccountingRules",
+      "method": "GET",
+      "rawPath": "/v1/accountingrules",
+      "key": "GET /accountingrules",
+      "canonPath": "/accountingrules",
+      "tag": "Accounting Rules"
+    },
+    {
+      "operationId": "retrieveAllAccountNumberFormats",
+      "method": "GET",
+      "rawPath": "/v1/accountnumberformats",
+      "key": "GET /accountnumberformats",
+      "canonPath": "/accountnumberformats",
+      "tag": "Account number format"
+    },
+    {
+      "operationId": "retrieveAllAccounts",
+      "method": "GET",
+      "rawPath": "/v1/glaccounts",
+      "key": "GET /glaccounts",
+      "canonPath": "/glaccounts",
+      "tag": "General Ledger Account"
+    },
+    {
+      "operationId": "retrieveAllAccountTransfers",
+      "method": "GET",
+      "rawPath": "/v1/accounttransfers",
+      "key": "GET /accounttransfers",
+      "canonPath": "/accounttransfers",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "retrieveAllAvailableBusinessStep",
+      "method": "GET",
+      "rawPath": "/v1/jobs/{jobName}/available-steps",
+      "key": "GET /jobs/{}/available-steps",
+      "canonPath": "/jobs/{}/available-steps",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "operationId": "retrieveAllAvailableExports",
+      "method": "GET",
+      "rawPath": "/v1/runreports/availableExports/{reportName}",
+      "key": "GET /runreports/availableExports/{}",
+      "canonPath": "/runreports/availableExports/{}",
+      "tag": "Run Reports"
+    },
+    {
+      "operationId": "retrieveAllCashierJournals",
+      "method": "GET",
+      "rawPath": "/v1/cashiersjournal",
+      "key": "GET /cashiersjournal",
+      "canonPath": "/cashiersjournal",
+      "tag": "Cashier Journals"
+    },
+    {
+      "operationId": "retrieveAllCashiers",
+      "method": "GET",
+      "rawPath": "/v1/cashiers",
+      "key": "GET /cashiers",
+      "canonPath": "/cashiers",
+      "tag": "Cashiers"
+    },
+    {
+      "operationId": "retrieveAllCashiersForTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers",
+      "key": "GET /tellers/{}/cashiers",
+      "canonPath": "/tellers/{}/cashiers",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveAllCenters",
+      "method": "GET",
+      "rawPath": "/v1/centers",
+      "key": "GET /centers",
+      "canonPath": "/centers",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "retrieveAllCharges",
+      "method": "GET",
+      "rawPath": "/v1/charges",
+      "key": "GET /charges",
+      "canonPath": "/charges",
+      "tag": "Charges"
+    },
+    {
+      "operationId": "retrieveAllClientAccounts",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/accounts",
+      "key": "GET /clients/{}/accounts",
+      "canonPath": "/clients/{}/accounts",
+      "tag": "Client"
+    },
+    {
+      "operationId": "retrieveAllClientAddresses",
+      "method": "GET",
+      "rawPath": "/v1/client/{clientid}/addresses",
+      "key": "GET /client/{}/addresses",
+      "canonPath": "/client/{}/addresses",
+      "tag": "Clients Address"
+    },
+    {
+      "operationId": "retrieveAllClientCharges",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/charges",
+      "key": "GET /clients/{}/charges",
+      "canonPath": "/clients/{}/charges",
+      "tag": "Client Charges"
+    },
+    {
+      "operationId": "retrieveAllClientFamilyMembers",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/familymembers",
+      "key": "GET /clients/{}/familymembers",
+      "canonPath": "/clients/{}/familymembers",
+      "tag": "Client Family Member"
+    },
+    {
+      "operationId": "retrieveAllClientIdentifiers",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/identifiers",
+      "key": "GET /clients/{}/identifiers",
+      "canonPath": "/clients/{}/identifiers",
+      "tag": "Client Identifier"
+    },
+    {
+      "operationId": "retrieveAllClients",
+      "method": "GET",
+      "rawPath": "/v1/clients",
+      "key": "GET /clients",
+      "canonPath": "/clients",
+      "tag": "Client"
+    },
+    {
+      "operationId": "retrieveAllClientTransactions",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/transactions",
+      "key": "GET /clients/{}/transactions",
+      "canonPath": "/clients/{}/transactions",
+      "tag": "Client Transaction"
+    },
+    {
+      "operationId": "retrieveAllCodes",
+      "method": "GET",
+      "rawPath": "/v1/codes",
+      "key": "GET /codes",
+      "canonPath": "/codes",
+      "tag": "Codes"
+    },
+    {
+      "operationId": "retrieveAllCodeValues",
+      "method": "GET",
+      "rawPath": "/v1/codes/{codeId}/codevalues",
+      "key": "GET /codes/{}/codevalues",
+      "canonPath": "/codes/{}/codevalues",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "retrieveAllCodeValuesByCodeName",
+      "method": "GET",
+      "rawPath": "/v1/codes/name/{codeName}/codevalues",
+      "key": "GET /codes/name/{}/codevalues",
+      "canonPath": "/codes/name/{}/codevalues",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "retrieveAllConfiguredBusinessJobs",
+      "method": "GET",
+      "rawPath": "/v1/jobs/names",
+      "key": "GET /jobs/names",
+      "canonPath": "/jobs/names",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "operationId": "retrieveAllConfiguredBusinessStep",
+      "method": "GET",
+      "rawPath": "/v1/jobs/{jobName}/steps",
+      "key": "GET /jobs/{}/steps",
+      "canonPath": "/jobs/{}/steps",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "operationId": "retrieveAllDepositAccountOnHoldFundTransactions",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/onholdtransactions",
+      "key": "GET /savingsaccounts/{}/onholdtransactions",
+      "canonPath": "/savingsaccounts/{}/onholdtransactions",
+      "tag": "Deposit Account On Hold Fund Transactions"
+    },
+    {
+      "operationId": "retrieveAllDocuments",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/documents",
+      "key": "GET /{}/{}/documents",
+      "canonPath": "/{}/{}/documents",
+      "tag": "Documents"
+    },
+    {
+      "operationId": "retrieveAllEmailByStatus",
+      "method": "GET",
+      "rawPath": "/v1/email/messageByStatus",
+      "key": "GET /email/messageByStatus",
+      "canonPath": "/email/messageByStatus",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAllEmailCampaigns",
+      "method": "GET",
+      "rawPath": "/v1/email/campaign",
+      "key": "GET /email/campaign",
+      "canonPath": "/email/campaign",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAllEmailConfigurations",
+      "method": "GET",
+      "rawPath": "/v1/email/configuration",
+      "key": "GET /email/configuration",
+      "canonPath": "/email/configuration",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAllEmails",
+      "method": "GET",
+      "rawPath": "/v1/email",
+      "key": "GET /email",
+      "canonPath": "/email",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAllEntityDatatableChecks",
+      "method": "GET",
+      "rawPath": "/v1/entityDatatableChecks",
+      "key": "GET /entityDatatableChecks",
+      "canonPath": "/entityDatatableChecks",
+      "tag": "Entity Data Table"
+    },
+    {
+      "operationId": "retrieveAllExternalAssetOwnerLoanProductAttributes",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners/loan-product/{loanProductId}/attributes",
+      "key": "GET /external-asset-owners/loan-product/{}/attributes",
+      "canonPath": "/external-asset-owners/loan-product/{}/attributes",
+      "tag": "External Asset Owner Loan Product Attributes"
+    },
+    {
+      "operationId": "retrieveAllFixedDepositAccounts",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts",
+      "key": "GET /fixeddepositaccounts",
+      "canonPath": "/fixeddepositaccounts",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "retrieveAllFixedDepositAccountTransactions",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions",
+      "key": "GET /fixeddepositaccounts/{}/transactions",
+      "canonPath": "/fixeddepositaccounts/{}/transactions",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "operationId": "retrieveAllFixedDepositProducts",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositproducts",
+      "key": "GET /fixeddepositproducts",
+      "canonPath": "/fixeddepositproducts",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "operationId": "retrieveAllFloatingRates",
+      "method": "GET",
+      "rawPath": "/v1/floatingrates",
+      "key": "GET /floatingrates",
+      "canonPath": "/floatingrates",
+      "tag": "Floating Rates"
+    },
+    {
+      "operationId": "retrieveAllGLClosures",
+      "method": "GET",
+      "rawPath": "/v1/glclosures",
+      "key": "GET /glclosures",
+      "canonPath": "/glclosures",
+      "tag": "Accounting Closure"
+    },
+    {
+      "operationId": "retrieveAllGroupLevels",
+      "method": "GET",
+      "rawPath": "/v1/grouplevels",
+      "key": "GET /grouplevels",
+      "canonPath": "/grouplevels",
+      "tag": "Groups Level"
+    },
+    {
+      "operationId": "retrieveAllGroups",
+      "method": "GET",
+      "rawPath": "/v1/groups",
+      "key": "GET /groups",
+      "canonPath": "/groups",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "retrieveAllHolidays",
+      "method": "GET",
+      "rawPath": "/v1/holidays",
+      "key": "GET /holidays",
+      "canonPath": "/holidays",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "retrieveAllHooks",
+      "method": "GET",
+      "rawPath": "/v1/hooks",
+      "key": "GET /hooks",
+      "canonPath": "/hooks",
+      "tag": "Hooks"
+    },
+    {
+      "operationId": "retrieveAllInterestRateCharts",
+      "method": "GET",
+      "rawPath": "/v1/interestratecharts",
+      "key": "GET /interestratecharts",
+      "canonPath": "/interestratecharts",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "operationId": "retrieveAllInterestRateChartSlabs",
+      "method": "GET",
+      "rawPath": "/v1/interestratecharts/{chartId}/chartslabs",
+      "key": "GET /interestratecharts/{}/chartslabs",
+      "canonPath": "/interestratecharts/{}/chartslabs",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "operationId": "retrieveAllJournalEntries",
+      "method": "GET",
+      "rawPath": "/v1/journalentries",
+      "key": "GET /journalentries",
+      "canonPath": "/journalentries",
+      "tag": "Journal Entries"
+    },
+    {
+      "operationId": "retrieveAllJournalsForTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/journals",
+      "key": "GET /tellers/{}/journals",
+      "canonPath": "/tellers/{}/journals",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveAllLoanCharges",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/charges",
+      "key": "GET /loans/{}/charges",
+      "canonPath": "/loans/{}/charges",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "retrieveAllLoanInterestPauses",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/interest-pauses",
+      "key": "GET /loans/{}/interest-pauses",
+      "canonPath": "/loans/{}/interest-pauses",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "operationId": "retrieveAllLoanOriginators",
+      "method": "GET",
+      "rawPath": "/v1/loan-originators",
+      "key": "GET /loan-originators",
+      "canonPath": "/loan-originators",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "retrieveAllLoanProducts",
+      "method": "GET",
+      "rawPath": "/v1/loanproducts",
+      "key": "GET /loanproducts",
+      "canonPath": "/loanproducts",
+      "tag": "Loan Products"
+    },
+    {
+      "operationId": "retrieveAllLoanProductsDetails",
+      "method": "GET",
+      "rawPath": "/v1/loanproducts/basic-details",
+      "key": "GET /loanproducts/basic-details",
+      "canonPath": "/loanproducts/basic-details",
+      "tag": "Loan Products Details"
+    },
+    {
+      "operationId": "retrieveAllLoans",
+      "method": "GET",
+      "rawPath": "/v1/loans",
+      "key": "GET /loans",
+      "canonPath": "/loans",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveAllLoanTransactions",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/transactions",
+      "key": "GET /loans/{}/transactions",
+      "canonPath": "/loans/{}/transactions",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "retrieveAllMeetings",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings",
+      "key": "GET /{}/{}/meetings",
+      "canonPath": "/{}/{}/meetings",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "retrieveAllMixTaxonomies",
+      "method": "GET",
+      "rawPath": "/v1/mixtaxonomy",
+      "key": "GET /mixtaxonomy",
+      "canonPath": "/mixtaxonomy",
+      "tag": "Mix Taxonomy"
+    },
+    {
+      "operationId": "retrieveAllOffices",
+      "method": "GET",
+      "rawPath": "/v1/offices",
+      "key": "GET /offices",
+      "canonPath": "/offices",
+      "tag": "Offices"
+    },
+    {
+      "operationId": "retrieveAllPasswordPreferences",
+      "method": "GET",
+      "rawPath": "/v1/passwordpreferences",
+      "key": "GET /passwordpreferences",
+      "canonPath": "/passwordpreferences",
+      "tag": "Password preferences"
+    },
+    {
+      "operationId": "retrieveAllPermissions",
+      "method": "GET",
+      "rawPath": "/v1/permissions",
+      "key": "GET /permissions",
+      "canonPath": "/permissions",
+      "tag": "Permissions"
+    },
+    {
+      "operationId": "retrieveAllProvisioningCriteria",
+      "method": "GET",
+      "rawPath": "/v1/provisioningcriteria",
+      "key": "GET /provisioningcriteria",
+      "canonPath": "/provisioningcriteria",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "operationId": "retrieveAllProvisioningEntries",
+      "method": "GET",
+      "rawPath": "/v1/provisioningentries",
+      "key": "GET /provisioningentries",
+      "canonPath": "/provisioningentries",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "operationId": "retrieveAllRates",
+      "method": "GET",
+      "rawPath": "/v1/rates",
+      "key": "GET /rates",
+      "canonPath": "/rates",
+      "tag": "Rate"
+    },
+    {
+      "operationId": "retrieveAllRecurringDepositAccounts",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositaccounts",
+      "key": "GET /recurringdepositaccounts",
+      "canonPath": "/recurringdepositaccounts",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "retrieveAllRecurringDepositProducts",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositproducts",
+      "key": "GET /recurringdepositproducts",
+      "canonPath": "/recurringdepositproducts",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "operationId": "retrieveAllReportMailingJobRunHistory",
+      "method": "GET",
+      "rawPath": "/v1/reportmailingjobrunhistory",
+      "key": "GET /reportmailingjobrunhistory",
+      "canonPath": "/reportmailingjobrunhistory",
+      "tag": "List Report Mailing Job History"
+    },
+    {
+      "operationId": "retrieveAllReportMailingJobs",
+      "method": "GET",
+      "rawPath": "/v1/reportmailingjobs",
+      "key": "GET /reportmailingjobs",
+      "canonPath": "/reportmailingjobs",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "operationId": "retrieveAllReports",
+      "method": "GET",
+      "rawPath": "/v1/reports",
+      "key": "GET /reports",
+      "canonPath": "/reports",
+      "tag": "Reports"
+    },
+    {
+      "operationId": "retrieveAllRescheduleLoanReasons",
+      "method": "GET",
+      "rawPath": "/v1/rescheduleloans/template",
+      "key": "GET /rescheduleloans/template",
+      "canonPath": "/rescheduleloans/template",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "operationId": "retrieveAllRescheduleLoans",
+      "method": "GET",
+      "rawPath": "/v1/rescheduleloans",
+      "key": "GET /rescheduleloans",
+      "canonPath": "/rescheduleloans",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "operationId": "retrieveAllRoles",
+      "method": "GET",
+      "rawPath": "/v1/roles",
+      "key": "GET /roles",
+      "canonPath": "/roles",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "retrieveAllSavingsAccountCharges",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges",
+      "key": "GET /savingsaccounts/{}/charges",
+      "canonPath": "/savingsaccounts/{}/charges",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "retrieveAllSavingsAccounts",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts",
+      "key": "GET /savingsaccounts",
+      "canonPath": "/savingsaccounts",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "retrieveAllSavingsProducts",
+      "method": "GET",
+      "rawPath": "/v1/savingsproducts",
+      "key": "GET /savingsproducts",
+      "canonPath": "/savingsproducts",
+      "tag": "Savings Product"
+    },
+    {
+      "operationId": "retrieveAllSchedulerJobs",
+      "method": "GET",
+      "rawPath": "/v1/jobs",
+      "key": "GET /jobs",
+      "canonPath": "/jobs",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "retrieveAllShareAccounts",
+      "method": "GET",
+      "rawPath": "/v1/accounts/{type}",
+      "key": "GET /accounts/{}",
+      "canonPath": "/accounts/{}",
+      "tag": "Share Account"
+    },
+    {
+      "operationId": "retrieveAllShareDividends",
+      "method": "GET",
+      "rawPath": "/v1/shareproduct/{productId}/dividend",
+      "key": "GET /shareproduct/{}/dividend",
+      "canonPath": "/shareproduct/{}/dividend",
+      "tag": "Self Dividend"
+    },
+    {
+      "operationId": "retrieveAllShareProducts",
+      "method": "GET",
+      "rawPath": "/v1/products/{type}",
+      "key": "GET /products/{}",
+      "canonPath": "/products/{}",
+      "tag": "Products"
+    },
+    {
+      "operationId": "retrieveAllSms",
+      "method": "GET",
+      "rawPath": "/v1/sms",
+      "key": "GET /sms",
+      "canonPath": "/sms",
+      "tag": "SMS"
+    },
+    {
+      "operationId": "retrieveAllSmsByStatus",
+      "method": "GET",
+      "rawPath": "/v1/sms/{campaignId}/messageByStatus",
+      "key": "GET /sms/{}/messageByStatus",
+      "canonPath": "/sms/{}/messageByStatus",
+      "tag": "SMS"
+    },
+    {
+      "operationId": "retrieveAllSmsCampaigns",
+      "method": "GET",
+      "rawPath": "/v1/smscampaigns",
+      "key": "GET /smscampaigns",
+      "canonPath": "/smscampaigns",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAllStaff",
+      "method": "GET",
+      "rawPath": "/v1/staff",
+      "key": "GET /staff",
+      "canonPath": "/staff",
+      "tag": "Staff"
+    },
+    {
+      "operationId": "retrieveAllStandingInstructionHistory",
+      "method": "GET",
+      "rawPath": "/v1/standinginstructionrunhistory",
+      "key": "GET /standinginstructionrunhistory",
+      "canonPath": "/standinginstructionrunhistory",
+      "tag": "Standing Instructions History"
+    },
+    {
+      "operationId": "retrieveAllStandingInstructions",
+      "method": "GET",
+      "rawPath": "/v1/standinginstructions",
+      "key": "GET /standinginstructions",
+      "canonPath": "/standinginstructions",
+      "tag": "Standing Instructions"
+    },
+    {
+      "operationId": "retrieveAllSurveys",
+      "method": "GET",
+      "rawPath": "/v1/survey",
+      "key": "GET /survey",
+      "canonPath": "/survey",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "retrieveAllTaxComponents",
+      "method": "GET",
+      "rawPath": "/v1/taxes/component",
+      "key": "GET /taxes/component",
+      "canonPath": "/taxes/component",
+      "tag": "Tax Components"
+    },
+    {
+      "operationId": "retrieveAllTaxGroups",
+      "method": "GET",
+      "rawPath": "/v1/taxes/group",
+      "key": "GET /taxes/group",
+      "canonPath": "/taxes/group",
+      "tag": "Tax Group"
+    },
+    {
+      "operationId": "retrieveAllTellers",
+      "method": "GET",
+      "rawPath": "/v1/tellers",
+      "key": "GET /tellers",
+      "canonPath": "/tellers",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveAllTemplates",
+      "method": "GET",
+      "rawPath": "/v1/templates",
+      "key": "GET /templates",
+      "canonPath": "/templates",
+      "tag": "templates"
+    },
+    {
+      "operationId": "retrieveAllTemplatesEmailCampaign",
+      "method": "GET",
+      "rawPath": "/v1/email/campaign/template",
+      "key": "GET /email/campaign/template",
+      "canonPath": "/email/campaign/template",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveAllTransactionsForTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/transactions",
+      "key": "GET /tellers/{}/transactions",
+      "canonPath": "/tellers/{}/transactions",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveAllUsers",
+      "method": "GET",
+      "rawPath": "/v1/users",
+      "key": "GET /users",
+      "canonPath": "/users",
+      "tag": "Users"
+    },
+    {
+      "operationId": "retrieveAllWorkingDays",
+      "method": "GET",
+      "rawPath": "/v1/workingdays",
+      "key": "GET /workingdays",
+      "canonPath": "/workingdays",
+      "tag": "Working days"
+    },
+    {
+      "operationId": "retrieveApprovalTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/template",
+      "key": "GET /loans/{}/template",
+      "canonPath": "/loans/{}/template",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveApprovedAmountHistoryLoan",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/approved-amount",
+      "key": "GET /loans/{}/approved-amount",
+      "canonPath": "/loans/{}/approved-amount",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveAuditEntries",
+      "method": "GET",
+      "rawPath": "/v1/audits",
+      "key": "GET /audits",
+      "canonPath": "/audits",
+      "tag": "Audits"
+    },
+    {
+      "operationId": "retrieveAuditEntry",
+      "method": "GET",
+      "rawPath": "/v1/audits/{auditId}",
+      "key": "GET /audits/{}",
+      "canonPath": "/audits/{}",
+      "tag": "Audits"
+    },
+    {
+      "operationId": "retrieveAuditSearchTemplate",
+      "method": "GET",
+      "rawPath": "/v1/audits/searchtemplate",
+      "key": "GET /audits/searchtemplate",
+      "canonPath": "/audits/searchtemplate",
+      "tag": "Audits"
+    },
+    {
+      "operationId": "retrieveAuditSearchTemplate_1",
+      "method": "GET",
+      "rawPath": "/v1/makercheckers/searchtemplate",
+      "key": "GET /makercheckers/searchtemplate",
+      "canonPath": "/makercheckers/searchtemplate",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "operationId": "retrieveBuyDownFeesAllocationData",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/buydown-fees/{loanTransactionId}",
+      "key": "GET /loans/{}/buydown-fees/{}",
+      "canonPath": "/loans/{}/buydown-fees/{}",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "operationId": "retrieveByShortName",
+      "method": "GET",
+      "rawPath": "/v1/jobs/short-name/{shortName}",
+      "key": "GET /jobs/short-name/{}",
+      "canonPath": "/jobs/short-name/{}",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "retrieveCalendar",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "key": "GET /{}/{}/calendars/{}",
+      "canonPath": "/{}/{}/calendars/{}",
+      "tag": "Calendar"
+    },
+    {
+      "operationId": "retrieveCalendarsByEntityId",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/calendars",
+      "key": "GET /{}/{}/calendars",
+      "canonPath": "/{}/{}/calendars",
+      "tag": "Calendar"
+    },
+    {
+      "operationId": "retrieveCapitalizedIncomeAllocationData",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/capitalized-incomes/{loanTransactionId}",
+      "key": "GET /loans/{}/capitalized-incomes/{}",
+      "canonPath": "/loans/{}/capitalized-incomes/{}",
+      "tag": "Loan Capitalized Income"
+    },
+    {
+      "operationId": "retrieveCashierTemplateForTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/template",
+      "key": "GET /tellers/{}/cashiers/template",
+      "canonPath": "/tellers/{}/cashiers/template",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveCashierTransactions",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}/transactions",
+      "key": "GET /tellers/{}/cashiers/{}/transactions",
+      "canonPath": "/tellers/{}/cashiers/{}/transactions",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveCashierTransactionsWithSummary",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}/summaryandtransactions",
+      "key": "GET /tellers/{}/cashiers/{}/summaryandtransactions",
+      "canonPath": "/tellers/{}/cashiers/{}/summaryandtransactions",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveClientObligeeDetails",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/obligeedetails",
+      "key": "GET /clients/{}/obligeedetails",
+      "canonPath": "/clients/{}/obligeedetails",
+      "tag": "Client"
+    },
+    {
+      "operationId": "retrieveClientTransaction",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/transactions/{transactionId}",
+      "key": "GET /clients/{}/transactions/{}",
+      "canonPath": "/clients/{}/transactions/{}",
+      "tag": "Client Transaction"
+    },
+    {
+      "operationId": "retrieveClientTransferTemplate",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/transferproposaldate",
+      "key": "GET /clients/{}/transferproposaldate",
+      "canonPath": "/clients/{}/transferproposaldate",
+      "tag": "Client"
+    },
+    {
+      "operationId": "retrieveCodeValue",
+      "method": "GET",
+      "rawPath": "/v1/codes/{codeId}/codevalues/{codeValueId}",
+      "key": "GET /codes/{}/codevalues/{}",
+      "canonPath": "/codes/{}/codevalues/{}",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "retrieveCodeValue_1",
+      "method": "GET",
+      "rawPath": "/v1/codes/name/{codeName}/codevalues/{codeValueId}",
+      "key": "GET /codes/name/{}/codevalues/{}",
+      "canonPath": "/codes/name/{}/codevalues/{}",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "retrieveCollateralDetails",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/collaterals",
+      "key": "GET /loans/{}/collaterals",
+      "canonPath": "/loans/{}/collaterals",
+      "tag": "Loan Collateral"
+    },
+    {
+      "operationId": "retrieveCollateralDetails_1",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/collaterals/{collateralId}",
+      "key": "GET /loans/{}/collaterals/{}",
+      "canonPath": "/loans/{}/collaterals/{}",
+      "tag": "Loan Collateral"
+    },
+    {
+      "operationId": "retrieveCommands",
+      "method": "GET",
+      "rawPath": "/v1/makercheckers",
+      "key": "GET /makercheckers",
+      "canonPath": "/makercheckers",
+      "tag": "Maker Checker (or 4-eye) functionality"
+    },
+    {
+      "operationId": "retrieveConfiguration",
+      "method": "GET",
+      "rawPath": "/v1/configurations",
+      "key": "GET /configurations",
+      "canonPath": "/configurations",
+      "tag": "Global Configuration"
+    },
+    {
+      "operationId": "retrieveCurrencies",
+      "method": "GET",
+      "rawPath": "/v1/currencies",
+      "key": "GET /currencies",
+      "canonPath": "/currencies",
+      "tag": "Currency"
+    },
+    {
+      "operationId": "retrieveDelinquencyActionsLoan",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/delinquency-actions",
+      "key": "GET /loans/{}/delinquency-actions",
+      "canonPath": "/loans/{}/delinquency-actions",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveDelinquencyTagHistoryLoan",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/delinquencytags",
+      "key": "GET /loans/{}/delinquencytags",
+      "canonPath": "/loans/{}/delinquencytags",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveExternalAssetOwners",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners",
+      "key": "GET /external-asset-owners",
+      "canonPath": "/external-asset-owners",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "retrieveExternalServicesConfiguration",
+      "method": "GET",
+      "rawPath": "/v1/externalservice/{servicename}",
+      "key": "GET /externalservice/{}",
+      "canonPath": "/externalservice/{}",
+      "tag": "External Services"
+    },
+    {
+      "operationId": "retrieveFailedEmail",
+      "method": "GET",
+      "rawPath": "/v1/email/failedEmail",
+      "key": "GET /email/failedEmail",
+      "canonPath": "/email/failedEmail",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveFund",
+      "method": "GET",
+      "rawPath": "/v1/funds/{fundId}",
+      "key": "GET /funds/{}",
+      "canonPath": "/funds/{}",
+      "tag": "Funds"
+    },
+    {
+      "operationId": "retrieveFunds",
+      "method": "GET",
+      "rawPath": "/v1/funds",
+      "key": "GET /funds",
+      "canonPath": "/funds",
+      "tag": "Funds"
+    },
+    {
+      "operationId": "retrieveGlimAccountsGroup",
+      "method": "GET",
+      "rawPath": "/v1/groups/{groupId}/glimaccounts",
+      "key": "GET /groups/{}/glimaccounts",
+      "canonPath": "/groups/{}/glimaccounts",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "retrieveGroupAccountsCenter",
+      "method": "GET",
+      "rawPath": "/v1/centers/{centerId}/accounts",
+      "key": "GET /centers/{}/accounts",
+      "canonPath": "/centers/{}/accounts",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "retrieveGsimAccountsGroup",
+      "method": "GET",
+      "rawPath": "/v1/groups/{groupId}/gsimaccounts",
+      "key": "GET /groups/{}/gsimaccounts",
+      "canonPath": "/groups/{}/gsimaccounts",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "retrieveGuarantorDetails",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/guarantors",
+      "key": "GET /loans/{}/guarantors",
+      "canonPath": "/loans/{}/guarantors",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "retrieveGuarantorDetails_1",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/guarantors/{guarantorId}",
+      "key": "GET /loans/{}/guarantors/{}",
+      "canonPath": "/loans/{}/guarantors/{}",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "retrieveHistory",
+      "method": "GET",
+      "rawPath": "/v1/jobs/{jobId}/runhistory",
+      "key": "GET /jobs/{}/runhistory",
+      "canonPath": "/jobs/{}/runhistory",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "retrieveHistoryByShortName",
+      "method": "GET",
+      "rawPath": "/v1/jobs/short-name/{shortName}/runhistory",
+      "key": "GET /jobs/short-name/{}/runhistory",
+      "canonPath": "/jobs/short-name/{}/runhistory",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "retrieveImage",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/images",
+      "key": "GET /{}/{}/images",
+      "canonPath": "/{}/{}/images",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveImportDocuments",
+      "method": "GET",
+      "rawPath": "/v1/imports",
+      "key": "GET /imports",
+      "canonPath": "/imports",
+      "tag": "Bulk Import"
+    },
+    {
+      "operationId": "retrieveJournalEntries",
+      "method": "GET",
+      "rawPath": "/v1/journalentries/provisioning",
+      "key": "GET /journalentries/provisioning",
+      "canonPath": "/journalentries/provisioning",
+      "tag": "Journal Entries"
+    },
+    {
+      "operationId": "retrieveJournalEntryById",
+      "method": "GET",
+      "rawPath": "/v1/journalentries/{journalEntryId}",
+      "key": "GET /journalentries/{}",
+      "canonPath": "/journalentries/{}",
+      "tag": "Journal Entries"
+    },
+    {
+      "operationId": "retrieveLoanBuyDownFeeAmortizationDetails",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/buydown-fees",
+      "key": "GET /loans/{}/buydown-fees",
+      "canonPath": "/loans/{}/buydown-fees",
+      "tag": "Loan Buy Down Fees"
+    },
+    {
+      "operationId": "retrieveLoanOriginatorTemplate",
+      "method": "GET",
+      "rawPath": "/v1/loan-originators/template",
+      "key": "GET /loan-originators/template",
+      "canonPath": "/loan-originators/template",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "retrieveLoanPointInTime",
+      "method": "GET",
+      "rawPath": "/v1/loans/at-date/{loanId}",
+      "key": "GET /loans/at-date/{}",
+      "canonPath": "/loans/at-date/{}",
+      "tag": "LoansPointInTime"
+    },
+    {
+      "operationId": "retrieveLoansPointInTime",
+      "method": "POST",
+      "rawPath": "/v1/loans/at-date/search",
+      "key": "POST /loans/at-date/search",
+      "canonPath": "/loans/at-date/search",
+      "tag": "LoansPointInTime"
+    },
+    {
+      "operationId": "retrieveLockedAccounts",
+      "method": "GET",
+      "rawPath": "/v1/loans/locked",
+      "key": "GET /loans/locked",
+      "canonPath": "/loans/locked",
+      "tag": "Loan Account Lock"
+    },
+    {
+      "operationId": "retrieveMixReport",
+      "method": "GET",
+      "rawPath": "/v1/mixreport",
+      "key": "GET /mixreport",
+      "canonPath": "/mixreport",
+      "tag": "Mix Report"
+    },
+    {
+      "operationId": "retrieveMixTaxonomyMapping",
+      "method": "GET",
+      "rawPath": "/v1/mixmapping",
+      "key": "GET /mixmapping",
+      "canonPath": "/mixmapping",
+      "tag": "Mix Mapping"
+    },
+    {
+      "operationId": "retrieveNewAccountDetails",
+      "method": "GET",
+      "rawPath": "/v1/glaccounts/template",
+      "key": "GET /glaccounts/template",
+      "canonPath": "/glaccounts/template",
+      "tag": "General Ledger Account"
+    },
+    {
+      "operationId": "retrieveNote",
+      "method": "GET",
+      "rawPath": "/v1/{resourceType}/{resourceId}/notes/{noteId}",
+      "key": "GET /{}/{}/notes/{}",
+      "canonPath": "/{}/{}/notes/{}",
+      "tag": "Notes"
+    },
+    {
+      "operationId": "retrieveNotesByResource",
+      "method": "GET",
+      "rawPath": "/v1/{resourceType}/{resourceId}/notes",
+      "key": "GET /{}/{}/notes",
+      "canonPath": "/{}/{}/notes",
+      "tag": "Notes"
+    },
+    {
+      "operationId": "retrieveOfficeTransactions",
+      "method": "GET",
+      "rawPath": "/v1/officetransactions",
+      "key": "GET /officetransactions",
+      "canonPath": "/officetransactions",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveOne",
+      "method": "GET",
+      "rawPath": "/v1/entitytoentitymapping/{mapId}",
+      "key": "GET /entitytoentitymapping/{}",
+      "canonPath": "/entitytoentitymapping/{}",
+      "tag": "Fineract Entity"
+    },
+    {
+      "operationId": "retrieveOneAccountingRule",
+      "method": "GET",
+      "rawPath": "/v1/accountingrules/{accountingRuleId}",
+      "key": "GET /accountingrules/{}",
+      "canonPath": "/accountingrules/{}",
+      "tag": "Accounting Rules"
+    },
+    {
+      "operationId": "retrieveOneAccountNumberFormat",
+      "method": "GET",
+      "rawPath": "/v1/accountnumberformats/{accountNumberFormatId}",
+      "key": "GET /accountnumberformats/{}",
+      "canonPath": "/accountnumberformats/{}",
+      "tag": "Account number format"
+    },
+    {
+      "operationId": "retrieveOneAccountTransfer",
+      "method": "GET",
+      "rawPath": "/v1/accounttransfers/{transferId}",
+      "key": "GET /accounttransfers/{}",
+      "canonPath": "/accounttransfers/{}",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "retrieveOneByName",
+      "method": "GET",
+      "rawPath": "/v1/configurations/name/{name}",
+      "key": "GET /configurations/name/{}",
+      "canonPath": "/configurations/name/{}",
+      "tag": "Global Configuration"
+    },
+    {
+      "operationId": "retrieveOneCashierForTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}",
+      "key": "GET /tellers/{}/cashiers/{}",
+      "canonPath": "/tellers/{}/cashiers/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveOneCenter",
+      "method": "GET",
+      "rawPath": "/v1/centers/{centerId}",
+      "key": "GET /centers/{}",
+      "canonPath": "/centers/{}",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "retrieveOneCharge",
+      "method": "GET",
+      "rawPath": "/v1/charges/{chargeId}",
+      "key": "GET /charges/{}",
+      "canonPath": "/charges/{}",
+      "tag": "Charges"
+    },
+    {
+      "operationId": "retrieveOneClient",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}",
+      "key": "GET /clients/{}",
+      "canonPath": "/clients/{}",
+      "tag": "Client"
+    },
+    {
+      "operationId": "retrieveOneClientCharge",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/charges/{chargeId}",
+      "key": "GET /clients/{}/charges/{}",
+      "canonPath": "/clients/{}/charges/{}",
+      "tag": "Client Charges"
+    },
+    {
+      "operationId": "retrieveOneClientFamilyMember",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/familymembers/{familyMemberId}",
+      "key": "GET /clients/{}/familymembers/{}",
+      "canonPath": "/clients/{}/familymembers/{}",
+      "tag": "Client Family Member"
+    },
+    {
+      "operationId": "retrieveOneClientIdentifier",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/identifiers/{identifierId}",
+      "key": "GET /clients/{}/identifiers/{}",
+      "canonPath": "/clients/{}/identifiers/{}",
+      "tag": "Client Identifier"
+    },
+    {
+      "operationId": "retrieveOneCode",
+      "method": "GET",
+      "rawPath": "/v1/codes/{codeId}",
+      "key": "GET /codes/{}",
+      "canonPath": "/codes/{}",
+      "tag": "Codes"
+    },
+    {
+      "operationId": "retrieveOneCodeByName",
+      "method": "GET",
+      "rawPath": "/v1/codes/name/{codeName}",
+      "key": "GET /codes/name/{}",
+      "canonPath": "/codes/name/{}",
+      "tag": "Codes"
+    },
+    {
+      "operationId": "retrieveOneEmail",
+      "method": "GET",
+      "rawPath": "/v1/email/{resourceId}",
+      "key": "GET /email/{}",
+      "canonPath": "/email/{}",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveOneEmailCampaign",
+      "method": "GET",
+      "rawPath": "/v1/email/campaign/{resourceId}",
+      "key": "GET /email/campaign/{}",
+      "canonPath": "/email/campaign/{}",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveOneFixedDepositAccount",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/{accountId}",
+      "key": "GET /fixeddepositaccounts/{}",
+      "canonPath": "/fixeddepositaccounts/{}",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "retrieveOneFixedDepositAccountTransaction",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/{transactionId}",
+      "key": "GET /fixeddepositaccounts/{}/transactions/{}",
+      "canonPath": "/fixeddepositaccounts/{}/transactions/{}",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "operationId": "retrieveOneFixedDepositProduct",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositproducts/{productId}",
+      "key": "GET /fixeddepositproducts/{}",
+      "canonPath": "/fixeddepositproducts/{}",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "operationId": "retrieveOneFloatingRate",
+      "method": "GET",
+      "rawPath": "/v1/floatingrates/{floatingRateId}",
+      "key": "GET /floatingrates/{}",
+      "canonPath": "/floatingrates/{}",
+      "tag": "Floating Rates"
+    },
+    {
+      "operationId": "retrieveOneGLClosure",
+      "method": "GET",
+      "rawPath": "/v1/glclosures/{glClosureId}",
+      "key": "GET /glclosures/{}",
+      "canonPath": "/glclosures/{}",
+      "tag": "Accounting Closure"
+    },
+    {
+      "operationId": "retrieveOneGlobalConfiguration",
+      "method": "GET",
+      "rawPath": "/v1/configurations/{configId}",
+      "key": "GET /configurations/{}",
+      "canonPath": "/configurations/{}",
+      "tag": "Global Configuration"
+    },
+    {
+      "operationId": "retrieveOneGroup",
+      "method": "GET",
+      "rawPath": "/v1/groups/{groupId}",
+      "key": "GET /groups/{}",
+      "canonPath": "/groups/{}",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "retrieveOneHoliday",
+      "method": "GET",
+      "rawPath": "/v1/holidays/{holidayId}",
+      "key": "GET /holidays/{}",
+      "canonPath": "/holidays/{}",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "retrieveOneHook",
+      "method": "GET",
+      "rawPath": "/v1/hooks/{hookId}",
+      "key": "GET /hooks/{}",
+      "canonPath": "/hooks/{}",
+      "tag": "Hooks"
+    },
+    {
+      "operationId": "retrieveOneInterestRateChart",
+      "method": "GET",
+      "rawPath": "/v1/interestratecharts/{chartId}",
+      "key": "GET /interestratecharts/{}",
+      "canonPath": "/interestratecharts/{}",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "operationId": "retrieveOneInterestRateChartSlab",
+      "method": "GET",
+      "rawPath": "/v1/interestratecharts/{chartId}/chartslabs/{chartSlabId}",
+      "key": "GET /interestratecharts/{}/chartslabs/{}",
+      "canonPath": "/interestratecharts/{}/chartslabs/{}",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "operationId": "retrieveOneLoan",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}",
+      "key": "GET /loans/{}",
+      "canonPath": "/loans/{}",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveOneLoanCharge",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/charges/{loanChargeId}",
+      "key": "GET /loans/{}/charges/{}",
+      "canonPath": "/loans/{}/charges/{}",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "retrieveOneLoanOriginator",
+      "method": "GET",
+      "rawPath": "/v1/loan-originators/{originatorId}",
+      "key": "GET /loan-originators/{}",
+      "canonPath": "/loan-originators/{}",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "retrieveOneLoanProduct",
+      "method": "GET",
+      "rawPath": "/v1/loanproducts/{productId}",
+      "key": "GET /loanproducts/{}",
+      "canonPath": "/loanproducts/{}",
+      "tag": "Loan Products"
+    },
+    {
+      "operationId": "retrieveOneLoanTransaction",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/transactions/{transactionId}",
+      "key": "GET /loans/{}/transactions/{}",
+      "canonPath": "/loans/{}/transactions/{}",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "retrieveOneMeeting",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings/{meetingId}",
+      "key": "GET /{}/{}/meetings/{}",
+      "canonPath": "/{}/{}/meetings/{}",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "retrieveOneOffice",
+      "method": "GET",
+      "rawPath": "/v1/offices/{officeId}",
+      "key": "GET /offices/{}",
+      "canonPath": "/offices/{}",
+      "tag": "Offices"
+    },
+    {
+      "operationId": "retrieveOnePaymentType",
+      "method": "GET",
+      "rawPath": "/v1/paymenttypes/{paymentTypeId}",
+      "key": "GET /paymenttypes/{}",
+      "canonPath": "/paymenttypes/{}",
+      "tag": "Payment Type"
+    },
+    {
+      "operationId": "retrieveOneProvisioningCriteria",
+      "method": "GET",
+      "rawPath": "/v1/provisioningcriteria/{criteriaId}",
+      "key": "GET /provisioningcriteria/{}",
+      "canonPath": "/provisioningcriteria/{}",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "operationId": "retrieveOneProvisioningEntry",
+      "method": "GET",
+      "rawPath": "/v1/provisioningentries/{entryId}",
+      "key": "GET /provisioningentries/{}",
+      "canonPath": "/provisioningentries/{}",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "operationId": "retrieveOneRate",
+      "method": "GET",
+      "rawPath": "/v1/rates/{rateId}",
+      "key": "GET /rates/{}",
+      "canonPath": "/rates/{}",
+      "tag": "Rate"
+    },
+    {
+      "operationId": "retrieveOneRecurringDepositAccount",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositaccounts/{accountId}",
+      "key": "GET /recurringdepositaccounts/{}",
+      "canonPath": "/recurringdepositaccounts/{}",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "retrieveOneRecurringDepositAccountTransaction",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/{transactionId}",
+      "key": "GET /recurringdepositaccounts/{}/transactions/{}",
+      "canonPath": "/recurringdepositaccounts/{}/transactions/{}",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "operationId": "retrieveOneRecurringDepositProduct",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositproducts/{productId}",
+      "key": "GET /recurringdepositproducts/{}",
+      "canonPath": "/recurringdepositproducts/{}",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "operationId": "retrieveOneReport",
+      "method": "GET",
+      "rawPath": "/v1/reports/{id}",
+      "key": "GET /reports/{}",
+      "canonPath": "/reports/{}",
+      "tag": "Reports"
+    },
+    {
+      "operationId": "retrieveOneReportMailingJob",
+      "method": "GET",
+      "rawPath": "/v1/reportmailingjobs/{entityId}",
+      "key": "GET /reportmailingjobs/{}",
+      "canonPath": "/reportmailingjobs/{}",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "operationId": "retrieveOneRescheduleLoan",
+      "method": "GET",
+      "rawPath": "/v1/rescheduleloans/{scheduleId}",
+      "key": "GET /rescheduleloans/{}",
+      "canonPath": "/rescheduleloans/{}",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "operationId": "retrieveOneRole",
+      "method": "GET",
+      "rawPath": "/v1/roles/{roleId}",
+      "key": "GET /roles/{}",
+      "canonPath": "/roles/{}",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "retrieveOneSavingsAccountCharge",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "key": "GET /savingsaccounts/{}/charges/{}",
+      "canonPath": "/savingsaccounts/{}/charges/{}",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "retrieveOneSavingsAccountTransaction",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/transactions/{transactionId}",
+      "key": "GET /savingsaccounts/{}/transactions/{}",
+      "canonPath": "/savingsaccounts/{}/transactions/{}",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "operationId": "retrieveOneSavingsProduct",
+      "method": "GET",
+      "rawPath": "/v1/savingsproducts/{productId}",
+      "key": "GET /savingsproducts/{}",
+      "canonPath": "/savingsproducts/{}",
+      "tag": "Savings Product"
+    },
+    {
+      "operationId": "retrieveOneSchedulerJob",
+      "method": "GET",
+      "rawPath": "/v1/jobs/{jobId}",
+      "key": "GET /jobs/{}",
+      "canonPath": "/jobs/{}",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "retrieveOneShareAccount",
+      "method": "GET",
+      "rawPath": "/v1/accounts/{type}/{accountId}",
+      "key": "GET /accounts/{}/{}",
+      "canonPath": "/accounts/{}/{}",
+      "tag": "Share Account"
+    },
+    {
+      "operationId": "retrieveOneShareDividend",
+      "method": "GET",
+      "rawPath": "/v1/shareproduct/{productId}/dividend/{dividendId}",
+      "key": "GET /shareproduct/{}/dividend/{}",
+      "canonPath": "/shareproduct/{}/dividend/{}",
+      "tag": "Self Dividend"
+    },
+    {
+      "operationId": "retrieveOneShareProduct",
+      "method": "GET",
+      "rawPath": "/v1/products/{type}/{productId}",
+      "key": "GET /products/{}/{}",
+      "canonPath": "/products/{}/{}",
+      "tag": "Products"
+    },
+    {
+      "operationId": "retrieveOneSms",
+      "method": "GET",
+      "rawPath": "/v1/sms/{resourceId}",
+      "key": "GET /sms/{}",
+      "canonPath": "/sms/{}",
+      "tag": "SMS"
+    },
+    {
+      "operationId": "retrieveOneSmsCampaign",
+      "method": "GET",
+      "rawPath": "/v1/smscampaigns/{resourceId}",
+      "key": "GET /smscampaigns/{}",
+      "canonPath": "/smscampaigns/{}",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveOneStaff",
+      "method": "GET",
+      "rawPath": "/v1/staff/{staffId}",
+      "key": "GET /staff/{}",
+      "canonPath": "/staff/{}",
+      "tag": "Staff"
+    },
+    {
+      "operationId": "retrieveOneStandingInstruction",
+      "method": "GET",
+      "rawPath": "/v1/standinginstructions/{standingInstructionId}",
+      "key": "GET /standinginstructions/{}",
+      "canonPath": "/standinginstructions/{}",
+      "tag": "Standing Instructions"
+    },
+    {
+      "operationId": "retrieveOneSurvey",
+      "method": "GET",
+      "rawPath": "/v1/survey/{surveyName}",
+      "key": "GET /survey/{}",
+      "canonPath": "/survey/{}",
+      "tag": "Survey"
+    },
+    {
+      "operationId": "retrieveOneTaxComponent",
+      "method": "GET",
+      "rawPath": "/v1/taxes/component/{taxComponentId}",
+      "key": "GET /taxes/component/{}",
+      "canonPath": "/taxes/component/{}",
+      "tag": "Tax Components"
+    },
+    {
+      "operationId": "retrieveOneTaxGroup",
+      "method": "GET",
+      "rawPath": "/v1/taxes/group/{taxGroupId}",
+      "key": "GET /taxes/group/{}",
+      "canonPath": "/taxes/group/{}",
+      "tag": "Tax Group"
+    },
+    {
+      "operationId": "retrieveOneTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}",
+      "key": "GET /tellers/{}",
+      "canonPath": "/tellers/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveOneTemplate",
+      "method": "GET",
+      "rawPath": "/v1/templates/{templateId}",
+      "key": "GET /templates/{}",
+      "canonPath": "/templates/{}",
+      "tag": "templates"
+    },
+    {
+      "operationId": "retrieveOneTemplateEmailCampaign",
+      "method": "GET",
+      "rawPath": "/v1/email/campaign/template/{resourceId}",
+      "key": "GET /email/campaign/template/{}",
+      "canonPath": "/email/campaign/template/{}",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveOneTransactionForTeller",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/transactions/{transactionId}",
+      "key": "GET /tellers/{}/transactions/{}",
+      "canonPath": "/tellers/{}/transactions/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveOneUser",
+      "method": "GET",
+      "rawPath": "/v1/users/{userId}",
+      "key": "GET /users/{}",
+      "canonPath": "/users/{}",
+      "tag": "Users"
+    },
+    {
+      "operationId": "retrieveOpeningBalance",
+      "method": "GET",
+      "rawPath": "/v1/journalentries/openingbalance",
+      "key": "GET /journalentries/openingbalance",
+      "canonPath": "/journalentries/openingbalance",
+      "tag": "Journal Entries"
+    },
+    {
+      "operationId": "retrieveOriginatorsByLoanId",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/originators",
+      "key": "GET /loans/{}/originators",
+      "canonPath": "/loans/{}/originators",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "retrievePendingEmail",
+      "method": "GET",
+      "rawPath": "/v1/email/pendingEmail",
+      "key": "GET /email/pendingEmail",
+      "canonPath": "/email/pendingEmail",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveProvisioningEntriesLoanProducts",
+      "method": "GET",
+      "rawPath": "/v1/provisioningentries/entries",
+      "key": "GET /provisioningentries/entries",
+      "canonPath": "/provisioningentries/entries",
+      "tag": "Provisioning Entries"
+    },
+    {
+      "operationId": "retrieveRepaymentScheduleUpdationTyeOptions",
+      "method": "GET",
+      "rawPath": "/v1/holidays/template",
+      "key": "GET /holidays/template",
+      "canonPath": "/holidays/template",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "retrieveRolePermissions",
+      "method": "GET",
+      "rawPath": "/v1/roles/{roleId}/permissions",
+      "key": "GET /roles/{}/permissions",
+      "canonPath": "/roles/{}/permissions",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "retrieveSavingsAccount",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{accountId}",
+      "key": "GET /savingsaccounts/{}",
+      "canonPath": "/savingsaccounts/{}",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "retrieveSavingsAccountTemplate",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/template",
+      "key": "GET /savingsaccounts/template",
+      "canonPath": "/savingsaccounts/template",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "retrieveSchedulerStatus",
+      "method": "GET",
+      "rawPath": "/v1/scheduler",
+      "key": "GET /scheduler",
+      "canonPath": "/scheduler",
+      "tag": "Scheduler"
+    },
+    {
+      "operationId": "retrieveSentEmail",
+      "method": "GET",
+      "rawPath": "/v1/email/sentEmail",
+      "key": "GET /email/sentEmail",
+      "canonPath": "/email/sentEmail",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveTemplate",
+      "method": "GET",
+      "rawPath": "/v1/financialactivityaccounts/template",
+      "key": "GET /financialactivityaccounts/template",
+      "canonPath": "/financialactivityaccounts/template",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "operationId": "retrieveTemplate_1",
+      "method": "GET",
+      "rawPath": "/v1/provisioningcriteria/template",
+      "key": "GET /provisioningcriteria/template",
+      "canonPath": "/provisioningcriteria/template",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "operationId": "retrieveTemplateAccountingRule",
+      "method": "GET",
+      "rawPath": "/v1/accountingrules/template",
+      "key": "GET /accountingrules/template",
+      "canonPath": "/accountingrules/template",
+      "tag": "Accounting Rules"
+    },
+    {
+      "operationId": "retrieveTemplateAccountNumberFormat",
+      "method": "GET",
+      "rawPath": "/v1/accountnumberformats/template",
+      "key": "GET /accountnumberformats/template",
+      "canonPath": "/accountnumberformats/template",
+      "tag": "Account number format"
+    },
+    {
+      "operationId": "retrieveTemplateAccountTransfer",
+      "method": "GET",
+      "rawPath": "/v1/accounttransfers/template",
+      "key": "GET /accounttransfers/template",
+      "canonPath": "/accounttransfers/template",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "retrieveTemplateById",
+      "method": "GET",
+      "rawPath": "/v1/templates/{templateId}/template",
+      "key": "GET /templates/{}/template",
+      "canonPath": "/templates/{}/template",
+      "tag": "templates"
+    },
+    {
+      "operationId": "retrieveTemplateCalendar",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/calendars/template",
+      "key": "GET /{}/{}/calendars/template",
+      "canonPath": "/{}/{}/calendars/template",
+      "tag": "Calendar"
+    },
+    {
+      "operationId": "retrieveTemplateCashierTransaction",
+      "method": "GET",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}/transactions/template",
+      "key": "GET /tellers/{}/cashiers/{}/transactions/template",
+      "canonPath": "/tellers/{}/cashiers/{}/transactions/template",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "retrieveTemplateCenter",
+      "method": "GET",
+      "rawPath": "/v1/centers/template",
+      "key": "GET /centers/template",
+      "canonPath": "/centers/template",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "retrieveTemplateCharge",
+      "method": "GET",
+      "rawPath": "/v1/charges/template",
+      "key": "GET /charges/template",
+      "canonPath": "/charges/template",
+      "tag": "Charges"
+    },
+    {
+      "operationId": "retrieveTemplateClient",
+      "method": "GET",
+      "rawPath": "/v1/clients/template",
+      "key": "GET /clients/template",
+      "canonPath": "/clients/template",
+      "tag": "Client"
+    },
+    {
+      "operationId": "retrieveTemplateClientAddress",
+      "method": "GET",
+      "rawPath": "/v1/client/addresses/template",
+      "key": "GET /client/addresses/template",
+      "canonPath": "/client/addresses/template",
+      "tag": "Clients Address"
+    },
+    {
+      "operationId": "retrieveTemplateClientCharge",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/charges/template",
+      "key": "GET /clients/{}/charges/template",
+      "canonPath": "/clients/{}/charges/template",
+      "tag": "Client Charges"
+    },
+    {
+      "operationId": "retrieveTemplateClientFamilyMember",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/familymembers/template",
+      "key": "GET /clients/{}/familymembers/template",
+      "canonPath": "/clients/{}/familymembers/template",
+      "tag": "Client Family Member"
+    },
+    {
+      "operationId": "retrieveTemplateClientIdentifier",
+      "method": "GET",
+      "rawPath": "/v1/clients/{clientId}/identifiers/template",
+      "key": "GET /clients/{}/identifiers/template",
+      "canonPath": "/clients/{}/identifiers/template",
+      "tag": "Client Identifier"
+    },
+    {
+      "operationId": "retrieveTemplateDetails",
+      "method": "GET",
+      "rawPath": "/v1/templates/template",
+      "key": "GET /templates/template",
+      "canonPath": "/templates/template",
+      "tag": "templates"
+    },
+    {
+      "operationId": "retrieveTemplateEntityDatatableChecks",
+      "method": "GET",
+      "rawPath": "/v1/entityDatatableChecks/template",
+      "key": "GET /entityDatatableChecks/template",
+      "canonPath": "/entityDatatableChecks/template",
+      "tag": "Entity Data Table"
+    },
+    {
+      "operationId": "retrieveTemplateFixedDepositAccount",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/template",
+      "key": "GET /fixeddepositaccounts/template",
+      "canonPath": "/fixeddepositaccounts/template",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "retrieveTemplateFixedDepositAccountTransaction",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions/template",
+      "key": "GET /fixeddepositaccounts/{}/transactions/template",
+      "canonPath": "/fixeddepositaccounts/{}/transactions/template",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "operationId": "retrieveTemplateFixedDepositProduct",
+      "method": "GET",
+      "rawPath": "/v1/fixeddepositproducts/template",
+      "key": "GET /fixeddepositproducts/template",
+      "canonPath": "/fixeddepositproducts/template",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "operationId": "retrieveTemplateGroup",
+      "method": "GET",
+      "rawPath": "/v1/groups/template",
+      "key": "GET /groups/template",
+      "canonPath": "/groups/template",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "retrieveTemplateHook",
+      "method": "GET",
+      "rawPath": "/v1/hooks/template",
+      "key": "GET /hooks/template",
+      "canonPath": "/hooks/template",
+      "tag": "Hooks"
+    },
+    {
+      "operationId": "retrieveTemplateInterestRateChart",
+      "method": "GET",
+      "rawPath": "/v1/interestratecharts/template",
+      "key": "GET /interestratecharts/template",
+      "canonPath": "/interestratecharts/template",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "operationId": "retrieveTemplateInterestRateChartSlab",
+      "method": "GET",
+      "rawPath": "/v1/interestratecharts/{chartId}/chartslabs/template",
+      "key": "GET /interestratecharts/{}/chartslabs/template",
+      "canonPath": "/interestratecharts/{}/chartslabs/template",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "operationId": "retrieveTemplateLoan",
+      "method": "GET",
+      "rawPath": "/v1/loans/template",
+      "key": "GET /loans/template",
+      "canonPath": "/loans/template",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "retrieveTemplateLoanCharge",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/charges/template",
+      "key": "GET /loans/{}/charges/template",
+      "canonPath": "/loans/{}/charges/template",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "retrieveTemplateLoanProduct",
+      "method": "GET",
+      "rawPath": "/v1/loanproducts/template",
+      "key": "GET /loanproducts/template",
+      "canonPath": "/loanproducts/template",
+      "tag": "Loan Products"
+    },
+    {
+      "operationId": "retrieveTemplateLoanTransaction",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/transactions/template",
+      "key": "GET /loans/{}/transactions/template",
+      "canonPath": "/loans/{}/transactions/template",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "retrieveTemplateMeeting",
+      "method": "GET",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings/template",
+      "key": "GET /{}/{}/meetings/template",
+      "canonPath": "/{}/{}/meetings/template",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "retrieveTemplateOffice",
+      "method": "GET",
+      "rawPath": "/v1/offices/template",
+      "key": "GET /offices/template",
+      "canonPath": "/offices/template",
+      "tag": "Offices"
+    },
+    {
+      "operationId": "retrieveTemplatePasswordPreferences",
+      "method": "GET",
+      "rawPath": "/v1/passwordpreferences/template",
+      "key": "GET /passwordpreferences/template",
+      "canonPath": "/passwordpreferences/template",
+      "tag": "Password preferences"
+    },
+    {
+      "operationId": "retrieveTemplateProductMix",
+      "method": "GET",
+      "rawPath": "/v1/loanproducts/{productId}/productmix",
+      "key": "GET /loanproducts/{}/productmix",
+      "canonPath": "/loanproducts/{}/productmix",
+      "tag": "Product Mix"
+    },
+    {
+      "operationId": "retrieveTemplateRecurringDepositAccount",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositaccounts/template",
+      "key": "GET /recurringdepositaccounts/template",
+      "canonPath": "/recurringdepositaccounts/template",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "retrieveTemplateRecurringDepositAccountTransaction",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions/template",
+      "key": "GET /recurringdepositaccounts/{}/transactions/template",
+      "canonPath": "/recurringdepositaccounts/{}/transactions/template",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "operationId": "retrieveTemplateRecurringDepositProduct",
+      "method": "GET",
+      "rawPath": "/v1/recurringdepositproducts/template",
+      "key": "GET /recurringdepositproducts/template",
+      "canonPath": "/recurringdepositproducts/template",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "operationId": "retrieveTemplateRefundByTransfer",
+      "method": "GET",
+      "rawPath": "/v1/accounttransfers/templateRefundByTransfer",
+      "key": "GET /accounttransfers/templateRefundByTransfer",
+      "canonPath": "/accounttransfers/templateRefundByTransfer",
+      "tag": "Account Transfers"
+    },
+    {
+      "operationId": "retrieveTemplateReport",
+      "method": "GET",
+      "rawPath": "/v1/reports/template",
+      "key": "GET /reports/template",
+      "canonPath": "/reports/template",
+      "tag": "Reports"
+    },
+    {
+      "operationId": "retrieveTemplateReportMailingJob",
+      "method": "GET",
+      "rawPath": "/v1/reportmailingjobs/template",
+      "key": "GET /reportmailingjobs/template",
+      "canonPath": "/reportmailingjobs/template",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "operationId": "retrieveTemplateSavingsAccountCharge",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges/template",
+      "key": "GET /savingsaccounts/{}/charges/template",
+      "canonPath": "/savingsaccounts/{}/charges/template",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "retrieveTemplateSavingsAccountTransaction",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/transactions/template",
+      "key": "GET /savingsaccounts/{}/transactions/template",
+      "canonPath": "/savingsaccounts/{}/transactions/template",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "operationId": "retrieveTemplateSavingsProduct",
+      "method": "GET",
+      "rawPath": "/v1/savingsproducts/template",
+      "key": "GET /savingsproducts/template",
+      "canonPath": "/savingsproducts/template",
+      "tag": "Savings Product"
+    },
+    {
+      "operationId": "retrieveTemplateShareAccount",
+      "method": "GET",
+      "rawPath": "/v1/accounts/{type}/template",
+      "key": "GET /accounts/{}/template",
+      "canonPath": "/accounts/{}/template",
+      "tag": "Share Account"
+    },
+    {
+      "operationId": "retrieveTemplateShareProduct",
+      "method": "GET",
+      "rawPath": "/v1/products/{type}/template",
+      "key": "GET /products/{}/template",
+      "canonPath": "/products/{}/template",
+      "tag": "Products"
+    },
+    {
+      "operationId": "retrieveTemplateSmsCampaign",
+      "method": "GET",
+      "rawPath": "/v1/smscampaigns/template",
+      "key": "GET /smscampaigns/template",
+      "canonPath": "/smscampaigns/template",
+      "tag": null
+    },
+    {
+      "operationId": "retrieveTemplateStandingInstruction",
+      "method": "GET",
+      "rawPath": "/v1/standinginstructions/template",
+      "key": "GET /standinginstructions/template",
+      "canonPath": "/standinginstructions/template",
+      "tag": "Standing Instructions"
+    },
+    {
+      "operationId": "retrieveTemplateTaxComponent",
+      "method": "GET",
+      "rawPath": "/v1/taxes/component/template",
+      "key": "GET /taxes/component/template",
+      "canonPath": "/taxes/component/template",
+      "tag": "Tax Components"
+    },
+    {
+      "operationId": "retrieveTemplateTaxGroup",
+      "method": "GET",
+      "rawPath": "/v1/taxes/group/template",
+      "key": "GET /taxes/group/template",
+      "canonPath": "/taxes/group/template",
+      "tag": "Tax Group"
+    },
+    {
+      "operationId": "retrieveTemplateUser",
+      "method": "GET",
+      "rawPath": "/v1/users/template",
+      "key": "GET /users/template",
+      "canonPath": "/users/template",
+      "tag": "Users"
+    },
+    {
+      "operationId": "retrieveTemplateWorkingDays",
+      "method": "GET",
+      "rawPath": "/v1/workingdays/template",
+      "key": "GET /workingdays/template",
+      "canonPath": "/workingdays/template",
+      "tag": "Working days"
+    },
+    {
+      "operationId": "retriveDetail",
+      "method": "GET",
+      "rawPath": "/v1/loans/{loanId}/disbursements/{disbursementId}",
+      "key": "GET /loans/{}/disbursements/{}",
+      "canonPath": "/loans/{}/disbursements/{}",
+      "tag": "Loan Disbursement Details"
+    },
+    {
+      "operationId": "retriveOutputTemplateLocation",
+      "method": "GET",
+      "rawPath": "/v1/imports/getOutputTemplateLocation",
+      "key": "GET /imports/getOutputTemplateLocation",
+      "canonPath": "/imports/getOutputTemplateLocation",
+      "tag": "Bulk Import"
+    },
+    {
+      "operationId": "runReport",
+      "method": "GET",
+      "rawPath": "/v1/runreports/{reportName}",
+      "key": "GET /runreports/{}",
+      "canonPath": "/runreports/{}",
+      "tag": "Run Reports"
+    },
+    {
+      "operationId": "saveCreditReport",
+      "method": "POST",
+      "rawPath": "/v1/creditBureauIntegration/saveCreditReport",
+      "key": "POST /creditBureauIntegration/saveCreditReport",
+      "canonPath": "/creditBureauIntegration/saveCreditReport",
+      "tag": "Credit Bureau Integration"
+    },
+    {
+      "operationId": "saveTemplate",
+      "method": "PUT",
+      "rawPath": "/v1/templates/{templateId}",
+      "key": "PUT /templates/{}",
+      "canonPath": "/templates/{}",
+      "tag": "templates"
+    },
+    {
+      "operationId": "searchData",
+      "method": "GET",
+      "rawPath": "/v1/search",
+      "key": "GET /search",
+      "canonPath": "/search",
+      "tag": "Search API"
+    },
+    {
+      "operationId": "searchInvestorData",
+      "method": "POST",
+      "rawPath": "/v1/external-asset-owners/search",
+      "key": "POST /external-asset-owners/search",
+      "canonPath": "/external-asset-owners/search",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "searchSavingsAccountTransactions",
+      "method": "GET",
+      "rawPath": "/v1/savingsaccounts/{savingsId}/transactions/search",
+      "key": "GET /savingsaccounts/{}/transactions/search",
+      "canonPath": "/savingsaccounts/{}/transactions/search",
+      "tag": "Savings Account Transactions"
+    },
+    {
+      "operationId": "settleCashFromCashier",
+      "method": "POST",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}/settle",
+      "key": "POST /tellers/{}/cashiers/{}/settle",
+      "canonPath": "/tellers/{}/cashiers/{}/settle",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "submitApplicationRecurringDepositAccount",
+      "method": "POST",
+      "rawPath": "/v1/recurringdepositaccounts",
+      "key": "POST /recurringdepositaccounts",
+      "canonPath": "/recurringdepositaccounts",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "submitGSIMApplication",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts/gsim",
+      "key": "POST /savingsaccounts/gsim",
+      "canonPath": "/savingsaccounts/gsim",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "submitSavingsApplication",
+      "method": "POST",
+      "rawPath": "/v1/savingsaccounts",
+      "key": "POST /savingsaccounts",
+      "canonPath": "/savingsaccounts",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "switchCache",
+      "method": "PUT",
+      "rawPath": "/v1/caches",
+      "key": "PUT /caches",
+      "canonPath": "/caches",
+      "tag": "Cache"
+    },
+    {
+      "operationId": "template",
+      "method": "GET",
+      "rawPath": "/v1/adhocquery/template",
+      "key": "GET /adhocquery/template",
+      "canonPath": "/adhocquery/template",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "operationId": "transaction",
+      "method": "POST",
+      "rawPath": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions",
+      "key": "POST /fixeddepositaccounts/{}/transactions",
+      "canonPath": "/fixeddepositaccounts/{}/transactions",
+      "tag": "Fixed Deposit Account Transactions"
+    },
+    {
+      "operationId": "transactionRecurringDepositAccountTransaction",
+      "method": "POST",
+      "rawPath": "/v1/recurringdepositaccounts/{recurringDepositAccountId}/transactions",
+      "key": "POST /recurringdepositaccounts/{}/transactions",
+      "canonPath": "/recurringdepositaccounts/{}/transactions",
+      "tag": "Recurring Deposit Account Transactions"
+    },
+    {
+      "operationId": "transferMoneyFrom",
+      "method": "POST",
+      "rawPath": "/v1/officetransactions",
+      "key": "POST /officetransactions",
+      "canonPath": "/officetransactions",
+      "tag": null
+    },
+    {
+      "operationId": "transferRequestWithId",
+      "method": "POST",
+      "rawPath": "/v1/external-asset-owners/transfers/{id}",
+      "key": "POST /external-asset-owners/transfers/{}",
+      "canonPath": "/external-asset-owners/transfers/{}",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "transferRequestWithLoanId",
+      "method": "POST",
+      "rawPath": "/v1/external-asset-owners/transfers/loans/{loanId}",
+      "key": "POST /external-asset-owners/transfers/loans/{}",
+      "canonPath": "/external-asset-owners/transfers/loans/{}",
+      "tag": "External Asset Owners"
+    },
+    {
+      "operationId": "unassignLoanOfficerGroup",
+      "method": "POST",
+      "rawPath": "/v1/groups/{groupId}/command/unassign_staff",
+      "key": "POST /groups/{}/command/unassign_staff",
+      "canonPath": "/groups/{}/command/unassign_staff",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "undoClientTransaction",
+      "method": "POST",
+      "rawPath": "/v1/clients/{clientId}/transactions/{transactionId}",
+      "key": "POST /clients/{}/transactions/{}",
+      "canonPath": "/clients/{}/transactions/{}",
+      "tag": "Client Transaction"
+    },
+    {
+      "operationId": "undoWaiveChargeLoanTransaction",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/transactions/{transactionId}",
+      "key": "PUT /loans/{}/transactions/{}",
+      "canonPath": "/loans/{}/transactions/{}",
+      "tag": "Loan Transactions"
+    },
+    {
+      "operationId": "update",
+      "method": "PUT",
+      "rawPath": "/v1/adhocquery/{adHocId}",
+      "key": "PUT /adhocquery/{}",
+      "canonPath": "/adhocquery/{}",
+      "tag": "AdhocQuery Api"
+    },
+    {
+      "operationId": "update_1",
+      "method": "PUT",
+      "rawPath": "/v1/tenants/{tenantId}/oidc-config",
+      "key": "PUT /tenants/{}/oidc-config",
+      "canonPath": "/tenants/{}/oidc-config",
+      "tag": "Tenant OIDC Configuration"
+    },
+    {
+      "operationId": "update_2",
+      "method": "PUT",
+      "rawPath": "/v1/likelihood/{ppiName}/{likelihoodId}",
+      "key": "PUT /likelihood/{}/{}",
+      "canonPath": "/likelihood/{}/{}",
+      "tag": "Likelihood"
+    },
+    {
+      "operationId": "updateAccountingRule",
+      "method": "PUT",
+      "rawPath": "/v1/accountingrules/{accountingRuleId}",
+      "key": "PUT /accountingrules/{}",
+      "canonPath": "/accountingrules/{}",
+      "tag": "Accounting Rules"
+    },
+    {
+      "operationId": "updateAccountNumberFormat",
+      "method": "PUT",
+      "rawPath": "/v1/accountnumberformats/{accountNumberFormatId}",
+      "key": "PUT /accountnumberformats/{}",
+      "canonPath": "/accountnumberformats/{}",
+      "tag": "Account number format"
+    },
+    {
+      "operationId": "updateApprovedAmountLoan",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/approved-amount",
+      "key": "PUT /loans/{}/approved-amount",
+      "canonPath": "/loans/{}/approved-amount",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "updateAvailableDisbursementAmountLoan",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/available-disbursement-amount",
+      "key": "PUT /loans/{}/available-disbursement-amount",
+      "canonPath": "/loans/{}/available-disbursement-amount",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "updateBucket",
+      "method": "PUT",
+      "rawPath": "/v1/delinquency/buckets/{delinquencyBucketId}",
+      "key": "PUT /delinquency/buckets/{}",
+      "canonPath": "/delinquency/buckets/{}",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "updateBusinessDate",
+      "method": "POST",
+      "rawPath": "/v1/businessdate",
+      "key": "POST /businessdate",
+      "canonPath": "/businessdate",
+      "tag": "Business Date Management"
+    },
+    {
+      "operationId": "updateCalendar",
+      "method": "PUT",
+      "rawPath": "/v1/{entityType}/{entityId}/calendars/{calendarId}",
+      "key": "PUT /{}/{}/calendars/{}",
+      "canonPath": "/{}/{}/calendars/{}",
+      "tag": "Calendar"
+    },
+    {
+      "operationId": "updateCashierForTeller",
+      "method": "PUT",
+      "rawPath": "/v1/tellers/{tellerId}/cashiers/{cashierId}",
+      "key": "PUT /tellers/{}/cashiers/{}",
+      "canonPath": "/tellers/{}/cashiers/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "updateCenter",
+      "method": "PUT",
+      "rawPath": "/v1/centers/{centerId}",
+      "key": "PUT /centers/{}",
+      "canonPath": "/centers/{}",
+      "tag": "Centers"
+    },
+    {
+      "operationId": "updateCharge",
+      "method": "PUT",
+      "rawPath": "/v1/charges/{chargeId}",
+      "key": "PUT /charges/{}",
+      "canonPath": "/charges/{}",
+      "tag": "Charges"
+    },
+    {
+      "operationId": "updateClient",
+      "method": "PUT",
+      "rawPath": "/v1/clients/{clientId}",
+      "key": "PUT /clients/{}",
+      "canonPath": "/clients/{}",
+      "tag": "Client"
+    },
+    {
+      "operationId": "updateClientAddress",
+      "method": "PUT",
+      "rawPath": "/v1/client/{clientid}/addresses",
+      "key": "PUT /client/{}/addresses",
+      "canonPath": "/client/{}/addresses",
+      "tag": "Clients Address"
+    },
+    {
+      "operationId": "updateClientCollateral",
+      "method": "PUT",
+      "rawPath": "/v1/clients/{clientId}/collaterals/{collateralId}",
+      "key": "PUT /clients/{}/collaterals/{}",
+      "canonPath": "/clients/{}/collaterals/{}",
+      "tag": "Client Collateral Management"
+    },
+    {
+      "operationId": "updateClientFamilyMember",
+      "method": "PUT",
+      "rawPath": "/v1/clients/{clientId}/familymembers/{familyMemberId}",
+      "key": "PUT /clients/{}/familymembers/{}",
+      "canonPath": "/clients/{}/familymembers/{}",
+      "tag": "Client Family Member"
+    },
+    {
+      "operationId": "updateClientIdentifier",
+      "method": "PUT",
+      "rawPath": "/v1/clients/{clientId}/identifiers/{identifierId}",
+      "key": "PUT /clients/{}/identifiers/{}",
+      "canonPath": "/clients/{}/identifiers/{}",
+      "tag": "Client Identifier"
+    },
+    {
+      "operationId": "updateCode",
+      "method": "PUT",
+      "rawPath": "/v1/codes/{codeId}",
+      "key": "PUT /codes/{}",
+      "canonPath": "/codes/{}",
+      "tag": "Codes"
+    },
+    {
+      "operationId": "updateCodeValue",
+      "method": "PUT",
+      "rawPath": "/v1/codes/{codeId}/codevalues/{codeValueId}",
+      "key": "PUT /codes/{}/codevalues/{}",
+      "canonPath": "/codes/{}/codevalues/{}",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "updateCodeValueByCodeName",
+      "method": "PUT",
+      "rawPath": "/v1/codes/name/{codeName}/codevalues/{codeValueId}",
+      "key": "PUT /codes/name/{}/codevalues/{}",
+      "canonPath": "/codes/name/{}/codevalues/{}",
+      "tag": "Code Values"
+    },
+    {
+      "operationId": "updateCollateral",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/collaterals/{collateralId}",
+      "key": "PUT /loans/{}/collaterals/{}",
+      "canonPath": "/loans/{}/collaterals/{}",
+      "tag": "Loan Collateral"
+    },
+    {
+      "operationId": "updateCollateral_1",
+      "method": "PUT",
+      "rawPath": "/v1/collateral-management/{collateralId}",
+      "key": "PUT /collateral-management/{}",
+      "canonPath": "/collateral-management/{}",
+      "tag": "Collateral Management"
+    },
+    {
+      "operationId": "updateConfiguration",
+      "method": "POST",
+      "rawPath": "/v1/twofactor/invalidate",
+      "key": "POST /twofactor/invalidate",
+      "canonPath": "/twofactor/invalidate",
+      "tag": "Two Factor"
+    },
+    {
+      "operationId": "updateConfiguration_1",
+      "method": "PUT",
+      "rawPath": "/v1/twofactor/configure",
+      "key": "PUT /twofactor/configure",
+      "canonPath": "/twofactor/configure",
+      "tag": null
+    },
+    {
+      "operationId": "updateConfigurationByName",
+      "method": "PUT",
+      "rawPath": "/v1/configurations/name/{configName}",
+      "key": "PUT /configurations/name/{}",
+      "canonPath": "/configurations/name/{}",
+      "tag": "Global Configuration"
+    },
+    {
+      "operationId": "updateCreditBureau",
+      "method": "PUT",
+      "rawPath": "/v1/CreditBureauConfiguration/organisationCreditBureau",
+      "key": "PUT /CreditBureauConfiguration/organisationCreditBureau",
+      "canonPath": "/CreditBureauConfiguration/organisationCreditBureau",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "updateCreditBureauConfiguration",
+      "method": "PUT",
+      "rawPath": "/v1/CreditBureauConfiguration/configuration/{configurationId}",
+      "key": "PUT /CreditBureauConfiguration/configuration/{}",
+      "canonPath": "/CreditBureauConfiguration/configuration/{}",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "updateCreditBureauLoanProductMapping",
+      "method": "PUT",
+      "rawPath": "/v1/CreditBureauConfiguration/mappings",
+      "key": "PUT /CreditBureauConfiguration/mappings",
+      "canonPath": "/CreditBureauConfiguration/mappings",
+      "tag": "Credit Bureau Configuration"
+    },
+    {
+      "operationId": "updateCurrencies",
+      "method": "PUT",
+      "rawPath": "/v1/currencies",
+      "key": "PUT /currencies",
+      "canonPath": "/currencies",
+      "tag": "Currency"
+    },
+    {
+      "operationId": "updateDatatable",
+      "method": "PUT",
+      "rawPath": "/v1/datatables/{datatableName}",
+      "key": "PUT /datatables/{}",
+      "canonPath": "/datatables/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "updateDatatableEntryOneToMany",
+      "method": "PUT",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}/{datatableId}",
+      "key": "PUT /datatables/{}/{}/{}",
+      "canonPath": "/datatables/{}/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "updateDatatableEntryOnetoOne",
+      "method": "PUT",
+      "rawPath": "/v1/datatables/{datatable}/{apptableId}",
+      "key": "PUT /datatables/{}/{}",
+      "canonPath": "/datatables/{}/{}",
+      "tag": "Data Tables"
+    },
+    {
+      "operationId": "updateDisbursementDate",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/disbursements/{disbursementId}",
+      "key": "PUT /loans/{}/disbursements/{}",
+      "canonPath": "/loans/{}/disbursements/{}",
+      "tag": "Loan Disbursement Details"
+    },
+    {
+      "operationId": "updateDocument",
+      "method": "PUT",
+      "rawPath": "/v1/{entityType}/{entityId}/documents/{documentId}",
+      "key": "PUT /{}/{}/documents/{}",
+      "canonPath": "/{}/{}/documents/{}",
+      "tag": "Documents"
+    },
+    {
+      "operationId": "updateEmail",
+      "method": "PUT",
+      "rawPath": "/v1/email/{resourceId}",
+      "key": "PUT /email/{}",
+      "canonPath": "/email/{}",
+      "tag": null
+    },
+    {
+      "operationId": "updateEmailCampaign",
+      "method": "PUT",
+      "rawPath": "/v1/email/campaign/{resourceId}",
+      "key": "PUT /email/campaign/{}",
+      "canonPath": "/email/campaign/{}",
+      "tag": null
+    },
+    {
+      "operationId": "updateEmailConfiguration",
+      "method": "PUT",
+      "rawPath": "/v1/email/configuration",
+      "key": "PUT /email/configuration",
+      "canonPath": "/email/configuration",
+      "tag": null
+    },
+    {
+      "operationId": "updateExternalAssetOwnerLoanProductAttribute",
+      "method": "PUT",
+      "rawPath": "/v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}",
+      "key": "PUT /external-asset-owners/loan-product/{}/attributes/{}",
+      "canonPath": "/external-asset-owners/loan-product/{}/attributes/{}",
+      "tag": "External Asset Owner Loan Product Attributes"
+    },
+    {
+      "operationId": "updateExternalEventConfigurations",
+      "method": "PUT",
+      "rawPath": "/v1/externalevents/configuration",
+      "key": "PUT /externalevents/configuration",
+      "canonPath": "/externalevents/configuration",
+      "tag": "External event configuration"
+    },
+    {
+      "operationId": "updateExternalServicesConfiguration",
+      "method": "PUT",
+      "rawPath": "/v1/externalservice/{servicename}",
+      "key": "PUT /externalservice/{}",
+      "canonPath": "/externalservice/{}",
+      "tag": "External Services"
+    },
+    {
+      "operationId": "updateFixedDepositAccount",
+      "method": "PUT",
+      "rawPath": "/v1/fixeddepositaccounts/{accountId}",
+      "key": "PUT /fixeddepositaccounts/{}",
+      "canonPath": "/fixeddepositaccounts/{}",
+      "tag": "Fixed Deposit Account"
+    },
+    {
+      "operationId": "updateFixedDepositProduct",
+      "method": "PUT",
+      "rawPath": "/v1/fixeddepositproducts/{productId}",
+      "key": "PUT /fixeddepositproducts/{}",
+      "canonPath": "/fixeddepositproducts/{}",
+      "tag": "Fixed Deposit Product"
+    },
+    {
+      "operationId": "updateFloatingRate",
+      "method": "PUT",
+      "rawPath": "/v1/floatingrates/{floatingRateId}",
+      "key": "PUT /floatingrates/{}",
+      "canonPath": "/floatingrates/{}",
+      "tag": "Floating Rates"
+    },
+    {
+      "operationId": "updateFund",
+      "method": "PUT",
+      "rawPath": "/v1/funds/{fundId}",
+      "key": "PUT /funds/{}",
+      "canonPath": "/funds/{}",
+      "tag": "Funds"
+    },
+    {
+      "operationId": "updateGLAccount",
+      "method": "PUT",
+      "rawPath": "/v1/glaccounts/{glAccountId}",
+      "key": "PUT /glaccounts/{}",
+      "canonPath": "/glaccounts/{}",
+      "tag": "General Ledger Account"
+    },
+    {
+      "operationId": "updateGLAccountMappingFinancialActivityAccount",
+      "method": "PUT",
+      "rawPath": "/v1/financialactivityaccounts/{mappingId}",
+      "key": "PUT /financialactivityaccounts/{}",
+      "canonPath": "/financialactivityaccounts/{}",
+      "tag": "Mapping Financial Activities to Accounts"
+    },
+    {
+      "operationId": "updateGLClosure",
+      "method": "PUT",
+      "rawPath": "/v1/glclosures/{glClosureId}",
+      "key": "PUT /glclosures/{}",
+      "canonPath": "/glclosures/{}",
+      "tag": "Accounting Closure"
+    },
+    {
+      "operationId": "updateGlobalConfiguration",
+      "method": "PUT",
+      "rawPath": "/v1/configurations/{configId}",
+      "key": "PUT /configurations/{}",
+      "canonPath": "/configurations/{}",
+      "tag": "Global Configuration"
+    },
+    {
+      "operationId": "updateGroup",
+      "method": "PUT",
+      "rawPath": "/v1/groups/{groupId}",
+      "key": "PUT /groups/{}",
+      "canonPath": "/groups/{}",
+      "tag": "Groups"
+    },
+    {
+      "operationId": "updateGsim",
+      "method": "PUT",
+      "rawPath": "/v1/savingsaccounts/gsim/{parentAccountId}",
+      "key": "PUT /savingsaccounts/gsim/{}",
+      "canonPath": "/savingsaccounts/gsim/{}",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "updateGuarantor",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/guarantors/{guarantorId}",
+      "key": "PUT /loans/{}/guarantors/{}",
+      "canonPath": "/loans/{}/guarantors/{}",
+      "tag": "Guarantors"
+    },
+    {
+      "operationId": "updateHoliday",
+      "method": "PUT",
+      "rawPath": "/v1/holidays/{holidayId}",
+      "key": "PUT /holidays/{}",
+      "canonPath": "/holidays/{}",
+      "tag": "Holidays"
+    },
+    {
+      "operationId": "updateHook",
+      "method": "PUT",
+      "rawPath": "/v1/hooks/{hookId}",
+      "key": "PUT /hooks/{}",
+      "canonPath": "/hooks/{}",
+      "tag": "Hooks"
+    },
+    {
+      "operationId": "updateImage_1",
+      "method": "PUT",
+      "rawPath": "/v1/{entityType}/{entityId}/images",
+      "key": "PUT /{}/{}/images",
+      "canonPath": "/{}/{}/images",
+      "tag": null
+    },
+    {
+      "operationId": "updateInstanceMode",
+      "method": "PUT",
+      "rawPath": "/v1/instance-mode",
+      "key": "PUT /instance-mode",
+      "canonPath": "/instance-mode",
+      "tag": "Instance Mode"
+    },
+    {
+      "operationId": "updateInterestRateChart",
+      "method": "PUT",
+      "rawPath": "/v1/interestratecharts/{chartId}",
+      "key": "PUT /interestratecharts/{}",
+      "canonPath": "/interestratecharts/{}",
+      "tag": "Interest Rate Chart"
+    },
+    {
+      "operationId": "updateInterestRateChartSlab",
+      "method": "PUT",
+      "rawPath": "/v1/interestratecharts/{chartId}/chartslabs/{chartSlabId}",
+      "key": "PUT /interestratecharts/{}/chartslabs/{}",
+      "canonPath": "/interestratecharts/{}/chartslabs/{}",
+      "tag": "Interest Rate Slab (A.K.A interest bands)"
+    },
+    {
+      "operationId": "updateJobBusinessStepConfig",
+      "method": "PUT",
+      "rawPath": "/v1/jobs/{jobName}/steps",
+      "key": "PUT /jobs/{}/steps",
+      "canonPath": "/jobs/{}/steps",
+      "tag": "Business Step Configuration"
+    },
+    {
+      "operationId": "updateJobDetail",
+      "method": "PUT",
+      "rawPath": "/v1/jobs/{jobId}",
+      "key": "PUT /jobs/{}",
+      "canonPath": "/jobs/{}",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "updateJobDetailByShortName",
+      "method": "PUT",
+      "rawPath": "/v1/jobs/short-name/{shortName}",
+      "key": "PUT /jobs/short-name/{}",
+      "canonPath": "/jobs/short-name/{}",
+      "tag": "SCHEDULER JOB"
+    },
+    {
+      "operationId": "updateLoanApplication",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}",
+      "key": "PUT /loans/{}",
+      "canonPath": "/loans/{}",
+      "tag": "Loans"
+    },
+    {
+      "operationId": "updateLoanCharge",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/charges/{loanChargeId}",
+      "key": "PUT /loans/{}/charges/{}",
+      "canonPath": "/loans/{}/charges/{}",
+      "tag": "Loan Charges"
+    },
+    {
+      "operationId": "updateLoanInterestPause",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/interest-pauses/{variationId}",
+      "key": "PUT /loans/{}/interest-pauses/{}",
+      "canonPath": "/loans/{}/interest-pauses/{}",
+      "tag": "Loan Interest Pause"
+    },
+    {
+      "operationId": "updateLoanOriginator",
+      "method": "PUT",
+      "rawPath": "/v1/loan-originators/{originatorId}",
+      "key": "PUT /loan-originators/{}",
+      "canonPath": "/loan-originators/{}",
+      "tag": "Loan Originators"
+    },
+    {
+      "operationId": "updateLoanProduct",
+      "method": "PUT",
+      "rawPath": "/v1/loanproducts/{productId}",
+      "key": "PUT /loanproducts/{}",
+      "canonPath": "/loanproducts/{}",
+      "tag": "Loan Products"
+    },
+    {
+      "operationId": "updateMap",
+      "method": "PUT",
+      "rawPath": "/v1/entitytoentitymapping/{mapId}",
+      "key": "PUT /entitytoentitymapping/{}",
+      "canonPath": "/entitytoentitymapping/{}",
+      "tag": "Fineract Entity"
+    },
+    {
+      "operationId": "updateMeeting",
+      "method": "PUT",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings/{meetingId}",
+      "key": "PUT /{}/{}/meetings/{}",
+      "canonPath": "/{}/{}/meetings/{}",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "updateMeetingAttendance",
+      "method": "POST",
+      "rawPath": "/v1/{entityType}/{entityId}/meetings/{meetingId}",
+      "key": "POST /{}/{}/meetings/{}",
+      "canonPath": "/{}/{}/meetings/{}",
+      "tag": "Meetings"
+    },
+    {
+      "operationId": "updateMixTaxonomyMapping",
+      "method": "PUT",
+      "rawPath": "/v1/mixmapping",
+      "key": "PUT /mixmapping",
+      "canonPath": "/mixmapping",
+      "tag": "Mix Mapping"
+    },
+    {
+      "operationId": "updateNote",
+      "method": "PUT",
+      "rawPath": "/v1/{resourceType}/{resourceId}/notes/{noteId}",
+      "key": "PUT /{}/{}/notes/{}",
+      "canonPath": "/{}/{}/notes/{}",
+      "tag": "Notes"
+    },
+    {
+      "operationId": "updateNotificationReadStatus",
+      "method": "PUT",
+      "rawPath": "/v1/notifications",
+      "key": "PUT /notifications",
+      "canonPath": "/notifications",
+      "tag": "Notification"
+    },
+    {
+      "operationId": "updateOffice",
+      "method": "PUT",
+      "rawPath": "/v1/offices/{officeId}",
+      "key": "PUT /offices/{}",
+      "canonPath": "/offices/{}",
+      "tag": "Offices"
+    },
+    {
+      "operationId": "updatePasswordPreferences",
+      "method": "PUT",
+      "rawPath": "/v1/passwordpreferences",
+      "key": "PUT /passwordpreferences",
+      "canonPath": "/passwordpreferences",
+      "tag": "Password preferences"
+    },
+    {
+      "operationId": "updatePaymentType",
+      "method": "PUT",
+      "rawPath": "/v1/paymenttypes/{paymentTypeId}",
+      "key": "PUT /paymenttypes/{}",
+      "canonPath": "/paymenttypes/{}",
+      "tag": "Payment Type"
+    },
+    {
+      "operationId": "updatePermissions",
+      "method": "PUT",
+      "rawPath": "/v1/permissions",
+      "key": "PUT /permissions",
+      "canonPath": "/permissions",
+      "tag": "Permissions"
+    },
+    {
+      "operationId": "updatePostDatedChecks",
+      "method": "PUT",
+      "rawPath": "/v1/loans/{loanId}/postdatedchecks/{postDatedCheckId}",
+      "key": "PUT /loans/{}/postdatedchecks/{}",
+      "canonPath": "/loans/{}/postdatedchecks/{}",
+      "tag": "repayment with post dated checks"
+    },
+    {
+      "operationId": "updateProductMix",
+      "method": "PUT",
+      "rawPath": "/v1/loanproducts/{productId}/productmix",
+      "key": "PUT /loanproducts/{}/productmix",
+      "canonPath": "/loanproducts/{}/productmix",
+      "tag": "Product Mix"
+    },
+    {
+      "operationId": "updateProvisioningCategory",
+      "method": "PUT",
+      "rawPath": "/v1/provisioningcategory/{categoryId}",
+      "key": "PUT /provisioningcategory/{}",
+      "canonPath": "/provisioningcategory/{}",
+      "tag": "Provisioning Category"
+    },
+    {
+      "operationId": "updateProvisioningCriteria",
+      "method": "PUT",
+      "rawPath": "/v1/provisioningcriteria/{criteriaId}",
+      "key": "PUT /provisioningcriteria/{}",
+      "canonPath": "/provisioningcriteria/{}",
+      "tag": "Provisioning Criteria"
+    },
+    {
+      "operationId": "updateRange",
+      "method": "PUT",
+      "rawPath": "/v1/delinquency/ranges/{delinquencyRangeId}",
+      "key": "PUT /delinquency/ranges/{}",
+      "canonPath": "/delinquency/ranges/{}",
+      "tag": "Delinquency Range and Buckets Management"
+    },
+    {
+      "operationId": "updateRate",
+      "method": "PUT",
+      "rawPath": "/v1/rates/{rateId}",
+      "key": "PUT /rates/{}",
+      "canonPath": "/rates/{}",
+      "tag": "Rate"
+    },
+    {
+      "operationId": "updateRecurringDepositAccount",
+      "method": "PUT",
+      "rawPath": "/v1/recurringdepositaccounts/{accountId}",
+      "key": "PUT /recurringdepositaccounts/{}",
+      "canonPath": "/recurringdepositaccounts/{}",
+      "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "updateRecurringDepositProduct",
+      "method": "PUT",
+      "rawPath": "/v1/recurringdepositproducts/{productId}",
+      "key": "PUT /recurringdepositproducts/{}",
+      "canonPath": "/recurringdepositproducts/{}",
+      "tag": "Recurring Deposit Product"
+    },
+    {
+      "operationId": "updateReport",
+      "method": "PUT",
+      "rawPath": "/v1/reports/{id}",
+      "key": "PUT /reports/{}",
+      "canonPath": "/reports/{}",
+      "tag": "Reports"
+    },
+    {
+      "operationId": "updateReportMailingJob",
+      "method": "PUT",
+      "rawPath": "/v1/reportmailingjobs/{entityId}",
+      "key": "PUT /reportmailingjobs/{}",
+      "canonPath": "/reportmailingjobs/{}",
+      "tag": "Report Mailing Jobs"
+    },
+    {
+      "operationId": "updateRescheduleLoan",
+      "method": "POST",
+      "rawPath": "/v1/rescheduleloans/{scheduleId}",
+      "key": "POST /rescheduleloans/{}",
+      "canonPath": "/rescheduleloans/{}",
+      "tag": "Reschedule Loans"
+    },
+    {
+      "operationId": "updateRole",
+      "method": "PUT",
+      "rawPath": "/v1/roles/{roleId}",
+      "key": "PUT /roles/{}",
+      "canonPath": "/roles/{}",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "updateRolePermissions",
+      "method": "PUT",
+      "rawPath": "/v1/roles/{roleId}/permissions",
+      "key": "PUT /roles/{}/permissions",
+      "canonPath": "/roles/{}/permissions",
+      "tag": "Roles"
+    },
+    {
+      "operationId": "updateSavingsAccount",
+      "method": "PUT",
+      "rawPath": "/v1/savingsaccounts/{accountId}",
+      "key": "PUT /savingsaccounts/{}",
+      "canonPath": "/savingsaccounts/{}",
+      "tag": "Savings Account"
+    },
+    {
+      "operationId": "updateSavingsAccountCharge",
+      "method": "PUT",
+      "rawPath": "/v1/savingsaccounts/{savingsAccountId}/charges/{savingsAccountChargeId}",
+      "key": "PUT /savingsaccounts/{}/charges/{}",
+      "canonPath": "/savingsaccounts/{}/charges/{}",
+      "tag": "Savings Charges"
+    },
+    {
+      "operationId": "updateSavingsProduct",
+      "method": "PUT",
+      "rawPath": "/v1/savingsproducts/{productId}",
+      "key": "PUT /savingsproducts/{}",
+      "canonPath": "/savingsproducts/{}",
+      "tag": "Savings Product"
+    },
+    {
+      "operationId": "updateShareAccount",
+      "method": "PUT",
+      "rawPath": "/v1/accounts/{type}/{accountId}",
+      "key": "PUT /accounts/{}/{}",
+      "canonPath": "/accounts/{}/{}",
+      "tag": "Share Account"
+    },
+    {
+      "operationId": "updateShareDividend",
+      "method": "PUT",
+      "rawPath": "/v1/shareproduct/{productId}/dividend/{dividendId}",
+      "key": "PUT /shareproduct/{}/dividend/{}",
+      "canonPath": "/shareproduct/{}/dividend/{}",
+      "tag": "Self Dividend"
+    },
+    {
+      "operationId": "updateShareProduct",
+      "method": "PUT",
+      "rawPath": "/v1/products/{type}/{productId}",
+      "key": "PUT /products/{}/{}",
+      "canonPath": "/products/{}/{}",
+      "tag": "Products"
+    },
+    {
+      "operationId": "updateSms",
+      "method": "PUT",
+      "rawPath": "/v1/sms/{resourceId}",
+      "key": "PUT /sms/{}",
+      "canonPath": "/sms/{}",
+      "tag": "SMS"
+    },
+    {
+      "operationId": "updateSmsCampaign",
+      "method": "PUT",
+      "rawPath": "/v1/smscampaigns/{campaignId}",
+      "key": "PUT /smscampaigns/{}",
+      "canonPath": "/smscampaigns/{}",
+      "tag": null
+    },
+    {
+      "operationId": "updateStaff",
+      "method": "PUT",
+      "rawPath": "/v1/staff/{staffId}",
+      "key": "PUT /staff/{}",
+      "canonPath": "/staff/{}",
+      "tag": "Staff"
+    },
+    {
+      "operationId": "updateStandingInstruction",
+      "method": "PUT",
+      "rawPath": "/v1/standinginstructions/{standingInstructionId}",
+      "key": "PUT /standinginstructions/{}",
+      "canonPath": "/standinginstructions/{}",
+      "tag": "Standing Instructions"
+    },
+    {
+      "operationId": "updateTaxComponent",
+      "method": "PUT",
+      "rawPath": "/v1/taxes/component/{taxComponentId}",
+      "key": "PUT /taxes/component/{}",
+      "canonPath": "/taxes/component/{}",
+      "tag": "Tax Components"
+    },
+    {
+      "operationId": "updateTaxGroup",
+      "method": "PUT",
+      "rawPath": "/v1/taxes/group/{taxGroupId}",
+      "key": "PUT /taxes/group/{}",
+      "canonPath": "/taxes/group/{}",
+      "tag": "Tax Group"
+    },
+    {
+      "operationId": "updateTeller",
+      "method": "PUT",
+      "rawPath": "/v1/tellers/{tellerId}",
+      "key": "PUT /tellers/{}",
+      "canonPath": "/tellers/{}",
+      "tag": "Teller Cash Management"
+    },
+    {
+      "operationId": "updateUser",
+      "method": "PUT",
+      "rawPath": "/v1/users/{userId}",
+      "key": "PUT /users/{}",
+      "canonPath": "/users/{}",
+      "tag": "Users"
+    },
+    {
+      "operationId": "updateWorkingDay",
+      "method": "PUT",
+      "rawPath": "/v1/workingdays",
+      "key": "PUT /workingdays",
+      "canonPath": "/workingdays",
+      "tag": "Working days"
+    },
+    {
+      "operationId": "validate",
+      "method": "POST",
+      "rawPath": "/v1/twofactor/validate",
+      "key": "POST /twofactor/validate",
+      "canonPath": "/twofactor/validate",
+      "tag": "Two Factor"
     }
   ]
 }

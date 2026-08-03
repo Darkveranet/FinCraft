@@ -78,7 +78,8 @@ re-introduce a route that disagrees with Fineract.
 - Phase 2: **done & validated** locally against the sample (26→1 false positives
   eliminated; the lone remaining item is a known sample-spec gap). Wired into
   `npm run api:drift` and the **API Contract Sync** workflow.
-- Phase 3–4: **not started**.
+- Phase 3: **partial (2026-08-02)** — generator built, 96 tests generated and
+  structurally validated, not yet run against a live stack. Phase 4: not started.
 
 **Immediate next action (yours):** run **API Contract Sync** in GitHub Actions to
 execute Phase 1. Merge the resulting PR to commit the real contract + generated

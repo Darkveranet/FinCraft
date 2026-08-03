@@ -4,6 +4,10 @@
     "reason": "Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops)."
   },
   {
+    "pattern": "(GET|POST) /\\{\\}/(downloadtemplate|uploadtemplate)",
+    "reason": "Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4."
+  },
+  {
     "pattern": "DELETE /accounts/share/\\{\\}",
     "reason": "Fineract's contract has GET/POST/PUT (and a generic POST command handler) at /v1/accounts/{type}/{accountId} for share accounts, but no DELETE operation at all. shares.js:delete() targets a real endpoint with no contract-side support — likely returns 405/404 in practice; worth confirming against a live Fineract instance and possibly removing the UI action. Verified 2026-08-02 against the real contract."
   }

@@ -43,6 +43,7 @@ const STRICT = argv.has('--strict');
 const JSON_ONLY = argv.has('--json-only');
 
 const VERB = { _g: 'GET', _p: 'POST', _u: 'PUT', _d: 'DELETE' };
+const VERB_SET = new Set(['GET', 'POST', 'PUT', 'DELETE', 'PATCH']);
 const SKIP_FILES = new Set(['index.js', 'core.js', 'operation-runner.js']);
 const VERSION_PREFIX = new RegExp(process.env.DRIFT_STRIP_PREFIX || '^/v\\d+(?=/)');
 
@@ -73,15 +74,15 @@ const keyOf = (method, canon) => `${method} ${canon.path}`;
  *  opening backtick), tracking `${ ... }` nesting depth so a backtick that
  *  appears INSIDE a `${...}` substitution (e.g. a nested template literal in a
  *  ternary: `${cond ? `/${x}` : ''}`) does not prematurely terminate the
- *  match. Returns the literal text (with ${...} left intact) or null if
- *  unterminated. */
+ *  match. Returns { value, end } (end = index just past the closing backtick)
+ *  or null if unterminated. */
 function readBacktickLiteral(src, start) {
   let i = start;
   let depth = 0;
   while (i < src.length) {
     const ch = src[i];
     if (ch === '\\') { i += 2; continue; }
-    if (depth === 0 && ch === '`') return src.slice(start, i);
+    if (depth === 0 && ch === '`') return { value: src.slice(start, i), end: i + 1 };
     if (ch === '$' && src[i + 1] === '{') { depth++; i += 2; continue; }
     if (depth > 0 && ch === '}') { depth--; i += 1; continue; }
     i += 1;
@@ -89,16 +90,27 @@ function readBacktickLiteral(src, start) {
   return null;
 }
 
-/** Read a single/double-quoted string argument starting at `start`. */
+/** Read a single/double-quoted string argument starting at `start`.
+ *  Returns { value, end } or null if unterminated. */
 function readSimpleString(src, start, quote) {
   let i = start;
   while (i < src.length) {
     const ch = src[i];
     if (ch === '\\') { i += 2; continue; }
-    if (ch === quote) return src.slice(start, i);
+    if (ch === quote) return { value: src.slice(start, i), end: i + 1 };
     i += 1;
   }
   return null;
+}
+
+/** Read a quoted string argument (any of ' " `) starting AT the opening
+ *  quote character (index `at` points to the quote itself). Returns
+ *  { value, end } or null. */
+function readQuotedAt(src, at) {
+  const q = src[at];
+  if (q !== "'" && q !== '"' && q !== '`') return null;
+  const r = q === '`' ? readBacktickLiteral(src, at + 1) : readSimpleString(src, at + 1, q);
+  return r;
 }
 
 function extractHandwritten() {
@@ -106,26 +118,51 @@ function extractHandwritten() {
   const files = fs.readdirSync(API_DIR)
     .filter((f) => f.endsWith('.js') && !SKIP_FILES.has(f))
     .filter((f) => fs.statSync(path.join(API_DIR, f)).isFile());
-  const callHead = /self\.(_[gpud])\(\s*(['"`])/g;
+
+  const push = (routes, file, src, index, method, rawPath) => {
+    if (!rawPath.startsWith('/')) return;
+    const canon = canonPath(rawPath);
+    const line = src.slice(0, index).split('\n').length;
+    routes.push({
+      method, rawPath, key: keyOf(method, canon),
+      canonPath: canon.path, command: canon.command,
+      dynamic: canon.dynamic, file, line,
+    });
+  };
+
   for (const file of files) {
     const src = fs.readFileSync(path.join(API_DIR, file), 'utf8');
+
+    // Pass 1: self._g/_p/_u/_d('path', ...)
+    const callHead = /self\.(_[gpud])\(\s*(['"`])/g;
     let m;
     while ((m = callHead.exec(src)) !== null) {
       const method = VERB[m[1]];
-      const quote = m[2];
-      const argStart = m.index + m[0].length;
-      const rawPath = quote === '`'
-        ? readBacktickLiteral(src, argStart)
-        : readSimpleString(src, argStart, quote);
-      if (rawPath == null) continue; // unterminated — skip rather than mis-report
-      if (!rawPath.startsWith('/')) continue;
-      const canon = canonPath(rawPath);
-      const line = src.slice(0, m.index).split('\n').length;
-      routes.push({
-        method, rawPath, key: keyOf(method, canon),
-        canonPath: canon.path, command: canon.command,
-        dynamic: canon.dynamic, file, line,
-      });
+      const argStart = m.index + m[0].length - 1; // back up to the quote char itself
+      const read = readQuotedAt(src, argStart);
+      if (!read) continue;
+      push(routes, file, src, m.index, method, read.value);
+    }
+
+    // Pass 2: self._req('METHOD', 'path', ...) — a lower-level escape hatch
+    // used for raw responses, FormData uploads, and generic entity/template
+    // helpers (twofactor, batches, documents, images, bulk-import templates).
+    // Same route surface, different call shape — must not be invisible to drift.
+    const reqHead = /self\._req\(\s*/g;
+    while ((m = reqHead.exec(src)) !== null) {
+      const methodStart = m.index + m[0].length;
+      const methodRead = readQuotedAt(src, methodStart);
+      if (!methodRead) continue;
+      const method = methodRead.value.toUpperCase();
+      if (!VERB_SET.has(method)) continue;
+      let i = methodRead.end;
+      while (/\s/.test(src[i])) i++;
+      if (src[i] !== ',') continue;
+      i++;
+      while (/\s/.test(src[i])) i++;
+      const pathRead = readQuotedAt(src, i);
+      if (!pathRead) continue;
+      push(routes, file, src, m.index, method, pathRead.value);
     }
   }
   return routes;
@@ -231,10 +268,11 @@ function diff(handwritten, contracts) {
   }
 
   const uncovered = contracts.filter((c) => !seenHwKeys.has(c.key));
+  const matchedOps = contracts.filter((c) => seenHwKeys.has(c.key));
 
   return {
     matched: [...matched],
-    literalParam, mismatch, unverified, external, uncovered, dynamic,
+    literalParam, mismatch, unverified, external, uncovered, matchedOps, dynamic,
   };
 }
 
@@ -308,6 +346,7 @@ async function main() {
     },
     mismatch: res.mismatch, unverified: res.unverified, external: res.external,
     uncovered: res.uncovered, dynamic: res.dynamic, literalParam: res.literalParam,
+    matchedOps: res.matchedOps,
   };
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
