@@ -1,6 +1,6 @@
 # Contract Diff Report
 
-_Generated 2026-08-02T11:21:27.562Z_
+_Generated 2026-08-03T09:28:21.401Z_
 
 **Result:** ✅ Additive only — safe to auto-merge
 
@@ -12,7 +12,7 @@ _Generated 2026-08-02T11:21:27.562Z_
 
 # FinCraft — Hand-written API ↔ Contract Drift
 
-_Generated 2026-08-02T11:21:28.025Z_
+_Generated 2026-08-03T09:28:21.849Z_
 
 Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **904** (708 unique endpoints, 20 modules)
 
