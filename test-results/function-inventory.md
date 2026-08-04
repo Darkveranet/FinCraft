@@ -1,11 +1,11 @@
 # FinCraft E2E Function Inventory
 
-Generated: 2026-07-30T15:58:04.329Z
+Generated: 2026-08-03T21:27:53.269Z
 
-- Source files: 287
-- Functions discovered: 1963
-- Referenced by E2E specs: 655
-- Not referenced by E2E specs: 1308
+- Source files: 295
+- Functions discovered: 3106
+- Referenced by E2E specs: 1010
+- Not referenced by E2E specs: 2096
 
 > REFERENCED is evidence of test ownership, not proof that every branch executed. PASS/FAIL comes from Playwright/JUnit results.
 
@@ -14,21 +14,28 @@ Generated: 2026-07-30T15:58:04.329Z
 | Module | Functions | Referenced | Untested |
 |---|---:|---:|---:|
 | js/api/accounting.js | 71 | 46 | 25 |
-| js/api/admin.js | 85 | 53 | 32 |
+| js/api/admin.js | 85 | 55 | 30 |
 | js/api/auth-account.js | 20 | 11 | 9 |
 | js/api/clients.js | 53 | 19 | 34 |
 | js/api/core.js | 13 | 3 | 10 |
-| js/api/credit-bureau.js | 19 | 1 | 18 |
+| js/api/credit-bureau.js | 19 | 2 | 17 |
+| js/api/generated/aliases.generated.js | 1 | 0 | 1 |
+| js/api/generated/builders.generated.js | 1 | 0 | 1 |
+| js/api/generated/client.generated.js | 1121 | 316 | 805 |
+| js/api/generated/contracts.generated.js | 1 | 0 | 1 |
+| js/api/generated/templates.generated.js | 2 | 0 | 2 |
+| js/api/generated/validators.generated.js | 8 | 3 | 5 |
 | js/api/groups-centers.js | 54 | 38 | 16 |
 | js/api/index.js | 2 | 0 | 2 |
 | js/api/integrations.js | 68 | 51 | 17 |
 | js/api/interest-rate-charts.js | 13 | 6 | 7 |
-| js/api/interoperation.js | 17 | 0 | 17 |
-| js/api/loans.js | 169 | 52 | 117 |
-| js/api/misc.js | 78 | 47 | 31 |
+| js/api/interoperation.js | 17 | 4 | 13 |
+| js/api/loans.js | 169 | 54 | 115 |
+| js/api/misc.js | 78 | 48 | 30 |
 | js/api/mix-xbrl.js | 5 | 2 | 3 |
 | js/api/office-transactions.js | 5 | 4 | 1 |
-| js/api/organization.js | 79 | 46 | 33 |
+| js/api/operation-runner.js | 9 | 4 | 5 |
+| js/api/organization.js | 79 | 47 | 32 |
 | js/api/products.js | 52 | 43 | 9 |
 | js/api/report-mailing.js | 8 | 6 | 2 |
 | js/api/reports.js | 43 | 25 | 18 |
@@ -47,7 +54,7 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/accounting/shared.js | 8 | 1 | 7 |
 | js/pages/analytics.js | 11 | 1 | 10 |
 | js/pages/centers/actions.js | 6 | 0 | 6 |
-| js/pages/centers/detail.js | 13 | 2 | 11 |
+| js/pages/centers/detail.js | 13 | 3 | 10 |
 | js/pages/centers/index.js | 1 | 1 | 0 |
 | js/pages/centers/list.js | 5 | 1 | 4 |
 | js/pages/centers/shared.js | 1 | 0 | 1 |
@@ -61,11 +68,11 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/clients/actions/lifecycle.js | 6 | 0 | 6 |
 | js/pages/clients/detail/accounts.js | 7 | 0 | 7 |
 | js/pages/clients/detail/identity.js | 6 | 0 | 6 |
-| js/pages/clients/detail/index.js | 13 | 6 | 7 |
+| js/pages/clients/detail/index.js | 13 | 7 | 6 |
 | js/pages/clients/detail/notes-docs.js | 4 | 0 | 4 |
 | js/pages/clients/index.js | 1 | 1 | 0 |
 | js/pages/clients/list.js | 5 | 0 | 5 |
-| js/pages/clients/new.js | 11 | 3 | 8 |
+| js/pages/clients/new.js | 11 | 4 | 7 |
 | js/pages/clients/shared.js | 6 | 0 | 6 |
 | js/pages/collateral/actions.js | 1 | 0 | 1 |
 | js/pages/collateral/detail.js | 6 | 1 | 5 |
@@ -87,7 +94,7 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/deposits/actions/lifecycle.js | 3 | 0 | 3 |
 | js/pages/deposits/actions/transactions.js | 3 | 0 | 3 |
 | js/pages/deposits/detail/closure.js | 1 | 0 | 1 |
-| js/pages/deposits/detail/index.js | 7 | 2 | 5 |
+| js/pages/deposits/detail/index.js | 7 | 3 | 4 |
 | js/pages/deposits/detail/notes-docs.js | 2 | 0 | 2 |
 | js/pages/deposits/detail/transactions.js | 3 | 0 | 3 |
 | js/pages/deposits/index.js | 1 | 1 | 0 |
@@ -96,7 +103,7 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/groups/actions/lifecycle.js | 3 | 0 | 3 |
 | js/pages/groups/actions/meetings.js | 2 | 0 | 2 |
 | js/pages/groups/actions/members.js | 8 | 1 | 7 |
-| js/pages/groups/detail/index.js | 9 | 4 | 5 |
+| js/pages/groups/detail/index.js | 9 | 5 | 4 |
 | js/pages/groups/detail/meetings-charges.js | 3 | 0 | 3 |
 | js/pages/groups/detail/members.js | 4 | 0 | 4 |
 | js/pages/groups/detail/notes-docs.js | 2 | 0 | 2 |
@@ -114,14 +121,14 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/loans/actions/restructuring.js | 7 | 0 | 7 |
 | js/pages/loans/actions/schedule.js | 1 | 0 | 1 |
 | js/pages/loans/detail/collateral-guarantors.js | 4 | 0 | 4 |
-| js/pages/loans/detail/index.js | 9 | 2 | 7 |
+| js/pages/loans/detail/index.js | 9 | 3 | 6 |
 | js/pages/loans/detail/lifecycle.js | 3 | 0 | 3 |
 | js/pages/loans/detail/notes-docs.js | 2 | 0 | 2 |
 | js/pages/loans/detail/schedule.js | 2 | 0 | 2 |
 | js/pages/loans/detail/transactions.js | 4 | 0 | 4 |
 | js/pages/loans/index.js | 1 | 1 | 0 |
 | js/pages/loans/list.js | 10 | 1 | 9 |
-| js/pages/loans/new.js | 10 | 4 | 6 |
+| js/pages/loans/new.js | 10 | 5 | 5 |
 | js/pages/loans/shared.js | 1 | 0 | 1 |
 | js/pages/misc/index.js | 1 | 1 | 0 |
 | js/pages/misc/navigation.js | 1 | 1 | 0 |
@@ -158,7 +165,7 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/products/actions/share-products.js | 5 | 0 | 5 |
 | js/pages/products/index.js | 48 | 12 | 36 |
 | js/pages/products/loaders.js | 1 | 0 | 1 |
-| js/pages/products/shared.js | 12 | 1 | 11 |
+| js/pages/products/shared.js | 12 | 3 | 9 |
 | js/pages/report-mailing.js | 4 | 2 | 2 |
 | js/pages/reports/index.js | 1 | 1 | 0 |
 | js/pages/reports/manage-reports.js | 4 | 0 | 4 |
@@ -169,13 +176,13 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/savings/actions/lifecycle.js | 5 | 0 | 5 |
 | js/pages/savings/actions/statements.js | 1 | 0 | 1 |
 | js/pages/savings/actions/transactions.js | 4 | 0 | 4 |
-| js/pages/savings/detail/index.js | 7 | 3 | 4 |
+| js/pages/savings/detail/index.js | 7 | 4 | 3 |
 | js/pages/savings/detail/notes-docs.js | 2 | 0 | 2 |
 | js/pages/savings/detail/si.js | 1 | 0 | 1 |
 | js/pages/savings/detail/transactions.js | 4 | 0 | 4 |
 | js/pages/savings/index.js | 1 | 1 | 0 |
 | js/pages/savings/list.js | 9 | 1 | 8 |
-| js/pages/savings/new.js | 9 | 4 | 5 |
+| js/pages/savings/new.js | 9 | 5 | 4 |
 | js/pages/savings/shared.js | 1 | 0 | 1 |
 | js/pages/scheduler.js | 3 | 1 | 2 |
 | js/pages/search.js | 8 | 1 | 7 |
@@ -184,7 +191,7 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/self-service/portal-users.js | 5 | 0 | 5 |
 | js/pages/self-service/shared.js | 1 | 0 | 1 |
 | js/pages/shares/actions.js | 5 | 0 | 5 |
-| js/pages/shares/detail.js | 14 | 2 | 12 |
+| js/pages/shares/detail.js | 14 | 3 | 11 |
 | js/pages/shares/index.js | 1 | 1 | 0 |
 | js/pages/shares/list.js | 5 | 1 | 4 |
 | js/pages/shares/shared.js | 1 | 0 | 1 |
@@ -202,7 +209,7 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/system/loaders/integrations.js | 4 | 0 | 4 |
 | js/pages/system/loaders/oidc.js | 2 | 1 | 1 |
 | js/pages/system/shared.js | 1 | 0 | 1 |
-| js/pages/tasks/checker-inbox.js | 31 | 2 | 29 |
+| js/pages/tasks/checker-inbox.js | 31 | 3 | 28 |
 | js/pages/tasks/index.js | 2 | 1 | 1 |
 | js/pages/tasks/shared.js | 1 | 0 | 1 |
 | js/pages/templates/actions.js | 5 | 0 | 5 |
@@ -211,13 +218,13 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/templates/list.js | 4 | 1 | 3 |
 | js/pages/templates/shared.js | 1 | 0 | 1 |
 | js/pages/transfers.js | 5 | 2 | 3 |
-| js/pages/treasury/borrowings.js | 13 | 0 | 13 |
-| js/pages/treasury/cash-allocation.js | 4 | 0 | 4 |
-| js/pages/treasury/dashboard.js | 5 | 0 | 5 |
-| js/pages/treasury/expenses.js | 13 | 0 | 13 |
+| js/pages/treasury/borrowings.js | 13 | 1 | 12 |
+| js/pages/treasury/cash-allocation.js | 4 | 1 | 3 |
+| js/pages/treasury/dashboard.js | 5 | 1 | 4 |
+| js/pages/treasury/expenses.js | 13 | 1 | 12 |
 | js/pages/treasury/index.js | 1 | 1 | 0 |
-| js/pages/treasury/loan-disbursement.js | 6 | 0 | 6 |
-| js/pages/treasury/reconciliation.js | 12 | 0 | 12 |
+| js/pages/treasury/loan-disbursement.js | 6 | 1 | 5 |
+| js/pages/treasury/reconciliation.js | 12 | 1 | 11 |
 | js/pages/treasury/settings.js | 3 | 1 | 2 |
 | js/pages/treasury/shared.js | 9 | 0 | 9 |
 | js/pages/treasury/teller-console.js | 4 | 0 | 4 |
@@ -229,14 +236,14 @@ Generated: 2026-07-30T15:58:04.329Z
 | js/pages/users/shared.js | 1 | 0 | 1 |
 | js/treasury/bootstrap.js | 6 | 0 | 6 |
 | js/treasury/borrowing-schedule.js | 5 | 0 | 5 |
-| js/treasury/borrowings.js | 12 | 0 | 12 |
+| js/treasury/borrowings.js | 12 | 1 | 11 |
 | js/treasury/dashboard.js | 4 | 0 | 4 |
 | js/treasury/errors.js | 1 | 0 | 1 |
 | js/treasury/expenses.js | 9 | 0 | 9 |
 | js/treasury/health.js | 2 | 0 | 2 |
 | js/treasury/liquidity-status.js | 1 | 0 | 1 |
 | js/treasury/loan-disbursement.js | 4 | 0 | 4 |
-| js/treasury/reconciliation.js | 6 | 0 | 6 |
+| js/treasury/reconciliation.js | 6 | 1 | 5 |
 | js/treasury/segregation.js | 3 | 0 | 3 |
 | js/treasury/teller-balance.js | 4 | 0 | 4 |
 | js/treasury/teller-events.js | 8 | 0 | 8 |
@@ -277,7 +284,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/admin.js` — `runJob`
 - `js/api/admin.js` — `businessJobNames`
 - `js/api/admin.js` — `availableSteps`
-- `js/api/admin.js` — `steps`
 - `js/api/admin.js` — `updateSteps`
 - `js/api/admin.js` — `executeInline`
 - `js/api/admin.js` — `getByShortName`
@@ -290,7 +296,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/admin.js` — `makeMakercheckerAPI`
 - `js/api/admin.js` — `getById`
 - `js/api/admin.js` — `updateByName`
-- `js/api/admin.js` — `switchCache`
 - `js/api/admin.js` — `makeConfigurationsAPI`
 - `js/api/admin.js` — `deactivate`
 - `js/api/admin.js` — `makeSurveysAdminAPI`
@@ -355,7 +360,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/core.js` — `_u`
 - `js/api/core.js` — `_d`
 - `js/api/core.js` — `any`
-- `js/api/credit-bureau.js` — `getCreditBureau`
 - `js/api/credit-bureau.js` — `organisationBureaus`
 - `js/api/credit-bureau.js` — `updateOrganisationBureau`
 - `js/api/credit-bureau.js` — `addOrganisationBureau`
@@ -373,6 +377,821 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/credit-bureau.js` — `getSavedReport`
 - `js/api/credit-bureau.js` — `deleteReport`
 - `js/api/credit-bureau.js` — `makeCreditBureauIntegrationAPI`
+- `js/api/generated/aliases.generated.js` — `toCommands`
+- `js/api/generated/builders.generated.js` — `buildPayload`
+- `js/api/generated/client.generated.js` — `retrieveOneAccountNumberFormat`
+- `js/api/generated/client.generated.js` — `makeAccountNumberFormatAPI`
+- `js/api/generated/client.generated.js` — `operation`
+- `js/api/generated/client.generated.js` — `retrieveOneAccountTransfer`
+- `js/api/generated/client.generated.js` — `refundByTransfer`
+- `js/api/generated/client.generated.js` — `makeAccountTransfersAPI`
+- `js/api/generated/client.generated.js` — `createGLClosure`
+- `js/api/generated/client.generated.js` — `retrieveOneGLClosure`
+- `js/api/generated/client.generated.js` — `updateGLClosure`
+- `js/api/generated/client.generated.js` — `deleteGLClosure`
+- `js/api/generated/client.generated.js` — `makeAccountingClosureAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneAccountingRule`
+- `js/api/generated/client.generated.js` — `makeAccountingRulesAPI`
+- `js/api/generated/client.generated.js` — `retrieveAll1`
+- `js/api/generated/client.generated.js` — `createAdHocQuery`
+- `js/api/generated/client.generated.js` — `retrieveAdHocQuery`
+- `js/api/generated/client.generated.js` — `deleteAdHocQuery`
+- `js/api/generated/client.generated.js` — `makeAdhocQueryApiAPI`
+- `js/api/generated/client.generated.js` — `getWadl`
+- `js/api/generated/client.generated.js` — `getExternalGrammar`
+- `js/api/generated/client.generated.js` — `makeApplicationWadlAPI`
+- `js/api/generated/client.generated.js` — `retrieveEntries`
+- `js/api/generated/client.generated.js` — `retrieveEntry`
+- `js/api/generated/client.generated.js` — `retrieveSearchTemplate`
+- `js/api/generated/client.generated.js` — `makeAuditsAPI`
+- `js/api/generated/client.generated.js` — `makeAuthenticationHTTPBasicAPI`
+- `js/api/generated/client.generated.js` — `handleBatchRequests`
+- `js/api/generated/client.generated.js` — `makeBatchAPIAPI`
+- `js/api/generated/client.generated.js` — `makeBulkImportAPI`
+- `js/api/generated/client.generated.js` — `loanReassignment`
+- `js/api/generated/client.generated.js` — `makeBulkLoansAPI`
+- `js/api/generated/client.generated.js` — `getBusinessDate`
+- `js/api/generated/client.generated.js` — `makeBusinessDateManagementAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllAvailableBusinessStep`
+- `js/api/generated/client.generated.js` — `retrieveAllConfiguredBusinessStep`
+- `js/api/generated/client.generated.js` — `updateJobBusinessStepConfig`
+- `js/api/generated/client.generated.js` — `makeBusinessStepConfigurationAPI`
+- `js/api/generated/client.generated.js` — `retrieveAll2`
+- `js/api/generated/client.generated.js` — `makeCacheAPI`
+- `js/api/generated/client.generated.js` — `retrievesByEntityId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateCalendar`
+- `js/api/generated/client.generated.js` — `makeCalendarAPI`
+- `js/api/generated/client.generated.js` — `makeCashierJournalsAPI`
+- `js/api/generated/client.generated.js` — `makeCashiersAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneCenter`
+- `js/api/generated/client.generated.js` — `handleCommandsCenter`
+- `js/api/generated/client.generated.js` — `retrieveGroupAccountsCenter`
+- `js/api/generated/client.generated.js` — `getBulkTemplateCenter`
+- `js/api/generated/client.generated.js` — `postBulkTemplateCenter`
+- `js/api/generated/client.generated.js` — `makeCentersAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneCharge`
+- `js/api/generated/client.generated.js` — `makeChargesAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneClient`
+- `js/api/generated/client.generated.js` — `handleCommandClient`
+- `js/api/generated/client.generated.js` — `retrieveAllClientAccounts`
+- `js/api/generated/client.generated.js` — `retrieveObligeeDetails`
+- `js/api/generated/client.generated.js` — `retrieveTransferTemplate`
+- `js/api/generated/client.generated.js` — `getTemplate`
+- `js/api/generated/client.generated.js` — `retrieveOneClientByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `handleCommandClientByExternalId`
+- `js/api/generated/client.generated.js` — `deleteByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveAllClientAccountsByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveObligeeDetailsByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTransferTemplateByExternalId`
+- `js/api/generated/client.generated.js` — `postTemplate`
+- `js/api/generated/client.generated.js` — `makeClientAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllClientCharges`
+- `js/api/generated/client.generated.js` — `retrieveOneClientCharge`
+- `js/api/generated/client.generated.js` — `payOrWaiveClientCharge`
+- `js/api/generated/client.generated.js` — `retrieveTemplateClientCharge`
+- `js/api/generated/client.generated.js` — `makeClientChargesAPI`
+- `js/api/generated/client.generated.js` — `getClientCollateralProducts`
+- `js/api/generated/client.generated.js` — `addClientCollateral`
+- `js/api/generated/client.generated.js` — `getClientCollateralData`
+- `js/api/generated/client.generated.js` — `updateClientCollateral`
+- `js/api/generated/client.generated.js` — `deleteClientCollateral`
+- `js/api/generated/client.generated.js` — `getClientCollateralTemplate`
+- `js/api/generated/client.generated.js` — `makeClientCollateralManagementAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllClientFamilyMembers`
+- `js/api/generated/client.generated.js` — `retrieveOneClientFamilyMember`
+- `js/api/generated/client.generated.js` — `retrieveTemplateClientFamilyMember`
+- `js/api/generated/client.generated.js` — `makeClientFamilyMemberAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllClientIdentifiers`
+- `js/api/generated/client.generated.js` — `retrieveOneClientIdentifier`
+- `js/api/generated/client.generated.js` — `retrieveTemplateClientIdentifier`
+- `js/api/generated/client.generated.js` — `makeClientIdentifierAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllClientTransactions`
+- `js/api/generated/client.generated.js` — `undoClientTransaction`
+- `js/api/generated/client.generated.js` — `retrieveByTransactionExternalId`
+- `js/api/generated/client.generated.js` — `undoClientTransactionByTransactionExternalId`
+- `js/api/generated/client.generated.js` — `retrieveAllClientTransactionsByClientExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByClientExternalId`
+- `js/api/generated/client.generated.js` — `undoClientTransactionByClientExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByClientAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `undoClientTransactionByClientAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `makeClientTransactionAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllClientAddresses`
+- `js/api/generated/client.generated.js` — `updateClientAddress`
+- `js/api/generated/client.generated.js` — `createClientAddress`
+- `js/api/generated/client.generated.js` — `makeClientsAddressAPI`
+- `js/api/generated/client.generated.js` — `searchClientsByText`
+- `js/api/generated/client.generated.js` — `makeClientSearchV2API`
+- `js/api/generated/client.generated.js` — `retrieveAllCodeValues`
+- `js/api/generated/client.generated.js` — `retrieveAllCodeValuesByCodeName`
+- `js/api/generated/client.generated.js` — `createByCodeName`
+- `js/api/generated/client.generated.js` — `retrieve1`
+- `js/api/generated/client.generated.js` — `updateByCodeName`
+- `js/api/generated/client.generated.js` — `delete1`
+- `js/api/generated/client.generated.js` — `makeCodeValuesAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneCode`
+- `js/api/generated/client.generated.js` — `retrieveOneCodeByName`
+- `js/api/generated/client.generated.js` — `makeCodesAPI`
+- `js/api/generated/client.generated.js` — `createCollateral1`
+- `js/api/generated/client.generated.js` — `getCollateral`
+- `js/api/generated/client.generated.js` — `updateCollateral1`
+- `js/api/generated/client.generated.js` — `deleteCollateral1`
+- `js/api/generated/client.generated.js` — `makeCollateralManagementAPI`
+- `js/api/generated/client.generated.js` — `generateCollectionSheet`
+- `js/api/generated/client.generated.js` — `makeCollectionSheetAPI`
+- `js/api/generated/client.generated.js` — `getConfiguration`
+- `js/api/generated/client.generated.js` — `fetchMappingByLoanProductId`
+- `js/api/generated/client.generated.js` — `updateCreditBureauLoanProductMapping`
+- `js/api/generated/client.generated.js` — `createCreditBureauLoanProductMapping`
+- `js/api/generated/client.generated.js` — `updateCreditBureau`
+- `js/api/generated/client.generated.js` — `addOrganisationCreditBureau`
+- `js/api/generated/client.generated.js` — `makeCreditBureauConfigurationAPI`
+- `js/api/generated/client.generated.js` — `addCreditReport`
+- `js/api/generated/client.generated.js` — `fetchCreditReport`
+- `js/api/generated/client.generated.js` — `getSavedCreditReport`
+- `js/api/generated/client.generated.js` — `deleteCreditReport`
+- `js/api/generated/client.generated.js` — `saveCreditReport`
+- `js/api/generated/client.generated.js` — `makeCreditBureauIntegrationAPI`
+- `js/api/generated/client.generated.js` — `makeCurrencyAPI`
+- `js/api/generated/client.generated.js` — `gets`
+- `js/api/generated/client.generated.js` — `getEntries`
+- `js/api/generated/client.generated.js` — `updateEntryOnetoOne`
+- `js/api/generated/client.generated.js` — `createEntry`
+- `js/api/generated/client.generated.js` — `deleteEntries`
+- `js/api/generated/client.generated.js` — `getManyEntry`
+- `js/api/generated/client.generated.js` — `updateEntryOneToMany`
+- `js/api/generated/client.generated.js` — `deleteEntry`
+- `js/api/generated/client.generated.js` — `queryValues`
+- `js/api/generated/client.generated.js` — `advancedQuery`
+- `js/api/generated/client.generated.js` — `deregisterDatatable`
+- `js/api/generated/client.generated.js` — `registerDatatable`
+- `js/api/generated/client.generated.js` — `makeDataTablesAPI`
+- `js/api/generated/client.generated.js` — `createBucket`
+- `js/api/generated/client.generated.js` — `getBucket`
+- `js/api/generated/client.generated.js` — `updateBucket`
+- `js/api/generated/client.generated.js` — `deleteBucket`
+- `js/api/generated/client.generated.js` — `createRange`
+- `js/api/generated/client.generated.js` — `getRange`
+- `js/api/generated/client.generated.js` — `updateRange`
+- `js/api/generated/client.generated.js` — `deleteRange`
+- `js/api/generated/client.generated.js` — `makeDelinquencyRangeAndBucketsManagementAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllDepositAccountOnHoldFundTransactions`
+- `js/api/generated/client.generated.js` — `makeDepositAccountOnHoldFundTransactionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllDocuments`
+- `js/api/generated/client.generated.js` — `downloadFile`
+- `js/api/generated/client.generated.js` — `makeDocumentsAPI`
+- `js/api/generated/client.generated.js` — `createCheck`
+- `js/api/generated/client.generated.js` — `deleteCheck`
+- `js/api/generated/client.generated.js` — `makeEntityDataTableAPI`
+- `js/api/generated/client.generated.js` — `getAddresses`
+- `js/api/generated/client.generated.js` — `makeEntityFieldConfigurationAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllExternalAssetOwnerLoanProductAttributes`
+- `js/api/generated/client.generated.js` — `makeExternalAssetOwnerLoanProductAttributesAPI`
+- `js/api/generated/client.generated.js` — `retrieves`
+- `js/api/generated/client.generated.js` — `getJournalEntriesOfOwner`
+- `js/api/generated/client.generated.js` — `searchInvestorData`
+- `js/api/generated/client.generated.js` — `transferRequestWithId`
+- `js/api/generated/client.generated.js` — `getJournalEntriesOfTransfer`
+- `js/api/generated/client.generated.js` — `transferRequestWithIdByExternalId`
+- `js/api/generated/client.generated.js` — `transferRequestWithLoanId`
+- `js/api/generated/client.generated.js` — `transferRequestWithLoanExternalId`
+- `js/api/generated/client.generated.js` — `makeExternalAssetOwnersAPI`
+- `js/api/generated/client.generated.js` — `gets`
+- `js/api/generated/client.generated.js` — `updates`
+- `js/api/generated/client.generated.js` — `makeExternalEventConfigurationAPI`
+- `js/api/generated/client.generated.js` — `retrievesConfiguration`
+- `js/api/generated/client.generated.js` — `updatesConfiguration`
+- `js/api/generated/client.generated.js` — `makeExternalServicesAPI`
+- `js/api/generated/client.generated.js` — `makeFetchAuthenticatedUserDetailsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAll3`
+- `js/api/generated/client.generated.js` — `retrieveOne`
+- `js/api/generated/client.generated.js` — `updateMap`
+- `js/api/generated/client.generated.js` — `getEntityToEntityMappings`
+- `js/api/generated/client.generated.js` — `createMap`
+- `js/api/generated/client.generated.js` — `makeFineractEntityAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneFixedDepositAccount`
+- `js/api/generated/client.generated.js` — `handleCommandsFixedDepositAccount`
+- `js/api/generated/client.generated.js` — `accountClosureTemplate`
+- `js/api/generated/client.generated.js` — `getFixedDepositTemplate`
+- `js/api/generated/client.generated.js` — `getFixedDepositTransactionTemplate`
+- `js/api/generated/client.generated.js` — `postFixedDepositTransactionTemplate`
+- `js/api/generated/client.generated.js` — `postFixedDepositTemplate`
+- `js/api/generated/client.generated.js` — `makeFixedDepositAccountAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllFixedDepositAccountTransactions`
+- `js/api/generated/client.generated.js` — `retrieveOneFixedDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `handleCommandsFixedDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `retrieveTemplateFixedDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `makeFixedDepositAccountTransactionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneFixedDepositProduct`
+- `js/api/generated/client.generated.js` — `makeFixedDepositProductAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneFloatingRate`
+- `js/api/generated/client.generated.js` — `makeFloatingRatesAPI`
+- `js/api/generated/client.generated.js` — `retrieves`
+- `js/api/generated/client.generated.js` — `makeFundsAPI`
+- `js/api/generated/client.generated.js` — `createGLAccount`
+- `js/api/generated/client.generated.js` — `retreiveAccount`
+- `js/api/generated/client.generated.js` — `updateGLAccount`
+- `js/api/generated/client.generated.js` — `deleteGLAccount`
+- `js/api/generated/client.generated.js` — `getGlAccountsTemplate`
+- `js/api/generated/client.generated.js` — `postGlAccountsTemplate`
+- `js/api/generated/client.generated.js` — `makeGeneralLedgerAccountAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneGlobalConfiguration`
+- `js/api/generated/client.generated.js` — `updateConfigurationByName`
+- `js/api/generated/client.generated.js` — `retrieveOneByName`
+- `js/api/generated/client.generated.js` — `makeGlobalConfigurationAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneGroup`
+- `js/api/generated/client.generated.js` — `handleCommandsGroup`
+- `js/api/generated/client.generated.js` — `retrieveAccountsGroup`
+- `js/api/generated/client.generated.js` — `unassignLoanOfficerGroup`
+- `js/api/generated/client.generated.js` — `retrieveGlimAccountsGroup`
+- `js/api/generated/client.generated.js` — `retrieveGsimAccountsGroup`
+- `js/api/generated/client.generated.js` — `getBulkTemplateGroup`
+- `js/api/generated/client.generated.js` — `postBulkTemplateGroup`
+- `js/api/generated/client.generated.js` — `makeGroupsAPI`
+- `js/api/generated/client.generated.js` — `makeGroupsLevelAPI`
+- `js/api/generated/client.generated.js` — `retrieveDetails`
+- `js/api/generated/client.generated.js` — `retrieveDetails1`
+- `js/api/generated/client.generated.js` — `accountsTemplate`
+- `js/api/generated/client.generated.js` — `getTemplate`
+- `js/api/generated/client.generated.js` — `newGuarantorTemplate`
+- `js/api/generated/client.generated.js` — `postTemplate`
+- `js/api/generated/client.generated.js` — `makeGuarantorsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneHoliday`
+- `js/api/generated/client.generated.js` — `handleCommandsHoliday`
+- `js/api/generated/client.generated.js` — `makeHolidaysAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneHook`
+- `js/api/generated/client.generated.js` — `makeHooksAPI`
+- `js/api/generated/client.generated.js` — `executeInlineJob`
+- `js/api/generated/client.generated.js` — `makeInlineJobAPI`
+- `js/api/generated/client.generated.js` — `makeInstanceModeAPI`
+- `js/api/generated/client.generated.js` — `getAccountDetails`
+- `js/api/generated/client.generated.js` — `getAccountIdentifiers`
+- `js/api/generated/client.generated.js` — `getClientKyc`
+- `js/api/generated/client.generated.js` — `getAccountTransactions`
+- `js/api/generated/client.generated.js` — `getAccountByIdentifier`
+- `js/api/generated/client.generated.js` — `registerAccountIdentifier`
+- `js/api/generated/client.generated.js` — `deleteAccountIdentifier`
+- `js/api/generated/client.generated.js` — `getAccountByIdentifier1`
+- `js/api/generated/client.generated.js` — `registerAccountIdentifier1`
+- `js/api/generated/client.generated.js` — `deleteAccountIdentifier1`
+- `js/api/generated/client.generated.js` — `disburseLoan`
+- `js/api/generated/client.generated.js` — `loanRepayment`
+- `js/api/generated/client.generated.js` — `getQuote`
+- `js/api/generated/client.generated.js` — `getTransactionRequest`
+- `js/api/generated/client.generated.js` — `getTransfer`
+- `js/api/generated/client.generated.js` — `makeInterOperationAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneInterestRateChart`
+- `js/api/generated/client.generated.js` — `makeInterestRateChartAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllInterestRateChartSlabs`
+- `js/api/generated/client.generated.js` — `createInterestRateChartSlab`
+- `js/api/generated/client.generated.js` — `retrieveOneInterestRateChartSlab`
+- `js/api/generated/client.generated.js` — `updateInterestRateChartSlab`
+- `js/api/generated/client.generated.js` — `deleteInterestRateChartSlab`
+- `js/api/generated/client.generated.js` — `retrieveTemplateInterestRateChartSlab`
+- `js/api/generated/client.generated.js` — `makeInterestRateSlabAKAInterestBandsAPI`
+- `js/api/generated/client.generated.js` — `updateLoanCobLastDate`
+- `js/api/generated/client.generated.js` — `loanReprocess`
+- `js/api/generated/client.generated.js` — `getCobPartitions`
+- `js/api/generated/client.generated.js` — `makeInternalCOBAPI`
+- `js/api/generated/client.generated.js` — `createGLJournalEntry`
+- `js/api/generated/client.generated.js` — `retrieveJournalEntryById`
+- `js/api/generated/client.generated.js` — `createReversalJournalEntry`
+- `js/api/generated/client.generated.js` — `getsTemplate`
+- `js/api/generated/client.generated.js` — `retrieves`
+- `js/api/generated/client.generated.js` — `postsTemplate`
+- `js/api/generated/client.generated.js` — `makeJournalEntriesAPI`
+- `js/api/generated/client.generated.js` — `retrieveAll5`
+- `js/api/generated/client.generated.js` — `retrieve1`
+- `js/api/generated/client.generated.js` — `update2`
+- `js/api/generated/client.generated.js` — `makeLikelihoodAPI`
+- `js/api/generated/client.generated.js` — `makeListReportMailingJobHistoryAPI`
+- `js/api/generated/client.generated.js` — `placeLockOnLoanAccount`
+- `js/api/generated/client.generated.js` — `makeLoanAccountLockAPI`
+- `js/api/generated/client.generated.js` — `retrieveAmortizationDetails`
+- `js/api/generated/client.generated.js` — `retrieveBuyDownFeesAllocationData`
+- `js/api/generated/client.generated.js` — `getBuyDownFeesAllocationDataByTransactionExternalId`
+- `js/api/generated/client.generated.js` — `retrieveAmortizationDetailsByExternalId`
+- `js/api/generated/client.generated.js` — `getBuyDownFeesAllocationDataByLoanExternalId`
+- `js/api/generated/client.generated.js` — `getBuyDownFeesAllocationDataByExternalIds`
+- `js/api/generated/client.generated.js` — `makeLoanBuyDownFeesAPI`
+- `js/api/generated/client.generated.js` — `fetchCapitalizedIncomeDetails`
+- `js/api/generated/client.generated.js` — `retrieveCapitalizedIncomeAllocationData`
+- `js/api/generated/client.generated.js` — `getCapitalizedIncomeAllocationDataByTransactionExternalId`
+- `js/api/generated/client.generated.js` — `fetchLoanCapitalizedIncomeData`
+- `js/api/generated/client.generated.js` — `fetchCapitalizedIncomeDetailsByExternalId`
+- `js/api/generated/client.generated.js` — `getCapitalizedIncomeAllocationDataByLoanExternalId`
+- `js/api/generated/client.generated.js` — `getCapitalizedIncomeAllocationDataByExternalIds`
+- `js/api/generated/client.generated.js` — `fetchLoanCapitalizedIncomeDataByExternalId`
+- `js/api/generated/client.generated.js` — `makeLoanCapitalizedIncomeAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllLoanCharges`
+- `js/api/generated/client.generated.js` — `createOrPayLoanCharge`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanCharge`
+- `js/api/generated/client.generated.js` — `executeLoanChargeOnExistingCharge`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanChargeByChargeExternalId`
+- `js/api/generated/client.generated.js` — `updateByChargeExternalId`
+- `js/api/generated/client.generated.js` — `executeLoanChargeByChargeExternalId`
+- `js/api/generated/client.generated.js` — `deleteByChargeExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateLoanCharge`
+- `js/api/generated/client.generated.js` — `retrieveAllLoanChargesByLoanExternalId`
+- `js/api/generated/client.generated.js` — `executeLoanChargeByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanChargeByLoanExternalId`
+- `js/api/generated/client.generated.js` — `updateByLoanExternalId`
+- `js/api/generated/client.generated.js` — `executeLoanChargeByLoanExternalIdOnExistingCharge`
+- `js/api/generated/client.generated.js` — `deleteByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanChargeByLoanAndChargeExternalId`
+- `js/api/generated/client.generated.js` — `updateByLoanAndChargeExternalId`
+- `js/api/generated/client.generated.js` — `executeLoanChargeByLoanAndChargeExternalId`
+- `js/api/generated/client.generated.js` — `deleteByLoanAndChargeExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateLoanChargeByLoanExternalId`
+- `js/api/generated/client.generated.js` — `makeLoanChargesAPI`
+- `js/api/generated/client.generated.js` — `executeLoanCOBCatchUp`
+- `js/api/generated/client.generated.js` — `makeLoanCOBCatchUpAPI`
+- `js/api/generated/client.generated.js` — `retrieveCollateralDetails`
+- `js/api/generated/client.generated.js` — `createCollateral`
+- `js/api/generated/client.generated.js` — `retrieveCollateralDetails1`
+- `js/api/generated/client.generated.js` — `updateCollateral`
+- `js/api/generated/client.generated.js` — `deleteCollateral`
+- `js/api/generated/client.generated.js` — `newCollateralTemplate`
+- `js/api/generated/client.generated.js` — `makeLoanCollateralAPI`
+- `js/api/generated/client.generated.js` — `getLoanCollateral`
+- `js/api/generated/client.generated.js` — `deleteLoanCollateral`
+- `js/api/generated/client.generated.js` — `makeLoanCollateralManagementAPI`
+- `js/api/generated/client.generated.js` — `retriveDetail`
+- `js/api/generated/client.generated.js` — `updateDisbursementDate`
+- `js/api/generated/client.generated.js` — `addAndDeleteDisbursementDetail`
+- `js/api/generated/client.generated.js` — `makeLoanDisbursementDetailsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllLoanInterestPauses`
+- `js/api/generated/client.generated.js` — `retrieveAllLoanInterestPausesByExternalId`
+- `js/api/generated/client.generated.js` — `createByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `deleteByExternalId`
+- `js/api/generated/client.generated.js` — `makeLoanInterestPauseAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanOriginator`
+- `js/api/generated/client.generated.js` — `retrieveByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `deleteByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOriginatorsByLoanId`
+- `js/api/generated/client.generated.js` — `attachOriginatorToLoan`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromLoan`
+- `js/api/generated/client.generated.js` — `attachOriginatorToLoanByOriginatorExternalId`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromLoanByOriginatorExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOriginatorsByLoanExternalId`
+- `js/api/generated/client.generated.js` — `attachOriginatorToLoanByLoanExternalId`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromLoanByLoanExternalId`
+- `js/api/generated/client.generated.js` — `attachOriginatorToLoanByExternalIds`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromLoanByExternalIds`
+- `js/api/generated/client.generated.js` — `makeLoanOriginatorsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanProduct`
+- `js/api/generated/client.generated.js` — `retrieveDetailsByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `makeLoanProductsAPI`
+- `js/api/generated/client.generated.js` — `makeLoanProductsDetailsAPI`
+- `js/api/generated/client.generated.js` — `handleCommandsLoanSchedule`
+- `js/api/generated/client.generated.js` — `makeLoanReschedulingAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllLoanTransactions`
+- `js/api/generated/client.generated.js` — `handleCommandsLoanTransaction`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanTransaction`
+- `js/api/generated/client.generated.js` — `undoWaiveChargeLoanTransaction`
+- `js/api/generated/client.generated.js` — `adjustLoanTransaction`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanTransactionByExternalId`
+- `js/api/generated/client.generated.js` — `adjustLoanTransactionByTransactionExternalId`
+- `js/api/generated/client.generated.js` — `undoWaiveChargeLoanTransactionByTransactionExternalId`
+- `js/api/generated/client.generated.js` — `previewReAgeLoanSchedule`
+- `js/api/generated/client.generated.js` — `previewReAmortizeLoanSchedule`
+- `js/api/generated/client.generated.js` — `retrieveTemplateLoanTransaction`
+- `js/api/generated/client.generated.js` — `retrieveAllLoanTransactionsByExternalId`
+- `js/api/generated/client.generated.js` — `handleCommandsLoanTransactionByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanTransactionByLoanExternalId`
+- `js/api/generated/client.generated.js` — `undoWaiveChargeLoanTransactionByLoanExternalId`
+- `js/api/generated/client.generated.js` — `adjustLoanTransactionByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanTransactionByLoanExternalIdAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `adjustLoanTransactionByLoanAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `undoWaiveChargeLoanTransactionByLoanAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `previewReAgeLoanScheduleByLoanExternalId`
+- `js/api/generated/client.generated.js` — `previewReAmortizeLoanScheduleByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateLoanTransactionByLoanExternalId`
+- `js/api/generated/client.generated.js` — `makeLoanTransactionsAPI`
+- `js/api/generated/client.generated.js` — `calculateOrSubmitLoanApplication`
+- `js/api/generated/client.generated.js` — `retrieveOneLoan`
+- `js/api/generated/client.generated.js` — `updateApplication`
+- `js/api/generated/client.generated.js` — `handleCommandsLoan`
+- `js/api/generated/client.generated.js` — `deleteApplication`
+- `js/api/generated/client.generated.js` — `retrieveApprovedAmountHistoryLoan`
+- `js/api/generated/client.generated.js` — `updateApprovedAmountLoan`
+- `js/api/generated/client.generated.js` — `updateAvailableDisbursementAmountLoan`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyActionsLoan`
+- `js/api/generated/client.generated.js` — `createDelinquencyActionLoan`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyTagHistoryLoan`
+- `js/api/generated/client.generated.js` — `retrieveApprovalTemplate`
+- `js/api/generated/client.generated.js` — `getsTemplate`
+- `js/api/generated/client.generated.js` — `retrieveOneLoanByExternalId`
+- `js/api/generated/client.generated.js` — `updateApplicationByExternalId`
+- `js/api/generated/client.generated.js` — `handleCommandsLoanByExternalId`
+- `js/api/generated/client.generated.js` — `deleteApplicationByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveApprovedAmountHistoryLoanByExternalId`
+- `js/api/generated/client.generated.js` — `updateApprovedAmountLoanByExternalId`
+- `js/api/generated/client.generated.js` — `updateAvailableDisbursementAmountLoanByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyActionsLoanByExternalId`
+- `js/api/generated/client.generated.js` — `createDelinquencyActionLoanByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyTagHistoryLoanByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveApprovalTemplateByExternalId`
+- `js/api/generated/client.generated.js` — `getGlimRepaymentTemplate`
+- `js/api/generated/client.generated.js` — `handleCommandsGlimLoan`
+- `js/api/generated/client.generated.js` — `getRepaymentTemplate`
+- `js/api/generated/client.generated.js` — `postRepaymentTemplate`
+- `js/api/generated/client.generated.js` — `postTemplate`
+- `js/api/generated/client.generated.js` — `makeLoansAPI`
+- `js/api/generated/client.generated.js` — `retrieveLoanPointInTime`
+- `js/api/generated/client.generated.js` — `retrieveLoanPointInTimeByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByExternalIds`
+- `js/api/generated/client.generated.js` — `makeLoansPointInTimeAPI`
+- `js/api/generated/client.generated.js` — `approveMakerCheckerEntry`
+- `js/api/generated/client.generated.js` — `deleteMakerCheckerEntry`
+- `js/api/generated/client.generated.js` — `retrieveAuditSearchTemplate1`
+- `js/api/generated/client.generated.js` — `makeMakerCheckerOr4EyeFunctionalityAPI`
+- `js/api/generated/client.generated.js` — `createGLAccountMappingFinancialActivityAccount`
+- `js/api/generated/client.generated.js` — `retreive`
+- `js/api/generated/client.generated.js` — `updateGLAccountMappingFinancialActivityAccount`
+- `js/api/generated/client.generated.js` — `deleteGLAccountMappingFinancialActivityAccount`
+- `js/api/generated/client.generated.js` — `makeMappingFinancialActivitiesToAccountsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllMeetings`
+- `js/api/generated/client.generated.js` — `retrieveOneMeeting`
+- `js/api/generated/client.generated.js` — `updateAttendance`
+- `js/api/generated/client.generated.js` — `retrieveTemplateMeeting`
+- `js/api/generated/client.generated.js` — `makeMeetingsAPI`
+- `js/api/generated/client.generated.js` — `updateMixTaxonomyMapping`
+- `js/api/generated/client.generated.js` — `makeMixMappingAPI`
+- `js/api/generated/client.generated.js` — `makeMixReportAPI`
+- `js/api/generated/client.generated.js` — `makeMixTaxonomyAPI`
+- `js/api/generated/client.generated.js` — `retrievesByResource`
+- `js/api/generated/client.generated.js` — `addNewNote`
+- `js/api/generated/client.generated.js` — `makeNotesAPI`
+- `js/api/generated/client.generated.js` — `updateReadStatus`
+- `js/api/generated/client.generated.js` — `makeNotificationAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneOffice`
+- `js/api/generated/client.generated.js` — `getTemplate`
+- `js/api/generated/client.generated.js` — `retrieveOneOfficeByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `postTemplate`
+- `js/api/generated/client.generated.js` — `makeOfficesAPI`
+- `js/api/generated/client.generated.js` — `forgotPassword`
+- `js/api/generated/client.generated.js` — `makePasswordManagementAPI`
+- `js/api/generated/client.generated.js` — `updates`
+- `js/api/generated/client.generated.js` — `makePasswordPreferencesAPI`
+- `js/api/generated/client.generated.js` — `retrieveOnePaymentType`
+- `js/api/generated/client.generated.js` — `deleteCodePaymentType`
+- `js/api/generated/client.generated.js` — `makePaymentTypeAPI`
+- `js/api/generated/client.generated.js` — `executePeriodicAccrualAccounting`
+- `js/api/generated/client.generated.js` — `makePeriodicAccrualAccountingAPI`
+- `js/api/generated/client.generated.js` — `updates`
+- `js/api/generated/client.generated.js` — `makePermissionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAll6`
+- `js/api/generated/client.generated.js` — `retrieveAll7`
+- `js/api/generated/client.generated.js` — `makePovertyLineAPI`
+- `js/api/generated/client.generated.js` — `retrieveTemplateProductMix`
+- `js/api/generated/client.generated.js` — `makeProductMixAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllShareProducts`
+- `js/api/generated/client.generated.js` — `createShareProduct`
+- `js/api/generated/client.generated.js` — `retrieveOneShareProduct`
+- `js/api/generated/client.generated.js` — `updateShareProduct`
+- `js/api/generated/client.generated.js` — `handleCommandsShareProduct`
+- `js/api/generated/client.generated.js` — `retrieveTemplateShareProduct`
+- `js/api/generated/client.generated.js` — `makeProductsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneInternalProgressiveLoan`
+- `js/api/generated/client.generated.js` — `updateInternalProgressiveLoan`
+- `js/api/generated/client.generated.js` — `deleteInternalProgressiveLoan`
+- `js/api/generated/client.generated.js` — `makeProgressiveLoanAPI`
+- `js/api/generated/client.generated.js` — `retrieveAll8`
+- `js/api/generated/client.generated.js` — `makeProvisioningCategoryAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneProvisioningCriteria`
+- `js/api/generated/client.generated.js` — `retrieveTemplate1`
+- `js/api/generated/client.generated.js` — `makeProvisioningCriteriaAPI`
+- `js/api/generated/client.generated.js` — `creates`
+- `js/api/generated/client.generated.js` — `retrieveOneProvisioningEntry`
+- `js/api/generated/client.generated.js` — `modifyProvisioningEntry`
+- `js/api/generated/client.generated.js` — `retrievesLoanProducts`
+- `js/api/generated/client.generated.js` — `makeProvisioningEntriesAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneRate`
+- `js/api/generated/client.generated.js` — `makeRateAPI`
+- `js/api/generated/client.generated.js` — `submitApplicationRecurringDepositAccount`
+- `js/api/generated/client.generated.js` — `retrieveOneRecurringDepositAccount`
+- `js/api/generated/client.generated.js` — `handleCommandsRecurringDepositAccount`
+- `js/api/generated/client.generated.js` — `accountClosureTemplateRecurringDepositAccount`
+- `js/api/generated/client.generated.js` — `getRecurringDepositTemplate`
+- `js/api/generated/client.generated.js` — `getRecurringDepositTransactionTemplate`
+- `js/api/generated/client.generated.js` — `postRecurringDepositTransactionsTemplate`
+- `js/api/generated/client.generated.js` — `postRecurringDepositTemplate`
+- `js/api/generated/client.generated.js` — `makeRecurringDepositAccountAPI`
+- `js/api/generated/client.generated.js` — `transactionRecurringDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `retrieveOneRecurringDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `handleCommandsRecurringDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `retrieveTemplateRecurringDepositAccountTransaction`
+- `js/api/generated/client.generated.js` — `makeRecurringDepositAccountTransactionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneRecurringDepositProduct`
+- `js/api/generated/client.generated.js` — `makeRecurringDepositProductAPI`
+- `js/api/generated/client.generated.js` — `getPostDatedChecks`
+- `js/api/generated/client.generated.js` — `getPostDatedCheck`
+- `js/api/generated/client.generated.js` — `updatePostDatedChecks`
+- `js/api/generated/client.generated.js` — `deletePostDatedCheck`
+- `js/api/generated/client.generated.js` — `makeRepaymentWithPostDatedChecksAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneReportMailingJob`
+- `js/api/generated/client.generated.js` — `makeReportMailingJobsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneReport`
+- `js/api/generated/client.generated.js` — `makeReportsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneRescheduleLoan`
+- `js/api/generated/client.generated.js` — `makeRescheduleLoansAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneRole`
+- `js/api/generated/client.generated.js` — `handleCommandsRole`
+- `js/api/generated/client.generated.js` — `retrievePermissions`
+- `js/api/generated/client.generated.js` — `updatePermissions`
+- `js/api/generated/client.generated.js` — `makeRolesAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllAvailableExports`
+- `js/api/generated/client.generated.js` — `makeRunReportsAPI`
+- `js/api/generated/client.generated.js` — `submitSavingsApplication`
+- `js/api/generated/client.generated.js` — `handleCommandsSavingsAccount`
+- `js/api/generated/client.generated.js` — `getSavingsTemplate`
+- `js/api/generated/client.generated.js` — `retrieveByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `handleCommandsSavingsAccountByExternalId`
+- `js/api/generated/client.generated.js` — `deleteByExternalId`
+- `js/api/generated/client.generated.js` — `submitGSIMApplication`
+- `js/api/generated/client.generated.js` — `updateGsim`
+- `js/api/generated/client.generated.js` — `handleGSIMCommands`
+- `js/api/generated/client.generated.js` — `getSavingsTransactionTemplate`
+- `js/api/generated/client.generated.js` — `postSavingsTransactionTemplate`
+- `js/api/generated/client.generated.js` — `postSavingsTemplate`
+- `js/api/generated/client.generated.js` — `makeSavingsAccountAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneSavingsAccountTransaction`
+- `js/api/generated/client.generated.js` — `adjustSavingsAccountTransaction`
+- `js/api/generated/client.generated.js` — `retrieveOneSavingsAccountTransactionByExternalId`
+- `js/api/generated/client.generated.js` — `adjustSavingsAccountTransactionByExternalId`
+- `js/api/generated/client.generated.js` — `advancedQuerySavingsAccountTransactions`
+- `js/api/generated/client.generated.js` — `searchSavingsAccountTransactions`
+- `js/api/generated/client.generated.js` — `retrieveTemplateSavingsAccountTransaction`
+- `js/api/generated/client.generated.js` — `createBySavingsExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOneSavingsAccountTransactionBySavingsExternalId`
+- `js/api/generated/client.generated.js` — `adjustSavingsAccountTransactionBySavingsExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId`
+- `js/api/generated/client.generated.js` — `advancedQuerySavingsAccountTransactionsBySavingsExternalId`
+- `js/api/generated/client.generated.js` — `searchSavingsAccountTransactionsBySavingsExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateSavingsAccountTransactionBySavingsExternalId`
+- `js/api/generated/client.generated.js` — `makeSavingsAccountTransactionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllSavingsAccountCharges`
+- `js/api/generated/client.generated.js` — `createSavingsAccountCharge`
+- `js/api/generated/client.generated.js` — `retrieveOneSavingsAccountCharge`
+- `js/api/generated/client.generated.js` — `updateSavingsAccountCharge`
+- `js/api/generated/client.generated.js` — `handleCommandsSavingsAccountCharge`
+- `js/api/generated/client.generated.js` — `deleteSavingsAccountCharge`
+- `js/api/generated/client.generated.js` — `retrieveTemplateSavingsAccountCharge`
+- `js/api/generated/client.generated.js` — `makeSavingsChargesAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneSavingsProduct`
+- `js/api/generated/client.generated.js` — `makeSavingsProductAPI`
+- `js/api/generated/client.generated.js` — `retrieveStatus`
+- `js/api/generated/client.generated.js` — `handleCommandsScheduler`
+- `js/api/generated/client.generated.js` — `makeSchedulerAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneSchedulerJob`
+- `js/api/generated/client.generated.js` — `updateJobDetail`
+- `js/api/generated/client.generated.js` — `executeJob`
+- `js/api/generated/client.generated.js` — `retrieveHistory`
+- `js/api/generated/client.generated.js` — `retrieveByShortName`
+- `js/api/generated/client.generated.js` — `updateJobDetailByShortName`
+- `js/api/generated/client.generated.js` — `executeJobByShortName`
+- `js/api/generated/client.generated.js` — `retrieveHistoryByShortName`
+- `js/api/generated/client.generated.js` — `makeSCHEDULERJOBAPI`
+- `js/api/generated/client.generated.js` — `findBySurvey`
+- `js/api/generated/client.generated.js` — `findBySurveyAndClient`
+- `js/api/generated/client.generated.js` — `findByClient`
+- `js/api/generated/client.generated.js` — `makeScoreCardAPI`
+- `js/api/generated/client.generated.js` — `advancedSearch`
+- `js/api/generated/client.generated.js` — `makeSearchAPIAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllShareDividends`
+- `js/api/generated/client.generated.js` — `createShareDividend`
+- `js/api/generated/client.generated.js` — `retrieveOneShareDividend`
+- `js/api/generated/client.generated.js` — `updateShareDividend`
+- `js/api/generated/client.generated.js` — `deleteShareDividend`
+- `js/api/generated/client.generated.js` — `makeSelfDividendAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllShareAccounts`
+- `js/api/generated/client.generated.js` — `retrieveOneShareAccount`
+- `js/api/generated/client.generated.js` — `handleCommandsShareAccount`
+- `js/api/generated/client.generated.js` — `getTemplate`
+- `js/api/generated/client.generated.js` — `retrieveTemplateShareAccount`
+- `js/api/generated/client.generated.js` — `postTemplate`
+- `js/api/generated/client.generated.js` — `makeShareAccountAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllSmsByStatus`
+- `js/api/generated/client.generated.js` — `retrieveOneSms`
+- `js/api/generated/client.generated.js` — `makeSMSAPI`
+- `js/api/generated/client.generated.js` — `fetchLookupTables`
+- `js/api/generated/client.generated.js` — `createLookupTable`
+- `js/api/generated/client.generated.js` — `findLookupTable`
+- `js/api/generated/client.generated.js` — `makeSPMAPILookUpTableAPI`
+- `js/api/generated/client.generated.js` — `createSurvey`
+- `js/api/generated/client.generated.js` — `findSurvey`
+- `js/api/generated/client.generated.js` — `editSurvey`
+- `js/api/generated/client.generated.js` — `activateOrDeactivateSurvey`
+- `js/api/generated/client.generated.js` — `makeSpmSurveysAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneStaff`
+- `js/api/generated/client.generated.js` — `getBulkTemplateStaff`
+- `js/api/generated/client.generated.js` — `postTemplate`
+- `js/api/generated/client.generated.js` — `makeStaffAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneStandingInstruction`
+- `js/api/generated/client.generated.js` — `makeStandingInstructionsAPI`
+- `js/api/generated/client.generated.js` — `makeStandingInstructionsHistoryAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneSurvey`
+- `js/api/generated/client.generated.js` — `createEntry`
+- `js/api/generated/client.generated.js` — `getClientSurveyOverview`
+- `js/api/generated/client.generated.js` — `getEntry`
+- `js/api/generated/client.generated.js` — `deleteDatatableEntries1`
+- `js/api/generated/client.generated.js` — `register`
+- `js/api/generated/client.generated.js` — `makeSurveyAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneTaxComponent`
+- `js/api/generated/client.generated.js` — `makeTaxComponentsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneTaxGroup`
+- `js/api/generated/client.generated.js` — `makeTaxGroupAPI`
+- `js/api/generated/client.generated.js` — `createTeller`
+- `js/api/generated/client.generated.js` — `retrieveOneTeller`
+- `js/api/generated/client.generated.js` — `updateTeller`
+- `js/api/generated/client.generated.js` — `deleteTeller`
+- `js/api/generated/client.generated.js` — `retrieveAllCashiersForTeller`
+- `js/api/generated/client.generated.js` — `createCashierForTeller`
+- `js/api/generated/client.generated.js` — `retrieveOneCashierForTeller`
+- `js/api/generated/client.generated.js` — `updateCashierForTeller`
+- `js/api/generated/client.generated.js` — `deleteCashierForTeller`
+- `js/api/generated/client.generated.js` — `allocateCashToCashier`
+- `js/api/generated/client.generated.js` — `settleCashFromCashier`
+- `js/api/generated/client.generated.js` — `retrieveCashierTransactionsWithSummary`
+- `js/api/generated/client.generated.js` — `retrieveCashierTransactions`
+- `js/api/generated/client.generated.js` — `retrieveTemplateCashierTransaction`
+- `js/api/generated/client.generated.js` — `retrieveCashierTemplateForTeller`
+- `js/api/generated/client.generated.js` — `retrieveAllJournalsForTeller`
+- `js/api/generated/client.generated.js` — `retrieveAllTransactionsForTeller`
+- `js/api/generated/client.generated.js` — `retrieveOneTransactionForTeller`
+- `js/api/generated/client.generated.js` — `makeTellerCashManagementAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneTemplate`
+- `js/api/generated/client.generated.js` — `saveTemplate`
+- `js/api/generated/client.generated.js` — `mergeTemplate`
+- `js/api/generated/client.generated.js` — `retrieveById`
+- `js/api/generated/client.generated.js` — `retrieveDetails`
+- `js/api/generated/client.generated.js` — `makeTemplatesAPI`
+- `js/api/generated/client.generated.js` — `update1`
+- `js/api/generated/client.generated.js` — `delete1`
+- `js/api/generated/client.generated.js` — `makeTenantOIDCConfigurationAPI`
+- `js/api/generated/client.generated.js` — `requestToken`
+- `js/api/generated/client.generated.js` — `updateConfiguration`
+- `js/api/generated/client.generated.js` — `makeTwoFactorAPI`
+- `js/api/generated/client.generated.js` — `retrieveOneUser`
+- `js/api/generated/client.generated.js` — `changePasswordUser`
+- `js/api/generated/client.generated.js` — `getBulkTemplateUser`
+- `js/api/generated/client.generated.js` — `postBulkTemplateUser`
+- `js/api/generated/client.generated.js` — `makeUsersAPI`
+- `js/api/generated/client.generated.js` — `retrieveImage`
+- `js/api/generated/client.generated.js` — `updateImage1`
+- `js/api/generated/client.generated.js` — `createImage1`
+- `js/api/generated/client.generated.js` — `deleteImage`
+- `js/api/generated/client.generated.js` — `createEmail`
+- `js/api/generated/client.generated.js` — `retrieveOneEmail`
+- `js/api/generated/client.generated.js` — `updateEmail`
+- `js/api/generated/client.generated.js` — `deleteEmail`
+- `js/api/generated/client.generated.js` — `createEmailCampaign`
+- `js/api/generated/client.generated.js` — `retrieveOneEmailCampaign`
+- `js/api/generated/client.generated.js` — `updateEmailCampaign`
+- `js/api/generated/client.generated.js` — `handleCommandsEmailCampaign`
+- `js/api/generated/client.generated.js` — `deleteEmailCampaign`
+- `js/api/generated/client.generated.js` — `previewEmailCampaign`
+- `js/api/generated/client.generated.js` — `retrieveOneTemplateEmailCampaign`
+- `js/api/generated/client.generated.js` — `updateEmailConfiguration`
+- `js/api/generated/client.generated.js` — `getInternalClientAuditFields`
+- `js/api/generated/client.generated.js` — `updateInternalGlobalConfiguration`
+- `js/api/generated/client.generated.js` — `getAllExternalEvents`
+- `js/api/generated/client.generated.js` — `deleteAllExternalEvents`
+- `js/api/generated/client.generated.js` — `getAdvancedPaymentAllocationRulesOfLoan`
+- `js/api/generated/client.generated.js` — `getLoanAuditFields`
+- `js/api/generated/client.generated.js` — `getLoanTransactionAuditFields`
+- `js/api/generated/client.generated.js` — `getMaxTransactionDateOfActiveLoans`
+- `js/api/generated/client.generated.js` — `getLoansByStatus`
+- `js/api/generated/client.generated.js` — `getSavingsAccountsByStatus`
+- `js/api/generated/client.generated.js` — `transferMoneyFrom`
+- `js/api/generated/client.generated.js` — `delete2`
+- `js/api/generated/client.generated.js` — `createSmsCampaign`
+- `js/api/generated/client.generated.js` — `updateSmsCampaign`
+- `js/api/generated/client.generated.js` — `handleCommandsSmsCampaign`
+- `js/api/generated/client.generated.js` — `deleteSmsCampaign`
+- `js/api/generated/client.generated.js` — `retrieveOneSmsCampaign`
+- `js/api/generated/client.generated.js` — `previewSmsCampaign`
+- `js/api/generated/client.generated.js` — `retrieveAll4`
+- `js/api/generated/client.generated.js` — `updateConfiguration1`
+- `js/api/generated/client.generated.js` — `makeV1API`
+- `js/api/generated/client.generated.js` — `retrieveAllWorkingCapitalBreaches`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalBreachAPI`
+- `js/api/generated/client.generated.js` — `placeLockOnWorkingCapitalLoanAccount`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanAccountLockAPI`
+- `js/api/generated/client.generated.js` — `retrieveBreachActions`
+- `js/api/generated/client.generated.js` — `createBreachAction`
+- `js/api/generated/client.generated.js` — `retrieveBreachActionsByExternalId`
+- `js/api/generated/client.generated.js` — `createBreachActionByExternalId`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanBreachActionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveBreachSchedule`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanBreachScheduleAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllWorkingCapitalLoanChargesByLoanId`
+- `js/api/generated/client.generated.js` — `createLoanCharge`
+- `js/api/generated/client.generated.js` — `adjustLoanCharge`
+- `js/api/generated/client.generated.js` — `retrieveByChargeExternalId`
+- `js/api/generated/client.generated.js` — `adjustLoanChargeByChargeExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateWorkingCapitalLoanCharge`
+- `js/api/generated/client.generated.js` — `retrieveAllWorkingCapitalLoanChargesByLoanExternalId`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanChargeByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByLoanExternalId`
+- `js/api/generated/client.generated.js` — `adjustLoanChargeByLoanExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByLoanAndChargeExternalId`
+- `js/api/generated/client.generated.js` — `adjustLoanChargeByLoanAndChargeExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanChargesAPI`
+- `js/api/generated/client.generated.js` — `executeLoanCOBCatchUp1`
+- `js/api/generated/client.generated.js` — `isCatchUpRunning1`
+- `js/api/generated/client.generated.js` — `getOldestCOBProcessedLoan1`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanCOBCatchUpAPI`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyActions`
+- `js/api/generated/client.generated.js` — `createDelinquencyAction`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyActionsByExternalId`
+- `js/api/generated/client.generated.js` — `createDelinquencyActionByExternalId`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanDelinquencyActionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveDelinquencyRangeSchedule`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanDelinquencyRangeScheduleAPI`
+- `js/api/generated/client.generated.js` — `getLastCobRun`
+- `js/api/generated/client.generated.js` — `deleteLastCobRun`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanInternalCOBApiAPI`
+- `js/api/generated/client.generated.js` — `getsById`
+- `js/api/generated/client.generated.js` — `createById`
+- `js/api/generated/client.generated.js` — `getsByExternalId`
+- `js/api/generated/client.generated.js` — `createByExternalId`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanNearBreachActionsAPI`
+- `js/api/generated/client.generated.js` — `retrieveOriginatorsByWorkingCapitalLoanId`
+- `js/api/generated/client.generated.js` — `attachOriginatorToWorkingCapitalLoan`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromWorkingCapitalLoan`
+- `js/api/generated/client.generated.js` — `attachOriginatorToWorkingCapitalLoanByOriginatorExternalId`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId`
+- `js/api/generated/client.generated.js` — `retrieveOriginatorsByWorkingCapitalLoanExternalId`
+- `js/api/generated/client.generated.js` — `attachOriginatorToWorkingCapitalLoanByLoanExternalId`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromWorkingCapitalLoanByLoanExternalId`
+- `js/api/generated/client.generated.js` — `attachOriginatorToWorkingCapitalLoanByBothExternalIds`
+- `js/api/generated/client.generated.js` — `detachOriginatorFromWorkingCapitalLoanByBothExternalIds`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanOriginatorsAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllWorkingCapitalLoanProducts`
+- `js/api/generated/client.generated.js` — `retrieveOneWorkingCapitalLoanProduct`
+- `js/api/generated/client.generated.js` — `retrieveOneWorkingCapitalLoanProductByExternalId`
+- `js/api/generated/client.generated.js` — `updateByExternalId`
+- `js/api/generated/client.generated.js` — `deleteByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveTemplateWorkingCapitalLoanProduct`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanProductsAPI`
+- `js/api/generated/client.generated.js` — `retrieveWorkingCapitalLoanActionTemplate`
+- `js/api/generated/client.generated.js` — `retrievesById`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanTransactionById`
+- `js/api/generated/client.generated.js` — `retrieveById`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId`
+- `js/api/generated/client.generated.js` — `retrieveByExternalTransactionId`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId`
+- `js/api/generated/client.generated.js` — `retrievesByExternalId`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanTransactionByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByExternalLoanIdAndTransactionId`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId`
+- `js/api/generated/client.generated.js` — `retrieveByExternalLoanIdAndExternalTransactionId`
+- `js/api/generated/client.generated.js` — `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoanTransactionsAPI`
+- `js/api/generated/client.generated.js` — `activateLoan`
+- `js/api/generated/client.generated.js` — `generateAmortizationSchedule`
+- `js/api/generated/client.generated.js` — `generateNextDelinquencyPeriod`
+- `js/api/generated/client.generated.js` — `retrieveAllWorkingCapitalLoans`
+- `js/api/generated/client.generated.js` — `submitWorkingCapitalLoanApplication`
+- `js/api/generated/client.generated.js` — `retrieveById`
+- `js/api/generated/client.generated.js` — `modifyWorkingCapitalLoanApplicationById`
+- `js/api/generated/client.generated.js` — `stateTransitionWorkingCapitalLoanById`
+- `js/api/generated/client.generated.js` — `deleteApplication`
+- `js/api/generated/client.generated.js` — `retrieveAmortizationSchedule`
+- `js/api/generated/client.generated.js` — `getDelinquencyRangeScheduleTagHistoryById`
+- `js/api/generated/client.generated.js` — `updateDiscountById`
+- `js/api/generated/client.generated.js` — `updateRateById`
+- `js/api/generated/client.generated.js` — `getRateChangeHistoryById`
+- `js/api/generated/client.generated.js` — `getDelinquencyRangeScheduleTagHistoryByExternalId`
+- `js/api/generated/client.generated.js` — `retrieveByExternalId`
+- `js/api/generated/client.generated.js` — `modifyWorkingCapitalLoanApplicationByExternalId`
+- `js/api/generated/client.generated.js` — `stateTransitionWorkingCapitalLoanByExternalId`
+- `js/api/generated/client.generated.js` — `deleteApplicationByExternalId`
+- `js/api/generated/client.generated.js` — `updateDiscountByExternalId`
+- `js/api/generated/client.generated.js` — `updateRateByExternalId`
+- `js/api/generated/client.generated.js` — `getRateChangeHistoryByExternalId`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalLoansAPI`
+- `js/api/generated/client.generated.js` — `retrieveAllWorkingCapitalNearBreaches`
+- `js/api/generated/client.generated.js` — `makeWorkingCapitalNearBreachAPI`
+- `js/api/generated/client.generated.js` — `makeWorkingDaysAPI`
+- `js/api/generated/client.generated.js` — `mountGenerated`
+- `js/api/generated/contracts.generated.js` — `contractFor`
+- `js/api/generated/templates.generated.js` — `templatesFor`
+- `js/api/generated/templates.generated.js` — `loadOptions`
+- `js/api/generated/validators.generated.js` — `string`
+- `js/api/generated/validators.generated.js` — `integer`
+- `js/api/generated/validators.generated.js` — `array`
+- `js/api/generated/validators.generated.js` — `validateRequest`
+- `js/api/generated/validators.generated.js` — `assertValid`
 - `js/api/groups-centers.js` — `unassignStaffCommand`
 - `js/api/groups-centers.js` — `assignRole`
 - `js/api/groups-centers.js` — `updateRole`
@@ -415,7 +1234,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/interest-rate-charts.js` — `updateSlab`
 - `js/api/interest-rate-charts.js` — `deleteSlab`
 - `js/api/interest-rate-charts.js` — `makeInterestRateChartsAPI`
-- `js/api/interoperation.js` — `health`
 - `js/api/interoperation.js` — `getAccount`
 - `js/api/interoperation.js` — `accountIdentifiers`
 - `js/api/interoperation.js` — `accountKyc`
@@ -423,9 +1241,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/interoperation.js` — `getParty`
 - `js/api/interoperation.js` — `registerParty`
 - `js/api/interoperation.js` — `deleteParty`
-- `js/api/interoperation.js` — `createQuote`
-- `js/api/interoperation.js` — `createTransactionRequest`
-- `js/api/interoperation.js` — `performTransfer`
 - `js/api/interoperation.js` — `getQuote`
 - `js/api/interoperation.js` — `getTransactionRequest`
 - `js/api/interoperation.js` — `getTransfer`
@@ -524,7 +1339,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/loans.js` — `loanAtDate`
 - `js/api/loans.js` — `glimAccounts`
 - `js/api/loans.js` — `catchUp`
-- `js/api/loans.js` — `isCatchUpRunning`
 - `js/api/loans.js` — `oldestCobClosed`
 - `js/api/loans.js` — `lockedAccounts`
 - `js/api/loans.js` — `pointInTimeSearch`
@@ -532,7 +1346,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/loans.js` — `makeLoansAPI`
 - `js/api/loans.js` — `makeLoanCollateralManagementAPI`
 - `js/api/loans.js` — `bucketTemplate`
-- `js/api/loans.js` — `ranges`
 - `js/api/loans.js` — `range`
 - `js/api/loans.js` — `createRange`
 - `js/api/loans.js` — `updateRange`
@@ -562,7 +1375,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/misc.js` — `makeSelfServiceAPI`
 - `js/api/misc.js` — `makeSearchAPI`
 - `js/api/misc.js` — `makeBatchAPI`
-- `js/api/misc.js` — `download`
 - `js/api/misc.js` — `upload`
 - `js/api/misc.js` — `makeDocumentsAPI`
 - `js/api/misc.js` — `upload`
@@ -584,10 +1396,14 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/api/mix-xbrl.js` — `updateMapping`
 - `js/api/mix-xbrl.js` — `makeMixXbrlAPI`
 - `js/api/office-transactions.js` — `makeOfficeTransactionsAPI`
+- `js/api/operation-runner.js` — `fieldInput`
+- `js/api/operation-runner.js` — `coerce`
+- `js/api/operation-runner.js` — `collect`
+- `js/api/operation-runner.js` — `runOperation`
+- `js/api/operation-runner.js` — `openOperationModal`
 - `js/api/organization.js` — `makeOfficesAPI`
 - `js/api/organization.js` — `makeStaffAPI`
 - `js/api/organization.js` — `allCashiers`
-- `js/api/organization.js` — `cashiers`
 - `js/api/organization.js` — `getCashier`
 - `js/api/organization.js` — `cashierTemplate`
 - `js/api/organization.js` — `allocateCashier`
@@ -797,7 +1613,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/centers/actions.js` — `openCloseCenterModal`
 - `js/pages/centers/detail.js` — `meetings`
 - `js/pages/centers/detail.js` — `notes`
-- `js/pages/centers/detail.js` — `documents`
 - `js/pages/centers/detail.js` — `switchTab`
 - `js/pages/centers/detail.js` — `renderDetail`
 - `js/pages/centers/detail.js` — `loadGroups`
@@ -848,7 +1663,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/clients/detail/identity.js` — `loadClientAddresses`
 - `js/pages/clients/detail/identity.js` — `loadClientPhoto`
 - `js/pages/clients/detail/index.js` — `overview`
-- `js/pages/clients/detail/index.js` — `documents`
 - `js/pages/clients/detail/index.js` — `kyc`
 - `js/pages/clients/detail/index.js` — `notes`
 - `js/pages/clients/detail/index.js` — `switchTab`
@@ -866,7 +1680,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/clients/new.js` — `stepper`
 - `js/pages/clients/new.js` — `isPerson`
 - `js/pages/clients/new.js` — `chip`
-- `js/pages/clients/new.js` — `dash`
 - `js/pages/clients/new.js` — `captureStep`
 - `js/pages/clients/new.js` — `validateStep`
 - `js/pages/clients/new.js` — `wire`
@@ -962,7 +1775,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/deposits/detail/closure.js` — `loadClosureCalculator`
 - `js/pages/deposits/detail/index.js` — `calculator`
 - `js/pages/deposits/detail/index.js` — `notes`
-- `js/pages/deposits/detail/index.js` — `documents`
 - `js/pages/deposits/detail/index.js` — `switchTab`
 - `js/pages/deposits/detail/index.js` — `renderDetail`
 - `js/pages/deposits/detail/notes-docs.js` — `loadDepositNotes`
@@ -990,7 +1802,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/groups/actions/members.js` — `openTransferMembersModal`
 - `js/pages/groups/detail/index.js` — `meetings`
 - `js/pages/groups/detail/index.js` — `notes`
-- `js/pages/groups/detail/index.js` — `documents`
 - `js/pages/groups/detail/index.js` — `switchTab`
 - `js/pages/groups/detail/index.js` — `renderDetail`
 - `js/pages/groups/detail/meetings-charges.js` — `loadMeetings`
@@ -1061,7 +1872,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/loans/detail/index.js` — `fmtCompact`
 - `js/pages/loans/detail/index.js` — `nextRepayment`
 - `js/pages/loans/detail/index.js` — `approvals`
-- `js/pages/loans/detail/index.js` — `documents`
 - `js/pages/loans/detail/index.js` — `switchTab`
 - `js/pages/loans/detail/index.js` — `renderDetail`
 - `js/pages/loans/detail/index.js` — `exportScheduleCsv`
@@ -1087,7 +1897,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/loans/list.js` — `renderList`
 - `js/pages/loans/new.js` — `stepper`
 - `js/pages/loans/new.js` — `estMonthly`
-- `js/pages/loans/new.js` — `dash`
 - `js/pages/loans/new.js` — `capture`
 - `js/pages/loans/new.js` — `wire`
 - `js/pages/loans/new.js` — `renderNew`
@@ -1213,8 +2022,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/products/shared.js` — `glOptions`
 - `js/pages/products/shared.js` — `glSelect`
 - `js/pages/products/shared.js` — `populateGl`
-- `js/pages/products/shared.js` — `modal`
-- `js/pages/products/shared.js` — `show`
 - `js/pages/products/shared.js` — `wizardModal`
 - `js/pages/products/shared.js` — `vi`
 - `js/pages/products/shared.js` — `vf`
@@ -1253,7 +2060,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/savings/actions/transactions.js` — `openHoldModal`
 - `js/pages/savings/actions/transactions.js` — `openAdjustSavingsTxModal`
 - `js/pages/savings/detail/index.js` — `fmtCompact`
-- `js/pages/savings/detail/index.js` — `documents`
 - `js/pages/savings/detail/index.js` — `switchTab`
 - `js/pages/savings/detail/index.js` — `renderDetail`
 - `js/pages/savings/detail/notes-docs.js` — `loadSavingsNotes`
@@ -1272,7 +2078,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/savings/list.js` — `draw`
 - `js/pages/savings/list.js` — `renderList`
 - `js/pages/savings/new.js` — `stepper`
-- `js/pages/savings/new.js` — `dash`
 - `js/pages/savings/new.js` — `capture`
 - `js/pages/savings/new.js` — `wire`
 - `js/pages/savings/new.js` — `renderNew`
@@ -1301,7 +2106,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/shares/actions.js` — `openShareSimpleCmd`
 - `js/pages/shares/detail.js` — `dividends`
 - `js/pages/shares/detail.js` — `notes`
-- `js/pages/shares/detail.js` — `documents`
 - `js/pages/shares/detail.js` — `switchTab`
 - `js/pages/shares/detail.js` — `renderDetail`
 - `js/pages/shares/detail.js` — `loadShareRequests`
@@ -1371,7 +2175,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/tasks/checker-inbox.js` — `describeTreasuryExpense`
 - `js/pages/tasks/checker-inbox.js` — `describeTreasuryBorrowing`
 - `js/pages/tasks/checker-inbox.js` — `fetchTreasury`
-- `js/pages/tasks/checker-inbox.js` — `open`
 - `js/pages/tasks/checker-inbox.js` — `draw`
 - `js/pages/tasks/checker-inbox.js` — `applyFilters`
 - `js/pages/tasks/checker-inbox.js` — `loadApprovalInbox`
@@ -1398,7 +2201,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/transfers.js` — `loadClients`
 - `js/pages/transfers.js` — `loadAccounts`
 - `js/pages/transfers.js` — `openStandingInstructionModal`
-- `js/pages/treasury/borrowings.js` — `today`
 - `js/pages/treasury/borrowings.js` — `reportActionError`
 - `js/pages/treasury/borrowings.js` — `fundingSourceSelect`
 - `js/pages/treasury/borrowings.js` — `borrowingRowsHtml`
@@ -1411,7 +2213,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/treasury/borrowings.js` — `reloadList`
 - `js/pages/treasury/borrowings.js` — `loadFormForOffice`
 - `js/pages/treasury/borrowings.js` — `borrowings`
-- `js/pages/treasury/cash-allocation.js` — `today`
 - `js/pages/treasury/cash-allocation.js` — `loadVaultStatus`
 - `js/pages/treasury/cash-allocation.js` — `loadFormForOffice`
 - `js/pages/treasury/cash-allocation.js` — `cashAllocation`
@@ -1419,8 +2220,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/treasury/dashboard.js` — `tile`
 - `js/pages/treasury/dashboard.js` — `breakdownRowsHtml`
 - `js/pages/treasury/dashboard.js` — `loadDashboardForOffice`
-- `js/pages/treasury/dashboard.js` — `dashboard`
-- `js/pages/treasury/expenses.js` — `today`
 - `js/pages/treasury/expenses.js` — `currentUser`
 - `js/pages/treasury/expenses.js` — `reportActionError`
 - `js/pages/treasury/expenses.js` — `expenseRowsHtml`
@@ -1433,13 +2232,11 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/pages/treasury/expenses.js` — `openPayForm`
 - `js/pages/treasury/expenses.js` — `loadFormForOffice`
 - `js/pages/treasury/expenses.js` — `expenses`
-- `js/pages/treasury/loan-disbursement.js` — `today`
 - `js/pages/treasury/loan-disbursement.js` — `loanOptionsHtml`
 - `js/pages/treasury/loan-disbursement.js` — `loadApprovedLoans`
 - `js/pages/treasury/loan-disbursement.js` — `prefillAmount`
 - `js/pages/treasury/loan-disbursement.js` — `loadFormForOffice`
 - `js/pages/treasury/loan-disbursement.js` — `loanDisbursement`
-- `js/pages/treasury/reconciliation.js` — `today`
 - `js/pages/treasury/reconciliation.js` — `currentUser`
 - `js/pages/treasury/reconciliation.js` — `reportActionError`
 - `js/pages/treasury/reconciliation.js` — `varianceLabel`
@@ -1491,7 +2288,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/treasury/borrowing-schedule.js` — `generateBorrowingSchedule`
 - `js/treasury/borrowing-schedule.js` — `generateFlatSchedule`
 - `js/treasury/borrowing-schedule.js` — `generateReducingBalanceSchedule`
-- `js/treasury/borrowings.js` — `today`
 - `js/treasury/borrowings.js` — `round2`
 - `js/treasury/borrowings.js` — `fundingGlAccountId`
 - `js/treasury/borrowings.js` — `getBorrowing`
@@ -1524,7 +2320,6 @@ Generated: 2026-07-30T15:58:04.329Z
 - `js/treasury/loan-disbursement.js` — `fineractDateToIso`
 - `js/treasury/loan-disbursement.js` — `alreadyDisbursedThroughTeller`
 - `js/treasury/loan-disbursement.js` — `disburseLoanThroughCashier`
-- `js/treasury/reconciliation.js` — `today`
 - `js/treasury/reconciliation.js` — `round2`
 - `js/treasury/reconciliation.js` — `getReconciliation`
 - `js/treasury/reconciliation.js` — `startDailyReconciliation`

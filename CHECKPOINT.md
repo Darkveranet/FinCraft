@@ -167,3 +167,68 @@ in place rather than claiming they're now closed.
 except the "run generated E2E tests against a live stack" follow-up noted in
 Step 4 (needs Docker/CI, not available in this sandbox) and the field-parity
 report's 336 candidates (intentionally left for human review, not auto-closed).
+
+## New task: comprehensive FinCraft UI testing (2026-08-03, started after the 5-step plan above)
+
+User wants UI tests (not just API) for "all functions FinCraft has to offer."
+Agreed approach (explicit answers): full interaction (fill forms, click
+through workflows, verify via API) like the existing 01-23 suite; one batch
+of routes at a time in router order, checkpoint after each.
+
+### Gap analysis (done)
+`js/router.js` has 49 real routes. Cross-referenced against what the 23
+existing lifecycle specs actually navigate to (had to correct my own first
+attempt — grepped for a literal `#route` hash pattern that doesn't match how
+FinCraft's tests actually navigate; the real pattern is
+`r.navigate('route-name', params)` via a dynamic router import). Real result:
+16 routes have deep interaction coverage already, 33 have none (only the
+module-02 shallow render-check touches them). Full ordered gap list recorded
+in `tests-e2e/isolated/README.md` under "Modules 24+".
+
+### Batch 1 — DONE: dashboard, client-new, loan-new, savings-new
+Four new files, `tests-e2e/isolated/24-dashboard-ui.spec.mjs` through
+`27-savings-new-wizard.spec.mjs`, 10 new tests. Each drives the real wizard UI
+(not just the API): clicks step-by-step through FinCraft's own 4-step
+wizards (client: Type→Personal→Identity→Review; loan: Applicant→Loan
+Details→Assessment→Review; savings: Account Holder→Product→Terms→Review),
+using real DOM ids read directly from the page source (`#wz-first`,
+`#wz-client`, `#wz-submit`, etc. — not guessed), then verifies the result via
+a real Fineract API call.
+
+Caught and fixed two invented-endpoint mistakes before they shipped:
+- Used `sqlSearch` as a client-search query param — not real; the actual
+  contract param is `lastName`. Verified against `contracts.generated.js`
+  before fixing, not assumed.
+- Used `/clients/{id}/loans` to look up a client's loans — doesn't exist.
+  Real pattern (confirmed against both the contract and the existing
+  hand-written specs) is `GET /clients/{id}?associations=all` →
+  `loanAccounts`/`savingsAccounts` arrays.
+
+Validated structurally: installed `@playwright/test` (`--no-save`), ran
+`playwright test --list` against all 4 new files — 10/10 tests collected
+cleanly. Full `tests-e2e` tree: 321 tests across 31 files, no collection
+errors. NOT run against a live Fineract stack (same sandbox limitation as
+Phase 3's generated tests) — that verification step is still owed.
+
+**Important honest finding, not worked around:** discovered an existing tool,
+`scripts/e2e/function-inventory.mjs` (referenced in the README, actually ran
+it — 3106 functions found, 1010 "REFERENCED", 2096 "UNTESTED"). Its
+`REFERENCED` check is literal function-NAME-token matching against test file
+text, not real code coverage. Confirmed my new DOM-driven tests (which
+interact via selectors like `#wz-client`, not by calling internal function
+names) score ~0 occurrences of the actual internal function names they
+exercise — so this tool will NOT show these new tests as adding coverage,
+even though they're driving real code paths. Documented this limitation
+directly in `tests-e2e/isolated/README.md` rather than either (a) silently
+letting the numbers look wrong, or (b) gaming the metric by sprinkling
+function-name comments into test files, which would be dishonest. Regenerated
+and left the current, accurate `test-results/function-inventory.{json,md}` in
+place — it's a real, valid snapshot, just one to interpret carefully.
+
+Updated `tests-e2e/isolated/README.md` with a full "Modules 24+" section:
+what's done, what's next in order, and the inventory-tool caveat.
+
+### Up next
+- Batch 2 (next checkpoint): `collections`, `transfers`, `remittances` — next
+  three in router order after the four just done.
+- Still owed from Phase 3: running everything against a live Fineract stack.
