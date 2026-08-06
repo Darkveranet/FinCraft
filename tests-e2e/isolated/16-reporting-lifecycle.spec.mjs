@@ -26,7 +26,6 @@ function reportPayload(overrides = {}) {
     reportName: state.reportName,
     reportType: 'Table',
     reportCategory: 'Client',
-    reportSubType: 'Module13',
     description: 'Module 13 isolated reporting lifecycle',
     reportSql: "SELECT 1 AS module_number, 'FinCraft' AS application_name",
     useReport: true,

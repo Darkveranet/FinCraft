@@ -232,3 +232,107 @@ what's done, what's next in order, and the inventory-tool caveat.
 - Batch 2 (next checkpoint): `collections`, `transfers`, `remittances` — next
   three in router order after the four just done.
 - Still owed from Phase 3: running everything against a live Fineract stack.
+
+## Live CI run analysis and systemic fix (2026-08-04)
+
+User shared a real CI log: the full 27-file isolated suite run against a
+live, current `apache/fineract:latest`. This was hugely valuable — it showed
+22 of 23 test *files* failing, and almost all of them shared ONE root cause
+that had nothing to do with my batch-1 work: Fineract now requires
+`legalFormId` on client creation, and only `01-client-lifecycle.spec.mjs`
+(which I'd patched days earlier for the exact same reason) had it. Every
+other file's `POST /clients` call was missing it.
+
+### Fixed (verified via precise scan, not guesswork)
+- Added `legalFormId: 1` to every `POST /clients` call across 13 files:
+  06, 07, 08, 09, 10, 11, 13, 14, 17, 19, 20, 21, 22. Wrote a Python scan
+  (not a fragile line-window heuristic — checked the actual object body up
+  to its closing `});`) to confirm zero remaining gaps after the edits.
+- `05-product-setup.spec.mjs` + my own `26-loan-new-wizard.spec.mjs`: loan
+  product creation needs a `locale` field alongside `numberOfRepayments` —
+  neither had it. Real, live-verified Fineract requirement.
+- Savings product `shortName` has a real 4-char cap in this Fineract version
+  (confirmed by the live error message itself, not assumed) — fixed in `05`,
+  `08`, `21`, and my own `27-savings-new-wizard.spec.mjs`, all of which were
+  generating far longer values.
+- `12-accounting-advanced-lifecycle.spec.mjs`: real bug, not retry noise —
+  all four GL accounts created in parallel ("Advanced Asset/Liability/
+  Expense/Income") derived their glCode from the label's first two letters;
+  all four labels start with "Advanced" so all four got an identical code
+  and collided. Fixed to derive from the distinguishing second word.
+- `16-reporting-lifecycle.spec.mjs`: was sending `reportSubType` alongside
+  `reportType: 'Table'` — confirmed via the live error that Fineract rejects
+  that combination. Removed.
+- `01-client-lifecycle.spec.mjs`: live run showed `status.active` coming
+  back `undefined` even though client creation and the externalId check both
+  succeeded. Couldn't confirm the real new response shape without live
+  access, so made the assertion check a few plausible shapes instead of
+  guessing one — documented the uncertainty in a code comment rather than
+  presenting it as a confirmed fix.
+
+### Explicitly NOT fixed — flagged instead of guessed
+- `04-accounting-setup.spec.mjs`: a GL account gets created, its ID is
+  stored, and the very next GET in the same test says that ID "does not
+  exist." Possibly a parallel-worker/shared-disposable-DB timing issue
+  (the log showed `2 workers`). Didn't patch this blind — flagged for live
+  investigation instead, since a wrong guess here could mask a real bug.
+- Two other failures (`18-security-lifecycle`'s permission lookup,
+  `17-accounting-completion`'s accounting-period closing-date rejection)
+  left alone — may resolve once the fixes above are re-run live, may not.
+
+### Validation
+Syntax-checked and Playwright-`--list`-validated all 20 touched files (217
+tests collected across the isolated suite, no change in count — fixes are
+data/payload changes, not test additions). `npm test`: 25/25. Drift tool:
+still strict-clean. None of this touched Batch 1 (24/25) or the generated
+Phase 3 suite, which were already correct.
+
+**This is real, unverified-live progress** — I fixed everything the log
+gave clear, diagnosable evidence for, and explicitly left alone what I
+couldn't confirm without running it myself. The next live CI run is the
+actual verification; I can't self-certify these are 100% correct from a log
+alone the way I could with a local test suite.
+
+## Standalone bug hunt (2026-08-05), no README/comment reliance
+
+User asked for a fresh bug check without leaning on prior fix-logs or
+comments. Approach: read core infrastructure files cold (router.js,
+api/core.js, utils.js, store.js, app.js, auth-core.js, auth-basic.js), then
+ran/wrote AST-based structural scanners (acorn) across the whole js/ tree —
+duplicate object keys, duplicate switch cases, async-call/await mismatches —
+plus the project's own existing scanners (scan_dupes, scan_handler_dupes,
+scan_double_calls, scan_unescaped_innerhtml via `npm run scan`).
+
+**Found and fixed one real, high-impact bug:** `js/api/operation-runner.js`'s
+VERB dispatch table — the generic executor behind the ⌘K command palette,
+the only interface to the 285 currently-uncovered contract ops. Its POST/PUT/
+DELETE wrappers never accepted or forwarded the `params` (query string)
+argument, even though the call site collected and passed it. Confirmed via
+the real contract that 96 operations are non-GET with query params — mostly
+Fineract's `?command=` state-transition pattern (activate, approve, adjust,
+etc.). Every one of those would silently have its command parameter dropped
+when run through the palette. Fixed by making all four VERB wrappers accept
+and forward `params` consistently.
+
+**Also found, not fixed (flagged as minor, not urgent):** `finishLogin()` in
+auth-core.js accepts an `authPerms` parameter it never reads — harmless in
+practice since `store.set('perms', authPerms)` already happens at each call
+site before `finishLogin` runs, and `_persistUserContext` merges from the
+store rather than the parameter. Dead/misleading parameter, not a functional
+bug — didn't touch it since fixing would just be a style cleanup.
+
+**Came back clean:** zero duplicate object keys and zero duplicate switch
+cases across the entire non-generated js/ tree; zero flags from all four
+existing project scanners; the async/await heuristic flagged 4 call sites,
+all four verified as correct legitimate Promise-chaining patterns (false
+positives from the heuristic itself, not real bugs).
+
+**Scope honesty:** this was a mix of automated structural scanning (covers
+the whole tree for its specific bug classes) and manual reading (covers
+maybe a dozen files in depth — core infra, auth, one treasury calc file, the
+operation runner). It is not an exhaustive line-by-line review of all ~300
+files; deeper logic bugs in page-level business flows I didn't open are
+possible and wouldn't have been caught by this pass.
+
+Validated: `npm test` 25/25, `npm run scan` clean, operation-runner.js
+syntax-checked.

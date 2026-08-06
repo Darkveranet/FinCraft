@@ -31,6 +31,46 @@ rough, directional signal (useful for spotting modules with literally zero
 test-file mentions at all) — not as proof of, or absence of, real coverage.
 The Playwright test count and pass/fail status remain the reliable signal.
 
+## Live-CI findings and systemic fix (2026-08-04)
+
+A full run of the isolated suite against a live, current `apache/fineract:latest`
+surfaced that **Fineract now requires `legalFormId` on client creation**, and
+only one file (`01-client-lifecycle.spec.mjs`) had been updated for it —
+every other file's `POST /clients` call was missing it, so ~20 of the 27
+files failed at their very first prerequisite step and cascaded from there.
+Fixed across all affected files: `06`, `07`, `08`, `09`, `10`, `11`, `13`,
+`14`, `17`, `19`, `20`, `21`, `22`.
+
+Also found and fixed from the same run, each a real, live-verified bug:
+- `05-product-setup.spec.mjs` (and this suite's own `26-loan-new-wizard.spec.mjs`):
+  loan product creation needs a `locale` field alongside `numberOfRepayments` —
+  it wasn't being sent.
+- Savings product `shortName` has a real 4-character cap in this Fineract
+  version — `05`, `08`, `21`, and `27-savings-new-wizard.spec.mjs` were all
+  generating much longer values. Fixed with a dedicated short-name helper
+  where needed.
+- `12-accounting-advanced-lifecycle.spec.mjs`: all four GL accounts created in
+  parallel ("Advanced Asset/Liability/Expense/Income") derived their `glCode`
+  from the first two letters of the label — all four start with "Advanced",
+  so all four got the identical code and collided. Now derives from the
+  distinguishing second word instead.
+- `16-reporting-lifecycle.spec.mjs`: sent `reportSubType` alongside
+  `reportType: 'Table'` — Fineract rejects that combination. Removed.
+- `01-client-lifecycle.spec.mjs`: the live run also showed `status.active`
+  coming back `undefined` even though the create+externalId checks both
+  passed. Made that assertion resilient to a few plausible status-shape
+  variants rather than guessing at one, since this couldn't be confirmed
+  against a live instance in the environment that made the fix.
+
+**Not fixed, flagged instead of guessed at:** `04-accounting-setup.spec.mjs`'s
+GL-account 404 (an account that was just created and had its ID stored comes
+back "does not exist" on the very next GET — possibly a parallel-worker/shared-
+database timing issue, needs live investigation, not a blind patch) and two
+other cascading failures (a role-permissions lookup in `18-security-lifecycle`,
+an accounting-period closing-date rejection in `17-accounting-completion`)
+that may resolve once the fixes above are re-run live, or may need separate
+investigation if they persist.
+
 ## Modules 24+ — UI-interaction gap-filling (2026-08-03)
 
 Modules 01–23 above give deep, hand-crafted lifecycle coverage for most core

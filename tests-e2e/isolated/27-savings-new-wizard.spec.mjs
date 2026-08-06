@@ -22,7 +22,7 @@ test.describe.serial('module 27 - savings-new wizard', () => {
 
     const suffix = String(runId).replace(/\D/g, '').slice(-8);
     const product = await fineract(request, 'POST', '/savingsproducts', {
-      name: `FinCraft SavingsWizard Product ${runId}`.slice(0, 90), shortName: `FSW${suffix}`.slice(0, 20),
+      name: `FinCraft SavingsWizard Product ${runId}`.slice(0, 90), shortName: `S${suffix}`.slice(0, 4),
       description: 'module 27 wizard UI test product', currencyCode: 'USD', digitsAfterDecimal: 2,
       inMultiplesOf: 1, nominalAnnualInterestRate: 5, interestCompoundingPeriodType: 4,
       interestPostingPeriodType: 4, interestCalculationType: 1,

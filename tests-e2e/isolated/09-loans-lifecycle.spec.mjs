@@ -15,7 +15,7 @@ async function current(request,id=state.loanId,assoc='all'){return fineract(requ
 test.describe.serial('module 06 - loans lifecycle',()=>{
  test('create client, officer, product, and load loan template',async({request})=>{
   state.officeId=rows(await fineract(request,'GET','/offices'))[0]?.id;expect(state.officeId).toBeTruthy();
-  const c=await fineract(request,'POST','/clients',{officeId:state.officeId,firstname:'FinCraft',lastname:`Loan ${runId}`.slice(0,45),externalId:unique('LOAN-CLIENT'),active:true,activationDate:date(),submittedOnDate:date(),dateFormat:'dd MM yyyy',locale:'en'});state.clientId=c.clientId||c.resourceId;
+  const c=await fineract(request,'POST','/clients',{officeId:state.officeId,firstname:'FinCraft',lastname:`Loan ${runId}`.slice(0,45),legalFormId:1,externalId:unique('LOAN-CLIENT'),active:true,activationDate:date(),submittedOnDate:date(),dateFormat:'dd MM yyyy',locale:'en'});state.clientId=c.clientId||c.resourceId;
   const s=await fineract(request,'POST','/staff',{officeId:state.officeId,firstname:'FinCraft',lastname:`Loan Officer ${runId}`.slice(0,45),isLoanOfficer:true,isActive:true});state.staffId=s.resourceId;
   const p=await fineract(request,'POST','/loanproducts',productBody());state.productId=p.resourceId;
   expect(state.clientId&&state.staffId&&state.productId).toBeTruthy();

@@ -24,8 +24,9 @@ async function optional(request, method, path, data) {
   return { supported: response.ok(), status: response.status(), body };
 }
 async function createAccount(request, label, type) {
+  const distinguisher = label.split(' ')[1]?.slice(0, 2).toUpperCase() || label.slice(0, 2).toUpperCase();
   const result = await fineract(request, 'POST', '/glaccounts', {
-    name: name(label), glCode: code(label.slice(0, 2).toUpperCase()), type, usage: 1,
+    name: name(label), glCode: code(distinguisher), type, usage: 1,
     manualEntriesAllowed: true, description: `Module 09 ${label}`
   });
   return result.resourceId;

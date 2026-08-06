@@ -1,6 +1,6 @@
 # FinCraft — Hand-written API ↔ Contract Drift
 
-_Generated 2026-08-03T08:34:46.142Z_
+_Generated 2026-08-05T07:20:55.919Z_
 
 Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **916** (720 unique endpoints, 20 modules)
 

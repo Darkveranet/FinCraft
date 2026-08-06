@@ -85,7 +85,7 @@ test.describe.serial('module 14 - accounting completion lifecycle', () => {
   test('create populated loan portfolio and run provisioning entry/journal capability', async ({ request }) => {
     const officeId = state.offices[0];
     const client = await fineract(request, 'POST', '/clients', {
-      officeId, firstname:'FinCraft', lastname:`A14 ${runId}`.slice(0,45), active:true, activationDate:date(), submittedOnDate:date(), dateFormat:'dd MM yyyy', locale:'en'
+      officeId, firstname:'FinCraft', lastname:`A14 ${runId}`.slice(0,45), legalFormId:1, active:true, activationDate:date(), submittedOnDate:date(), dateFormat:'dd MM yyyy', locale:'en'
     }); state.clientId = client.clientId || client.resourceId;
     const product = await fineract(request, 'POST', '/loanproducts', {
       name:`FinCraft A14 Loan ${runId}`.slice(0,90), shortName:`A14${suffix}`.slice(0,20), currencyCode:'USD', digitsAfterDecimal:2, inMultiplesOf:1,

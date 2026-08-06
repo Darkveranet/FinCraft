@@ -41,7 +41,7 @@ test.describe.serial('module 11 - recurring deposits extended lifecycle', () => 
   test('create isolated client, product, account, and funded RD', async ({ request }) => {
     state.officeId = rows(await fineract(request, 'GET', '/offices'))[0]?.id;
     const client = await fineract(request, 'POST', '/clients', {
-      officeId: state.officeId, firstname: 'FinCraft', lastname: `RD Extended ${runId}`.slice(0, 45),
+      officeId: state.officeId, firstname: 'FinCraft', lastname: `RD Extended ${runId}`.slice(0, 45), legalFormId: 1,
       externalId: unique('CLIENT'), active: true, activationDate: date(), submittedOnDate: date(), dateFormat: 'dd MM yyyy', locale: 'en'
     });
     state.clientId = client.clientId || client.resourceId;

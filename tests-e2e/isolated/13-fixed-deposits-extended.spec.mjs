@@ -41,7 +41,7 @@ test.describe.serial('module 10 - fixed deposits extended lifecycle', () => {
   test('create isolated client, product, account, and funded FD', async ({ request }) => {
     state.officeId = rows(await fineract(request, 'GET', '/offices'))[0]?.id;
     const client = await fineract(request, 'POST', '/clients', {
-      officeId: state.officeId, firstname: 'FinCraft', lastname: `FD Extended ${runId}`.slice(0, 45),
+      officeId: state.officeId, firstname: 'FinCraft', lastname: `FD Extended ${runId}`.slice(0, 45), legalFormId: 1,
       externalId: unique('CLIENT'), active: true, activationDate: date(), submittedOnDate: date(), dateFormat: 'dd MM yyyy', locale: 'en'
     });
     state.clientId = client.clientId || client.resourceId;

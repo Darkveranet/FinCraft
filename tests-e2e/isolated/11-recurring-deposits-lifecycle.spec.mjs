@@ -50,7 +50,7 @@ test.describe.serial('module 08 - recurring deposits lifecycle', () => {
     expect(state.officeId).toBeTruthy();
     const client = await fineract(request, 'POST', '/clients', {
       officeId: state.officeId, firstname: 'FinCraft', lastname: `Recurring Deposit ${runId}`.slice(0, 45),
-      externalId: unique('RD-CLIENT'), active: true, activationDate: date(), submittedOnDate: date(),
+      legalFormId: 1, externalId: unique('RD-CLIENT'), active: true, activationDate: date(), submittedOnDate: date(),
       dateFormat: 'dd MM yyyy', locale: 'en'
     });
     state.clientId = client.clientId || client.resourceId;

@@ -53,7 +53,7 @@ test.describe.serial('module 05 - savings lifecycle', () => {
 
     const client = await fineract(request, 'POST', '/clients', {
       officeId: state.officeId, firstname: 'FinCraft', lastname: `Savings ${runId}`.slice(0, 45),
-      externalId: unique('SAVINGS-CLIENT'), active: true, activationDate: date(), submittedOnDate: date(),
+      legalFormId: 1, externalId: unique('SAVINGS-CLIENT'), active: true, activationDate: date(), submittedOnDate: date(),
       dateFormat: 'dd MM yyyy', locale: 'en'
     });
     state.clientId = client.clientId || client.resourceId;
@@ -65,7 +65,7 @@ test.describe.serial('module 05 - savings lifecycle', () => {
     state.staffId = staff.resourceId;
 
     const product = await fineract(request, 'POST', '/savingsproducts', {
-      name: `FinCraft Savings ${runId}`.slice(0, 90), shortName: `FCS${suffix}`.slice(0, 20),
+      name: `FinCraft Savings ${runId}`.slice(0, 90), shortName: `S${suffix}`.slice(0, 4),
       description: 'Module 05 isolated savings product', currencyCode: 'USD', digitsAfterDecimal: 2,
       inMultiplesOf: 1, nominalAnnualInterestRate: 5, interestCompoundingPeriodType: 4,
       interestPostingPeriodType: 4, interestCalculationType: 1,

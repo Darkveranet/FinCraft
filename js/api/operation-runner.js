@@ -19,9 +19,9 @@ import { escapeHtml } from '../utils.js';
 
 const VERB = {
   GET: (p, body, params) => api._g(p, params),
-  POST: (p, body) => api._p(p, body),
-  PUT: (p, body) => api._u(p, body),
-  DELETE: (p, body) => api._d(p, body),
+  POST: (p, body, params) => api._p(p, body, { params }),
+  PUT: (p, body, params) => api._u(p, body, { params }),
+  DELETE: (p, body, params) => api._d(p, body, { params }),
 };
 
 function fieldInput(name, spec) {

@@ -17,7 +17,7 @@ test.describe.serial('module 16 - notifications lifecycle', () => {
   test('create auditable business event and retrieve notification feed', async ({ request }) => {
     state.officeId=rows(await fineract(request,'GET','/offices'))[0]?.id; expect(state.officeId).toBeTruthy();
     const client=await fineract(request,'POST','/clients',{
-      officeId:state.officeId,firstname:'FinCraft',lastname:`Notification ${runId}`.slice(0,45),
+      officeId:state.officeId,firstname:'FinCraft',lastname:`Notification ${runId}`.slice(0,45),legalFormId:1,
       externalId:`FC-NOT-${runId}`.slice(0,50),active:true,activationDate:new Date().toISOString().slice(0,10).split('-').reverse().join(' '),
       submittedOnDate:new Date().toISOString().slice(0,10).split('-').reverse().join(' '),dateFormat:'dd MM yyyy',locale:'en'
     });

@@ -27,7 +27,7 @@ async function optional(request, method, path, data) {
 async function createPerson(request, label, active = false) {
   const body = {
     officeId: state.officeId, firstname: 'FinCraft', lastname: `${label} ${runId}`.slice(0, 45),
-    externalId: unique(label), submittedOnDate: date(), dateFormat: 'dd MM yyyy', locale: 'en',
+    legalFormId: 1, externalId: unique(label), submittedOnDate: date(), dateFormat: 'dd MM yyyy', locale: 'en',
     ...(active ? { active: true, activationDate: date() } : {})
   };
   const created = await fineract(request, 'POST', '/clients', body);
@@ -95,7 +95,7 @@ test.describe.serial('module 03 - clients lifecycle', () => {
 
   test('reject duplicate client external ID', async ({ request }) => {
     const response = await raw(request, 'POST', '/clients', {
-      officeId: state.officeId, firstname: 'Duplicate', lastname: 'External ID',
+      officeId: state.officeId, firstname: 'Duplicate', lastname: 'External ID', legalFormId: 1,
       externalId: unique('Active'), submittedOnDate: date(), dateFormat: 'dd MM yyyy', locale: 'en'
     });
     expect(response.ok()).toBeFalsy();

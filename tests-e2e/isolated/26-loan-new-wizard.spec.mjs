@@ -34,7 +34,7 @@ test.describe.serial('module 26 - loan-new wizard', () => {
       amortizationType: 1, interestType: 0, interestCalculationPeriodType: 1,
       transactionProcessingStrategyCode: 'mifos-standard-strategy', accountingRule: 1,
       daysInYearType: 365, daysInMonthType: 30, canDefineInstallmentAmount: true,
-      isInterestRecalculationEnabled: false
+      isInterestRecalculationEnabled: false, locale: 'en'
     });
     state.productId = product.resourceId;
     expect(state.clientId && state.productId).toBeTruthy();

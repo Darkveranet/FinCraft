@@ -26,7 +26,7 @@ async function optional(request, method, path, data) {
 async function createClient(request, sequence) {
   const created = await fineract(request, 'POST', '/clients', {
     officeId: state.officeId, firstname: 'FinCraft', lastname: `Group Member ${sequence} ${runId}`.slice(0, 45),
-    externalId: unique(`MEMBER-${sequence}`), active: true, activationDate: date(), submittedOnDate: date(),
+    legalFormId: 1, externalId: unique(`MEMBER-${sequence}`), active: true, activationDate: date(), submittedOnDate: date(),
     dateFormat: 'dd MM yyyy', locale: 'en'
   });
   return created.clientId || created.resourceId;

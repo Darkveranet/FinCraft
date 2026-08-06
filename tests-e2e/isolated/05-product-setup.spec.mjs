@@ -5,6 +5,9 @@ const state = {};
 const suffix = String(runId).replace(/\D/g, '').slice(-8);
 const name = label => `FinCraft E2E ${label} ${runId}`.slice(0, 90);
 const short = label => `FC${label}${suffix}`.slice(0, 20);
+// Savings products have a real, live-verified 4-char shortName cap in Fineract —
+// distinct from loan/deposit products, which accept the longer form above.
+const shortSavings = label => `${label}${suffix}`.slice(0, 4);
 
 async function raw(request, method, path, data) {
   return request.fetch(`${cfg.url}/fineract-provider/api/v1${path}`, {
@@ -27,12 +30,12 @@ const loanPayload = overrides => ({
   interestRateFrequencyType: 3, amortizationType: 1, interestType: 0,
   interestCalculationPeriodType: 1, transactionProcessingStrategyCode: 'mifos-standard-strategy',
   accountingRule: 1, daysInYearType: 365, daysInMonthType: 30,
-  canDefineInstallmentAmount: true, isInterestRecalculationEnabled: false,
+  canDefineInstallmentAmount: true, isInterestRecalculationEnabled: false, locale: 'en',
   ...overrides
 });
 
 const savingsPayload = overrides => ({
-  name: name('Savings Product'), shortName: short('SP'), description: 'Isolated FinCraft savings product',
+  name: name('Savings Product'), shortName: shortSavings('SP'), description: 'Isolated FinCraft savings product',
   currencyCode: 'USD', digitsAfterDecimal: 2, inMultiplesOf: 1,
   nominalAnnualInterestRate: 5, interestCompoundingPeriodType: 4,
   interestPostingPeriodType: 4, interestCalculationType: 1,
@@ -123,7 +126,7 @@ test.describe.serial('module 02 - product setup lifecycle', () => {
   });
 
   test('delete disposable deposit and savings products', async ({ request }) => {
-    const sp = await fineract(request, 'POST', '/savingsproducts', savingsPayload({ name: name('Disposable Savings'), shortName: short('DS') }));
+    const sp = await fineract(request, 'POST', '/savingsproducts', savingsPayload({ name: name('Disposable Savings'), shortName: shortSavings('DS') }));
     await fineract(request, 'DELETE', `/savingsproducts/${sp.resourceId}`);
     const fd = await fineract(request, 'POST', '/fixeddepositproducts', { ...depositBase('Disposable Fixed Deposit'), shortName: short('DF'), depositAmount: 500 });
     await fineract(request, 'DELETE', `/fixeddepositproducts/${fd.resourceId}`);
