@@ -119,26 +119,46 @@
 
 /**
  * @typedef {Object} AdjustSavingsAccountTransactionRequest
+ * @property {string} [dateFormat]
  * @property {string} [externalId]
  * @property {string} [isBulk]
+ * @property {string} [locale]
+ * @property {number} [paymentTypeId]
+ * @property {number} [transactionAmount]
+ * @property {string} [transactionDate]
  */
 
 /**
  * @typedef {Object} AdjustSavingsAccountTransactionByExternalIdRequest
+ * @property {string} [dateFormat]
  * @property {string} [externalId]
  * @property {string} [isBulk]
+ * @property {string} [locale]
+ * @property {number} [paymentTypeId]
+ * @property {number} [transactionAmount]
+ * @property {string} [transactionDate]
  */
 
 /**
  * @typedef {Object} AdjustSavingsAccountTransactionBySavingsAndTransactionExternalIdRequest
+ * @property {string} [dateFormat]
  * @property {string} [externalId]
  * @property {string} [isBulk]
+ * @property {string} [locale]
+ * @property {number} [paymentTypeId]
+ * @property {number} [transactionAmount]
+ * @property {string} [transactionDate]
  */
 
 /**
  * @typedef {Object} AdjustSavingsAccountTransactionBySavingsExternalIdRequest
+ * @property {string} [dateFormat]
  * @property {string} [externalId]
  * @property {string} [isBulk]
+ * @property {string} [locale]
+ * @property {number} [paymentTypeId]
+ * @property {number} [transactionAmount]
+ * @property {string} [transactionDate]
  */
 
 /**
@@ -216,11 +236,14 @@
  * @property {"FLAT"} [buyDownFeeCalculationType]
  * @property {"FEE"|"INTEREST"} [buyDownFeeIncomeType]
  * @property {"EQUAL_AMORTIZATION"} [buyDownFeeStrategy]
+ * @property {number} [calendarId] Meeting calendar to attach the loan to; required for jlg loans
  * @property {"FLAT"} [capitalizedIncomeCalculationType]
  * @property {"EQUAL_AMORTIZATION"} [capitalizedIncomeStrategy]
  * @property {Object} [capitalizedIncomeType]
  * @property {Array} [charges]
  * @property {number} [clientId]
+ * @property {Array} [collateral]
+ * @property {boolean} [createStandingInstructionAtDisbursement] Requires linkAccountId when true
  * @property {Array} [datatables]
  * @property {string} [dateFormat]
  * @property {"FULL_LEAP_YEAR, FEB_29_PERIOD_ONLY"} [daysInYearCustomStrategy]
@@ -241,12 +264,17 @@
  * @property {number} [graceOnInterestCharged]
  * @property {number} [graceOnInterestPayment]
  * @property {number} [graceOnPrincipalPayment]
+ * @property {number} [groupId] Mandatory for group and GLIM loans
  * @property {number} [inArrearsTolerance]
  * @property {number} [interestCalculationPeriodType]
+ * @property {string} [interestChargedFromDate]
+ * @property {number} [interestRateDifferential] Added to the floating rate when isFloatingInterestRate is true
  * @property {number} [interestRateFrequencyType]
  * @property {number} [interestRatePerPeriod]
  * @property {boolean} [interestRecognitionOnDisbursementDate]
  * @property {number} [interestType]
+ * @property {boolean} [isFloatingInterestRate] Take the rate from the product's floating rate instead of interestRatePerPeriod
+ * @property {boolean} [isParentAccount] GLIM loans only: marks this application as the GLIM parent account
  * @property {number} [linkAccountId]
  * @property {string} [loanScheduleProcessingType]
  * @property {number} [loanTermFrequency]
@@ -263,6 +291,8 @@
  * @property {number} [repaymentStartDateType]
  * @property {string} [repaymentsStartingFromDate]
  * @property {string} [submittedOnDate]
+ * @property {boolean} [syncDisbursementWithMeeting] Sync the disbursement date with the attached meeting
+ * @property {number} [totalLoan] GLIM loans only: the total principal of the parent GLIM account
  * @property {string} [transactionProcessingStrategyCode]
  */
 
@@ -289,12 +319,18 @@
 
 /**
  * @typedef {Object} CreateAccountTransferRequest
+ * @property {string} [accountNumber]
+ * @property {string} [bankNumber]
+ * @property {string} [checkNumber]
  * @property {string} [dateFormat]
  * @property {string} [fromAccountId]
  * @property {string} [fromAccountType]
  * @property {string} [fromClientId]
  * @property {string} [fromOfficeId]
  * @property {string} [locale]
+ * @property {number} [paymentTypeId]
+ * @property {string} [receiptNumber]
+ * @property {string} [routingCode]
  * @property {string} [toAccountId]
  * @property {string} [toAccountType]
  * @property {string} [toClientId]
@@ -327,6 +363,7 @@
  * @property {string} [locale]
  * @property {number} [minimumPayment] Minimum payment value (required together with minimumPaymentType)
  * @property {string} [minimumPaymentType] Minimum payment type: PERCENTAGE, FLAT (required together with minimumPayment)
+ * @property {boolean} [restartPeriodFromResetDate] Optional reset flag. If true for action=reset, starts a new breach period from the reset date
  * @property {string} [startDate] For pause: start date of the pause period. For resume/disable/enable: the action date, which must be the current busines
  */
 
@@ -340,6 +377,7 @@
  * @property {string} [locale]
  * @property {number} [minimumPayment] Minimum payment value (required together with minimumPaymentType)
  * @property {string} [minimumPaymentType] Minimum payment type: PERCENTAGE, FLAT (required together with minimumPayment)
+ * @property {boolean} [restartPeriodFromResetDate] Optional reset flag. If true for action=reset, starts a new breach period from the reset date
  * @property {string} [startDate] For pause: start date of the pause period. For resume/disable/enable: the action date, which must be the current busines
  */
 
@@ -377,9 +415,15 @@
 
 /**
  * @typedef {Object} CreateCenterRequest
+ * @property {string} [activationDate]
  * @property {boolean} [active]
+ * @property {string} [dateFormat]
+ * @property {string} [externalId]
+ * @property {Array} [groupMembers] List of group ids to associate at creation
+ * @property {string} [locale]
  * @property {string} [name]
  * @property {number} [officeId]
+ * @property {number} [staffId]
  */
 
 /**
@@ -444,6 +488,7 @@
  * @property {number} [longitude]
  * @property {string} [postalCode]
  * @property {number} [stateProvinceId]
+ * @property {string} [street]
  * @property {string} [townVillage]
  * @property {string} [updatedBy]
  * @property {string} [updatedOn]
@@ -481,9 +526,13 @@
 
 /**
  * @typedef {Object} CreateClientIdentifierRequest
+ * @property {string} [dateFormat]
  * @property {string} [description]
  * @property {string} [documentKey]
  * @property {number} [documentTypeId]
+ * @property {string} [expiryDate]
+ * @property {string} [issuanceDate]
+ * @property {string} [locale]
  * @property {string} [status]
  */
 
@@ -582,7 +631,9 @@
 /**
  * @typedef {Object} CreateDocumentRequest
  * @property {string} [description]
+ * @property {string} [expiryDate]
  * @property {Object} [file]
+ * @property {string} [issuanceDate]
  * @property {string} [name]
  */
 
@@ -601,8 +652,8 @@
 
 /**
  * @typedef {Object} CreateExternalAssetOwnerLoanProductAttributeRequest
- * @property {string} [attributeKey]
- * @property {string} [attributeValue]
+ * @property {string} [attributeKey] Attribute key, one of the keys returned by the loan product attributes template endpoint, e.g. SETTLEMENT_MODEL or EXCLU
+ * @property {string} [attributeValue] Attribute value. For multi value attributes such as EXCLUDED_TRANSACTION_TYPES this is a comma separated list, e.g. BUY_
  */
 
 /**
@@ -612,9 +663,28 @@
  * @property {number} [depositAmount]
  * @property {number} [depositPeriod]
  * @property {number} [depositPeriodFrequencyId]
+ * @property {number} [inMultiplesOfDepositTerm]
+ * @property {number} [inMultiplesOfDepositTermTypeId]
+ * @property {number} [interestCalculationDaysInYearType]
+ * @property {number} [interestCalculationType]
+ * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestPostingPeriodType]
+ * @property {number} [linkAccountId]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
+ * @property {number} [maturityInstructionId]
+ * @property {number} [maxDepositTerm]
+ * @property {number} [maxDepositTermTypeId]
+ * @property {number} [minDepositTerm]
+ * @property {number} [minDepositTermTypeId]
+ * @property {string} [monthDayFormat]
+ * @property {boolean} [preClosurePenalApplicable]
+ * @property {number} [preClosurePenalInterest]
+ * @property {number} [preClosurePenalInterestOnTypeId]
  * @property {number} [productId]
  * @property {string} [submittedOnDate]
+ * @property {boolean} [transferInterestToSavings]
  */
 
 /**
@@ -622,30 +692,46 @@
  * @property {number} [accountingRule]
  * @property {Array} [charts]
  * @property {string} [currencyCode]
+ * @property {number} [depositAmount]
  * @property {string} [description]
  * @property {number} [digitsAfterDecimal]
+ * @property {number} [feesReceivableAccountId]
  * @property {number} [inMultiplesOf]
+ * @property {number} [inMultiplesOfDepositTerm]
+ * @property {number} [inMultiplesOfDepositTermTypeId]
+ * @property {number} [incomeFromFeeAccountId]
+ * @property {number} [incomeFromPenaltyAccountId]
  * @property {number} [interestCalculationDaysInYearType]
  * @property {number} [interestCalculationType]
  * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestOnSavingsAccountId]
+ * @property {number} [interestPayableAccountId]
  * @property {number} [interestPostingPeriodType]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
  * @property {number} [maxDepositTerm]
  * @property {number} [maxDepositTermTypeId]
  * @property {number} [minDepositTerm]
  * @property {number} [minDepositTermTypeId]
  * @property {string} [name]
+ * @property {number} [penaltiesReceivableAccountId]
  * @property {boolean} [preClosurePenalApplicable]
  * @property {number} [preClosurePenalInterest]
  * @property {number} [preClosurePenalInterestOnTypeId]
+ * @property {number} [savingsControlAccountId]
+ * @property {number} [savingsReferenceAccountId]
  * @property {string} [shortName]
+ * @property {number} [taxGroupId]
+ * @property {number} [transfersInSuspenseAccountId]
+ * @property {boolean} [withHoldTax]
  */
 
 /**
  * @typedef {Object} CreateFloatingRateRequest
  * @property {boolean} [isActive]
  * @property {boolean} [isBaseLendingRate]
- * @property {string} [name]
+ * @property {string} name
  * @property {Array} [ratePeriods]
  */
 
@@ -706,9 +792,14 @@
 
 /**
  * @typedef {Object} CreateGroupRequest
+ * @property {string} [activationDate]
  * @property {boolean} [active]
+ * @property {string} [dateFormat]
+ * @property {string} [externalId]
+ * @property {string} [locale]
  * @property {string} [name]
  * @property {number} [officeId]
+ * @property {string} [submittedOnDate]
  */
 
 /**
@@ -913,15 +1004,20 @@
  * @property {string} [loanScheduleProcessingType]
  * @property {string} [loanScheduleType]
  * @property {string} [locale]
+ * @property {number} [mandatoryGuarantee] Percentage of the loan that guarantors must cover
  * @property {number} [maxInterestRatePerPeriod]
  * @property {number} [maxNumberOfRepayments]
  * @property {number} [maxPrincipal]
  * @property {number} [maxTrancheCount]
+ * @property {number} [maximumGap] Maximum days between two installments of a variable installment loan
  * @property {boolean} [merchantBuyDownFee]
  * @property {number} [minInterestRatePerPeriod]
  * @property {number} [minNumberOfRepayments]
  * @property {number} [minPrincipal]
  * @property {number} [minimumDaysBetweenDisbursalAndFirstRepayment]
+ * @property {number} [minimumGap] Minimum days between two installments of a variable installment loan
+ * @property {number} [minimumGuaranteeFromGuarantor] Minimum percentage of the guarantee an external guarantor must provide
+ * @property {number} [minimumGuaranteeFromOwnFunds] Minimum percentage of the guarantee the borrower must provide from own funds
  * @property {boolean} [multiDisburseLoan]
  * @property {string} [name]
  * @property {Array} [numberOfRepaymentVariationsForBorrowerCycle]
@@ -940,10 +1036,13 @@
  * @property {number} [principalThresholdForLastInstallment]
  * @property {Array} [principalVariationsForBorrowerCycle]
  * @property {Array} [rates]
+ * @property {number} [recalculationCompoundingFrequencyDayOfWeekType]
  * @property {number} [recalculationCompoundingFrequencyInterval]
  * @property {number} [recalculationCompoundingFrequencyOnDayType]
  * @property {number} [recalculationCompoundingFrequencyType]
+ * @property {number} [recalculationRestFrequencyDayOfWeekType]
  * @property {number} [recalculationRestFrequencyInterval]
+ * @property {number} [recalculationRestFrequencyOnDayType]
  * @property {number} [recalculationRestFrequencyType]
  * @property {number} [receivableFeeAccountId]
  * @property {number} [receivableInterestAccountId]
@@ -955,6 +1054,7 @@
  * @property {string} [shortName]
  * @property {string} [startDate]
  * @property {Array} [supportedInterestRefundTypes]
+ * @property {boolean} [syncExpectedWithDisbursementDate] Force the actual disbursement date to match the expected disbursement date
  * @property {string} [transactionProcessingStrategyCode]
  * @property {number} [transfersInSuspenseAccountId]
  * @property {boolean} [useBorrowerCycle]
@@ -1017,8 +1117,8 @@
 /**
  * @typedef {Object} CreateProvisioningCriteriaRequest
  * @property {string} [criteriaName]
+ * @property {Array} [definitions]
  * @property {Array} [loanProducts]
- * @property {Array} [provisioningcriteria]
  */
 
 /**
@@ -1073,11 +1173,19 @@
  * @property {string} [description]
  * @property {number} [digitsAfterDecimal]
  * @property {number} [inMultiplesOf]
+ * @property {number} [inMultiplesOfDepositTerm]
+ * @property {number} [inMultiplesOfDepositTermTypeId]
+ * @property {number} [incomeFromFeeAccountId]
+ * @property {number} [incomeFromPenaltyAccountId]
  * @property {number} [interestCalculationDaysInYearType]
  * @property {number} [interestCalculationType]
  * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestOnSavingsAccountId]
  * @property {number} [interestPostingPeriodType]
+ * @property {boolean} [isMandatoryDeposit]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
  * @property {number} [maxDepositAmount]
  * @property {number} [maxDepositTerm]
  * @property {number} [maxDepositTermTypeId]
@@ -1088,7 +1196,14 @@
  * @property {boolean} [preClosurePenalApplicable]
  * @property {number} [preClosurePenalInterest]
  * @property {number} [preClosurePenalInterestOnTypeId]
+ * @property {number} [recurringFrequency]
+ * @property {number} [recurringFrequencyType]
+ * @property {number} [savingsControlAccountId]
+ * @property {number} [savingsReferenceAccountId]
  * @property {string} [shortName]
+ * @property {number} [taxGroupId]
+ * @property {number} [transfersInSuspenseAccountId]
+ * @property {boolean} [withHoldTax]
  */
 
 /**
@@ -1100,6 +1215,7 @@
  * @property {string} [reportSql]
  * @property {string} [reportSubType]
  * @property {string} [reportType]
+ * @property {boolean} [useReport]
  */
 
 /**
@@ -1130,6 +1246,7 @@
  * @property {number} [loanId]
  * @property {string} [locale]
  * @property {number} [newInterestRate]
+ * @property {boolean} [recalculateInterest]
  * @property {string} [rescheduleFromDate]
  * @property {string} [rescheduleReasonComment]
  * @property {number} [rescheduleReasonId]
@@ -1153,7 +1270,9 @@
  * @property {number} [chargeId]
  * @property {string} [dateFormat]
  * @property {string} [dueDate]
+ * @property {string} [feeOnMonthDay] The recurring day an annual or monthly fee falls due
  * @property {string} [locale]
+ * @property {string} [monthDayFormat] Required with feeOnMonthDay
  */
 
 /**
@@ -1163,8 +1282,11 @@
  * @property {boolean} [isPostInterestAsOn]
  * @property {string} [lienAllowed]
  * @property {string} [locale]
+ * @property {string} [note]
  * @property {number} [paymentTypeId]
+ * @property {boolean} [postInterestManualOrAutomatic]
  * @property {string} [reasonForBlock]
+ * @property {Array} [savingsArray] command=gsimDeposit: the child accounts of a GSIM parent to deposit into, and how much into each
  * @property {number} [transactionAmount]
  * @property {string} [transactionDate]
  */
@@ -1176,8 +1298,11 @@
  * @property {boolean} [isPostInterestAsOn]
  * @property {string} [lienAllowed]
  * @property {string} [locale]
+ * @property {string} [note]
  * @property {number} [paymentTypeId]
+ * @property {boolean} [postInterestManualOrAutomatic]
  * @property {string} [reasonForBlock]
+ * @property {Array} [savingsArray] command=gsimDeposit: the child accounts of a GSIM parent to deposit into, and how much into each
  * @property {number} [transactionAmount]
  * @property {string} [transactionDate]
  */
@@ -1189,22 +1314,47 @@
  * @property {boolean} [allowOverdraft]
  * @property {Array} [charges]
  * @property {string} [currencyCode]
+ * @property {number} [daysToDormancy]
+ * @property {number} [daysToEscheat]
+ * @property {number} [daysToInactive]
  * @property {string} [description]
  * @property {number} [digitsAfterDecimal]
  * @property {boolean} [enforceMinRequiredBalance]
+ * @property {number} [feesReceivableAccountId]
  * @property {number} [inMultiplesOf]
+ * @property {number} [incomeFromFeeAccountId]
+ * @property {number} [incomeFromInterestId]
+ * @property {number} [incomeFromPenaltyAccountId]
  * @property {number} [interestCalculationDaysInYearType]
  * @property {number} [interestCalculationType]
  * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestOnSavingsAccountId]
+ * @property {number} [interestPayableAccountId]
  * @property {number} [interestPostingPeriodType]
+ * @property {number} [interestReceivableAccountId]
  * @property {boolean} [isDormancyTrackingActive]
+ * @property {boolean} [lienAllowed]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
+ * @property {number} [maxAllowedLienLimit]
+ * @property {number} [minBalanceForInterestCalculation]
+ * @property {number} [minRequiredBalance]
  * @property {number} [minRequiredOpeningBalance]
  * @property {string} [name]
  * @property {number} [nominalAnnualInterestRate]
+ * @property {number} [nominalAnnualInterestRateOverdraft]
+ * @property {number} [overdraftLimit]
+ * @property {number} [overdraftPortfolioControlId]
+ * @property {number} [penaltiesReceivableAccountId]
+ * @property {number} [savingsControlAccountId]
+ * @property {number} [savingsReferenceAccountId]
  * @property {string} [shortName]
+ * @property {number} [taxGroupId]
+ * @property {number} [transfersInSuspenseAccountId]
  * @property {boolean} [withHoldTax]
  * @property {boolean} [withdrawalFeeForTransfers]
+ * @property {number} [writeOffAccountId]
  */
 
 /**
@@ -1254,6 +1404,7 @@
  * @property {string} [description]
  * @property {number} [digitsAfterDecimal]
  * @property {number} [inMultiplesOf]
+ * @property {number} [incomeFromFeeAccountId] Required with accountingRule=2 (cash based)
  * @property {string} [locale]
  * @property {number} [lockinPeriodFrequency]
  * @property {number} [lockinPeriodFrequencyType]
@@ -1264,6 +1415,9 @@
  * @property {number} [minimumactiveperiodFrequencyType]
  * @property {string} [name]
  * @property {number} [nominalShares]
+ * @property {number} [shareEquityId] Required with accountingRule=2 (cash based)
+ * @property {number} [shareReferenceId] Required with accountingRule=2 (cash based)
+ * @property {number} [shareSuspenseId] Required with accountingRule=2 (cash based)
  * @property {number} [sharesIssued]
  * @property {string} [shortName]
  * @property {number} [totalShares]
@@ -1514,6 +1668,7 @@
  * @property {"NONE"|"ACC_DEF_REV_AM"} [accountingRule] NONE or ACC_DEF_REV_AM
  * @property {Object} [allowAttributeOverrides] PostAllowAttributeOverrides
  * @property {"EIR"|"FLAT"} [amortizationType]
+ * @property {number} [annualEir] Annual EIR percentage (6 decimal places max). Required when strategy is ANNUAL_EIR.
  * @property {number} [breachGraceDays] Number of days to shift the start of the first breach schedule period after disbursement
  * @property {number} [breachId]
  * @property {string} [breachStartType] Breach start type: LOAN_CREATION or DISBURSEMENT
@@ -1546,8 +1701,12 @@
  * @property {number} [incomeFromRecoveryAccountId]
  * @property {number} [loanPortfolioAccountId]
  * @property {string} [locale]
+ * @property {number} [maxAnnualEir] Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy.
+ * @property {number} [maxPaymentAmount] Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy.
  * @property {number} [maxPeriodPaymentRate]
  * @property {number} [maxPrincipal]
+ * @property {number} [minAnnualEir] Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy.
+ * @property {number} [minPaymentAmount] Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy.
  * @property {number} [minPeriodPaymentRate]
  * @property {number} [minPrincipal]
  * @property {string} [name]
@@ -1555,6 +1714,8 @@
  * @property {number} [npvDayCount]
  * @property {number} [overpaymentLiabilityAccountId]
  * @property {Array} [paymentAllocation]
+ * @property {number} [paymentAmount] Daily payment amount, at most the currency's decimal precision. Required when strategy is PAYMENT_AMOUNT.
+ * @property {"TPV"|"ANNUAL_EIR"|"PAYMENT_AMOUNT"} [paymentAmountCalculationStrategy] Payment amount calculation strategy: TPV (default), ANNUAL_EIR or PAYMENT_AMOUNT
  * @property {Array} [paymentChannelToFundSourceMappings]
  * @property {Array} [penaltyToIncomeAccountMappings]
  * @property {number} [periodPaymentRate]
@@ -1727,48 +1888,88 @@
 
 /**
  * @typedef {Object} ExecuteWorkingCapitalLoanTransactionByExternalIdRequest
+ * @property {number} [chargeOffReasonId] Optional charge-off reason code value id (command=chargeOff)
  * @property {number} [classificationId] Optional code value id for transaction classification
  * @property {string} [dateFormat]
  * @property {string} [externalId]
  * @property {string} [locale]
  * @property {string} [note]
  * @property {Object} [paymentDetails] Payment details for transaction request payload
- * @property {number} [relatedResourceId] Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment
- * @property {number} [transactionAmount] Transaction amount
+ * @property {string} [relatedExternalResourceId] External id of the same transaction that relatedResourceId names: the disbursement for discountFee, the discount fee for
+ * @property {number} [relatedResourceId] Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment. Cannot be combined w
+ * @property {string} [reversalExternalId] Optional external id for the reversal (command=undoChargeOff, undoWriteOff)
+ * @property {number} [transactionAmount] Transaction amount. For command=recoveryPayment it may not exceed the loan's writtenOffOutstanding
  * @property {string} [transactionDate] Transaction date
+ * @property {number} [writeoffReasonId] Optional write-off reason code value id (command=writeOff)
  */
 
 /**
  * @typedef {Object} ExecuteWorkingCapitalLoanTransactionByIdRequest
+ * @property {number} [chargeOffReasonId] Optional charge-off reason code value id (command=chargeOff)
  * @property {number} [classificationId] Optional code value id for transaction classification
  * @property {string} [dateFormat]
  * @property {string} [externalId]
  * @property {string} [locale]
  * @property {string} [note]
  * @property {Object} [paymentDetails] Payment details for transaction request payload
- * @property {number} [relatedResourceId] Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment
- * @property {number} [transactionAmount] Transaction amount
+ * @property {string} [relatedExternalResourceId] External id of the same transaction that relatedResourceId names: the disbursement for discountFee, the discount fee for
+ * @property {number} [relatedResourceId] Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment. Cannot be combined w
+ * @property {string} [reversalExternalId] Optional external id for the reversal (command=undoChargeOff, undoWriteOff)
+ * @property {number} [transactionAmount] Transaction amount. For command=recoveryPayment it may not exceed the loan's writtenOffOutstanding
  * @property {string} [transactionDate] Transaction date
+ * @property {number} [writeoffReasonId] Optional write-off reason code value id (command=writeOff)
  */
 
 /**
  * @typedef {Object} ExecuteWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalIdRequest
- * @property {string} [reversalExternalId]
+ * @property {number} [classificationId] Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)
+ * @property {string} [dateFormat]
+ * @property {string} [externalId] Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {Object} [paymentDetails] Payment details for transaction request payload
+ * @property {string} [reversalExternalId] Optional external id for the reversal (command=undo)
+ * @property {number} [transactionAmount] Transaction amount (command=discountFee, discountFeeAdjustment)
+ * @property {string} [transactionDate] Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement
  */
 
 /**
  * @typedef {Object} ExecuteWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionIdRequest
- * @property {string} [reversalExternalId]
+ * @property {number} [classificationId] Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)
+ * @property {string} [dateFormat]
+ * @property {string} [externalId] Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {Object} [paymentDetails] Payment details for transaction request payload
+ * @property {string} [reversalExternalId] Optional external id for the reversal (command=undo)
+ * @property {number} [transactionAmount] Transaction amount (command=discountFee, discountFeeAdjustment)
+ * @property {string} [transactionDate] Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement
  */
 
 /**
  * @typedef {Object} ExecuteWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalIdRequest
- * @property {string} [reversalExternalId]
+ * @property {number} [classificationId] Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)
+ * @property {string} [dateFormat]
+ * @property {string} [externalId] Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {Object} [paymentDetails] Payment details for transaction request payload
+ * @property {string} [reversalExternalId] Optional external id for the reversal (command=undo)
+ * @property {number} [transactionAmount] Transaction amount (command=discountFee, discountFeeAdjustment)
+ * @property {string} [transactionDate] Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement
  */
 
 /**
  * @typedef {Object} ExecuteWorkingCapitalLoanTransactionCommandByLoanIdTransactionIdRequest
- * @property {string} [reversalExternalId]
+ * @property {number} [classificationId] Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)
+ * @property {string} [dateFormat]
+ * @property {string} [externalId] Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {Object} [paymentDetails] Payment details for transaction request payload
+ * @property {string} [reversalExternalId] Optional external id for the reversal (command=undo)
+ * @property {number} [transactionAmount] Transaction amount (command=discountFee, discountFeeAdjustment)
+ * @property {string} [transactionDate] Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement
  */
 
 /**
@@ -1812,6 +2013,7 @@
  * @property {string} [rejectionDate]
  * @property {number} [rejectionReasonId]
  * @property {string} [reopenedDate]
+ * @property {number} [staffId]
  * @property {string} [withdrawalDate]
  * @property {number} [withdrawalReasonId]
  */
@@ -1827,6 +2029,7 @@
  * @property {string} [rejectionDate]
  * @property {number} [rejectionReasonId]
  * @property {string} [reopenedDate]
+ * @property {number} [staffId]
  * @property {string} [withdrawalDate]
  * @property {number} [withdrawalReasonId]
  */
@@ -1836,12 +2039,23 @@
  * @property {string} [closureDate]
  * @property {number} [closureReasonId]
  * @property {string} [dateFormat]
+ * @property {Array} [groupMembers] List of group ids to associate with or disassociate from the center
  * @property {string} [locale]
  */
 
 /**
  * @typedef {Object} HandleCommandsFixedDepositAccountRequest
-
+ * @property {string} [activatedOnDate] command=activate
+ * @property {string} [approvedOnDate] command=approve
+ * @property {string} [closedOnDate] command=prematureClose, calculatePrematureAmount
+ * @property {string} [dateFormat]
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {number} [onAccountClosureId] command=prematureClose
+ * @property {string} [rejectedOnDate] command=reject
+ * @property {number} [toSavingsAccountId] command=prematureClose, transfer to savings
+ * @property {string} [transferDescription] command=prematureClose, transfer to savings
+ * @property {string} [withdrawnOnDate] command=withdrawnByApplicant
  */
 
 /**
@@ -1857,6 +2071,7 @@
  * @typedef {Object} HandleCommandsGlimLoanRequest
  * @property {string} [actualDisbursementDate]
  * @property {string} [adjustRepaymentDate]
+ * @property {Array} [approvalFormData] Approve GLIM Application only: the per-child-loan approval details
  * @property {number} [approvedLoanAmount]
  * @property {string} [approvedOnDate]
  * @property {string} [assignmentDate]
@@ -1866,10 +2081,13 @@
  * @property {string} [externalId]
  * @property {number} [fixedEmiAmount]
  * @property {number} [fromLoanOfficerId]
+ * @property {number} [glimPrincipal] Approve GLIM Application only: the approved principal of the parent GLIM account
  * @property {string} [locale]
+ * @property {number} [netDisbursalAmount]
  * @property {string} [note]
  * @property {Array} [originators] Optional array of originators to reconcile during loan disbursement. Omit the field to leave existing mappings unchanged
  * @property {number} [paymentTypeId]
+ * @property {Array} [postDatedChecks] Disburse only: the post dated checks backing the repayment schedule
  * @property {string} [rejectedOnDate]
  * @property {number} [toLoanOfficerId]
  * @property {number} [transactionAmount]
@@ -1879,8 +2097,14 @@
 
 /**
  * @typedef {Object} HandleCommandsGroupRequest
+ * @property {string} [activationDate]
+ * @property {Array} [clientMembers] List of client ids to associate with or disassociate from the group
  * @property {Array} [clients]
+ * @property {string} [dateFormat]
  * @property {number} [destinationGroupId]
+ * @property {boolean} [inheritStaffForClientAccounts]
+ * @property {string} [locale]
+ * @property {number} [staffId]
  */
 
 /**
@@ -1892,6 +2116,7 @@
  * @typedef {Object} HandleCommandsLoanRequest
  * @property {string} [actualDisbursementDate]
  * @property {string} [adjustRepaymentDate]
+ * @property {Array} [approvalFormData] Approve GLIM Application only: the per-child-loan approval details
  * @property {number} [approvedLoanAmount]
  * @property {string} [approvedOnDate]
  * @property {string} [assignmentDate]
@@ -1901,10 +2126,13 @@
  * @property {string} [externalId]
  * @property {number} [fixedEmiAmount]
  * @property {number} [fromLoanOfficerId]
+ * @property {number} [glimPrincipal] Approve GLIM Application only: the approved principal of the parent GLIM account
  * @property {string} [locale]
+ * @property {number} [netDisbursalAmount]
  * @property {string} [note]
  * @property {Array} [originators] Optional array of originators to reconcile during loan disbursement. Omit the field to leave existing mappings unchanged
  * @property {number} [paymentTypeId]
+ * @property {Array} [postDatedChecks] Disburse only: the post dated checks backing the repayment schedule
  * @property {string} [rejectedOnDate]
  * @property {number} [toLoanOfficerId]
  * @property {number} [transactionAmount]
@@ -1916,6 +2144,7 @@
  * @typedef {Object} HandleCommandsLoanByExternalIdRequest
  * @property {string} [actualDisbursementDate]
  * @property {string} [adjustRepaymentDate]
+ * @property {Array} [approvalFormData] Approve GLIM Application only: the per-child-loan approval details
  * @property {number} [approvedLoanAmount]
  * @property {string} [approvedOnDate]
  * @property {string} [assignmentDate]
@@ -1925,10 +2154,13 @@
  * @property {string} [externalId]
  * @property {number} [fixedEmiAmount]
  * @property {number} [fromLoanOfficerId]
+ * @property {number} [glimPrincipal] Approve GLIM Application only: the approved principal of the parent GLIM account
  * @property {string} [locale]
+ * @property {number} [netDisbursalAmount]
  * @property {string} [note]
  * @property {Array} [originators] Optional array of originators to reconcile during loan disbursement. Omit the field to leave existing mappings unchanged
  * @property {number} [paymentTypeId]
+ * @property {Array} [postDatedChecks] Disburse only: the post dated checks backing the repayment schedule
  * @property {string} [rejectedOnDate]
  * @property {number} [toLoanOfficerId]
  * @property {number} [transactionAmount]
@@ -1938,7 +2170,9 @@
 
 /**
  * @typedef {Object} HandleCommandsLoanScheduleRequest
-
+ * @property {string} [dateFormat]
+ * @property {Object} [exceptions] The installment changes to apply to the repayment schedule
+ * @property {string} [locale]
  */
 
 /**
@@ -2003,7 +2237,17 @@
 
 /**
  * @typedef {Object} HandleCommandsRecurringDepositAccountRequest
-
+ * @property {string} [activatedOnDate] command=activate
+ * @property {string} [approvedOnDate] command=approve
+ * @property {string} [closedOnDate] command=prematureClose, calculatePrematureAmount
+ * @property {string} [dateFormat]
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {number} [onAccountClosureId] command=prematureClose
+ * @property {string} [rejectedOnDate] command=reject
+ * @property {number} [toSavingsAccountId] command=prematureClose, transfer to savings
+ * @property {string} [transferDescription] command=prematureClose, transfer to savings
+ * @property {string} [withdrawnOnDate] command=withdrawnByApplicant
  */
 
 /**
@@ -2027,6 +2271,9 @@
  * @property {string} [closedOnDate]
  * @property {string} [dateFormat]
  * @property {string} [locale]
+ * @property {string} [note]
+ * @property {boolean} [postInterestValidationOnClosure] command=close
+ * @property {string} [reasonForBlock] command=block, blockCredit, blockDebit
  * @property {string} [rejectedOnDate]
  * @property {boolean} [withdrawBalance]
  * @property {string} [withdrawnOnDate]
@@ -2039,6 +2286,9 @@
  * @property {string} [closedOnDate]
  * @property {string} [dateFormat]
  * @property {string} [locale]
+ * @property {string} [note]
+ * @property {boolean} [postInterestValidationOnClosure] command=close
+ * @property {string} [reasonForBlock] command=block, blockCredit, blockDebit
  * @property {string} [rejectedOnDate]
  * @property {boolean} [withdrawBalance]
  * @property {string} [withdrawnOnDate]
@@ -2054,7 +2304,65 @@
 
 /**
  * @typedef {Object} HandleCommandsShareAccountRequest
+ * @property {string} [activatedDate] command=activate
+ * @property {string} [dateFormat]
+ * @property {string} [locale]
  * @property {Array} [requestedShares]
+ */
+
+/**
+ * @typedef {Object} HandleGSIMCommandsRequest
+ * @property {string} [activatedOnDate]
+ * @property {string} [approvedOnDate]
+ * @property {string} [closedOnDate]
+ * @property {string} [dateFormat]
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {boolean} [postInterestValidationOnClosure] command=close
+ * @property {string} [reasonForBlock] command=block, blockCredit, blockDebit
+ * @property {string} [rejectedOnDate]
+ * @property {boolean} [withdrawBalance]
+ * @property {string} [withdrawnOnDate]
+ */
+
+/**
+ * @typedef {Object} LoanRepaymentRequest
+ * @property {string} [accountNumber]
+ * @property {string} [bankNumber]
+ * @property {number} [chargeOffReasonId]
+ * @property {string} [checkNumber]
+ * @property {number} [classificationId]
+ * @property {string} [dateFormat]
+ * @property {string} [dueDate]
+ * @property {string} [externalId]
+ * @property {number} [frequencyNumber]
+ * @property {string} [frequencyType]
+ * @property {boolean} [interestRefundCalculation] Optional. Controls whether Interest Refund transaction should be created for this refund. If not provided, loan product
+ * @property {number} [loanChargeId]
+ * @property {string} [locale]
+ * @property {string} [note]
+ * @property {number} [numberOfInstallments]
+ * @property {number} [paymentTypeId]
+ * @property {string} [reAgeInterestHandling]
+ * @property {string} [reAmortizationInterestHandling]
+ * @property {number} [reasonCodeValueId]
+ * @property {string} [receiptNumber]
+ * @property {string} [reversalExternalId]
+ * @property {string} [routingCode]
+ * @property {string} [startDate]
+ * @property {number} [transactionAmount]
+ * @property {string} [transactionDate]
+ * @property {number} [writeoffReasonId]
+ */
+
+/**
+ * @typedef {Object} MarkWorkingCapitalLoanAsFraudByExternalIdRequest
+ * @property {boolean} fraud Whether the loan should be flagged as fraudulent
+ */
+
+/**
+ * @typedef {Object} MarkWorkingCapitalLoanAsFraudByIdRequest
+ * @property {boolean} fraud Whether the loan should be flagged as fraudulent
  */
 
 /**
@@ -2085,6 +2393,7 @@
  * @property {string} [locale]
  * @property {number} [nearBreachId]
  * @property {Array} [paymentAllocation]
+ * @property {number} [paymentAmount] Daily payment amount, at most the currency's decimal precision. Overrides the product default on PAYMENT_AMOUNT strategy
  * @property {number} [periodPaymentRate]
  * @property {number} [principalAmount] Principal (disbursement) amount
  * @property {number} [productId]
@@ -2113,6 +2422,7 @@
  * @property {string} [locale]
  * @property {number} [nearBreachId]
  * @property {Array} [paymentAllocation]
+ * @property {number} [paymentAmount] Daily payment amount, at most the currency's decimal precision. Overrides the product default on PAYMENT_AMOUNT strategy
  * @property {number} [periodPaymentRate]
  * @property {number} [principalAmount] Principal (disbursement) amount
  * @property {number} [productId]
@@ -2298,12 +2608,18 @@
 
 /**
  * @typedef {Object} RefundByTransferRequest
+ * @property {string} [accountNumber]
+ * @property {string} [bankNumber]
+ * @property {string} [checkNumber]
  * @property {string} [dateFormat]
  * @property {string} [fromAccountId]
  * @property {string} [fromAccountType]
  * @property {string} [fromClientId]
  * @property {string} [fromOfficeId]
  * @property {string} [locale]
+ * @property {number} [paymentTypeId]
+ * @property {string} [receiptNumber]
+ * @property {string} [routingCode]
  * @property {string} [toAccountId]
  * @property {string} [toAccountType]
  * @property {string} [toClientId]
@@ -2429,9 +2745,26 @@
  * @property {number} [depositAmount]
  * @property {number} [depositPeriod]
  * @property {number} [depositPeriodFrequencyId]
+ * @property {string} [expectedFirstDepositOnDate]
+ * @property {number} [inMultiplesOfDepositTerm]
+ * @property {number} [inMultiplesOfDepositTermTypeId]
+ * @property {number} [interestCalculationDaysInYearType]
+ * @property {number} [interestCalculationType]
+ * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestPostingPeriodType]
  * @property {boolean} [isCalendarInherited]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
  * @property {number} [mandatoryRecommendedDepositAmount]
+ * @property {number} [maxDepositTerm]
+ * @property {number} [maxDepositTermTypeId]
+ * @property {number} [minDepositTerm]
+ * @property {number} [minDepositTermTypeId]
+ * @property {string} [monthDayFormat]
+ * @property {boolean} [preClosurePenalApplicable]
+ * @property {number} [preClosurePenalInterest]
+ * @property {number} [preClosurePenalInterestOnTypeId]
  * @property {number} [productId]
  * @property {number} [recurringFrequency]
  * @property {number} [recurringFrequencyType]
@@ -2439,22 +2772,32 @@
  */
 
 /**
+ * @typedef {Object} SubmitGSIMApplicationRequest
+ * @property {Array} [clientArray]
+ * @property {Array} [savingsArray]
+ */
+
+/**
  * @typedef {Object} SubmitSavingsApplicationRequest
  * @property {number} [clientId]
  * @property {string} [dateFormat]
  * @property {string} [externalId]
+ * @property {number} [groupId] Mandatory for a group savings account, in place of clientId
  * @property {string} [locale]
  * @property {number} [productId]
  * @property {string} [submittedOnDate]
+ * @property {boolean} [withdrawalFeeForTransfers]
  */
 
 /**
  * @typedef {Object} SubmitWorkingCapitalLoanApplicationRequest
  * @property {string} [accountNo]
+ * @property {number} [annualEir] Annual EIR percentage (6 decimal places max). Required for ANNUAL_EIR strategy products.
  * @property {number} [breachGraceDays] Number of days to shift the start of the first breach schedule period after disbursement
  * @property {number} [breachId]
  * @property {string} [breachStartType] Breach start type: LOAN_CREATION or DISBURSEMENT
  * @property {number} clientId
+ * @property {Array} [datatables]
  * @property {string} [dateFormat]
  * @property {number} [delinquencyBucketId]
  * @property {number} [delinquencyGraceDays]
@@ -2467,6 +2810,7 @@
  * @property {number} [nearBreachId]
  * @property {Array} [originators] Optional array of originators to associate with this loan. Each entry can reference an existing originator by 'id' or 'e
  * @property {Array} [paymentAllocation]
+ * @property {number} [paymentAmount] Daily payment amount, at most the currency's decimal precision. Overrides the product default on PAYMENT_AMOUNT strategy
  * @property {number} [periodPaymentRate]
  * @property {number} principalAmount Principal (disbursement) amount
  * @property {number} productId
@@ -2635,7 +2979,9 @@
 
 /**
  * @typedef {Object} UpdateCenterRequest
+ * @property {string} [externalId]
  * @property {string} [name]
+ * @property {number} [staffId]
  */
 
 /**
@@ -2686,6 +3032,7 @@
  * @property {number} [longitude]
  * @property {string} [postalCode]
  * @property {number} [stateProvinceId]
+ * @property {string} [street]
  * @property {string} [townVillage]
  * @property {string} [updatedBy]
  * @property {string} [updatedOn]
@@ -2728,9 +3075,13 @@
 
 /**
  * @typedef {Object} UpdateClientIdentifierRequest
+ * @property {string} [dateFormat]
  * @property {string} [description]
  * @property {string} [documentKey]
  * @property {number} [documentTypeId]
+ * @property {string} [expiryDate]
+ * @property {string} [issuanceDate]
+ * @property {string} [locale]
  * @property {string} [status]
  */
 
@@ -2795,16 +3146,28 @@
  */
 
 /**
+ * @typedef {Object} UpdateDisbursementDateRequest
+ * @property {number} [approvedLoanAmount]
+ * @property {string} [dateFormat]
+ * @property {string} [expectedDisbursementDate]
+ * @property {string} [locale]
+ * @property {string} [updatedExpectedDisbursementDate] The new expected disbursement date of the tranche
+ * @property {number} [updatedPrincipal] The new principal of the tranche
+ */
+
+/**
  * @typedef {Object} UpdateDocumentRequest
  * @property {string} [description]
+ * @property {string} [expiryDate]
  * @property {Object} [file]
+ * @property {string} [issuanceDate]
  * @property {string} [name]
  */
 
 /**
  * @typedef {Object} UpdateExternalAssetOwnerLoanProductAttributeRequest
- * @property {string} [attributeKey]
- * @property {string} [attributeValue]
+ * @property {string} [attributeKey] Attribute key, one of the keys returned by the loan product attributes template endpoint, e.g. SETTLEMENT_MODEL or EXCLU
+ * @property {string} [attributeValue] Attribute value. For multi value attributes such as EXCLUDED_TRANSACTION_TYPES this is a comma separated list, e.g. BUY_
  */
 
 /**
@@ -2820,8 +3183,33 @@
 
 /**
  * @typedef {Object} UpdateFixedDepositAccountRequest
+ * @property {number} [clientId]
+ * @property {string} [dateFormat]
  * @property {number} [depositAmount]
+ * @property {number} [depositPeriod]
+ * @property {number} [depositPeriodFrequencyId]
+ * @property {number} [inMultiplesOfDepositTerm]
+ * @property {number} [inMultiplesOfDepositTermTypeId]
+ * @property {number} [interestCalculationDaysInYearType]
+ * @property {number} [interestCalculationType]
+ * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestPostingPeriodType]
+ * @property {number} [linkAccountId]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
+ * @property {number} [maturityInstructionId]
+ * @property {number} [maxDepositTerm]
+ * @property {number} [maxDepositTermTypeId]
+ * @property {number} [minDepositTerm]
+ * @property {number} [minDepositTermTypeId]
+ * @property {string} [monthDayFormat]
+ * @property {boolean} [preClosurePenalApplicable]
+ * @property {number} [preClosurePenalInterest]
+ * @property {number} [preClosurePenalInterestOnTypeId]
+ * @property {number} [productId]
+ * @property {string} [submittedOnDate]
+ * @property {boolean} [transferInterestToSavings]
  */
 
 /**
@@ -2883,6 +3271,13 @@
 /**
  * @typedef {Object} UpdateGroupRequest
  * @property {string} [name]
+ */
+
+/**
+ * @typedef {Object} UpdateGsimRequest
+ * @property {number} [clientId]
+ * @property {number} [groupId]
+ * @property {number} [productId]
  */
 
 /**
@@ -3421,14 +3816,6 @@
  */
 
 /**
- * @typedef {Object} UpdateMixTaxonomyMappingRequest
- * @property {string} [config]
- * @property {string} [currency]
- * @property {number} [id]
- * @property {string} [identifier]
- */
-
-/**
  * @typedef {Object} UpdateNoteRequest
  * @property {string} note
  */
@@ -3491,8 +3878,8 @@
 /**
  * @typedef {Object} UpdateProvisioningCriteriaRequest
  * @property {string} [criteriaName]
+ * @property {Array} [definitions]
  * @property {Array} [loanProducts]
- * @property {Array} [provisioningcriteria]
  */
 
 /**
@@ -3514,8 +3901,35 @@
 
 /**
  * @typedef {Object} UpdateRecurringDepositAccountRequest
+ * @property {number} [clientId]
+ * @property {string} [dateFormat]
  * @property {number} [depositAmount]
+ * @property {number} [depositPeriod]
+ * @property {number} [depositPeriodFrequencyId]
+ * @property {string} [expectedFirstDepositOnDate]
+ * @property {number} [inMultiplesOfDepositTerm]
+ * @property {number} [inMultiplesOfDepositTermTypeId]
+ * @property {number} [interestCalculationDaysInYearType]
+ * @property {number} [interestCalculationType]
+ * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestPostingPeriodType]
+ * @property {boolean} [isCalendarInherited]
  * @property {string} [locale]
+ * @property {number} [lockinPeriodFrequency]
+ * @property {number} [lockinPeriodFrequencyType]
+ * @property {number} [mandatoryRecommendedDepositAmount]
+ * @property {number} [maxDepositTerm]
+ * @property {number} [maxDepositTermTypeId]
+ * @property {number} [minDepositTerm]
+ * @property {number} [minDepositTermTypeId]
+ * @property {string} [monthDayFormat]
+ * @property {boolean} [preClosurePenalApplicable]
+ * @property {number} [preClosurePenalInterest]
+ * @property {number} [preClosurePenalInterestOnTypeId]
+ * @property {number} [productId]
+ * @property {number} [recurringFrequency]
+ * @property {number} [recurringFrequencyType]
+ * @property {string} [submittedOnDate]
  */
 
 /**
@@ -3559,14 +3973,30 @@
 
 /**
  * @typedef {Object} UpdateSavingsAccountRequest
+ * @property {number} [clientId]
+ * @property {string} [dateFormat]
+ * @property {string} [externalId]
+ * @property {number} [groupId] Mandatory for a group savings account, in place of clientId
  * @property {string} [locale]
  * @property {number} [nominalAnnualInterestRate]
+ * @property {number} [productId]
+ * @property {string} [submittedOnDate]
+ * @property {boolean} [withHoldTax] command=updateWithHoldTax
+ * @property {boolean} [withdrawalFeeForTransfers]
  */
 
 /**
  * @typedef {Object} UpdateSavingsAccountByExternalIdRequest
+ * @property {number} [clientId]
+ * @property {string} [dateFormat]
+ * @property {string} [externalId]
+ * @property {number} [groupId] Mandatory for a group savings account, in place of clientId
  * @property {string} [locale]
  * @property {number} [nominalAnnualInterestRate]
+ * @property {number} [productId]
+ * @property {string} [submittedOnDate]
+ * @property {boolean} [withHoldTax] command=updateWithHoldTax
+ * @property {boolean} [withdrawalFeeForTransfers]
  */
 
 /**
@@ -3579,9 +4009,40 @@
 
 /**
  * @typedef {Object} UpdateSavingsProductRequest
+ * @property {number} [accountingRule]
+ * @property {boolean} [allowOverdraft]
+ * @property {string} [currencyCode]
  * @property {string} [description]
+ * @property {number} [digitsAfterDecimal]
+ * @property {boolean} [enforceMinRequiredBalance]
+ * @property {number} [feesReceivableAccountId]
+ * @property {number} [inMultiplesOf]
+ * @property {number} [incomeFromFeeAccountId]
+ * @property {number} [incomeFromInterestId]
+ * @property {number} [incomeFromPenaltyAccountId]
+ * @property {number} [interestCalculationDaysInYearType]
+ * @property {number} [interestCalculationType]
+ * @property {number} [interestCompoundingPeriodType]
+ * @property {number} [interestOnSavingsAccountId]
+ * @property {number} [interestPayableAccountId]
+ * @property {number} [interestPostingPeriodType]
  * @property {number} [interestRate]
+ * @property {number} [interestReceivableAccountId]
  * @property {string} [locale]
+ * @property {number} [minRequiredOpeningBalance]
+ * @property {string} [name]
+ * @property {number} [nominalAnnualInterestRate]
+ * @property {number} [nominalAnnualInterestRateOverdraft]
+ * @property {number} [overdraftLimit]
+ * @property {number} [overdraftPortfolioControlId]
+ * @property {number} [penaltiesReceivableAccountId]
+ * @property {number} [savingsControlAccountId]
+ * @property {number} [savingsReferenceAccountId]
+ * @property {string} [shortName]
+ * @property {number} [transfersInSuspenseAccountId]
+ * @property {boolean} [withHoldTax]
+ * @property {boolean} [withdrawalFeeForTransfers]
+ * @property {number} [writeOffAccountId]
  */
 
 /**
@@ -3768,6 +4229,7 @@
  * @property {"NONE"|"ACC_DEF_REV_AM"} [accountingRule] NONE or ACC_DEF_REV_AM
  * @property {Object} [allowAttributeOverrides] PostAllowAttributeOverrides
  * @property {"EIR"|"FLAT"} [amortizationType]
+ * @property {number} [annualEir] Annual EIR percentage (6 decimal places max). Required when strategy is ANNUAL_EIR.
  * @property {number} [breachGraceDays] Number of days to shift the start of the first breach schedule period after disbursement
  * @property {number} [breachId]
  * @property {string} [breachStartType] Breach start type: LOAN_CREATION or DISBURSEMENT
@@ -3800,8 +4262,12 @@
  * @property {number} [incomeFromRecoveryAccountId]
  * @property {number} [loanPortfolioAccountId]
  * @property {string} [locale]
+ * @property {number} [maxAnnualEir] Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy.
+ * @property {number} [maxPaymentAmount] Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy.
  * @property {number} [maxPeriodPaymentRate]
  * @property {number} [maxPrincipal]
+ * @property {number} [minAnnualEir] Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy.
+ * @property {number} [minPaymentAmount] Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy.
  * @property {number} [minPeriodPaymentRate]
  * @property {number} [minPrincipal]
  * @property {string} [name]
@@ -3809,6 +4275,8 @@
  * @property {number} [npvDayCount]
  * @property {number} [overpaymentLiabilityAccountId]
  * @property {Array} [paymentAllocation]
+ * @property {number} [paymentAmount] Daily payment amount, at most the currency's decimal precision. Required when strategy is PAYMENT_AMOUNT.
+ * @property {"TPV"|"ANNUAL_EIR"|"PAYMENT_AMOUNT"} [paymentAmountCalculationStrategy] Switches the payment amount calculation strategy. The inputs of the other strategies (periodPaymentRate, annualEir, paym
  * @property {Array} [paymentChannelToFundSourceMappings]
  * @property {Array} [penaltyToIncomeAccountMappings]
  * @property {number} [periodPaymentRate]
@@ -3829,6 +4297,7 @@
  * @property {"NONE"|"ACC_DEF_REV_AM"} [accountingRule] NONE or ACC_DEF_REV_AM
  * @property {Object} [allowAttributeOverrides] PostAllowAttributeOverrides
  * @property {"EIR"|"FLAT"} [amortizationType]
+ * @property {number} [annualEir] Annual EIR percentage (6 decimal places max). Required when strategy is ANNUAL_EIR.
  * @property {number} [breachGraceDays] Number of days to shift the start of the first breach schedule period after disbursement
  * @property {number} [breachId]
  * @property {string} [breachStartType] Breach start type: LOAN_CREATION or DISBURSEMENT
@@ -3861,8 +4330,12 @@
  * @property {number} [incomeFromRecoveryAccountId]
  * @property {number} [loanPortfolioAccountId]
  * @property {string} [locale]
+ * @property {number} [maxAnnualEir] Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy.
+ * @property {number} [maxPaymentAmount] Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy.
  * @property {number} [maxPeriodPaymentRate]
  * @property {number} [maxPrincipal]
+ * @property {number} [minAnnualEir] Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy.
+ * @property {number} [minPaymentAmount] Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy.
  * @property {number} [minPeriodPaymentRate]
  * @property {number} [minPrincipal]
  * @property {string} [name]
@@ -3870,6 +4343,8 @@
  * @property {number} [npvDayCount]
  * @property {number} [overpaymentLiabilityAccountId]
  * @property {Array} [paymentAllocation]
+ * @property {number} [paymentAmount] Daily payment amount, at most the currency's decimal precision. Required when strategy is PAYMENT_AMOUNT.
+ * @property {"TPV"|"ANNUAL_EIR"|"PAYMENT_AMOUNT"} [paymentAmountCalculationStrategy] Switches the payment amount calculation strategy. The inputs of the other strategies (periodPaymentRate, annualEir, paym
  * @property {Array} [paymentChannelToFundSourceMappings]
  * @property {Array} [penaltyToIncomeAccountMappings]
  * @property {number} [periodPaymentRate]
@@ -3887,6 +4362,8 @@
 
 /**
  * @typedef {Object} UpdateWorkingCapitalLoanRateByExternalIdRequest
+ * @property {string} [dateFormat]
+ * @property {string} effectiveDate Date the new rate takes effect. Mandatory. May be backdated or set in the future, but not before the disbursement date.
  * @property {string} [locale]
  * @property {string} [note]
  * @property {number} [periodPaymentRate] New period payment rate
@@ -3894,6 +4371,8 @@
 
 /**
  * @typedef {Object} UpdateWorkingCapitalLoanRateByIdRequest
+ * @property {string} [dateFormat]
+ * @property {string} effectiveDate Date the new rate takes effect. Mandatory. May be backdated or set in the future, but not before the disbursement date.
  * @property {string} [locale]
  * @property {string} [note]
  * @property {number} [periodPaymentRate] New period payment rate
@@ -4573,7 +5052,7 @@ export const CONTRACTS = {
   "adjustLoanCharge": {
     "method": "POST",
     "path": "/v1/working-capital-loans/{loanId}/charges/{loanChargeId}",
-    "summary": "Adjust a Working Capital Loan Charge",
+    "summary": "Adjust or Waive a Working Capital Loan Charge",
     "tag": "Working Capital Loan Charges",
     "pathParams": [
       "loanId",
@@ -4655,7 +5134,7 @@ export const CONTRACTS = {
   "adjustLoanChargeByChargeExternalId": {
     "method": "POST",
     "path": "/v1/working-capital-loans/{loanId}/charges/external-id/{loanChargeExternalId}",
-    "summary": "Adjust a Working Capital Loan Charge by Charge External Id",
+    "summary": "Adjust or Waive a Working Capital Loan Charge by Charge External Id",
     "tag": "Working Capital Loan Charges",
     "pathParams": [
       "loanId",
@@ -4737,7 +5216,7 @@ export const CONTRACTS = {
   "adjustLoanChargeByLoanAndChargeExternalId": {
     "method": "POST",
     "path": "/v1/working-capital-loans/external-id/{loanExternalId}/charges/external-id/{loanChargeExternalId}",
-    "summary": "Adjust a Working Capital Loan Charge by Loan and Charge External Ids",
+    "summary": "Adjust or Waive a Working Capital Loan Charge by Loan and Charge External Ids",
     "tag": "Working Capital Loan Charges",
     "pathParams": [
       "loanExternalId",
@@ -4819,7 +5298,7 @@ export const CONTRACTS = {
   "adjustLoanChargeByLoanExternalId": {
     "method": "POST",
     "path": "/v1/working-capital-loans/external-id/{loanExternalId}/charges/{loanChargeId}",
-    "summary": "Adjust a Working Capital Loan Charge by Loan External Id",
+    "summary": "Adjust or Waive a Working Capital Loan Charge by Loan External Id",
     "tag": "Working Capital Loan Charges",
     "pathParams": [
       "loanExternalId",
@@ -5317,6 +5796,10 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "externalId": {
           "type": "string",
           "required": false
@@ -5324,27 +5807,124 @@ export const CONTRACTS = {
         "isBulk": {
           "type": "string",
           "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false
         }
       }
     },
     "requestRef": "#/components/schemas/PostSavingsAccountBulkReversalTransactionsRequest",
     "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "externalId": {
-            "type": "string",
-            "required": false
-          },
-          "isBulk": {
-            "type": "string",
-            "required": false
-          }
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
         }
       }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "adjustSavingsAccountTransactionByExternalId": {
     "method": "POST",
@@ -5365,6 +5945,10 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "externalId": {
           "type": "string",
           "required": false
@@ -5372,27 +5956,124 @@ export const CONTRACTS = {
         "isBulk": {
           "type": "string",
           "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false
         }
       }
     },
     "requestRef": "#/components/schemas/PostSavingsAccountBulkReversalTransactionsRequest",
     "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "externalId": {
-            "type": "string",
-            "required": false
-          },
-          "isBulk": {
-            "type": "string",
-            "required": false
-          }
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
         }
       }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId": {
     "method": "POST",
@@ -5413,6 +6094,10 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "externalId": {
           "type": "string",
           "required": false
@@ -5420,27 +6105,124 @@ export const CONTRACTS = {
         "isBulk": {
           "type": "string",
           "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false
         }
       }
     },
     "requestRef": "#/components/schemas/PostSavingsAccountBulkReversalTransactionsRequest",
     "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "externalId": {
-            "type": "string",
-            "required": false
-          },
-          "isBulk": {
-            "type": "string",
-            "required": false
-          }
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
         }
       }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "adjustSavingsAccountTransactionBySavingsExternalId": {
     "method": "POST",
@@ -5461,6 +6243,10 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "externalId": {
           "type": "string",
           "required": false
@@ -5468,27 +6254,124 @@ export const CONTRACTS = {
         "isBulk": {
           "type": "string",
           "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false
         }
       }
     },
     "requestRef": "#/components/schemas/PostSavingsAccountBulkReversalTransactionsRequest",
     "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "externalId": {
-            "type": "string",
-            "required": false
-          },
-          "isBulk": {
-            "type": "string",
-            "required": false
-          }
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
         }
       }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "advancedQuery": {
     "method": "POST",
@@ -6314,6 +7197,12 @@ export const CONTRACTS = {
             "EQUAL_AMORTIZATION"
           ]
         },
+        "calendarId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Meeting calendar to attach the loan to; required for jlg loans"
+        },
         "capitalizedIncomeCalculationType": {
           "type": "string",
           "required": false,
@@ -6340,6 +7229,15 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "collateral": {
+          "type": "array",
+          "required": false
+        },
+        "createStandingInstructionAtDisbursement": {
+          "type": "boolean",
+          "required": false,
+          "description": "Requires linkAccountId when true"
         },
         "datatables": {
           "type": "array",
@@ -6431,6 +7329,12 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Mandatory for group and GLIM loans"
+        },
         "inArrearsTolerance": {
           "type": "number",
           "required": false
@@ -6439,6 +7343,15 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "interestChargedFromDate": {
+          "type": "string",
+          "required": false
+        },
+        "interestRateDifferential": {
+          "type": "number",
+          "required": false,
+          "description": "Added to the floating rate when isFloatingInterestRate is true"
         },
         "interestRateFrequencyType": {
           "type": "integer",
@@ -6457,6 +7370,16 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "isFloatingInterestRate": {
+          "type": "boolean",
+          "required": false,
+          "description": "Take the rate from the product's floating rate instead of interestRatePerPeriod"
+        },
+        "isParentAccount": {
+          "type": "boolean",
+          "required": false,
+          "description": "GLIM loans only: marks this application as the GLIM parent account"
         },
         "linkAccountId": {
           "type": "integer",
@@ -6526,12 +7449,21 @@ export const CONTRACTS = {
         },
         "repaymentsStartingFromDate": {
           "type": "string",
-          "required": false,
-          "format": "date"
+          "required": false
         },
         "submittedOnDate": {
           "type": "string",
           "required": false
+        },
+        "syncDisbursementWithMeeting": {
+          "type": "boolean",
+          "required": false,
+          "description": "Sync the disbursement date with the attached meeting"
+        },
+        "totalLoan": {
+          "type": "number",
+          "required": false,
+          "description": "GLIM loans only: the total principal of the parent GLIM account"
         },
         "transactionProcessingStrategyCode": {
           "type": "string",
@@ -6552,6 +7484,12 @@ export const CONTRACTS = {
           "type": "object",
           "required": false,
           "description": "currency"
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Returned for GLIM loans: the id of the parent GLIM account"
         },
         "loanId": {
           "type": "integer",
@@ -6798,6 +7736,18 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
         "dateFormat": {
           "type": "string",
           "required": false
@@ -6819,6 +7769,19 @@ export const CONTRACTS = {
           "required": false
         },
         "locale": {
+          "type": "string",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "routingCode": {
           "type": "string",
           "required": false
         },
@@ -7071,6 +8034,11 @@ export const CONTRACTS = {
           "required": false,
           "description": "Minimum payment type: PERCENTAGE, FLAT (required together with minimumPayment)"
         },
+        "restartPeriodFromResetDate": {
+          "type": "boolean",
+          "required": false,
+          "description": "Optional reset flag. If true for action=reset, starts a new breach period from the reset date"
+        },
         "startDate": {
           "type": "string",
           "required": false,
@@ -7151,6 +8119,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false,
           "description": "Minimum payment type: PERCENTAGE, FLAT (required together with minimumPayment)"
+        },
+        "restartPeriodFromResetDate": {
+          "type": "boolean",
+          "required": false,
+          "description": "Optional reset flag. If true for action=reset, starts a new breach period from the reset date"
         },
         "startDate": {
           "type": "string",
@@ -7446,8 +8419,29 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "activationDate": {
+          "type": "string",
+          "required": false
+        },
         "active": {
           "type": "boolean",
+          "required": false
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
+        "groupMembers": {
+          "type": "array",
+          "required": false,
+          "description": "List of group ids to associate at creation"
+        },
+        "locale": {
+          "type": "string",
           "required": false
         },
         "name": {
@@ -7455,6 +8449,11 @@ export const CONTRACTS = {
           "required": false
         },
         "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "staffId": {
           "type": "integer",
           "required": false,
           "format": "int64"
@@ -7796,6 +8795,10 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "street": {
+          "type": "string",
+          "required": false
+        },
         "townVillage": {
           "type": "string",
           "required": false
@@ -7836,9 +8839,8 @@ export const CONTRACTS = {
       "type": "object",
       "fields": {
         "amount": {
-          "type": "integer",
-          "required": false,
-          "format": "int32"
+          "type": "number",
+          "required": false
         },
         "chargeId": {
           "type": "integer",
@@ -8082,6 +9084,10 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "description": {
           "type": "string",
           "required": false
@@ -8094,6 +9100,18 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "expiryDate": {
+          "type": "string",
+          "required": false
+        },
+        "issuanceDate": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
         },
         "status": {
           "type": "string",
@@ -8744,8 +9762,16 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "expiryDate": {
+          "type": "string",
+          "required": false
+        },
         "file": {
           "type": "object",
+          "required": false
+        },
+        "issuanceDate": {
+          "type": "string",
           "required": false
         },
         "name": {
@@ -8891,11 +9917,13 @@ export const CONTRACTS = {
       "fields": {
         "attributeKey": {
           "type": "string",
-          "required": false
+          "required": false,
+          "description": "Attribute key, one of the keys returned by the loan product attributes template endpoint, e.g. SETTLEMENT_MODEL or EXCLU"
         },
         "attributeValue": {
           "type": "string",
-          "required": false
+          "required": false,
+          "description": "Attribute value. For multi value attributes such as EXCLUDED_TRANSACTION_TYPES this is a comma separated list, e.g. BUY_"
         }
       }
     },
@@ -9019,8 +10047,7 @@ export const CONTRACTS = {
         },
         "depositAmount": {
           "type": "number",
-          "required": false,
-          "format": "float"
+          "required": false
         },
         "depositPeriod": {
           "type": "integer",
@@ -9032,9 +10059,96 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "inMultiplesOfDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "inMultiplesOfDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationDaysInYearType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCompoundingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestPostingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "linkAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "locale": {
           "type": "string",
           "required": false
+        },
+        "lockinPeriodFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maturityInstructionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "monthDayFormat": {
+          "type": "string",
+          "required": false
+        },
+        "preClosurePenalApplicable": {
+          "type": "boolean",
+          "required": false
+        },
+        "preClosurePenalInterest": {
+          "type": "number",
+          "required": false
+        },
+        "preClosurePenalInterestOnTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
         },
         "productId": {
           "type": "integer",
@@ -9043,6 +10157,10 @@ export const CONTRACTS = {
         },
         "submittedOnDate": {
           "type": "string",
+          "required": false
+        },
+        "transferInterestToSavings": {
+          "type": "boolean",
           "required": false
         }
       }
@@ -9098,6 +10216,10 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "depositAmount": {
+          "type": "number",
+          "required": false
+        },
         "description": {
           "type": "string",
           "required": false
@@ -9107,10 +10229,35 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "feesReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "inMultiplesOf": {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "inMultiplesOfDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "inMultiplesOfDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "incomeFromFeeAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "incomeFromPenaltyAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "interestCalculationDaysInYearType": {
           "type": "integer",
@@ -9127,6 +10274,16 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "interestOnSavingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPayableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "interestPostingPeriodType": {
           "type": "integer",
           "required": false,
@@ -9135,6 +10292,16 @@ export const CONTRACTS = {
         "locale": {
           "type": "string",
           "required": false
+        },
+        "lockinPeriodFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
         },
         "maxDepositTerm": {
           "type": "integer",
@@ -9160,6 +10327,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "penaltiesReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "preClosurePenalApplicable": {
           "type": "boolean",
           "required": false
@@ -9174,8 +10346,32 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "savingsControlAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsReferenceAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "shortName": {
           "type": "string",
+          "required": false
+        },
+        "taxGroupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transfersInSuspenseAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "withHoldTax": {
+          "type": "boolean",
           "required": false
         }
       }
@@ -9213,7 +10409,7 @@ export const CONTRACTS = {
         },
         "name": {
           "type": "string",
-          "required": false
+          "required": true
         },
         "ratePeriods": {
           "type": "array",
@@ -9221,7 +10417,7 @@ export const CONTRACTS = {
         }
       }
     },
-    "requestRef": "#/components/schemas/FloatingRateRequest",
+    "requestRef": "#/components/schemas/FloatingRateCreateRequest",
     "response": {
       "type": "object",
       "fields": {
@@ -9232,7 +10428,7 @@ export const CONTRACTS = {
         }
       }
     },
-    "responseRef": "#/components/schemas/PostFloatingRatesResponse"
+    "responseRef": "#/components/schemas/FloatingRateCreateResponse"
   },
   "createFund": {
     "method": "POST",
@@ -9538,8 +10734,24 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "activationDate": {
+          "type": "string",
+          "required": false
+        },
         "active": {
           "type": "boolean",
+          "required": false
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
           "required": false
         },
         "name": {
@@ -9550,6 +10762,10 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false
         }
       }
     },
@@ -10843,6 +12059,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "mandatoryGuarantee": {
+          "type": "number",
+          "required": false,
+          "description": "Percentage of the loan that guarantors must cover"
+        },
         "maxInterestRatePerPeriod": {
           "type": "number",
           "required": false,
@@ -10862,6 +12083,12 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "maximumGap": {
+          "type": "integer",
+          "required": false,
+          "format": "int32",
+          "description": "Maximum days between two installments of a variable installment loan"
         },
         "merchantBuyDownFee": {
           "type": "boolean",
@@ -10886,6 +12113,22 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "minimumGap": {
+          "type": "integer",
+          "required": false,
+          "format": "int32",
+          "description": "Minimum days between two installments of a variable installment loan"
+        },
+        "minimumGuaranteeFromGuarantor": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum percentage of the guarantee an external guarantor must provide"
+        },
+        "minimumGuaranteeFromOwnFunds": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum percentage of the guarantee the borrower must provide from own funds"
         },
         "multiDisburseLoan": {
           "type": "boolean",
@@ -10968,6 +12211,11 @@ export const CONTRACTS = {
           "type": "array",
           "required": false
         },
+        "recalculationCompoundingFrequencyDayOfWeekType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
         "recalculationCompoundingFrequencyInterval": {
           "type": "integer",
           "required": false,
@@ -10983,7 +12231,17 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "recalculationRestFrequencyDayOfWeekType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
         "recalculationRestFrequencyInterval": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "recalculationRestFrequencyOnDayType": {
           "type": "integer",
           "required": false,
           "format": "int32"
@@ -11039,6 +12297,11 @@ export const CONTRACTS = {
         "supportedInterestRefundTypes": {
           "type": "array",
           "required": false
+        },
+        "syncExpectedWithDisbursementDate": {
+          "type": "boolean",
+          "required": false,
+          "description": "Force the actual disbursement date to match the expected disbursement date"
         },
         "transactionProcessingStrategyCode": {
           "type": "string",
@@ -11526,11 +12789,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
-        "loanProducts": {
+        "definitions": {
           "type": "array",
           "required": false
         },
-        "provisioningcriteria": {
+        "loanProducts": {
           "type": "array",
           "required": false
         }
@@ -11998,9 +13261,8 @@ export const CONTRACTS = {
           "required": false
         },
         "depositAmount": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
+          "type": "number",
+          "required": false
         },
         "description": {
           "type": "string",
@@ -12015,6 +13277,26 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "inMultiplesOfDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "inMultiplesOfDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "incomeFromFeeAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "incomeFromPenaltyAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "interestCalculationDaysInYearType": {
           "type": "integer",
@@ -12031,19 +13313,37 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "interestOnSavingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "interestPostingPeriodType": {
           "type": "integer",
           "required": false,
           "format": "int32"
         },
+        "isMandatoryDeposit": {
+          "type": "boolean",
+          "required": false
+        },
         "locale": {
           "type": "string",
           "required": false
         },
-        "maxDepositAmount": {
+        "lockinPeriodFrequency": {
           "type": "integer",
           "required": false,
-          "format": "int64"
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositAmount": {
+          "type": "number",
+          "required": false
         },
         "maxDepositTerm": {
           "type": "integer",
@@ -12056,9 +13356,8 @@ export const CONTRACTS = {
           "format": "int32"
         },
         "minDepositAmount": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
+          "type": "number",
+          "required": false
         },
         "minDepositTerm": {
           "type": "integer",
@@ -12088,8 +13387,42 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "recurringFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "recurringFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "savingsControlAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsReferenceAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "shortName": {
           "type": "string",
+          "required": false
+        },
+        "taxGroupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transfersInSuspenseAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "withHoldTax": {
+          "type": "boolean",
           "required": false
         }
       }
@@ -12143,6 +13476,10 @@ export const CONTRACTS = {
         },
         "reportType": {
           "type": "string",
+          "required": false
+        },
+        "useReport": {
+          "type": "boolean",
           "required": false
         }
       }
@@ -12287,6 +13624,10 @@ export const CONTRACTS = {
         },
         "newInterestRate": {
           "type": "number",
+          "required": false
+        },
+        "recalculateInterest": {
+          "type": "boolean",
           "required": false
         },
         "rescheduleFromDate": {
@@ -12439,9 +13780,19 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "feeOnMonthDay": {
+          "type": "string",
+          "required": false,
+          "description": "The recurring day an annual or monthly fee falls due"
+        },
         "locale": {
           "type": "string",
           "required": false
+        },
+        "monthDayFormat": {
+          "type": "string",
+          "required": false,
+          "description": "Required with feeOnMonthDay"
         }
       }
     },
@@ -12511,14 +13862,27 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "note": {
+          "type": "string",
+          "required": false
+        },
         "paymentTypeId": {
           "type": "integer",
           "required": false,
           "format": "int32"
         },
+        "postInterestManualOrAutomatic": {
+          "type": "boolean",
+          "required": false
+        },
         "reasonForBlock": {
           "type": "string",
           "required": false
+        },
+        "savingsArray": {
+          "type": "array",
+          "required": false,
+          "description": "command=gsimDeposit: the child accounts of a GSIM parent to deposit into, and how much into each"
         },
         "transactionAmount": {
           "type": "number",
@@ -12596,14 +13960,27 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "note": {
+          "type": "string",
+          "required": false
+        },
         "paymentTypeId": {
           "type": "integer",
           "required": false,
           "format": "int32"
         },
+        "postInterestManualOrAutomatic": {
+          "type": "boolean",
+          "required": false
+        },
         "reasonForBlock": {
           "type": "string",
           "required": false
+        },
+        "savingsArray": {
+          "type": "array",
+          "required": false,
+          "description": "command=gsimDeposit: the child accounts of a GSIM parent to deposit into, and how much into each"
         },
         "transactionAmount": {
           "type": "number",
@@ -12674,6 +14051,21 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "daysToDormancy": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "daysToEscheat": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "daysToInactive": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "description": {
           "type": "string",
           "required": false
@@ -12687,10 +14079,30 @@ export const CONTRACTS = {
           "type": "boolean",
           "required": false
         },
+        "feesReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "inMultiplesOf": {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "incomeFromFeeAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "incomeFromInterestId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "incomeFromPenaltyAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "interestCalculationDaysInYearType": {
           "type": "integer",
@@ -12707,17 +14119,58 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "interestOnSavingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPayableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "interestPostingPeriodType": {
           "type": "integer",
           "required": false,
           "format": "int32"
         },
+        "interestReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "isDormancyTrackingActive": {
+          "type": "boolean",
+          "required": false
+        },
+        "lienAllowed": {
           "type": "boolean",
           "required": false
         },
         "locale": {
           "type": "string",
+          "required": false
+        },
+        "lockinPeriodFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxAllowedLienLimit": {
+          "type": "number",
+          "required": false
+        },
+        "minBalanceForInterestCalculation": {
+          "type": "number",
+          "required": false
+        },
+        "minRequiredBalance": {
+          "type": "number",
           "required": false
         },
         "minRequiredOpeningBalance": {
@@ -12733,9 +14186,47 @@ export const CONTRACTS = {
           "required": false,
           "format": "double"
         },
+        "nominalAnnualInterestRateOverdraft": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftLimit": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftPortfolioControlId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "penaltiesReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsControlAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsReferenceAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "shortName": {
           "type": "string",
           "required": false
+        },
+        "taxGroupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transfersInSuspenseAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "withHoldTax": {
           "type": "boolean",
@@ -12744,6 +14235,11 @@ export const CONTRACTS = {
         "withdrawalFeeForTransfers": {
           "type": "boolean",
           "required": false
+        },
+        "writeOffAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -12999,6 +14495,12 @@ export const CONTRACTS = {
           "required": false,
           "format": "int32"
         },
+        "incomeFromFeeAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Required with accountingRule=2 (cash based)"
+        },
         "locale": {
           "type": "string",
           "required": false
@@ -13045,6 +14547,24 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "shareEquityId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Required with accountingRule=2 (cash based)"
+        },
+        "shareReferenceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Required with accountingRule=2 (cash based)"
+        },
+        "shareSuspenseId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Required with accountingRule=2 (cash based)"
         },
         "sharesIssued": {
           "type": "integer",
@@ -14854,6 +16374,11 @@ export const CONTRACTS = {
             "FLAT"
           ]
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Annual EIR percentage (6 decimal places max). Required when strategy is ANNUAL_EIR."
+        },
         "breachGraceDays": {
           "type": "integer",
           "required": false,
@@ -15006,6 +16531,16 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "maxAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "maxPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
+        },
         "maxPeriodPaymentRate": {
           "type": "number",
           "required": false
@@ -15013,6 +16548,16 @@ export const CONTRACTS = {
         "maxPrincipal": {
           "type": "number",
           "required": false
+        },
+        "minAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "minPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
         },
         "minPeriodPaymentRate": {
           "type": "number",
@@ -15044,6 +16589,21 @@ export const CONTRACTS = {
         "paymentAllocation": {
           "type": "array",
           "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Daily payment amount, at most the currency's decimal precision. Required when strategy is PAYMENT_AMOUNT."
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "TPV",
+            "ANNUAL_EIR",
+            "PAYMENT_AMOUNT"
+          ],
+          "description": "Payment amount calculation strategy: TPV (default), ANNUAL_EIR or PAYMENT_AMOUNT"
         },
         "paymentChannelToFundSourceMappings": {
           "type": "array",
@@ -16466,6 +18026,10 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
         }
       }
     },
@@ -16597,6 +18161,116 @@ export const CONTRACTS = {
       }
     },
     "responseRef": "#/components/schemas/DeleteEntityDatatableChecksTemplateResponse"
+  },
+  "deleteExternalAssetOwnerLoanProductAttribute": {
+    "method": "DELETE",
+    "path": "/v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}",
+    "summary": "Delete a Loan Product Attribute",
+    "tag": "External Asset Owner Loan Product Attributes",
+    "pathParams": [
+      "loanProductId",
+      "id"
+    ],
+    "query": [],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "deleteFixedDepositAccount": {
     "method": "DELETE",
@@ -19873,6 +21547,12 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "chargeOffReasonId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional charge-off reason code value id (command=chargeOff)"
+        },
         "classificationId": {
           "type": "integer",
           "required": false,
@@ -19900,21 +21580,37 @@ export const CONTRACTS = {
           "required": false,
           "description": "Payment details for transaction request payload"
         },
+        "relatedExternalResourceId": {
+          "type": "string",
+          "required": false,
+          "description": "External id of the same transaction that relatedResourceId names: the disbursement for discountFee, the discount fee for"
+        },
         "relatedResourceId": {
           "type": "integer",
           "required": false,
           "format": "int64",
-          "description": "Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment"
+          "description": "Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment. Cannot be combined w"
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the reversal (command=undoChargeOff, undoWriteOff)"
         },
         "transactionAmount": {
           "type": "number",
           "required": false,
-          "description": "Transaction amount"
+          "description": "Transaction amount. For command=recoveryPayment it may not exceed the loan's writtenOffOutstanding"
         },
         "transactionDate": {
           "type": "string",
           "required": false,
           "description": "Transaction date"
+        },
+        "writeoffReasonId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional write-off reason code value id (command=writeOff)"
         }
       }
     },
@@ -19968,6 +21664,12 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "chargeOffReasonId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional charge-off reason code value id (command=chargeOff)"
+        },
         "classificationId": {
           "type": "integer",
           "required": false,
@@ -19995,21 +21697,37 @@ export const CONTRACTS = {
           "required": false,
           "description": "Payment details for transaction request payload"
         },
+        "relatedExternalResourceId": {
+          "type": "string",
+          "required": false,
+          "description": "External id of the same transaction that relatedResourceId names: the disbursement for discountFee, the discount fee for"
+        },
         "relatedResourceId": {
           "type": "integer",
           "required": false,
           "format": "int64",
-          "description": "Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment"
+          "description": "Disbursement transaction id for discountFee; discount fee transaction id for discountFeeAdjustment. Cannot be combined w"
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the reversal (command=undoChargeOff, undoWriteOff)"
         },
         "transactionAmount": {
           "type": "number",
           "required": false,
-          "description": "Transaction amount"
+          "description": "Transaction amount. For command=recoveryPayment it may not exceed the loan's writtenOffOutstanding"
         },
         "transactionDate": {
           "type": "string",
           "required": false,
           "description": "Transaction date"
+        },
+        "writeoffReasonId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional write-off reason code value id (command=writeOff)"
         }
       }
     },
@@ -20064,9 +21782,48 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
-        "reversalExternalId": {
+        "classificationId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)"
+        },
+        "dateFormat": {
           "type": "string",
           "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)"
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "paymentDetails": {
+          "type": "object",
+          "required": false,
+          "description": "Payment details for transaction request payload"
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the reversal (command=undo)"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Transaction amount (command=discountFee, discountFeeAdjustment)"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "description": "Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement"
         }
       }
     },
@@ -20125,9 +21882,48 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
-        "reversalExternalId": {
+        "classificationId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)"
+        },
+        "dateFormat": {
           "type": "string",
           "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)"
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "paymentDetails": {
+          "type": "object",
+          "required": false,
+          "description": "Payment details for transaction request payload"
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the reversal (command=undo)"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Transaction amount (command=discountFee, discountFeeAdjustment)"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "description": "Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement"
         }
       }
     },
@@ -20186,9 +21982,48 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
-        "reversalExternalId": {
+        "classificationId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)"
+        },
+        "dateFormat": {
           "type": "string",
           "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)"
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "paymentDetails": {
+          "type": "object",
+          "required": false,
+          "description": "Payment details for transaction request payload"
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the reversal (command=undo)"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Transaction amount (command=discountFee, discountFeeAdjustment)"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "description": "Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement"
         }
       }
     },
@@ -20247,9 +22082,48 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
-        "reversalExternalId": {
+        "classificationId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Optional code value id for transaction classification (command=discountFee, discountFeeAdjustment)"
+        },
+        "dateFormat": {
           "type": "string",
           "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the created transaction (command=discountFee, discountFeeAdjustment)"
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "paymentDetails": {
+          "type": "object",
+          "required": false,
+          "description": "Payment details for transaction request payload"
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false,
+          "description": "Optional external id for the reversal (command=undo)"
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Transaction amount (command=discountFee, discountFeeAdjustment)"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "description": "Transaction date (command=discountFeeAdjustment); command=discountFee uses the date of the related disbursement"
         }
       }
     },
@@ -23206,6 +25080,11 @@ export const CONTRACTS = {
           "type": "array",
           "required": false
         },
+        "entitySubType": {
+          "type": "string",
+          "required": false,
+          "description": "The entity sub type the datatable is registered against, when the application table supports one (for example Person or "
+        },
         "registeredTableName": {
           "type": "string",
           "required": false
@@ -23293,6 +25172,11 @@ export const CONTRACTS = {
           "columnHeaderData": {
             "type": "array",
             "required": false
+          },
+          "entitySubType": {
+            "type": "string",
+            "required": false,
+            "description": "The entity sub type the datatable is registered against, when the application table supports one (for example Person or "
           },
           "registeredTableName": {
             "type": "string",
@@ -23451,6 +25335,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "expiryDate": {
+          "type": "string",
+          "required": false,
+          "format": "date-time"
+        },
         "fileName": {
           "type": "string",
           "required": false
@@ -23459,6 +25348,11 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "issuanceDate": {
+          "type": "string",
+          "required": false,
+          "format": "date-time"
         },
         "location": {
           "type": "string",
@@ -23821,7 +25715,7 @@ export const CONTRACTS = {
         }
       }
     },
-    "responseRef": "#/components/schemas/AuditData"
+    "responseRef": "#/components/schemas/LoanAuditFieldsData"
   },
   "getLoanCollateral": {
     "method": "GET",
@@ -23976,7 +25870,7 @@ export const CONTRACTS = {
         }
       }
     },
-    "responseRef": "#/components/schemas/AuditData"
+    "responseRef": "#/components/schemas/LoanAuditFieldsData"
   },
   "getMaxTransactionDateOfActiveLoans": {
     "method": "GET",
@@ -24130,42 +26024,39 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "accountNo": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "amount": {
-            "type": "number",
-            "required": false
-          },
-          "date": {
-            "type": "string",
-            "required": false,
-            "format": "date"
-          },
-          "id": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "installmentId": {
-            "type": "integer",
-            "required": false,
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "required": false
-          }
+      "type": "object",
+      "fields": {
+        "accountNo": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "amount": {
+          "type": "number",
+          "required": false
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "installmentId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "name": {
+          "type": "string",
+          "required": false
         }
       }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/GetPostDatedChecks"
   },
   "getPostDatedChecks": {
     "method": "GET",
@@ -25015,7 +26906,8 @@ export const CONTRACTS = {
           "createdDate": {
             "type": "string",
             "required": false,
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Audit/system timestamp. Prefer submittedOnDate for the booking business/tenant date."
           },
           "frequency": {
             "type": "integer",
@@ -25035,6 +26927,11 @@ export const CONTRACTS = {
             "type": "integer",
             "required": false,
             "format": "int64"
+          },
+          "submittedOnDate": {
+            "type": "string",
+            "required": false,
+            "format": "date"
           },
           "threshold": {
             "type": "number",
@@ -25071,7 +26968,8 @@ export const CONTRACTS = {
           "createdDate": {
             "type": "string",
             "required": false,
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Audit/system timestamp. Prefer submittedOnDate for the booking business/tenant date."
           },
           "frequency": {
             "type": "integer",
@@ -25091,6 +26989,11 @@ export const CONTRACTS = {
             "type": "integer",
             "required": false,
             "format": "int64"
+          },
+          "submittedOnDate": {
+            "type": "string",
+            "required": false,
+            "format": "date"
           },
           "threshold": {
             "type": "number",
@@ -25117,10 +27020,20 @@ export const CONTRACTS = {
       "items": {
         "type": "object",
         "fields": {
+          "calculatedAnnualEir": {
+            "type": "number",
+            "required": false,
+            "description": "Annual EIR of the segment this change opened, as a percentage (e.g. 43.756245), snapshotted when the change was booked"
+          },
           "createdDate": {
             "type": "string",
             "required": false,
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Audit/system timestamp. Prefer submittedOnDate for the booking business/tenant date."
+          },
+          "dailyPaymentAmount": {
+            "type": "number",
+            "required": false
           },
           "effectiveDate": {
             "type": "string",
@@ -25150,6 +27063,16 @@ export const CONTRACTS = {
             "required": false
           },
           "reversedOnDate": {
+            "type": "string",
+            "required": false,
+            "format": "date"
+          },
+          "segmentTerm": {
+            "type": "integer",
+            "required": false,
+            "format": "int32"
+          },
+          "submittedOnDate": {
             "type": "string",
             "required": false,
             "format": "date"
@@ -25175,10 +27098,20 @@ export const CONTRACTS = {
       "items": {
         "type": "object",
         "fields": {
+          "calculatedAnnualEir": {
+            "type": "number",
+            "required": false,
+            "description": "Annual EIR of the segment this change opened, as a percentage (e.g. 43.756245), snapshotted when the change was booked"
+          },
           "createdDate": {
             "type": "string",
             "required": false,
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Audit/system timestamp. Prefer submittedOnDate for the booking business/tenant date."
+          },
+          "dailyPaymentAmount": {
+            "type": "number",
+            "required": false
           },
           "effectiveDate": {
             "type": "string",
@@ -25211,11 +27144,249 @@ export const CONTRACTS = {
             "type": "string",
             "required": false,
             "format": "date"
+          },
+          "segmentTerm": {
+            "type": "integer",
+            "required": false,
+            "format": "int32"
+          },
+          "submittedOnDate": {
+            "type": "string",
+            "required": false,
+            "format": "date"
           }
         }
       }
     },
     "responseRef": null
+  },
+  "getWorkingCapitalLoanTransactionTemplateByExternalId": {
+    "method": "GET",
+    "path": "/v1/working-capital-loans/external-id/{loanExternalId}/transactions/template",
+    "summary": "Get Working Capital Loan transaction template by loan external id",
+    "tag": "Working Capital Loan Transactions",
+    "pathParams": [
+      "loanExternalId"
+    ],
+    "query": [
+      {
+        "name": "command",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "dateFormat",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "transactionDate",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "locale",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "chargeOffDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "chargeOff only: defaults to the business date"
+        },
+        "chargeOffReasonOptions": {
+          "type": "array",
+          "required": false,
+          "description": "chargeOff only: charge-off reason options"
+        },
+        "classificationOptions": {
+          "type": "array",
+          "required": false,
+          "description": "Classification options for the command's classification code"
+        },
+        "currency": {
+          "type": "object",
+          "required": false
+        },
+        "discountAmount": {
+          "type": "number",
+          "required": false,
+          "description": "disburse only: approved discount amount"
+        },
+        "expectedAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Suggested amount to pre-fill, which the user may change. Its meaning follows the requested command: outstanding principa"
+        },
+        "expectedDisbursementDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "disburse only: expected disbursement date"
+        },
+        "feeChargesPortion": {
+          "type": "number",
+          "required": false,
+          "description": "prepayLoan only: outstanding fee portion of the payoff amount"
+        },
+        "overrideDiscountDisabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "disburse only: whether the product forbids overriding the default discount"
+        },
+        "paymentTypeOptions": {
+          "type": "array",
+          "required": false,
+          "description": "Payment type options, where the command records a payment"
+        },
+        "penaltyChargesPortion": {
+          "type": "number",
+          "required": false,
+          "description": "prepayLoan only: outstanding penalty portion of the payoff amount"
+        },
+        "principalPortion": {
+          "type": "number",
+          "required": false,
+          "description": "prepayLoan only: outstanding principal portion of the payoff amount"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "type": {
+          "type": "object",
+          "required": false
+        },
+        "wcLoanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/WorkingCapitalLoanTransactionTemplateResponse"
+  },
+  "getWorkingCapitalLoanTransactionTemplateById": {
+    "method": "GET",
+    "path": "/v1/working-capital-loans/{loanId}/transactions/template",
+    "summary": "Get Working Capital Loan transaction template by loan id",
+    "tag": "Working Capital Loan Transactions",
+    "pathParams": [
+      "loanId"
+    ],
+    "query": [
+      {
+        "name": "command",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "dateFormat",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "transactionDate",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "locale",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "chargeOffDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "chargeOff only: defaults to the business date"
+        },
+        "chargeOffReasonOptions": {
+          "type": "array",
+          "required": false,
+          "description": "chargeOff only: charge-off reason options"
+        },
+        "classificationOptions": {
+          "type": "array",
+          "required": false,
+          "description": "Classification options for the command's classification code"
+        },
+        "currency": {
+          "type": "object",
+          "required": false
+        },
+        "discountAmount": {
+          "type": "number",
+          "required": false,
+          "description": "disburse only: approved discount amount"
+        },
+        "expectedAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Suggested amount to pre-fill, which the user may change. Its meaning follows the requested command: outstanding principa"
+        },
+        "expectedDisbursementDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "disburse only: expected disbursement date"
+        },
+        "feeChargesPortion": {
+          "type": "number",
+          "required": false,
+          "description": "prepayLoan only: outstanding fee portion of the payoff amount"
+        },
+        "overrideDiscountDisabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "disburse only: whether the product forbids overriding the default discount"
+        },
+        "paymentTypeOptions": {
+          "type": "array",
+          "required": false,
+          "description": "Payment type options, where the command records a payment"
+        },
+        "penaltyChargesPortion": {
+          "type": "number",
+          "required": false,
+          "description": "prepayLoan only: outstanding penalty portion of the payoff amount"
+        },
+        "principalPortion": {
+          "type": "number",
+          "required": false,
+          "description": "prepayLoan only: outstanding principal portion of the payoff amount"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "type": {
+          "type": "object",
+          "required": false
+        },
+        "wcLoanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/WorkingCapitalLoanTransactionTemplateResponse"
   },
   "handleBatchRequests": {
     "method": "POST",
@@ -25349,6 +27520,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "withdrawalDate": {
           "type": "string",
           "required": false
@@ -25364,6 +27540,10 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
         "clientId": {
           "type": "integer",
           "required": false,
@@ -25443,6 +27623,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "withdrawalDate": {
           "type": "string",
           "required": false
@@ -25458,6 +27643,10 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
         "clientId": {
           "type": "integer",
           "required": false,
@@ -25512,6 +27701,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "groupMembers": {
+          "type": "array",
+          "required": false,
+          "description": "List of group ids to associate with or disassociate from the center"
+        },
         "locale": {
           "type": "string",
           "required": false
@@ -25522,6 +27716,20 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "resourceId": {
           "type": "integer",
           "required": false,
@@ -25572,7 +27780,62 @@ export const CONTRACTS = {
     ],
     "request": {
       "type": "object",
-      "fields": {}
+      "fields": {
+        "activatedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=activate"
+        },
+        "approvedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=approve"
+        },
+        "closedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=prematureClose, calculatePrematureAmount"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "onAccountClosureId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32",
+          "description": "command=prematureClose"
+        },
+        "rejectedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=reject"
+        },
+        "toSavingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "command=prematureClose, transfer to savings"
+        },
+        "transferDescription": {
+          "type": "string",
+          "required": false,
+          "description": "command=prematureClose, transfer to savings"
+        },
+        "withdrawnOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=withdrawnByApplicant"
+        }
+      }
     },
     "requestRef": "#/components/schemas/PostFixedDepositAccountsAccountIdRequest",
     "response": {
@@ -25703,6 +27966,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "approvalFormData": {
+          "type": "array",
+          "required": false,
+          "description": "Approve GLIM Application only: the per-child-loan approval details"
+        },
         "approvedLoanAmount": {
           "type": "number",
           "required": false
@@ -25741,8 +28009,17 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "glimPrincipal": {
+          "type": "number",
+          "required": false,
+          "description": "Approve GLIM Application only: the approved principal of the parent GLIM account"
+        },
         "locale": {
           "type": "string",
+          "required": false
+        },
+        "netDisbursalAmount": {
+          "type": "number",
           "required": false
         },
         "note": {
@@ -25758,6 +28035,11 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "postDatedChecks": {
+          "type": "array",
+          "required": false,
+          "description": "Disburse only: the post dated checks backing the repayment schedule"
         },
         "rejectedOnDate": {
           "type": "string",
@@ -25851,11 +28133,37 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "activationDate": {
+          "type": "string",
+          "required": false
+        },
+        "clientMembers": {
+          "type": "array",
+          "required": false,
+          "description": "List of client ids to associate with or disassociate from the group"
+        },
         "clients": {
           "type": "array",
           "required": false
         },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "destinationGroupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "inheritStaffForClientAccounts": {
+          "type": "boolean",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "staffId": {
           "type": "integer",
           "required": false,
           "format": "int64"
@@ -25866,6 +28174,20 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "resourceId": {
           "type": "integer",
           "required": false,
@@ -25933,6 +28255,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "approvalFormData": {
+          "type": "array",
+          "required": false,
+          "description": "Approve GLIM Application only: the per-child-loan approval details"
+        },
         "approvedLoanAmount": {
           "type": "number",
           "required": false
@@ -25971,8 +28298,17 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "glimPrincipal": {
+          "type": "number",
+          "required": false,
+          "description": "Approve GLIM Application only: the approved principal of the parent GLIM account"
+        },
         "locale": {
           "type": "string",
+          "required": false
+        },
+        "netDisbursalAmount": {
+          "type": "number",
           "required": false
         },
         "note": {
@@ -25988,6 +28324,11 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "postDatedChecks": {
+          "type": "array",
+          "required": false,
+          "description": "Disburse only: the post dated checks backing the repayment schedule"
         },
         "rejectedOnDate": {
           "type": "string",
@@ -26084,6 +28425,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "approvalFormData": {
+          "type": "array",
+          "required": false,
+          "description": "Approve GLIM Application only: the per-child-loan approval details"
+        },
         "approvedLoanAmount": {
           "type": "number",
           "required": false
@@ -26122,8 +28468,17 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "glimPrincipal": {
+          "type": "number",
+          "required": false,
+          "description": "Approve GLIM Application only: the approved principal of the parent GLIM account"
+        },
         "locale": {
           "type": "string",
+          "required": false
+        },
+        "netDisbursalAmount": {
+          "type": "number",
           "required": false
         },
         "note": {
@@ -26139,6 +28494,11 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "postDatedChecks": {
+          "type": "array",
+          "required": false,
+          "description": "Disburse only: the post dated checks backing the repayment schedule"
         },
         "rejectedOnDate": {
           "type": "string",
@@ -26226,7 +28586,21 @@ export const CONTRACTS = {
     ],
     "request": {
       "type": "object",
-      "fields": {}
+      "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "exceptions": {
+          "type": "object",
+          "required": false,
+          "description": "The installment changes to apply to the repayment schedule"
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        }
+      }
     },
     "requestRef": "#/components/schemas/PostLoansLoanIdScheduleRequest",
     "response": {
@@ -26240,6 +28614,11 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "periods": {
+          "type": "array",
+          "required": false,
+          "description": "Returned by the calculateLoanSchedule command: the schedule the variations produce"
         }
       }
     },
@@ -26620,7 +28999,62 @@ export const CONTRACTS = {
     ],
     "request": {
       "type": "object",
-      "fields": {}
+      "fields": {
+        "activatedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=activate"
+        },
+        "approvedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=approve"
+        },
+        "closedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=prematureClose, calculatePrematureAmount"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "onAccountClosureId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32",
+          "description": "command=prematureClose"
+        },
+        "rejectedOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=reject"
+        },
+        "toSavingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "command=prematureClose, transfer to savings"
+        },
+        "transferDescription": {
+          "type": "string",
+          "required": false,
+          "description": "command=prematureClose, transfer to savings"
+        },
+        "withdrawnOnDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=withdrawnByApplicant"
+        }
+      }
     },
     "requestRef": "#/components/schemas/PostRecurringDepositAccountsAccountIdRequest",
     "response": {
@@ -26812,6 +29246,20 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "postInterestValidationOnClosure": {
+          "type": "boolean",
+          "required": false,
+          "description": "command=close"
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false,
+          "description": "command=block, blockCredit, blockDebit"
+        },
         "rejectedOnDate": {
           "type": "string",
           "required": false
@@ -26890,6 +29338,20 @@ export const CONTRACTS = {
         "locale": {
           "type": "string",
           "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "postInterestValidationOnClosure": {
+          "type": "boolean",
+          "required": false,
+          "description": "command=close"
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false,
+          "description": "command=block, blockCredit, blockDebit"
         },
         "rejectedOnDate": {
           "type": "string",
@@ -27035,6 +29497,19 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "activatedDate": {
+          "type": "string",
+          "required": false,
+          "description": "command=activate"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
         "requestedShares": {
           "type": "array",
           "required": false
@@ -27195,7 +29670,7 @@ export const CONTRACTS = {
   "handleGSIMCommands": {
     "method": "POST",
     "path": "/v1/savingsaccounts/gsimcommands/{parentAccountId}",
-    "summary": "",
+    "summary": "Act on a group savings (GSIM) application",
     "tag": "Savings Account",
     "pathParams": [
       "parentAccountId"
@@ -27208,13 +29683,82 @@ export const CONTRACTS = {
       }
     ],
     "request": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "activatedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "approvedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "closedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "postInterestValidationOnClosure": {
+          "type": "boolean",
+          "required": false,
+          "description": "command=close"
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false,
+          "description": "command=block, blockCredit, blockDebit"
+        },
+        "rejectedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "withdrawBalance": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawnOnDate": {
+          "type": "string",
+          "required": false
+        }
+      }
     },
-    "requestRef": null,
+    "requestRef": "#/components/schemas/PostSavingsAccountsAccountIdRequest",
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/PostSavingsAccountsAccountIdResponse"
   },
   "health": {
     "method": "GET",
@@ -27322,14 +29866,132 @@ export const CONTRACTS = {
   "loanRepayment": {
     "method": "POST",
     "path": "/v1/interoperation/transactions/{accountId}/loanrepayment",
-    "summary": "Disburse Loan by Account Id",
+    "summary": "Loan Repayment by Account Id",
     "tag": "Inter Operation",
     "pathParams": [
       "accountId"
     ],
     "query": [],
-    "request": null,
-    "requestRef": null,
+    "request": {
+      "type": "object",
+      "fields": {
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "chargeOffReasonId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
+        "classificationId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "dueDate": {
+          "type": "string",
+          "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
+        "frequencyNumber": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "frequencyType": {
+          "type": "string",
+          "required": false
+        },
+        "interestRefundCalculation": {
+          "type": "boolean",
+          "required": false,
+          "description": "Optional. Controls whether Interest Refund transaction should be created for this refund. If not provided, loan product "
+        },
+        "loanChargeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "numberOfInstallments": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "reAgeInterestHandling": {
+          "type": "string",
+          "required": false
+        },
+        "reAmortizationInterestHandling": {
+          "type": "string",
+          "required": false
+        },
+        "reasonCodeValueId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "reversalExternalId": {
+          "type": "string",
+          "required": false
+        },
+        "routingCode": {
+          "type": "string",
+          "required": false
+        },
+        "startDate": {
+          "type": "string",
+          "required": false
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false,
+          "format": "double"
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false
+        },
+        "writeoffReasonId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
+    },
+    "requestRef": "#/components/schemas/PostLoansLoanIdTransactionsRequest",
     "response": {
       "type": "string"
     },
@@ -27348,6 +30010,242 @@ export const CONTRACTS = {
     "requestRef": null,
     "response": null,
     "responseRef": null
+  },
+  "markWorkingCapitalLoanAsFraudByExternalId": {
+    "method": "PUT",
+    "path": "/v1/working-capital-loans/external-id/{loanExternalId}/mark-as-fraud",
+    "summary": "Mark or unmark a Working Capital Loan as fraudulent by external id",
+    "tag": "Working Capital Loans",
+    "pathParams": [
+      "loanExternalId"
+    ],
+    "query": [],
+    "request": {
+      "type": "object",
+      "fields": {
+        "fraud": {
+          "type": "boolean",
+          "required": true,
+          "description": "Whether the loan should be flagged as fraudulent"
+        }
+      }
+    },
+    "requestRef": "#/components/schemas/MarkWorkingCapitalLoanAsFraudRequest",
+    "response": {
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/CommandProcessingResult"
+  },
+  "markWorkingCapitalLoanAsFraudById": {
+    "method": "PUT",
+    "path": "/v1/working-capital-loans/{loanId}/mark-as-fraud",
+    "summary": "Mark or unmark a Working Capital Loan as fraudulent",
+    "tag": "Working Capital Loans",
+    "pathParams": [
+      "loanId"
+    ],
+    "query": [],
+    "request": {
+      "type": "object",
+      "fields": {
+        "fraud": {
+          "type": "boolean",
+          "required": true,
+          "description": "Whether the loan should be flagged as fraudulent"
+        }
+      }
+    },
+    "requestRef": "#/components/schemas/MarkWorkingCapitalLoanAsFraudRequest",
+    "response": {
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "mergeTemplate": {
     "method": "POST",
@@ -27496,6 +30394,11 @@ export const CONTRACTS = {
         "paymentAllocation": {
           "type": "array",
           "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Daily payment amount, at most the currency's decimal precision. Overrides the product default on PAYMENT_AMOUNT strategy"
         },
         "periodPaymentRate": {
           "type": "number",
@@ -27648,6 +30551,11 @@ export const CONTRACTS = {
         "paymentAllocation": {
           "type": "array",
           "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Daily payment amount, at most the currency's decimal precision. Overrides the product default on PAYMENT_AMOUNT strategy"
         },
         "periodPaymentRate": {
           "type": "number",
@@ -29397,6 +32305,18 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
         "dateFormat": {
           "type": "string",
           "required": false
@@ -29418,6 +32338,19 @@ export const CONTRACTS = {
           "required": false
         },
         "locale": {
+          "type": "string",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "routingCode": {
           "type": "string",
           "required": false
         },
@@ -30680,6 +33613,142 @@ export const CONTRACTS = {
     },
     "responseRef": "#/components/schemas/GetAccountTransfersResponse"
   },
+  "retrieveAllAuditsV2": {
+    "method": "GET",
+    "path": "/v2/audits",
+    "summary": "List Audits",
+    "tag": "AuditsV2",
+    "pathParams": [],
+    "query": [
+      {
+        "name": "actionName",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "entityName",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "resourceId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "makerId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "makerDateTimeFrom",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "makerDateTimeTo",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "checkerId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "checkerDateTimeFrom",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "checkerDateTimeTo",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "status",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "clientId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "loanId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "officeId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "groupId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "savingsAccountId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "processingResult",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "dateFormat",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "locale",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "offset",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "limit",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "orderBy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "sortOrder",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "pageItems": {
+          "type": "array",
+          "required": false
+        },
+        "totalFilteredRecords": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/PageAuditData"
+  },
   "retrieveAllAvailableBusinessStep": {
     "method": "GET",
     "path": "/v1/jobs/{jobName}/available-steps",
@@ -30727,188 +33796,6 @@ export const CONTRACTS = {
             "required": false
           },
           "queryParameter": {
-            "type": "string",
-            "required": false
-          }
-        }
-      }
-    },
-    "responseRef": null
-  },
-  "retrieveAllCashierJournals": {
-    "method": "GET",
-    "path": "/v1/cashiersjournal",
-    "summary": "List Cashier Journals",
-    "tag": "Cashier Journals",
-    "pathParams": [],
-    "query": [
-      {
-        "name": "officeId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "tellerId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "cashierId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "dateRange",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "closingBalance": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "day": {
-            "type": "string",
-            "required": false,
-            "format": "date"
-          },
-          "officeId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "openingBalance": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "settledBalance": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "sumPayments": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "sumReceipts": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "tellerId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          }
-        }
-      }
-    },
-    "responseRef": null
-  },
-  "retrieveAllCashiers": {
-    "method": "GET",
-    "path": "/v1/cashiers",
-    "summary": "List Cashiers",
-    "tag": "Cashiers",
-    "pathParams": [],
-    "query": [
-      {
-        "name": "officeId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "tellerId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "staffId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "date",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "description": {
-            "type": "string",
-            "required": false
-          },
-          "endDate": {
-            "type": "string",
-            "required": false,
-            "format": "date"
-          },
-          "endTime": {
-            "type": "string",
-            "required": false
-          },
-          "id": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "isFullDay": {
-            "type": "boolean",
-            "required": false
-          },
-          "officeId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "officeName": {
-            "type": "string",
-            "required": false
-          },
-          "staffId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "staffName": {
-            "type": "string",
-            "required": false
-          },
-          "staffOptions": {
-            "type": "array",
-            "required": false
-          },
-          "startDate": {
-            "type": "string",
-            "required": false,
-            "format": "date"
-          },
-          "startTime": {
-            "type": "string",
-            "required": false
-          },
-          "tellerId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "tellerName": {
             "type": "string",
             "required": false
           }
@@ -31058,6 +33945,77 @@ export const CONTRACTS = {
       }
     },
     "responseRef": "#/components/schemas/GetCentersResponse"
+  },
+  "retrieveAllCentersV2": {
+    "method": "GET",
+    "path": "/v2/centers",
+    "summary": "List Centers",
+    "tag": "CentersV2",
+    "pathParams": [],
+    "query": [
+      {
+        "name": "officeId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "staffId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "externalId",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "underHierarchy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "offset",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "limit",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "orderBy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "sortOrder",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "pageItems": {
+          "type": "array",
+          "required": false
+        },
+        "totalFilteredRecords": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/PageCenterData"
   },
   "retrieveAllCharges": {
     "method": "GET",
@@ -31660,10 +34618,20 @@ export const CONTRACTS = {
             "type": "object",
             "required": false
           },
+          "expiryDate": {
+            "type": "string",
+            "required": false,
+            "format": "date"
+          },
           "id": {
             "type": "integer",
             "required": false,
             "format": "int64"
+          },
+          "issuanceDate": {
+            "type": "string",
+            "required": false,
+            "format": "date"
           },
           "status": {
             "type": "string",
@@ -32056,9 +35024,20 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "pageItems": {
+          "type": "array",
+          "required": false
+        },
+        "totalFilteredRecords": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/GetSavingsAccountsSavingsAccountIdOnHoldTransactionsResponse"
   },
   "retrieveAllDocuments": {
     "method": "GET",
@@ -32081,6 +35060,11 @@ export const CONTRACTS = {
             "type": "string",
             "required": false
           },
+          "expiryDate": {
+            "type": "string",
+            "required": false,
+            "format": "date-time"
+          },
           "fileName": {
             "type": "string",
             "required": false
@@ -32089,6 +35073,11 @@ export const CONTRACTS = {
             "type": "integer",
             "required": false,
             "format": "int64"
+          },
+          "issuanceDate": {
+            "type": "string",
+            "required": false,
+            "format": "date-time"
           },
           "location": {
             "type": "string",
@@ -32372,8 +35361,7 @@ export const CONTRACTS = {
           },
           "depositAmount": {
             "type": "number",
-            "required": false,
-            "format": "float"
+            "required": false
           },
           "depositPeriod": {
             "type": "integer",
@@ -32416,8 +35404,7 @@ export const CONTRACTS = {
           },
           "maturityAmount": {
             "type": "number",
-            "required": false,
-            "format": "float"
+            "required": false
           },
           "maturityDate": {
             "type": "string",
@@ -32471,6 +35458,52 @@ export const CONTRACTS = {
       }
     },
     "responseRef": null
+  },
+  "retrieveAllFixedDepositAccountsV2": {
+    "method": "GET",
+    "path": "/v2/fixeddepositaccounts",
+    "summary": "List Fixed deposit applications/accounts",
+    "tag": "FixedDepositAccountsV2",
+    "pathParams": [],
+    "query": [
+      {
+        "name": "offset",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "limit",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "orderBy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "sortOrder",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "pageItems": {
+          "type": "array",
+          "required": false
+        },
+        "totalFilteredRecords": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/PageDepositAccountData"
   },
   "retrieveAllFixedDepositAccountTransactions": {
     "method": "GET",
@@ -32639,12 +35672,17 @@ export const CONTRACTS = {
           },
           "createdOn": {
             "type": "string",
-            "required": false
+            "required": false,
+            "format": "date-time"
           },
           "id": {
             "type": "integer",
             "required": false,
             "format": "int64"
+          },
+          "interestRateFrequencyTypeOptions": {
+            "type": "array",
+            "required": false
           },
           "isActive": {
             "type": "boolean",
@@ -32660,10 +35698,15 @@ export const CONTRACTS = {
           },
           "modifiedOn": {
             "type": "string",
-            "required": false
+            "required": false,
+            "format": "date-time"
           },
           "name": {
             "type": "string",
+            "required": false
+          },
+          "ratePeriods": {
+            "type": "array",
             "required": false
           }
         }
@@ -32889,6 +35932,82 @@ export const CONTRACTS = {
       }
     },
     "responseRef": "#/components/schemas/GetGroupsResponse"
+  },
+  "retrieveAllGroupsV2": {
+    "method": "GET",
+    "path": "/v2/groups",
+    "summary": "List Groups",
+    "tag": "GroupsV2",
+    "pathParams": [],
+    "query": [
+      {
+        "name": "officeId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "staffId",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "externalId",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "underHierarchy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "offset",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "limit",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "orderBy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "sortOrder",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "orphansOnly",
+        "required": false,
+        "type": "boolean"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "pageItems": {
+          "type": "array",
+          "required": false
+        },
+        "totalFilteredRecords": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/PageGroupGeneralData"
   },
   "retrieveAllHolidays": {
     "method": "GET",
@@ -33304,78 +36423,6 @@ export const CONTRACTS = {
     },
     "responseRef": "#/components/schemas/GetJournalEntriesTransactionIdResponse"
   },
-  "retrieveAllJournalsForTeller": {
-    "method": "GET",
-    "path": "/v1/tellers/{tellerId}/journals",
-    "summary": "List Teller Journals",
-    "tag": "Teller Cash Management",
-    "pathParams": [
-      "tellerId"
-    ],
-    "query": [
-      {
-        "name": "cashierId",
-        "required": false,
-        "type": "integer"
-      },
-      {
-        "name": "dateRange",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "closingBalance": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "day": {
-            "type": "string",
-            "required": false,
-            "format": "date"
-          },
-          "officeId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "openingBalance": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "settledBalance": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "sumPayments": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "sumReceipts": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "tellerId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          }
-        }
-      }
-    },
-    "responseRef": null
-  },
   "retrieveAllLoanCharges": {
     "method": "GET",
     "path": "/v1/loans/{loanId}/charges",
@@ -33454,6 +36501,11 @@ export const CONTRACTS = {
             "required": false
           },
           "id": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "loanId": {
             "type": "integer",
             "required": false,
             "format": "int64"
@@ -33559,6 +36611,11 @@ export const CONTRACTS = {
             "required": false
           },
           "id": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "loanId": {
             "type": "integer",
             "required": false,
             "format": "int64"
@@ -34308,51 +37365,6 @@ export const CONTRACTS = {
     },
     "responseRef": null
   },
-  "retrieveAllMixTaxonomies": {
-    "method": "GET",
-    "path": "/v1/mixtaxonomy",
-    "summary": "List Mix Taxonomies",
-    "tag": "Mix Taxonomy",
-    "pathParams": [],
-    "query": [],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "description": {
-            "type": "string",
-            "required": false
-          },
-          "dimension": {
-            "type": "string",
-            "required": false
-          },
-          "id": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "required": false
-          },
-          "namespace": {
-            "type": "string",
-            "required": false
-          },
-          "type": {
-            "type": "integer",
-            "required": false,
-            "format": "int32"
-          }
-        }
-      }
-    },
-    "responseRef": null
-  },
   "retrieveAllOffices": {
     "method": "GET",
     "path": "/v1/offices",
@@ -34666,8 +37678,7 @@ export const CONTRACTS = {
           },
           "depositAmount": {
             "type": "number",
-            "required": false,
-            "format": "float"
+            "required": false
           },
           "depositPeriod": {
             "type": "integer",
@@ -34704,10 +37715,13 @@ export const CONTRACTS = {
             "type": "object",
             "required": false
           },
+          "mandatoryRecommendedDepositAmount": {
+            "type": "number",
+            "required": false
+          },
           "maturityAmount": {
             "type": "number",
-            "required": false,
-            "format": "float"
+            "required": false
           },
           "maturityDate": {
             "type": "string",
@@ -34736,17 +37750,12 @@ export const CONTRACTS = {
             "type": "boolean",
             "required": false
           },
-          "recurringDepositAmount": {
+          "recurringFrequency": {
             "type": "integer",
             "required": false,
             "format": "int32"
           },
-          "recurringDepositFrequency": {
-            "type": "integer",
-            "required": false,
-            "format": "int32"
-          },
-          "recurringDepositFrequencyType": {
+          "recurringFrequencyType": {
             "type": "object",
             "required": false
           },
@@ -34775,6 +37784,52 @@ export const CONTRACTS = {
       }
     },
     "responseRef": null
+  },
+  "retrieveAllRecurringDepositAccountsV2": {
+    "method": "GET",
+    "path": "/v2/recurringdepositaccounts",
+    "summary": "List Recurring deposit applications/accounts",
+    "tag": "RecurringDepositAccountsV2",
+    "pathParams": [],
+    "query": [
+      {
+        "name": "offset",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "limit",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "name": "orderBy",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "sortOrder",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "object",
+      "fields": {
+        "pageItems": {
+          "type": "array",
+          "required": false
+        },
+        "totalFilteredRecords": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/PageDepositAccountData"
   },
   "retrieveAllRecurringDepositProducts": {
     "method": "GET",
@@ -36447,72 +39502,6 @@ export const CONTRACTS = {
     },
     "responseRef": null
   },
-  "retrieveAllTransactionsForTeller": {
-    "method": "GET",
-    "path": "/v1/tellers/{tellerId}/transactions",
-    "summary": "List Teller Transactions",
-    "tag": "Teller Cash Management",
-    "pathParams": [
-      "tellerId"
-    ],
-    "query": [
-      {
-        "name": "dateRange",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "fields": {
-          "amount": {
-            "type": "number",
-            "required": false,
-            "format": "double"
-          },
-          "cashierId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "clientId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "id": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "officeId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "postingDate": {
-            "type": "string",
-            "required": false,
-            "format": "date"
-          },
-          "tellerId": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
-          },
-          "type": {
-            "type": "object",
-            "required": false
-          }
-        }
-      }
-    },
-    "responseRef": null
-  },
   "retrieveAllUsers": {
     "method": "GET",
     "path": "/v1/users",
@@ -36647,6 +39636,14 @@ export const CONTRACTS = {
             "type": "number",
             "required": false
           },
+          "amountWaived": {
+            "type": "number",
+            "required": false
+          },
+          "amountWrittenOff": {
+            "type": "number",
+            "required": false
+          },
           "chargeCalculationType": {
             "type": "object",
             "required": false
@@ -36742,6 +39739,14 @@ export const CONTRACTS = {
             "required": false
           },
           "amountPaid": {
+            "type": "number",
+            "required": false
+          },
+          "amountWaived": {
+            "type": "number",
+            "required": false
+          },
+          "amountWrittenOff": {
             "type": "number",
             "required": false
           },
@@ -36846,6 +39851,11 @@ export const CONTRACTS = {
             "type": "object",
             "required": false
           },
+          "annualEir": {
+            "type": "number",
+            "required": false,
+            "description": "Configured annual EIR percentage. Only for ANNUAL_EIR strategy."
+          },
           "breach": {
             "type": "object",
             "required": false,
@@ -36918,6 +39928,16 @@ export const CONTRACTS = {
             "required": false,
             "format": "int64"
           },
+          "maxAnnualEir": {
+            "type": "number",
+            "required": false,
+            "description": "Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+          },
+          "maxPaymentAmount": {
+            "type": "number",
+            "required": false,
+            "description": "Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
+          },
           "maxPeriodPaymentRate": {
             "type": "number",
             "required": false
@@ -36925,6 +39945,16 @@ export const CONTRACTS = {
           "maxPrincipal": {
             "type": "number",
             "required": false
+          },
+          "minAnnualEir": {
+            "type": "number",
+            "required": false,
+            "description": "Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+          },
+          "minPaymentAmount": {
+            "type": "number",
+            "required": false,
+            "description": "Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
           },
           "minPeriodPaymentRate": {
             "type": "number",
@@ -36950,6 +39980,15 @@ export const CONTRACTS = {
           },
           "paymentAllocation": {
             "type": "array",
+            "required": false
+          },
+          "paymentAmount": {
+            "type": "number",
+            "required": false,
+            "description": "Configured daily payment amount. Only for PAYMENT_AMOUNT strategy."
+          },
+          "paymentAmountCalculationStrategy": {
+            "type": "object",
             "required": false
           },
           "paymentChannelToFundSourceMappings": {
@@ -37164,6 +40203,10 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "annualEir": {
+          "type": "number",
+          "required": false
+        },
         "discountFeeAmount": {
           "type": "number",
           "required": false
@@ -37194,6 +40237,14 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32"
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "object",
+          "required": false
         },
         "payments": {
           "type": "array",
@@ -37523,25 +40574,96 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
-        "createdBy": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
+        "actionName": {
+          "type": "string",
+          "required": false
         },
-        "createdDate": {
+        "checkedOnDate": {
           "type": "string",
           "required": false,
           "format": "date-time"
         },
-        "lastModifiedBy": {
+        "checker": {
+          "type": "string",
+          "required": false
+        },
+        "clientId": {
           "type": "integer",
           "required": false,
           "format": "int64"
         },
-        "lastModifiedDate": {
+        "clientName": {
+          "type": "string",
+          "required": false
+        },
+        "commandAsJson": {
+          "type": "string",
+          "required": false
+        },
+        "entityName": {
+          "type": "string",
+          "required": false
+        },
+        "groupLevelName": {
+          "type": "string",
+          "required": false
+        },
+        "groupName": {
+          "type": "string",
+          "required": false
+        },
+        "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "ip": {
+          "type": "string",
+          "required": false
+        },
+        "loanAccountNo": {
+          "type": "string",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "madeOnDate": {
           "type": "string",
           "required": false,
           "format": "date-time"
+        },
+        "maker": {
+          "type": "string",
+          "required": false
+        },
+        "officeName": {
+          "type": "string",
+          "required": false
+        },
+        "processingResult": {
+          "type": "string",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsAccountNo": {
+          "type": "string",
+          "required": false
+        },
+        "subresourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "url": {
+          "type": "string",
+          "required": false
         }
       }
     },
@@ -37822,6 +40944,10 @@ export const CONTRACTS = {
             "format": "int32"
           },
           "outstandingAmount": {
+            "type": "number",
+            "required": false
+          },
+          "paidAmount": {
             "type": "number",
             "required": false
           },
@@ -39251,6 +42377,11 @@ export const CONTRACTS = {
         "type": "integer"
       },
       {
+        "name": "username",
+        "required": false,
+        "type": "string"
+      },
+      {
         "name": "makerDateTimeFrom",
         "required": false,
         "type": "string"
@@ -39303,25 +42434,96 @@ export const CONTRACTS = {
       "items": {
         "type": "object",
         "fields": {
-          "createdBy": {
-            "type": "integer",
-            "required": false,
-            "format": "int64"
+          "actionName": {
+            "type": "string",
+            "required": false
           },
-          "createdDate": {
+          "checkedOnDate": {
             "type": "string",
             "required": false,
             "format": "date-time"
           },
-          "lastModifiedBy": {
+          "checker": {
+            "type": "string",
+            "required": false
+          },
+          "clientId": {
             "type": "integer",
             "required": false,
             "format": "int64"
           },
-          "lastModifiedDate": {
+          "clientName": {
+            "type": "string",
+            "required": false
+          },
+          "commandAsJson": {
+            "type": "string",
+            "required": false
+          },
+          "entityName": {
+            "type": "string",
+            "required": false
+          },
+          "groupLevelName": {
+            "type": "string",
+            "required": false
+          },
+          "groupName": {
+            "type": "string",
+            "required": false
+          },
+          "id": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "ip": {
+            "type": "string",
+            "required": false
+          },
+          "loanAccountNo": {
+            "type": "string",
+            "required": false
+          },
+          "loanId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "madeOnDate": {
             "type": "string",
             "required": false,
             "format": "date-time"
+          },
+          "maker": {
+            "type": "string",
+            "required": false
+          },
+          "officeName": {
+            "type": "string",
+            "required": false
+          },
+          "processingResult": {
+            "type": "string",
+            "required": false
+          },
+          "resourceId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "savingsAccountNo": {
+            "type": "string",
+            "required": false
+          },
+          "subresourceId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "url": {
+            "type": "string",
+            "required": false
           }
         }
       }
@@ -40040,7 +43242,20 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "string"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "fields": {
+          "childGSIMAccounts": {
+            "type": "array",
+            "required": false
+          },
+          "gsimId": {
+            "type": "number",
+            "required": false
+          }
+        }
+      }
     },
     "responseRef": null
   },
@@ -41302,6 +44517,10 @@ export const CONTRACTS = {
           "type": "boolean",
           "required": false
         },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
         "feeToIncomeAccountMappings": {
           "type": "array",
           "required": false
@@ -41314,6 +44533,21 @@ export const CONTRACTS = {
         "fixedPrincipalPercentagePerInstallment": {
           "type": "number",
           "required": false
+        },
+        "graceOnArrearsAgeing": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "graceOnInterestPayment": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "graceOnPrincipalPayment": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
         },
         "id": {
           "type": "integer",
@@ -41809,64 +45043,6 @@ export const CONTRACTS = {
     },
     "responseRef": "#/components/schemas/LoanAccountLockResponseDTO"
   },
-  "retrieveMixReport": {
-    "method": "GET",
-    "path": "/v1/mixreport",
-    "summary": "Retrieve Mix XBRL report",
-    "tag": "Mix Report",
-    "pathParams": [],
-    "query": [
-      {
-        "name": "startDate",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "endDate",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "currency",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "string"
-    },
-    "responseRef": null
-  },
-  "retrieveMixTaxonomyMapping": {
-    "method": "GET",
-    "path": "/v1/mixmapping",
-    "summary": "Retrieve Mix Taxonomy Mapping",
-    "tag": "Mix Mapping",
-    "pathParams": [],
-    "query": [],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "object",
-      "fields": {
-        "config": {
-          "type": "string",
-          "required": false
-        },
-        "currency": {
-          "type": "string",
-          "required": false
-        },
-        "identifier": {
-          "type": "string",
-          "required": false
-        }
-      }
-    },
-    "responseRef": "#/components/schemas/MixTaxonomyMappingData"
-  },
   "retrieveNewAccountDetails": {
     "method": "GET",
     "path": "/v1/glaccounts/template",
@@ -42317,6 +45493,10 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "paymentDetailData": {
+          "type": "object",
+          "required": false
+        },
         "reversed": {
           "type": "boolean",
           "required": false
@@ -42500,6 +45680,15 @@ export const CONTRACTS = {
           "type": "boolean",
           "required": false
         },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
+        "groupMembers": {
+          "type": "array",
+          "required": false,
+          "description": "Returned when the groupMembers association is requested"
+        },
         "hierarchy": {
           "type": "string",
           "required": false
@@ -42521,6 +45710,11 @@ export const CONTRACTS = {
         "officeName": {
           "type": "string",
           "required": false
+        },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "status": {
           "type": "object",
@@ -42682,6 +45876,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "status": {
           "type": "object",
           "required": false
@@ -42773,6 +45972,11 @@ export const CONTRACTS = {
         "savingsProductName": {
           "type": "string",
           "required": false
+        },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "status": {
           "type": "object",
@@ -43024,10 +46228,20 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "expiryDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
         "id": {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "issuanceDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
         }
       }
     },
@@ -43176,8 +46390,7 @@ export const CONTRACTS = {
         },
         "depositAmount": {
           "type": "number",
-          "required": false,
-          "format": "float"
+          "required": false
         },
         "depositPeriod": {
           "type": "integer",
@@ -43224,8 +46437,7 @@ export const CONTRACTS = {
         },
         "maturityAmount": {
           "type": "number",
-          "required": false,
-          "format": "float"
+          "required": false
         },
         "maturityDate": {
           "type": "string",
@@ -43250,8 +46462,16 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "nominalAnnualInterestRate": {
+          "type": "number",
+          "required": false
+        },
         "preClosurePenalApplicable": {
           "type": "boolean",
+          "required": false
+        },
+        "preClosurePenalInterest": {
+          "type": "number",
           "required": false
         },
         "savingsProductId": {
@@ -43610,6 +46830,15 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "active": {
+          "type": "boolean",
+          "required": false
+        },
+        "clientMembers": {
+          "type": "array",
+          "required": false,
+          "description": "Returned when the clientMembers association is requested"
+        },
         "externalId": {
           "type": "string",
           "required": false
@@ -43635,6 +46864,11 @@ export const CONTRACTS = {
         "officeName": {
           "type": "string",
           "required": false
+        },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "timeline": {
           "type": "object",
@@ -44105,6 +47339,10 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "collateral": {
+          "type": "array",
+          "required": false
+        },
         "currency": {
           "type": "object",
           "required": false,
@@ -44130,7 +47368,7 @@ export const CONTRACTS = {
         "disbursementDetails": {
           "type": "array",
           "required": false,
-          "description": "Set of GetLoansLoanIdDisbursementDetails"
+          "description": "List of GetLoansLoanIdDisbursementDetails"
         },
         "emiAmountVariations": {
           "type": "array",
@@ -44326,6 +47564,10 @@ export const CONTRACTS = {
           "required": false
         },
         "status": {
+          "type": "object",
+          "required": false
+        },
+        "subStatus": {
           "type": "object",
           "required": false
         },
@@ -44479,6 +47721,10 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "collateral": {
+          "type": "array",
+          "required": false
+        },
         "currency": {
           "type": "object",
           "required": false,
@@ -44504,7 +47750,7 @@ export const CONTRACTS = {
         "disbursementDetails": {
           "type": "array",
           "required": false,
-          "description": "Set of GetLoansLoanIdDisbursementDetails"
+          "description": "List of GetLoansLoanIdDisbursementDetails"
         },
         "emiAmountVariations": {
           "type": "array",
@@ -44703,6 +47949,10 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "subStatus": {
+          "type": "object",
+          "required": false
+        },
         "summary": {
           "type": "object",
           "required": false
@@ -44818,6 +48068,11 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "name": {
           "type": "string",
           "required": false
@@ -44917,6 +48172,11 @@ export const CONTRACTS = {
           "required": false
         },
         "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanId": {
           "type": "integer",
           "required": false,
           "format": "int64"
@@ -45024,6 +48284,11 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "name": {
           "type": "string",
           "required": false
@@ -45123,6 +48388,11 @@ export const CONTRACTS = {
           "required": false
         },
         "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanId": {
           "type": "integer",
           "required": false,
           "format": "int64"
@@ -45399,6 +48669,10 @@ export const CONTRACTS = {
           "type": "boolean",
           "required": false
         },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
         "feeToIncomeAccountMappings": {
           "type": "array",
           "required": false
@@ -45411,6 +48685,21 @@ export const CONTRACTS = {
         "fixedPrincipalPercentagePerInstallment": {
           "type": "number",
           "required": false
+        },
+        "graceOnArrearsAgeing": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "graceOnInterestPayment": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "graceOnPrincipalPayment": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
         },
         "id": {
           "type": "integer",
@@ -46396,11 +49685,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
-        "loanProducts": {
+        "definitions": {
           "type": "array",
           "required": false
         },
-        "provisioningcriteria": {
+        "loanProducts": {
           "type": "array",
           "required": false
         }
@@ -46552,6 +49841,10 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "depositAmount": {
+          "type": "number",
+          "required": false
+        },
         "depositPeriod": {
           "type": "integer",
           "required": false,
@@ -46596,6 +49889,14 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "mandatoryRecommendedDepositAmount": {
+          "type": "number",
+          "required": false
+        },
+        "maturityAmount": {
+          "type": "number",
+          "required": false
+        },
         "maxDepositTerm": {
           "type": "integer",
           "required": false,
@@ -46614,21 +49915,24 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "nominalAnnualInterestRate": {
+          "type": "number",
+          "required": false
+        },
         "preClosurePenalApplicable": {
           "type": "boolean",
           "required": false
         },
-        "recurringDepositAmount": {
+        "preClosurePenalInterest": {
+          "type": "number",
+          "required": false
+        },
+        "recurringFrequency": {
           "type": "integer",
           "required": false,
           "format": "int32"
         },
-        "recurringDepositFrequency": {
-          "type": "integer",
-          "required": false,
-          "format": "int32"
-        },
-        "recurringDepositFrequencyType": {
+        "recurringFrequencyType": {
           "type": "object",
           "required": false
         },
@@ -47192,9 +50496,355 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "accountCredit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountDebit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountNo": {
+          "type": "string",
+          "required": false
+        },
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "accrual": {
+          "type": "boolean",
+          "required": false
+        },
+        "amount": {
+          "type": "number",
+          "required": false
+        },
+        "amountOnHold": {
+          "type": "boolean",
+          "required": false
+        },
+        "amountRelease": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFee": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "balanceEndDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "balanceNumberOfDays": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "chargeTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargeTransactionAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargesPaidByData": {
+          "type": "array",
+          "required": false
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
+        "credit": {
+          "type": "boolean",
+          "required": false
+        },
+        "cumulativeBalance": {
+          "type": "number",
+          "required": false
+        },
+        "currency": {
+          "type": "object",
+          "required": false
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "debit": {
+          "type": "boolean",
+          "required": false
+        },
+        "deposit": {
+          "type": "boolean",
+          "required": false
+        },
+        "depositAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "dividendPayoutAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "endOfBalanceLocalDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "entryType": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "CREDIT",
+            "DEBIT"
+          ]
+        },
+        "externalId": {
+          "type": "object",
+          "required": false
+        },
+        "feeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "feeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPosting": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestPostingAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestedPostedAsOn": {
+          "type": "boolean",
+          "required": false
+        },
+        "isManualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "isOverdraft": {
+          "type": "boolean",
+          "required": false
+        },
+        "isReversal": {
+          "type": "boolean",
+          "required": false
+        },
+        "lienTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "manualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "modifiedId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "notReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "originalTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "outstandingChargeAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftInterestAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "payCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "paymentDetailData": {
+          "type": "object",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "paymentTypeOptions": {
+          "type": "array",
+          "required": false
+        },
+        "penaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "penaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "refNo": {
+          "type": "string",
+          "required": false
+        },
+        "releaseTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "reversalTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "reversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "routingCode": {
+          "type": "string",
+          "required": false
+        },
+        "rowIndex": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "runningBalance": {
+          "type": "number",
+          "required": false
+        },
+        "savingsAccountChargesPaid": {
+          "type": "array",
+          "required": false
+        },
+        "savingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedByUsername": {
+          "type": "string",
+          "required": false
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "taxDetails": {
+          "type": "array",
+          "required": false
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "transactionType": {
+          "type": "object",
+          "required": false
+        },
+        "transfer": {
+          "type": "object",
+          "required": false
+        },
+        "waiveCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withHoldTaxAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawal": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawalFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/SavingsAccountTransactionData"
   },
   "retrieveOneSavingsAccountTransactionByExternalId": {
     "method": "GET",
@@ -47209,9 +50859,355 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "accountCredit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountDebit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountNo": {
+          "type": "string",
+          "required": false
+        },
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "accrual": {
+          "type": "boolean",
+          "required": false
+        },
+        "amount": {
+          "type": "number",
+          "required": false
+        },
+        "amountOnHold": {
+          "type": "boolean",
+          "required": false
+        },
+        "amountRelease": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFee": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "balanceEndDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "balanceNumberOfDays": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "chargeTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargeTransactionAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargesPaidByData": {
+          "type": "array",
+          "required": false
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
+        "credit": {
+          "type": "boolean",
+          "required": false
+        },
+        "cumulativeBalance": {
+          "type": "number",
+          "required": false
+        },
+        "currency": {
+          "type": "object",
+          "required": false
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "debit": {
+          "type": "boolean",
+          "required": false
+        },
+        "deposit": {
+          "type": "boolean",
+          "required": false
+        },
+        "depositAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "dividendPayoutAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "endOfBalanceLocalDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "entryType": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "CREDIT",
+            "DEBIT"
+          ]
+        },
+        "externalId": {
+          "type": "object",
+          "required": false
+        },
+        "feeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "feeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPosting": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestPostingAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestedPostedAsOn": {
+          "type": "boolean",
+          "required": false
+        },
+        "isManualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "isOverdraft": {
+          "type": "boolean",
+          "required": false
+        },
+        "isReversal": {
+          "type": "boolean",
+          "required": false
+        },
+        "lienTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "manualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "modifiedId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "notReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "originalTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "outstandingChargeAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftInterestAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "payCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "paymentDetailData": {
+          "type": "object",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "paymentTypeOptions": {
+          "type": "array",
+          "required": false
+        },
+        "penaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "penaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "refNo": {
+          "type": "string",
+          "required": false
+        },
+        "releaseTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "reversalTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "reversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "routingCode": {
+          "type": "string",
+          "required": false
+        },
+        "rowIndex": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "runningBalance": {
+          "type": "number",
+          "required": false
+        },
+        "savingsAccountChargesPaid": {
+          "type": "array",
+          "required": false
+        },
+        "savingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedByUsername": {
+          "type": "string",
+          "required": false
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "taxDetails": {
+          "type": "array",
+          "required": false
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "transactionType": {
+          "type": "object",
+          "required": false
+        },
+        "transfer": {
+          "type": "object",
+          "required": false
+        },
+        "waiveCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withHoldTaxAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawal": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawalFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/SavingsAccountTransactionData"
   },
   "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId": {
     "method": "GET",
@@ -47226,9 +51222,355 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "accountCredit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountDebit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountNo": {
+          "type": "string",
+          "required": false
+        },
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "accrual": {
+          "type": "boolean",
+          "required": false
+        },
+        "amount": {
+          "type": "number",
+          "required": false
+        },
+        "amountOnHold": {
+          "type": "boolean",
+          "required": false
+        },
+        "amountRelease": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFee": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "balanceEndDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "balanceNumberOfDays": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "chargeTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargeTransactionAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargesPaidByData": {
+          "type": "array",
+          "required": false
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
+        "credit": {
+          "type": "boolean",
+          "required": false
+        },
+        "cumulativeBalance": {
+          "type": "number",
+          "required": false
+        },
+        "currency": {
+          "type": "object",
+          "required": false
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "debit": {
+          "type": "boolean",
+          "required": false
+        },
+        "deposit": {
+          "type": "boolean",
+          "required": false
+        },
+        "depositAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "dividendPayoutAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "endOfBalanceLocalDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "entryType": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "CREDIT",
+            "DEBIT"
+          ]
+        },
+        "externalId": {
+          "type": "object",
+          "required": false
+        },
+        "feeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "feeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPosting": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestPostingAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestedPostedAsOn": {
+          "type": "boolean",
+          "required": false
+        },
+        "isManualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "isOverdraft": {
+          "type": "boolean",
+          "required": false
+        },
+        "isReversal": {
+          "type": "boolean",
+          "required": false
+        },
+        "lienTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "manualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "modifiedId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "notReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "originalTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "outstandingChargeAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftInterestAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "payCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "paymentDetailData": {
+          "type": "object",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "paymentTypeOptions": {
+          "type": "array",
+          "required": false
+        },
+        "penaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "penaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "refNo": {
+          "type": "string",
+          "required": false
+        },
+        "releaseTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "reversalTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "reversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "routingCode": {
+          "type": "string",
+          "required": false
+        },
+        "rowIndex": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "runningBalance": {
+          "type": "number",
+          "required": false
+        },
+        "savingsAccountChargesPaid": {
+          "type": "array",
+          "required": false
+        },
+        "savingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedByUsername": {
+          "type": "string",
+          "required": false
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "taxDetails": {
+          "type": "array",
+          "required": false
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "transactionType": {
+          "type": "object",
+          "required": false
+        },
+        "transfer": {
+          "type": "object",
+          "required": false
+        },
+        "waiveCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withHoldTaxAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawal": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawalFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/SavingsAccountTransactionData"
   },
   "retrieveOneSavingsAccountTransactionBySavingsExternalId": {
     "method": "GET",
@@ -47243,9 +51585,355 @@ export const CONTRACTS = {
     "request": null,
     "requestRef": null,
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "accountCredit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountDebit": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "accountNo": {
+          "type": "string",
+          "required": false
+        },
+        "accountNumber": {
+          "type": "string",
+          "required": false
+        },
+        "accrual": {
+          "type": "boolean",
+          "required": false
+        },
+        "amount": {
+          "type": "number",
+          "required": false
+        },
+        "amountOnHold": {
+          "type": "boolean",
+          "required": false
+        },
+        "amountRelease": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFee": {
+          "type": "boolean",
+          "required": false
+        },
+        "annualFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "balanceEndDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "balanceNumberOfDays": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "bankNumber": {
+          "type": "string",
+          "required": false
+        },
+        "chargeTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargeTransactionAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "chargesPaidByData": {
+          "type": "array",
+          "required": false
+        },
+        "checkNumber": {
+          "type": "string",
+          "required": false
+        },
+        "credit": {
+          "type": "boolean",
+          "required": false
+        },
+        "cumulativeBalance": {
+          "type": "number",
+          "required": false
+        },
+        "currency": {
+          "type": "object",
+          "required": false
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "debit": {
+          "type": "boolean",
+          "required": false
+        },
+        "deposit": {
+          "type": "boolean",
+          "required": false
+        },
+        "depositAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "dividendPayoutAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "endOfBalanceLocalDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "entryType": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "CREDIT",
+            "DEBIT"
+          ]
+        },
+        "externalId": {
+          "type": "object",
+          "required": false
+        },
+        "feeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "feeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "id": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPosting": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestPostingAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "interestedPostedAsOn": {
+          "type": "boolean",
+          "required": false
+        },
+        "isManualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "isOverdraft": {
+          "type": "boolean",
+          "required": false
+        },
+        "isReversal": {
+          "type": "boolean",
+          "required": false
+        },
+        "lienTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "manualTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "modifiedId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "notReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "note": {
+          "type": "string",
+          "required": false
+        },
+        "originalTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "outstandingChargeAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftAmount": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftInterestAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "payCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "paymentDetailData": {
+          "type": "object",
+          "required": false
+        },
+        "paymentTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "paymentTypeOptions": {
+          "type": "array",
+          "required": false
+        },
+        "penaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "penaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "reasonForBlock": {
+          "type": "string",
+          "required": false
+        },
+        "receiptNumber": {
+          "type": "string",
+          "required": false
+        },
+        "refNo": {
+          "type": "string",
+          "required": false
+        },
+        "releaseTransactionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "reversalTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "reversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "routingCode": {
+          "type": "string",
+          "required": false
+        },
+        "rowIndex": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "runningBalance": {
+          "type": "number",
+          "required": false
+        },
+        "savingsAccountChargesPaid": {
+          "type": "array",
+          "required": false
+        },
+        "savingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedByUsername": {
+          "type": "string",
+          "required": false
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "taxDetails": {
+          "type": "array",
+          "required": false
+        },
+        "transactionAmount": {
+          "type": "number",
+          "required": false
+        },
+        "transactionDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
+        "transactionType": {
+          "type": "object",
+          "required": false
+        },
+        "transfer": {
+          "type": "object",
+          "required": false
+        },
+        "waiveCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waiveFeeChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyCharge": {
+          "type": "boolean",
+          "required": false
+        },
+        "waivePenaltyChargeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withHoldTaxAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawal": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawalFeeAndNotReversed": {
+          "type": "boolean",
+          "required": false
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/SavingsAccountTransactionData"
   },
   "retrieveOneSavingsProduct": {
     "method": "GET",
@@ -48302,64 +52990,6 @@ export const CONTRACTS = {
     },
     "responseRef": null
   },
-  "retrieveOneTransactionForTeller": {
-    "method": "GET",
-    "path": "/v1/tellers/{tellerId}/transactions/{transactionId}",
-    "summary": "Retrieve Teller Transaction",
-    "tag": "Teller Cash Management",
-    "pathParams": [
-      "tellerId",
-      "transactionId"
-    ],
-    "query": [],
-    "request": null,
-    "requestRef": null,
-    "response": {
-      "type": "object",
-      "fields": {
-        "amount": {
-          "type": "number",
-          "required": false,
-          "format": "double"
-        },
-        "cashierId": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
-        "clientId": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
-        "id": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
-        "officeId": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
-        "postingDate": {
-          "type": "string",
-          "required": false,
-          "format": "date"
-        },
-        "tellerId": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
-        "type": {
-          "type": "object",
-          "required": false
-        }
-      }
-    },
-    "responseRef": "#/components/schemas/TellerTransactionData"
-  },
   "retrieveOneUser": {
     "method": "GET",
     "path": "/v1/users/{userId}",
@@ -48455,6 +53085,11 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Configured annual EIR percentage. Only for ANNUAL_EIR strategy."
+        },
         "breach": {
           "type": "object",
           "required": false,
@@ -48527,6 +53162,16 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "maxAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "maxPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
+        },
         "maxPeriodPaymentRate": {
           "type": "number",
           "required": false
@@ -48534,6 +53179,16 @@ export const CONTRACTS = {
         "maxPrincipal": {
           "type": "number",
           "required": false
+        },
+        "minAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "minPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
         },
         "minPeriodPaymentRate": {
           "type": "number",
@@ -48559,6 +53214,15 @@ export const CONTRACTS = {
         },
         "paymentAllocation": {
           "type": "array",
+          "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Configured daily payment amount. Only for PAYMENT_AMOUNT strategy."
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "object",
           "required": false
         },
         "paymentChannelToFundSourceMappings": {
@@ -48638,6 +53302,11 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Configured annual EIR percentage. Only for ANNUAL_EIR strategy."
+        },
         "breach": {
           "type": "object",
           "required": false,
@@ -48710,6 +53379,16 @@ export const CONTRACTS = {
           "required": false,
           "format": "int64"
         },
+        "maxAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "maxPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
+        },
         "maxPeriodPaymentRate": {
           "type": "number",
           "required": false
@@ -48717,6 +53396,16 @@ export const CONTRACTS = {
         "maxPrincipal": {
           "type": "number",
           "required": false
+        },
+        "minAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "minPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
         },
         "minPeriodPaymentRate": {
           "type": "number",
@@ -48742,6 +53431,15 @@ export const CONTRACTS = {
         },
         "paymentAllocation": {
           "type": "array",
+          "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Configured daily payment amount. Only for PAYMENT_AMOUNT strategy."
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "object",
           "required": false
         },
         "paymentChannelToFundSourceMappings": {
@@ -51270,10 +55968,20 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "expiryDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
+        },
         "id": {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "issuanceDate": {
+          "type": "string",
+          "required": false,
+          "format": "date"
         },
         "status": {
           "type": "string",
@@ -51373,6 +56081,47 @@ export const CONTRACTS = {
       }
     },
     "responseRef": "#/components/schemas/GetEntityDatatableChecksTemplateResponse"
+  },
+  "retrieveTemplateExternalAssetOwnerLoanProductAttributes": {
+    "method": "GET",
+    "path": "/v1/external-asset-owners/loan-product/template",
+    "summary": "Retrieve External Asset Owner Loan Product Attributes Template",
+    "tag": "External Asset Owner Loan Product Attributes",
+    "pathParams": [],
+    "query": [],
+    "request": null,
+    "requestRef": null,
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "fields": {
+          "attributeId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "attributeKey": {
+            "type": "string",
+            "required": false
+          },
+          "attributeValues": {
+            "type": "array",
+            "required": false
+          },
+          "loanProductId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "multiValue": {
+            "type": "boolean",
+            "required": false
+          }
+        }
+      }
+    },
+    "responseRef": null
   },
   "retrieveTemplateFixedDepositAccount": {
     "method": "GET",
@@ -52172,6 +56921,11 @@ export const CONTRACTS = {
           "required": false,
           "format": "double"
         },
+        "loanRepaymentScheduleInstallments": {
+          "type": "array",
+          "required": false,
+          "description": "Disburse template only: the repayment schedule installments the disbursement will produce"
+        },
         "netDisbursalAmount": {
           "type": "number",
           "required": false,
@@ -52294,6 +57048,11 @@ export const CONTRACTS = {
           "type": "number",
           "required": false,
           "format": "double"
+        },
+        "loanRepaymentScheduleInstallments": {
+          "type": "array",
+          "required": false,
+          "description": "Disburse template only: the repayment schedule installments the disbursement will produce"
         },
         "netDisbursalAmount": {
           "type": "number",
@@ -53406,6 +58165,14 @@ export const CONTRACTS = {
           "type": "number",
           "required": false
         },
+        "amountWaived": {
+          "type": "number",
+          "required": false
+        },
+        "amountWrittenOff": {
+          "type": "number",
+          "required": false
+        },
         "chargeCalculationType": {
           "type": "object",
           "required": false
@@ -53498,6 +58265,14 @@ export const CONTRACTS = {
           "required": false
         },
         "amountPaid": {
+          "type": "number",
+          "required": false
+        },
+        "amountWaived": {
+          "type": "number",
+          "required": false
+        },
+        "amountWrittenOff": {
           "type": "number",
           "required": false
         },
@@ -53641,6 +58416,11 @@ export const CONTRACTS = {
         "nearBreachOptions": {
           "type": "array",
           "required": false
+        },
+        "paymentAmountCalculationStrategyOptions": {
+          "type": "array",
+          "required": false,
+          "description": "Payment amount calculation strategies a product can be created with"
         },
         "paymentTypeOptions": {
           "type": "array",
@@ -53800,10 +58580,6 @@ export const CONTRACTS = {
           "required": false,
           "format": "date"
         },
-        "classificationOptions": {
-          "type": "array",
-          "required": false
-        },
         "currency": {
           "type": "object",
           "required": false
@@ -53812,31 +58588,13 @@ export const CONTRACTS = {
           "type": "number",
           "required": false
         },
-        "expectedAmount": {
-          "type": "number",
-          "required": false
-        },
         "expectedDisbursementDate": {
           "type": "string",
           "required": false,
           "format": "date"
         },
-        "expectedMaturityDate": {
-          "type": "string",
-          "required": false,
-          "format": "date"
-        },
-        "loanId": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
         "overrideDiscountDisabled": {
           "type": "boolean",
-          "required": false
-        },
-        "paymentTypeOptions": {
-          "type": "array",
           "required": false
         }
       }
@@ -53865,6 +58623,11 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Configured annual EIR percentage for ANNUAL_EIR strategy loans"
+        },
         "approvedDiscountFee": {
           "type": "number",
           "required": false,
@@ -53872,7 +58635,8 @@ export const CONTRACTS = {
         },
         "approvedPrincipal": {
           "type": "number",
-          "required": false
+          "required": false,
+          "description": "Principal granted at approval; zero before approval and after undoing it (deliberate Working Capital divergence from cla"
         },
         "balance": {
           "type": "object",
@@ -53903,12 +58667,22 @@ export const CONTRACTS = {
         "calculatedAnnualEir": {
           "type": "number",
           "required": false,
-          "description": "Annualized EIR: (1 + dailyEir)^365 − 1; null if schedule not yet generated"
+          "description": "Annual effective rate the loan was priced at, as a percentage: compounded over the product's NPV day count, not a calend"
+        },
+        "chargeOffReason": {
+          "type": "object",
+          "required": false
         },
         "chargedOff": {
           "type": "boolean",
           "required": false,
-          "description": "Charge-off flag. Placeholder: null until the WCP charge-off feature is implemented"
+          "description": "Whether the loan is charged off (pure accounting tag; the loan stays active)"
+        },
+        "chargedOffOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "Date the loan was charged off"
         },
         "charges": {
           "type": "array",
@@ -53945,11 +58719,6 @@ export const CONTRACTS = {
         "currency": {
           "type": "object",
           "required": false
-        },
-        "dailyEir": {
-          "type": "number",
-          "required": false,
-          "description": "Periodic (daily) effective interest rate computed via RATE(); null if schedule not yet generated"
         },
         "delinquencyBucket": {
           "type": "object",
@@ -53998,7 +58767,7 @@ export const CONTRACTS = {
         "fraud": {
           "type": "boolean",
           "required": false,
-          "description": "Fraud flag. Placeholder: null until the WCP fraud feature is implemented"
+          "description": "Fraud flag. True when the loan has been marked as fraudulent"
         },
         "fundId": {
           "type": "integer",
@@ -54059,30 +58828,51 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32",
-          "description": "Number of repayments (effectiveTotalTerm from the amortization schedule; for WC this is the loan term in days); null if "
+          "description": "Number of repayments (effectiveTotalTerm from the amortization schedule; for WC this is the loan term in days). Unlike t"
         },
         "originators": {
           "type": "array",
           "required": false,
           "description": "List of originators associated with this loan"
         },
+        "overpaidOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "Date on which loan was overpaid otherwise null"
+        },
         "paymentAllocation": {
           "type": "array",
           "required": false
         },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Configured daily payment amount for PAYMENT_AMOUNT strategy loans"
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "object",
+          "required": false
+        },
         "paymentRate": {
           "type": "number",
-          "required": false
+          "required": false,
+          "description": "The loan's own period payment rate. A rate change does not move it - the rate in force on a given date comes from the ra"
         },
         "periodPaymentAmount": {
           "type": "number",
           "required": false,
-          "description": "Daily expected payment amount from the amortization schedule; null if schedule not yet generated"
+          "description": "Daily payment amount the loan was priced at, following paymentAmountCalculationStrategy: totalPaymentVolume x paymentRat"
+        },
+        "periodPaymentRateHistory": {
+          "type": "array",
+          "required": false,
+          "description": "Period payment rate change history, most recently booked first - which for a backdated change is not the same as effecti"
         },
         "principal": {
           "type": "number",
           "required": false,
-          "description": "Active principal (loanProductRelatedDetails.principal)"
+          "description": "Active principal: the requested amount while the application is pending, the granted amount from approval, the actually "
         },
         "product": {
           "type": "object",
@@ -54096,7 +58886,8 @@ export const CONTRACTS = {
         },
         "proposedPrincipal": {
           "type": "number",
-          "required": false
+          "required": false,
+          "description": "Principal requested at submission; never changes afterwards"
         },
         "repaymentEvery": {
           "type": "integer",
@@ -54125,6 +58916,16 @@ export const CONTRACTS = {
         "totalPaymentVolume": {
           "type": "number",
           "required": false
+        },
+        "writeOffReason": {
+          "type": "object",
+          "required": false
+        },
+        "writtenOffOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "Date the loan was written off. Cleared by an undo write-off"
         }
       }
     },
@@ -54152,6 +58953,11 @@ export const CONTRACTS = {
           "type": "object",
           "required": false
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Configured annual EIR percentage for ANNUAL_EIR strategy loans"
+        },
         "approvedDiscountFee": {
           "type": "number",
           "required": false,
@@ -54159,7 +58965,8 @@ export const CONTRACTS = {
         },
         "approvedPrincipal": {
           "type": "number",
-          "required": false
+          "required": false,
+          "description": "Principal granted at approval; zero before approval and after undoing it (deliberate Working Capital divergence from cla"
         },
         "balance": {
           "type": "object",
@@ -54190,12 +58997,22 @@ export const CONTRACTS = {
         "calculatedAnnualEir": {
           "type": "number",
           "required": false,
-          "description": "Annualized EIR: (1 + dailyEir)^365 − 1; null if schedule not yet generated"
+          "description": "Annual effective rate the loan was priced at, as a percentage: compounded over the product's NPV day count, not a calend"
+        },
+        "chargeOffReason": {
+          "type": "object",
+          "required": false
         },
         "chargedOff": {
           "type": "boolean",
           "required": false,
-          "description": "Charge-off flag. Placeholder: null until the WCP charge-off feature is implemented"
+          "description": "Whether the loan is charged off (pure accounting tag; the loan stays active)"
+        },
+        "chargedOffOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "Date the loan was charged off"
         },
         "charges": {
           "type": "array",
@@ -54232,11 +59049,6 @@ export const CONTRACTS = {
         "currency": {
           "type": "object",
           "required": false
-        },
-        "dailyEir": {
-          "type": "number",
-          "required": false,
-          "description": "Periodic (daily) effective interest rate computed via RATE(); null if schedule not yet generated"
         },
         "delinquencyBucket": {
           "type": "object",
@@ -54285,7 +59097,7 @@ export const CONTRACTS = {
         "fraud": {
           "type": "boolean",
           "required": false,
-          "description": "Fraud flag. Placeholder: null until the WCP fraud feature is implemented"
+          "description": "Fraud flag. True when the loan has been marked as fraudulent"
         },
         "fundId": {
           "type": "integer",
@@ -54346,30 +59158,51 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int32",
-          "description": "Number of repayments (effectiveTotalTerm from the amortization schedule; for WC this is the loan term in days); null if "
+          "description": "Number of repayments (effectiveTotalTerm from the amortization schedule; for WC this is the loan term in days). Unlike t"
         },
         "originators": {
           "type": "array",
           "required": false,
           "description": "List of originators associated with this loan"
         },
+        "overpaidOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "Date on which loan was overpaid otherwise null"
+        },
         "paymentAllocation": {
           "type": "array",
           "required": false
         },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Configured daily payment amount for PAYMENT_AMOUNT strategy loans"
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "object",
+          "required": false
+        },
         "paymentRate": {
           "type": "number",
-          "required": false
+          "required": false,
+          "description": "The loan's own period payment rate. A rate change does not move it - the rate in force on a given date comes from the ra"
         },
         "periodPaymentAmount": {
           "type": "number",
           "required": false,
-          "description": "Daily expected payment amount from the amortization schedule; null if schedule not yet generated"
+          "description": "Daily payment amount the loan was priced at, following paymentAmountCalculationStrategy: totalPaymentVolume x paymentRat"
+        },
+        "periodPaymentRateHistory": {
+          "type": "array",
+          "required": false,
+          "description": "Period payment rate change history, most recently booked first - which for a backdated change is not the same as effecti"
         },
         "principal": {
           "type": "number",
           "required": false,
-          "description": "Active principal (loanProductRelatedDetails.principal)"
+          "description": "Active principal: the requested amount while the application is pending, the granted amount from approval, the actually "
         },
         "product": {
           "type": "object",
@@ -54383,7 +59216,8 @@ export const CONTRACTS = {
         },
         "proposedPrincipal": {
           "type": "number",
-          "required": false
+          "required": false,
+          "description": "Principal requested at submission; never changes afterwards"
         },
         "repaymentEvery": {
           "type": "integer",
@@ -54412,6 +59246,16 @@ export const CONTRACTS = {
         "totalPaymentVolume": {
           "type": "number",
           "required": false
+        },
+        "writeOffReason": {
+          "type": "object",
+          "required": false
+        },
+        "writtenOffOnDate": {
+          "type": "string",
+          "required": false,
+          "format": "date",
+          "description": "Date the loan was written off. Cleared by an undo write-off"
         }
       }
     },
@@ -54441,6 +59285,14 @@ export const CONTRACTS = {
           "required": false
         },
         "amountPaid": {
+          "type": "number",
+          "required": false
+        },
+        "amountWaived": {
+          "type": "number",
+          "required": false
+        },
+        "amountWrittenOff": {
           "type": "number",
           "required": false
         },
@@ -54540,6 +59392,14 @@ export const CONTRACTS = {
           "type": "number",
           "required": false
         },
+        "amountWaived": {
+          "type": "number",
+          "required": false
+        },
+        "amountWrittenOff": {
+          "type": "number",
+          "required": false
+        },
         "chargeCalculationType": {
           "type": "object",
           "required": false
@@ -54636,6 +59496,14 @@ export const CONTRACTS = {
           "type": "number",
           "required": false
         },
+        "amountWaived": {
+          "type": "number",
+          "required": false
+        },
+        "amountWrittenOff": {
+          "type": "number",
+          "required": false
+        },
         "chargeCalculationType": {
           "type": "object",
           "required": false
@@ -54729,6 +59597,14 @@ export const CONTRACTS = {
           "required": false
         },
         "amountPaid": {
+          "type": "number",
+          "required": false
+        },
+        "amountWaived": {
+          "type": "number",
+          "required": false
+        },
+        "amountWrittenOff": {
           "type": "number",
           "required": false
         },
@@ -54880,6 +59756,11 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "chargePaidByList": {
+          "type": "array",
+          "required": false,
+          "description": "Which charges this transaction settled, and for how much"
+        },
         "classification": {
           "type": "object",
           "required": false
@@ -54887,6 +59768,11 @@ export const CONTRACTS = {
         "externalId": {
           "type": "string",
           "required": false
+        },
+        "externalLoanId": {
+          "type": "string",
+          "required": false,
+          "description": "External id of the loan this transaction belongs to"
         },
         "feeChargesPortion": {
           "type": "number",
@@ -54947,6 +59833,11 @@ export const CONTRACTS = {
         "type": {
           "type": "object",
           "required": false
+        },
+        "wcLoanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -54967,6 +59858,11 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "chargePaidByList": {
+          "type": "array",
+          "required": false,
+          "description": "Which charges this transaction settled, and for how much"
+        },
         "classification": {
           "type": "object",
           "required": false
@@ -54974,6 +59870,11 @@ export const CONTRACTS = {
         "externalId": {
           "type": "string",
           "required": false
+        },
+        "externalLoanId": {
+          "type": "string",
+          "required": false,
+          "description": "External id of the loan this transaction belongs to"
         },
         "feeChargesPortion": {
           "type": "number",
@@ -55034,6 +59935,11 @@ export const CONTRACTS = {
         "type": {
           "type": "object",
           "required": false
+        },
+        "wcLoanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -55054,6 +59960,11 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "chargePaidByList": {
+          "type": "array",
+          "required": false,
+          "description": "Which charges this transaction settled, and for how much"
+        },
         "classification": {
           "type": "object",
           "required": false
@@ -55061,6 +59972,11 @@ export const CONTRACTS = {
         "externalId": {
           "type": "string",
           "required": false
+        },
+        "externalLoanId": {
+          "type": "string",
+          "required": false,
+          "description": "External id of the loan this transaction belongs to"
         },
         "feeChargesPortion": {
           "type": "number",
@@ -55121,6 +60037,11 @@ export const CONTRACTS = {
         "type": {
           "type": "object",
           "required": false
+        },
+        "wcLoanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -55141,6 +60062,11 @@ export const CONTRACTS = {
     "response": {
       "type": "object",
       "fields": {
+        "chargePaidByList": {
+          "type": "array",
+          "required": false,
+          "description": "Which charges this transaction settled, and for how much"
+        },
         "classification": {
           "type": "object",
           "required": false
@@ -55148,6 +60074,11 @@ export const CONTRACTS = {
         "externalId": {
           "type": "string",
           "required": false
+        },
+        "externalLoanId": {
+          "type": "string",
+          "required": false,
+          "description": "External id of the loan this transaction belongs to"
         },
         "feeChargesPortion": {
           "type": "number",
@@ -55208,6 +60139,11 @@ export const CONTRACTS = {
         "type": {
           "type": "object",
           "required": false
+        },
+        "wcLoanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -55658,6 +60594,19 @@ export const CONTRACTS = {
       "items": {
         "type": "object",
         "fields": {
+          "accountId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "accountNo": {
+            "type": "string",
+            "required": false
+          },
+          "accountType": {
+            "type": "string",
+            "required": false
+          },
           "entityAccountNo": {
             "type": "integer",
             "required": false,
@@ -55690,6 +60639,31 @@ export const CONTRACTS = {
             "format": "int64"
           },
           "parentName": {
+            "type": "string",
+            "required": false
+          },
+          "parentType": {
+            "type": "string",
+            "required": false
+          },
+          "subEntityType": {
+            "type": "string",
+            "required": false
+          },
+          "transactionExternalId": {
+            "type": "string",
+            "required": false
+          },
+          "transactionId": {
+            "type": "integer",
+            "required": false,
+            "format": "int64"
+          },
+          "transactionRefNo": {
+            "type": "string",
+            "required": false
+          },
+          "transactionType": {
             "type": "string",
             "required": false
           }
@@ -56344,8 +61318,7 @@ export const CONTRACTS = {
         },
         "depositAmount": {
           "type": "number",
-          "required": false,
-          "format": "float"
+          "required": false
         },
         "depositPeriod": {
           "type": "integer",
@@ -56353,6 +61326,40 @@ export const CONTRACTS = {
           "format": "int32"
         },
         "depositPeriodFrequencyId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "expectedFirstDepositOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "inMultiplesOfDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "inMultiplesOfDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationDaysInYearType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCompoundingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestPostingPeriodType": {
           "type": "integer",
           "required": false,
           "format": "int32"
@@ -56365,10 +61372,56 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
-        "mandatoryRecommendedDepositAmount": {
+        "lockinPeriodFrequency": {
           "type": "integer",
           "required": false,
-          "format": "int64"
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "mandatoryRecommendedDepositAmount": {
+          "type": "number",
+          "required": false
+        },
+        "maxDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "monthDayFormat": {
+          "type": "string",
+          "required": false
+        },
+        "preClosurePenalApplicable": {
+          "type": "boolean",
+          "required": false
+        },
+        "preClosurePenalInterest": {
+          "type": "number",
+          "required": false
+        },
+        "preClosurePenalInterestOnTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
         },
         "productId": {
           "type": "integer",
@@ -56422,18 +61475,55 @@ export const CONTRACTS = {
   "submitGSIMApplication": {
     "method": "POST",
     "path": "/v1/savingsaccounts/gsim",
-    "summary": "",
+    "summary": "Submit a group savings (GSIM) application",
     "tag": "Savings Account",
     "pathParams": [],
     "query": [],
     "request": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "clientArray": {
+          "type": "array",
+          "required": false
+        },
+        "savingsArray": {
+          "type": "array",
+          "required": false
+        }
+      }
     },
-    "requestRef": null,
+    "requestRef": "#/components/schemas/PostSavingsAccountsGsimRequest",
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/PostSavingsAccountsGsimResponse"
   },
   "submitSavingsApplication": {
     "method": "POST",
@@ -56458,6 +61548,12 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Mandatory for a group savings account, in place of clientId"
+        },
         "locale": {
           "type": "string",
           "required": false
@@ -56469,6 +61565,10 @@ export const CONTRACTS = {
         },
         "submittedOnDate": {
           "type": "string",
+          "required": false
+        },
+        "withdrawalFeeForTransfers": {
+          "type": "boolean",
           "required": false
         }
       }
@@ -56515,6 +61615,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Annual EIR percentage (6 decimal places max). Required for ANNUAL_EIR strategy products."
+        },
         "breachGraceDays": {
           "type": "integer",
           "required": false,
@@ -56535,6 +61640,10 @@ export const CONTRACTS = {
           "type": "integer",
           "required": true,
           "format": "int64"
+        },
+        "datatables": {
+          "type": "array",
+          "required": false
         },
         "dateFormat": {
           "type": "string",
@@ -56589,6 +61698,11 @@ export const CONTRACTS = {
         "paymentAllocation": {
           "type": "array",
           "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Daily payment amount, at most the currency's decimal precision. Overrides the product default on PAYMENT_AMOUNT strategy"
         },
         "periodPaymentRate": {
           "type": "number",
@@ -58564,9 +63678,18 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
         "name": {
           "type": "string",
           "required": false
+        },
+        "staffId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -58849,6 +63972,10 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "street": {
+          "type": "string",
+          "required": false
         },
         "townVillage": {
           "type": "string",
@@ -59186,6 +64313,10 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "description": {
           "type": "string",
           "required": false
@@ -59198,6 +64329,18 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "expiryDate": {
+          "type": "string",
+          "required": false
+        },
+        "issuanceDate": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
         },
         "status": {
           "type": "string",
@@ -59718,6 +64861,10 @@ export const CONTRACTS = {
           "type": "integer",
           "required": false,
           "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
         }
       }
     },
@@ -59779,9 +64926,37 @@ export const CONTRACTS = {
     ],
     "query": [],
     "request": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "approvedLoanAmount": {
+          "type": "number",
+          "required": false
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "expectedDisbursementDate": {
+          "type": "string",
+          "required": false
+        },
+        "locale": {
+          "type": "string",
+          "required": false
+        },
+        "updatedExpectedDisbursementDate": {
+          "type": "string",
+          "required": false,
+          "description": "The new expected disbursement date of the tranche"
+        },
+        "updatedPrincipal": {
+          "type": "number",
+          "required": false,
+          "description": "The new principal of the tranche"
+        }
+      }
     },
-    "requestRef": null,
+    "requestRef": "#/components/schemas/PutLoansLoanIdDisbursementsDisbursementIdRequest",
     "response": {
       "type": "object",
       "fields": {
@@ -59898,8 +65073,16 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "expiryDate": {
+          "type": "string",
+          "required": false
+        },
         "file": {
           "type": "object",
+          "required": false
+        },
+        "issuanceDate": {
+          "type": "string",
           "required": false
         },
         "name": {
@@ -59992,11 +65175,13 @@ export const CONTRACTS = {
       "fields": {
         "attributeKey": {
           "type": "string",
-          "required": false
+          "required": false,
+          "description": "Attribute key, one of the keys returned by the loan product attributes template endpoint, e.g. SETTLEMENT_MODEL or EXCLU"
         },
         "attributeValue": {
           "type": "string",
-          "required": false
+          "required": false,
+          "description": "Attribute value. For multi value attributes such as EXCLUDED_TRANSACTION_TYPES this is a comma separated list, e.g. BUY_"
         }
       }
     },
@@ -60165,13 +65350,131 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "depositAmount": {
           "type": "number",
+          "required": false
+        },
+        "depositPeriod": {
+          "type": "integer",
           "required": false,
-          "format": "float"
+          "format": "int32"
+        },
+        "depositPeriodFrequencyId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "inMultiplesOfDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "inMultiplesOfDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationDaysInYearType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCompoundingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestPostingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "linkAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         },
         "locale": {
           "type": "string",
+          "required": false
+        },
+        "lockinPeriodFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maturityInstructionId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "monthDayFormat": {
+          "type": "string",
+          "required": false
+        },
+        "preClosurePenalApplicable": {
+          "type": "boolean",
+          "required": false
+        },
+        "preClosurePenalInterest": {
+          "type": "number",
+          "required": false
+        },
+        "preClosurePenalInterestOnTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "transferInterestToSavings": {
+          "type": "boolean",
           "required": false
         }
       }
@@ -60287,7 +65590,7 @@ export const CONTRACTS = {
         }
       }
     },
-    "requestRef": "#/components/schemas/FloatingRateRequest",
+    "requestRef": "#/components/schemas/FloatingRateUpdateRequest",
     "response": {
       "type": "object",
       "fields": {
@@ -60302,7 +65605,7 @@ export const CONTRACTS = {
         }
       }
     },
-    "responseRef": "#/components/schemas/PutFloatingRatesFloatingRateIdResponse"
+    "responseRef": "#/components/schemas/FloatingRateUpdateResponse"
   },
   "updateFund": {
     "method": "PUT",
@@ -60600,20 +65903,64 @@ export const CONTRACTS = {
   "updateGsim": {
     "method": "PUT",
     "path": "/v1/savingsaccounts/gsim/{parentAccountId}",
-    "summary": "",
+    "summary": "Update a group savings (GSIM) application",
     "tag": "Savings Account",
     "pathParams": [
       "parentAccountId"
     ],
     "query": [],
     "request": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
     },
-    "requestRef": null,
+    "requestRef": "#/components/schemas/PutSavingsAccountsGsimRequest",
     "response": {
-      "type": "string"
+      "type": "object",
+      "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        }
+      }
     },
-    "responseRef": null
+    "responseRef": "#/components/schemas/PostSavingsAccountsGsimResponse"
   },
   "updateGuarantor": {
     "method": "PUT",
@@ -61224,8 +66571,103 @@ export const CONTRACTS = {
       }
     },
     "requestRef": "#/components/schemas/PutJobsJobIDRequest",
-    "response": null,
-    "responseRef": null
+    "response": {
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "updateJobDetailByShortName": {
     "method": "PUT",
@@ -61254,8 +66696,103 @@ export const CONTRACTS = {
       }
     },
     "requestRef": "#/components/schemas/PutJobsJobIDRequest",
-    "response": null,
-    "responseRef": null
+    "response": {
+      "type": "object",
+      "fields": {
+        "changes": {
+          "type": "object",
+          "required": false
+        },
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "commandId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "creditBureauReportData": {
+          "type": "object",
+          "required": false
+        },
+        "externalIdOrNull": {
+          "type": "object",
+          "required": false
+        },
+        "glimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "gsimId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "loanExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "loanId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "officeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "resourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "resourceIdentifier": {
+          "type": "string",
+          "required": false
+        },
+        "rollbackTransaction": {
+          "type": "boolean",
+          "required": false
+        },
+        "savingsId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "subResourceExternalId": {
+          "type": "object",
+          "required": false
+        },
+        "subResourceId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "transactionId": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "responseRef": "#/components/schemas/CommandProcessingResult"
   },
   "updateLoanApplication": {
     "method": "PUT",
@@ -63809,48 +69346,6 @@ export const CONTRACTS = {
     },
     "responseRef": "#/components/schemas/MeetingAttendanceUpdateResponse"
   },
-  "updateMixTaxonomyMapping": {
-    "method": "PUT",
-    "path": "/v1/mixmapping",
-    "summary": "Update Mix Taxonomy Mapping",
-    "tag": "Mix Mapping",
-    "pathParams": [],
-    "query": [],
-    "request": {
-      "type": "object",
-      "fields": {
-        "config": {
-          "type": "string",
-          "required": false
-        },
-        "currency": {
-          "type": "string",
-          "required": false
-        },
-        "id": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        },
-        "identifier": {
-          "type": "string",
-          "required": false
-        }
-      }
-    },
-    "requestRef": "#/components/schemas/MixTaxonomyMappingUpdateRequest",
-    "response": {
-      "type": "object",
-      "fields": {
-        "entityId": {
-          "type": "integer",
-          "required": false,
-          "format": "int64"
-        }
-      }
-    },
-    "responseRef": "#/components/schemas/MixTaxonomyMappingUpdateResponse"
-  },
   "updateNote": {
     "method": "PUT",
     "path": "/v1/{resourceType}/{resourceId}/notes/{noteId}",
@@ -64444,11 +69939,11 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
-        "loanProducts": {
+        "definitions": {
           "type": "array",
           "required": false
         },
-        "provisioningcriteria": {
+        "loanProducts": {
           "type": "array",
           "required": false
         }
@@ -64666,12 +70161,138 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
         "depositAmount": {
+          "type": "number",
+          "required": false
+        },
+        "depositPeriod": {
           "type": "integer",
           "required": false,
           "format": "int32"
         },
+        "depositPeriodFrequencyId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "expectedFirstDepositOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "inMultiplesOfDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "inMultiplesOfDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationDaysInYearType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCompoundingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestPostingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "isCalendarInherited": {
+          "type": "boolean",
+          "required": false
+        },
         "locale": {
+          "type": "string",
+          "required": false
+        },
+        "lockinPeriodFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "lockinPeriodFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "mandatoryRecommendedDepositAmount": {
+          "type": "number",
+          "required": false
+        },
+        "maxDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "maxDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTerm": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "minDepositTermTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "monthDayFormat": {
+          "type": "string",
+          "required": false
+        },
+        "preClosurePenalApplicable": {
+          "type": "boolean",
+          "required": false
+        },
+        "preClosurePenalInterest": {
+          "type": "number",
+          "required": false
+        },
+        "preClosurePenalInterestOnTypeId": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "recurringFrequency": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "recurringFrequencyType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "submittedOnDate": {
           "type": "string",
           "required": false
         }
@@ -64997,6 +70618,25 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Mandatory for a group savings account, in place of clientId"
+        },
         "locale": {
           "type": "string",
           "required": false
@@ -65005,6 +70645,24 @@ export const CONTRACTS = {
           "type": "number",
           "required": false,
           "format": "double"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "withHoldTax": {
+          "type": "boolean",
+          "required": false,
+          "description": "command=updateWithHoldTax"
+        },
+        "withdrawalFeeForTransfers": {
+          "type": "boolean",
+          "required": false
         }
       }
     },
@@ -65058,6 +70716,25 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "clientId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "externalId": {
+          "type": "string",
+          "required": false
+        },
+        "groupId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64",
+          "description": "Mandatory for a group savings account, in place of clientId"
+        },
         "locale": {
           "type": "string",
           "required": false
@@ -65066,6 +70743,24 @@ export const CONTRACTS = {
           "type": "number",
           "required": false,
           "format": "double"
+        },
+        "productId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "submittedOnDate": {
+          "type": "string",
+          "required": false
+        },
+        "withHoldTax": {
+          "type": "boolean",
+          "required": false,
+          "description": "command=updateWithHoldTax"
+        },
+        "withdrawalFeeForTransfers": {
+          "type": "boolean",
+          "required": false
         }
       }
     },
@@ -65177,18 +70872,163 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "accountingRule": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "allowOverdraft": {
+          "type": "boolean",
+          "required": false
+        },
+        "currencyCode": {
+          "type": "string",
+          "required": false
+        },
         "description": {
           "type": "string",
           "required": false
+        },
+        "digitsAfterDecimal": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "enforceMinRequiredBalance": {
+          "type": "boolean",
+          "required": false
+        },
+        "feesReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "inMultiplesOf": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "incomeFromFeeAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "incomeFromInterestId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "incomeFromPenaltyAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestCalculationDaysInYearType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCalculationType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestCompoundingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
+        },
+        "interestOnSavingsAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPayableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "interestPostingPeriodType": {
+          "type": "integer",
+          "required": false,
+          "format": "int32"
         },
         "interestRate": {
           "type": "number",
           "required": false,
           "format": "double"
         },
+        "interestReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
         "locale": {
           "type": "string",
           "required": false
+        },
+        "minRequiredOpeningBalance": {
+          "type": "number",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "required": false
+        },
+        "nominalAnnualInterestRate": {
+          "type": "number",
+          "required": false,
+          "format": "double"
+        },
+        "nominalAnnualInterestRateOverdraft": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftLimit": {
+          "type": "number",
+          "required": false
+        },
+        "overdraftPortfolioControlId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "penaltiesReceivableAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsControlAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "savingsReferenceAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "shortName": {
+          "type": "string",
+          "required": false
+        },
+        "transfersInSuspenseAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
+        },
+        "withHoldTax": {
+          "type": "boolean",
+          "required": false
+        },
+        "withdrawalFeeForTransfers": {
+          "type": "boolean",
+          "required": false
+        },
+        "writeOffAccountId": {
+          "type": "integer",
+          "required": false,
+          "format": "int64"
         }
       }
     },
@@ -66479,6 +72319,11 @@ export const CONTRACTS = {
             "FLAT"
           ]
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Annual EIR percentage (6 decimal places max). Required when strategy is ANNUAL_EIR."
+        },
         "breachGraceDays": {
           "type": "integer",
           "required": false,
@@ -66631,6 +72476,16 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "maxAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "maxPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
+        },
         "maxPeriodPaymentRate": {
           "type": "number",
           "required": false
@@ -66638,6 +72493,16 @@ export const CONTRACTS = {
         "maxPrincipal": {
           "type": "number",
           "required": false
+        },
+        "minAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "minPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
         },
         "minPeriodPaymentRate": {
           "type": "number",
@@ -66669,6 +72534,21 @@ export const CONTRACTS = {
         "paymentAllocation": {
           "type": "array",
           "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Daily payment amount, at most the currency's decimal precision. Required when strategy is PAYMENT_AMOUNT."
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "TPV",
+            "ANNUAL_EIR",
+            "PAYMENT_AMOUNT"
+          ],
+          "description": "Switches the payment amount calculation strategy. The inputs of the other strategies (periodPaymentRate, annualEir, paym"
         },
         "paymentChannelToFundSourceMappings": {
           "type": "array",
@@ -66785,6 +72665,11 @@ export const CONTRACTS = {
             "FLAT"
           ]
         },
+        "annualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Annual EIR percentage (6 decimal places max). Required when strategy is ANNUAL_EIR."
+        },
         "breachGraceDays": {
           "type": "integer",
           "required": false,
@@ -66937,6 +72822,16 @@ export const CONTRACTS = {
           "type": "string",
           "required": false
         },
+        "maxAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "maxPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
+        },
         "maxPeriodPaymentRate": {
           "type": "number",
           "required": false
@@ -66944,6 +72839,16 @@ export const CONTRACTS = {
         "maxPrincipal": {
           "type": "number",
           "required": false
+        },
+        "minAnnualEir": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum annual EIR percentage. Optional; only for ANNUAL_EIR strategy."
+        },
+        "minPaymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Minimum daily payment amount. Optional; only for PAYMENT_AMOUNT strategy."
         },
         "minPeriodPaymentRate": {
           "type": "number",
@@ -66975,6 +72880,21 @@ export const CONTRACTS = {
         "paymentAllocation": {
           "type": "array",
           "required": false
+        },
+        "paymentAmount": {
+          "type": "number",
+          "required": false,
+          "description": "Daily payment amount, at most the currency's decimal precision. Required when strategy is PAYMENT_AMOUNT."
+        },
+        "paymentAmountCalculationStrategy": {
+          "type": "string",
+          "required": false,
+          "enum": [
+            "TPV",
+            "ANNUAL_EIR",
+            "PAYMENT_AMOUNT"
+          ],
+          "description": "Switches the payment amount calculation strategy. The inputs of the other strategies (periodPaymentRate, annualEir, paym"
         },
         "paymentChannelToFundSourceMappings": {
           "type": "array",
@@ -67069,6 +72989,15 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "effectiveDate": {
+          "type": "string",
+          "required": true,
+          "description": "Date the new rate takes effect. Mandatory. May be backdated or set in the future, but not before the disbursement date."
+        },
         "locale": {
           "type": "string",
           "required": false
@@ -67195,6 +73124,15 @@ export const CONTRACTS = {
     "request": {
       "type": "object",
       "fields": {
+        "dateFormat": {
+          "type": "string",
+          "required": false
+        },
+        "effectiveDate": {
+          "type": "string",
+          "required": true,
+          "description": "Date the new rate takes effect. Mandatory. May be backdated or set in the future, but not before the disbursement date."
+        },
         "locale": {
           "type": "string",
           "required": false
