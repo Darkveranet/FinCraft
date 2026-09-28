@@ -1,23 +1,78 @@
 {
-  "generatedAt": "2026-08-05T07:20:55.917Z",
+  "generatedAt": "2026-09-28T12:29:45.811Z",
   "meta": {
     "origin": "image:apache/fineract:latest",
-    "contractOps": 965,
+    "contractOps": 967,
     "hwRoutes": 916,
     "hwEndpoints": 720,
     "hwFiles": 20
   },
   "summary": {
-    "matched": 709,
+    "matched": 700,
     "mismatch": 0,
-    "unverified": 0,
+    "unverified": 9,
     "external": 11,
-    "uncovered": 262,
+    "uncovered": 268,
     "dynamic": 3,
     "literalParam": 19
   },
   "mismatch": [],
-  "unverified": [],
+  "unverified": [
+    {
+      "key": "GET /mixtaxonomy",
+      "file": "mix-xbrl.js",
+      "line": 3,
+      "rawPath": "/mixtaxonomy"
+    },
+    {
+      "key": "GET /mixmapping",
+      "file": "mix-xbrl.js",
+      "line": 4,
+      "rawPath": "/mixmapping"
+    },
+    {
+      "key": "PUT /mixmapping",
+      "file": "mix-xbrl.js",
+      "line": 5,
+      "rawPath": "/mixmapping"
+    },
+    {
+      "key": "GET /mixreport",
+      "file": "mix-xbrl.js",
+      "line": 6,
+      "rawPath": "/mixreport"
+    },
+    {
+      "key": "GET /cashiers",
+      "file": "organization.js",
+      "line": 23,
+      "rawPath": "/cashiers"
+    },
+    {
+      "key": "GET /tellers/{}/transactions",
+      "file": "organization.js",
+      "line": 39,
+      "rawPath": "/tellers/${id}/transactions"
+    },
+    {
+      "key": "GET /tellers/{}/transactions/{}",
+      "file": "organization.js",
+      "line": 40,
+      "rawPath": "/tellers/${id}/transactions/${txId}"
+    },
+    {
+      "key": "GET /tellers/{}/journals",
+      "file": "organization.js",
+      "line": 41,
+      "rawPath": "/tellers/${id}/journals"
+    },
+    {
+      "key": "GET /cashiersjournal",
+      "file": "organization.js",
+      "line": 47,
+      "rawPath": "/cashiersjournal"
+    }
+  ],
   "external": [
     {
       "key": "GET /self/userdetails",
@@ -390,6 +445,14 @@
       "key": "DELETE /clients/external-id/{}",
       "canonPath": "/clients/external-id/{}",
       "tag": "Client"
+    },
+    {
+      "operationId": "deleteExternalAssetOwnerLoanProductAttribute",
+      "method": "DELETE",
+      "rawPath": "/v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}",
+      "key": "DELETE /external-asset-owners/loan-product/{}/attributes/{}",
+      "canonPath": "/external-asset-owners/loan-product/{}/attributes/{}",
+      "tag": "External Asset Owner Loan Product Attributes"
     },
     {
       "operationId": "deleteInternalProgressiveLoan",
@@ -1048,6 +1111,22 @@
       "tag": "Working Capital Loans"
     },
     {
+      "operationId": "getWorkingCapitalLoanTransactionTemplateByExternalId",
+      "method": "GET",
+      "rawPath": "/v1/working-capital-loans/external-id/{loanExternalId}/transactions/template",
+      "key": "GET /working-capital-loans/external-id/{}/transactions/template",
+      "canonPath": "/working-capital-loans/external-id/{}/transactions/template",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
+      "operationId": "getWorkingCapitalLoanTransactionTemplateById",
+      "method": "GET",
+      "rawPath": "/v1/working-capital-loans/{loanId}/transactions/template",
+      "key": "GET /working-capital-loans/{}/transactions/template",
+      "canonPath": "/working-capital-loans/{}/transactions/template",
+      "tag": "Working Capital Loan Transactions"
+    },
+    {
       "operationId": "handleCommandClientByExternalId",
       "method": "POST",
       "rawPath": "/v1/clients/external-id/{externalId}",
@@ -1094,6 +1173,22 @@
       "key": "POST /internal/cob/loan-reprocess/{}",
       "canonPath": "/internal/cob/loan-reprocess/{}",
       "tag": "Internal COB"
+    },
+    {
+      "operationId": "markWorkingCapitalLoanAsFraudByExternalId",
+      "method": "PUT",
+      "rawPath": "/v1/working-capital-loans/external-id/{loanExternalId}/mark-as-fraud",
+      "key": "PUT /working-capital-loans/external-id/{}/mark-as-fraud",
+      "canonPath": "/working-capital-loans/external-id/{}/mark-as-fraud",
+      "tag": "Working Capital Loans"
+    },
+    {
+      "operationId": "markWorkingCapitalLoanAsFraudById",
+      "method": "PUT",
+      "rawPath": "/v1/working-capital-loans/{loanId}/mark-as-fraud",
+      "key": "PUT /working-capital-loans/{}/mark-as-fraud",
+      "canonPath": "/working-capital-loans/{}/mark-as-fraud",
+      "tag": "Working Capital Loans"
     },
     {
       "operationId": "modifyWorkingCapitalLoanApplicationByExternalId",
@@ -1710,6 +1805,14 @@
       "key": "GET /savingsaccounts/external-id/{}",
       "canonPath": "/savingsaccounts/external-id/{}",
       "tag": "Savings Account"
+    },
+    {
+      "operationId": "retrieveTemplateExternalAssetOwnerLoanProductAttributes",
+      "method": "GET",
+      "rawPath": "/v1/external-asset-owners/loan-product/template",
+      "key": "GET /external-asset-owners/loan-product/template",
+      "canonPath": "/external-asset-owners/loan-product/template",
+      "tag": "External Asset Owner Loan Product Attributes"
     },
     {
       "operationId": "retrieveTemplateLoanChargeByLoanExternalId",
@@ -4854,6 +4957,14 @@
       "tag": "Account Transfers"
     },
     {
+      "operationId": "retrieveAllAuditsV2",
+      "method": "GET",
+      "rawPath": "/v2/audits",
+      "key": "GET /audits",
+      "canonPath": "/audits",
+      "tag": "AuditsV2"
+    },
+    {
       "operationId": "retrieveAllAvailableBusinessStep",
       "method": "GET",
       "rawPath": "/v1/jobs/{jobName}/available-steps",
@@ -4870,22 +4981,6 @@
       "tag": "Run Reports"
     },
     {
-      "operationId": "retrieveAllCashierJournals",
-      "method": "GET",
-      "rawPath": "/v1/cashiersjournal",
-      "key": "GET /cashiersjournal",
-      "canonPath": "/cashiersjournal",
-      "tag": "Cashier Journals"
-    },
-    {
-      "operationId": "retrieveAllCashiers",
-      "method": "GET",
-      "rawPath": "/v1/cashiers",
-      "key": "GET /cashiers",
-      "canonPath": "/cashiers",
-      "tag": "Cashiers"
-    },
-    {
       "operationId": "retrieveAllCashiersForTeller",
       "method": "GET",
       "rawPath": "/v1/tellers/{tellerId}/cashiers",
@@ -4900,6 +4995,14 @@
       "key": "GET /centers",
       "canonPath": "/centers",
       "tag": "Centers"
+    },
+    {
+      "operationId": "retrieveAllCentersV2",
+      "method": "GET",
+      "rawPath": "/v2/centers",
+      "key": "GET /centers",
+      "canonPath": "/centers",
+      "tag": "CentersV2"
     },
     {
       "operationId": "retrieveAllCharges",
@@ -5078,6 +5181,14 @@
       "tag": "Fixed Deposit Account"
     },
     {
+      "operationId": "retrieveAllFixedDepositAccountsV2",
+      "method": "GET",
+      "rawPath": "/v2/fixeddepositaccounts",
+      "key": "GET /fixeddepositaccounts",
+      "canonPath": "/fixeddepositaccounts",
+      "tag": "FixedDepositAccountsV2"
+    },
+    {
       "operationId": "retrieveAllFixedDepositAccountTransactions",
       "method": "GET",
       "rawPath": "/v1/fixeddepositaccounts/{fixedDepositAccountId}/transactions",
@@ -5126,6 +5237,14 @@
       "tag": "Groups"
     },
     {
+      "operationId": "retrieveAllGroupsV2",
+      "method": "GET",
+      "rawPath": "/v2/groups",
+      "key": "GET /groups",
+      "canonPath": "/groups",
+      "tag": "GroupsV2"
+    },
+    {
       "operationId": "retrieveAllHolidays",
       "method": "GET",
       "rawPath": "/v1/holidays",
@@ -5164,14 +5283,6 @@
       "key": "GET /journalentries",
       "canonPath": "/journalentries",
       "tag": "Journal Entries"
-    },
-    {
-      "operationId": "retrieveAllJournalsForTeller",
-      "method": "GET",
-      "rawPath": "/v1/tellers/{tellerId}/journals",
-      "key": "GET /tellers/{}/journals",
-      "canonPath": "/tellers/{}/journals",
-      "tag": "Teller Cash Management"
     },
     {
       "operationId": "retrieveAllLoanCharges",
@@ -5238,14 +5349,6 @@
       "tag": "Meetings"
     },
     {
-      "operationId": "retrieveAllMixTaxonomies",
-      "method": "GET",
-      "rawPath": "/v1/mixtaxonomy",
-      "key": "GET /mixtaxonomy",
-      "canonPath": "/mixtaxonomy",
-      "tag": "Mix Taxonomy"
-    },
-    {
       "operationId": "retrieveAllOffices",
       "method": "GET",
       "rawPath": "/v1/offices",
@@ -5300,6 +5403,14 @@
       "key": "GET /recurringdepositaccounts",
       "canonPath": "/recurringdepositaccounts",
       "tag": "Recurring Deposit Account"
+    },
+    {
+      "operationId": "retrieveAllRecurringDepositAccountsV2",
+      "method": "GET",
+      "rawPath": "/v2/recurringdepositaccounts",
+      "key": "GET /recurringdepositaccounts",
+      "canonPath": "/recurringdepositaccounts",
+      "tag": "RecurringDepositAccountsV2"
     },
     {
       "operationId": "retrieveAllRecurringDepositProducts",
@@ -5508,14 +5619,6 @@
       "key": "GET /email/campaign/template",
       "canonPath": "/email/campaign/template",
       "tag": null
-    },
-    {
-      "operationId": "retrieveAllTransactionsForTeller",
-      "method": "GET",
-      "rawPath": "/v1/tellers/{tellerId}/transactions",
-      "key": "GET /tellers/{}/transactions",
-      "canonPath": "/tellers/{}/transactions",
-      "tag": "Teller Cash Management"
     },
     {
       "operationId": "retrieveAllUsers",
@@ -5908,22 +6011,6 @@
       "key": "GET /loans/locked",
       "canonPath": "/loans/locked",
       "tag": "Loan Account Lock"
-    },
-    {
-      "operationId": "retrieveMixReport",
-      "method": "GET",
-      "rawPath": "/v1/mixreport",
-      "key": "GET /mixreport",
-      "canonPath": "/mixreport",
-      "tag": "Mix Report"
-    },
-    {
-      "operationId": "retrieveMixTaxonomyMapping",
-      "method": "GET",
-      "rawPath": "/v1/mixmapping",
-      "key": "GET /mixmapping",
-      "canonPath": "/mixmapping",
-      "tag": "Mix Mapping"
     },
     {
       "operationId": "retrieveNewAccountDetails",
@@ -6452,14 +6539,6 @@
       "key": "GET /email/campaign/template/{}",
       "canonPath": "/email/campaign/template/{}",
       "tag": null
-    },
-    {
-      "operationId": "retrieveOneTransactionForTeller",
-      "method": "GET",
-      "rawPath": "/v1/tellers/{tellerId}/transactions/{transactionId}",
-      "key": "GET /tellers/{}/transactions/{}",
-      "canonPath": "/tellers/{}/transactions/{}",
-      "tag": "Teller Cash Management"
     },
     {
       "operationId": "retrieveOneUser",
@@ -7668,14 +7747,6 @@
       "key": "POST /{}/{}/meetings/{}",
       "canonPath": "/{}/{}/meetings/{}",
       "tag": "Meetings"
-    },
-    {
-      "operationId": "updateMixTaxonomyMapping",
-      "method": "PUT",
-      "rawPath": "/v1/mixmapping",
-      "key": "PUT /mixmapping",
-      "canonPath": "/mixmapping",
-      "tag": "Mix Mapping"
     },
     {
       "operationId": "updateNote",
