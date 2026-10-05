@@ -1,11 +1,6780 @@
 {
-  "breaking": false,
-  "changes": [],
+  "breaking": true,
+  "changes": [
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveAllCashierJournals"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveAllCashiers"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveAllJournalsForTeller"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveAllMixTaxonomies"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveAllTransactionsForTeller"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveMixReport"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveMixTaxonomyMapping"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "retrieveOneTransactionForTeller"
+    },
+    {
+      "kind": "removed-operation",
+      "level": "breaking",
+      "op": "updateMixTaxonomyMapping"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "deleteExternalAssetOwnerLoanProductAttribute"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWorkingCapitalLoanTransactionTemplateByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "getWorkingCapitalLoanTransactionTemplateById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "markWorkingCapitalLoanAsFraudByExternalId"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "markWorkingCapitalLoanAsFraudById"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllAuditsV2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllCentersV2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllFixedDepositAccountsV2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllGroupsV2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveAllRecurringDepositAccountsV2"
+    },
+    {
+      "kind": "new-operation",
+      "level": "additive",
+      "op": "retrieveTemplateExternalAssetOwnerLoanProductAttributes"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "commandId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "creditBureauReportData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "externalIdOrNull",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "loanExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "productId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "resourceIdentifier",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "rollbackTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "subResourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransaction"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "commandId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "creditBureauReportData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "externalIdOrNull",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "loanExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "productId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "resourceIdentifier",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "rollbackTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "subResourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "commandId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "creditBureauReportData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "externalIdOrNull",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "loanExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "productId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "resourceIdentifier",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "rollbackTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "subResourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "commandId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "creditBureauReportData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "externalIdOrNull",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "loanExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "productId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "resourceIdentifier",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "rollbackTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "subResourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "adjustSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "calendarId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "collateral",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "createStandingInstructionAtDisbursement",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "interestChargedFromDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "interestRateDifferential",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "isFloatingInterestRate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "isParentAccount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "syncDisbursementWithMeeting",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "totalLoan",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "calculateOrSubmitLoanApplication"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createAccountTransfer"
+    },
+    {
+      "field": "restartPeriodFromResetDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createBreachAction"
+    },
+    {
+      "field": "restartPeriodFromResetDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createBreachActionByExternalId"
+    },
+    {
+      "field": "activationDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "field": "groupMembers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createCenter"
+    },
+    {
+      "field": "clientNonPersonDetails",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClient"
+    },
+    {
+      "field": "street",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClientAddress"
+    },
+    {
+      "field": "amount",
+      "from": "integer",
+      "kind": "request-type-change",
+      "level": "breaking",
+      "op": "createClientCharge",
+      "to": "number"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClientIdentifier"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClientIdentifier"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClientIdentifier"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createClientIdentifier"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createDocument"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createDocument"
+    },
+    {
+      "field": "inMultiplesOfDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "interestCalculationDaysInYearType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "interestCalculationType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "interestCompoundingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "interestPostingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "linkAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "maturityInstructionId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "maxDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "maxDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "minDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "minDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "monthDayFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalApplicable",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterest",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterestOnTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "transferInterestToSavings",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositAccount"
+    },
+    {
+      "field": "depositAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "feesReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "inMultiplesOfDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "inMultiplesOfDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "incomeFromFeeAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "incomeFromPenaltyAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "interestOnSavingsAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "interestPayableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "penaltiesReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "savingsControlAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "savingsReferenceAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "taxGroupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "transfersInSuspenseAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "withHoldTax",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createFixedDepositProduct"
+    },
+    {
+      "field": "activationDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createGroup"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createGroup"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createGroup"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createGroup"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createGroup"
+    },
+    {
+      "field": "mandatoryGuarantee",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "maximumGap",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "minimumGap",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "minimumGuaranteeFromGuarantor",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "minimumGuaranteeFromOwnFunds",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "recalculationCompoundingFrequencyDayOfWeekType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "recalculationRestFrequencyDayOfWeekType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "recalculationRestFrequencyOnDayType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "syncExpectedWithDisbursementDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createLoanProduct"
+    },
+    {
+      "field": "definitions",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createProvisioningCriteria"
+    },
+    {
+      "field": "inMultiplesOfDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "inMultiplesOfDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "incomeFromFeeAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "incomeFromPenaltyAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "interestOnSavingsAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "isMandatoryDeposit",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "recurringFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "recurringFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "savingsControlAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "savingsReferenceAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "taxGroupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "transfersInSuspenseAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "withHoldTax",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRecurringDepositProduct"
+    },
+    {
+      "field": "depositAmount",
+      "from": "integer",
+      "kind": "request-type-change",
+      "level": "breaking",
+      "op": "createRecurringDepositProduct",
+      "to": "number"
+    },
+    {
+      "field": "maxDepositAmount",
+      "from": "integer",
+      "kind": "request-type-change",
+      "level": "breaking",
+      "op": "createRecurringDepositProduct",
+      "to": "number"
+    },
+    {
+      "field": "minDepositAmount",
+      "from": "integer",
+      "kind": "request-type-change",
+      "level": "breaking",
+      "op": "createRecurringDepositProduct",
+      "to": "number"
+    },
+    {
+      "field": "useReport",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createReport"
+    },
+    {
+      "field": "recalculateInterest",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createRescheduleLoan"
+    },
+    {
+      "field": "feeOnMonthDay",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountCharge"
+    },
+    {
+      "field": "monthDayFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountCharge"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountTransaction"
+    },
+    {
+      "field": "postInterestManualOrAutomatic",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountTransaction"
+    },
+    {
+      "field": "savingsArray",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountTransaction"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "postInterestManualOrAutomatic",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "savingsArray",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "daysToDormancy",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "daysToEscheat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "daysToInactive",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "feesReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "incomeFromFeeAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "incomeFromInterestId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "incomeFromPenaltyAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "interestOnSavingsAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "interestPayableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "interestReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "lienAllowed",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "maxAllowedLienLimit",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "minBalanceForInterestCalculation",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "minRequiredBalance",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "nominalAnnualInterestRateOverdraft",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "overdraftLimit",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "overdraftPortfolioControlId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "penaltiesReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "savingsControlAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "savingsReferenceAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "taxGroupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "transfersInSuspenseAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "writeOffAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createSavingsProduct"
+    },
+    {
+      "field": "incomeFromFeeAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createShareProduct"
+    },
+    {
+      "field": "shareEquityId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createShareProduct"
+    },
+    {
+      "field": "shareReferenceId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createShareProduct"
+    },
+    {
+      "field": "shareSuspenseId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createShareProduct"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "maxAnnualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "maxPaymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "minAnnualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "minPaymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "createWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "deleteDatatableEntries"
+    },
+    {
+      "field": "chargeOffReasonId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionByExternalId"
+    },
+    {
+      "field": "relatedExternalResourceId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionByExternalId"
+    },
+    {
+      "field": "reversalExternalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionByExternalId"
+    },
+    {
+      "field": "writeoffReasonId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionByExternalId"
+    },
+    {
+      "field": "chargeOffReasonId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "relatedExternalResourceId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "reversalExternalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "writeoffReasonId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "classificationId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "paymentDetails",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId"
+    },
+    {
+      "field": "classificationId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "paymentDetails",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId"
+    },
+    {
+      "field": "classificationId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "paymentDetails",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId"
+    },
+    {
+      "field": "classificationId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "paymentDetails",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId"
+    },
+    {
+      "field": "entitySubType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getDatatable"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getDocument"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getDocument"
+    },
+    {
+      "field": "createdBy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getInternalClientAuditFields"
+    },
+    {
+      "field": "createdDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getInternalClientAuditFields"
+    },
+    {
+      "field": "lastModifiedBy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getInternalClientAuditFields"
+    },
+    {
+      "field": "lastModifiedDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getInternalClientAuditFields"
+    },
+    {
+      "field": "accountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "field": "amount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "field": "date",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "field": "id",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "field": "installmentId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "field": "name",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "getPostDatedCheck"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandClient"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandClient"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandClientByExternalId"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandClientByExternalId"
+    },
+    {
+      "field": "groupMembers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsCenter"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsCenter"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsCenter"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsCenter"
+    },
+    {
+      "field": "activatedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "approvedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "closedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "onAccountClosureId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "rejectedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "toSavingsAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "transferDescription",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "withdrawnOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsFixedDepositAccount"
+    },
+    {
+      "field": "approvalFormData",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGlimLoan"
+    },
+    {
+      "field": "glimPrincipal",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGlimLoan"
+    },
+    {
+      "field": "netDisbursalAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGlimLoan"
+    },
+    {
+      "field": "postDatedChecks",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGlimLoan"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGlimLoan"
+    },
+    {
+      "field": "activationDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "clientMembers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "inheritStaffForClientAccounts",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsGroup"
+    },
+    {
+      "field": "approvalFormData",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoan"
+    },
+    {
+      "field": "glimPrincipal",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoan"
+    },
+    {
+      "field": "netDisbursalAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoan"
+    },
+    {
+      "field": "postDatedChecks",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoan"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoan"
+    },
+    {
+      "field": "approvalFormData",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanByExternalId"
+    },
+    {
+      "field": "glimPrincipal",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanByExternalId"
+    },
+    {
+      "field": "netDisbursalAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanByExternalId"
+    },
+    {
+      "field": "postDatedChecks",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanByExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanSchedule"
+    },
+    {
+      "field": "exceptions",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanSchedule"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsLoanSchedule"
+    },
+    {
+      "field": "periods",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleCommandsLoanSchedule"
+    },
+    {
+      "field": "activatedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "approvedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "closedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "onAccountClosureId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "rejectedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "toSavingsAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "transferDescription",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "withdrawnOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsRecurringDepositAccount"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccount"
+    },
+    {
+      "field": "postInterestValidationOnClosure",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccount"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccount"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccountByExternalId"
+    },
+    {
+      "field": "postInterestValidationOnClosure",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccountByExternalId"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsSavingsAccountByExternalId"
+    },
+    {
+      "field": "activatedDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsShareAccount"
+    },
+    {
+      "field": "approvedDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsShareAccount"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsShareAccount"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsShareAccount"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleCommandsShareAccount"
+    },
+    {
+      "field": "activatedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "approvedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "closedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "postInterestValidationOnClosure",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "rejectedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "withdrawBalance",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "withdrawnOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "handleGSIMCommands"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "chargeOffReasonId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "classificationId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "dueDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "frequencyNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "frequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "interestRefundCalculation",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "loanChargeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "note",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "numberOfInstallments",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "reAgeInterestHandling",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "reAmortizationInterestHandling",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "reasonCodeValueId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "reversalExternalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "startDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "writeoffReasonId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "loanRepayment"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "modifyWorkingCapitalLoanApplicationByExternalId"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "modifyWorkingCapitalLoanApplicationById"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "payOrWaiveClientCharge"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "refundByTransfer"
+    },
+    {
+      "field": "pageItems",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAllDepositAccountOnHoldFundTransactions"
+    },
+    {
+      "field": "totalFilteredRecords",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAllDepositAccountOnHoldFundTransactions"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAmortizationSchedule"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAmortizationSchedule"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAmortizationSchedule"
+    },
+    {
+      "field": "createdBy",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "createdDate",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "lastModifiedBy",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "lastModifiedDate",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "actionName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "checkedOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "checker",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "clientName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "commandAsJson",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "entityName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "groupLevelName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "groupName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "id",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "ip",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "loanAccountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "madeOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "maker",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "officeName",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "processingResult",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "savingsAccountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "subresourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "url",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveAuditEntry"
+    },
+    {
+      "field": "obligees",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveClientObligeeDetails"
+    },
+    {
+      "field": "obligees",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveClientObligeeDetailsByExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveLoanProductDetailsByExternalId"
+    },
+    {
+      "field": "graceOnArrearsAgeing",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveLoanProductDetailsByExternalId"
+    },
+    {
+      "field": "graceOnInterestPayment",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveLoanProductDetailsByExternalId"
+    },
+    {
+      "field": "graceOnPrincipalPayment",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveLoanProductDetailsByExternalId"
+    },
+    {
+      "field": "paymentDetailData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneAccountTransfer"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneCenter"
+    },
+    {
+      "field": "groupMembers",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneCenter"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneCenter"
+    },
+    {
+      "field": "feeFrequency",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneCharge"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClient"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClientByExternalId"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClientIdentifier"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneClientIdentifier"
+    },
+    {
+      "field": "nominalAnnualInterestRate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterest",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneFixedDepositAccount"
+    },
+    {
+      "field": "active",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneGroup"
+    },
+    {
+      "field": "clientMembers",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneGroup"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneGroup"
+    },
+    {
+      "field": "collateral",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoan"
+    },
+    {
+      "field": "subStatus",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoan"
+    },
+    {
+      "field": "collateral",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanByExternalId"
+    },
+    {
+      "field": "subStatus",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanByExternalId"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanCharge"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanChargeByChargeExternalId"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanChargeByLoanExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanProduct"
+    },
+    {
+      "field": "graceOnArrearsAgeing",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanProduct"
+    },
+    {
+      "field": "graceOnInterestPayment",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanProduct"
+    },
+    {
+      "field": "graceOnPrincipalPayment",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneLoanProduct"
+    },
+    {
+      "field": "provisioningcriteria",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveOneProvisioningCriteria"
+    },
+    {
+      "field": "definitions",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneProvisioningCriteria"
+    },
+    {
+      "field": "recurringDepositAmount",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "recurringDepositFrequency",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "recurringDepositFrequencyType",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "depositAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "mandatoryRecommendedDepositAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "maturityAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "nominalAnnualInterestRate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterest",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "recurringFrequency",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "recurringFrequencyType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneRecurringDepositAccount"
+    },
+    {
+      "field": "accountCredit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "accountDebit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "accountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "accountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "accrual",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "amount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "amountOnHold",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "amountRelease",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "annualFee",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "annualFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "balanceEndDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "balanceNumberOfDays",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "chargeTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "chargeTransactionAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "chargesPaidByData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "credit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "cumulativeBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "currency",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "date",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "debit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "deposit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "depositAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "dividendPayoutAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "endOfBalanceLocalDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "entryType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "feeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "feeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "id",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "interestPosting",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "interestPostingAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "interestedPostedAsOn",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "isManualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "isOverdraft",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "isReversal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "lienTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "locale",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "manualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "modifiedId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "notReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "note",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "originalTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "outstandingChargeAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "overdraftAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "overdraftInterestAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "payCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "paymentDetailData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "paymentTypeOptions",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "penaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "penaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "refNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "releaseTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "reversalTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "reversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "rowIndex",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "runningBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "savingsAccountChargesPaid",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "savingsAccountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "submittedByUsername",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "taxDetails",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "transactionType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "transfer",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "waiveCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "waiveFeeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "waiveFeeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "waivePenaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "waivePenaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "withHoldTaxAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "withdrawal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "withdrawalFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransaction"
+    },
+    {
+      "field": "accountCredit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "accountDebit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "accountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "accountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "accrual",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "amount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "amountOnHold",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "amountRelease",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "annualFee",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "annualFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "balanceEndDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "balanceNumberOfDays",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "chargeTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "chargeTransactionAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "chargesPaidByData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "credit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "cumulativeBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "currency",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "date",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "debit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "deposit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "depositAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "dividendPayoutAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "endOfBalanceLocalDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "entryType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "feeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "feeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "id",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "interestPosting",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "interestPostingAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "interestedPostedAsOn",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "isManualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "isOverdraft",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "isReversal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "lienTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "manualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "modifiedId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "notReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "note",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "originalTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "outstandingChargeAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "overdraftAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "overdraftInterestAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "payCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "paymentDetailData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "paymentTypeOptions",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "penaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "penaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "refNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "releaseTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "reversalTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "reversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "rowIndex",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "runningBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "savingsAccountChargesPaid",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "savingsAccountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "submittedByUsername",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "taxDetails",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transactionType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "transfer",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "waiveCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "waiveFeeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "waiveFeeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "waivePenaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "waivePenaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "withHoldTaxAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "withdrawal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "withdrawalFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionByExternalId"
+    },
+    {
+      "field": "accountCredit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "accountDebit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "accountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "accountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "accrual",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "amount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "amountOnHold",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "amountRelease",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "annualFee",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "annualFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "balanceEndDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "balanceNumberOfDays",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "chargeTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "chargeTransactionAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "chargesPaidByData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "credit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "cumulativeBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "currency",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "date",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "debit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "deposit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "depositAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "dividendPayoutAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "endOfBalanceLocalDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "entryType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "feeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "feeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "id",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "interestPosting",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "interestPostingAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "interestedPostedAsOn",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "isManualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "isOverdraft",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "isReversal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "lienTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "manualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "modifiedId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "notReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "note",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "originalTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "outstandingChargeAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "overdraftAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "overdraftInterestAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "payCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "paymentDetailData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "paymentTypeOptions",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "penaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "penaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "refNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "releaseTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "reversalTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "reversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "rowIndex",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "runningBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "savingsAccountChargesPaid",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "savingsAccountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "submittedByUsername",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "taxDetails",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transactionType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "transfer",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "waiveCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "waiveFeeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "waiveFeeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "waivePenaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "waivePenaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "withHoldTaxAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "withdrawal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "withdrawalFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId"
+    },
+    {
+      "field": "accountCredit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "accountDebit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "accountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "accountNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "accountNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "accrual",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "amount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "amountOnHold",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "amountRelease",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "annualFee",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "annualFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "balanceEndDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "balanceNumberOfDays",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "bankNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "chargeTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "chargeTransactionAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "chargesPaidByData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "checkNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "credit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "cumulativeBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "currency",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "date",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "debit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "deposit",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "depositAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "dividendPayoutAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "endOfBalanceLocalDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "entryType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "feeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "feeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "id",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "interestPosting",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "interestPostingAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "interestedPostedAsOn",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "isManualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "isOverdraft",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "isReversal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "lienTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "locale",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "manualTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "modifiedId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "notReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "note",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "originalTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "outstandingChargeAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "overdraftAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "overdraftInterestAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "payCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "paymentDetailData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "paymentTypeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "paymentTypeOptions",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "penaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "penaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "reasonForBlock",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "receiptNumber",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "refNo",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "releaseTransactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "reversalTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "reversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "routingCode",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "rowIndex",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "runningBalance",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "savingsAccountChargesPaid",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "savingsAccountId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "submittedByUsername",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "taxDetails",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transactionAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transactionDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transactionType",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "transfer",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "waiveCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "waiveFeeCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "waiveFeeChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "waivePenaltyCharge",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "waivePenaltyChargeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "withHoldTaxAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "withdrawal",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "withdrawalFeeAndNotReversed",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneSavingsAccountTransactionBySavingsExternalId"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "maxAnnualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "maxPaymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "minAnnualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "minPaymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "maxAnnualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "maxPaymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "minAnnualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "minPaymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveOneWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "feeOnMonthDay",
+      "from": "object",
+      "kind": "response-type-change",
+      "level": "breaking",
+      "op": "retrieveTemplateCharge",
+      "to": "string"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateClientIdentifier"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateClientIdentifier"
+    },
+    {
+      "field": "loanRepaymentScheduleInstallments",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateLoanTransaction"
+    },
+    {
+      "field": "loanRepaymentScheduleInstallments",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateLoanTransactionByLoanExternalId"
+    },
+    {
+      "field": "amountWaived",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanCharge"
+    },
+    {
+      "field": "amountWrittenOff",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanCharge"
+    },
+    {
+      "field": "amountWaived",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "field": "amountWrittenOff",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "field": "paymentAmountCalculationStrategyOptions",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveTemplateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "classificationOptions",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanActionTemplate"
+    },
+    {
+      "field": "expectedAmount",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanActionTemplate"
+    },
+    {
+      "field": "expectedMaturityDate",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanActionTemplate"
+    },
+    {
+      "field": "loanId",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanActionTemplate"
+    },
+    {
+      "field": "paymentTypeOptions",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanActionTemplate"
+    },
+    {
+      "field": "dailyEir",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "breachEffectiveStartDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "chargeOffReason",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "chargedOffOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "delinquencyEffectiveStartDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "overpaidOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "periodPaymentRateHistory",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "writeOffReason",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "writtenOffOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanByExternalId"
+    },
+    {
+      "field": "dailyEir",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "breachEffectiveStartDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "chargeOffReason",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "chargedOffOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "delinquencyEffectiveStartDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "overpaidOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "periodPaymentRateHistory",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "writeOffReason",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "writtenOffOnDate",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanById"
+    },
+    {
+      "field": "amountWaived",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanCharge"
+    },
+    {
+      "field": "amountWrittenOff",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanCharge"
+    },
+    {
+      "field": "amountWaived",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByChargeExternalId"
+    },
+    {
+      "field": "amountWrittenOff",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByChargeExternalId"
+    },
+    {
+      "field": "amountWaived",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "field": "amountWrittenOff",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId"
+    },
+    {
+      "field": "amountWaived",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "field": "amountWrittenOff",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanChargeByLoanExternalId"
+    },
+    {
+      "field": "chargePaidByList",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId"
+    },
+    {
+      "field": "externalLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId"
+    },
+    {
+      "field": "wcLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId"
+    },
+    {
+      "field": "chargePaidByList",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId"
+    },
+    {
+      "field": "externalLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId"
+    },
+    {
+      "field": "wcLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId"
+    },
+    {
+      "field": "chargePaidByList",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalTransactionId"
+    },
+    {
+      "field": "externalLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalTransactionId"
+    },
+    {
+      "field": "wcLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionByExternalTransactionId"
+    },
+    {
+      "field": "chargePaidByList",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "externalLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "wcLoanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "retrieveWorkingCapitalLoanTransactionById"
+    },
+    {
+      "field": "expectedFirstDepositOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "interestCalculationDaysInYearType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "interestCalculationType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "interestCompoundingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "interestPostingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "maxDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "maxDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "minDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "minDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "monthDayFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalApplicable",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterest",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterestOnTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitApplicationRecurringDepositAccount"
+    },
+    {
+      "field": "mandatoryRecommendedDepositAmount",
+      "from": "integer",
+      "kind": "request-type-change",
+      "level": "breaking",
+      "op": "submitApplicationRecurringDepositAccount",
+      "to": "number"
+    },
+    {
+      "field": "clientArray",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "savingsArray",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "submitGSIMApplication"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitSavingsApplication"
+    },
+    {
+      "field": "withdrawalFeeForTransfers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitSavingsApplication"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitWorkingCapitalLoanApplication"
+    },
+    {
+      "field": "datatables",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitWorkingCapitalLoanApplication"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "submitWorkingCapitalLoanApplication"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateCenter"
+    },
+    {
+      "field": "staffId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateCenter"
+    },
+    {
+      "field": "mobileNo",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClient"
+    },
+    {
+      "field": "street",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClientAddress"
+    },
+    {
+      "field": "mobileNo",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClientByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClientIdentifier"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClientIdentifier"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClientIdentifier"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateClientIdentifier"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateDatatableEntryOneToMany"
+    },
+    {
+      "field": "approvedLoanAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "field": "expectedDisbursementDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "field": "locale",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "field": "updatedExpectedDisbursementDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "field": "updatedPrincipal",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDisbursementDate"
+    },
+    {
+      "field": "expiryDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDocument"
+    },
+    {
+      "field": "issuanceDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateDocument"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "depositPeriod",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "depositPeriodFrequencyId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "interestCalculationDaysInYearType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "interestCalculationType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "interestCompoundingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "interestPostingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "linkAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "maturityInstructionId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "maxDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "maxDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "minDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "minDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "monthDayFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalApplicable",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterest",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterestOnTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "productId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "transferInterestToSavings",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateFixedDepositAccount"
+    },
+    {
+      "field": "comments",
+      "kind": "removed-response-field",
+      "level": "breaking",
+      "op": "updateGLAccountMappingFinancialActivityAccount"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateGLAccountMappingFinancialActivityAccount"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "productId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateGsim"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "commandId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "creditBureauReportData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "externalIdOrNull",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "loanExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "productId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "resourceIdentifier",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "rollbackTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "subResourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetail"
+    },
+    {
+      "field": "changes",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "commandId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "creditBureauReportData",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "externalIdOrNull",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "glimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "gsimId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "loanExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "loanId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "officeId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "productId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "resourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "resourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "resourceIdentifier",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "rollbackTransaction",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "savingsId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "subResourceExternalId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "subResourceId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "transactionId",
+      "kind": "new-response-field",
+      "level": "additive",
+      "op": "updateJobDetailByShortName"
+    },
+    {
+      "field": "definitions",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateProvisioningCriteria"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "depositPeriod",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "depositPeriodFrequencyId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "expectedFirstDepositOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "inMultiplesOfDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "interestCalculationDaysInYearType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "interestCalculationType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "interestCompoundingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "interestPostingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "isCalendarInherited",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "lockinPeriodFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "mandatoryRecommendedDepositAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "maxDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "maxDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "minDepositTerm",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "minDepositTermTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "monthDayFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalApplicable",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterest",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "preClosurePenalInterestOnTypeId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "productId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "recurringFrequency",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "recurringFrequencyType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateRecurringDepositAccount"
+    },
+    {
+      "field": "depositAmount",
+      "from": "integer",
+      "kind": "request-type-change",
+      "level": "breaking",
+      "op": "updateRecurringDepositAccount",
+      "to": "number"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "productId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "withHoldTax",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "withdrawalFeeForTransfers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccount"
+    },
+    {
+      "field": "clientId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "externalId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "groupId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "productId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "submittedOnDate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "withHoldTax",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "withdrawalFeeForTransfers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsAccountByExternalId"
+    },
+    {
+      "field": "accountingRule",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "allowOverdraft",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "currencyCode",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "digitsAfterDecimal",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "enforceMinRequiredBalance",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "feesReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "inMultiplesOf",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "incomeFromFeeAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "incomeFromInterestId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "incomeFromPenaltyAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestCalculationDaysInYearType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestCalculationType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestCompoundingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestOnSavingsAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestPayableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestPostingPeriodType",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "interestReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "minRequiredOpeningBalance",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "name",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "nominalAnnualInterestRate",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "nominalAnnualInterestRateOverdraft",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "overdraftLimit",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "overdraftPortfolioControlId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "penaltiesReceivableAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "savingsControlAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "savingsReferenceAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "shortName",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "transfersInSuspenseAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "withHoldTax",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "withdrawalFeeForTransfers",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "writeOffAccountId",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateSavingsProduct"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "maxAnnualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "maxPaymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "minAnnualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "minPaymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProduct"
+    },
+    {
+      "field": "annualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "maxAnnualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "maxPaymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "minAnnualEir",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "minPaymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "paymentAmount",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "paymentAmountCalculationStrategy",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanProductByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanRateByExternalId"
+    },
+    {
+      "field": "effectiveDate",
+      "kind": "new-required-request-field",
+      "level": "breaking",
+      "op": "updateWorkingCapitalLoanRateByExternalId"
+    },
+    {
+      "field": "dateFormat",
+      "kind": "new-request-field",
+      "level": "additive",
+      "op": "updateWorkingCapitalLoanRateById"
+    },
+    {
+      "field": "effectiveDate",
+      "kind": "new-required-request-field",
+      "level": "breaking",
+      "op": "updateWorkingCapitalLoanRateById"
+    }
+  ],
   "counts": {
-    "additive": 0,
-    "breaking": 0,
-    "total": 0
+    "additive": 1093,
+    "breaking": 36,
+    "total": 1129
   },
   "firstRun": false,
-  "generatedAt": "2026-08-02T07:54:58.344Z"
+  "generatedAt": "2026-10-05T13:10:20.197Z"
 }
