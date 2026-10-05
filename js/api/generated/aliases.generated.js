@@ -1604,6 +1604,15 @@ export const API_ALIASES = [
     "path": "/v1/entityDatatableChecks/{entityDatatableCheckId}"
   },
   {
+    "id": "api:deleteExternalAssetOwnerLoanProductAttribute",
+    "label": "Delete External Asset Owner Loan Product Attribute",
+    "cat": "External Asset Owner Loan Product Attributes",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "deleteExternalAssetOwnerLoanProductAttribute",
+    "method": "DELETE",
+    "path": "/v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}"
+  },
+  {
     "id": "api:deleteFixedDepositAccount",
     "label": "Delete Fixed Deposit Account",
     "cat": "Fixed Deposit Account",
@@ -3359,6 +3368,24 @@ export const API_ALIASES = [
     "path": "/v1/working-capital-loans/{loanId}/rate-changes"
   },
   {
+    "id": "api:getWorkingCapitalLoanTransactionTemplateByExternalId",
+    "label": "List Working Capital Loan Transaction",
+    "cat": "Working Capital Loan Transactions",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "getWorkingCapitalLoanTransactionTemplateByExternalId",
+    "method": "GET",
+    "path": "/v1/working-capital-loans/external-id/{loanExternalId}/transactions/template"
+  },
+  {
+    "id": "api:getWorkingCapitalLoanTransactionTemplateById",
+    "label": "List Working Capital Loan Transaction",
+    "cat": "Working Capital Loan Transactions",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "getWorkingCapitalLoanTransactionTemplateById",
+    "method": "GET",
+    "path": "/v1/working-capital-loans/{loanId}/transactions/template"
+  },
+  {
     "id": "api:handleBatchRequests",
     "label": "Create Batch API",
     "cat": "Batch API",
@@ -3654,6 +3681,24 @@ export const API_ALIASES = [
     "operationId": "loanReprocess",
     "method": "POST",
     "path": "/v1/internal/cob/loan-reprocess/{loanId}"
+  },
+  {
+    "id": "api:markWorkingCapitalLoanAsFraudByExternalId",
+    "label": "Update Working Capital Loan",
+    "cat": "Working Capital Loans",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "markWorkingCapitalLoanAsFraudByExternalId",
+    "method": "PUT",
+    "path": "/v1/working-capital-loans/external-id/{loanExternalId}/mark-as-fraud"
+  },
+  {
+    "id": "api:markWorkingCapitalLoanAsFraudById",
+    "label": "Update Working Capital Loan",
+    "cat": "Working Capital Loans",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "markWorkingCapitalLoanAsFraudById",
+    "method": "PUT",
+    "path": "/v1/working-capital-loans/{loanId}/mark-as-fraud"
   },
   {
     "id": "api:mergeTemplate",
@@ -4214,6 +4259,15 @@ export const API_ALIASES = [
     "path": "/v1/accounttransfers"
   },
   {
+    "id": "api:retrieveAllAuditsV2",
+    "label": "List Audits V2",
+    "cat": "Audits V2",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "retrieveAllAuditsV2",
+    "method": "GET",
+    "path": "/v2/audits"
+  },
+  {
     "id": "api:retrieveAllAvailableBusinessStep",
     "label": "List Business Step Configuration",
     "cat": "Business Step Configuration",
@@ -4232,24 +4286,6 @@ export const API_ALIASES = [
     "path": "/v1/runreports/availableExports/{reportName}"
   },
   {
-    "id": "api:retrieveAllCashierJournals",
-    "label": "List Cashier Journal",
-    "cat": "Cashier Journals",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveAllCashierJournals",
-    "method": "GET",
-    "path": "/v1/cashiersjournal"
-  },
-  {
-    "id": "api:retrieveAllCashiers",
-    "label": "List Cashier",
-    "cat": "Cashiers",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveAllCashiers",
-    "method": "GET",
-    "path": "/v1/cashiers"
-  },
-  {
     "id": "api:retrieveAllCashiersForTeller",
     "label": "List Teller Cash Management",
     "cat": "Teller Cash Management",
@@ -4266,6 +4302,15 @@ export const API_ALIASES = [
     "operationId": "retrieveAllCenters",
     "method": "GET",
     "path": "/v1/centers"
+  },
+  {
+    "id": "api:retrieveAllCentersV2",
+    "label": "List Centers V2",
+    "cat": "Centers V2",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "retrieveAllCentersV2",
+    "method": "GET",
+    "path": "/v2/centers"
   },
   {
     "id": "api:retrieveAllCharges",
@@ -4484,6 +4529,15 @@ export const API_ALIASES = [
     "path": "/v1/fixeddepositaccounts"
   },
   {
+    "id": "api:retrieveAllFixedDepositAccountsV2",
+    "label": "List Fixed Deposit Accounts V2",
+    "cat": "Fixed Deposit Accounts V2",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "retrieveAllFixedDepositAccountsV2",
+    "method": "GET",
+    "path": "/v2/fixeddepositaccounts"
+  },
+  {
     "id": "api:retrieveAllFixedDepositAccountTransactions",
     "label": "List Fixed Deposit Account Transaction",
     "cat": "Fixed Deposit Account Transactions",
@@ -4538,6 +4592,15 @@ export const API_ALIASES = [
     "path": "/v1/groups"
   },
   {
+    "id": "api:retrieveAllGroupsV2",
+    "label": "List Groups V2",
+    "cat": "Groups V2",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "retrieveAllGroupsV2",
+    "method": "GET",
+    "path": "/v2/groups"
+  },
+  {
     "id": "api:retrieveAllHolidays",
     "label": "List Holiday",
     "cat": "Holidays",
@@ -4581,15 +4644,6 @@ export const API_ALIASES = [
     "operationId": "retrieveAllJournalEntries",
     "method": "GET",
     "path": "/v1/journalentries"
-  },
-  {
-    "id": "api:retrieveAllJournalsForTeller",
-    "label": "List Teller Cash Management",
-    "cat": "Teller Cash Management",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveAllJournalsForTeller",
-    "method": "GET",
-    "path": "/v1/tellers/{tellerId}/journals"
   },
   {
     "id": "api:retrieveAllLoanCharges",
@@ -4691,15 +4745,6 @@ export const API_ALIASES = [
     "path": "/v1/{entityType}/{entityId}/meetings"
   },
   {
-    "id": "api:retrieveAllMixTaxonomies",
-    "label": "List Mix Taxonomy",
-    "cat": "Mix Taxonomy",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveAllMixTaxonomies",
-    "method": "GET",
-    "path": "/v1/mixtaxonomy"
-  },
-  {
     "id": "api:retrieveAllOffices",
     "label": "List Office",
     "cat": "Offices",
@@ -4761,6 +4806,15 @@ export const API_ALIASES = [
     "operationId": "retrieveAllRecurringDepositAccounts",
     "method": "GET",
     "path": "/v1/recurringdepositaccounts"
+  },
+  {
+    "id": "api:retrieveAllRecurringDepositAccountsV2",
+    "label": "List Recurring Deposit Accounts V2",
+    "cat": "Recurring Deposit Accounts V2",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "retrieveAllRecurringDepositAccountsV2",
+    "method": "GET",
+    "path": "/v2/recurringdepositaccounts"
   },
   {
     "id": "api:retrieveAllRecurringDepositProducts",
@@ -4995,15 +5049,6 @@ export const API_ALIASES = [
     "operationId": "retrieveAllTemplatesEmailCampaign",
     "method": "GET",
     "path": "/v1/email/campaign/template"
-  },
-  {
-    "id": "api:retrieveAllTransactionsForTeller",
-    "label": "List Teller Cash Management",
-    "cat": "Teller Cash Management",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveAllTransactionsForTeller",
-    "method": "GET",
-    "path": "/v1/tellers/{tellerId}/transactions"
   },
   {
     "id": "api:retrieveAllUsers",
@@ -5688,24 +5733,6 @@ export const API_ALIASES = [
     "operationId": "retrieveLockedAccounts",
     "method": "GET",
     "path": "/v1/loans/locked"
-  },
-  {
-    "id": "api:retrieveMixReport",
-    "label": "List Mix Report",
-    "cat": "Mix Report",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveMixReport",
-    "method": "GET",
-    "path": "/v1/mixreport"
-  },
-  {
-    "id": "api:retrieveMixTaxonomyMapping",
-    "label": "List Mix Mapping",
-    "cat": "Mix Mapping",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveMixTaxonomyMapping",
-    "method": "GET",
-    "path": "/v1/mixmapping"
   },
   {
     "id": "api:retrieveNewAccountDetails",
@@ -6419,15 +6446,6 @@ export const API_ALIASES = [
     "path": "/v1/email/campaign/template/{resourceId}"
   },
   {
-    "id": "api:retrieveOneTransactionForTeller",
-    "label": "View Teller Cash Management",
-    "cat": "Teller Cash Management",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "retrieveOneTransactionForTeller",
-    "method": "GET",
-    "path": "/v1/tellers/{tellerId}/transactions/{transactionId}"
-  },
-  {
     "id": "api:retrieveOneUser",
     "label": "View User",
     "cat": "Users",
@@ -6732,6 +6750,15 @@ export const API_ALIASES = [
     "operationId": "retrieveTemplateEntityDatatableChecks",
     "method": "GET",
     "path": "/v1/entityDatatableChecks/template"
+  },
+  {
+    "id": "api:retrieveTemplateExternalAssetOwnerLoanProductAttributes",
+    "label": "List External Asset Owner Loan Product Attribute",
+    "cat": "External Asset Owner Loan Product Attributes",
+    "icon": "fa-solid fa-terminal",
+    "operationId": "retrieveTemplateExternalAssetOwnerLoanProductAttributes",
+    "method": "GET",
+    "path": "/v1/external-asset-owners/loan-product/template"
   },
   {
     "id": "api:retrieveTemplateFixedDepositAccount",
@@ -8280,15 +8307,6 @@ export const API_ALIASES = [
     "operationId": "updateMeetingAttendance",
     "method": "POST",
     "path": "/v1/{entityType}/{entityId}/meetings/{meetingId}"
-  },
-  {
-    "id": "api:updateMixTaxonomyMapping",
-    "label": "Update Mix Mapping",
-    "cat": "Mix Mapping",
-    "icon": "fa-solid fa-terminal",
-    "operationId": "updateMixTaxonomyMapping",
-    "method": "PUT",
-    "path": "/v1/mixmapping"
   },
   {
     "id": "api:updateNote",

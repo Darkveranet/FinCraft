@@ -1,64 +1,1200 @@
 # Contract Diff Report
 
-_Generated 2026-08-02T07:54:58.344Z_
+_Generated 2026-10-05T13:10:20.197Z_
 
-**Result:** ✅ Additive only — safe to auto-merge
+**Result:** 🚨 Breaking changes detected — requires review
 
-- Total changes: **0**
-- Breaking: **0**
-- Additive: **0**
+- Total changes: **1129**
+- Breaking: **36**
+- Additive: **1093**
+
+## 🚨 Breaking
+
+| Operation | Change | Field | Detail |
+| --- | --- | --- | --- |
+| `retrieveAllCashierJournals` | removed-operation |  |  |
+| `retrieveAllCashiers` | removed-operation |  |  |
+| `retrieveAllJournalsForTeller` | removed-operation |  |  |
+| `retrieveAllMixTaxonomies` | removed-operation |  |  |
+| `retrieveAllTransactionsForTeller` | removed-operation |  |  |
+| `retrieveMixReport` | removed-operation |  |  |
+| `retrieveMixTaxonomyMapping` | removed-operation |  |  |
+| `retrieveOneTransactionForTeller` | removed-operation |  |  |
+| `updateMixTaxonomyMapping` | removed-operation |  |  |
+| `createClientCharge` | request-type-change | amount | integer → number |
+| `createRecurringDepositProduct` | request-type-change | depositAmount | integer → number |
+| `createRecurringDepositProduct` | request-type-change | maxDepositAmount | integer → number |
+| `createRecurringDepositProduct` | request-type-change | minDepositAmount | integer → number |
+| `retrieveAuditEntry` | removed-response-field | createdBy |  |
+| `retrieveAuditEntry` | removed-response-field | createdDate |  |
+| `retrieveAuditEntry` | removed-response-field | lastModifiedBy |  |
+| `retrieveAuditEntry` | removed-response-field | lastModifiedDate |  |
+| `retrieveClientObligeeDetails` | removed-response-field | obligees |  |
+| `retrieveClientObligeeDetailsByExternalId` | removed-response-field | obligees |  |
+| `retrieveOneProvisioningCriteria` | removed-response-field | provisioningcriteria |  |
+| `retrieveOneRecurringDepositAccount` | removed-response-field | recurringDepositAmount |  |
+| `retrieveOneRecurringDepositAccount` | removed-response-field | recurringDepositFrequency |  |
+| `retrieveOneRecurringDepositAccount` | removed-response-field | recurringDepositFrequencyType |  |
+| `retrieveTemplateCharge` | response-type-change | feeOnMonthDay | object → string |
+| `retrieveWorkingCapitalLoanActionTemplate` | removed-response-field | classificationOptions |  |
+| `retrieveWorkingCapitalLoanActionTemplate` | removed-response-field | expectedAmount |  |
+| `retrieveWorkingCapitalLoanActionTemplate` | removed-response-field | expectedMaturityDate |  |
+| `retrieveWorkingCapitalLoanActionTemplate` | removed-response-field | loanId |  |
+| `retrieveWorkingCapitalLoanActionTemplate` | removed-response-field | paymentTypeOptions |  |
+| `retrieveWorkingCapitalLoanByExternalId` | removed-response-field | dailyEir |  |
+| `retrieveWorkingCapitalLoanById` | removed-response-field | dailyEir |  |
+| `submitApplicationRecurringDepositAccount` | request-type-change | mandatoryRecommendedDepositAmount | integer → number |
+| `updateGLAccountMappingFinancialActivityAccount` | removed-response-field | comments |  |
+| `updateRecurringDepositAccount` | request-type-change | depositAmount | integer → number |
+| `updateWorkingCapitalLoanRateByExternalId` | new-required-request-field | effectiveDate |  |
+| `updateWorkingCapitalLoanRateById` | new-required-request-field | effectiveDate |  |
+
+## ➕ Additive
+
+| Operation | Change | Field | Detail |
+| --- | --- | --- | --- |
+| `deleteExternalAssetOwnerLoanProductAttribute` | new-operation |  |  |
+| `getWorkingCapitalLoanTransactionTemplateByExternalId` | new-operation |  |  |
+| `getWorkingCapitalLoanTransactionTemplateById` | new-operation |  |  |
+| `markWorkingCapitalLoanAsFraudByExternalId` | new-operation |  |  |
+| `markWorkingCapitalLoanAsFraudById` | new-operation |  |  |
+| `retrieveAllAuditsV2` | new-operation |  |  |
+| `retrieveAllCentersV2` | new-operation |  |  |
+| `retrieveAllFixedDepositAccountsV2` | new-operation |  |  |
+| `retrieveAllGroupsV2` | new-operation |  |  |
+| `retrieveAllRecurringDepositAccountsV2` | new-operation |  |  |
+| `retrieveTemplateExternalAssetOwnerLoanProductAttributes` | new-operation |  |  |
+| `adjustSavingsAccountTransaction` | new-request-field | dateFormat |  |
+| `adjustSavingsAccountTransaction` | new-request-field | locale |  |
+| `adjustSavingsAccountTransaction` | new-request-field | paymentTypeId |  |
+| `adjustSavingsAccountTransaction` | new-request-field | transactionAmount |  |
+| `adjustSavingsAccountTransaction` | new-request-field | transactionDate |  |
+| `adjustSavingsAccountTransaction` | new-response-field | changes |  |
+| `adjustSavingsAccountTransaction` | new-response-field | clientId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | commandId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | creditBureauReportData |  |
+| `adjustSavingsAccountTransaction` | new-response-field | externalIdOrNull |  |
+| `adjustSavingsAccountTransaction` | new-response-field | glimId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | groupId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | gsimId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | loanExternalId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | loanId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | officeId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | productId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | resourceExternalId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | resourceId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | resourceIdentifier |  |
+| `adjustSavingsAccountTransaction` | new-response-field | rollbackTransaction |  |
+| `adjustSavingsAccountTransaction` | new-response-field | savingsId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | subResourceExternalId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | subResourceId |  |
+| `adjustSavingsAccountTransaction` | new-response-field | transactionId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-request-field | dateFormat |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-request-field | locale |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-request-field | paymentTypeId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-request-field | transactionAmount |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-request-field | transactionDate |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | changes |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | clientId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | commandId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | creditBureauReportData |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | externalIdOrNull |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | glimId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | groupId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | gsimId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | loanExternalId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | loanId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | officeId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | productId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | resourceExternalId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | resourceId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | resourceIdentifier |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | rollbackTransaction |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | savingsId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | subResourceExternalId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | subResourceId |  |
+| `adjustSavingsAccountTransactionByExternalId` | new-response-field | transactionId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-request-field | dateFormat |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-request-field | locale |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-request-field | paymentTypeId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-request-field | transactionAmount |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-request-field | transactionDate |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | changes |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | clientId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | commandId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | creditBureauReportData |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | externalIdOrNull |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | glimId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | groupId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | gsimId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | loanExternalId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | loanId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | officeId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | productId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | resourceExternalId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | resourceId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | resourceIdentifier |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | rollbackTransaction |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | savingsId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | subResourceExternalId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | subResourceId |  |
+| `adjustSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | transactionId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-request-field | dateFormat |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-request-field | locale |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-request-field | paymentTypeId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-request-field | transactionAmount |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-request-field | transactionDate |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | changes |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | clientId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | commandId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | creditBureauReportData |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | externalIdOrNull |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | glimId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | groupId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | gsimId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | loanExternalId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | loanId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | officeId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | productId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | resourceExternalId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | resourceId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | resourceIdentifier |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | rollbackTransaction |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | savingsId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | subResourceExternalId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | subResourceId |  |
+| `adjustSavingsAccountTransactionBySavingsExternalId` | new-response-field | transactionId |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | calendarId |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | collateral |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | createStandingInstructionAtDisbursement |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | groupId |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | interestChargedFromDate |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | interestRateDifferential |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | isFloatingInterestRate |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | isParentAccount |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | syncDisbursementWithMeeting |  |
+| `calculateOrSubmitLoanApplication` | new-request-field | totalLoan |  |
+| `calculateOrSubmitLoanApplication` | new-response-field | glimId |  |
+| `createAccountTransfer` | new-request-field | accountNumber |  |
+| `createAccountTransfer` | new-request-field | bankNumber |  |
+| `createAccountTransfer` | new-request-field | checkNumber |  |
+| `createAccountTransfer` | new-request-field | paymentTypeId |  |
+| `createAccountTransfer` | new-request-field | receiptNumber |  |
+| `createAccountTransfer` | new-request-field | routingCode |  |
+| `createBreachAction` | new-request-field | restartPeriodFromResetDate |  |
+| `createBreachActionByExternalId` | new-request-field | restartPeriodFromResetDate |  |
+| `createCenter` | new-request-field | activationDate |  |
+| `createCenter` | new-request-field | dateFormat |  |
+| `createCenter` | new-request-field | externalId |  |
+| `createCenter` | new-request-field | groupMembers |  |
+| `createCenter` | new-request-field | locale |  |
+| `createCenter` | new-request-field | staffId |  |
+| `createClient` | new-request-field | clientNonPersonDetails |  |
+| `createClientAddress` | new-request-field | street |  |
+| `createClientIdentifier` | new-request-field | dateFormat |  |
+| `createClientIdentifier` | new-request-field | expiryDate |  |
+| `createClientIdentifier` | new-request-field | issuanceDate |  |
+| `createClientIdentifier` | new-request-field | locale |  |
+| `createDocument` | new-request-field | expiryDate |  |
+| `createDocument` | new-request-field | issuanceDate |  |
+| `createFixedDepositAccount` | new-request-field | inMultiplesOfDepositTerm |  |
+| `createFixedDepositAccount` | new-request-field | inMultiplesOfDepositTermTypeId |  |
+| `createFixedDepositAccount` | new-request-field | interestCalculationDaysInYearType |  |
+| `createFixedDepositAccount` | new-request-field | interestCalculationType |  |
+| `createFixedDepositAccount` | new-request-field | interestCompoundingPeriodType |  |
+| `createFixedDepositAccount` | new-request-field | interestPostingPeriodType |  |
+| `createFixedDepositAccount` | new-request-field | linkAccountId |  |
+| `createFixedDepositAccount` | new-request-field | lockinPeriodFrequency |  |
+| `createFixedDepositAccount` | new-request-field | lockinPeriodFrequencyType |  |
+| `createFixedDepositAccount` | new-request-field | maturityInstructionId |  |
+| `createFixedDepositAccount` | new-request-field | maxDepositTerm |  |
+| `createFixedDepositAccount` | new-request-field | maxDepositTermTypeId |  |
+| `createFixedDepositAccount` | new-request-field | minDepositTerm |  |
+| `createFixedDepositAccount` | new-request-field | minDepositTermTypeId |  |
+| `createFixedDepositAccount` | new-request-field | monthDayFormat |  |
+| `createFixedDepositAccount` | new-request-field | preClosurePenalApplicable |  |
+| `createFixedDepositAccount` | new-request-field | preClosurePenalInterest |  |
+| `createFixedDepositAccount` | new-request-field | preClosurePenalInterestOnTypeId |  |
+| `createFixedDepositAccount` | new-request-field | transferInterestToSavings |  |
+| `createFixedDepositProduct` | new-request-field | depositAmount |  |
+| `createFixedDepositProduct` | new-request-field | feesReceivableAccountId |  |
+| `createFixedDepositProduct` | new-request-field | inMultiplesOfDepositTerm |  |
+| `createFixedDepositProduct` | new-request-field | inMultiplesOfDepositTermTypeId |  |
+| `createFixedDepositProduct` | new-request-field | incomeFromFeeAccountId |  |
+| `createFixedDepositProduct` | new-request-field | incomeFromPenaltyAccountId |  |
+| `createFixedDepositProduct` | new-request-field | interestOnSavingsAccountId |  |
+| `createFixedDepositProduct` | new-request-field | interestPayableAccountId |  |
+| `createFixedDepositProduct` | new-request-field | lockinPeriodFrequency |  |
+| `createFixedDepositProduct` | new-request-field | lockinPeriodFrequencyType |  |
+| `createFixedDepositProduct` | new-request-field | penaltiesReceivableAccountId |  |
+| `createFixedDepositProduct` | new-request-field | savingsControlAccountId |  |
+| `createFixedDepositProduct` | new-request-field | savingsReferenceAccountId |  |
+| `createFixedDepositProduct` | new-request-field | taxGroupId |  |
+| `createFixedDepositProduct` | new-request-field | transfersInSuspenseAccountId |  |
+| `createFixedDepositProduct` | new-request-field | withHoldTax |  |
+| `createGroup` | new-request-field | activationDate |  |
+| `createGroup` | new-request-field | dateFormat |  |
+| `createGroup` | new-request-field | externalId |  |
+| `createGroup` | new-request-field | locale |  |
+| `createGroup` | new-request-field | submittedOnDate |  |
+| `createLoanProduct` | new-request-field | mandatoryGuarantee |  |
+| `createLoanProduct` | new-request-field | maximumGap |  |
+| `createLoanProduct` | new-request-field | minimumGap |  |
+| `createLoanProduct` | new-request-field | minimumGuaranteeFromGuarantor |  |
+| `createLoanProduct` | new-request-field | minimumGuaranteeFromOwnFunds |  |
+| `createLoanProduct` | new-request-field | recalculationCompoundingFrequencyDayOfWeekType |  |
+| `createLoanProduct` | new-request-field | recalculationRestFrequencyDayOfWeekType |  |
+| `createLoanProduct` | new-request-field | recalculationRestFrequencyOnDayType |  |
+| `createLoanProduct` | new-request-field | syncExpectedWithDisbursementDate |  |
+| `createProvisioningCriteria` | new-request-field | definitions |  |
+| `createRecurringDepositProduct` | new-request-field | inMultiplesOfDepositTerm |  |
+| `createRecurringDepositProduct` | new-request-field | inMultiplesOfDepositTermTypeId |  |
+| `createRecurringDepositProduct` | new-request-field | incomeFromFeeAccountId |  |
+| `createRecurringDepositProduct` | new-request-field | incomeFromPenaltyAccountId |  |
+| `createRecurringDepositProduct` | new-request-field | interestOnSavingsAccountId |  |
+| `createRecurringDepositProduct` | new-request-field | isMandatoryDeposit |  |
+| `createRecurringDepositProduct` | new-request-field | lockinPeriodFrequency |  |
+| `createRecurringDepositProduct` | new-request-field | lockinPeriodFrequencyType |  |
+| `createRecurringDepositProduct` | new-request-field | recurringFrequency |  |
+| `createRecurringDepositProduct` | new-request-field | recurringFrequencyType |  |
+| `createRecurringDepositProduct` | new-request-field | savingsControlAccountId |  |
+| `createRecurringDepositProduct` | new-request-field | savingsReferenceAccountId |  |
+| `createRecurringDepositProduct` | new-request-field | taxGroupId |  |
+| `createRecurringDepositProduct` | new-request-field | transfersInSuspenseAccountId |  |
+| `createRecurringDepositProduct` | new-request-field | withHoldTax |  |
+| `createReport` | new-request-field | useReport |  |
+| `createRescheduleLoan` | new-request-field | recalculateInterest |  |
+| `createSavingsAccountCharge` | new-request-field | feeOnMonthDay |  |
+| `createSavingsAccountCharge` | new-request-field | monthDayFormat |  |
+| `createSavingsAccountTransaction` | new-request-field | note |  |
+| `createSavingsAccountTransaction` | new-request-field | postInterestManualOrAutomatic |  |
+| `createSavingsAccountTransaction` | new-request-field | savingsArray |  |
+| `createSavingsAccountTransactionBySavingsExternalId` | new-request-field | note |  |
+| `createSavingsAccountTransactionBySavingsExternalId` | new-request-field | postInterestManualOrAutomatic |  |
+| `createSavingsAccountTransactionBySavingsExternalId` | new-request-field | savingsArray |  |
+| `createSavingsProduct` | new-request-field | daysToDormancy |  |
+| `createSavingsProduct` | new-request-field | daysToEscheat |  |
+| `createSavingsProduct` | new-request-field | daysToInactive |  |
+| `createSavingsProduct` | new-request-field | feesReceivableAccountId |  |
+| `createSavingsProduct` | new-request-field | incomeFromFeeAccountId |  |
+| `createSavingsProduct` | new-request-field | incomeFromInterestId |  |
+| `createSavingsProduct` | new-request-field | incomeFromPenaltyAccountId |  |
+| `createSavingsProduct` | new-request-field | interestOnSavingsAccountId |  |
+| `createSavingsProduct` | new-request-field | interestPayableAccountId |  |
+| `createSavingsProduct` | new-request-field | interestReceivableAccountId |  |
+| `createSavingsProduct` | new-request-field | lienAllowed |  |
+| `createSavingsProduct` | new-request-field | lockinPeriodFrequency |  |
+| `createSavingsProduct` | new-request-field | lockinPeriodFrequencyType |  |
+| `createSavingsProduct` | new-request-field | maxAllowedLienLimit |  |
+| `createSavingsProduct` | new-request-field | minBalanceForInterestCalculation |  |
+| `createSavingsProduct` | new-request-field | minRequiredBalance |  |
+| `createSavingsProduct` | new-request-field | nominalAnnualInterestRateOverdraft |  |
+| `createSavingsProduct` | new-request-field | overdraftLimit |  |
+| `createSavingsProduct` | new-request-field | overdraftPortfolioControlId |  |
+| `createSavingsProduct` | new-request-field | penaltiesReceivableAccountId |  |
+| `createSavingsProduct` | new-request-field | savingsControlAccountId |  |
+| `createSavingsProduct` | new-request-field | savingsReferenceAccountId |  |
+| `createSavingsProduct` | new-request-field | taxGroupId |  |
+| `createSavingsProduct` | new-request-field | transfersInSuspenseAccountId |  |
+| `createSavingsProduct` | new-request-field | writeOffAccountId |  |
+| `createShareProduct` | new-request-field | incomeFromFeeAccountId |  |
+| `createShareProduct` | new-request-field | shareEquityId |  |
+| `createShareProduct` | new-request-field | shareReferenceId |  |
+| `createShareProduct` | new-request-field | shareSuspenseId |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | annualEir |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | maxAnnualEir |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | maxPaymentAmount |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | minAnnualEir |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | minPaymentAmount |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | paymentAmount |  |
+| `createWorkingCapitalLoanProduct` | new-request-field | paymentAmountCalculationStrategy |  |
+| `deleteDatatableEntries` | new-response-field | transactionId |  |
+| `executeWorkingCapitalLoanTransactionByExternalId` | new-request-field | chargeOffReasonId |  |
+| `executeWorkingCapitalLoanTransactionByExternalId` | new-request-field | relatedExternalResourceId |  |
+| `executeWorkingCapitalLoanTransactionByExternalId` | new-request-field | reversalExternalId |  |
+| `executeWorkingCapitalLoanTransactionByExternalId` | new-request-field | writeoffReasonId |  |
+| `executeWorkingCapitalLoanTransactionById` | new-request-field | chargeOffReasonId |  |
+| `executeWorkingCapitalLoanTransactionById` | new-request-field | relatedExternalResourceId |  |
+| `executeWorkingCapitalLoanTransactionById` | new-request-field | reversalExternalId |  |
+| `executeWorkingCapitalLoanTransactionById` | new-request-field | writeoffReasonId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | classificationId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | dateFormat |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | externalId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | locale |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | note |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | paymentDetails |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | transactionAmount |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId` | new-request-field | transactionDate |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | classificationId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | dateFormat |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | externalId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | locale |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | note |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | paymentDetails |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | transactionAmount |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId` | new-request-field | transactionDate |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | classificationId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | dateFormat |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | externalId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | locale |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | note |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | paymentDetails |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | transactionAmount |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId` | new-request-field | transactionDate |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | classificationId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | dateFormat |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | externalId |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | locale |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | note |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | paymentDetails |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | transactionAmount |  |
+| `executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId` | new-request-field | transactionDate |  |
+| `getDatatable` | new-response-field | entitySubType |  |
+| `getDocument` | new-response-field | expiryDate |  |
+| `getDocument` | new-response-field | issuanceDate |  |
+| `getInternalClientAuditFields` | new-response-field | createdBy |  |
+| `getInternalClientAuditFields` | new-response-field | createdDate |  |
+| `getInternalClientAuditFields` | new-response-field | lastModifiedBy |  |
+| `getInternalClientAuditFields` | new-response-field | lastModifiedDate |  |
+| `getPostDatedCheck` | new-response-field | accountNo |  |
+| `getPostDatedCheck` | new-response-field | amount |  |
+| `getPostDatedCheck` | new-response-field | date |  |
+| `getPostDatedCheck` | new-response-field | id |  |
+| `getPostDatedCheck` | new-response-field | installmentId |  |
+| `getPostDatedCheck` | new-response-field | name |  |
+| `handleCommandClient` | new-request-field | staffId |  |
+| `handleCommandClient` | new-response-field | changes |  |
+| `handleCommandClientByExternalId` | new-request-field | staffId |  |
+| `handleCommandClientByExternalId` | new-response-field | changes |  |
+| `handleCommandsCenter` | new-request-field | groupMembers |  |
+| `handleCommandsCenter` | new-response-field | changes |  |
+| `handleCommandsCenter` | new-response-field | groupId |  |
+| `handleCommandsCenter` | new-response-field | officeId |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | activatedOnDate |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | approvedOnDate |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | closedOnDate |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | dateFormat |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | locale |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | note |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | onAccountClosureId |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | rejectedOnDate |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | toSavingsAccountId |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | transferDescription |  |
+| `handleCommandsFixedDepositAccount` | new-request-field | withdrawnOnDate |  |
+| `handleCommandsGlimLoan` | new-request-field | approvalFormData |  |
+| `handleCommandsGlimLoan` | new-request-field | glimPrincipal |  |
+| `handleCommandsGlimLoan` | new-request-field | netDisbursalAmount |  |
+| `handleCommandsGlimLoan` | new-request-field | postDatedChecks |  |
+| `handleCommandsGlimLoan` | new-request-field | transactionDate |  |
+| `handleCommandsGroup` | new-request-field | activationDate |  |
+| `handleCommandsGroup` | new-request-field | clientMembers |  |
+| `handleCommandsGroup` | new-request-field | dateFormat |  |
+| `handleCommandsGroup` | new-request-field | inheritStaffForClientAccounts |  |
+| `handleCommandsGroup` | new-request-field | locale |  |
+| `handleCommandsGroup` | new-request-field | staffId |  |
+| `handleCommandsGroup` | new-response-field | changes |  |
+| `handleCommandsGroup` | new-response-field | groupId |  |
+| `handleCommandsGroup` | new-response-field | officeId |  |
+| `handleCommandsLoan` | new-request-field | approvalFormData |  |
+| `handleCommandsLoan` | new-request-field | glimPrincipal |  |
+| `handleCommandsLoan` | new-request-field | netDisbursalAmount |  |
+| `handleCommandsLoan` | new-request-field | postDatedChecks |  |
+| `handleCommandsLoan` | new-request-field | transactionDate |  |
+| `handleCommandsLoanByExternalId` | new-request-field | approvalFormData |  |
+| `handleCommandsLoanByExternalId` | new-request-field | glimPrincipal |  |
+| `handleCommandsLoanByExternalId` | new-request-field | netDisbursalAmount |  |
+| `handleCommandsLoanByExternalId` | new-request-field | postDatedChecks |  |
+| `handleCommandsLoanByExternalId` | new-request-field | transactionDate |  |
+| `handleCommandsLoanSchedule` | new-request-field | dateFormat |  |
+| `handleCommandsLoanSchedule` | new-request-field | exceptions |  |
+| `handleCommandsLoanSchedule` | new-request-field | locale |  |
+| `handleCommandsLoanSchedule` | new-response-field | periods |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | activatedOnDate |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | approvedOnDate |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | closedOnDate |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | dateFormat |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | locale |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | note |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | onAccountClosureId |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | rejectedOnDate |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | toSavingsAccountId |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | transferDescription |  |
+| `handleCommandsRecurringDepositAccount` | new-request-field | withdrawnOnDate |  |
+| `handleCommandsSavingsAccount` | new-request-field | note |  |
+| `handleCommandsSavingsAccount` | new-request-field | postInterestValidationOnClosure |  |
+| `handleCommandsSavingsAccount` | new-request-field | reasonForBlock |  |
+| `handleCommandsSavingsAccountByExternalId` | new-request-field | note |  |
+| `handleCommandsSavingsAccountByExternalId` | new-request-field | postInterestValidationOnClosure |  |
+| `handleCommandsSavingsAccountByExternalId` | new-request-field | reasonForBlock |  |
+| `handleCommandsShareAccount` | new-request-field | activatedDate |  |
+| `handleCommandsShareAccount` | new-request-field | approvedDate |  |
+| `handleCommandsShareAccount` | new-request-field | dateFormat |  |
+| `handleCommandsShareAccount` | new-request-field | locale |  |
+| `handleCommandsShareAccount` | new-request-field | note |  |
+| `handleGSIMCommands` | new-request-field | activatedOnDate |  |
+| `handleGSIMCommands` | new-request-field | approvedOnDate |  |
+| `handleGSIMCommands` | new-request-field | closedOnDate |  |
+| `handleGSIMCommands` | new-request-field | dateFormat |  |
+| `handleGSIMCommands` | new-request-field | locale |  |
+| `handleGSIMCommands` | new-request-field | note |  |
+| `handleGSIMCommands` | new-request-field | postInterestValidationOnClosure |  |
+| `handleGSIMCommands` | new-request-field | reasonForBlock |  |
+| `handleGSIMCommands` | new-request-field | rejectedOnDate |  |
+| `handleGSIMCommands` | new-request-field | withdrawBalance |  |
+| `handleGSIMCommands` | new-request-field | withdrawnOnDate |  |
+| `handleGSIMCommands` | new-response-field | changes |  |
+| `handleGSIMCommands` | new-response-field | clientId |  |
+| `handleGSIMCommands` | new-response-field | officeId |  |
+| `handleGSIMCommands` | new-response-field | resourceId |  |
+| `loanRepayment` | new-request-field | accountNumber |  |
+| `loanRepayment` | new-request-field | bankNumber |  |
+| `loanRepayment` | new-request-field | chargeOffReasonId |  |
+| `loanRepayment` | new-request-field | checkNumber |  |
+| `loanRepayment` | new-request-field | classificationId |  |
+| `loanRepayment` | new-request-field | dateFormat |  |
+| `loanRepayment` | new-request-field | dueDate |  |
+| `loanRepayment` | new-request-field | externalId |  |
+| `loanRepayment` | new-request-field | frequencyNumber |  |
+| `loanRepayment` | new-request-field | frequencyType |  |
+| `loanRepayment` | new-request-field | interestRefundCalculation |  |
+| `loanRepayment` | new-request-field | loanChargeId |  |
+| `loanRepayment` | new-request-field | locale |  |
+| `loanRepayment` | new-request-field | note |  |
+| `loanRepayment` | new-request-field | numberOfInstallments |  |
+| `loanRepayment` | new-request-field | paymentTypeId |  |
+| `loanRepayment` | new-request-field | reAgeInterestHandling |  |
+| `loanRepayment` | new-request-field | reAmortizationInterestHandling |  |
+| `loanRepayment` | new-request-field | reasonCodeValueId |  |
+| `loanRepayment` | new-request-field | receiptNumber |  |
+| `loanRepayment` | new-request-field | reversalExternalId |  |
+| `loanRepayment` | new-request-field | routingCode |  |
+| `loanRepayment` | new-request-field | startDate |  |
+| `loanRepayment` | new-request-field | transactionAmount |  |
+| `loanRepayment` | new-request-field | transactionDate |  |
+| `loanRepayment` | new-request-field | writeoffReasonId |  |
+| `modifyWorkingCapitalLoanApplicationByExternalId` | new-request-field | paymentAmount |  |
+| `modifyWorkingCapitalLoanApplicationById` | new-request-field | paymentAmount |  |
+| `payOrWaiveClientCharge` | new-response-field | subResourceExternalId |  |
+| `refundByTransfer` | new-request-field | accountNumber |  |
+| `refundByTransfer` | new-request-field | bankNumber |  |
+| `refundByTransfer` | new-request-field | checkNumber |  |
+| `refundByTransfer` | new-request-field | paymentTypeId |  |
+| `refundByTransfer` | new-request-field | receiptNumber |  |
+| `refundByTransfer` | new-request-field | routingCode |  |
+| `retrieveAllDepositAccountOnHoldFundTransactions` | new-response-field | pageItems |  |
+| `retrieveAllDepositAccountOnHoldFundTransactions` | new-response-field | totalFilteredRecords |  |
+| `retrieveAmortizationSchedule` | new-response-field | annualEir |  |
+| `retrieveAmortizationSchedule` | new-response-field | paymentAmount |  |
+| `retrieveAmortizationSchedule` | new-response-field | paymentAmountCalculationStrategy |  |
+| `retrieveAuditEntry` | new-response-field | actionName |  |
+| `retrieveAuditEntry` | new-response-field | checkedOnDate |  |
+| `retrieveAuditEntry` | new-response-field | checker |  |
+| `retrieveAuditEntry` | new-response-field | clientId |  |
+| `retrieveAuditEntry` | new-response-field | clientName |  |
+| `retrieveAuditEntry` | new-response-field | commandAsJson |  |
+| `retrieveAuditEntry` | new-response-field | entityName |  |
+| `retrieveAuditEntry` | new-response-field | groupLevelName |  |
+| `retrieveAuditEntry` | new-response-field | groupName |  |
+| `retrieveAuditEntry` | new-response-field | id |  |
+| `retrieveAuditEntry` | new-response-field | ip |  |
+| `retrieveAuditEntry` | new-response-field | loanAccountNo |  |
+| `retrieveAuditEntry` | new-response-field | loanId |  |
+| `retrieveAuditEntry` | new-response-field | madeOnDate |  |
+| `retrieveAuditEntry` | new-response-field | maker |  |
+| `retrieveAuditEntry` | new-response-field | officeName |  |
+| `retrieveAuditEntry` | new-response-field | processingResult |  |
+| `retrieveAuditEntry` | new-response-field | resourceId |  |
+| `retrieveAuditEntry` | new-response-field | savingsAccountNo |  |
+| `retrieveAuditEntry` | new-response-field | subresourceId |  |
+| `retrieveAuditEntry` | new-response-field | url |  |
+| `retrieveLoanProductDetailsByExternalId` | new-response-field | externalId |  |
+| `retrieveLoanProductDetailsByExternalId` | new-response-field | graceOnArrearsAgeing |  |
+| `retrieveLoanProductDetailsByExternalId` | new-response-field | graceOnInterestPayment |  |
+| `retrieveLoanProductDetailsByExternalId` | new-response-field | graceOnPrincipalPayment |  |
+| `retrieveOneAccountTransfer` | new-response-field | paymentDetailData |  |
+| `retrieveOneCenter` | new-response-field | externalId |  |
+| `retrieveOneCenter` | new-response-field | groupMembers |  |
+| `retrieveOneCenter` | new-response-field | staffId |  |
+| `retrieveOneCharge` | new-response-field | feeFrequency |  |
+| `retrieveOneClient` | new-response-field | staffId |  |
+| `retrieveOneClientByExternalId` | new-response-field | staffId |  |
+| `retrieveOneClientIdentifier` | new-response-field | expiryDate |  |
+| `retrieveOneClientIdentifier` | new-response-field | issuanceDate |  |
+| `retrieveOneFixedDepositAccount` | new-response-field | nominalAnnualInterestRate |  |
+| `retrieveOneFixedDepositAccount` | new-response-field | preClosurePenalInterest |  |
+| `retrieveOneGroup` | new-response-field | active |  |
+| `retrieveOneGroup` | new-response-field | clientMembers |  |
+| `retrieveOneGroup` | new-response-field | staffId |  |
+| `retrieveOneLoan` | new-response-field | collateral |  |
+| `retrieveOneLoan` | new-response-field | subStatus |  |
+| `retrieveOneLoanByExternalId` | new-response-field | collateral |  |
+| `retrieveOneLoanByExternalId` | new-response-field | subStatus |  |
+| `retrieveOneLoanCharge` | new-response-field | loanId |  |
+| `retrieveOneLoanChargeByChargeExternalId` | new-response-field | loanId |  |
+| `retrieveOneLoanChargeByLoanAndChargeExternalId` | new-response-field | loanId |  |
+| `retrieveOneLoanChargeByLoanExternalId` | new-response-field | loanId |  |
+| `retrieveOneLoanProduct` | new-response-field | externalId |  |
+| `retrieveOneLoanProduct` | new-response-field | graceOnArrearsAgeing |  |
+| `retrieveOneLoanProduct` | new-response-field | graceOnInterestPayment |  |
+| `retrieveOneLoanProduct` | new-response-field | graceOnPrincipalPayment |  |
+| `retrieveOneProvisioningCriteria` | new-response-field | definitions |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | depositAmount |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | mandatoryRecommendedDepositAmount |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | maturityAmount |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | nominalAnnualInterestRate |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | preClosurePenalInterest |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | recurringFrequency |  |
+| `retrieveOneRecurringDepositAccount` | new-response-field | recurringFrequencyType |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | accountCredit |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | accountDebit |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | accountId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | accountNo |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | accountNumber |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | accrual |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | amount |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | amountOnHold |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | amountRelease |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | annualFee |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | annualFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | balanceEndDate |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | balanceNumberOfDays |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | bankNumber |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | chargeTransaction |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | chargeTransactionAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | chargesPaidByData |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | checkNumber |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | credit |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | cumulativeBalance |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | currency |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | date |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | dateFormat |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | debit |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | deposit |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | depositAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | dividendPayoutAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | endOfBalanceLocalDate |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | entryType |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | externalId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | feeCharge |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | feeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | id |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | interestPosting |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | interestPostingAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | interestedPostedAsOn |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | isManualTransaction |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | isOverdraft |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | isReversal |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | lienTransaction |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | locale |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | manualTransaction |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | modifiedId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | notReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | note |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | originalTransactionId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | outstandingChargeAmount |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | overdraftAmount |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | overdraftInterestAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | payCharge |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | paymentDetailData |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | paymentTypeId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | paymentTypeOptions |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | penaltyCharge |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | penaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | reasonForBlock |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | receiptNumber |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | refNo |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | releaseTransactionId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | reversalTransaction |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | reversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | routingCode |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | rowIndex |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | runningBalance |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | savingsAccountChargesPaid |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | savingsAccountId |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | submittedByUsername |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | submittedOnDate |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | taxDetails |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | transactionAmount |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | transactionDate |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | transactionType |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | transfer |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | waiveCharge |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | waiveFeeCharge |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | waiveFeeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | waivePenaltyCharge |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | waivePenaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | withHoldTaxAndNotReversed |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | withdrawal |  |
+| `retrieveOneSavingsAccountTransaction` | new-response-field | withdrawalFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | accountCredit |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | accountDebit |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | accountId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | accountNo |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | accountNumber |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | accrual |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | amount |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | amountOnHold |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | amountRelease |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | annualFee |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | annualFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | balanceEndDate |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | balanceNumberOfDays |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | bankNumber |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | chargeTransaction |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | chargeTransactionAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | chargesPaidByData |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | checkNumber |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | credit |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | cumulativeBalance |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | currency |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | date |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | dateFormat |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | debit |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | deposit |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | depositAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | dividendPayoutAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | endOfBalanceLocalDate |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | entryType |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | externalId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | feeCharge |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | feeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | id |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | interestPosting |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | interestPostingAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | interestedPostedAsOn |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | isManualTransaction |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | isOverdraft |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | isReversal |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | lienTransaction |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | locale |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | manualTransaction |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | modifiedId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | notReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | note |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | originalTransactionId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | outstandingChargeAmount |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | overdraftAmount |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | overdraftInterestAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | payCharge |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | paymentDetailData |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | paymentTypeId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | paymentTypeOptions |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | penaltyCharge |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | penaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | reasonForBlock |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | receiptNumber |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | refNo |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | releaseTransactionId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | reversalTransaction |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | reversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | routingCode |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | rowIndex |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | runningBalance |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | savingsAccountChargesPaid |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | savingsAccountId |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | submittedByUsername |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | submittedOnDate |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | taxDetails |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | transactionAmount |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | transactionDate |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | transactionType |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | transfer |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | waiveCharge |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | waiveFeeCharge |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | waiveFeeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | waivePenaltyCharge |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | waivePenaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | withHoldTaxAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | withdrawal |  |
+| `retrieveOneSavingsAccountTransactionByExternalId` | new-response-field | withdrawalFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | accountCredit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | accountDebit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | accountId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | accountNo |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | accountNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | accrual |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | amount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | amountOnHold |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | amountRelease |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | annualFee |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | annualFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | balanceEndDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | balanceNumberOfDays |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | bankNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | chargeTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | chargeTransactionAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | chargesPaidByData |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | checkNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | credit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | cumulativeBalance |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | currency |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | date |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | dateFormat |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | debit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | deposit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | depositAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | dividendPayoutAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | endOfBalanceLocalDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | entryType |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | externalId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | feeCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | feeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | id |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | interestPosting |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | interestPostingAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | interestedPostedAsOn |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | isManualTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | isOverdraft |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | isReversal |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | lienTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | locale |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | manualTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | modifiedId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | notReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | note |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | originalTransactionId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | outstandingChargeAmount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | overdraftAmount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | overdraftInterestAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | payCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | paymentDetailData |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | paymentTypeId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | paymentTypeOptions |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | penaltyCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | penaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | reasonForBlock |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | receiptNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | refNo |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | releaseTransactionId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | reversalTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | reversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | routingCode |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | rowIndex |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | runningBalance |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | savingsAccountChargesPaid |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | savingsAccountId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | submittedByUsername |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | submittedOnDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | taxDetails |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | transactionAmount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | transactionDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | transactionType |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | transfer |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | waiveCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | waiveFeeCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | waiveFeeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | waivePenaltyCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | waivePenaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | withHoldTaxAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | withdrawal |  |
+| `retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId` | new-response-field | withdrawalFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | accountCredit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | accountDebit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | accountId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | accountNo |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | accountNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | accrual |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | amount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | amountOnHold |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | amountRelease |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | annualFee |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | annualFeeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | balanceEndDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | balanceNumberOfDays |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | bankNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | chargeTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | chargeTransactionAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | chargesPaidByData |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | checkNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | credit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | cumulativeBalance |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | currency |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | date |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | dateFormat |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | debit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | deposit |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | depositAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | dividendPayoutAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | endOfBalanceLocalDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | entryType |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | externalId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | feeCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | feeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | id |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | interestPosting |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | interestPostingAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | interestedPostedAsOn |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | isManualTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | isOverdraft |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | isReversal |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | lienTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | locale |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | manualTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | modifiedId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | notReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | note |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | originalTransactionId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | outstandingChargeAmount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | overdraftAmount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | overdraftInterestAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | payCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | paymentDetailData |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | paymentTypeId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | paymentTypeOptions |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | penaltyCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | penaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | reasonForBlock |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | receiptNumber |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | refNo |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | releaseTransactionId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | reversalTransaction |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | reversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | routingCode |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | rowIndex |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | runningBalance |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | savingsAccountChargesPaid |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | savingsAccountId |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | submittedByUsername |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | submittedOnDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | taxDetails |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | transactionAmount |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | transactionDate |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | transactionType |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | transfer |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | waiveCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | waiveFeeCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | waiveFeeChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | waivePenaltyCharge |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | waivePenaltyChargeAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | withHoldTaxAndNotReversed |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | withdrawal |  |
+| `retrieveOneSavingsAccountTransactionBySavingsExternalId` | new-response-field | withdrawalFeeAndNotReversed |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | annualEir |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | maxAnnualEir |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | maxPaymentAmount |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | minAnnualEir |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | minPaymentAmount |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | paymentAmount |  |
+| `retrieveOneWorkingCapitalLoanProduct` | new-response-field | paymentAmountCalculationStrategy |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | annualEir |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | maxAnnualEir |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | maxPaymentAmount |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | minAnnualEir |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | minPaymentAmount |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | paymentAmount |  |
+| `retrieveOneWorkingCapitalLoanProductByExternalId` | new-response-field | paymentAmountCalculationStrategy |  |
+| `retrieveTemplateClientIdentifier` | new-response-field | expiryDate |  |
+| `retrieveTemplateClientIdentifier` | new-response-field | issuanceDate |  |
+| `retrieveTemplateLoanTransaction` | new-response-field | loanRepaymentScheduleInstallments |  |
+| `retrieveTemplateLoanTransactionByLoanExternalId` | new-response-field | loanRepaymentScheduleInstallments |  |
+| `retrieveTemplateWorkingCapitalLoanCharge` | new-response-field | amountWaived |  |
+| `retrieveTemplateWorkingCapitalLoanCharge` | new-response-field | amountWrittenOff |  |
+| `retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId` | new-response-field | amountWaived |  |
+| `retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId` | new-response-field | amountWrittenOff |  |
+| `retrieveTemplateWorkingCapitalLoanProduct` | new-response-field | paymentAmountCalculationStrategyOptions |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | annualEir |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | breachEffectiveStartDate |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | chargeOffReason |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | chargedOffOnDate |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | delinquencyEffectiveStartDate |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | overpaidOnDate |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | paymentAmount |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | paymentAmountCalculationStrategy |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | periodPaymentRateHistory |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | writeOffReason |  |
+| `retrieveWorkingCapitalLoanByExternalId` | new-response-field | writtenOffOnDate |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | annualEir |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | breachEffectiveStartDate |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | chargeOffReason |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | chargedOffOnDate |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | delinquencyEffectiveStartDate |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | overpaidOnDate |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | paymentAmount |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | paymentAmountCalculationStrategy |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | periodPaymentRateHistory |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | writeOffReason |  |
+| `retrieveWorkingCapitalLoanById` | new-response-field | writtenOffOnDate |  |
+| `retrieveWorkingCapitalLoanCharge` | new-response-field | amountWaived |  |
+| `retrieveWorkingCapitalLoanCharge` | new-response-field | amountWrittenOff |  |
+| `retrieveWorkingCapitalLoanChargeByChargeExternalId` | new-response-field | amountWaived |  |
+| `retrieveWorkingCapitalLoanChargeByChargeExternalId` | new-response-field | amountWrittenOff |  |
+| `retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId` | new-response-field | amountWaived |  |
+| `retrieveWorkingCapitalLoanChargeByLoanAndChargeExternalId` | new-response-field | amountWrittenOff |  |
+| `retrieveWorkingCapitalLoanChargeByLoanExternalId` | new-response-field | amountWaived |  |
+| `retrieveWorkingCapitalLoanChargeByLoanExternalId` | new-response-field | amountWrittenOff |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId` | new-response-field | chargePaidByList |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId` | new-response-field | externalLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndExternalTransactionId` | new-response-field | wcLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId` | new-response-field | chargePaidByList |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId` | new-response-field | externalLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalLoanIdAndTransactionId` | new-response-field | wcLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalTransactionId` | new-response-field | chargePaidByList |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalTransactionId` | new-response-field | externalLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionByExternalTransactionId` | new-response-field | wcLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionById` | new-response-field | chargePaidByList |  |
+| `retrieveWorkingCapitalLoanTransactionById` | new-response-field | externalLoanId |  |
+| `retrieveWorkingCapitalLoanTransactionById` | new-response-field | wcLoanId |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | expectedFirstDepositOnDate |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | inMultiplesOfDepositTerm |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | inMultiplesOfDepositTermTypeId |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | interestCalculationDaysInYearType |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | interestCalculationType |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | interestCompoundingPeriodType |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | interestPostingPeriodType |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | lockinPeriodFrequency |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | lockinPeriodFrequencyType |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | maxDepositTerm |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | maxDepositTermTypeId |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | minDepositTerm |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | minDepositTermTypeId |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | monthDayFormat |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | preClosurePenalApplicable |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | preClosurePenalInterest |  |
+| `submitApplicationRecurringDepositAccount` | new-request-field | preClosurePenalInterestOnTypeId |  |
+| `submitGSIMApplication` | new-request-field | clientArray |  |
+| `submitGSIMApplication` | new-request-field | savingsArray |  |
+| `submitGSIMApplication` | new-response-field | clientId |  |
+| `submitGSIMApplication` | new-response-field | gsimId |  |
+| `submitGSIMApplication` | new-response-field | officeId |  |
+| `submitGSIMApplication` | new-response-field | resourceId |  |
+| `submitGSIMApplication` | new-response-field | savingsId |  |
+| `submitSavingsApplication` | new-request-field | groupId |  |
+| `submitSavingsApplication` | new-request-field | withdrawalFeeForTransfers |  |
+| `submitWorkingCapitalLoanApplication` | new-request-field | annualEir |  |
+| `submitWorkingCapitalLoanApplication` | new-request-field | datatables |  |
+| `submitWorkingCapitalLoanApplication` | new-request-field | paymentAmount |  |
+| `updateCenter` | new-request-field | externalId |  |
+| `updateCenter` | new-request-field | staffId |  |
+| `updateClient` | new-request-field | mobileNo |  |
+| `updateClientAddress` | new-request-field | street |  |
+| `updateClientByExternalId` | new-request-field | mobileNo |  |
+| `updateClientIdentifier` | new-request-field | dateFormat |  |
+| `updateClientIdentifier` | new-request-field | expiryDate |  |
+| `updateClientIdentifier` | new-request-field | issuanceDate |  |
+| `updateClientIdentifier` | new-request-field | locale |  |
+| `updateDatatableEntryOneToMany` | new-response-field | transactionId |  |
+| `updateDisbursementDate` | new-request-field | approvedLoanAmount |  |
+| `updateDisbursementDate` | new-request-field | dateFormat |  |
+| `updateDisbursementDate` | new-request-field | expectedDisbursementDate |  |
+| `updateDisbursementDate` | new-request-field | locale |  |
+| `updateDisbursementDate` | new-request-field | updatedExpectedDisbursementDate |  |
+| `updateDisbursementDate` | new-request-field | updatedPrincipal |  |
+| `updateDocument` | new-request-field | expiryDate |  |
+| `updateDocument` | new-request-field | issuanceDate |  |
+| `updateFixedDepositAccount` | new-request-field | clientId |  |
+| `updateFixedDepositAccount` | new-request-field | dateFormat |  |
+| `updateFixedDepositAccount` | new-request-field | depositPeriod |  |
+| `updateFixedDepositAccount` | new-request-field | depositPeriodFrequencyId |  |
+| `updateFixedDepositAccount` | new-request-field | inMultiplesOfDepositTerm |  |
+| `updateFixedDepositAccount` | new-request-field | inMultiplesOfDepositTermTypeId |  |
+| `updateFixedDepositAccount` | new-request-field | interestCalculationDaysInYearType |  |
+| `updateFixedDepositAccount` | new-request-field | interestCalculationType |  |
+| `updateFixedDepositAccount` | new-request-field | interestCompoundingPeriodType |  |
+| `updateFixedDepositAccount` | new-request-field | interestPostingPeriodType |  |
+| `updateFixedDepositAccount` | new-request-field | linkAccountId |  |
+| `updateFixedDepositAccount` | new-request-field | lockinPeriodFrequency |  |
+| `updateFixedDepositAccount` | new-request-field | lockinPeriodFrequencyType |  |
+| `updateFixedDepositAccount` | new-request-field | maturityInstructionId |  |
+| `updateFixedDepositAccount` | new-request-field | maxDepositTerm |  |
+| `updateFixedDepositAccount` | new-request-field | maxDepositTermTypeId |  |
+| `updateFixedDepositAccount` | new-request-field | minDepositTerm |  |
+| `updateFixedDepositAccount` | new-request-field | minDepositTermTypeId |  |
+| `updateFixedDepositAccount` | new-request-field | monthDayFormat |  |
+| `updateFixedDepositAccount` | new-request-field | preClosurePenalApplicable |  |
+| `updateFixedDepositAccount` | new-request-field | preClosurePenalInterest |  |
+| `updateFixedDepositAccount` | new-request-field | preClosurePenalInterestOnTypeId |  |
+| `updateFixedDepositAccount` | new-request-field | productId |  |
+| `updateFixedDepositAccount` | new-request-field | submittedOnDate |  |
+| `updateFixedDepositAccount` | new-request-field | transferInterestToSavings |  |
+| `updateGLAccountMappingFinancialActivityAccount` | new-response-field | changes |  |
+| `updateGsim` | new-request-field | clientId |  |
+| `updateGsim` | new-request-field | groupId |  |
+| `updateGsim` | new-request-field | productId |  |
+| `updateGsim` | new-response-field | clientId |  |
+| `updateGsim` | new-response-field | gsimId |  |
+| `updateGsim` | new-response-field | officeId |  |
+| `updateGsim` | new-response-field | resourceId |  |
+| `updateGsim` | new-response-field | savingsId |  |
+| `updateJobDetail` | new-response-field | changes |  |
+| `updateJobDetail` | new-response-field | clientId |  |
+| `updateJobDetail` | new-response-field | commandId |  |
+| `updateJobDetail` | new-response-field | creditBureauReportData |  |
+| `updateJobDetail` | new-response-field | externalIdOrNull |  |
+| `updateJobDetail` | new-response-field | glimId |  |
+| `updateJobDetail` | new-response-field | groupId |  |
+| `updateJobDetail` | new-response-field | gsimId |  |
+| `updateJobDetail` | new-response-field | loanExternalId |  |
+| `updateJobDetail` | new-response-field | loanId |  |
+| `updateJobDetail` | new-response-field | officeId |  |
+| `updateJobDetail` | new-response-field | productId |  |
+| `updateJobDetail` | new-response-field | resourceExternalId |  |
+| `updateJobDetail` | new-response-field | resourceId |  |
+| `updateJobDetail` | new-response-field | resourceIdentifier |  |
+| `updateJobDetail` | new-response-field | rollbackTransaction |  |
+| `updateJobDetail` | new-response-field | savingsId |  |
+| `updateJobDetail` | new-response-field | subResourceExternalId |  |
+| `updateJobDetail` | new-response-field | subResourceId |  |
+| `updateJobDetail` | new-response-field | transactionId |  |
+| `updateJobDetailByShortName` | new-response-field | changes |  |
+| `updateJobDetailByShortName` | new-response-field | clientId |  |
+| `updateJobDetailByShortName` | new-response-field | commandId |  |
+| `updateJobDetailByShortName` | new-response-field | creditBureauReportData |  |
+| `updateJobDetailByShortName` | new-response-field | externalIdOrNull |  |
+| `updateJobDetailByShortName` | new-response-field | glimId |  |
+| `updateJobDetailByShortName` | new-response-field | groupId |  |
+| `updateJobDetailByShortName` | new-response-field | gsimId |  |
+| `updateJobDetailByShortName` | new-response-field | loanExternalId |  |
+| `updateJobDetailByShortName` | new-response-field | loanId |  |
+| `updateJobDetailByShortName` | new-response-field | officeId |  |
+| `updateJobDetailByShortName` | new-response-field | productId |  |
+| `updateJobDetailByShortName` | new-response-field | resourceExternalId |  |
+| `updateJobDetailByShortName` | new-response-field | resourceId |  |
+| `updateJobDetailByShortName` | new-response-field | resourceIdentifier |  |
+| `updateJobDetailByShortName` | new-response-field | rollbackTransaction |  |
+| `updateJobDetailByShortName` | new-response-field | savingsId |  |
+| `updateJobDetailByShortName` | new-response-field | subResourceExternalId |  |
+| `updateJobDetailByShortName` | new-response-field | subResourceId |  |
+| `updateJobDetailByShortName` | new-response-field | transactionId |  |
+| `updateProvisioningCriteria` | new-request-field | definitions |  |
+| `updateRecurringDepositAccount` | new-request-field | clientId |  |
+| `updateRecurringDepositAccount` | new-request-field | dateFormat |  |
+| `updateRecurringDepositAccount` | new-request-field | depositPeriod |  |
+| `updateRecurringDepositAccount` | new-request-field | depositPeriodFrequencyId |  |
+| `updateRecurringDepositAccount` | new-request-field | expectedFirstDepositOnDate |  |
+| `updateRecurringDepositAccount` | new-request-field | inMultiplesOfDepositTerm |  |
+| `updateRecurringDepositAccount` | new-request-field | inMultiplesOfDepositTermTypeId |  |
+| `updateRecurringDepositAccount` | new-request-field | interestCalculationDaysInYearType |  |
+| `updateRecurringDepositAccount` | new-request-field | interestCalculationType |  |
+| `updateRecurringDepositAccount` | new-request-field | interestCompoundingPeriodType |  |
+| `updateRecurringDepositAccount` | new-request-field | interestPostingPeriodType |  |
+| `updateRecurringDepositAccount` | new-request-field | isCalendarInherited |  |
+| `updateRecurringDepositAccount` | new-request-field | lockinPeriodFrequency |  |
+| `updateRecurringDepositAccount` | new-request-field | lockinPeriodFrequencyType |  |
+| `updateRecurringDepositAccount` | new-request-field | mandatoryRecommendedDepositAmount |  |
+| `updateRecurringDepositAccount` | new-request-field | maxDepositTerm |  |
+| `updateRecurringDepositAccount` | new-request-field | maxDepositTermTypeId |  |
+| `updateRecurringDepositAccount` | new-request-field | minDepositTerm |  |
+| `updateRecurringDepositAccount` | new-request-field | minDepositTermTypeId |  |
+| `updateRecurringDepositAccount` | new-request-field | monthDayFormat |  |
+| `updateRecurringDepositAccount` | new-request-field | preClosurePenalApplicable |  |
+| `updateRecurringDepositAccount` | new-request-field | preClosurePenalInterest |  |
+| `updateRecurringDepositAccount` | new-request-field | preClosurePenalInterestOnTypeId |  |
+| `updateRecurringDepositAccount` | new-request-field | productId |  |
+| `updateRecurringDepositAccount` | new-request-field | recurringFrequency |  |
+| `updateRecurringDepositAccount` | new-request-field | recurringFrequencyType |  |
+| `updateRecurringDepositAccount` | new-request-field | submittedOnDate |  |
+| `updateSavingsAccount` | new-request-field | clientId |  |
+| `updateSavingsAccount` | new-request-field | dateFormat |  |
+| `updateSavingsAccount` | new-request-field | externalId |  |
+| `updateSavingsAccount` | new-request-field | groupId |  |
+| `updateSavingsAccount` | new-request-field | productId |  |
+| `updateSavingsAccount` | new-request-field | submittedOnDate |  |
+| `updateSavingsAccount` | new-request-field | withHoldTax |  |
+| `updateSavingsAccount` | new-request-field | withdrawalFeeForTransfers |  |
+| `updateSavingsAccountByExternalId` | new-request-field | clientId |  |
+| `updateSavingsAccountByExternalId` | new-request-field | dateFormat |  |
+| `updateSavingsAccountByExternalId` | new-request-field | externalId |  |
+| `updateSavingsAccountByExternalId` | new-request-field | groupId |  |
+| `updateSavingsAccountByExternalId` | new-request-field | productId |  |
+| `updateSavingsAccountByExternalId` | new-request-field | submittedOnDate |  |
+| `updateSavingsAccountByExternalId` | new-request-field | withHoldTax |  |
+| `updateSavingsAccountByExternalId` | new-request-field | withdrawalFeeForTransfers |  |
+| `updateSavingsProduct` | new-request-field | accountingRule |  |
+| `updateSavingsProduct` | new-request-field | allowOverdraft |  |
+| `updateSavingsProduct` | new-request-field | currencyCode |  |
+| `updateSavingsProduct` | new-request-field | digitsAfterDecimal |  |
+| `updateSavingsProduct` | new-request-field | enforceMinRequiredBalance |  |
+| `updateSavingsProduct` | new-request-field | feesReceivableAccountId |  |
+| `updateSavingsProduct` | new-request-field | inMultiplesOf |  |
+| `updateSavingsProduct` | new-request-field | incomeFromFeeAccountId |  |
+| `updateSavingsProduct` | new-request-field | incomeFromInterestId |  |
+| `updateSavingsProduct` | new-request-field | incomeFromPenaltyAccountId |  |
+| `updateSavingsProduct` | new-request-field | interestCalculationDaysInYearType |  |
+| `updateSavingsProduct` | new-request-field | interestCalculationType |  |
+| `updateSavingsProduct` | new-request-field | interestCompoundingPeriodType |  |
+| `updateSavingsProduct` | new-request-field | interestOnSavingsAccountId |  |
+| `updateSavingsProduct` | new-request-field | interestPayableAccountId |  |
+| `updateSavingsProduct` | new-request-field | interestPostingPeriodType |  |
+| `updateSavingsProduct` | new-request-field | interestReceivableAccountId |  |
+| `updateSavingsProduct` | new-request-field | minRequiredOpeningBalance |  |
+| `updateSavingsProduct` | new-request-field | name |  |
+| `updateSavingsProduct` | new-request-field | nominalAnnualInterestRate |  |
+| `updateSavingsProduct` | new-request-field | nominalAnnualInterestRateOverdraft |  |
+| `updateSavingsProduct` | new-request-field | overdraftLimit |  |
+| `updateSavingsProduct` | new-request-field | overdraftPortfolioControlId |  |
+| `updateSavingsProduct` | new-request-field | penaltiesReceivableAccountId |  |
+| `updateSavingsProduct` | new-request-field | savingsControlAccountId |  |
+| `updateSavingsProduct` | new-request-field | savingsReferenceAccountId |  |
+| `updateSavingsProduct` | new-request-field | shortName |  |
+| `updateSavingsProduct` | new-request-field | transfersInSuspenseAccountId |  |
+| `updateSavingsProduct` | new-request-field | withHoldTax |  |
+| `updateSavingsProduct` | new-request-field | withdrawalFeeForTransfers |  |
+| `updateSavingsProduct` | new-request-field | writeOffAccountId |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | annualEir |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | maxAnnualEir |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | maxPaymentAmount |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | minAnnualEir |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | minPaymentAmount |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | paymentAmount |  |
+| `updateWorkingCapitalLoanProduct` | new-request-field | paymentAmountCalculationStrategy |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | annualEir |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | maxAnnualEir |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | maxPaymentAmount |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | minAnnualEir |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | minPaymentAmount |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | paymentAmount |  |
+| `updateWorkingCapitalLoanProductByExternalId` | new-request-field | paymentAmountCalculationStrategy |  |
+| `updateWorkingCapitalLoanRateByExternalId` | new-request-field | dateFormat |  |
+| `updateWorkingCapitalLoanRateById` | new-request-field | dateFormat |  |
 
 ---
 
 # FinCraft — Hand-written API ↔ Contract Drift
 
-_Generated 2026-08-02T07:54:58.826Z_
+_Generated 2026-10-05T13:10:20.607Z_
 
-Contract source: **image:apache/fineract:latest** · contract ops: **965** · hand-written routes: **904** (711 unique endpoints, 20 modules)
+Contract source: **image:apache/fineract:latest** · contract ops: **967** · hand-written routes: **916** (720 unique endpoints, 20 modules)
 
 | Bucket | Count | Meaning |
 |---|---:|---|
-| ✅ Matched | 680 | endpoint (method+path) backed by a contract op |
+| ✅ Matched | 700 | endpoint (method+path) backed by a contract op |
 | 🔴 Mismatch | 0 | same path, **wrong HTTP method** — a bug |
-| 🟡 Unverified | 31 | hand-written path absent from the contract |
-| ⚪ Uncovered | 285 | contract op no UI route reaches (backlog) |
-| ⚙️ Dynamic | 0 | unresolved dynamic path (skipped) |
+| 🟡 Unverified | 9 | hand-written path absent from the contract, unexplained |
+| ⚫ External | 11 | absent from this contract, explicitly allowlisted (see reason) |
+| ⚪ Uncovered | 268 | contract op no UI route reaches (backlog) |
+| ⚙️ Dynamic | 3 | unresolved dynamic path (skipped) |
 
-## 🟡 Unverified (31)
+_19 of the Matched routes only matched via a wildcarded literal path segment (e.g. `/externalservice/SMS` against contract op `/externalservice/{servicename}`) — code-quality note, not a drift bug; see "Matched via literal segment" below._
 
-- `GET /externalservice/SMS` (integrations.js:21)
-- `PUT /externalservice/SMS` (integrations.js:21)
-- `GET /externalservice/SMTP` (integrations.js:22)
-- `PUT /externalservice/SMTP` (integrations.js:22)
-- `GET /externalservice/S3` (integrations.js:24)
-- `PUT /externalservice/S3` (integrations.js:24)
-- `GET /externalservice/NOTIFICATION` (integrations.js:25)
-- `PUT /externalservice/NOTIFICATION` (integrations.js:25)
-- `GET /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:11)
-- `POST /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:13)
-- `DELETE /interoperation/parties/{}/{}${subIdOrType ` (interoperation.js:15)
-- `GET /self/userdetails` (misc.js:33)
-- `POST /self/registration` (misc.js:34)
-- `POST /self/registration/user` (misc.js:35)
-- `POST /self/registration/resetpassword` (misc.js:36)
-- `GET /self/beneficiaries/tpt` (misc.js:37)
-- `POST /self/beneficiaries/tpt` (misc.js:38)
-- `PUT /self/beneficiaries/tpt/{}` (misc.js:39)
-- `DELETE /self/beneficiaries/tpt/{}` (misc.js:40)
-- `GET /products/share` (products.js:25)
-- `GET /products/share/{}` (products.js:26)
-- `GET /products/share/template` (products.js:27)
-- `POST /products/share` (products.js:28)
-- `PUT /products/share/{}` (products.js:29)
-- `GET /accounts/share` (shares.js:3)
-- `GET /accounts/share/{}` (shares.js:4)
-- `GET /accounts/share/template` (shares.js:5)
-- `POST /accounts/share` (shares.js:6)
-- `PUT /accounts/share/{}` (shares.js:7)
-- `DELETE /accounts/share/{}` (shares.js:8)
-- `POST /accounts/share/{}` (shares.js:10)
+_Note: Matched counts hand-written endpoints, not distinct contract ops, so Matched + Uncovered will exceed total contract ops by **6** — that's 19 hand-written routes collapsing onto only 13 distinct contract ops (e.g. 4 literal `externalservice/*` routes all hit the same parameterized op). Distinct contract ops actually covered = 967 − 268 = 699; the identity that always holds is Matched + External + Unverified = unique hand-written endpoints (720)._
 
-## ⚪ Uncovered (285)
+## 🟡 Unverified (9)
+
+- `GET /mixtaxonomy` (mix-xbrl.js:3)
+- `GET /mixmapping` (mix-xbrl.js:4)
+- `PUT /mixmapping` (mix-xbrl.js:5)
+- `GET /mixreport` (mix-xbrl.js:6)
+- `GET /cashiers` (organization.js:23)
+- `GET /tellers/{}/transactions` (organization.js:39)
+- `GET /tellers/{}/transactions/{}` (organization.js:40)
+- `GET /tellers/{}/journals` (organization.js:41)
+- `GET /cashiersjournal` (organization.js:47)
+
+## ⚫ External (allowlisted) (11)
+
+- `GET /self/userdetails` (misc.js:33) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/registration` (misc.js:34) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/registration/user` (misc.js:35) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/registration/resetpassword` (misc.js:36) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `GET /self/beneficiaries/tpt` (misc.js:37) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `POST /self/beneficiaries/tpt` (misc.js:38) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `PUT /self/beneficiaries/tpt/{}` (misc.js:39) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `DELETE /self/beneficiaries/tpt/{}` (misc.js:40) — Fineract Self-Service API — a separate API surface (customer/mobile self-service) that is not part of the back-office OpenAPI spec this contract is generated from. Verified 2026-08-02: zero '/self' paths anywhere in the real contract (965 ops).
+- `GET /{}/downloadtemplate` (misc.js:155) — Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4.
+- `POST /{}/uploadtemplate` (misc.js:156) — Generic entity-parameterized bulk-import helper (misc.js: makeBulkImportsAPI, called as template(entity)/upload(entity)). Per-entity coverage (which of the ~15+ importable resources are actually wired to a UI dropdown) is a call-site question in js/pages/** and js/ui/modal-dropdowns.js, not something this API-layer diff can see — tracked separately in OPEN-ITEMS.md section 4.
+- `DELETE /accounts/share/{}` (shares.js:8) — Fineract's contract has GET/POST/PUT (and a generic POST command handler) at /v1/accounts/{type}/{accountId} for share accounts, but no DELETE operation at all. shares.js:delete() targets a real endpoint with no contract-side support — likely returns 405/404 in practice; worth confirming against a live Fineract instance and possibly removing the UI action. Verified 2026-08-02 against the real contract.
+
+## ⚪ Uncovered (268)
 
 - activateLoan — `POST /internal/working-capital-loans/{}/activate`
 - adjustLoanCharge — `POST /working-capital-loans/{}/charges/{}`
@@ -85,13 +1221,9 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - createDelinquencyAction — `POST /working-capital-loans/{}/delinquency-actions`
 - createDelinquencyActionByExternalId — `POST /working-capital-loans/external-id/{}/delinquency-actions`
 - createDelinquencyActionLoanByExternalId — `POST /loans/external-id/{}/delinquency-actions`
-- createDocument — `POST /{}/{}/documents`
-- createImage_1 — `POST /{}/{}/images`
 - createLoanCharge — `POST /working-capital-loans/{}/charges`
 - createLoanInterestPauseByExternalId — `POST /loans/external-id/{}/interest-pauses`
 - createSavingsAccountTransactionBySavingsExternalId — `POST /savingsaccounts/external-id/{}/transactions`
-- createShareAccount — `POST /accounts/{}`
-- createShareProduct — `POST /products/{}`
 - createWorkingCapitalBreach — `POST /working-capital/breach/breaches`
 - createWorkingCapitalLoanNearBreachActionByExternalId — `POST /working-capital-loans/external-id/{}/near-breach-actions`
 - createWorkingCapitalLoanNearBreachActionById — `POST /working-capital-loans/{}/near-breach-actions`
@@ -102,6 +1234,7 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - deleteAllExternalEvents — `DELETE /internal/externalevents`
 - deleteByExternalId — `DELETE /loan-originators/external-id/{}`
 - deleteClientByExternalId — `DELETE /clients/external-id/{}`
+- deleteExternalAssetOwnerLoanProductAttribute — `DELETE /external-asset-owners/loan-product/{}/attributes/{}`
 - deleteInternalProgressiveLoan — `DELETE /internal/loan/progressive/{}/model`
 - deleteLastCobRun — `DELETE /internal/working-capital-loans/internal/lastCobRun`
 - deleteLoanApplicationByExternalId — `DELETE /loans/external-id/{}`
@@ -123,7 +1256,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - detachOriginatorFromWorkingCapitalLoanByBothExternalIds — `DELETE /working-capital-loans/external-id/{}/originators/external-id/{}`
 - detachOriginatorFromWorkingCapitalLoanByLoanExternalId — `DELETE /working-capital-loans/external-id/{}/originators/{}`
 - detachOriginatorFromWorkingCapitalLoanByOriginatorExternalId — `DELETE /working-capital-loans/{}/originators/external-id/{}`
-- downloadFile — `GET /{}/{}/documents/{}/attachment`
 - executeLoanChargeByChargeExternalId — `POST /loans/{}/charges/external-id/{}`
 - executeLoanChargeByLoanAndChargeExternalId — `POST /loans/external-id/{}/charges/external-id/{}`
 - executeLoanChargeByLoanExternalId — `POST /loans/external-id/{}/charges`
@@ -174,7 +1306,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - getMaxTransactionDateOfActiveLoans — `GET /internal/loan/maxTransactionDateOfActiveLoan`
 - getOfficeTemplate — `GET /offices/downloadtemplate`
 - getOldestCOBProcessedLoan_1 — `GET /working-capital-loans/oldest-cob-closed`
-- getOutputTemplate — `GET /imports/downloadOutputTemplate`
 - getRecurringDepositTemplate — `GET /recurringdepositaccounts/downloadtemplate`
 - getRecurringDepositTransactionTemplate — `GET /recurringdepositaccounts/transactions/downloadtemplate`
 - getSavingsAccountsByStatus — `GET /internal/savingsaccounts/status/{}`
@@ -186,14 +1317,16 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - getWorkingCapitalLoanNearBreachActionsById — `GET /working-capital-loans/{}/near-breach-actions`
 - getWorkingCapitalLoanRateChangeHistoryByExternalId — `GET /working-capital-loans/external-id/{}/rate-changes`
 - getWorkingCapitalLoanRateChangeHistoryById — `GET /working-capital-loans/{}/rate-changes`
-- handleBatchRequests — `POST /batches`
+- getWorkingCapitalLoanTransactionTemplateByExternalId — `GET /working-capital-loans/external-id/{}/transactions/template`
+- getWorkingCapitalLoanTransactionTemplateById — `GET /working-capital-loans/{}/transactions/template`
 - handleCommandClientByExternalId — `POST /clients/external-id/{}`
 - handleCommandsLoanByExternalId — `POST /loans/external-id/{}`
 - handleCommandsLoanTransactionByLoanExternalId — `POST /loans/external-id/{}/transactions`
 - handleCommandsSavingsAccountByExternalId — `POST /savingsaccounts/external-id/{}`
-- handleCommandsShareAccount — `POST /accounts/{}/{}`
 - isCatchUpRunning_1 — `GET /working-capital-loans/is-catch-up-running`
 - loanReprocess — `POST /internal/cob/loan-reprocess/{}`
+- markWorkingCapitalLoanAsFraudByExternalId — `PUT /working-capital-loans/external-id/{}/mark-as-fraud`
+- markWorkingCapitalLoanAsFraudById — `PUT /working-capital-loans/{}/mark-as-fraud`
 - modifyWorkingCapitalLoanApplicationByExternalId — `PUT /working-capital-loans/external-id/{}`
 - modifyWorkingCapitalLoanApplicationById — `PUT /working-capital-loans/{}`
 - placeLockOnLoanAccount — `POST /internal/loans/{}/place-lock/{}`
@@ -220,14 +1353,11 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - previewReAmortizeLoanScheduleByLoanExternalId — `GET /loans/external-id/{}/transactions/reamortization-preview`
 - registerAccountIdentifier — `POST /interoperation/parties/{}/{}`
 - registerAccountIdentifier_1 — `POST /interoperation/parties/{}/{}/{}`
-- requestToken — `POST /twofactor`
 - retrieveAllClientAccountsByExternalId — `GET /clients/external-id/{}/accounts`
 - retrieveAllClientTransactionsByClientExternalId — `GET /clients/external-id/{}/transactions`
 - retrieveAllLoanChargesByLoanExternalId — `GET /loans/external-id/{}/charges`
 - retrieveAllLoanInterestPausesByExternalId — `GET /loans/external-id/{}/interest-pauses`
 - retrieveAllLoanTransactionsByExternalId — `GET /loans/external-id/{}/transactions`
-- retrieveAllShareAccounts — `GET /accounts/{}`
-- retrieveAllShareProducts — `GET /products/{}`
 - retrieveAllWorkingCapitalBreaches — `GET /working-capital/breach/breaches`
 - retrieveAllWorkingCapitalLoanChargesByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges`
 - retrieveAllWorkingCapitalLoanChargesByLoanId — `GET /working-capital-loans/{}/charges`
@@ -251,8 +1381,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - retrieveDelinquencyActionsLoanByExternalId — `GET /loans/external-id/{}/delinquency-actions`
 - retrieveDelinquencyRangeSchedule — `GET /working-capital-loans/{}/delinquency-range-schedule`
 - retrieveDelinquencyTagHistoryLoanByExternalId — `GET /loans/external-id/{}/delinquencytags`
-- retrieveExternalServicesConfiguration — `GET /externalservice/{}`
-- retrieveImage — `GET /{}/{}/images`
 - retrieveLoanBuyDownFeeAmortizationDetailsByExternalId — `GET /loans/external-id/{}/buydown-fees`
 - retrieveLoanPointInTimeByExternalId — `GET /loans/at-date/external-id/{}`
 - retrieveLoanProductDetailsByExternalId — `GET /loanproducts/external-id/{}`
@@ -270,19 +1398,16 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - retrieveOneSavingsAccountTransactionByExternalId — `GET /savingsaccounts/{}/transactions/external-id/{}`
 - retrieveOneSavingsAccountTransactionBySavingsAndTransactionExternalId — `GET /savingsaccounts/external-id/{}/transactions/external-id/{}`
 - retrieveOneSavingsAccountTransactionBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/{}`
-- retrieveOneShareAccount — `GET /accounts/{}/{}`
-- retrieveOneShareProduct — `GET /products/{}/{}`
 - retrieveOneWorkingCapitalLoanProduct — `GET /working-capital-loan-products/{}`
 - retrieveOneWorkingCapitalLoanProductByExternalId — `GET /working-capital-loan-products/external-id/{}`
 - retrieveOriginatorsByLoanExternalId — `GET /loans/external-id/{}/originators`
 - retrieveOriginatorsByWorkingCapitalLoanExternalId — `GET /working-capital-loans/external-id/{}/originators`
 - retrieveOriginatorsByWorkingCapitalLoanId — `GET /working-capital-loans/{}/originators`
 - retrieveSavingsAccountByExternalId — `GET /savingsaccounts/external-id/{}`
+- retrieveTemplateExternalAssetOwnerLoanProductAttributes — `GET /external-asset-owners/loan-product/template`
 - retrieveTemplateLoanChargeByLoanExternalId — `GET /loans/external-id/{}/charges/template`
 - retrieveTemplateLoanTransactionByLoanExternalId — `GET /loans/external-id/{}/transactions/template`
 - retrieveTemplateSavingsAccountTransactionBySavingsExternalId — `GET /savingsaccounts/external-id/{}/transactions/template`
-- retrieveTemplateShareAccount — `GET /accounts/{}/template`
-- retrieveTemplateShareProduct — `GET /products/{}/template`
 - retrieveTemplateWorkingCapitalLoanCharge — `GET /working-capital-loans/{}/charges/template`
 - retrieveTemplateWorkingCapitalLoanChargeByLoanExternalId — `GET /working-capital-loans/external-id/{}/charges/template`
 - retrieveTemplateWorkingCapitalLoanProduct — `GET /working-capital-loan-products/template`
@@ -320,9 +1445,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - updateAvailableDisbursementAmountLoanByExternalId — `PUT /loans/external-id/{}/available-disbursement-amount`
 - updateByExternalId — `PUT /loan-originators/external-id/{}`
 - updateClientByExternalId — `PUT /clients/external-id/{}`
-- updateDocument — `PUT /{}/{}/documents/{}`
-- updateExternalServicesConfiguration — `PUT /externalservice/{}`
-- updateImage_1 — `PUT /{}/{}/images`
 - updateInternalGlobalConfiguration — `PUT /internal/configurations/name/{}/value/{}`
 - updateInternalProgressiveLoan — `POST /internal/loan/progressive/{}/model`
 - updateLoanApplicationByExternalId — `PUT /loans/external-id/{}`
@@ -334,8 +1456,6 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - updateLoanProductByExternalId — `PUT /loanproducts/external-id/{}`
 - updateOfficeByExternalId — `PUT /offices/external-id/{}`
 - updateSavingsAccountByExternalId — `PUT /savingsaccounts/external-id/{}`
-- updateShareAccount — `PUT /accounts/{}/{}`
-- updateShareProduct — `PUT /products/{}/{}`
 - updateWorkingCapitalBreach — `PUT /working-capital/breach/breaches/{}`
 - updateWorkingCapitalLoanDiscountByExternalId — `PUT /working-capital-loans/external-id/{}/discount`
 - updateWorkingCapitalLoanDiscountById — `PUT /working-capital-loans/{}/discount`
@@ -344,4 +1464,31 @@ Contract source: **image:apache/fineract:latest** · contract ops: **965** · ha
 - updateWorkingCapitalLoanRateByExternalId — `PUT /working-capital-loans/external-id/{}/payment-rate`
 - updateWorkingCapitalLoanRateById — `PUT /working-capital-loans/{}/payment-rate`
 - updateWorkingCapitalNearBreach — `PUT /working-capital/near-breach/{}`
-- validate — `POST /twofactor/validate`
+
+## ⚙️ Dynamic (3)
+
+- `GET /interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}` (interoperation.js:11)
+- `POST /interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}` (interoperation.js:13)
+- `DELETE /interoperation/parties/${encodeURIComponent(idType)}/${encodeURIComponent(idValue)}${subIdOrType ? `/${encodeURIComponent(subIdOrType)}` : ''}` (interoperation.js:15)
+
+## 🔎 Matched via literal segment (code-quality note) (19)
+
+- `GET /externalservice/SMS` (integrations.js:21) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/SMS` (integrations.js:21) → updateExternalServicesConfiguration
+- `GET /externalservice/SMTP` (integrations.js:22) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/SMTP` (integrations.js:22) → updateExternalServicesConfiguration
+- `GET /externalservice/S3` (integrations.js:24) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/S3` (integrations.js:24) → updateExternalServicesConfiguration
+- `GET /externalservice/NOTIFICATION` (integrations.js:25) → retrieveExternalServicesConfiguration
+- `PUT /externalservice/NOTIFICATION` (integrations.js:25) → updateExternalServicesConfiguration
+- `GET /products/share` (products.js:25) → retrieveAllShareProducts
+- `GET /products/share/{}` (products.js:26) → retrieveOneShareProduct
+- `GET /products/share/template` (products.js:27) → retrieveTemplateShareProduct
+- `POST /products/share` (products.js:28) → createShareProduct
+- `PUT /products/share/{}` (products.js:29) → updateShareProduct
+- `GET /accounts/share` (shares.js:3) → retrieveAllShareAccounts
+- `GET /accounts/share/{}` (shares.js:4) → retrieveOneShareAccount
+- `GET /accounts/share/template` (shares.js:5) → retrieveTemplateShareAccount
+- `POST /accounts/share` (shares.js:6) → createShareAccount
+- `PUT /accounts/share/{}` (shares.js:7) → updateShareAccount
+- `POST /accounts/share/{}` (shares.js:10) → handleCommandsShareAccount

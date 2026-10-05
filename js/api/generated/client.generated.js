@@ -79,6 +79,12 @@ export function makeAuditsAPI(self) {
   };
 }
 
+export function makeAuditsV2API(self) {
+  return {
+    retrieveAllAuditsV2: (params) => self._g(`/v2/audits`, params), // GET /v2/audits
+  };
+}
+
 export function makeAuthenticationHTTPBasicAPI(self) {
   return {
     authenticate: (body) => self._p(`/v1/authentication`, body), // POST /v1/authentication
@@ -141,18 +147,6 @@ export function makeCalendarAPI(self) {
   };
 }
 
-export function makeCashierJournalsAPI(self) {
-  return {
-    retrieveAllCashierJournals: (params) => self._g(`/v1/cashiersjournal`, params), // GET /v1/cashiersjournal
-  };
-}
-
-export function makeCashiersAPI(self) {
-  return {
-    retrieveAllCashiers: (params) => self._g(`/v1/cashiers`, params), // GET /v1/cashiers
-  };
-}
-
 export function makeCentersAPI(self) {
   return {
     retrieveAllCenters: (params) => self._g(`/v1/centers`, params), // GET /v1/centers
@@ -165,6 +159,12 @@ export function makeCentersAPI(self) {
     getBulkTemplateCenter: (params) => self._g(`/v1/centers/downloadtemplate`, params), // GET /v1/centers/downloadtemplate
     retrieveTemplateCenter: (params) => self._g(`/v1/centers/template`, params), // GET /v1/centers/template
     postBulkTemplateCenter: (body) => self._p(`/v1/centers/uploadtemplate`, body), // POST /v1/centers/uploadtemplate
+  };
+}
+
+export function makeCentersV2API(self) {
+  return {
+    retrieveAllCentersV2: (params) => self._g(`/v2/centers`, params), // GET /v2/centers
   };
 }
 
@@ -428,6 +428,8 @@ export function makeExternalAssetOwnerLoanProductAttributesAPI(self) {
     retrieveAllExternalAssetOwnerLoanProductAttributes: (loanProductId, params) => self._g(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes`, params), // GET /v1/external-asset-owners/loan-product/{loanProductId}/attributes
     create: (loanProductId, body) => self._p(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes`, body), // POST /v1/external-asset-owners/loan-product/{loanProductId}/attributes
     update: (loanProductId, id, body) => self._u(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes/${id}`, body), // PUT /v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}
+    delete: (loanProductId, id, body) => self._d(`/v1/external-asset-owners/loan-product/${loanProductId}/attributes/${id}`, body), // DELETE /v1/external-asset-owners/loan-product/{loanProductId}/attributes/{id}
+    retrieveTemplateExternalAssetOwnerLoanProductAttributes: (params) => self._g(`/v1/external-asset-owners/loan-product/template`, params), // GET /v1/external-asset-owners/loan-product/template
   };
 }
 
@@ -517,6 +519,12 @@ export function makeFixedDepositProductAPI(self) {
   };
 }
 
+export function makeFixedDepositAccountsV2API(self) {
+  return {
+    retrieveAllFixedDepositAccountsV2: (params) => self._g(`/v2/fixeddepositaccounts`, params), // GET /v2/fixeddepositaccounts
+  };
+}
+
 export function makeFloatingRatesAPI(self) {
   return {
     retrieveAllFloatingRates: (params) => self._g(`/v1/floatingrates`, params), // GET /v1/floatingrates
@@ -579,6 +587,12 @@ export function makeGroupsAPI(self) {
 export function makeGroupsLevelAPI(self) {
   return {
     retrieveAllGroupLevels: (params) => self._g(`/v1/grouplevels`, params), // GET /v1/grouplevels
+  };
+}
+
+export function makeGroupsV2API(self) {
+  return {
+    retrieveAllGroupsV2: (params) => self._g(`/v2/groups`, params), // GET /v2/groups
   };
 }
 
@@ -969,25 +983,6 @@ export function makeMeetingsAPI(self) {
   };
 }
 
-export function makeMixMappingAPI(self) {
-  return {
-    retrieveMixTaxonomyMapping: (params) => self._g(`/v1/mixmapping`, params), // GET /v1/mixmapping
-    updateMixTaxonomyMapping: (body) => self._u(`/v1/mixmapping`, body), // PUT /v1/mixmapping
-  };
-}
-
-export function makeMixReportAPI(self) {
-  return {
-    retrieve: (params) => self._g(`/v1/mixreport`, params), // GET /v1/mixreport
-  };
-}
-
-export function makeMixTaxonomyAPI(self) {
-  return {
-    retrieveAllMixTaxonomies: (params) => self._g(`/v1/mixtaxonomy`, params), // GET /v1/mixtaxonomy
-  };
-}
-
 export function makeNotesAPI(self) {
   return {
     retrievesByResource: (resourceType, resourceId, params) => self._g(`/v1/${resourceType}/${resourceId}/notes`, params), // GET /v1/{resourceType}/{resourceId}/notes
@@ -1164,6 +1159,12 @@ export function makeRecurringDepositProductAPI(self) {
     update: (productId, body) => self._u(`/v1/recurringdepositproducts/${productId}`, body), // PUT /v1/recurringdepositproducts/{productId}
     delete: (productId, body) => self._d(`/v1/recurringdepositproducts/${productId}`, body), // DELETE /v1/recurringdepositproducts/{productId}
     retrieveTemplateRecurringDepositProduct: (params) => self._g(`/v1/recurringdepositproducts/template`, params), // GET /v1/recurringdepositproducts/template
+  };
+}
+
+export function makeRecurringDepositAccountsV2API(self) {
+  return {
+    retrieveAllRecurringDepositAccountsV2: (params) => self._g(`/v2/recurringdepositaccounts`, params), // GET /v2/recurringdepositaccounts
   };
 }
 
@@ -1462,9 +1463,6 @@ export function makeTellerCashManagementAPI(self) {
     retrieveCashierTransactions: (tellerId, cashierId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/${cashierId}/transactions`, params), // GET /v1/tellers/{tellerId}/cashiers/{cashierId}/transactions
     retrieveTemplateCashierTransaction: (tellerId, cashierId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/${cashierId}/transactions/template`, params), // GET /v1/tellers/{tellerId}/cashiers/{cashierId}/transactions/template
     retrieveCashierTemplateForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/cashiers/template`, params), // GET /v1/tellers/{tellerId}/cashiers/template
-    retrieveAllJournalsForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/journals`, params), // GET /v1/tellers/{tellerId}/journals
-    retrieveAllTransactionsForTeller: (tellerId, params) => self._g(`/v1/tellers/${tellerId}/transactions`, params), // GET /v1/tellers/{tellerId}/transactions
-    retrieveOneTransactionForTeller: (tellerId, transactionId, params) => self._g(`/v1/tellers/${tellerId}/transactions/${transactionId}`, params), // GET /v1/tellers/{tellerId}/transactions/{transactionId}
   };
 }
 
@@ -1694,12 +1692,14 @@ export function makeWorkingCapitalLoanTransactionsAPI(self) {
     executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId: (loanId, transactionId, body) => self._p(`/v1/working-capital-loans/${loanId}/transactions/${transactionId}`, body), // POST /v1/working-capital-loans/{loanId}/transactions/{transactionId}
     retrieveByExternalTransactionId: (loanId, externalTransactionId, params) => self._g(`/v1/working-capital-loans/${loanId}/transactions/external-id/${externalTransactionId}`, params), // GET /v1/working-capital-loans/{loanId}/transactions/external-id/{externalTransactionId}
     executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId: (loanId, transactionExternalId, body) => self._p(`/v1/working-capital-loans/${loanId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/working-capital-loans/{loanId}/transactions/external-id/{transactionExternalId}
+    getTemplateById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/transactions/template`, params), // GET /v1/working-capital-loans/{loanId}/transactions/template
     retrievesByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions
     executeWorkingCapitalLoanTransactionByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/transactions
     retrieveByExternalLoanIdAndTransactionId: (loanExternalId, transactionId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/${transactionId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions/{transactionId}
     executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId: (loanExternalId, transactionId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/${transactionId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/transactions/{transactionId}
     retrieveByExternalLoanIdAndExternalTransactionId: (loanExternalId, externalTransactionId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/external-id/${externalTransactionId}`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions/external-id/{externalTransactionId}
     executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId: (loanExternalId, transactionExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/external-id/${transactionExternalId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}/transactions/external-id/{transactionExternalId}
+    getTemplateByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/transactions/template`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/transactions/template
   };
 }
 
@@ -1717,6 +1717,7 @@ export function makeWorkingCapitalLoansAPI(self) {
     retrieveAmortizationSchedule: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/amortization-schedule`, params), // GET /v1/working-capital-loans/{loanId}/amortization-schedule
     getDelinquencyRangeScheduleTagHistoryById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/delinquencyrangetags`, params), // GET /v1/working-capital-loans/{loanId}/delinquencyrangetags
     updateDiscountById: (loanId, body) => self._u(`/v1/working-capital-loans/${loanId}/discount`, body), // PUT /v1/working-capital-loans/{loanId}/discount
+    markWorkingCapitalLoanAsFraudById: (loanId, body) => self._u(`/v1/working-capital-loans/${loanId}/mark-as-fraud`, body), // PUT /v1/working-capital-loans/{loanId}/mark-as-fraud
     updateRateById: (loanId, body) => self._u(`/v1/working-capital-loans/${loanId}/payment-rate`, body), // PUT /v1/working-capital-loans/{loanId}/payment-rate
     getRateChangeHistoryById: (loanId, params) => self._g(`/v1/working-capital-loans/${loanId}/rate-changes`, params), // GET /v1/working-capital-loans/{loanId}/rate-changes
     getDelinquencyRangeScheduleTagHistoryByExternalId: (externalId, params) => self._g(`/v1/working-capital-loans/external-id/${externalId}/delinquencyrangetags`, params), // GET /v1/working-capital-loans/external-id/{externalId}/delinquencyrangetags
@@ -1725,6 +1726,7 @@ export function makeWorkingCapitalLoansAPI(self) {
     stateTransitionWorkingCapitalLoanByExternalId: (loanExternalId, body) => self._p(`/v1/working-capital-loans/external-id/${loanExternalId}`, body), // POST /v1/working-capital-loans/external-id/{loanExternalId}
     deleteApplicationByExternalId: (loanExternalId, body) => self._d(`/v1/working-capital-loans/external-id/${loanExternalId}`, body), // DELETE /v1/working-capital-loans/external-id/{loanExternalId}
     updateDiscountByExternalId: (loanExternalId, body) => self._u(`/v1/working-capital-loans/external-id/${loanExternalId}/discount`, body), // PUT /v1/working-capital-loans/external-id/{loanExternalId}/discount
+    markWorkingCapitalLoanAsFraudByExternalId: (loanExternalId, body) => self._u(`/v1/working-capital-loans/external-id/${loanExternalId}/mark-as-fraud`, body), // PUT /v1/working-capital-loans/external-id/{loanExternalId}/mark-as-fraud
     updateRateByExternalId: (loanExternalId, body) => self._u(`/v1/working-capital-loans/external-id/${loanExternalId}/payment-rate`, body), // PUT /v1/working-capital-loans/external-id/{loanExternalId}/payment-rate
     getRateChangeHistoryByExternalId: (loanExternalId, params) => self._g(`/v1/working-capital-loans/external-id/${loanExternalId}/rate-changes`, params), // GET /v1/working-capital-loans/external-id/{loanExternalId}/rate-changes
     retrieveTemplate: (params) => self._g(`/v1/working-capital-loans/template`, params), // GET /v1/working-capital-loans/template
@@ -1758,6 +1760,7 @@ export const GENERATED_RESOURCES = {
   adhocQueryApi: makeAdhocQueryApiAPI,
   applicationWadl: makeApplicationWadlAPI,
   audits: makeAuditsAPI,
+  auditsV2: makeAuditsV2API,
   authenticationHTTPBasic: makeAuthenticationHTTPBasicAPI,
   batchAPI: makeBatchAPIAPI,
   bulkImport: makeBulkImportAPI,
@@ -1766,9 +1769,8 @@ export const GENERATED_RESOURCES = {
   businessStepConfiguration: makeBusinessStepConfigurationAPI,
   cache: makeCacheAPI,
   calendar: makeCalendarAPI,
-  cashierJournals: makeCashierJournalsAPI,
-  cashiers: makeCashiersAPI,
   centers: makeCentersAPI,
+  centersV2: makeCentersV2API,
   charges: makeChargesAPI,
   client: makeClientAPI,
   clientCharges: makeClientChargesAPI,
@@ -1800,12 +1802,14 @@ export const GENERATED_RESOURCES = {
   fixedDepositAccount: makeFixedDepositAccountAPI,
   fixedDepositAccountTransactions: makeFixedDepositAccountTransactionsAPI,
   fixedDepositProduct: makeFixedDepositProductAPI,
+  fixedDepositAccountsV2: makeFixedDepositAccountsV2API,
   floatingRates: makeFloatingRatesAPI,
   funds: makeFundsAPI,
   generalLedgerAccount: makeGeneralLedgerAccountAPI,
   globalConfiguration: makeGlobalConfigurationAPI,
   groups: makeGroupsAPI,
   groupsLevel: makeGroupsLevelAPI,
+  groupsV2: makeGroupsV2API,
   guarantors: makeGuarantorsAPI,
   holidays: makeHolidaysAPI,
   hooks: makeHooksAPI,
@@ -1837,9 +1841,6 @@ export const GENERATED_RESOURCES = {
   makerCheckerOr4EyeFunctionality: makeMakerCheckerOr4EyeFunctionalityAPI,
   mappingFinancialActivitiesToAccounts: makeMappingFinancialActivitiesToAccountsAPI,
   meetings: makeMeetingsAPI,
-  mixMapping: makeMixMappingAPI,
-  mixReport: makeMixReportAPI,
-  mixTaxonomy: makeMixTaxonomyAPI,
   notes: makeNotesAPI,
   notification: makeNotificationAPI,
   offices: makeOfficesAPI,
@@ -1859,6 +1860,7 @@ export const GENERATED_RESOURCES = {
   recurringDepositAccount: makeRecurringDepositAccountAPI,
   recurringDepositAccountTransactions: makeRecurringDepositAccountTransactionsAPI,
   recurringDepositProduct: makeRecurringDepositProductAPI,
+  recurringDepositAccountsV2: makeRecurringDepositAccountsV2API,
   repaymentWithPostDatedChecks: makeRepaymentWithPostDatedChecksAPI,
   reportMailingJobs: makeReportMailingJobsAPI,
   reports: makeReportsAPI,
