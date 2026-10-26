@@ -118,6 +118,9 @@ export const TEMPLATE_ENDPOINTS = {
       "operationId": "retrieveTemplateClient",
       "pathParams": [],
       "optionFields": [
+        "clientClassificationOptions",
+        "clientTypeOptions",
+        "genderOptions",
         "officeOptions",
         "savingProductOptions",
         "staffOptions"
@@ -225,6 +228,14 @@ export const TEMPLATE_ENDPOINTS = {
       "optionFields": []
     }
   ],
+  "External Asset Owner Loan Product Attributes": [
+    {
+      "path": "/v1/external-asset-owners/loan-product/template",
+      "operationId": "retrieveTemplateExternalAssetOwnerLoanProductAttributes",
+      "pathParams": [],
+      "optionFields": []
+    }
+  ],
   "Mapping Financial Activities to Accounts": [
     {
       "path": "/v1/financialactivityaccounts/template",
@@ -306,7 +317,7 @@ export const TEMPLATE_ENDPOINTS = {
   "Holidays": [
     {
       "path": "/v1/holidays/template",
-      "operationId": "retrieveRepaymentScheduleUpdationTyeOptions",
+      "operationId": "retrieveRepaymentScheduleUpdationTypeOptions",
       "pathParams": [],
       "optionFields": []
     }
@@ -387,6 +398,7 @@ export const TEMPLATE_ENDPOINTS = {
         "interestTypeOptions",
         "loanScheduleProcessingTypeOptions",
         "loanScheduleTypeOptions",
+        "monthEndDueDateStrategyOptions",
         "paymentTypeOptions",
         "preClosureInterestCalculationStrategyOptions",
         "repaymentFrequencyTypeOptions",
@@ -784,6 +796,7 @@ export const TEMPLATE_ENDPOINTS = {
         "delinquencyStartTypeOptions",
         "fundOptions",
         "nearBreachOptions",
+        "paymentAmountCalculationStrategyOptions",
         "paymentTypeOptions",
         "penaltyOptions",
         "periodFrequencyTypeOptions",
@@ -813,6 +826,40 @@ export const TEMPLATE_ENDPOINTS = {
       ]
     }
   ],
+  "Working Capital Loan Transactions": [
+    {
+      "path": "/v1/working-capital-loans/external-id/{loanExternalId}/transactions/template",
+      "operationId": "getWorkingCapitalLoanTransactionTemplateByExternalId",
+      "pathParams": [
+        "loanExternalId"
+      ],
+      "optionFields": [
+        "chargeOffReasonOptions",
+        "classificationOptions",
+        "paymentTypeOptions"
+      ]
+    },
+    {
+      "path": "/v1/working-capital-loans/{loanId}/template",
+      "operationId": "retrieveWorkingCapitalLoanActionTemplate",
+      "pathParams": [
+        "loanId"
+      ],
+      "optionFields": []
+    },
+    {
+      "path": "/v1/working-capital-loans/{loanId}/transactions/template",
+      "operationId": "getWorkingCapitalLoanTransactionTemplateById",
+      "pathParams": [
+        "loanId"
+      ],
+      "optionFields": [
+        "chargeOffReasonOptions",
+        "classificationOptions",
+        "paymentTypeOptions"
+      ]
+    }
+  ],
   "Working Capital Loans": [
     {
       "path": "/v1/working-capital-loans/template",
@@ -827,19 +874,6 @@ export const TEMPLATE_ENDPOINTS = {
         "fundOptions",
         "periodFrequencyTypeOptions",
         "productOptions"
-      ]
-    }
-  ],
-  "Working Capital Loan Transactions": [
-    {
-      "path": "/v1/working-capital-loans/{loanId}/template",
-      "operationId": "retrieveWorkingCapitalLoanActionTemplate",
-      "pathParams": [
-        "loanId"
-      ],
-      "optionFields": [
-        "classificationOptions",
-        "paymentTypeOptions"
       ]
     }
   ],
