@@ -7,11 +7,65 @@
 
 /* eslint-disable */
 const RULES = {
+  "updateCreditBureauConfiguration": {
+    "required": [],
+    "types": {
+      "configkey": "string",
+      "value": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCreditBureauConfiguration": {
+    "required": [],
+    "types": {
+      "configkey": "string",
+      "description": "string",
+      "value": "string"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createCreditBureauLoanProductMapping": {
+    "required": [],
+    "types": {
+      "isActive": "boolean",
+      "isCreditcheckMandatory": "boolean",
+      "loanProductId": "integer",
+      "locale": "string",
+      "skipCreditcheckInFailure": "boolean",
+      "stalePeriod": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateCreditBureau": {
+    "required": [],
+    "types": {
+      "creditBureauId": "integer",
+      "isActive": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "addOrganisationCreditBureau": {
+    "required": [],
+    "types": {
+      "alias": "string",
+      "isActive": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
   "createAccountingRule": {
     "required": [],
     "types": {
       "accountToCredit": "integer",
       "accountToDebit": "integer",
+      "allowMultipleCreditEntries": "boolean",
+      "allowMultipleDebitEntries": "boolean",
+      "creditTags": "array",
+      "debitTags": "array",
       "description": "string",
       "name": "string",
       "officeId": "integer"
@@ -24,6 +78,10 @@ const RULES = {
     "types": {
       "accountToCredit": "integer",
       "accountToDebit": "integer",
+      "allowMultipleCreditEntries": "boolean",
+      "allowMultipleDebitEntries": "boolean",
+      "creditTags": "array",
+      "debitTags": "array",
       "description": "string",
       "name": "string",
       "officeId": "integer"
@@ -51,10 +109,13 @@ const RULES = {
   "createShareAccount": {
     "required": [],
     "types": {
+      "accountNumber": "string",
       "allowDividendCalculationForInactiveClients": "string",
       "applicationDate": "string",
       "approvedDate": "string",
+      "bankNumber": "string",
       "charges": "array",
+      "checkNumber": "string",
       "clientId": "integer",
       "currencyCode": "string",
       "dateFormat": "string",
@@ -68,9 +129,12 @@ const RULES = {
       "minimumActivePeriod": "integer",
       "minimumActivePeriodFrequencyType": "string",
       "numberOfShares": "integer",
+      "paymentTypeId": "integer",
       "productId": "integer",
       "purchasedDate": "string",
+      "receiptNumber": "string",
       "requestedShares": "integer",
+      "routingCode": "string",
       "savingsAccountId": "integer",
       "submittedDate": "string",
       "unitPrice": "number"
@@ -92,6 +156,7 @@ const RULES = {
     "required": [],
     "types": {
       "applicationDate": "string",
+      "charges": "array",
       "dateFormat": "string",
       "locale": "string",
       "requestedShares": "integer"
@@ -102,27 +167,46 @@ const RULES = {
   "handleCommandsShareAccount": {
     "required": [],
     "types": {
-      "requestedShares": "array"
+      "accountNumber": "string",
+      "activatedDate": "string",
+      "approvedDate": "string",
+      "bankNumber": "string",
+      "checkNumber": "string",
+      "closedDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "requestedShares": "array",
+      "routingCode": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "createAccountTransfer": {
     "required": [],
     "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "checkNumber": "string",
       "dateFormat": "string",
       "fromAccountId": "string",
       "fromAccountType": "string",
       "fromClientId": "string",
       "fromOfficeId": "string",
       "locale": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
       "toAccountId": "string",
       "toAccountType": "string",
       "toClientId": "string",
       "toOfficeId": "string",
       "transferAmount": "string",
       "transferDate": "string",
-      "transferDescription": "string"
+      "transferDescription": "string",
+      "transferTime": "string"
     },
     "enums": {},
     "hasDate": true
@@ -130,19 +214,26 @@ const RULES = {
   "refundByTransfer": {
     "required": [],
     "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "checkNumber": "string",
       "dateFormat": "string",
       "fromAccountId": "string",
       "fromAccountType": "string",
       "fromClientId": "string",
       "fromOfficeId": "string",
       "locale": "string",
+      "paymentTypeId": "integer",
+      "receiptNumber": "string",
+      "routingCode": "string",
       "toAccountId": "string",
       "toAccountType": "string",
       "toClientId": "string",
       "toOfficeId": "string",
       "transferAmount": "string",
       "transferDate": "string",
-      "transferDescription": "string"
+      "transferDescription": "string",
+      "transferTime": "string"
     },
     "enums": {},
     "hasDate": true
@@ -225,12 +316,19 @@ const RULES = {
   "createCenter": {
     "required": [],
     "types": {
+      "activationDate": "string",
       "active": "boolean",
+      "dateFormat": "string",
+      "externalId": "string",
+      "groupMembers": "array",
+      "locale": "string",
       "name": "string",
-      "officeId": "integer"
+      "officeId": "integer",
+      "staffId": "integer",
+      "submittedOnDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "postBulkTemplateCenter": {
     "required": [],
@@ -245,7 +343,9 @@ const RULES = {
   "updateCenter": {
     "required": [],
     "types": {
-      "name": "string"
+      "externalId": "string",
+      "name": "string",
+      "staffId": "integer"
     },
     "enums": {},
     "hasDate": false
@@ -256,6 +356,7 @@ const RULES = {
       "closureDate": "string",
       "closureReasonId": "integer",
       "dateFormat": "string",
+      "groupMembers": "array",
       "locale": "string"
     },
     "enums": {},
@@ -275,6 +376,7 @@ const RULES = {
       "feeFrequency": "string",
       "feeInterval": "string",
       "feeOnMonthDay": "string",
+      "incomeAccountId": "integer",
       "locale": "string",
       "maxCap": "number",
       "minCap": "number",
@@ -301,6 +403,7 @@ const RULES = {
       "feeFrequency": "string",
       "feeInterval": "string",
       "feeOnMonthDay": "string",
+      "incomeAccountId": "integer",
       "locale": "string",
       "maxCap": "number",
       "minCap": "number",
@@ -331,6 +434,7 @@ const RULES = {
       "longitude": "number",
       "postalCode": "string",
       "stateProvinceId": "integer",
+      "street": "string",
       "townVillage": "string",
       "updatedBy": "string",
       "updatedOn": "string"
@@ -356,6 +460,7 @@ const RULES = {
       "longitude": "number",
       "postalCode": "string",
       "stateProvinceId": "integer",
+      "street": "string",
       "townVillage": "string",
       "updatedBy": "string",
       "updatedOn": "string"
@@ -369,6 +474,8 @@ const RULES = {
       "activationDate": "string",
       "active": "boolean",
       "address": "array",
+      "clientNonPersonDetails": "object",
+      "clientTypeId": "integer",
       "datatables": "array",
       "dateFormat": "string",
       "dateOfBirth": "string",
@@ -383,6 +490,7 @@ const RULES = {
       "middlename": "string",
       "mobileNo": "string",
       "officeId": "integer",
+      "savingsProductId": "integer",
       "submittedOnDate": "string"
     },
     "enums": {},
@@ -394,6 +502,7 @@ const RULES = {
       "externalId": "string",
       "firstname": "string",
       "lastname": "string",
+      "mobileNo": "string",
       "resourceExternalId": "string"
     },
     "enums": {},
@@ -411,6 +520,7 @@ const RULES = {
       "rejectionDate": "string",
       "rejectionReasonId": "integer",
       "reopenedDate": "string",
+      "staffId": "integer",
       "withdrawalDate": "string",
       "withdrawalReasonId": "integer"
     },
@@ -433,6 +543,7 @@ const RULES = {
       "externalId": "string",
       "firstname": "string",
       "lastname": "string",
+      "mobileNo": "string",
       "resourceExternalId": "string"
     },
     "enums": {},
@@ -450,6 +561,7 @@ const RULES = {
       "rejectionDate": "string",
       "rejectionReasonId": "integer",
       "reopenedDate": "string",
+      "staffId": "integer",
       "withdrawalDate": "string",
       "withdrawalReasonId": "integer"
     },
@@ -459,7 +571,7 @@ const RULES = {
   "createClientCharge": {
     "required": [],
     "types": {
-      "amount": "integer",
+      "amount": "number",
       "chargeId": "integer",
       "dateFormat": "string",
       "dueDate": "string",
@@ -550,24 +662,32 @@ const RULES = {
   "createClientIdentifier": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "description": "string",
       "documentKey": "string",
       "documentTypeId": "integer",
+      "expiryDate": "string",
+      "issuanceDate": "string",
+      "locale": "string",
       "status": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "updateClientIdentifier": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "description": "string",
       "documentKey": "string",
       "documentTypeId": "integer",
+      "expiryDate": "string",
+      "issuanceDate": "string",
+      "locale": "string",
       "status": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "createCode": {
     "required": [],
@@ -670,9 +790,13 @@ const RULES = {
     "types": {
       "actualDisbursementDate": "string",
       "bulkDisbursementTransactions": "object",
+      "bulkRepaymentTransactions": "array",
+      "bulkSavingsDueTransactions": "array",
       "dateFormat": "string",
       "locale": "string",
+      "note": "string",
       "officeId": "integer",
+      "staffId": "integer",
       "transactionDate": "string"
     },
     "enums": {},
@@ -716,7 +840,10 @@ const RULES = {
   },
   "fetchCreditReport": {
     "required": [],
-    "types": {},
+    "types": {
+      "NRC": "string",
+      "creditBureauID": "string"
+    },
     "enums": {},
     "hasDate": false
   },
@@ -758,7 +885,8 @@ const RULES = {
       "addColumns": "array",
       "apptableName": "string",
       "changeColumns": "array",
-      "dropColumns": "array"
+      "dropColumns": "array",
+      "entitySubType": "string"
     },
     "enums": {},
     "hasDate": false
@@ -818,6 +946,26 @@ const RULES = {
       "locale": "string",
       "maximumAgeDays": "integer",
       "minimumAgeDays": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "createEmail": {
+    "required": [],
+    "types": {
+      "clientId": "integer",
+      "emailMessage": "string",
+      "emailSubject": "string",
+      "locale": "string",
+      "staffId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateEmail": {
+    "required": [],
+    "types": {
+      "emailMessage": "string"
     },
     "enums": {},
     "hasDate": false
@@ -938,14 +1086,36 @@ const RULES = {
   "createFixedDepositAccount": {
     "required": [],
     "types": {
+      "charges": "array",
       "clientId": "integer",
       "dateFormat": "string",
       "depositAmount": "number",
       "depositPeriod": "integer",
       "depositPeriodFrequencyId": "integer",
+      "inMultiplesOfDepositTerm": "integer",
+      "inMultiplesOfDepositTermTypeId": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
+      "isRateChartOverridden": "boolean",
+      "linkAccountId": "integer",
       "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "maturityInstructionId": "integer",
+      "maxDepositTerm": "integer",
+      "maxDepositTermTypeId": "integer",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer",
+      "monthDayFormat": "string",
+      "nominalAnnualInterestRate": "number",
+      "preClosurePenalApplicable": "boolean",
+      "preClosurePenalInterest": "number",
+      "preClosurePenalInterestOnTypeId": "integer",
       "productId": "integer",
-      "submittedOnDate": "string"
+      "submittedOnDate": "string",
+      "transferInterestToSavings": "boolean"
     },
     "enums": {},
     "hasDate": true
@@ -973,17 +1143,56 @@ const RULES = {
   "updateFixedDepositAccount": {
     "required": [],
     "types": {
+      "clientId": "integer",
+      "dateFormat": "string",
       "depositAmount": "number",
-      "locale": "string"
+      "depositPeriod": "integer",
+      "depositPeriodFrequencyId": "integer",
+      "inMultiplesOfDepositTerm": "integer",
+      "inMultiplesOfDepositTermTypeId": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
+      "isRateChartOverridden": "boolean",
+      "linkAccountId": "integer",
+      "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "maturityInstructionId": "integer",
+      "maxDepositTerm": "integer",
+      "maxDepositTermTypeId": "integer",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer",
+      "monthDayFormat": "string",
+      "nominalAnnualInterestRate": "number",
+      "preClosurePenalApplicable": "boolean",
+      "preClosurePenalInterest": "number",
+      "preClosurePenalInterestOnTypeId": "integer",
+      "productId": "integer",
+      "submittedOnDate": "string",
+      "transferInterestToSavings": "boolean"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "handleCommandsFixedDepositAccount": {
     "required": [],
-    "types": {},
+    "types": {
+      "activatedOnDate": "string",
+      "approvedOnDate": "string",
+      "closedOnDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "note": "string",
+      "onAccountClosureId": "integer",
+      "rejectedOnDate": "string",
+      "toSavingsAccountId": "integer",
+      "transferDescription": "string",
+      "withdrawnOnDate": "string"
+    },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "handleCommandsFixedDepositAccountTransaction": {
     "required": [],
@@ -1002,41 +1211,65 @@ const RULES = {
     "types": {
       "accountingRule": "integer",
       "charts": "array",
+      "closeDate": "string",
       "currencyCode": "string",
+      "dateFormat": "string",
+      "depositAmount": "number",
       "description": "string",
       "digitsAfterDecimal": "integer",
+      "feesReceivableAccountId": "integer",
       "inMultiplesOf": "integer",
+      "inMultiplesOfDepositTerm": "integer",
+      "inMultiplesOfDepositTermTypeId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
       "interestCalculationDaysInYearType": "integer",
       "interestCalculationType": "integer",
       "interestCompoundingPeriodType": "integer",
+      "interestOnSavingsAccountId": "integer",
+      "interestPayableAccountId": "integer",
       "interestPostingPeriodType": "integer",
       "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
       "maxDepositTerm": "integer",
       "maxDepositTermTypeId": "integer",
       "minDepositTerm": "integer",
       "minDepositTermTypeId": "integer",
       "name": "string",
+      "penaltiesReceivableAccountId": "integer",
       "preClosurePenalApplicable": "boolean",
       "preClosurePenalInterest": "number",
       "preClosurePenalInterestOnTypeId": "integer",
-      "shortName": "string"
+      "savingsControlAccountId": "integer",
+      "savingsReferenceAccountId": "integer",
+      "shortName": "string",
+      "startDate": "string",
+      "taxGroupId": "integer",
+      "transfersInSuspenseAccountId": "integer",
+      "withHoldTax": "boolean"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "updateFixedDepositProduct": {
     "required": [],
     "types": {
+      "closeDate": "string",
+      "dateFormat": "string",
       "description": "string",
       "locale": "string",
       "minDepositTerm": "integer",
-      "minDepositTermTypeId": "integer"
+      "minDepositTermTypeId": "integer",
+      "startDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "createFloatingRate": {
-    "required": [],
+    "required": [
+      "name"
+    ],
     "types": {
       "isActive": "boolean",
       "isBaseLendingRate": "boolean",
@@ -1139,12 +1372,18 @@ const RULES = {
   "createGroup": {
     "required": [],
     "types": {
+      "activationDate": "string",
       "active": "boolean",
+      "datatables": "array",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
       "name": "string",
-      "officeId": "integer"
+      "officeId": "integer",
+      "submittedOnDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "postBulkTemplateGroup": {
     "required": [],
@@ -1159,7 +1398,9 @@ const RULES = {
   "updateGroup": {
     "required": [],
     "types": {
-      "name": "string"
+      "externalId": "string",
+      "name": "string",
+      "staffId": "integer"
     },
     "enums": {},
     "hasDate": false
@@ -1167,11 +1408,17 @@ const RULES = {
   "handleCommandsGroup": {
     "required": [],
     "types": {
+      "activationDate": "string",
+      "clientMembers": "array",
       "clients": "array",
-      "destinationGroupId": "integer"
+      "dateFormat": "string",
+      "destinationGroupId": "integer",
+      "inheritStaffForClientAccounts": "boolean",
+      "locale": "string",
+      "staffId": "integer"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "unassignLoanOfficerGroup": {
     "required": [],
@@ -1347,110 +1594,42 @@ const RULES = {
   },
   "registerAccountIdentifier": {
     "required": [
-      "accountId",
-      "idType",
-      "idValue"
+      "accountId"
     ],
     "types": {
-      "accountId": "string",
-      "idType": "string",
-      "idValue": "string",
-      "subIdOrType": "string"
+      "accountId": "string"
     },
-    "enums": {
-      "idType": [
-        "MSISDN",
-        "EMAIL",
-        "PERSONAL_ID",
-        "BUSINESS",
-        "DEVICE",
-        "ACCOUNT_ID",
-        "IBAN",
-        "ALIAS",
-        "BBAN"
-      ]
-    },
+    "enums": {},
     "hasDate": false
   },
   "deleteAccountIdentifier": {
     "required": [
-      "accountId",
-      "idType",
-      "idValue"
+      "accountId"
     ],
     "types": {
-      "accountId": "string",
-      "idType": "string",
-      "idValue": "string",
-      "subIdOrType": "string"
+      "accountId": "string"
     },
-    "enums": {
-      "idType": [
-        "MSISDN",
-        "EMAIL",
-        "PERSONAL_ID",
-        "BUSINESS",
-        "DEVICE",
-        "ACCOUNT_ID",
-        "IBAN",
-        "ALIAS",
-        "BBAN"
-      ]
-    },
+    "enums": {},
     "hasDate": false
   },
   "registerAccountIdentifier_1": {
     "required": [
-      "accountId",
-      "idType",
-      "idValue"
+      "accountId"
     ],
     "types": {
-      "accountId": "string",
-      "idType": "string",
-      "idValue": "string",
-      "subIdOrType": "string"
+      "accountId": "string"
     },
-    "enums": {
-      "idType": [
-        "MSISDN",
-        "EMAIL",
-        "PERSONAL_ID",
-        "BUSINESS",
-        "DEVICE",
-        "ACCOUNT_ID",
-        "IBAN",
-        "ALIAS",
-        "BBAN"
-      ]
-    },
+    "enums": {},
     "hasDate": false
   },
   "deleteAccountIdentifier_1": {
     "required": [
-      "accountId",
-      "idType",
-      "idValue"
+      "accountId"
     ],
     "types": {
-      "accountId": "string",
-      "idType": "string",
-      "idValue": "string",
-      "subIdOrType": "string"
+      "accountId": "string"
     },
-    "enums": {
-      "idType": [
-        "MSISDN",
-        "EMAIL",
-        "PERSONAL_ID",
-        "BUSINESS",
-        "DEVICE",
-        "ACCOUNT_ID",
-        "IBAN",
-        "ALIAS",
-        "BBAN"
-      ]
-    },
+    "enums": {},
     "hasDate": false
   },
   "createQuote": {
@@ -1516,6 +1695,39 @@ const RULES = {
         "PAYEE"
       ]
     },
+    "hasDate": true
+  },
+  "loanRepayment": {
+    "required": [],
+    "types": {
+      "accountNumber": "string",
+      "bankNumber": "string",
+      "chargeOffReasonId": "integer",
+      "checkNumber": "string",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "dueDate": "string",
+      "externalId": "string",
+      "frequencyNumber": "integer",
+      "frequencyType": "string",
+      "interestRefundCalculation": "boolean",
+      "loanChargeId": "integer",
+      "locale": "string",
+      "note": "string",
+      "numberOfInstallments": "integer",
+      "paymentTypeId": "integer",
+      "reAgeInterestHandling": "string",
+      "reAmortizationInterestHandling": "string",
+      "reasonCodeValueId": "integer",
+      "receiptNumber": "string",
+      "reversalExternalId": "string",
+      "routingCode": "string",
+      "startDate": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "writeoffReasonId": "integer"
+    },
+    "enums": {},
     "hasDate": true
   },
   "performTransfer": {
@@ -1716,6 +1928,7 @@ const RULES = {
       "daysInMonthType": "integer",
       "daysInYearCustomStrategy": "string",
       "daysInYearType": "integer",
+      "defaultDifferentialLendingRate": "number",
       "deferredIncomeLiabilityAccountId": "integer",
       "delinquencyBucketId": "integer",
       "description": "string",
@@ -1732,8 +1945,10 @@ const RULES = {
       "enableInstallmentLevelDelinquency": "boolean",
       "externalId": "string",
       "feeToIncomeAccountMappings": "array",
+      "firstRepaymentDayOfMonth": "integer",
       "fixedLength": "integer",
       "fixedPrincipalPercentagePerInstallment": "number",
+      "floatingRatesId": "integer",
       "fundId": "integer",
       "fundSourceAccountId": "integer",
       "goodwillCreditAccountId": "integer",
@@ -1758,6 +1973,7 @@ const RULES = {
       "installmentAmountInMultiplesOf": "integer",
       "interestCalculationPeriodType": "integer",
       "interestOnLoanAccountId": "integer",
+      "interestRateDifferential": "number",
       "interestRateFrequencyType": "integer",
       "interestRatePerPeriod": "number",
       "interestRateVariationsForBorrowerCycle": "array",
@@ -1767,21 +1983,30 @@ const RULES = {
       "isArrearsBasedOnOriginalSchedule": "boolean",
       "isCompoundingToBePostedAsTransaction": "boolean",
       "isEqualAmortization": "boolean",
+      "isFloatingInterestRateCalculationAllowed": "boolean",
       "isInterestRecalculationEnabled": "boolean",
       "isLinkedToFloatingInterestRates": "boolean",
       "loanPortfolioAccountId": "integer",
       "loanScheduleProcessingType": "string",
       "loanScheduleType": "string",
       "locale": "string",
+      "mandatoryGuarantee": "number",
+      "maxDifferentialLendingRate": "number",
       "maxInterestRatePerPeriod": "number",
       "maxNumberOfRepayments": "integer",
       "maxPrincipal": "number",
       "maxTrancheCount": "integer",
+      "maximumGap": "integer",
       "merchantBuyDownFee": "boolean",
+      "minDifferentialLendingRate": "number",
       "minInterestRatePerPeriod": "number",
       "minNumberOfRepayments": "integer",
       "minPrincipal": "number",
       "minimumDaysBetweenDisbursalAndFirstRepayment": "integer",
+      "minimumGap": "integer",
+      "minimumGuaranteeFromGuarantor": "number",
+      "minimumGuaranteeFromOwnFunds": "number",
+      "monthEndDueDateStrategy": "string",
       "multiDisburseLoan": "boolean",
       "name": "string",
       "numberOfRepaymentVariationsForBorrowerCycle": "array",
@@ -1800,10 +2025,13 @@ const RULES = {
       "principalThresholdForLastInstallment": "integer",
       "principalVariationsForBorrowerCycle": "array",
       "rates": "array",
+      "recalculationCompoundingFrequencyDayOfWeekType": "integer",
       "recalculationCompoundingFrequencyInterval": "integer",
       "recalculationCompoundingFrequencyOnDayType": "integer",
       "recalculationCompoundingFrequencyType": "integer",
+      "recalculationRestFrequencyDayOfWeekType": "integer",
       "recalculationRestFrequencyInterval": "integer",
+      "recalculationRestFrequencyOnDayType": "integer",
       "recalculationRestFrequencyType": "integer",
       "receivableFeeAccountId": "integer",
       "receivableInterestAccountId": "integer",
@@ -1812,9 +2040,11 @@ const RULES = {
       "repaymentFrequencyType": "integer",
       "repaymentStartDateType": "integer",
       "rescheduleStrategyMethod": "integer",
+      "secondRepaymentDayOfMonth": "integer",
       "shortName": "string",
       "startDate": "string",
       "supportedInterestRefundTypes": "array",
+      "syncExpectedWithDisbursementDate": "boolean",
       "transactionProcessingStrategyCode": "string",
       "transfersInSuspenseAccountId": "integer",
       "useBorrowerCycle": "boolean",
@@ -1841,6 +2071,10 @@ const RULES = {
       "capitalizedIncomeType": [
         "FEE",
         "INTEREST"
+      ],
+      "monthEndDueDateStrategy": [
+        "LAST_DAY_OF_MONTH",
+        "FIRST_DAY_OF_NEXT_MONTH"
       ]
     },
     "hasDate": true
@@ -1895,6 +2129,7 @@ const RULES = {
       "enableIncomeCapitalization": "boolean",
       "enableInstallmentLevelDelinquency": "boolean",
       "feeToIncomeAccountMappings": "array",
+      "firstRepaymentDayOfMonth": "integer",
       "fixedLength": "integer",
       "fixedPrincipalPercentagePerInstallment": "number",
       "fundId": "integer",
@@ -1945,6 +2180,7 @@ const RULES = {
       "minNumberOfRepayments": "integer",
       "minPrincipal": "number",
       "minimumDaysBetweenDisbursalAndFirstRepayment": "integer",
+      "monthEndDueDateStrategy": "string",
       "multiDisburseLoan": "boolean",
       "name": "string",
       "numberOfRepaymentVariationsForBorrowerCycle": "array",
@@ -1975,6 +2211,7 @@ const RULES = {
       "repaymentFrequencyType": "integer",
       "repaymentStartDateType": "integer",
       "rescheduleStrategyMethod": "integer",
+      "secondRepaymentDayOfMonth": "integer",
       "shortName": "string",
       "startDate": "string",
       "supportedInterestRefundTypes": "array",
@@ -2004,6 +2241,10 @@ const RULES = {
       "capitalizedIncomeType": [
         "FEE",
         "INTEREST"
+      ],
+      "monthEndDueDateStrategy": [
+        "LAST_DAY_OF_MONTH",
+        "FIRST_DAY_OF_NEXT_MONTH"
       ]
     },
     "hasDate": true
@@ -2058,6 +2299,7 @@ const RULES = {
       "enableIncomeCapitalization": "boolean",
       "enableInstallmentLevelDelinquency": "boolean",
       "feeToIncomeAccountMappings": "array",
+      "firstRepaymentDayOfMonth": "integer",
       "fixedLength": "integer",
       "fixedPrincipalPercentagePerInstallment": "number",
       "fundId": "integer",
@@ -2108,6 +2350,7 @@ const RULES = {
       "minNumberOfRepayments": "integer",
       "minPrincipal": "number",
       "minimumDaysBetweenDisbursalAndFirstRepayment": "integer",
+      "monthEndDueDateStrategy": "string",
       "multiDisburseLoan": "boolean",
       "name": "string",
       "numberOfRepaymentVariationsForBorrowerCycle": "array",
@@ -2138,6 +2381,7 @@ const RULES = {
       "repaymentFrequencyType": "integer",
       "repaymentStartDateType": "integer",
       "rescheduleStrategyMethod": "integer",
+      "secondRepaymentDayOfMonth": "integer",
       "shortName": "string",
       "startDate": "string",
       "supportedInterestRefundTypes": "array",
@@ -2167,6 +2411,10 @@ const RULES = {
       "capitalizedIncomeType": [
         "FEE",
         "INTEREST"
+      ],
+      "monthEndDueDateStrategy": [
+        "LAST_DAY_OF_MONTH",
+        "FIRST_DAY_OF_NEXT_MONTH"
       ]
     },
     "hasDate": true
@@ -2201,11 +2449,14 @@ const RULES = {
       "buyDownFeeCalculationType": "string",
       "buyDownFeeIncomeType": "string",
       "buyDownFeeStrategy": "string",
+      "calendarId": "integer",
       "capitalizedIncomeCalculationType": "string",
       "capitalizedIncomeStrategy": "string",
       "capitalizedIncomeType": "object",
       "charges": "array",
       "clientId": "integer",
+      "collateral": "array",
+      "createStandingInstructionAtDisbursement": "boolean",
       "datatables": "array",
       "dateFormat": "string",
       "daysInYearCustomStrategy": "string",
@@ -2219,6 +2470,7 @@ const RULES = {
       "enableInstallmentLevelDelinquency": "boolean",
       "expectedDisbursementDate": "string",
       "externalId": "string",
+      "firstRepaymentDayOfMonth": "integer",
       "fixedEmiAmount": "number",
       "fixedLength": "integer",
       "fixedPrincipalPercentagePerInstallment": "number",
@@ -2226,12 +2478,17 @@ const RULES = {
       "graceOnInterestCharged": "integer",
       "graceOnInterestPayment": "integer",
       "graceOnPrincipalPayment": "integer",
+      "groupId": "integer",
       "inArrearsTolerance": "number",
       "interestCalculationPeriodType": "integer",
+      "interestChargedFromDate": "string",
+      "interestRateDifferential": "number",
       "interestRateFrequencyType": "integer",
       "interestRatePerPeriod": "number",
       "interestRecognitionOnDisbursementDate": "boolean",
       "interestType": "integer",
+      "isFloatingInterestRate": "boolean",
+      "isParentAccount": "boolean",
       "linkAccountId": "integer",
       "loanScheduleProcessingType": "string",
       "loanTermFrequency": "integer",
@@ -2239,6 +2496,7 @@ const RULES = {
       "loanType": "string",
       "locale": "string",
       "maxOutstandingLoanBalance": "number",
+      "monthEndDueDateStrategy": "string",
       "numberOfRepayments": "integer",
       "originators": "array",
       "principal": "number",
@@ -2247,7 +2505,10 @@ const RULES = {
       "repaymentFrequencyType": "integer",
       "repaymentStartDateType": "integer",
       "repaymentsStartingFromDate": "string",
+      "secondRepaymentDayOfMonth": "integer",
       "submittedOnDate": "string",
+      "syncDisbursementWithMeeting": "boolean",
+      "totalLoan": "number",
       "transactionProcessingStrategyCode": "string"
     },
     "enums": {
@@ -2269,6 +2530,10 @@ const RULES = {
       ],
       "daysInYearCustomStrategy": [
         "FULL_LEAP_YEAR, FEB_29_PERIOD_ONLY"
+      ],
+      "monthEndDueDateStrategy": [
+        "LAST_DAY_OF_MONTH",
+        "FIRST_DAY_OF_NEXT_MONTH"
       ]
     },
     "hasDate": true
@@ -2311,6 +2576,7 @@ const RULES = {
       "enableDownPayment": "boolean",
       "enableInstallmentLevelDelinquency": "boolean",
       "expectedDisbursementDate": "string",
+      "firstRepaymentDayOfMonth": "integer",
       "fixedLength": "integer",
       "fixedPrincipalPercentagePerInstallment": "number",
       "fraud": "boolean",
@@ -2331,6 +2597,7 @@ const RULES = {
       "loanType": "string",
       "locale": "string",
       "maxOutstandingLoanBalance": "integer",
+      "monthEndDueDateStrategy": "string",
       "numberOfRepayments": "integer",
       "principal": "integer",
       "productId": "integer",
@@ -2339,10 +2606,16 @@ const RULES = {
       "repaymentFrequencyNthDayType": "integer",
       "repaymentFrequencyType": "integer",
       "repaymentsStartingFromDate": "string",
+      "secondRepaymentDayOfMonth": "integer",
       "submittedOnDate": "string",
       "transactionProcessingStrategyCode": "string"
     },
-    "enums": {},
+    "enums": {
+      "monthEndDueDateStrategy": [
+        "LAST_DAY_OF_MONTH",
+        "FIRST_DAY_OF_NEXT_MONTH"
+      ]
+    },
     "hasDate": true
   },
   "handleCommandsLoanByExternalId": {
@@ -2350,22 +2623,29 @@ const RULES = {
     "types": {
       "actualDisbursementDate": "string",
       "adjustRepaymentDate": "string",
+      "approvalFormData": "array",
       "approvedLoanAmount": "number",
       "approvedOnDate": "string",
       "assignmentDate": "string",
       "dateFormat": "string",
       "disbursementData": "array",
+      "downPaymentFeeAmount": "number",
       "expectedDisbursementDate": "string",
       "externalId": "string",
       "fixedEmiAmount": "number",
       "fromLoanOfficerId": "integer",
+      "glimPrincipal": "number",
       "locale": "string",
+      "netDisbursalAmount": "number",
       "note": "string",
       "originators": "array",
       "paymentTypeId": "integer",
+      "postDatedChecks": "array",
       "rejectedOnDate": "string",
+      "skipDownPaymentFee": "boolean",
       "toLoanOfficerId": "integer",
       "transactionAmount": "number",
+      "transactionDate": "string",
       "unassignedDate": "string",
       "withdrawnOnDate": "string"
     },
@@ -2589,22 +2869,29 @@ const RULES = {
     "types": {
       "actualDisbursementDate": "string",
       "adjustRepaymentDate": "string",
+      "approvalFormData": "array",
       "approvedLoanAmount": "number",
       "approvedOnDate": "string",
       "assignmentDate": "string",
       "dateFormat": "string",
       "disbursementData": "array",
+      "downPaymentFeeAmount": "number",
       "expectedDisbursementDate": "string",
       "externalId": "string",
       "fixedEmiAmount": "number",
       "fromLoanOfficerId": "integer",
+      "glimPrincipal": "number",
       "locale": "string",
+      "netDisbursalAmount": "number",
       "note": "string",
       "originators": "array",
       "paymentTypeId": "integer",
+      "postDatedChecks": "array",
       "rejectedOnDate": "string",
+      "skipDownPaymentFee": "boolean",
       "toLoanOfficerId": "integer",
       "transactionAmount": "number",
+      "transactionDate": "string",
       "unassignedDate": "string",
       "withdrawnOnDate": "string"
     },
@@ -2647,6 +2934,7 @@ const RULES = {
       "enableDownPayment": "boolean",
       "enableInstallmentLevelDelinquency": "boolean",
       "expectedDisbursementDate": "string",
+      "firstRepaymentDayOfMonth": "integer",
       "fixedLength": "integer",
       "fixedPrincipalPercentagePerInstallment": "number",
       "fraud": "boolean",
@@ -2667,6 +2955,7 @@ const RULES = {
       "loanType": "string",
       "locale": "string",
       "maxOutstandingLoanBalance": "integer",
+      "monthEndDueDateStrategy": "string",
       "numberOfRepayments": "integer",
       "principal": "integer",
       "productId": "integer",
@@ -2675,10 +2964,16 @@ const RULES = {
       "repaymentFrequencyNthDayType": "integer",
       "repaymentFrequencyType": "integer",
       "repaymentsStartingFromDate": "string",
+      "secondRepaymentDayOfMonth": "integer",
       "submittedOnDate": "string",
       "transactionProcessingStrategyCode": "string"
     },
-    "enums": {},
+    "enums": {
+      "monthEndDueDateStrategy": [
+        "LAST_DAY_OF_MONTH",
+        "FIRST_DAY_OF_NEXT_MONTH"
+      ]
+    },
     "hasDate": true
   },
   "handleCommandsLoan": {
@@ -2686,22 +2981,29 @@ const RULES = {
     "types": {
       "actualDisbursementDate": "string",
       "adjustRepaymentDate": "string",
+      "approvalFormData": "array",
       "approvedLoanAmount": "number",
       "approvedOnDate": "string",
       "assignmentDate": "string",
       "dateFormat": "string",
       "disbursementData": "array",
+      "downPaymentFeeAmount": "number",
       "expectedDisbursementDate": "string",
       "externalId": "string",
       "fixedEmiAmount": "number",
       "fromLoanOfficerId": "integer",
+      "glimPrincipal": "number",
       "locale": "string",
+      "netDisbursalAmount": "number",
       "note": "string",
       "originators": "array",
       "paymentTypeId": "integer",
+      "postDatedChecks": "array",
       "rejectedOnDate": "string",
+      "skipDownPaymentFee": "boolean",
       "toLoanOfficerId": "integer",
       "transactionAmount": "number",
+      "transactionDate": "string",
       "unassignedDate": "string",
       "withdrawnOnDate": "string"
     },
@@ -2844,6 +3146,19 @@ const RULES = {
     "enums": {},
     "hasDate": false
   },
+  "updateDisbursementDate": {
+    "required": [],
+    "types": {
+      "approvedLoanAmount": "number",
+      "dateFormat": "string",
+      "expectedDisbursementDate": "string",
+      "locale": "string",
+      "updatedExpectedDisbursementDate": "string",
+      "updatedPrincipal": "number"
+    },
+    "enums": {},
+    "hasDate": true
+  },
   "createGuarantor": {
     "required": [],
     "types": {
@@ -2944,7 +3259,11 @@ const RULES = {
   },
   "handleCommandsLoanSchedule": {
     "required": [],
-    "types": {},
+    "types": {
+      "dateFormat": "string",
+      "exceptions": "object",
+      "locale": "string"
+    },
     "enums": {},
     "hasDate": false
   },
@@ -3029,17 +3348,6 @@ const RULES = {
     "enums": {},
     "hasDate": true
   },
-  "updateMixTaxonomyMapping": {
-    "required": [],
-    "types": {
-      "config": "string",
-      "currency": "string",
-      "id": "integer",
-      "identifier": "string"
-    },
-    "enums": {},
-    "hasDate": false
-  },
   "createOffice": {
     "required": [],
     "types": {
@@ -3060,7 +3368,8 @@ const RULES = {
       "externalId": "string",
       "locale": "string",
       "name": "string",
-      "openingDate": "string"
+      "openingDate": "string",
+      "parentId": "integer"
     },
     "enums": {},
     "hasDate": true
@@ -3082,7 +3391,8 @@ const RULES = {
       "externalId": "string",
       "locale": "string",
       "name": "string",
-      "openingDate": "string"
+      "openingDate": "string",
+      "parentId": "integer"
     },
     "enums": {},
     "hasDate": true
@@ -3121,7 +3431,6 @@ const RULES = {
   },
   "updatePaymentType": {
     "required": [
-      "isSystemDefined",
       "name"
     ],
     "types": {
@@ -3134,6 +3443,26 @@ const RULES = {
     },
     "enums": {},
     "hasDate": false
+  },
+  "calculatePayoffSchedulePreview": {
+    "required": [],
+    "types": {
+      "amount": "number",
+      "annualNominalInterestRate": "number",
+      "currencyCode": "string",
+      "dateFormat": "string",
+      "daysInMonthType": "integer",
+      "daysInYearType": "integer",
+      "decimalPlaces": "integer",
+      "fixedPaymentAmount": "number",
+      "frequency": "string",
+      "interestMethod": "string",
+      "locale": "string",
+      "startDate": "string",
+      "term": "string"
+    },
+    "enums": {},
+    "hasDate": true
   },
   "updatePermissions": {
     "required": [],
@@ -3153,6 +3482,7 @@ const RULES = {
       "description": "string",
       "digitsAfterDecimal": "integer",
       "inMultiplesOf": "integer",
+      "incomeFromFeeAccountId": "integer",
       "locale": "string",
       "lockinPeriodFrequency": "integer",
       "lockinPeriodFrequencyType": "integer",
@@ -3163,6 +3493,10 @@ const RULES = {
       "minimumactiveperiodFrequencyType": "integer",
       "name": "string",
       "nominalShares": "integer",
+      "paymentChannelToFundSourceMappings": "array",
+      "shareEquityId": "integer",
+      "shareReferenceId": "integer",
+      "shareSuspenseId": "integer",
       "sharesIssued": "integer",
       "shortName": "string",
       "totalShares": "integer",
@@ -3176,6 +3510,9 @@ const RULES = {
     "types": {
       "description": "string",
       "locale": "string",
+      "paymentChannelToFundSourceMappings": "array",
+      "sharesIssued": "integer",
+      "totalShares": "integer",
       "unitPrice": "number"
     },
     "enums": {},
@@ -3185,8 +3522,8 @@ const RULES = {
     "required": [],
     "types": {
       "criteriaName": "string",
-      "loanProducts": "array",
-      "provisioningcriteria": "array"
+      "definitions": "array",
+      "loanProducts": "array"
     },
     "enums": {},
     "hasDate": false
@@ -3195,8 +3532,8 @@ const RULES = {
     "required": [],
     "types": {
       "criteriaName": "string",
-      "loanProducts": "array",
-      "provisioningcriteria": "array"
+      "definitions": "array",
+      "loanProducts": "array"
     },
     "enums": {},
     "hasDate": false
@@ -3252,9 +3589,28 @@ const RULES = {
       "depositAmount": "number",
       "depositPeriod": "integer",
       "depositPeriodFrequencyId": "integer",
+      "expectedFirstDepositOnDate": "string",
+      "inMultiplesOfDepositTerm": "integer",
+      "inMultiplesOfDepositTermTypeId": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
       "isCalendarInherited": "boolean",
+      "isRateChartOverridden": "boolean",
       "locale": "string",
-      "mandatoryRecommendedDepositAmount": "integer",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "mandatoryRecommendedDepositAmount": "number",
+      "maxDepositTerm": "integer",
+      "maxDepositTermTypeId": "integer",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer",
+      "monthDayFormat": "string",
+      "nominalAnnualInterestRate": "number",
+      "preClosurePenalApplicable": "boolean",
+      "preClosurePenalInterest": "number",
+      "preClosurePenalInterestOnTypeId": "integer",
       "productId": "integer",
       "recurringFrequency": "integer",
       "recurringFrequencyType": "integer",
@@ -3286,17 +3642,58 @@ const RULES = {
   "updateRecurringDepositAccount": {
     "required": [],
     "types": {
-      "depositAmount": "integer",
-      "locale": "string"
+      "clientId": "integer",
+      "dateFormat": "string",
+      "depositAmount": "number",
+      "depositPeriod": "integer",
+      "depositPeriodFrequencyId": "integer",
+      "expectedFirstDepositOnDate": "string",
+      "inMultiplesOfDepositTerm": "integer",
+      "inMultiplesOfDepositTermTypeId": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestPostingPeriodType": "integer",
+      "isCalendarInherited": "boolean",
+      "isRateChartOverridden": "boolean",
+      "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "mandatoryRecommendedDepositAmount": "number",
+      "maxDepositTerm": "integer",
+      "maxDepositTermTypeId": "integer",
+      "minDepositTerm": "integer",
+      "minDepositTermTypeId": "integer",
+      "monthDayFormat": "string",
+      "nominalAnnualInterestRate": "number",
+      "preClosurePenalApplicable": "boolean",
+      "preClosurePenalInterest": "number",
+      "preClosurePenalInterestOnTypeId": "integer",
+      "productId": "integer",
+      "recurringFrequency": "integer",
+      "recurringFrequencyType": "integer",
+      "submittedOnDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "handleCommandsRecurringDepositAccount": {
     "required": [],
-    "types": {},
+    "types": {
+      "activatedOnDate": "string",
+      "approvedOnDate": "string",
+      "closedOnDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "note": "string",
+      "onAccountClosureId": "integer",
+      "rejectedOnDate": "string",
+      "toSavingsAccountId": "integer",
+      "transferDescription": "string",
+      "withdrawnOnDate": "string"
+    },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "transactionRecurringDepositAccountTransaction": {
     "required": [],
@@ -3337,41 +3734,62 @@ const RULES = {
     "types": {
       "accountingRule": "integer",
       "charts": "array",
+      "closeDate": "string",
       "currencyCode": "string",
-      "depositAmount": "integer",
+      "dateFormat": "string",
+      "depositAmount": "number",
       "description": "string",
       "digitsAfterDecimal": "integer",
       "inMultiplesOf": "integer",
+      "inMultiplesOfDepositTerm": "integer",
+      "inMultiplesOfDepositTermTypeId": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
       "interestCalculationDaysInYearType": "integer",
       "interestCalculationType": "integer",
       "interestCompoundingPeriodType": "integer",
+      "interestOnSavingsAccountId": "integer",
       "interestPostingPeriodType": "integer",
+      "isMandatoryDeposit": "boolean",
       "locale": "string",
-      "maxDepositAmount": "integer",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "maxDepositAmount": "number",
       "maxDepositTerm": "integer",
       "maxDepositTermTypeId": "integer",
-      "minDepositAmount": "integer",
+      "minDepositAmount": "number",
       "minDepositTerm": "integer",
       "minDepositTermTypeId": "integer",
       "name": "string",
       "preClosurePenalApplicable": "boolean",
       "preClosurePenalInterest": "number",
       "preClosurePenalInterestOnTypeId": "integer",
-      "shortName": "string"
+      "recurringFrequency": "integer",
+      "recurringFrequencyType": "integer",
+      "savingsControlAccountId": "integer",
+      "savingsReferenceAccountId": "integer",
+      "shortName": "string",
+      "startDate": "string",
+      "taxGroupId": "integer",
+      "transfersInSuspenseAccountId": "integer",
+      "withHoldTax": "boolean"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "updateRecurringDepositProduct": {
     "required": [],
     "types": {
+      "closeDate": "string",
+      "dateFormat": "string",
       "description": "string",
       "locale": "string",
       "minDepositTerm": "integer",
-      "minDepositTermTypeId": "integer"
+      "minDepositTermTypeId": "integer",
+      "startDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "createReportMailingJob": {
     "required": [],
@@ -3411,7 +3829,8 @@ const RULES = {
       "reportParameters": "array",
       "reportSql": "string",
       "reportSubType": "string",
-      "reportType": "string"
+      "reportType": "string",
+      "useReport": "boolean"
     },
     "enums": {},
     "hasDate": false
@@ -3438,6 +3857,7 @@ const RULES = {
       "loanId": "integer",
       "locale": "string",
       "newInterestRate": "number",
+      "recalculateInterest": "boolean",
       "rescheduleFromDate": "string",
       "rescheduleReasonComment": "string",
       "rescheduleReasonId": "integer",
@@ -3496,11 +3916,14 @@ const RULES = {
     "required": [],
     "types": {
       "clientId": "integer",
+      "datatables": "array",
       "dateFormat": "string",
       "externalId": "string",
+      "groupId": "integer",
       "locale": "string",
       "productId": "integer",
-      "submittedOnDate": "string"
+      "submittedOnDate": "string",
+      "withdrawalFeeForTransfers": "boolean"
     },
     "enums": {},
     "hasDate": true
@@ -3508,11 +3931,19 @@ const RULES = {
   "updateSavingsAccountByExternalId": {
     "required": [],
     "types": {
+      "clientId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "groupId": "integer",
       "locale": "string",
-      "nominalAnnualInterestRate": "number"
+      "nominalAnnualInterestRate": "number",
+      "productId": "integer",
+      "submittedOnDate": "string",
+      "withHoldTax": "boolean",
+      "withdrawalFeeForTransfers": "boolean"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "handleCommandsSavingsAccountByExternalId": {
     "required": [],
@@ -3522,6 +3953,9 @@ const RULES = {
       "closedOnDate": "string",
       "dateFormat": "string",
       "locale": "string",
+      "note": "string",
+      "postInterestValidationOnClosure": "boolean",
+      "reasonForBlock": "string",
       "rejectedOnDate": "string",
       "withdrawBalance": "boolean",
       "withdrawnOnDate": "string"
@@ -3532,15 +3966,22 @@ const RULES = {
   "createSavingsAccountTransactionBySavingsExternalId": {
     "required": [],
     "types": {
+      "checkNumber": "string",
       "dateFormat": "string",
       "externalId": "string",
       "isPostInterestAsOn": "boolean",
       "lienAllowed": "string",
       "locale": "string",
+      "note": "string",
       "paymentTypeId": "integer",
+      "postInterestManualOrAutomatic": "boolean",
       "reasonForBlock": "string",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "savingsArray": "array",
       "transactionAmount": "number",
-      "transactionDate": "string"
+      "transactionDate": "string",
+      "transactionTime": "string"
     },
     "enums": {},
     "hasDate": true
@@ -3548,11 +3989,17 @@ const RULES = {
   "adjustSavingsAccountTransactionBySavingsAndTransactionExternalId": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "externalId": "string",
-      "isBulk": "string"
+      "isBulk": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "transactionTime": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "advancedQuerySavingsAccountTransactionsBySavingsExternalId": {
     "required": [],
@@ -3572,11 +4019,54 @@ const RULES = {
   "adjustSavingsAccountTransactionBySavingsExternalId": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "externalId": "string",
-      "isBulk": "string"
+      "isBulk": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "transactionTime": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "submitGSIMApplication": {
+    "required": [],
+    "types": {
+      "clientArray": "array",
+      "savingsArray": "array"
     },
     "enums": {},
     "hasDate": false
+  },
+  "updateGsim": {
+    "required": [],
+    "types": {
+      "clientId": "integer",
+      "groupId": "integer",
+      "productId": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "handleGSIMCommands": {
+    "required": [],
+    "types": {
+      "activatedOnDate": "string",
+      "approvedOnDate": "string",
+      "closedOnDate": "string",
+      "dateFormat": "string",
+      "locale": "string",
+      "note": "string",
+      "postInterestValidationOnClosure": "boolean",
+      "reasonForBlock": "string",
+      "rejectedOnDate": "string",
+      "withdrawBalance": "boolean",
+      "withdrawnOnDate": "string"
+    },
+    "enums": {},
+    "hasDate": true
   },
   "postSavingsTransactionTemplate": {
     "required": [],
@@ -3601,11 +4091,19 @@ const RULES = {
   "updateSavingsAccount": {
     "required": [],
     "types": {
+      "clientId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "groupId": "integer",
       "locale": "string",
-      "nominalAnnualInterestRate": "number"
+      "nominalAnnualInterestRate": "number",
+      "productId": "integer",
+      "submittedOnDate": "string",
+      "withHoldTax": "boolean",
+      "withdrawalFeeForTransfers": "boolean"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "handleCommandsSavingsAccount": {
     "required": [],
@@ -3615,6 +4113,9 @@ const RULES = {
       "closedOnDate": "string",
       "dateFormat": "string",
       "locale": "string",
+      "note": "string",
+      "postInterestValidationOnClosure": "boolean",
+      "reasonForBlock": "string",
       "rejectedOnDate": "string",
       "withdrawBalance": "boolean",
       "withdrawnOnDate": "string"
@@ -3629,7 +4130,9 @@ const RULES = {
       "chargeId": "integer",
       "dateFormat": "string",
       "dueDate": "string",
-      "locale": "string"
+      "feeOnMonthDay": "string",
+      "locale": "string",
+      "monthDayFormat": "string"
     },
     "enums": {},
     "hasDate": true
@@ -3659,15 +4162,22 @@ const RULES = {
   "createSavingsAccountTransaction": {
     "required": [],
     "types": {
+      "checkNumber": "string",
       "dateFormat": "string",
       "externalId": "string",
       "isPostInterestAsOn": "boolean",
       "lienAllowed": "string",
       "locale": "string",
+      "note": "string",
       "paymentTypeId": "integer",
+      "postInterestManualOrAutomatic": "boolean",
       "reasonForBlock": "string",
+      "receiptNumber": "string",
+      "routingCode": "string",
+      "savingsArray": "array",
       "transactionAmount": "number",
-      "transactionDate": "string"
+      "transactionDate": "string",
+      "transactionTime": "string"
     },
     "enums": {},
     "hasDate": true
@@ -3675,11 +4185,17 @@ const RULES = {
   "adjustSavingsAccountTransactionByExternalId": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "externalId": "string",
-      "isBulk": "string"
+      "isBulk": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "transactionTime": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "advancedQuerySavingsAccountTransactions": {
     "required": [],
@@ -3699,11 +4215,17 @@ const RULES = {
   "adjustSavingsAccountTransaction": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "externalId": "string",
-      "isBulk": "string"
+      "isBulk": "string",
+      "locale": "string",
+      "paymentTypeId": "integer",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "transactionTime": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "createSavingsProduct": {
     "required": [],
@@ -3713,22 +4235,47 @@ const RULES = {
       "allowOverdraft": "boolean",
       "charges": "array",
       "currencyCode": "string",
+      "daysToDormancy": "integer",
+      "daysToEscheat": "integer",
+      "daysToInactive": "integer",
       "description": "string",
       "digitsAfterDecimal": "integer",
       "enforceMinRequiredBalance": "boolean",
+      "feesReceivableAccountId": "integer",
       "inMultiplesOf": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromInterestId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
       "interestCalculationDaysInYearType": "integer",
       "interestCalculationType": "integer",
       "interestCompoundingPeriodType": "integer",
+      "interestOnSavingsAccountId": "integer",
+      "interestPayableAccountId": "integer",
       "interestPostingPeriodType": "integer",
+      "interestReceivableAccountId": "integer",
       "isDormancyTrackingActive": "boolean",
+      "lienAllowed": "boolean",
       "locale": "string",
+      "lockinPeriodFrequency": "integer",
+      "lockinPeriodFrequencyType": "integer",
+      "maxAllowedLienLimit": "number",
+      "minBalanceForInterestCalculation": "number",
+      "minRequiredBalance": "number",
       "minRequiredOpeningBalance": "number",
       "name": "string",
       "nominalAnnualInterestRate": "number",
+      "nominalAnnualInterestRateOverdraft": "number",
+      "overdraftLimit": "number",
+      "overdraftPortfolioControlId": "integer",
+      "penaltiesReceivableAccountId": "integer",
+      "savingsControlAccountId": "integer",
+      "savingsReferenceAccountId": "integer",
       "shortName": "string",
+      "taxGroupId": "integer",
+      "transfersInSuspenseAccountId": "integer",
       "withHoldTax": "boolean",
-      "withdrawalFeeForTransfers": "boolean"
+      "withdrawalFeeForTransfers": "boolean",
+      "writeOffAccountId": "integer"
     },
     "enums": {},
     "hasDate": false
@@ -3736,9 +4283,40 @@ const RULES = {
   "updateSavingsProduct": {
     "required": [],
     "types": {
+      "accountingRule": "integer",
+      "allowOverdraft": "boolean",
+      "currencyCode": "string",
       "description": "string",
+      "digitsAfterDecimal": "integer",
+      "enforceMinRequiredBalance": "boolean",
+      "feesReceivableAccountId": "integer",
+      "inMultiplesOf": "integer",
+      "incomeFromFeeAccountId": "integer",
+      "incomeFromInterestId": "integer",
+      "incomeFromPenaltyAccountId": "integer",
+      "interestCalculationDaysInYearType": "integer",
+      "interestCalculationType": "integer",
+      "interestCompoundingPeriodType": "integer",
+      "interestOnSavingsAccountId": "integer",
+      "interestPayableAccountId": "integer",
+      "interestPostingPeriodType": "integer",
       "interestRate": "number",
-      "locale": "string"
+      "interestReceivableAccountId": "integer",
+      "locale": "string",
+      "minRequiredOpeningBalance": "number",
+      "name": "string",
+      "nominalAnnualInterestRate": "number",
+      "nominalAnnualInterestRateOverdraft": "number",
+      "overdraftLimit": "number",
+      "overdraftPortfolioControlId": "integer",
+      "penaltiesReceivableAccountId": "integer",
+      "savingsControlAccountId": "integer",
+      "savingsReferenceAccountId": "integer",
+      "shortName": "string",
+      "transfersInSuspenseAccountId": "integer",
+      "withHoldTax": "boolean",
+      "withdrawalFeeForTransfers": "boolean",
+      "writeOffAccountId": "integer"
     },
     "enums": {},
     "hasDate": false
@@ -3758,6 +4336,18 @@ const RULES = {
       "outStandingAmountPercentage": "integer",
       "outStandingAmountPercentageCondition": "string",
       "outstandingAmountCondition": "string"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "createShareDividend": {
+    "required": [],
+    "types": {
+      "dateFormat": "string",
+      "dividendAmount": "number",
+      "dividendPeriodEndDate": "string",
+      "dividendPeriodStartDate": "string",
+      "locale": "string"
     },
     "enums": {},
     "hasDate": true
@@ -3785,59 +4375,22 @@ const RULES = {
   "createSmsCampaign": {
     "required": [],
     "types": {
-      "actionName": "string",
-      "cacheResource": "boolean",
-      "changePasswordOperation": "boolean",
-      "clientId": "integer",
-      "commandId": "integer",
-      "create": "boolean",
-      "createDatatable": "boolean",
-      "creditBureauId": "integer",
-      "currencyResource": "boolean",
-      "datatableResource": "boolean",
-      "delete": "boolean",
-      "deleteDatatable": "boolean",
-      "deleteMultiple": "boolean",
-      "deleteOneToOne": "boolean",
-      "deleteOperation": "boolean",
-      "entityId": "integer",
-      "entityName": "string",
-      "fullFilSurvey": "boolean",
-      "groupId": "integer",
-      "href": "string",
-      "idempotencyKey": "string",
-      "interestPauseCreateResource": "boolean",
-      "interestPauseDeleteResource": "boolean",
-      "interestPauseResource": "boolean",
-      "interestPauseUpdateResource": "boolean",
-      "jobName": "string",
-      "json": "string",
-      "loanDisburseDetailResource": "boolean",
-      "loanExternalId": "object",
-      "loanId": "integer",
-      "noteResource": "boolean",
-      "officeId": "integer",
-      "organisationCreditBureauId": "integer",
-      "passwordPreferencesResource": "boolean",
-      "permissionResource": "boolean",
-      "productId": "integer",
-      "registerDatatable": "boolean",
-      "registerSurvey": "boolean",
-      "sanitizeJsonKeys": "array",
-      "savingsId": "integer",
-      "subentityId": "integer",
-      "surveyResource": "boolean",
-      "taskPermissionName": "string",
-      "templateId": "integer",
-      "transactionId": "string",
-      "update": "boolean",
-      "updateDatatable": "boolean",
-      "updateDisbursementDate": "boolean",
-      "updateMultiple": "boolean",
-      "updateOneToOne": "boolean",
-      "updateOperation": "boolean",
-      "userResource": "boolean",
-      "workingDaysResource": "boolean"
+      "campaignName": "string",
+      "campaignType": "integer",
+      "dateFormat": "string",
+      "dateTimeFormat": "string",
+      "frequency": "string",
+      "interval": "string",
+      "isNotification": "boolean",
+      "locale": "string",
+      "message": "string",
+      "paramValue": "object",
+      "providerId": "integer",
+      "recurrenceStartDate": "string",
+      "repeatsOnDay": "string",
+      "runReportId": "integer",
+      "submittedOnDate": "string",
+      "triggerType": "integer"
     },
     "enums": {},
     "hasDate": true
@@ -3854,59 +4407,30 @@ const RULES = {
   "updateSmsCampaign": {
     "required": [],
     "types": {
-      "actionName": "string",
-      "cacheResource": "boolean",
-      "changePasswordOperation": "boolean",
-      "clientId": "integer",
-      "commandId": "integer",
-      "create": "boolean",
-      "createDatatable": "boolean",
-      "creditBureauId": "integer",
-      "currencyResource": "boolean",
-      "datatableResource": "boolean",
-      "delete": "boolean",
-      "deleteDatatable": "boolean",
-      "deleteMultiple": "boolean",
-      "deleteOneToOne": "boolean",
-      "deleteOperation": "boolean",
-      "entityId": "integer",
-      "entityName": "string",
-      "fullFilSurvey": "boolean",
-      "groupId": "integer",
-      "href": "string",
-      "idempotencyKey": "string",
-      "interestPauseCreateResource": "boolean",
-      "interestPauseDeleteResource": "boolean",
-      "interestPauseResource": "boolean",
-      "interestPauseUpdateResource": "boolean",
-      "jobName": "string",
-      "json": "string",
-      "loanDisburseDetailResource": "boolean",
-      "loanExternalId": "object",
-      "loanId": "integer",
-      "noteResource": "boolean",
-      "officeId": "integer",
-      "organisationCreditBureauId": "integer",
-      "passwordPreferencesResource": "boolean",
-      "permissionResource": "boolean",
-      "productId": "integer",
-      "registerDatatable": "boolean",
-      "registerSurvey": "boolean",
-      "sanitizeJsonKeys": "array",
-      "savingsId": "integer",
-      "subentityId": "integer",
-      "surveyResource": "boolean",
-      "taskPermissionName": "string",
-      "templateId": "integer",
-      "transactionId": "string",
-      "update": "boolean",
-      "updateDatatable": "boolean",
-      "updateDisbursementDate": "boolean",
-      "updateMultiple": "boolean",
-      "updateOneToOne": "boolean",
-      "updateOperation": "boolean",
-      "userResource": "boolean",
-      "workingDaysResource": "boolean"
+      "campaignName": "string",
+      "campaignType": "integer",
+      "dateFormat": "string",
+      "dateTimeFormat": "string",
+      "isNotification": "boolean",
+      "locale": "string",
+      "message": "string",
+      "paramValue": "object",
+      "recurrence": "string",
+      "recurrenceStartDate": "string",
+      "runReportId": "integer",
+      "submittedOnDate": "string",
+      "triggerType": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "handleCommandsSmsCampaign": {
+    "required": [],
+    "types": {
+      "activationDate": "string",
+      "closureDate": "string",
+      "dateFormat": "string",
+      "locale": "string"
     },
     "enums": {},
     "hasDate": true
@@ -3947,6 +4471,7 @@ const RULES = {
   "updateStaff": {
     "required": [],
     "types": {
+      "dateFormat": "string",
       "emailAddress": "string",
       "externalId": "string",
       "firstname": "string",
@@ -3955,6 +4480,7 @@ const RULES = {
       "isLoanOfficer": "boolean",
       "joiningDate": "string",
       "lastname": "string",
+      "locale": "string",
       "mobileNo": "string",
       "officeId": "integer"
     },
@@ -3964,6 +4490,7 @@ const RULES = {
   "createStandingInstruction": {
     "required": [],
     "types": {
+      "allowPartialTransfer": "boolean",
       "amount": "string",
       "dateFormat": "string",
       "fromAccountId": "string",
@@ -3994,6 +4521,7 @@ const RULES = {
   "updateStandingInstruction": {
     "required": [],
     "types": {
+      "allowPartialTransfer": "boolean",
       "amount": "string",
       "dateFormat": "string",
       "instructionType": "string",
@@ -4107,7 +4635,11 @@ const RULES = {
   "updateTaxComponent": {
     "required": [],
     "types": {
+      "creditAccountId": "integer",
+      "creditAccountType": "integer",
       "dateFormat": "string",
+      "debitAccountId": "integer",
+      "debitAccountType": "integer",
       "locale": "string",
       "name": "string",
       "percentage": "number",
@@ -4143,21 +4675,14 @@ const RULES = {
     "types": {
       "dateFormat": "string",
       "description": "string",
+      "endDate": "string",
       "locale": "string",
       "name": "string",
       "officeId": "integer",
       "startDate": "string",
-      "status": "string"
+      "status": "integer"
     },
-    "enums": {
-      "status": [
-        "INVALID",
-        "PENDING",
-        "ACTIVE",
-        "INACTIVE",
-        "CLOSED"
-      ]
-    },
+    "enums": {},
     "hasDate": true
   },
   "updateTeller": {
@@ -4170,17 +4695,9 @@ const RULES = {
       "name": "string",
       "officeId": "integer",
       "startDate": "string",
-      "status": "string"
+      "status": "integer"
     },
-    "enums": {
-      "status": [
-        "INVALID",
-        "PENDING",
-        "ACTIVE",
-        "INACTIVE",
-        "CLOSED"
-      ]
-    },
+    "enums": {},
     "hasDate": true
   },
   "createCashierForTeller": {
@@ -4189,8 +4706,12 @@ const RULES = {
       "dateFormat": "string",
       "description": "string",
       "endDate": "string",
+      "hourEndTime": "integer",
+      "hourStartTime": "integer",
       "isFullDay": "boolean",
       "locale": "string",
+      "minEndTime": "integer",
+      "minStartTime": "integer",
       "staffId": "integer",
       "startDate": "string"
     },
@@ -4203,8 +4724,12 @@ const RULES = {
       "dateFormat": "string",
       "description": "string",
       "endDate": "string",
+      "hourEndTime": "integer",
+      "hourStartTime": "integer",
       "isFullDay": "boolean",
       "locale": "string",
+      "minEndTime": "integer",
+      "minStartTime": "integer",
       "staffId": "integer",
       "startDate": "string"
     },
@@ -4249,9 +4774,7 @@ const RULES = {
     "hasDate": false
   },
   "saveTemplate": {
-    "required": [
-      "id"
-    ],
+    "required": [],
     "types": {
       "entity": "integer",
       "id": "integer",
@@ -4266,6 +4789,33 @@ const RULES = {
   "mergeTemplate": {
     "required": [],
     "types": {},
+    "enums": {},
+    "hasDate": false
+  },
+  "updateConfiguration_1": {
+    "required": [],
+    "types": {
+      "access-token-live-time": "integer",
+      "access-token-live-time-extended": "integer",
+      "otp-delivery-email-body": "string",
+      "otp-delivery-email-enable": "boolean",
+      "otp-delivery-email-subject": "string",
+      "otp-delivery-sms-enable": "boolean",
+      "otp-delivery-sms-provider": "integer",
+      "otp-delivery-sms-text": "string",
+      "otp-token-length": "integer",
+      "otp-token-live-time": "integer"
+    },
+    "enums": {},
+    "hasDate": false
+  },
+  "updateConfiguration": {
+    "required": [
+      "token"
+    ],
+    "types": {
+      "token": "string"
+    },
     "enums": {},
     "hasDate": false
   },
@@ -4314,7 +4864,8 @@ const RULES = {
       "repeatPassword": "string",
       "roles": "array",
       "sendPasswordToEmail": "boolean",
-      "staffId": "integer"
+      "staffId": "integer",
+      "username": "string"
     },
     "enums": {},
     "hasDate": false
@@ -4334,6 +4885,7 @@ const RULES = {
       "accountingRule": "string",
       "allowAttributeOverrides": "object",
       "amortizationType": "string",
+      "annualEir": "number",
       "breachGraceDays": "integer",
       "breachId": "integer",
       "breachStartType": "string",
@@ -4366,8 +4918,12 @@ const RULES = {
       "incomeFromRecoveryAccountId": "integer",
       "loanPortfolioAccountId": "integer",
       "locale": "string",
+      "maxAnnualEir": "number",
+      "maxPaymentAmount": "number",
       "maxPeriodPaymentRate": "number",
       "maxPrincipal": "number",
+      "minAnnualEir": "number",
+      "minPaymentAmount": "number",
       "minPeriodPaymentRate": "number",
       "minPrincipal": "number",
       "name": "string",
@@ -4375,6 +4931,8 @@ const RULES = {
       "npvDayCount": "integer",
       "overpaymentLiabilityAccountId": "integer",
       "paymentAllocation": "array",
+      "paymentAmount": "number",
+      "paymentAmountCalculationStrategy": "string",
       "paymentChannelToFundSourceMappings": "array",
       "penaltyToIncomeAccountMappings": "array",
       "periodPaymentRate": "number",
@@ -4398,8 +4956,14 @@ const RULES = {
         "EIR",
         "FLAT"
       ],
+      "paymentAmountCalculationStrategy": [
+        "TPV",
+        "ANNUAL_EIR",
+        "PAYMENT_AMOUNT"
+      ],
       "repaymentFrequencyType": [
         "DAYS",
+        "WEEKS",
         "MONTHS",
         "YEARS"
       ]
@@ -4412,6 +4976,7 @@ const RULES = {
       "accountingRule": "string",
       "allowAttributeOverrides": "object",
       "amortizationType": "string",
+      "annualEir": "number",
       "breachGraceDays": "integer",
       "breachId": "integer",
       "breachStartType": "string",
@@ -4444,8 +5009,12 @@ const RULES = {
       "incomeFromRecoveryAccountId": "integer",
       "loanPortfolioAccountId": "integer",
       "locale": "string",
+      "maxAnnualEir": "number",
+      "maxPaymentAmount": "number",
       "maxPeriodPaymentRate": "number",
       "maxPrincipal": "number",
+      "minAnnualEir": "number",
+      "minPaymentAmount": "number",
       "minPeriodPaymentRate": "number",
       "minPrincipal": "number",
       "name": "string",
@@ -4453,6 +5022,8 @@ const RULES = {
       "npvDayCount": "integer",
       "overpaymentLiabilityAccountId": "integer",
       "paymentAllocation": "array",
+      "paymentAmount": "number",
+      "paymentAmountCalculationStrategy": "string",
       "paymentChannelToFundSourceMappings": "array",
       "penaltyToIncomeAccountMappings": "array",
       "periodPaymentRate": "number",
@@ -4476,8 +5047,14 @@ const RULES = {
         "EIR",
         "FLAT"
       ],
+      "paymentAmountCalculationStrategy": [
+        "TPV",
+        "ANNUAL_EIR",
+        "PAYMENT_AMOUNT"
+      ],
       "repaymentFrequencyType": [
         "DAYS",
+        "WEEKS",
         "MONTHS",
         "YEARS"
       ]
@@ -4490,6 +5067,7 @@ const RULES = {
       "accountingRule": "string",
       "allowAttributeOverrides": "object",
       "amortizationType": "string",
+      "annualEir": "number",
       "breachGraceDays": "integer",
       "breachId": "integer",
       "breachStartType": "string",
@@ -4522,8 +5100,12 @@ const RULES = {
       "incomeFromRecoveryAccountId": "integer",
       "loanPortfolioAccountId": "integer",
       "locale": "string",
+      "maxAnnualEir": "number",
+      "maxPaymentAmount": "number",
       "maxPeriodPaymentRate": "number",
       "maxPrincipal": "number",
+      "minAnnualEir": "number",
+      "minPaymentAmount": "number",
       "minPeriodPaymentRate": "number",
       "minPrincipal": "number",
       "name": "string",
@@ -4531,6 +5113,8 @@ const RULES = {
       "npvDayCount": "integer",
       "overpaymentLiabilityAccountId": "integer",
       "paymentAllocation": "array",
+      "paymentAmount": "number",
+      "paymentAmountCalculationStrategy": "string",
       "paymentChannelToFundSourceMappings": "array",
       "penaltyToIncomeAccountMappings": "array",
       "periodPaymentRate": "number",
@@ -4554,8 +5138,14 @@ const RULES = {
         "EIR",
         "FLAT"
       ],
+      "paymentAmountCalculationStrategy": [
+        "TPV",
+        "ANNUAL_EIR",
+        "PAYMENT_AMOUNT"
+      ],
       "repaymentFrequencyType": [
         "DAYS",
+        "WEEKS",
         "MONTHS",
         "YEARS"
       ]
@@ -4570,10 +5160,12 @@ const RULES = {
     ],
     "types": {
       "accountNo": "string",
+      "annualEir": "number",
       "breachGraceDays": "integer",
       "breachId": "integer",
       "breachStartType": "string",
       "clientId": "integer",
+      "datatables": "array",
       "dateFormat": "string",
       "delinquencyBucketId": "integer",
       "delinquencyGraceDays": "integer",
@@ -4586,6 +5178,7 @@ const RULES = {
       "nearBreachId": "integer",
       "originators": "array",
       "paymentAllocation": "array",
+      "paymentAmount": "number",
       "periodPaymentRate": "number",
       "principalAmount": "number",
       "productId": "integer",
@@ -4598,6 +5191,7 @@ const RULES = {
     "enums": {
       "repaymentFrequencyType": [
         "DAYS",
+        "WEEKS",
         "MONTHS",
         "YEARS"
       ]
@@ -4623,6 +5217,7 @@ const RULES = {
       "locale": "string",
       "nearBreachId": "integer",
       "paymentAllocation": "array",
+      "paymentAmount": "number",
       "periodPaymentRate": "number",
       "principalAmount": "number",
       "productId": "integer",
@@ -4635,6 +5230,7 @@ const RULES = {
     "enums": {
       "repaymentFrequencyType": [
         "DAYS",
+        "WEEKS",
         "MONTHS",
         "YEARS"
       ]
@@ -4673,6 +5269,7 @@ const RULES = {
       "locale": "string",
       "minimumPayment": "number",
       "minimumPaymentType": "string",
+      "restartPeriodFromResetDate": "boolean",
       "startDate": "string"
     },
     "enums": {},
@@ -4743,6 +5340,16 @@ const RULES = {
     "enums": {},
     "hasDate": false
   },
+  "markWorkingCapitalLoanAsFraudByExternalId": {
+    "required": [
+      "fraud"
+    ],
+    "types": {
+      "fraud": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
   "createWorkingCapitalLoanNearBreachActionByExternalId": {
     "required": [
       "action",
@@ -4770,16 +5377,40 @@ const RULES = {
     "hasDate": false
   },
   "updateWorkingCapitalLoanRateByExternalId": {
-    "required": [],
+    "required": [
+      "effectiveDate"
+    ],
     "types": {
+      "dateFormat": "string",
+      "effectiveDate": "string",
       "locale": "string",
       "note": "string",
       "periodPaymentRate": "number"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "executeWorkingCapitalLoanTransactionByExternalId": {
+    "required": [],
+    "types": {
+      "chargeOffReasonId": "integer",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "relatedExternalResourceId": "string",
+      "relatedResourceId": "integer",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "writeoffReasonId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId": {
     "required": [],
     "types": {
       "classificationId": "integer",
@@ -4788,28 +5419,28 @@ const RULES = {
       "locale": "string",
       "note": "string",
       "paymentDetails": "object",
-      "relatedResourceId": "integer",
+      "reversalExternalId": "string",
       "transactionAmount": "number",
       "transactionDate": "string"
     },
     "enums": {},
     "hasDate": true
   },
-  "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionExternalId": {
-    "required": [],
-    "types": {
-      "reversalExternalId": "string"
-    },
-    "enums": {},
-    "hasDate": false
-  },
   "executeWorkingCapitalLoanTransactionCommandByLoanExternalIdTransactionId": {
     "required": [],
     "types": {
-      "reversalExternalId": "string"
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "modifyWorkingCapitalLoanApplicationById": {
     "required": [],
@@ -4830,6 +5461,7 @@ const RULES = {
       "locale": "string",
       "nearBreachId": "integer",
       "paymentAllocation": "array",
+      "paymentAmount": "number",
       "periodPaymentRate": "number",
       "principalAmount": "number",
       "productId": "integer",
@@ -4842,6 +5474,7 @@ const RULES = {
     "enums": {
       "repaymentFrequencyType": [
         "DAYS",
+        "WEEKS",
         "MONTHS",
         "YEARS"
       ]
@@ -4880,6 +5513,7 @@ const RULES = {
       "locale": "string",
       "minimumPayment": "number",
       "minimumPaymentType": "string",
+      "restartPeriodFromResetDate": "boolean",
       "startDate": "string"
     },
     "enums": {},
@@ -4950,6 +5584,16 @@ const RULES = {
     "enums": {},
     "hasDate": false
   },
+  "markWorkingCapitalLoanAsFraudById": {
+    "required": [
+      "fraud"
+    ],
+    "types": {
+      "fraud": "boolean"
+    },
+    "enums": {},
+    "hasDate": false
+  },
   "createWorkingCapitalLoanNearBreachActionById": {
     "required": [
       "action",
@@ -4977,16 +5621,40 @@ const RULES = {
     "hasDate": false
   },
   "updateWorkingCapitalLoanRateById": {
-    "required": [],
+    "required": [
+      "effectiveDate"
+    ],
     "types": {
+      "dateFormat": "string",
+      "effectiveDate": "string",
       "locale": "string",
       "note": "string",
       "periodPaymentRate": "number"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "executeWorkingCapitalLoanTransactionById": {
+    "required": [],
+    "types": {
+      "chargeOffReasonId": "integer",
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "relatedExternalResourceId": "string",
+      "relatedResourceId": "integer",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string",
+      "writeoffReasonId": "integer"
+    },
+    "enums": {},
+    "hasDate": true
+  },
+  "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId": {
     "required": [],
     "types": {
       "classificationId": "integer",
@@ -4995,28 +5663,28 @@ const RULES = {
       "locale": "string",
       "note": "string",
       "paymentDetails": "object",
-      "relatedResourceId": "integer",
+      "reversalExternalId": "string",
       "transactionAmount": "number",
       "transactionDate": "string"
     },
     "enums": {},
     "hasDate": true
   },
-  "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionExternalId": {
-    "required": [],
-    "types": {
-      "reversalExternalId": "string"
-    },
-    "enums": {},
-    "hasDate": false
-  },
   "executeWorkingCapitalLoanTransactionCommandByLoanIdTransactionId": {
     "required": [],
     "types": {
-      "reversalExternalId": "string"
+      "classificationId": "integer",
+      "dateFormat": "string",
+      "externalId": "string",
+      "locale": "string",
+      "note": "string",
+      "paymentDetails": "object",
+      "reversalExternalId": "string",
+      "transactionAmount": "number",
+      "transactionDate": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "createWorkingCapitalBreach": {
     "required": [],
@@ -5095,21 +5763,25 @@ const RULES = {
     "required": [],
     "types": {
       "description": "string",
+      "expiryDate": "string",
       "file": "object",
+      "issuanceDate": "string",
       "name": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "updateDocument": {
     "required": [],
     "types": {
       "description": "string",
+      "expiryDate": "string",
       "file": "object",
+      "issuanceDate": "string",
       "name": "string"
     },
     "enums": {},
-    "hasDate": false
+    "hasDate": true
   },
   "updateImage_1": {
     "required": [],
@@ -5163,7 +5835,8 @@ const RULES = {
     "required": [],
     "types": {
       "attendanceType": "integer",
-      "id": "integer"
+      "id": "integer",
+      "meetingAttendance": "array"
     },
     "enums": {},
     "hasDate": false
